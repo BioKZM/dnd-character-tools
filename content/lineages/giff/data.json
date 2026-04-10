@@ -1,0 +1,88 @@
+{
+  "id": "giff",
+  "name": "Giff",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:giff",
+  "sourceLabel": "Spelljammer",
+  "summary": "Giff are tall, broad-shouldered folk with hippo-like features. Some have smooth skin, while others have short bristles on their faces and the tops of their heads. As beings of impressive size and unforgettable appearance, giff are noticed wherever they go. Most giff believe they originated on one world, but their home world is now the stuff of legend, because no living giff has seen it or knows where it is. The divine beings who created giff have likewise been forgotten. Their titanic petrified bodies drift on the Astral Sea, isolated and unrecognizable in their current form. Although they don't realize it, giff are drawn to the Astral Plane because, on a deep psychic level, they remain connected to their creator gods, who have just enough divine spark left in them to imbue giff with sparks of their own, which giff have learned to channel through their weapons. Most giff have no idea where this so-called astral spark comes from, but they feel its presence most strongly when they are in Wildspace or the Astral Sea. Giff are split into two camps concerning how their name is pronounced. Half of them say it with a hard g, half with a soft g. Disagreements over the correct pronunciation often blossom into hard feelings, loud arguments, and head-butting contests, but they rarely escalate beyond that.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed.",
+    "Languages.You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
+  ],
+  "coreTraits": [
+    {
+      "id": "you-should-be-logged-in-to-clone-a-site",
+      "name": "You should be logged in to clone a site",
+      "summary": ""
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-sidebar', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content-mobile', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 320, 50 ], [320, 100] ], \"report\": { \"enabled\": true, \"icon\": true, \"wording\": \"Report Ad\", \"position\": \"top-right\" }, \"mediaQuery\": \"(min-width: 320px) and (max-width: 767px)\" });"
+    },
+    {
+      "id": "astral-spark",
+      "name": "Astral Spark",
+      "summary": "Your psychic connection to the Astral Plane enables you to mystically access a spark of divine power, which you can channel through your weapons. When you hit a target with a simple or martial weapon, you can cause the target to take extra force damage equal to your proficiency bonus. You can use this trait a number of times equal to your proficiency bonus, but you can use it no more than once per turn. You regain all expended uses when you finish a long rest."
+    },
+    {
+      "id": "firearms-mastery",
+      "name": "Firearms Mastery",
+      "summary": "You have a mystical connection to firearms that traces back to the gods of the giff, who delighted in such weapons. You have proficiency with all firearms and ignore the loading property of any firearm. In addition, attacking at long range with a firearm doesn't impose disadvantage on your attack roll."
+    },
+    {
+      "id": "hippo-build",
+      "name": "Hippo Build",
+      "summary": "You have advantage on Strength-based ability checks and Strength saving throws. In addition, you count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "subraces": [
+    "menu",
+    "user-guide",
+    "create-a-page",
+    "giff-traits"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

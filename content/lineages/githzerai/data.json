@@ -1,0 +1,103 @@
+{
+  "id": "githzerai",
+  "name": "Githzerai",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:githzerai",
+  "sourceLabel": "Exotic Lineages",
+  "summary": "Githzerai migrated to the Everchanging Chaos of Limbo after the ancient schism that split their ancestors from their cousins, githyanki. Limbo is a roiling maelstrom of matter and energy, collapsing and reforming without purpose or direction, until a creature exerts deliberate will to stabilize it. Through their potent psionic power, githzerai carved a home for themselves amid the chaos. As the ages passed, githzerai explorers ranged out to other planes and worlds of the multiverse.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Wisdom score increases by 2, and your Intelligence score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Gith are taller and leaner than humans, with most a slender 6 feet in height. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Wisdom score increases by 2, and your Intelligence score increases by 1.",
+    "Size.Gith are taller and leaner than humans, with most a slender 6 feet in height. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common and Gith."
+  ],
+  "coreTraits": [
+    {
+      "id": "githzerai-psionics",
+      "name": "Githzerai Psionics",
+      "summary": "You know theMage Handcantrip, and the hand is invisible when you cast the cantrip with this trait. Starting at 3rd level, you can cast theShieldspell with this trait. Starting at 5th level, you can also cast theDetect Thoughtsspell with it. Once you cast Shield or Detect Thoughts with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast either of those spells using any spell slots you have of the appropriate level."
+    },
+    {
+      "id": "mental-discipline",
+      "name": "Mental Discipline",
+      "summary": "Your innate psychic defenses grant you advantage on saving throws you make to avoid or end the charmed and frightened conditions on yourself."
+    },
+    {
+      "id": "psychic-resilience",
+      "name": "Psychic Resilience",
+      "summary": "You have resistance to psychic damage."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Gith reach adulthood in their late teens and live for about a century."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Githzerai tend toward lawful neutral. Their rigorous training in psychic abilities requires an implacable mental discipline."
+    },
+    {
+      "id": "mental-discipline",
+      "name": "Mental Discipline",
+      "summary": "You have advantage on saving throws against the charmed and frightened conditions. Under the tutelage of monastic masters, githzerai learn to govern their own minds."
+    },
+    {
+      "id": "githzerai-psionics",
+      "name": "Githzerai Psionics",
+      "summary": "You know theMage Handcantrip, and the hand is invisible when you cast the cantrip with this trait. When you reach 3rd level, you can cast theShieldspell once with this trait, and you regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast theDetect Thoughtsspell once with this trait, and you regain the ability to do so when you finish a long rest."
+    },
+    {
+      "id": "gith-tables",
+      "name": "Gith Tables",
+      "summary": "This section provides tables for players and DMs who want to create githzerai characters."
+    },
+    {
+      "id": "2patience-in-all-things",
+      "name": "2Patience in all things",
+      "summary": "The first step in any venture is the most treacherous."
+    },
+    {
+      "id": "4begin-only-those-tasks-you-will-finish",
+      "name": "4Begin only those tasks you will finish",
+      "summary": "Strike only that which you will kill."
+    }
+  ],
+  "subraces": [
+    "mordenkainen-s-tome-of-foes",
+    "githzerai-character-concepts"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

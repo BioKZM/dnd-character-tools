@@ -1,0 +1,70 @@
+{
+  "id": "sea-elf",
+  "name": "Sea Elf",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:sea-elf",
+  "sourceLabel": "Exotic Lineages",
+  "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+  "summary": "Sea elves fell in love with the wild beauty of the ocean in the earliest days of the multiverse. While other elves traveled from realm to realm, sea elves navigated the currents and explored the waters of many worlds. Today these elves can be found wherever oceans exist, as well as in the Elemental Plane of Water.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. The Player’s Handbook offers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ],
+  "coreBonuses": [],
+  "coreTraits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid. You are also considered an elf for any prerequisite or effect that requires you to be an elf."
+    },
+    {
+      "id": "child-of-the-sea",
+      "name": "Child of the Sea",
+      "summary": "You can breathe air and water, and you have resistance to cold damage."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws you make to avoid or end the charmed condition on yourself."
+    },
+    {
+      "id": "friend-of-the-sea",
+      "name": "Friend of the Sea",
+      "summary": "Aquatic animals have an extraordinary affinity with your people. You can communicate simple ideas to any Beast that has a swimming speed. It can understand your words, though you have no special ability to understand it in return."
+    },
+    {
+      "id": "keen-senses",
+      "name": "Keen Senses",
+      "summary": "You have proficiency in the Perception skill."
+    },
+    {
+      "id": "whenever-you-finish-this-trance-you-can-gain-two-proficiencies-that-you-don-t-have-each-one-with-a-weapon-or-a-tool-of-your-choice-selected-from-the-player-s-handbook",
+      "name": "Whenever you finish this trance, you can gain two proficiencies that you don’t have, each one with a weapon or a tool of your choice selected from the Player’s Handbook",
+      "summary": "You mystically acquire these proficiencies by drawing them from shared elven memory, and you retain them until you finish your next long rest."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": true,
+  "subraces": [],
+  "notes": [
+    "source isolated from page-content and table of contents",
+    "raw text is preserved in page.html for manual inspection"
+  ]
+}

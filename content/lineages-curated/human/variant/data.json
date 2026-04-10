@@ -1,0 +1,30 @@
+{
+  "id": "variant",
+  "name": "Variant",
+  "summary": "If your campaign uses the optional feat rules from chapter 5 of the Player's Handbook, your Dungeon Master might allow these variant traits, all of which replace the human's Ability Score Increase trait.",
+  "bonuses": [
+    "Ability Score Increase. Two different ability scores of your choice increase by 1.",
+    "Skills. You gain proficiency in one skill of your choice.",
+    "Feat. You gain one Feat of your choice."
+  ],
+  "traits": [
+    {
+      "id": "skills",
+      "name": "Skills",
+      "summary": "You gain proficiency in one skill of your choice."
+    },
+    {
+      "id": "feat",
+      "name": "Feat",
+      "summary": "You gain one Feat of your choice."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Two different ability scores of your choice increase by 1."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "tables": []
+}

@@ -1,0 +1,92 @@
+{
+  "id": "elf-astral",
+  "name": "Astral Elf",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:elf-astral",
+  "sourceLabel": "Spelljammer",
+  "summary": "Long ago, groups of elves ventured from the Feywild to the Astral Plane to be closer to their gods. Life in the Silver Void has imbued their souls with a spark of divine light. That light manifests as a starry gleam in an astral elf's eyes. Because nothing ages on the Astral Plane, astral elves who inhabit that plane can be very old, and their longevity gives them an unusual perspective on the passage of time. Some are prone to melancholy, while others might display an absence of feeling. Many look for creative ways to occupy themselves. Whether they choose to live in quiet contemplation or strike out to explore the reaches of the multiverse, astral elves tend to see things through the lens of time as having little or no meaning to them. Astral elves who don't dwell in the Astral Plane can live to be more than 750 years old.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
+  ],
+  "coreTraits": [
+    {
+      "id": "you-should-be-logged-in-to-clone-a-site",
+      "name": "You should be logged in to clone a site",
+      "summary": ""
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-sidebar', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content-mobile', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 320, 50 ], [320, 100] ], \"report\": { \"enabled\": true, \"icon\": true, \"wording\": \"Report Ad\", \"position\": \"top-right\" }, \"mediaQuery\": \"(min-width: 320px) and (max-width: 767px)\" });"
+    },
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid. You are also considered an elf for any prerequisite or effect that requires you to be an elf."
+    },
+    {
+      "id": "astral-fire",
+      "name": "Astral Fire",
+      "summary": "You know one of the following cantrips of your choice:Dancing Lights,Light, orSacred Flame. Intelligence, Wisdom, or Charisma is your spellcasting ability for it (choose when you select this race)."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see dim light within 60 feet of yourself as if it were bright light, and in darkness as if it were dim light. You discern colors in darkness only as shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws you make to avoid or end the charmed condition on yourself."
+    },
+    {
+      "id": "keen-senses",
+      "name": "Keen Senses",
+      "summary": "You have proficiency in the Perception skill."
+    },
+    {
+      "id": "starlight-step",
+      "name": "Starlight Step",
+      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. You can use this trait a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest."
+    }
+  ],
+  "subraces": [
+    "menu",
+    "user-guide",
+    "create-a-page"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

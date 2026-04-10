@@ -1,0 +1,100 @@
+{
+  "id": "duergar",
+  "name": "Duergar",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:duergar",
+  "sourceLabel": "Exotic Lineages",
+  "summary": "Duergar are dwarves whose ancestors were transformed by centuries living in the deepest places of the Underdark. That chthonic realm is saturated with strange magical energy, and over generations, early duergar absorbed traces of it. They were further altered when mind flayers and other Aberrations invaded and performed horrific experiments on them. Fueled by Underdark magic, those experiments left early duergar with psionic powers, which have been passed down to their descendants. In time, they liberated themselves from their aberrant tyrants and forged a new life for themselves in the Underdark and beyond.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Constitution score increases by 2, and your Strength score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Constitution score increases by 2, and your Strength score increases by 1.",
+    "Size.Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium.",
+    "Speed.Your base walking speed is 25 feet. Your speed is not reduced by wearing heavy armor.",
+    "Languages.You can speak, read, and write Common and Dwarvish. Dwarvish is full of hard consonants and guttural sounds, and those characteristics spill over into whatever other language a dwarf might speak."
+  ],
+  "coreTraits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid. You are also considered a dwarf for any prerequisite or effect that requires you to be a dwarf."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 120 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "duergar-magic",
+      "name": "Duergar Magic",
+      "summary": "Starting at 3rd level, you can cast theEnlarge/Reducespell on yourself with this trait, without requiring a material component. Starting at 5th level, you can also cast theInvisibilityspell on yourself with this trait, without requiring a material component. Once you cast either of these spells with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast these spells using spell slots you have of the appropriate level. Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race)."
+    },
+    {
+      "id": "dwarven-resilience",
+      "name": "Dwarven Resilience",
+      "summary": "You have advantage on saving throws you make to avoid or end the poisoned condition on yourself. You also have resistance to poison damage."
+    },
+    {
+      "id": "psionic-fortitude",
+      "name": "Psionic Fortitude",
+      "summary": "You have advantage on saving throws you make to avoid or end the charmed or stunned condition on yourself."
+    },
+    {
+      "id": "duergar-value-toil-above-all-else",
+      "name": "Duergar value toil above all else",
+      "summary": "Showing emotions other than grim determination or wrath is frowned on in their culture, but they can sometimes seem joyful when at work. They have the typical dwarven appreciation for order, tradition, and impeccable craftsmanship, but their goods are purely utilitarian, disdaining aesthetic or artistic value."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Dwarves mature at the same rate as humans, but they're considered young until they reach the age of 50. On average, they live about 350 years."
+    },
+    {
+      "id": "superior-darkvision",
+      "name": "Superior Darkvision",
+      "summary": "You can see in dim light within 120 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "dwarven-resilience",
+      "name": "Dwarven Resilience",
+      "summary": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+    },
+    {
+      "id": "duergar-resilience",
+      "name": "Duergar Resilience",
+      "summary": "You have advantage on saving throws against illusions and against being charmed or paralyzed."
+    }
+  ],
+  "subraces": [],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

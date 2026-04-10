@@ -1,0 +1,93 @@
+{
+  "id": "simic-hybrid",
+  "name": "Simic Hybrid",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:simic-hybrid",
+  "sourceLabel": "Ravnica",
+  "summary": "The Simic Combine uses magic to fuse different life forms together. In recent years, they have extended this research to humanoid subjects, magically transferring the traits of various animals into humans, elves, and vedalken. The goal of the so-called Guardian Project is to build a Simic army of superior soldiers, perfectly adapted to a variety of combat situations. These hyper-evolved specimens are called Simic hybrids, though they sometimes call themselves guardians.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Constitution score increases by 2, and another ability score of your choice increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Simic Hybrids are the same size of they race that they were created from. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and your choice of either Elven or Vedalken."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.Your Constitution score increases by 2, and another ability score of your choice increases by 1.",
+    "Size.Simic Hybrids are the same size of they race that they were created from. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common and your choice of either Elven or Vedalken."
+  ],
+  "coreTraits": [
+    {
+      "id": "you-should-be-logged-in-to-clone-a-site",
+      "name": "You should be logged in to clone a site",
+      "summary": ""
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-sidebar', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content-mobile', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 320, 50 ], [320, 100] ], \"report\": { \"enabled\": true, \"icon\": true, \"wording\": \"Report Ad\", \"position\": \"top-right\" }, \"mediaQuery\": \"(min-width: 320px) and (max-width: 767px)\" });"
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Simic Hybrids are created at adulthood as either humans, vedalkens, or elves. Their maximum life expectancy is probably reduced."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Simic Hybrid's alignments vary from group to group."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "animal-enhancements",
+      "name": "Animal Enhancements",
+      "summary": "Your body has been altered with animal characteristics. You choose one animal enhancement now and one at 5th level. Manta Glide (1st level).You have ray-like fins that you use as wings to slow your fall or allow you to glide. When you fall and are not incapacitated, you can subtract up to 100 feet from your fall when calculating your fall damage and can move horizontally 2 feet for every 1 foot you fall."
+    },
+    {
+      "id": "nimble-climber-1st-level",
+      "name": "Nimble Climber (1st level)",
+      "summary": "You have a climb speed equal to your walk speed."
+    },
+    {
+      "id": "underwater-adaptation-1st-level",
+      "name": "Underwater Adaptation (1st level)",
+      "summary": "You can breathe air and water, and you gain a swim speed equal to your walking speed."
+    }
+  ],
+  "subraces": [
+    "menu",
+    "user-guide",
+    "create-a-page",
+    "simic-hybrid-features"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "hexblood-origins",
+  "name": "Hexblood Origins",
+  "summary": "A bargain with a hag or other eerie forces transformed your character into a magical being. Roll on or choose an option from the Hexblood Origins table to determine how your character gained their lineage.",
+  "bonuses": [
+    "A bargain with a hag or other eerie forces transformed your character into a magical being. Roll on or choose an option from the Hexblood Origins table to determine how your character gained their lineage.",
+    "Hexblood Origins",
+    "d8Origin",
+    "1Seeking a child, your parent made a bargain with a hag. You are the result of that arrangement.",
+    "2Fey kidnappers swapped you and your parents’ child.",
+    "3A coven of hags lost one of its members. You were created to replace the lost hag."
+  ],
+  "traits": [
+    {
+      "id": "4you-were-cursed-as-a-child",
+      "name": "4You were cursed as a child",
+      "summary": "A deal with the spirits of the forest transformed you into a hexblood, now free of the curse."
+    }
+  ],
+  "stats": []
+}

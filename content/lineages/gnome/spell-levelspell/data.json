@@ -1,0 +1,26 @@
+{
+  "id": "spell-levelspell",
+  "name": "Spell LevelSpell",
+  "summary": "window['nitroAds'].createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });",
+  "bonuses": [
+    "1stComprehend Languages,Illusory Script",
+    "2ndAnimal Messenger,Silence",
+    "3rdSending,Tongues",
+    "4thArcane Eye,Divination",
+    "5thDream",
+    "See also:Deep Gnome (MPMM)"
+  ],
+  "traits": [
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": []
+}

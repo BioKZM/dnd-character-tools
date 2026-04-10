@@ -1,0 +1,24 @@
+{
+  "id": "lightfoot",
+  "name": "Lightfoot",
+  "summary": "As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others. In the Forgotten Realms, lightfoot halflings have spread the farthest and thus are the most common variety.",
+  "bonuses": [
+    "Ability Score Increase. Your Charisma score increases by 1.",
+    "Naturally Stealthy. You can attempt to hide even when you are only obscured by a creature that is at least one size larger than you."
+  ],
+  "traits": [
+    {
+      "id": "naturally-stealthy",
+      "name": "Naturally Stealthy",
+      "summary": "You can attempt to hide even when you are only obscured by a creature that is at least one size larger than you."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 1."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "tables": []
+}

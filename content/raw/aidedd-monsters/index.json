@@ -1,0 +1,3854 @@
+[
+  {
+    "id": "aarakocra",
+    "slug": "aarakocra",
+    "name": "Aarakocra",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=aarakocra",
+    "indexLine": "Aarakocra1/4Humanoid (Aarakocra)Medium1213flyneutral goodMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "aboleth",
+    "slug": "aboleth",
+    "name": "Aboleth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=aboleth",
+    "indexLine": "Aboleth10AberrationLarge17135swimlawful evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "abominable-yeti",
+    "slug": "abominable-yeti",
+    "name": "Abominable Yeti",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=abominable-yeti",
+    "indexLine": "Abominable Yeti9MonstrosityHuge15137chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "acolyte",
+    "slug": "acolyte",
+    "name": "Acolyte",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=acolyte",
+    "indexLine": "Acolyte1/4Humanoid (any race)Medium109any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-black-dragon",
+    "slug": "adult-black-dragon",
+    "name": "Adult Black Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-black-dragon",
+    "indexLine": "Adult Black Dragon14Dragon (Chromatic)Huge19195fly, swimchaotic evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-blue-dracolich",
+    "slug": "adult-blue-dracolich",
+    "name": "Adult Blue Dracolich",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-blue-dracolich",
+    "indexLine": "Adult Blue Dracolich17UndeadHuge19225flylawful evilLegendaryMonster Manual",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-blue-dragon",
+    "slug": "adult-blue-dragon",
+    "name": "Adult Blue Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-blue-dragon",
+    "indexLine": "Adult Blue Dragon16Dragon (Chromatic)Huge19225flylawful evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-brass-dragon",
+    "slug": "adult-brass-dragon",
+    "name": "Adult Brass Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-brass-dragon",
+    "indexLine": "Adult Brass Dragon13Dragon (Metallic)Huge18172flychaotic goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-bronze-dragon",
+    "slug": "adult-bronze-dragon",
+    "name": "Adult Bronze Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-bronze-dragon",
+    "indexLine": "Adult Bronze Dragon15Dragon (Metallic)Huge19212fly, swimlawful goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-copper-dragon",
+    "slug": "adult-copper-dragon",
+    "name": "Adult Copper Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-copper-dragon",
+    "indexLine": "Adult Copper Dragon14Dragon (Metallic)Huge18184flychaotic goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-gold-dragon",
+    "slug": "adult-gold-dragon",
+    "name": "Adult Gold Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-gold-dragon",
+    "indexLine": "Adult Gold Dragon17Dragon (Metallic)Huge19256fly, swimlawful goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-green-dragon",
+    "slug": "adult-green-dragon",
+    "name": "Adult Green Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-green-dragon",
+    "indexLine": "Adult Green Dragon15Dragon (Chromatic)Huge19207fly, swimlawful evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-red-dragon",
+    "slug": "adult-red-dragon",
+    "name": "Adult Red Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-red-dragon",
+    "indexLine": "Adult Red Dragon17Dragon (Chromatic)Huge19256flychaotic evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-silver-dragon",
+    "slug": "adult-silver-dragon",
+    "name": "Adult Silver Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-silver-dragon",
+    "indexLine": "Adult Silver Dragon16Dragon (Metallic)Huge19243flylawful goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "adult-white-dragon",
+    "slug": "adult-white-dragon",
+    "name": "Adult White Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=adult-white-dragon",
+    "indexLine": "Adult White Dragon13Dragon (Chromatic)Huge18200fly, swimchaotic evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "air-elemental",
+    "slug": "air-elemental",
+    "name": "Air Elemental",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=air-elemental",
+    "indexLine": "Air Elemental5ElementalLarge1590flyneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "allosaurus",
+    "slug": "allosaurus",
+    "name": "Allosaurus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=allosaurus",
+    "indexLine": "Allosaurus2BeastLarge1351unalignedMonster Manual (BR)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-black-dragon",
+    "slug": "ancient-black-dragon",
+    "name": "Ancient Black Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-black-dragon",
+    "indexLine": "Ancient Black Dragon21Dragon (Chromatic)Gargantuan22367fly, swimchaotic evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-blue-dragon",
+    "slug": "ancient-blue-dragon",
+    "name": "Ancient Blue Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-blue-dragon",
+    "indexLine": "Ancient Blue Dragon23Dragon (Chromatic)Gargantuan22481flylawful evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-brass-dragon",
+    "slug": "ancient-brass-dragon",
+    "name": "Ancient Brass Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-brass-dragon",
+    "indexLine": "Ancient Brass Dragon20Dragon (Metallic)Gargantuan20297flychaotic goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-bronze-dragon",
+    "slug": "ancient-bronze-dragon",
+    "name": "Ancient Bronze Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-bronze-dragon",
+    "indexLine": "Ancient Bronze Dragon22Dragon (Metallic)Gargantuan22444fly, swimlawful goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-copper-dragon",
+    "slug": "ancient-copper-dragon",
+    "name": "Ancient Copper Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-copper-dragon",
+    "indexLine": "Ancient Copper Dragon21Dragon (Metallic)Gargantuan21350flychaotic goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-gold-dragon",
+    "slug": "ancient-gold-dragon",
+    "name": "Ancient Gold Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-gold-dragon",
+    "indexLine": "Ancient Gold Dragon24Dragon (Metallic)Gargantuan22546fly, swimlawful goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-green-dragon",
+    "slug": "ancient-green-dragon",
+    "name": "Ancient Green Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-green-dragon",
+    "indexLine": "Ancient Green Dragon22Dragon (Chromatic)Gargantuan21385fly, swimlawful evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-red-dragon",
+    "slug": "ancient-red-dragon",
+    "name": "Ancient Red Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-red-dragon",
+    "indexLine": "Ancient Red Dragon24Dragon (Chromatic)Gargantuan22546flychaotic evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-silver-dragon",
+    "slug": "ancient-silver-dragon",
+    "name": "Ancient Silver Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-silver-dragon",
+    "indexLine": "Ancient Silver Dragon23Dragon (Metallic)Gargantuan22487flylawful goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ancient-white-dragon",
+    "slug": "ancient-white-dragon",
+    "name": "Ancient White Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ancient-white-dragon",
+    "indexLine": "Ancient White Dragon20Dragon (Chromatic)Gargantuan20333fly, swimchaotic evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "androsphinx",
+    "slug": "androsphinx",
+    "name": "Androsphinx",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=androsphinx",
+    "indexLine": "Androsphinx17MonstrosityLarge17199flylawful neutralLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "animated-armor",
+    "slug": "animated-armor",
+    "name": "Animated Armor",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=animated-armor",
+    "indexLine": "Animated Armor1ConstructMedium1833unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ankheg",
+    "slug": "ankheg",
+    "name": "Ankheg",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ankheg",
+    "indexLine": "Ankheg2MonstrosityLarge1439unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ankylosaurus",
+    "slug": "ankylosaurus",
+    "name": "Ankylosaurus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ankylosaurus",
+    "indexLine": "Ankylosaurus3BeastHuge1568unalignedMonster Manual (BR)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ape",
+    "slug": "ape",
+    "name": "Ape",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ape",
+    "indexLine": "Ape1/2BeastMedium1219unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "arcanaloth",
+    "slug": "arcanaloth",
+    "name": "Arcanaloth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=arcanaloth",
+    "indexLine": "Arcanaloth12Fiend (Yugoloth)Medium17104flyneutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "archmage",
+    "slug": "archmage",
+    "name": "Archmage",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=archmage",
+    "indexLine": "Archmage12Humanoid (any race)Medium1299any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "assassin",
+    "slug": "assassin",
+    "name": "Assassin",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=assassin",
+    "indexLine": "Assassin8Humanoid (any race)Medium1578any non-good alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "awakened-shrub",
+    "slug": "awakened-shrub",
+    "name": "Awakened Shrub",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=awakened-shrub",
+    "indexLine": "Awakened Shrub0PlantSmall910unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "awakened-tree",
+    "slug": "awakened-tree",
+    "name": "Awakened Tree",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=awakened-tree",
+    "indexLine": "Awakened Tree2PlantHuge1359unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "axe-beak",
+    "slug": "axe-beak",
+    "name": "Axe Beak",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=axe-beak",
+    "indexLine": "Axe Beak1/4BeastLarge1119unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "azer",
+    "slug": "azer",
+    "name": "Azer",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=azer",
+    "indexLine": "Azer2ElementalMedium1739lawful neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "baboon",
+    "slug": "baboon",
+    "name": "Baboon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=baboon",
+    "indexLine": "Baboon0BeastSmall123unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "badger",
+    "slug": "badger",
+    "name": "Badger",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=badger",
+    "indexLine": "Badger0BeastTiny103unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "balor",
+    "slug": "balor",
+    "name": "Balor",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=balor",
+    "indexLine": "Balor19Fiend (Demon)Huge19262flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bandit",
+    "slug": "bandit",
+    "name": "Bandit",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bandit",
+    "indexLine": "Bandit1/8Humanoid (any race)Medium1211any non-lawful alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bandit-captain",
+    "slug": "bandit-captain",
+    "name": "Bandit Captain",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bandit-captain",
+    "indexLine": "Bandit Captain2Humanoid (any race)Medium1565any non-lawful alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "banshee",
+    "slug": "banshee",
+    "name": "Banshee",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=banshee",
+    "indexLine": "Banshee4UndeadMedium1258flychaotic evilMonster Manual (BR)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "barbed-devil",
+    "slug": "barbed-devil",
+    "name": "Barbed Devil",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=barbed-devil",
+    "indexLine": "Barbed Devil5Fiend (Devil)Medium15110lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "barlgura",
+    "slug": "barlgura",
+    "name": "Barlgura",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=barlgura",
+    "indexLine": "Barlgura5Fiend (Demon)Large1568chaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "basilisk",
+    "slug": "basilisk",
+    "name": "Basilisk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=basilisk",
+    "indexLine": "Basilisk3MonstrosityMedium1552unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bat",
+    "slug": "bat",
+    "name": "Bat",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bat",
+    "indexLine": "Bat0BeastTiny121flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bearded-devil",
+    "slug": "bearded-devil",
+    "name": "Bearded Devil",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bearded-devil",
+    "indexLine": "Bearded Devil3Fiend (Devil)Medium1352lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "behir",
+    "slug": "behir",
+    "name": "Behir",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=behir",
+    "indexLine": "Behir11MonstrosityHuge17168neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "beholder",
+    "slug": "beholder",
+    "name": "Beholder",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=beholder",
+    "indexLine": "Beholder13AberrationLarge18180flylawful evilLegendaryMonster Manual",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "beholder-zombie",
+    "slug": "beholder-zombie",
+    "name": "Beholder Zombie",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=beholder-zombie",
+    "indexLine": "Beholder Zombie5UndeadLarge1593flyneutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "berserker",
+    "slug": "berserker",
+    "name": "Berserker",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=berserker",
+    "indexLine": "Berserker2Humanoid (any race)Medium1367any chaotic alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "black-bear",
+    "slug": "black-bear",
+    "name": "Black Bear",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=black-bear",
+    "indexLine": "Black Bear1/2BeastMedium1119unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "black-dragon-wyrmling",
+    "slug": "black-dragon-wyrmling",
+    "name": "Black Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=black-dragon-wyrmling",
+    "indexLine": "Black Dragon Wyrmling2Dragon (Chromatic)Medium1733fly, swimchaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "black-pudding",
+    "slug": "black-pudding",
+    "name": "Black Pudding",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=black-pudding",
+    "indexLine": "Black Pudding4OozeLarge785unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "blink-dog",
+    "slug": "blink-dog",
+    "name": "Blink Dog",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=blink-dog",
+    "indexLine": "Blink Dog1/4FeyMedium1322lawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "blood-hawk",
+    "slug": "blood-hawk",
+    "name": "Blood Hawk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=blood-hawk",
+    "indexLine": "Blood Hawk1/8BeastSmall127flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "blue-dragon-wyrmling",
+    "slug": "blue-dragon-wyrmling",
+    "name": "Blue Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=blue-dragon-wyrmling",
+    "indexLine": "Blue Dragon Wyrmling3Dragon (Chromatic)Medium1752flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "blue-slaad",
+    "slug": "blue-slaad",
+    "name": "Blue Slaad",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=blue-slaad",
+    "indexLine": "Blue Slaad7AberrationLarge15123chaotic neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "boar",
+    "slug": "boar",
+    "name": "Boar",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=boar",
+    "indexLine": "Boar1/4BeastMedium1111unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bone-devil",
+    "slug": "bone-devil",
+    "name": "Bone Devil",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bone-devil",
+    "indexLine": "Bone Devil9Fiend (Devil)Large19142flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bone-naga",
+    "slug": "bone-naga",
+    "name": "Bone Naga",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bone-naga",
+    "indexLine": "Bone Naga4UndeadLarge1558lawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "brass-dragon-wyrmling",
+    "slug": "brass-dragon-wyrmling",
+    "name": "Brass Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=brass-dragon-wyrmling",
+    "indexLine": "Brass Dragon Wyrmling1Dragon (Metallic)Medium1616flychaotic goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bronze-dragon-wyrmling",
+    "slug": "bronze-dragon-wyrmling",
+    "name": "Bronze Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bronze-dragon-wyrmling",
+    "indexLine": "Bronze Dragon Wyrmling2Dragon (Metallic)Medium1732fly, swimlawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "brown-bear",
+    "slug": "brown-bear",
+    "name": "Brown Bear",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=brown-bear",
+    "indexLine": "Brown Bear1BeastLarge1134unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bugbear",
+    "slug": "bugbear",
+    "name": "Bugbear",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bugbear",
+    "indexLine": "Bugbear1Humanoid (Goblinoid)Medium1627chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bugbear-chief",
+    "slug": "bugbear-chief",
+    "name": "Bugbear Chief",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bugbear-chief",
+    "indexLine": "Bugbear Chief3Humanoid (Goblinoid)Medium1765chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bulette",
+    "slug": "bulette",
+    "name": "Bulette",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bulette",
+    "indexLine": "Bulette5MonstrosityLarge1794unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "bullywug",
+    "slug": "bullywug",
+    "name": "Bullywug",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=bullywug",
+    "indexLine": "Bullywug1/4Humanoid (Bullywug)Medium1511swimneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "cambion",
+    "slug": "cambion",
+    "name": "Cambion",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=cambion",
+    "indexLine": "Cambion5FiendMedium1982flyany evil alignmentMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "camel",
+    "slug": "camel",
+    "name": "Camel",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=camel",
+    "indexLine": "Camel1/8BeastLarge915unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "carrion-crawler",
+    "slug": "carrion-crawler",
+    "name": "Carrion Crawler",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=carrion-crawler",
+    "indexLine": "Carrion Crawler2MonstrosityLarge1351unalignedMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "cat",
+    "slug": "cat",
+    "name": "Cat",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=cat",
+    "indexLine": "Category",
+    "legendary": false,
+    "source": ""
+  },
+  {
+    "id": "centaur",
+    "slug": "centaur",
+    "name": "Centaur",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=centaur",
+    "indexLine": "Centaur2MonstrosityLarge1245neutral goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "chain-devil",
+    "slug": "chain-devil",
+    "name": "Chain Devil",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=chain-devil",
+    "indexLine": "Chain Devil8Fiend (Devil)Medium1685lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "chasme",
+    "slug": "chasme",
+    "name": "Chasme",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=chasme",
+    "indexLine": "Chasme6Fiend (Demon)Large1584flychaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "chimera",
+    "slug": "chimera",
+    "name": "Chimera",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=chimera",
+    "indexLine": "Chimera6MonstrosityLarge14114flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "chuul",
+    "slug": "chuul",
+    "name": "Chuul",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=chuul",
+    "indexLine": "Chuul4AberrationLarge1693swimchaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "clay-golem",
+    "slug": "clay-golem",
+    "name": "Clay Golem",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=clay-golem",
+    "indexLine": "Clay Golem9ConstructLarge14133unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "cloaker",
+    "slug": "cloaker",
+    "name": "Cloaker",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=cloaker",
+    "indexLine": "Cloaker8AberrationLarge1478flychaotic neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "cloud-giant",
+    "slug": "cloud-giant",
+    "name": "Cloud Giant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=cloud-giant",
+    "indexLine": "Cloud Giant9GiantHuge14200neutral goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "cockatrice",
+    "slug": "cockatrice",
+    "name": "Cockatrice",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=cockatrice",
+    "indexLine": "Cockatrice1/2MonstrositySmall1127flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "commoner",
+    "slug": "commoner",
+    "name": "Commoner",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=commoner",
+    "indexLine": "Commoner0Humanoid (any race)Medium104any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "constrictor-snake",
+    "slug": "constrictor-snake",
+    "name": "Constrictor Snake",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=constrictor-snake",
+    "indexLine": "Constrictor Snake1/4BeastLarge1213swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "copper-dragon-wyrmling",
+    "slug": "copper-dragon-wyrmling",
+    "name": "Copper Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=copper-dragon-wyrmling",
+    "indexLine": "Copper Dragon Wyrmling1Dragon (Metallic)Medium1622flychaotic goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "couatl",
+    "slug": "couatl",
+    "name": "Couatl",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=couatl",
+    "indexLine": "Couatl4CelestialMedium1997flylawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "crab",
+    "slug": "crab",
+    "name": "Crab",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=crab",
+    "indexLine": "Crab0BeastTiny112swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "crawling-claw",
+    "slug": "crawling-claw",
+    "name": "Crawling Claw",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=crawling-claw",
+    "indexLine": "Crawling Claw0UndeadTiny122neutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "crocodile",
+    "slug": "crocodile",
+    "name": "Crocodile",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=crocodile",
+    "indexLine": "Crocodile1/2BeastLarge1219swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "cult-fanatic",
+    "slug": "cult-fanatic",
+    "name": "Cult Fanatic",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=cult-fanatic",
+    "indexLine": "Cult Fanatic2Humanoid (any race)Medium1333any non-good alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "cultist",
+    "slug": "cultist",
+    "name": "Cultist",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=cultist",
+    "indexLine": "Cultist1/8Humanoid (any race)Medium129any non-good alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "cyclops",
+    "slug": "cyclops",
+    "name": "Cyclops",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=cyclops",
+    "indexLine": "Cyclops6GiantHuge14138chaotic neutralMonster Manual (BR)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "dao",
+    "slug": "dao",
+    "name": "Dao",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=dao",
+    "indexLine": "Dao11ElementalLarge18187flyneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "darkmantle",
+    "slug": "darkmantle",
+    "name": "Darkmantle",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=darkmantle",
+    "indexLine": "Darkmantle1/2MonstrositySmall1122flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "death-dog",
+    "slug": "death-dog",
+    "name": "Death Dog",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=death-dog",
+    "indexLine": "Death Dog1MonstrosityMedium1239neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "death-knight",
+    "slug": "death-knight",
+    "name": "Death Knight",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=death-knight",
+    "indexLine": "Death Knight17UndeadMedium20180chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "death-slaad",
+    "slug": "death-slaad",
+    "name": "Death Slaad",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=death-slaad",
+    "indexLine": "Death Slaad10Aberration (Shapechanger)Medium18170chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "death-tyrant",
+    "slug": "death-tyrant",
+    "name": "Death Tyrant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=death-tyrant",
+    "indexLine": "Death Tyrant14UndeadLarge19187flylawful evilLegendaryMonster Manual",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "deep-gnome-svirfneblin",
+    "slug": "deep-gnome-svirfneblin",
+    "name": "Deep Gnome (Svirfneblin)",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=deep-gnome-svirfneblin",
+    "indexLine": "Deep Gnome (Svirfneblin)1/2Humanoid (Gnome)Small1516neutral goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "deer",
+    "slug": "deer",
+    "name": "Deer",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=deer",
+    "indexLine": "Deer0BeastMedium134unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "demilich",
+    "slug": "demilich",
+    "name": "Demilich",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=demilich",
+    "indexLine": "Demilich18UndeadTiny2080flyneutral evilLegendaryMonster Manual",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "deva",
+    "slug": "deva",
+    "name": "Deva",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=deva",
+    "indexLine": "Deva10CelestialMedium17136flylawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "dire-wolf",
+    "slug": "dire-wolf",
+    "name": "Dire Wolf",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=dire-wolf",
+    "indexLine": "Dire Wolf1BeastLarge1437unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "displacer-beast",
+    "slug": "displacer-beast",
+    "name": "Displacer Beast",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=displacer-beast",
+    "indexLine": "Displacer Beast3MonstrosityLarge1385lawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "djinni",
+    "slug": "djinni",
+    "name": "Djinni",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=djinni",
+    "indexLine": "Djinni11ElementalLarge17161flychaotic goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "doppelganger",
+    "slug": "doppelganger",
+    "name": "Doppelganger",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=doppelganger",
+    "indexLine": "Doppelganger3Monstrosity (Shapechanger)Medium1452neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "draft-horse",
+    "slug": "draft-horse",
+    "name": "Draft Horse",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=draft-horse",
+    "indexLine": "Draft Horse1/4BeastLarge1019unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "dragon-turtle",
+    "slug": "dragon-turtle",
+    "name": "Dragon Turtle",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=dragon-turtle",
+    "indexLine": "Dragon Turtle17DragonGargantuan20341swimneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "dretch",
+    "slug": "dretch",
+    "name": "Dretch",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=dretch",
+    "indexLine": "Dretch1/4Fiend (Demon)Small1118chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "drider",
+    "slug": "drider",
+    "name": "Drider",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=drider",
+    "indexLine": "Drider6MonstrosityLarge19123chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "drow",
+    "slug": "drow",
+    "name": "Drow",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=drow",
+    "indexLine": "Drow1/4Humanoid (Elf)Medium1513neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "drow-elite-warrior",
+    "slug": "drow-elite-warrior",
+    "name": "Drow Elite Warrior",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=drow-elite-warrior",
+    "indexLine": "Drow Elite Warrior5Humanoid (Elf)Medium1871neutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "drow-mage",
+    "slug": "drow-mage",
+    "name": "Drow Mage",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=drow-mage",
+    "indexLine": "Drow Mage7Humanoid (Elf)Medium1245neutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "drow-priestess-of-lolth",
+    "slug": "drow-priestess-of-lolth",
+    "name": "Drow Priestess of Lolth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=drow-priestess-of-lolth",
+    "indexLine": "Drow Priestess of Lolth8Humanoid (Elf)Medium1671neutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "druid",
+    "slug": "druid",
+    "name": "Druid",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=druid",
+    "indexLine": "Druid2Humanoid (any race)Medium1127any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "dryad",
+    "slug": "dryad",
+    "name": "Dryad",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=dryad",
+    "indexLine": "Dryad1FeyMedium1122neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "duergar",
+    "slug": "duergar",
+    "name": "Duergar",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=duergar",
+    "indexLine": "Duergar1Humanoid (Dwarf)Medium1626lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "duodrone",
+    "slug": "duodrone",
+    "name": "Duodrone",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=duodrone",
+    "indexLine": "Duodrone1/4ConstructMedium1511lawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "dust-mephit",
+    "slug": "dust-mephit",
+    "name": "Dust Mephit",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=dust-mephit",
+    "indexLine": "Dust Mephit1/2ElementalSmall1217flyneutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "eagle",
+    "slug": "eagle",
+    "name": "Eagle",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=eagle",
+    "indexLine": "Eagle0BeastSmall123flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "earth-elemental",
+    "slug": "earth-elemental",
+    "name": "Earth Elemental",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=earth-elemental",
+    "indexLine": "Earth Elemental5ElementalLarge17126neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "efreeti",
+    "slug": "efreeti",
+    "name": "Efreeti",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=efreeti",
+    "indexLine": "Efreeti11ElementalLarge17200flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "elephant",
+    "slug": "elephant",
+    "name": "Elephant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=elephant",
+    "indexLine": "Elephant4BeastHuge1276unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "elk",
+    "slug": "elk",
+    "name": "Elk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=elk",
+    "indexLine": "Elk1/4BeastLarge1013unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "empyrean",
+    "slug": "empyrean",
+    "name": "Empyrean",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=empyrean",
+    "indexLine": "Empyrean23Celestial (Titan)Huge22313fly, swimchaotic goodLegendaryMonster Manual",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "erinyes",
+    "slug": "erinyes",
+    "name": "Erinyes",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=erinyes",
+    "indexLine": "Erinyes12Fiend (Devil)Medium18153flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ettercap",
+    "slug": "ettercap",
+    "name": "Ettercap",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ettercap",
+    "indexLine": "Ettercap2MonstrosityMedium1344neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ettin",
+    "slug": "ettin",
+    "name": "Ettin",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ettin",
+    "indexLine": "Ettin4GiantLarge1285chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "faerie-dragon",
+    "slug": "faerie-dragon",
+    "name": "Faerie Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=faerie-dragon",
+    "indexLine": "Faerie Dragon1DragonTiny1514flychaotic goodMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "fire-elemental",
+    "slug": "fire-elemental",
+    "name": "Fire Elemental",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=fire-elemental",
+    "indexLine": "Fire Elemental5ElementalLarge13102neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "fire-giant",
+    "slug": "fire-giant",
+    "name": "Fire Giant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=fire-giant",
+    "indexLine": "Fire Giant9GiantHuge18162lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "fire-snake",
+    "slug": "fire-snake",
+    "name": "Fire Snake",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=fire-snake",
+    "indexLine": "Fire Snake1ElementalMedium1422neutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "flameskull",
+    "slug": "flameskull",
+    "name": "Flameskull",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=flameskull",
+    "indexLine": "Flameskull4UndeadTiny1340flyneutral evilMonster Manual (BR)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "flesh-golem",
+    "slug": "flesh-golem",
+    "name": "Flesh Golem",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=flesh-golem",
+    "indexLine": "Flesh Golem5ConstructMedium993neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "flumph",
+    "slug": "flumph",
+    "name": "Flumph",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=flumph",
+    "indexLine": "Flumph1/8AberrationSmall127flylawful goodMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "flying-snake",
+    "slug": "flying-snake",
+    "name": "Flying Snake",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=flying-snake",
+    "indexLine": "Flying Snake1/8BeastTiny145fly, swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "flying-sword",
+    "slug": "flying-sword",
+    "name": "Flying Sword",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=flying-sword",
+    "indexLine": "Flying Sword1/4ConstructSmall1717flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "fomorian",
+    "slug": "fomorian",
+    "name": "Fomorian",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=fomorian",
+    "indexLine": "Fomorian8GiantHuge14149chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "frog",
+    "slug": "frog",
+    "name": "Frog",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=frog",
+    "indexLine": "Frog0BeastTiny111swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "frost-giant",
+    "slug": "frost-giant",
+    "name": "Frost Giant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=frost-giant",
+    "indexLine": "Frost Giant8GiantHuge15138neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "galeb-duhr",
+    "slug": "galeb-duhr",
+    "name": "Galeb Duhr",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=galeb-duhr",
+    "indexLine": "Galeb Duhr6ElementalMedium1685neutralMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gargoyle",
+    "slug": "gargoyle",
+    "name": "Gargoyle",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gargoyle",
+    "indexLine": "Gargoyle2ElementalMedium1552flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gas-spore",
+    "slug": "gas-spore",
+    "name": "Gas Spore",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gas-spore",
+    "indexLine": "Gas Spore1/2PlantLarge51flyunalignedMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gelatinous-cube",
+    "slug": "gelatinous-cube",
+    "name": "Gelatinous Cube",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gelatinous-cube",
+    "indexLine": "Gelatinous Cube2OozeLarge684unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ghast",
+    "slug": "ghast",
+    "name": "Ghast",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ghast",
+    "indexLine": "Ghast2UndeadMedium1336chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ghost",
+    "slug": "ghost",
+    "name": "Ghost",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ghost",
+    "indexLine": "Ghost4UndeadMedium1145flyany alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ghoul",
+    "slug": "ghoul",
+    "name": "Ghoul",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ghoul",
+    "indexLine": "Ghoul1UndeadMedium1222chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-ape",
+    "slug": "giant-ape",
+    "name": "Giant Ape",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-ape",
+    "indexLine": "Giant Ape7BeastHuge12157unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-badger",
+    "slug": "giant-badger",
+    "name": "Giant Badger",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-badger",
+    "indexLine": "Giant Badger1/4BeastMedium1013unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-bat",
+    "slug": "giant-bat",
+    "name": "Giant Bat",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-bat",
+    "indexLine": "Giant Bat1/4BeastLarge1322flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-boar",
+    "slug": "giant-boar",
+    "name": "Giant Boar",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-boar",
+    "indexLine": "Giant Boar2BeastLarge1242unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-centipede",
+    "slug": "giant-centipede",
+    "name": "Giant Centipede",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-centipede",
+    "indexLine": "Giant Centipede1/4BeastSmall134unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-constrictor-snake",
+    "slug": "giant-constrictor-snake",
+    "name": "Giant Constrictor Snake",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-constrictor-snake",
+    "indexLine": "Giant Constrictor Snake2BeastHuge1260swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-crab",
+    "slug": "giant-crab",
+    "name": "Giant Crab",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-crab",
+    "indexLine": "Giant Crab1/8BeastMedium1513swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-crocodile",
+    "slug": "giant-crocodile",
+    "name": "Giant Crocodile",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-crocodile",
+    "indexLine": "Giant Crocodile5BeastHuge1485swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-eagle",
+    "slug": "giant-eagle",
+    "name": "Giant Eagle",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-eagle",
+    "indexLine": "Giant Eagle1BeastLarge1326flyneutral goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-elk",
+    "slug": "giant-elk",
+    "name": "Giant Elk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-elk",
+    "indexLine": "Giant Elk2BeastHuge1442unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-fire-beetle",
+    "slug": "giant-fire-beetle",
+    "name": "Giant Fire Beetle",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-fire-beetle",
+    "indexLine": "Giant Fire Beetle0BeastSmall134unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-frog",
+    "slug": "giant-frog",
+    "name": "Giant Frog",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-frog",
+    "indexLine": "Giant Frog1/4BeastMedium1118swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-goat",
+    "slug": "giant-goat",
+    "name": "Giant Goat",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-goat",
+    "indexLine": "Giant Goat1/2BeastLarge1119unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-hyena",
+    "slug": "giant-hyena",
+    "name": "Giant Hyena",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-hyena",
+    "indexLine": "Giant Hyena1BeastLarge1245unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-lizard",
+    "slug": "giant-lizard",
+    "name": "Giant Lizard",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-lizard",
+    "indexLine": "Giant Lizard1/4BeastLarge1219unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-octopus",
+    "slug": "giant-octopus",
+    "name": "Giant Octopus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-octopus",
+    "indexLine": "Giant Octopus1BeastLarge1152swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-owl",
+    "slug": "giant-owl",
+    "name": "Giant Owl",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-owl",
+    "indexLine": "Giant Owl1/4BeastLarge1219flyneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-poisonous-snake",
+    "slug": "giant-poisonous-snake",
+    "name": "Giant Poisonous Snake",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-poisonous-snake",
+    "indexLine": "Giant Poisonous Snake1/4BeastMedium1411swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-rat",
+    "slug": "giant-rat",
+    "name": "Giant Rat",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-rat",
+    "indexLine": "Giant Rat1/8BeastSmall127unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-scorpion",
+    "slug": "giant-scorpion",
+    "name": "Giant Scorpion",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-scorpion",
+    "indexLine": "Giant Scorpion3BeastLarge1552unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-sea-horse",
+    "slug": "giant-sea-horse",
+    "name": "Giant Sea Horse",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-sea-horse",
+    "indexLine": "Giant Sea Horse1/2BeastLarge1316swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-shark",
+    "slug": "giant-shark",
+    "name": "Giant Shark",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-shark",
+    "indexLine": "Giant Shark5BeastHuge13126swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-spider",
+    "slug": "giant-spider",
+    "name": "Giant Spider",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-spider",
+    "indexLine": "Giant Spider1BeastLarge1426unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-toad",
+    "slug": "giant-toad",
+    "name": "Giant Toad",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-toad",
+    "indexLine": "Giant Toad1BeastLarge1139swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-vulture",
+    "slug": "giant-vulture",
+    "name": "Giant Vulture",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-vulture",
+    "indexLine": "Giant Vulture1BeastLarge1022flyneutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-wasp",
+    "slug": "giant-wasp",
+    "name": "Giant Wasp",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-wasp",
+    "indexLine": "Giant Wasp1/2BeastMedium1213flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-weasel",
+    "slug": "giant-weasel",
+    "name": "Giant Weasel",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-weasel",
+    "indexLine": "Giant Weasel1/8BeastMedium139unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "giant-wolf-spider",
+    "slug": "giant-wolf-spider",
+    "name": "Giant Wolf Spider",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=giant-wolf-spider",
+    "indexLine": "Giant Wolf Spider1/4BeastMedium1311unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gibbering-mouther",
+    "slug": "gibbering-mouther",
+    "name": "Gibbering Mouther",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gibbering-mouther",
+    "indexLine": "Gibbering Mouther2AberrationMedium967swimneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "githyanki-knight",
+    "slug": "githyanki-knight",
+    "name": "Githyanki Knight",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=githyanki-knight",
+    "indexLine": "Githyanki Knight8Humanoid (Gith)Medium1891lawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "githyanki-warrior",
+    "slug": "githyanki-warrior",
+    "name": "Githyanki Warrior",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=githyanki-warrior",
+    "indexLine": "Githyanki Warrior3Humanoid (Gith)Medium1749lawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "githzerai-monk",
+    "slug": "githzerai-monk",
+    "name": "Githzerai Monk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=githzerai-monk",
+    "indexLine": "Githzerai Monk2Humanoid (Gith)Medium1438lawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "githzerai-zerth",
+    "slug": "githzerai-zerth",
+    "name": "Githzerai Zerth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=githzerai-zerth",
+    "indexLine": "Githzerai Zerth6Humanoid (Gith)Medium1784lawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "glabrezu",
+    "slug": "glabrezu",
+    "name": "Glabrezu",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=glabrezu",
+    "indexLine": "Glabrezu9Fiend (Demon)Large17157chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gladiator",
+    "slug": "gladiator",
+    "name": "Gladiator",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gladiator",
+    "indexLine": "Gladiator5Humanoid (any race)Medium16112any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gnoll",
+    "slug": "gnoll",
+    "name": "Gnoll",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gnoll",
+    "indexLine": "Gnoll1/2Humanoid (Gnoll)Medium1522chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gnoll-fang-of-yeenoghu",
+    "slug": "gnoll-fang-of-yeenoghu",
+    "name": "Gnoll Fang of Yeenoghu",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gnoll-fang-of-yeenoghu",
+    "indexLine": "Gnoll Fang of Yeenoghu4Fiend (Gnoll)Medium1465chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gnoll-pack-lord",
+    "slug": "gnoll-pack-lord",
+    "name": "Gnoll Pack Lord",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gnoll-pack-lord",
+    "indexLine": "Gnoll Pack Lord2Humanoid (Gnoll)Medium1549chaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "goat",
+    "slug": "goat",
+    "name": "Goat",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=goat",
+    "indexLine": "Goat0BeastMedium104unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "goblin",
+    "slug": "goblin",
+    "name": "Goblin",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=goblin",
+    "indexLine": "Goblin1/4Humanoid (Goblinoid)Small157neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "goblin-boss",
+    "slug": "goblin-boss",
+    "name": "Goblin Boss",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=goblin-boss",
+    "indexLine": "Goblin Boss1Humanoid (Goblinoid)Small1721neutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gold-dragon-wyrmling",
+    "slug": "gold-dragon-wyrmling",
+    "name": "Gold Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gold-dragon-wyrmling",
+    "indexLine": "Gold Dragon Wyrmling3Dragon (Metallic)Medium1760fly, swimlawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gorgon",
+    "slug": "gorgon",
+    "name": "Gorgon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gorgon",
+    "indexLine": "Gorgon5MonstrosityLarge19114unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "goristro",
+    "slug": "goristro",
+    "name": "Goristro",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=goristro",
+    "indexLine": "Goristro17Fiend (Demon)Huge19310chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gray-ooze",
+    "slug": "gray-ooze",
+    "name": "Gray Ooze",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gray-ooze",
+    "indexLine": "Gray Ooze1/2OozeMedium822unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gray-slaad",
+    "slug": "gray-slaad",
+    "name": "Gray Slaad",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gray-slaad",
+    "indexLine": "Gray Slaad9Aberration (Shapechanger)Medium18127chaotic neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "green-dragon-wyrmling",
+    "slug": "green-dragon-wyrmling",
+    "name": "Green Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=green-dragon-wyrmling",
+    "indexLine": "Green Dragon Wyrmling2Dragon (Chromatic)Medium1738fly, swimlawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "green-hag",
+    "slug": "green-hag",
+    "name": "Green Hag",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=green-hag",
+    "indexLine": "Green Hag3FeyMedium1782neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "green-slaad",
+    "slug": "green-slaad",
+    "name": "Green Slaad",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=green-slaad",
+    "indexLine": "Green Slaad8Aberration (Shapechanger)Large16127chaotic neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "grell",
+    "slug": "grell",
+    "name": "Grell",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=grell",
+    "indexLine": "Grell3AberrationMedium1255flyneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "grick",
+    "slug": "grick",
+    "name": "Grick",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=grick",
+    "indexLine": "Grick2MonstrosityMedium1427neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "grick-alpha",
+    "slug": "grick-alpha",
+    "name": "Grick alpha",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=grick-alpha",
+    "indexLine": "Grick alpha7MonstrosityLarge1875neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "griffon",
+    "slug": "griffon",
+    "name": "Griffon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=griffon",
+    "indexLine": "Griffon2MonstrosityLarge1259flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "grimlock",
+    "slug": "grimlock",
+    "name": "Grimlock",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=grimlock",
+    "indexLine": "Grimlock1/4Humanoid (Grimlock)Medium1111neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "guard",
+    "slug": "guard",
+    "name": "Guard",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=guard",
+    "indexLine": "Guard1/8Humanoid (any race)Medium1611any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "guardian-naga",
+    "slug": "guardian-naga",
+    "name": "Guardian Naga",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=guardian-naga",
+    "indexLine": "Guardian Naga10MonstrosityLarge18127lawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "gynosphinx",
+    "slug": "gynosphinx",
+    "name": "Gynosphinx",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=gynosphinx",
+    "indexLine": "Gynosphinx11MonstrosityLarge17136flylawful neutralLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "half-ogre",
+    "slug": "half-ogre",
+    "name": "Half-Ogre",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=half-ogre",
+    "indexLine": "Half-Ogre1GiantLarge1230any chaotic alignmentMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "half-red-dragon-veteran",
+    "slug": "half-red-dragon-veteran",
+    "name": "Half-Red Dragon Veteran",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=half-red-dragon-veteran",
+    "indexLine": "Half-Red Dragon Veteran5Humanoid (Human)Medium1865any alignmentMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "harpy",
+    "slug": "harpy",
+    "name": "Harpy",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=harpy",
+    "indexLine": "Harpy1MonstrosityMedium1138flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hawk",
+    "slug": "hawk",
+    "name": "Hawk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hawk",
+    "indexLine": "Hawk0BeastTiny131flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hell-hound",
+    "slug": "hell-hound",
+    "name": "Hell Hound",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hell-hound",
+    "indexLine": "Hell Hound3FiendMedium1545lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "helmed-horror",
+    "slug": "helmed-horror",
+    "name": "Helmed Horror",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=helmed-horror",
+    "indexLine": "Helmed Horror4ConstructMedium2060flyneutralMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hezrou",
+    "slug": "hezrou",
+    "name": "Hezrou",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hezrou",
+    "indexLine": "Hezrou8Fiend (Demon)Large16136chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hill-giant",
+    "slug": "hill-giant",
+    "name": "Hill Giant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hill-giant",
+    "indexLine": "Hill Giant5GiantHuge13105chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hippogriff",
+    "slug": "hippogriff",
+    "name": "Hippogriff",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hippogriff",
+    "indexLine": "Hippogriff1MonstrosityLarge1119flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hobgoblin",
+    "slug": "hobgoblin",
+    "name": "Hobgoblin",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hobgoblin",
+    "indexLine": "Hobgoblin1/2Humanoid (Goblinoid)Medium1811lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hobgoblin-captain",
+    "slug": "hobgoblin-captain",
+    "name": "Hobgoblin Captain",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hobgoblin-captain",
+    "indexLine": "Hobgoblin Captain3Humanoid (Goblinoid)Medium1739lawful evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hobgoblin-warlord",
+    "slug": "hobgoblin-warlord",
+    "name": "Hobgoblin Warlord",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hobgoblin-warlord",
+    "indexLine": "Hobgoblin Warlord6Humanoid (Goblinoid)Medium2097lawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "homunculus",
+    "slug": "homunculus",
+    "name": "Homunculus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=homunculus",
+    "indexLine": "Homunculus0ConstructTiny135flyneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hook-horror",
+    "slug": "hook-horror",
+    "name": "Hook Horror",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hook-horror",
+    "indexLine": "Hook Horror3MonstrosityLarge1575neutralMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "horned-devil",
+    "slug": "horned-devil",
+    "name": "Horned Devil",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=horned-devil",
+    "indexLine": "Horned Devil11Fiend (Devil)Large18178flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hunter-shark",
+    "slug": "hunter-shark",
+    "name": "Hunter Shark",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hunter-shark",
+    "indexLine": "Hunter Shark2BeastLarge1245swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hydra",
+    "slug": "hydra",
+    "name": "Hydra",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hydra",
+    "indexLine": "Hydra8MonstrosityHuge15172swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "hyena",
+    "slug": "hyena",
+    "name": "Hyena",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=hyena",
+    "indexLine": "Hyena0BeastMedium115unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ice-devil",
+    "slug": "ice-devil",
+    "name": "Ice Devil",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ice-devil",
+    "indexLine": "Ice Devil14Fiend (Devil)Large18180lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ice-mephit",
+    "slug": "ice-mephit",
+    "name": "Ice Mephit",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ice-mephit",
+    "indexLine": "Ice Mephit1/2ElementalSmall1121flyneutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "imp",
+    "slug": "imp",
+    "name": "Imp",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=imp",
+    "indexLine": "Imp1Fiend (Devil, Shapechanger)Tiny1310flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "intellect-devourer",
+    "slug": "intellect-devourer",
+    "name": "Intellect Devourer",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=intellect-devourer",
+    "indexLine": "Intellect Devourer2AberrationTiny1221lawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "invisible-stalker",
+    "slug": "invisible-stalker",
+    "name": "Invisible Stalker",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=invisible-stalker",
+    "indexLine": "Invisible Stalker6ElementalMedium14104flyneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "iron-golem",
+    "slug": "iron-golem",
+    "name": "Iron Golem",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=iron-golem",
+    "indexLine": "Iron Golem16ConstructLarge20210unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "jackal",
+    "slug": "jackal",
+    "name": "Jackal",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=jackal",
+    "indexLine": "Jackal0BeastSmall123unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "jackalwere",
+    "slug": "jackalwere",
+    "name": "Jackalwere",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=jackalwere",
+    "indexLine": "Jackalwere1/2Humanoid (Shapechanger)Medium1218chaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "kenku",
+    "slug": "kenku",
+    "name": "Kenku",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=kenku",
+    "indexLine": "Kenku1/4Humanoid (Kenku)Medium1313chaotic neutralMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "killer-whale",
+    "slug": "killer-whale",
+    "name": "Killer Whale",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=killer-whale",
+    "indexLine": "Killer Whale3BeastHuge1290swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "knight",
+    "slug": "knight",
+    "name": "Knight",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=knight",
+    "indexLine": "Knight3Humanoid (any race)Medium1852any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "kobold",
+    "slug": "kobold",
+    "name": "Kobold",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=kobold",
+    "indexLine": "Kobold1/8Humanoid (Kobold)Small125lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "kraken",
+    "slug": "kraken",
+    "name": "Kraken",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=kraken",
+    "indexLine": "Kraken23Monstrosity (Titan)Gargantuan18472swimchaotic evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "kuo-toa",
+    "slug": "kuo-toa",
+    "name": "Kuo-toa",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=kuo-toa",
+    "indexLine": "Kuo-toa1/4Humanoid (Kuo-toa)Medium1318swimneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "kuo-toa-archpriest",
+    "slug": "kuo-toa-archpriest",
+    "name": "Kuo-toa Archpriest",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=kuo-toa-archpriest",
+    "indexLine": "Kuo-toa Archpriest6Humanoid (Kuo-toa)Medium1397swimneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "kuo-toa-whip",
+    "slug": "kuo-toa-whip",
+    "name": "Kuo-toa Whip",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=kuo-toa-whip",
+    "indexLine": "Kuo-toa Whip1Humanoid (Kuo-toa)Medium1165swimneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "lamia",
+    "slug": "lamia",
+    "name": "Lamia",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=lamia",
+    "indexLine": "Lamia4MonstrosityLarge1397chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "lemure",
+    "slug": "lemure",
+    "name": "Lemure",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=lemure",
+    "indexLine": "Lemure0Fiend (Devil)Medium713lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "lich",
+    "slug": "lich",
+    "name": "Lich",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=lich",
+    "indexLine": "Lich21UndeadMedium17135any evil alignmentLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "lion",
+    "slug": "lion",
+    "name": "Lion",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=lion",
+    "indexLine": "Lion1BeastLarge1226unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "lizard",
+    "slug": "lizard",
+    "name": "Lizard",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=lizard",
+    "indexLine": "Lizard0BeastTiny102unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "lizard-king-queen",
+    "slug": "lizard-king-queen",
+    "name": "Lizard King/Queen",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=lizard-king-queen",
+    "indexLine": "Lizard King/Queen4Humanoid (Lizardfolk)Medium1578swimchaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "lizardfolk",
+    "slug": "lizardfolk",
+    "name": "Lizardfolk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=lizardfolk",
+    "indexLine": "Lizardfolk1/2Humanoid (Lizardfolk)Medium1522swimneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "lizardfolk-shaman",
+    "slug": "lizardfolk-shaman",
+    "name": "Lizardfolk Shaman",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=lizardfolk-shaman",
+    "indexLine": "Lizardfolk Shaman2Humanoid (Lizardfolk)Medium1327swimneutralMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mage",
+    "slug": "mage",
+    "name": "Mage",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mage",
+    "indexLine": "Mage6Humanoid (any race)Medium1240any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "magma-mephit",
+    "slug": "magma-mephit",
+    "name": "Magma Mephit",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=magma-mephit",
+    "indexLine": "Magma Mephit1/2ElementalSmall1122flyneutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "magmin",
+    "slug": "magmin",
+    "name": "Magmin",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=magmin",
+    "indexLine": "Magmin1/2ElementalSmall149chaotic neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mammoth",
+    "slug": "mammoth",
+    "name": "Mammoth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mammoth",
+    "indexLine": "Mammoth6BeastHuge13126unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "manes",
+    "slug": "manes",
+    "name": "Manes",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=manes",
+    "indexLine": "Manes1/8Fiend (Demon)Small99chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "manticore",
+    "slug": "manticore",
+    "name": "Manticore",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=manticore",
+    "indexLine": "Manticore3MonstrosityLarge1468flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "marid",
+    "slug": "marid",
+    "name": "Marid",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=marid",
+    "indexLine": "Marid11ElementalLarge17229fly, swimchaotic neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "marilith",
+    "slug": "marilith",
+    "name": "Marilith",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=marilith",
+    "indexLine": "Marilith16Fiend (Demon)Large18189chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mastiff",
+    "slug": "mastiff",
+    "name": "Mastiff",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mastiff",
+    "indexLine": "Mastiff1/8BeastMedium125unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "medusa",
+    "slug": "medusa",
+    "name": "Medusa",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=medusa",
+    "indexLine": "Medusa6MonstrosityMedium15127lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "merfolk",
+    "slug": "merfolk",
+    "name": "Merfolk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=merfolk",
+    "indexLine": "Merfolk1/8Humanoid (Merfolk)Medium1111swimneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "merrow",
+    "slug": "merrow",
+    "name": "Merrow",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=merrow",
+    "indexLine": "Merrow2MonstrosityLarge1345swimchaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mezzoloth",
+    "slug": "mezzoloth",
+    "name": "Mezzoloth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mezzoloth",
+    "indexLine": "Mezzoloth5Fiend (Yugoloth)Medium1875neutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mimic",
+    "slug": "mimic",
+    "name": "Mimic",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mimic",
+    "indexLine": "Mimic2Monstrosity (Shapechanger)Medium1258neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mind-flayer",
+    "slug": "mind-flayer",
+    "name": "Mind Flayer",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mind-flayer",
+    "indexLine": "Mind Flayer7AberrationMedium1571lawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "minotaur",
+    "slug": "minotaur",
+    "name": "Minotaur",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=minotaur",
+    "indexLine": "Minotaur3MonstrosityLarge1476chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "minotaur-skeleton",
+    "slug": "minotaur-skeleton",
+    "name": "Minotaur Skeleton",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=minotaur-skeleton",
+    "indexLine": "Minotaur Skeleton2UndeadLarge1267lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "monodrone",
+    "slug": "monodrone",
+    "name": "Monodrone",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=monodrone",
+    "indexLine": "Monodrone1/8ConstructMedium155flylawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mud-mephit",
+    "slug": "mud-mephit",
+    "name": "Mud Mephit",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mud-mephit",
+    "indexLine": "Mud Mephit1/4ElementalSmall1127fly, swimneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mule",
+    "slug": "mule",
+    "name": "Mule",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mule",
+    "indexLine": "Mule1/8BeastMedium1011unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mummy",
+    "slug": "mummy",
+    "name": "Mummy",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mummy",
+    "indexLine": "Mummy3UndeadMedium1158lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "mummy-lord",
+    "slug": "mummy-lord",
+    "name": "Mummy Lord",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=mummy-lord",
+    "indexLine": "Mummy Lord15UndeadMedium1797lawful evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "myconid-adult",
+    "slug": "myconid-adult",
+    "name": "Myconid Adult",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=myconid-adult",
+    "indexLine": "Myconid Adult1/2PlantMedium1222lawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "myconid-sovereign",
+    "slug": "myconid-sovereign",
+    "name": "Myconid Sovereign",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=myconid-sovereign",
+    "indexLine": "Myconid Sovereign2PlantLarge1360lawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "myconid-sprout",
+    "slug": "myconid-sprout",
+    "name": "Myconid Sprout",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=myconid-sprout",
+    "indexLine": "Myconid Sprout0PlantSmall107lawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "nalfeshnee",
+    "slug": "nalfeshnee",
+    "name": "Nalfeshnee",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=nalfeshnee",
+    "indexLine": "Nalfeshnee13Fiend (Demon)Large18184flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "needle-blight",
+    "slug": "needle-blight",
+    "name": "Needle Blight",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=needle-blight",
+    "indexLine": "Needle Blight1/4PlantMedium1211neutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "night-hag",
+    "slug": "night-hag",
+    "name": "Night Hag",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=night-hag",
+    "indexLine": "Night Hag5FiendMedium17112neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "nightmare",
+    "slug": "nightmare",
+    "name": "Nightmare",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=nightmare",
+    "indexLine": "Nightmare3FiendLarge1368flyneutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "noble",
+    "slug": "noble",
+    "name": "Noble",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=noble",
+    "indexLine": "Noble1/8Humanoid (any race)Medium159any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "nothic",
+    "slug": "nothic",
+    "name": "Nothic",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=nothic",
+    "indexLine": "Nothic2AberrationMedium1545neutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "nycaloth",
+    "slug": "nycaloth",
+    "name": "Nycaloth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=nycaloth",
+    "indexLine": "Nycaloth9Fiend (Yugoloth)Large18123flyneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ochre-jelly",
+    "slug": "ochre-jelly",
+    "name": "Ochre Jelly",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ochre-jelly",
+    "indexLine": "Ochre Jelly2OozeLarge845unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "octopus",
+    "slug": "octopus",
+    "name": "Octopus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=octopus",
+    "indexLine": "Octopus0BeastSmall123swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ogre",
+    "slug": "ogre",
+    "name": "Ogre",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ogre",
+    "indexLine": "Ogre2GiantLarge1159chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ogre-zombie",
+    "slug": "ogre-zombie",
+    "name": "Ogre Zombie",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ogre-zombie",
+    "indexLine": "Ogre Zombie2UndeadLarge885neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "oni",
+    "slug": "oni",
+    "name": "Oni",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=oni",
+    "indexLine": "Oni7GiantLarge16110flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "orc",
+    "slug": "orc",
+    "name": "Orc",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=orc",
+    "indexLine": "Orc1/2Humanoid (Orc)Medium1315chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "orc-eye-of-gruumsh",
+    "slug": "orc-eye-of-gruumsh",
+    "name": "Orc Eye of Gruumsh",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=orc-eye-of-gruumsh",
+    "indexLine": "Orc Eye of Gruumsh2Humanoid (Orc)Medium1645chaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "orc-war-chief",
+    "slug": "orc-war-chief",
+    "name": "Orc War Chief",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=orc-war-chief",
+    "indexLine": "Orc War Chief4Humanoid (Orc)Medium1693chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "orog",
+    "slug": "orog",
+    "name": "Orog",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=orog",
+    "indexLine": "Orog2Humanoid (Orc)Medium1842chaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "otyugh",
+    "slug": "otyugh",
+    "name": "Otyugh",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=otyugh",
+    "indexLine": "Otyugh5AberrationLarge14114neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "owl",
+    "slug": "owl",
+    "name": "Owl",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=owl",
+    "indexLine": "Owl0BeastTiny111flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "owlbear",
+    "slug": "owlbear",
+    "name": "Owlbear",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=owlbear",
+    "indexLine": "Owlbear3MonstrosityLarge1359unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "panther",
+    "slug": "panther",
+    "name": "Panther",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=panther",
+    "indexLine": "Panther1/4BeastMedium1213unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "pegasus",
+    "slug": "pegasus",
+    "name": "Pegasus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=pegasus",
+    "indexLine": "Pegasus2CelestialLarge1259flychaotic goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "pentadrone",
+    "slug": "pentadrone",
+    "name": "Pentadrone",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=pentadrone",
+    "indexLine": "Pentadrone2ConstructLarge1632lawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "peryton",
+    "slug": "peryton",
+    "name": "Peryton",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=peryton",
+    "indexLine": "Peryton2MonstrosityMedium1333flychaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "phase-spider",
+    "slug": "phase-spider",
+    "name": "Phase Spider",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=phase-spider",
+    "indexLine": "Phase Spider3MonstrosityLarge1332unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "piercer",
+    "slug": "piercer",
+    "name": "Piercer",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=piercer",
+    "indexLine": "Piercer1/2MonstrosityMedium1522unalignedMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "pit-fiend",
+    "slug": "pit-fiend",
+    "name": "Pit Fiend",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=pit-fiend",
+    "indexLine": "Pit Fiend20Fiend (Devil)Large19300flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "pixie",
+    "slug": "pixie",
+    "name": "Pixie",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=pixie",
+    "indexLine": "Pixie1/4FeyTiny151flyneutral goodMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "planetar",
+    "slug": "planetar",
+    "name": "Planetar",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=planetar",
+    "indexLine": "Planetar16CelestialLarge19200flylawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "plesiosaurus",
+    "slug": "plesiosaurus",
+    "name": "Plesiosaurus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=plesiosaurus",
+    "indexLine": "Plesiosaurus2BeastLarge1368swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "poisonous-snake",
+    "slug": "poisonous-snake",
+    "name": "Poisonous Snake",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=poisonous-snake",
+    "indexLine": "Poisonous Snake1/8BeastTiny132swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "polar-bear",
+    "slug": "polar-bear",
+    "name": "Polar Bear",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=polar-bear",
+    "indexLine": "Polar Bear2BeastLarge1242swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "pony",
+    "slug": "pony",
+    "name": "Pony",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=pony",
+    "indexLine": "Pony1/8BeastMedium1011unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "priest",
+    "slug": "priest",
+    "name": "Priest",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=priest",
+    "indexLine": "Priest2Humanoid (any race)Medium1327any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "pseudodragon",
+    "slug": "pseudodragon",
+    "name": "Pseudodragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=pseudodragon",
+    "indexLine": "Pseudodragon1/4DragonTiny137flyneutral goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "pteranodon",
+    "slug": "pteranodon",
+    "name": "Pteranodon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=pteranodon",
+    "indexLine": "Pteranodon1/4BeastMedium1313flyunalignedMonster Manual (BR)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "purple-worm",
+    "slug": "purple-worm",
+    "name": "Purple Worm",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=purple-worm",
+    "indexLine": "Purple Worm15MonstrosityGargantuan18247unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "quadrone",
+    "slug": "quadrone",
+    "name": "Quadrone",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=quadrone",
+    "indexLine": "Quadrone1ConstructMedium1622flylawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "quaggoth",
+    "slug": "quaggoth",
+    "name": "Quaggoth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=quaggoth",
+    "indexLine": "Quaggoth2Humanoid (Quaggoth)Medium1345chaotic neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "quaggoth-spore-servant",
+    "slug": "quaggoth-spore-servant",
+    "name": "Quaggoth Spore Servant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=quaggoth-spore-servant",
+    "indexLine": "Quaggoth Spore Servant1PlantMedium1345unalignedMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "quasit",
+    "slug": "quasit",
+    "name": "Quasit",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=quasit",
+    "indexLine": "Quasit1Fiend (Demon, Shapechanger)Tiny137chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "quipper",
+    "slug": "quipper",
+    "name": "Quipper",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=quipper",
+    "indexLine": "Quipper0BeastTiny131swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "rakshasa",
+    "slug": "rakshasa",
+    "name": "Rakshasa",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=rakshasa",
+    "indexLine": "Rakshasa13FiendMedium16110lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "rat",
+    "slug": "rat",
+    "name": "Rat",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=rat",
+    "indexLine": "Rat0BeastTiny101unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "raven",
+    "slug": "raven",
+    "name": "Raven",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=raven",
+    "indexLine": "Raven0BeastTiny121flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "red-dragon-wyrmling",
+    "slug": "red-dragon-wyrmling",
+    "name": "Red Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=red-dragon-wyrmling",
+    "indexLine": "Red Dragon Wyrmling4Dragon (Chromatic)Medium1775flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "red-slaad",
+    "slug": "red-slaad",
+    "name": "Red Slaad",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=red-slaad",
+    "indexLine": "Red Slaad5AberrationLarge1493chaotic neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "reef-shark",
+    "slug": "reef-shark",
+    "name": "Reef Shark",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=reef-shark",
+    "indexLine": "Reef Shark1/2BeastMedium1222swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "remorhaz",
+    "slug": "remorhaz",
+    "name": "Remorhaz",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=remorhaz",
+    "indexLine": "Remorhaz11MonstrosityHuge17195unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "revenant",
+    "slug": "revenant",
+    "name": "Revenant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=revenant",
+    "indexLine": "Revenant5UndeadMedium13136neutralMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "rhinoceros",
+    "slug": "rhinoceros",
+    "name": "Rhinoceros",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=rhinoceros",
+    "indexLine": "Rhinoceros2BeastLarge1145unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "riding-horse",
+    "slug": "riding-horse",
+    "name": "Riding Horse",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=riding-horse",
+    "indexLine": "Riding Horse1/4BeastLarge1013unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "roc",
+    "slug": "roc",
+    "name": "Roc",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=roc",
+    "indexLine": "Roc11MonstrosityGargantuan15248flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "roper",
+    "slug": "roper",
+    "name": "Roper",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=roper",
+    "indexLine": "Roper5MonstrosityLarge2093neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "rug-of-smothering",
+    "slug": "rug-of-smothering",
+    "name": "Rug of Smothering",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=rug-of-smothering",
+    "indexLine": "Rug of Smothering2ConstructLarge1233unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "rust-monster",
+    "slug": "rust-monster",
+    "name": "Rust Monster",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=rust-monster",
+    "indexLine": "Rust Monster1/2MonstrosityMedium1427unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "saber-toothed-tiger",
+    "slug": "saber-toothed-tiger",
+    "name": "Saber-Toothed Tiger",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=saber-toothed-tiger",
+    "indexLine": "Saber-Toothed Tiger2BeastLarge1252unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "sahuagin",
+    "slug": "sahuagin",
+    "name": "Sahuagin",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=sahuagin",
+    "indexLine": "Sahuagin1/2Humanoid (Sahuagin)Medium1222swimlawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "sahuagin-baron",
+    "slug": "sahuagin-baron",
+    "name": "Sahuagin Baron",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=sahuagin-baron",
+    "indexLine": "Sahuagin Baron5Humanoid (Sahuagin)Large1676swimlawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "sahuagin-priestess",
+    "slug": "sahuagin-priestess",
+    "name": "Sahuagin Priestess",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=sahuagin-priestess",
+    "indexLine": "Sahuagin Priestess2Humanoid (Sahuagin)Medium1233swimlawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "salamander",
+    "slug": "salamander",
+    "name": "Salamander",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=salamander",
+    "indexLine": "Salamander5ElementalLarge1590neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "satyr",
+    "slug": "satyr",
+    "name": "Satyr",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=satyr",
+    "indexLine": "Satyr1/2FeyMedium1431chaotic neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "scarecrow",
+    "slug": "scarecrow",
+    "name": "Scarecrow",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=scarecrow",
+    "indexLine": "Scarecrow1ConstructMedium1136chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "scorpion",
+    "slug": "scorpion",
+    "name": "Scorpion",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=scorpion",
+    "indexLine": "Scorpion0BeastTiny111unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "scout",
+    "slug": "scout",
+    "name": "Scout",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=scout",
+    "indexLine": "Scout1/2Humanoid (any race)Medium1316any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "sea-hag",
+    "slug": "sea-hag",
+    "name": "Sea Hag",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=sea-hag",
+    "indexLine": "Sea Hag2FeyMedium1452swimchaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "sea-horse",
+    "slug": "sea-horse",
+    "name": "Sea Horse",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=sea-horse",
+    "indexLine": "Sea Horse0BeastTiny111swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "shadow",
+    "slug": "shadow",
+    "name": "Shadow",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=shadow",
+    "indexLine": "Shadow1/2UndeadMedium1216chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "shadow-demon",
+    "slug": "shadow-demon",
+    "name": "Shadow Demon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=shadow-demon",
+    "indexLine": "Shadow Demon4Fiend (Demon)Medium1366flychaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "shambling-mound",
+    "slug": "shambling-mound",
+    "name": "Shambling Mound",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=shambling-mound",
+    "indexLine": "Shambling Mound5PlantLarge15136swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "shield-guardian",
+    "slug": "shield-guardian",
+    "name": "Shield Guardian",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=shield-guardian",
+    "indexLine": "Shield Guardian7ConstructLarge17142unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "shrieker",
+    "slug": "shrieker",
+    "name": "Shrieker",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=shrieker",
+    "indexLine": "Shrieker0PlantMedium513unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "silver-dragon-wyrmling",
+    "slug": "silver-dragon-wyrmling",
+    "name": "Silver Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=silver-dragon-wyrmling",
+    "indexLine": "Silver Dragon Wyrmling2Dragon (Metallic)Medium1745flylawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "skeleton",
+    "slug": "skeleton",
+    "name": "Skeleton",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=skeleton",
+    "indexLine": "Skeleton1/4UndeadMedium1313lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "slaad-tadpole",
+    "slug": "slaad-tadpole",
+    "name": "Slaad Tadpole",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=slaad-tadpole",
+    "indexLine": "Slaad Tadpole1/8AberrationTiny1210chaotic neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "smoke-mephit",
+    "slug": "smoke-mephit",
+    "name": "Smoke Mephit",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=smoke-mephit",
+    "indexLine": "Smoke Mephit1/4ElementalSmall1222flyneutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "solar",
+    "slug": "solar",
+    "name": "Solar",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=solar",
+    "indexLine": "Solar21CelestialLarge21243flylawful goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "spectator",
+    "slug": "spectator",
+    "name": "Spectator",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=spectator",
+    "indexLine": "Spectator3AberrationMedium1439flylawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "specter",
+    "slug": "specter",
+    "name": "Specter",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=specter",
+    "indexLine": "Specter1UndeadMedium1222flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "spider",
+    "slug": "spider",
+    "name": "Spider",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=spider",
+    "indexLine": "Spider0BeastTiny121unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "spined-devil",
+    "slug": "spined-devil",
+    "name": "Spined Devil",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=spined-devil",
+    "indexLine": "Spined Devil2Fiend (Devil)Small1322flylawful evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "spirit-naga",
+    "slug": "spirit-naga",
+    "name": "Spirit Naga",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=spirit-naga",
+    "indexLine": "Spirit Naga8MonstrosityLarge1575chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "sprite",
+    "slug": "sprite",
+    "name": "Sprite",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=sprite",
+    "indexLine": "Sprite1/4FeyTiny152flyneutral goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "spy",
+    "slug": "spy",
+    "name": "Spy",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=spy",
+    "indexLine": "Spy1Humanoid (any race)Medium1227any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "steam-mephit",
+    "slug": "steam-mephit",
+    "name": "Steam Mephit",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=steam-mephit",
+    "indexLine": "Steam Mephit1/4ElementalSmall1021flyneutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "stirge",
+    "slug": "stirge",
+    "name": "Stirge",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=stirge",
+    "indexLine": "Stirge1/8BeastTiny142flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "stone-giant",
+    "slug": "stone-giant",
+    "name": "Stone Giant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=stone-giant",
+    "indexLine": "Stone Giant7GiantHuge17126neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "stone-golem",
+    "slug": "stone-golem",
+    "name": "Stone Golem",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=stone-golem",
+    "indexLine": "Stone Golem10ConstructLarge17178unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "storm-giant",
+    "slug": "storm-giant",
+    "name": "Storm Giant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=storm-giant",
+    "indexLine": "Storm Giant13GiantHuge16230swimchaotic goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "succubus",
+    "slug": "succubus",
+    "name": "Succubus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=succubus",
+    "indexLine": "Succubus4Fiend (Shapechanger)Medium1566flyneutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "swarm-of-bats",
+    "slug": "swarm-of-bats",
+    "name": "Swarm of Bats",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=swarm-of-bats",
+    "indexLine": "Swarm of Bats1/4Swarm of Tiny beastsMedium1222flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "swarm-of-insects",
+    "slug": "swarm-of-insects",
+    "name": "Swarm of Insects",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=swarm-of-insects",
+    "indexLine": "Swarm of Insects1/2Swarm of Tiny beastsMedium1222unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "swarm-of-poisonous-snakes",
+    "slug": "swarm-of-poisonous-snakes",
+    "name": "Swarm of Poisonous Snakes",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=swarm-of-poisonous-snakes",
+    "indexLine": "Swarm of Poisonous Snakes2Swarm of Tiny beastsMedium1436swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "swarm-of-quippers",
+    "slug": "swarm-of-quippers",
+    "name": "Swarm of Quippers",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=swarm-of-quippers",
+    "indexLine": "Swarm of Quippers1Swarm of Tiny beastsMedium1328swimunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "swarm-of-rats",
+    "slug": "swarm-of-rats",
+    "name": "Swarm of Rats",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=swarm-of-rats",
+    "indexLine": "Swarm of Rats1/4Swarm of Tiny beastsMedium1024unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "swarm-of-ravens",
+    "slug": "swarm-of-ravens",
+    "name": "Swarm of Ravens",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=swarm-of-ravens",
+    "indexLine": "Swarm of Ravens1/4Swarm of Tiny beastsMedium1224flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "tarrasque",
+    "slug": "tarrasque",
+    "name": "Tarrasque",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=tarrasque",
+    "indexLine": "Tarrasque30Monstrosity (Titan)Gargantuan25676unalignedLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "thri-kreen",
+    "slug": "thri-kreen",
+    "name": "Thri-kreen",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=thri-kreen",
+    "indexLine": "Thri-kreen1Humanoid (Thri-kreen)Medium1533chaotic neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "thug",
+    "slug": "thug",
+    "name": "Thug",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=thug",
+    "indexLine": "Thug1/2Humanoid (any race)Medium1132any non-good alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "tiger",
+    "slug": "tiger",
+    "name": "Tiger",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=tiger",
+    "indexLine": "Tiger1BeastLarge1237unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "treant",
+    "slug": "treant",
+    "name": "Treant",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=treant",
+    "indexLine": "Treant9PlantHuge16138chaotic goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "tribal-warrior",
+    "slug": "tribal-warrior",
+    "name": "Tribal Warrior",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=tribal-warrior",
+    "indexLine": "Tribal Warrior1/8Humanoid (any race)Medium1211any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "triceratops",
+    "slug": "triceratops",
+    "name": "Triceratops",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=triceratops",
+    "indexLine": "Triceratops5BeastHuge1395unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "tridrone",
+    "slug": "tridrone",
+    "name": "Tridrone",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=tridrone",
+    "indexLine": "Tridrone1/2ConstructMedium1516lawful neutralMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "troglodyte",
+    "slug": "troglodyte",
+    "name": "Troglodyte",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=troglodyte",
+    "indexLine": "Troglodyte1/4Humanoid (Troglodyte)Medium1113chaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "troll",
+    "slug": "troll",
+    "name": "Troll",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=troll",
+    "indexLine": "Troll5GiantLarge1584chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "twig-blight",
+    "slug": "twig-blight",
+    "name": "Twig Blight",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=twig-blight",
+    "indexLine": "Twig Blight1/8PlantSmall134neutral evilMonster Manual (BR)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "tyrannosaurus-rex",
+    "slug": "tyrannosaurus-rex",
+    "name": "Tyrannosaurus Rex",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=tyrannosaurus-rex",
+    "indexLine": "Tyrannosaurus Rex8BeastHuge13136unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "ultroloth",
+    "slug": "ultroloth",
+    "name": "Ultroloth",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=ultroloth",
+    "indexLine": "Ultroloth13Fiend (Yugoloth)Medium19153flyneutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "umber-hulk",
+    "slug": "umber-hulk",
+    "name": "Umber Hulk",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=umber-hulk",
+    "indexLine": "Umber Hulk5MonstrosityLarge1893chaotic evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "unicorn",
+    "slug": "unicorn",
+    "name": "Unicorn",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=unicorn",
+    "indexLine": "Unicorn5CelestialLarge1267lawful goodLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "vampire",
+    "slug": "vampire",
+    "name": "Vampire",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=vampire",
+    "indexLine": "Vampire13Undead (Shapechanger)Medium16144lawful evilLegendaryMonster Manual (SRD)",
+    "legendary": true,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "vampire-spawn",
+    "slug": "vampire-spawn",
+    "name": "Vampire Spawn",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=vampire-spawn",
+    "indexLine": "Vampire Spawn5UndeadMedium1582neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "veteran",
+    "slug": "veteran",
+    "name": "Veteran",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=veteran",
+    "indexLine": "Veteran3Humanoid (any race)Medium1758any alignmentMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "vine-blight",
+    "slug": "vine-blight",
+    "name": "Vine Blight",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=vine-blight",
+    "indexLine": "Vine Blight1/2PlantMedium1226neutral evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "violet-fungus",
+    "slug": "violet-fungus",
+    "name": "Violet Fungus",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=violet-fungus",
+    "indexLine": "Violet Fungus1/4PlantMedium518unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "vrock",
+    "slug": "vrock",
+    "name": "Vrock",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=vrock",
+    "indexLine": "Vrock6Fiend (Demon)Large15104flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "vulture",
+    "slug": "vulture",
+    "name": "Vulture",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=vulture",
+    "indexLine": "Vulture0BeastMedium105flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "warhorse",
+    "slug": "warhorse",
+    "name": "Warhorse",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=warhorse",
+    "indexLine": "Warhorse1/2BeastLarge1119unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "warhorse-skeleton",
+    "slug": "warhorse-skeleton",
+    "name": "Warhorse Skeleton",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=warhorse-skeleton",
+    "indexLine": "Warhorse Skeleton1/2UndeadLarge1322lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "water-elemental",
+    "slug": "water-elemental",
+    "name": "Water Elemental",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=water-elemental",
+    "indexLine": "Water Elemental5ElementalLarge14114swimneutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "water-weird",
+    "slug": "water-weird",
+    "name": "Water Weird",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=water-weird",
+    "indexLine": "Water Weird3ElementalLarge1358swimneutralMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "weasel",
+    "slug": "weasel",
+    "name": "Weasel",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=weasel",
+    "indexLine": "Weasel0BeastTiny131unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "werebear",
+    "slug": "werebear",
+    "name": "Werebear",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=werebear",
+    "indexLine": "Werebear5Humanoid (Human, Shapechanger)Medium10135neutral goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "wereboar",
+    "slug": "wereboar",
+    "name": "Wereboar",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=wereboar",
+    "indexLine": "Wereboar4Humanoid (Human, Shapechanger)Medium1078neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "wererat",
+    "slug": "wererat",
+    "name": "Wererat",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=wererat",
+    "indexLine": "Wererat2Humanoid (Human, Shapechanger)Medium1233lawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "weretiger",
+    "slug": "weretiger",
+    "name": "Weretiger",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=weretiger",
+    "indexLine": "Weretiger4Humanoid (Human, Shapechanger)Medium12120neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "werewolf",
+    "slug": "werewolf",
+    "name": "Werewolf",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=werewolf",
+    "indexLine": "Werewolf3Humanoid (Human, Shapechanger)Medium1158chaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "white-dragon-wyrmling",
+    "slug": "white-dragon-wyrmling",
+    "name": "White Dragon Wyrmling",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=white-dragon-wyrmling",
+    "indexLine": "White Dragon Wyrmling2Dragon (Chromatic)Medium1632fly, swimchaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "wight",
+    "slug": "wight",
+    "name": "Wight",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=wight",
+    "indexLine": "Wight3UndeadMedium1445neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "will-o-wisp",
+    "slug": "will-o--wisp",
+    "name": "Will-o'-Wisp",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=will-o--wisp",
+    "indexLine": "Will-o'-Wisp2UndeadTiny1922flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "winged-kobold",
+    "slug": "winged-kobold",
+    "name": "Winged Kobold",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=winged-kobold",
+    "indexLine": "Winged Kobold1/4Humanoid (Kobold)Small137flylawful evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "winter-wolf",
+    "slug": "winter-wolf",
+    "name": "Winter Wolf",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=winter-wolf",
+    "indexLine": "Winter Wolf3MonstrosityLarge1375neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "wolf",
+    "slug": "wolf",
+    "name": "Wolf",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=wolf",
+    "indexLine": "Wolf1/4BeastMedium1311unalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "worg",
+    "slug": "worg",
+    "name": "Worg",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=worg",
+    "indexLine": "Worg1/2MonstrosityLarge1326neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "wraith",
+    "slug": "wraith",
+    "name": "Wraith",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=wraith",
+    "indexLine": "Wraith5UndeadMedium1367flyneutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "wyvern",
+    "slug": "wyvern",
+    "name": "Wyvern",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=wyvern",
+    "indexLine": "Wyvern6DragonLarge13110flyunalignedMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "xorn",
+    "slug": "xorn",
+    "name": "Xorn",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=xorn",
+    "indexLine": "Xorn5ElementalMedium1973neutralMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "yeti",
+    "slug": "yeti",
+    "name": "Yeti",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=yeti",
+    "indexLine": "Yeti3MonstrosityLarge1251chaotic evilMonster Manual (BR)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "yochlol",
+    "slug": "yochlol",
+    "name": "Yochlol",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=yochlol",
+    "indexLine": "Yochlol10Fiend (Demon, Shapechanger)Medium15136chaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-black-dragon",
+    "slug": "young-black-dragon",
+    "name": "Young Black Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-black-dragon",
+    "indexLine": "Young Black Dragon7Dragon (Chromatic)Large18127fly, swimchaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-blue-dragon",
+    "slug": "young-blue-dragon",
+    "name": "Young Blue Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-blue-dragon",
+    "indexLine": "Young Blue Dragon9Dragon (Chromatic)Large18152flylawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-brass-dragon",
+    "slug": "young-brass-dragon",
+    "name": "Young Brass Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-brass-dragon",
+    "indexLine": "Young Brass Dragon6Dragon (Metallic)Large17110flychaotic goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-bronze-dragon",
+    "slug": "young-bronze-dragon",
+    "name": "Young Bronze Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-bronze-dragon",
+    "indexLine": "Young Bronze Dragon8Dragon (Metallic)Large18142fly, swimlawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-copper-dragon",
+    "slug": "young-copper-dragon",
+    "name": "Young Copper Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-copper-dragon",
+    "indexLine": "Young Copper Dragon7Dragon (Metallic)Large17119flychaotic goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-gold-dragon",
+    "slug": "young-gold-dragon",
+    "name": "Young Gold Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-gold-dragon",
+    "indexLine": "Young Gold Dragon10Dragon (Metallic)Large18178fly, swimlawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-green-dragon",
+    "slug": "young-green-dragon",
+    "name": "Young Green Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-green-dragon",
+    "indexLine": "Young Green Dragon8Dragon (Chromatic)Large18136fly, swimlawful evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-red-dragon",
+    "slug": "young-red-dragon",
+    "name": "Young Red Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-red-dragon",
+    "indexLine": "Young Red Dragon10Dragon (Chromatic)Large18178flychaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-red-shadow-dragon",
+    "slug": "young-red-shadow-dragon",
+    "name": "Young Red Shadow Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-red-shadow-dragon",
+    "indexLine": "Young Red Shadow Dragon13DragonLarge18178flychaotic evilMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-remorhaz",
+    "slug": "young-remorhaz",
+    "name": "Young Remorhaz",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-remorhaz",
+    "indexLine": "Young Remorhaz5MonstrosityLarge1493unalignedMonster Manual",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-silver-dragon",
+    "slug": "young-silver-dragon",
+    "name": "Young Silver Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-silver-dragon",
+    "indexLine": "Young Silver Dragon9Dragon (Metallic)Large18168flylawful goodMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "young-white-dragon",
+    "slug": "young-white-dragon",
+    "name": "Young White Dragon",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=young-white-dragon",
+    "indexLine": "Young White Dragon6Dragon (Chromatic)Large17133fly, swimchaotic evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "yuan-ti-abomination",
+    "slug": "yuan-ti-abomination",
+    "name": "Yuan-ti Abomination",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=yuan-ti-abomination",
+    "indexLine": "Yuan-ti Abomination7Monstrosity (Shapechanger, Yuan-ti)Large15127neutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "yuan-ti-malison",
+    "slug": "yuan-ti-malison",
+    "name": "Yuan-ti Malison",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=yuan-ti-malison",
+    "indexLine": "Yuan-ti Malison3Monstrosity (Shapechanger, Yuan-ti)Medium1266neutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "yuan-ti-pureblood",
+    "slug": "yuan-ti-pureblood",
+    "name": "Yuan-ti Pureblood",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=yuan-ti-pureblood",
+    "indexLine": "Yuan-ti Pureblood1Humanoid (Yuan-ti)Medium1140neutral evilMonster Manual (BR+)",
+    "legendary": false,
+    "source": "Monster Manual"
+  },
+  {
+    "id": "zombie",
+    "slug": "zombie",
+    "name": "Zombie",
+    "url": "https://www.aidedd.org/dnd/monstres.php?vo=zombie",
+    "indexLine": "Zombie1/4UndeadMedium822neutral evilMonster Manual (SRD)",
+    "legendary": false,
+    "source": "Monster Manual"
+  }
+]

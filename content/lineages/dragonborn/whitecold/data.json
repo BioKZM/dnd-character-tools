@@ -1,0 +1,53 @@
+{
+  "id": "whitecold",
+  "name": "WhiteCold",
+  "summary": "Breath Weapon.When you take the Attack action on your turn, you can replace one of your attacks with an exhalation of magical energy in a 30-foot line that is 5 feet wide. Each creature in that area must make a Dexterity saving throw (DC = 8 + your Constitution modifier + your proficiency bonus). On a failed save, the creature takes 1d10 damage of the type associated with your Chromatic Ancestry. On a successful save, it takes half as much damage. This damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10). You can use your Breath Weapon a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest.",
+  "bonuses": [
+    "Draconic Resistance.You have resistance to the damage type associated with your Chromatic Ancestry.",
+    "Languages.You can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character.",
+    "Metallic",
+    "Ability Score Increase.Increase one ability score by 2 and increase a different one by 1, or you increase three different scores by 1.",
+    "Type.You are a Humanoid.",
+    "Size.You are Medium."
+  ],
+  "traits": [
+    {
+      "id": "breath-weapon",
+      "name": "Breath Weapon",
+      "summary": "When you take the Attack action on your turn, you can replace one of your attacks with an exhalation of magical energy in a 30-foot line that is 5 feet wide. Each creature in that area must make a Dexterity saving throw (DC = 8 + your Constitution modifier + your proficiency bonus). On a failed save, the creature takes 1d10 damage of the type associated with your Chromatic Ancestry. On a successful save, it takes half as much damage. This damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10). You can use your Breath Weapon a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest."
+    },
+    {
+      "id": "draconic-resistance",
+      "name": "Draconic Resistance",
+      "summary": "You have resistance to the damage type associated with your Chromatic Ancestry."
+    },
+    {
+      "id": "chromatic-warding",
+      "name": "Chromatic Warding",
+      "summary": "Starting at 5th level, as an action, you can channel your draconic energy to protect yourself. For 1 minute, you become immune to the damage type associated with your Chromatic Ancestry. Once you use this trait, you can’t do so again until you finish a long rest."
+    },
+    {
+      "id": "metallic-ancestry",
+      "name": "Metallic Ancestry",
+      "summary": "You trace your ancestry to a metallic dragon, granting you a special magical affinity. Choose one type of dragon from the Metallic Ancestry table. This determines the damage type for your other traits as shown in the table."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Increase one ability score by 2 and increase a different one by 1, or you increase three different scores by 1."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    }
+  ]
+}

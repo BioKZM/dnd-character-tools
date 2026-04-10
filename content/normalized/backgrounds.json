@@ -1,0 +1,839 @@
+[
+  {
+    "id": "acolyte",
+    "name": "Acolyte",
+    "summary": "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Insight, Religion",
+    "toolProficiencies": "None",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "anthropologist",
+    "name": "Anthropologist",
+    "summary": "Before becoming an adventurer, you spent much of your adult life away from your homeland, living among people different from your kin. You came to understand these foreign cultures and the ways of their people, who eventually treated you as one of their own. One culture had more of an influence on you than any other, shaping your beliefs and customs. Choose a race whose culture you've adopted.",
+    "source": "Tomb of Annihilation",
+    "skillProficiencies": "Insight, Religion",
+    "toolProficiencies": "None",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "archaeologist",
+    "name": "Archaeologist",
+    "summary": "Prior to becoming an adventurer, you spent most of your young life crawling around in the dust, pilfering relics of questionable value from crypts and ruins. Though you managed to sell a few of your discoveries and earn enough coin to buy proper adventuring gear, you have held onto an item that has great emotional value to you. Roll on the Signature Item table to see what you have, or choose an item from the table.",
+    "source": "Tomb of Annihilation",
+    "skillProficiencies": "History, Survival",
+    "toolProficiencies": "Cartographer's tools or navigator's tools",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "ashari",
+    "name": "Ashari",
+    "summary": "Growing up surrounded by wild elemental magics has attuned your senses to those chaotic forces, enabling you to subtly bend them to your will. As an action, you channel minor magic involving the element of your chosen Ashari order, giving you one of the following abilities:",
+    "source": "Tal'Dorei Campaign Setting Reborn",
+    "skillProficiencies": "Nature, plus your choice of Arcana or Survival",
+    "toolProficiencies": "Herbalism kit",
+    "languages": "Primordial (Aquan, Auran, Ignan, or Terran, depending on the elemental affinity of your tribe)"
+  },
+  {
+    "id": "astral-drifter",
+    "name": "Astral Drifter",
+    "summary": "You are 20d6 years older than you look, because you have spent that much time in the Astral Sea without aging.",
+    "source": "Spelljamer: Adventures in Space - Astral Adventurer's Guide",
+    "skillProficiencies": "Insight, Religion",
+    "toolProficiencies": "",
+    "languages": "Two of your choice (Celestial or Gith recommended)"
+  },
+  {
+    "id": "athlete",
+    "name": "Athlete",
+    "summary": "You strive to perfect yourself physically and in execution of everything you do. The thrill of competition lights fire in your blood, and the roar of the crowd drives you forward. Tales of your exploits precede you and might open doors or loosen tongues.",
+    "source": "Mythic Odysseys of Theros",
+    "skillProficiencies": "Acrobatics, Athletics",
+    "toolProficiencies": "Vehicles (Land)",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "azorius-functionary",
+    "name": "Azorius Functionary",
+    "summary": "You have the authority to enforce the laws of Ravnica, and that status inspires a certain amount of respect and even fear in the populace. People mind their manners in your presence and avoid drawing your attention: they assume you have the right to be wherever you are. Showing your Azorius insignia gets you an audience with anyone you want to talk to (though it might cause more problems than it solves when you're dealing with incorrigible lawbreakers). If you abuse this privilege, though, you can get in serious trouble with your superiors and even be stripped of your position.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Insight, Intimidation",
+    "toolProficiencies": "",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "black-fist-double-agent",
+    "name": "Black Fist Double Agent",
+    "summary": "You are an informant for the Tears of Virulence who now lord over Phlan, but are also a double agent for the original town guard of Phlan, the Black Fist. For the Tears you’ve been tasked with ferreting out the secrets of Phlan's criminal underworld, insurgency, and the common peoples of Phlan. In exchange for reporting on the activities of dissenters, criminals, and other rebel elements, the Tears of Virulence leave you alone to conduct your affairs in peace.",
+    "source": "Curse of Strahd: Optional Backgrounds",
+    "skillProficiencies": "Deception, Insight",
+    "toolProficiencies": "Disguise Kit, and one type of artisan’s tools or gaming set",
+    "languages": ""
+  },
+  {
+    "id": "boros-legionnaire",
+    "name": "Boros Legionnaire",
+    "summary": "You have an established place in the hierarchy of the Boros Legion. You can requisition simple equipment for temporary use, and you can gain access to any Boros garrison in Ravnica, where you can rest in safety and receive the attention of medics. You are also paid a salary of 1 gp (a Boros-minted 1 zino coin) per week, which (combined with free lodging in your garrison) enables you to maintain a poor lifestyle between adventures.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Athletics, Intimidation",
+    "toolProficiencies": "One type of gaming set",
+    "languages": "Choose one of Celestial, Draconic, Goblin, or Minotaur"
+  },
+  {
+    "id": "caravan-specialist",
+    "name": "Caravan Specialist",
+    "summary": "You are used to life on the road. You pride yourself at having traveled every major tradeway in the Moonsea region, including the best back roads and shortcuts. When traveling these roads, you know where the best inns, campsites, and water sources are located, as well as potential locations of danger such as ambush. Having worked the roads as long as you have, you have made many acquaintances and find it easy to pick up information and rumors floating from town to town. You are skilled with beasts of burden and handling and repairing wagons of all kinds.",
+    "source": "Mulmaster Bonds and Backgrounds",
+    "skillProficiencies": "Animal Handling, Survival",
+    "toolProficiencies": "Land Vehicles",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "celebrity-adventurers-scion",
+    "name": "Celebrity Adventurer's Scion",
+    "summary": "Your family name strikes fear and admiration in the hearts of the common folk - but that's got nothing to do with you. Songs and stories celebrating the adventuring exploits of your famous parent are widely known. Kids across the land grew up wishing they were you. But being the child of a famous adventurer wasn't all hugs and kisses.",
+    "source": "Acquisitions Incorporated",
+    "skillProficiencies": "Perception, Performance",
+    "toolProficiencies": "Disguise kit",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "charlatan",
+    "name": "Charlatan",
+    "summary": "Every charlatan has an angle they use in preference to other schemes. Choose a favorite scam or roll on the table below.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Deception, Sleight of Hand",
+    "toolProficiencies": "Disguise kit, forgery kit",
+    "languages": "None"
+  },
+  {
+    "id": "city-watch",
+    "name": "City Watch",
+    "summary": "Rarer than watch or patrol members are a community's investigators, who are responsible for solving crimes after the fact. Though such folk are seldom found in rural areas, nearly every settlement of decent size has at least one or two watch members who have the skill to investigate crime scenes and track down criminals. If your prior experience is as an investigator, you have proficiency in Investigation rather than Athletics.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Athletics, Insight",
+    "toolProficiencies": "None",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "clan-crafter",
+    "name": "Clan Crafter",
+    "summary": "As well respected as clan crafters are among outsiders, no one esteems them quite so highly as dwarves do. You always have free room and board in any place where shield dwarves or gold dwarves dwell, and the individuals in such a settlement might vie among themselves to determine who can offer you (and possibly your compatriots) the finest accommodations and assistance.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "History, Insight",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": "Dwarvish or one other of your choice if you already speak Dwarvish"
+  },
+  {
+    "id": "cloistered-scholar",
+    "name": "Cloistered Scholar",
+    "summary": "Though others must often endure extensive interviews and significant fees to gain access to even the most common archives in your library, you have free and easy access to the majority of the library, though it might also have repositories of lore that are too valuable, magical, or secret to permit anyone immediate access.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "History, plus your choice of one from among Arcana, Nature, and Religion",
+    "toolProficiencies": "None",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "cormanthor-refugee",
+    "name": "Cormanthor Refugee",
+    "summary": "You are one of hundreds of refugees who were driven from Hillsfar or who fled the destruction of Myth Drannor and who now shelter in hidden camps under the northern eaves of the Cormanthor Forest. If you grew up in the camps, you have never been to a settlement other than the village of Elventree. As a guest of the elves, you have learned their ways and the ways of the forest. You are also traumatized, as residual wild magic, energies released by the fall of Thultanar upon Myth Drannor, and the constant fear of raids hunting for non-humans to fight in Hillsfar's Arena, have taken their toll on you, as they have on everyone in the camps.",
+    "source": "State of Hillsfar",
+    "skillProficiencies": "Nature, Survival",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": ""
+  },
+  {
+    "id": "courtier",
+    "name": "Courtier",
+    "summary": "Your knowledge of how bureaucracies function lets you gain access to the records and inner workings of any noble court or government you encounter. You know who the movers and shakers are, whom to go to for the favors you seek, and what the current intrigues of interest in the group are.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Insight, Persuasion",
+    "toolProficiencies": "None",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "criminal",
+    "name": "Criminal",
+    "summary": "Although your capabilities are not much different from those of a burglar or smuggler, you learned and practiced them in a very different context: as an espionage agent. You might have been an officially sanctioned agent of the crown, or perhaps you sold the secrets you uncovered to the highest bidder.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Deception, Stealth",
+    "toolProficiencies": "One type of gaming set, thieves' tools",
+    "languages": "None"
+  },
+  {
+    "id": "dimir-operative",
+    "name": "Dimir Operative",
+    "summary": "You have more than one identity. The one you wear most of the time makes you appear to be a member of a guild other than House Dimir. You have documentation, established acquaintances, and disguises that allow you to assume that persona and fit into the secondary guild.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Deception, Stealth",
+    "toolProficiencies": "Disguise kit",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "dissenter",
+    "name": "Dissenter",
+    "summary": "Even in the carefully constructed and curated city-state of Naktamun, and in the presence of the five gods, some people rebel against the doctrines of the God-Pharaoh. They don’t challenge the existence of the gods, of course, for those gods are visible nearly every day in the streets of the city. Nor do they question the fact of life after death, which is plain to see in the anointed mummies that surround them, as well as the marauding mummies outside the Hekma. Rather, these dissenters simply refuse to follow the ordained course of life that leads to the glorious afterlife.",
+    "source": "Plane Shift - Amonkhet",
+    "skillProficiencies": "",
+    "toolProficiencies": "",
+    "languages": ""
+  },
+  {
+    "id": "dragon-casualty",
+    "name": "Dragon Casualty",
+    "summary": "When the Maimed Virulence descended upon Phlan, you were one of the unfortunate casualties of war. Captured during the initial assault, you have spent the last year of your life as a plaything of a capricious and malevolent overlord.",
+    "source": "Curse of Strahd: Optional Backgrounds",
+    "skillProficiencies": "Intimidation, Survival",
+    "toolProficiencies": "Special (see origin below)",
+    "languages": "Draconic"
+  },
+  {
+    "id": "earthspur-miner",
+    "name": "Earthspur Miner",
+    "summary": "You are a down-on-your-luck miner from the Earthspur Mountains who is no stranger to hardship. You have spent a great deal of time living among the dwarves, goliaths, and denizens of the Underdark who also work mines in the area. At this point, you're just as comfortable working underground as above. You know how to read a seam, dicker for supplies with the deep gnomes, party with dwarves, and find your way back to the surface afterward. Unfortunately, you haven't struck it rich… yet. Although you've come to Mulmaster looking for work, the tall peaks and deep mines of the Earthspurs still call to you.",
+    "source": "Mulmaster Bonds and Backgrounds",
+    "skillProficiencies": "Athletics, Survival",
+    "toolProficiencies": "",
+    "languages": "Dwarven and Undercommon"
+  },
+  {
+    "id": "entertainer",
+    "name": "Entertainer",
+    "summary": "A gladiator is as much an entertainer as any minstrel or circus performer trained to make the arts of combat into a spectacle the crowd can enjoy. This kind of flashy combat is your entertainer routine, though you might also have some skills as a tumbler or actor. Using your By Popular Demand feature, you can find a place to perform in any place that features combat for entertainment-perhaps a gladiatorial arena or secret pit fighting club. You can replace the musical instrument in your equipment package with an inexpensive but unusual weapon, such as a trident or net.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Acrobatics, Performance",
+    "toolProficiencies": "Disguise kit, one type of musical instrument",
+    "languages": "None"
+  },
+  {
+    "id": "faceless",
+    "name": "Faceless",
+    "summary": "A faceless character adventures behind a mask of a public persona. This persona is as natural to them as their hidden, true face, but it disguises their identity. Roll on the Faceless Persona table to determine your persona, or work with the DM to create a persona that's unique to your character and suits the tone of your game.",
+    "source": "Baldur's Gate - Descent into Avernus",
+    "skillProficiencies": "Deception, Intimidation",
+    "toolProficiencies": "Disguise kit",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "faction-agent",
+    "name": "Faction Agent",
+    "summary": "The lack of large, centralized governments in the North and along the Sword Coast is likely directly responsible for the proliferation of secret societies and conspiracies in those lands. If your background is as an agent for one of the main factions of the North and Sword Coast, here are some possibilities.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Insight and one Intelligence, Wisdom, or Charisma skill of your choice, as appropriate to your faction",
+    "toolProficiencies": "None",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "failed-merchant",
+    "name": "Failed Merchant",
+    "summary": "Maybe you come from a long line of merchants. Perhaps you were an entrepreneur. Regardless. your ventures ended poorly. Whether it was because of outside influences, bad luck, or simply because your business acumen was weak, you lost everything.",
+    "source": "Acquisitions Incorporated",
+    "skillProficiencies": "Investigation, Persuasion",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": "Any one of your choice"
+  },
+  {
+    "id": "far-traveler",
+    "name": "Far Traveler",
+    "summary": "A far traveler might have set out on a journey for one of a number of reasons, and the departure from his or her homeland could have been voluntary or involuntary. To determine why you are so far from home, roll on the table below or choose from the options provided. The following section, discussing possible homelands, includes some suggested reasons that are appropriate for each location.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Insight, Perception",
+    "toolProficiencies": "Any one musical instrument or gaming set of your choice, likely something native to your homeland",
+    "languages": "Any one of your choice"
+  },
+  {
+    "id": "feylost",
+    "name": "Feylost",
+    "summary": "You were transformed in some small way by your stay in the Feywild and gained a fey mark, determined by rolling on the Fey Mark table.",
+    "source": "The Wild Beyond the Witchlight",
+    "skillProficiencies": "Deception, Survival",
+    "toolProficiencies": "One type of musical instrument",
+    "languages": "One of your choice of Elvish, Gnomish, Goblin, or Sylvan."
+  },
+  {
+    "id": "fisher",
+    "name": "Fisher",
+    "summary": "You have spent your life aboard fishing vessels or combing the shallows for the bounty of the ocean. Perhaps you were born into a family of fisher folk, working with your kin to feed your village. Maybe the job was a means to an end - a way out of an undesirable circumstance that forced you to take up life aboard a ship. Regardless of how you began, you soon fell in love with the sea, the art of fishing, and the promise of the eternal horizon.",
+    "source": "Ghosts of Saltmarsh",
+    "skillProficiencies": "History, Survival",
+    "toolProficiencies": "",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "folk-hero",
+    "name": "Folk Hero",
+    "summary": "You previously pursued a simple profession among the peasantry, perhaps as a farmer, miner, servant, shepherd, woodcutter, or gravedigger. But something happened that set you on a different path and marked you for greater things. Choose or randomly determine a defining event that marked you as a hero of the people.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Animal Handling, Survival",
+    "toolProficiencies": "One type of artisan's tools, vehicles (land)",
+    "languages": "None"
+  },
+  {
+    "id": "gambler",
+    "name": "Gambler",
+    "summary": "All you need to make a lot of gold is a little gold. Except at those times when all you need to have no gold at all is a little gold. Whether you're a good gambler or a bad one rarely matters, because no one can divine the whims of Lady Luck. Sometimes you're up, sometimes you're down. But the thing about gambling is that someone is always willing to take a bet.",
+    "source": "Acquisitions Incorporated",
+    "skillProficiencies": "Deception, Insight",
+    "toolProficiencies": "One gaming set",
+    "languages": "Any one of your choice"
+  },
+  {
+    "id": "gate-urchin",
+    "name": "Gate Urchin",
+    "summary": "All traffic into and out of the City of Trade passes through the Hillsfar Gate, making it the ideal place for the destitute to gather to panhandle, busk, gossip, and pick pockets. You grew up on the streets in the shadow of that great steel edifice, which houses both Red Plumes and Guild Mages. Though you may have moved on, you still have friends among them, and that life has had a lasting impact on you.",
+    "source": "State of Hillsfar",
+    "skillProficiencies": "Deception, Sleight of Hand",
+    "toolProficiencies": "Thieves' tools, one type of musical instrument",
+    "languages": ""
+  },
+  {
+    "id": "gate-warden",
+    "name": "Gate Warden",
+    "summary": "Prerequisite:Planescape Campaign",
+    "source": "Planescape - Adventures in the Multiverse",
+    "skillProficiencies": "Persuasion, Survival",
+    "toolProficiencies": "",
+    "languages": "Two of your choice (Abyssal, Celestial, or Infernal recommended)"
+  },
+  {
+    "id": "giant-foundling",
+    "name": "Giant Foundling",
+    "summary": "How you came to live among colossal creatures is up to you to determine, but the Foundling Origin table suggests a variety of possibilities.",
+    "source": "Bigby Presents - Glory of the Giants",
+    "skillProficiencies": "Intimidation, Survival",
+    "toolProficiencies": "",
+    "languages": "Giant and one other language of your choice"
+  },
+  {
+    "id": "golgari-agent",
+    "name": "Golgari Agent",
+    "summary": "You know hidden, underground pathways that you can use to bypass crowds, obstacles, and observation as you move through the city. When you aren't in combat, you and companions you lead can travel between any two locations in the city twice as fast as your speed would normally allow. The paths of the undercity are haunted by dangers that rarely brave the light of the surface world, so your journey isn't guaranteed to be safe.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Nature, Survival",
+    "toolProficiencies": "Poisoner's Kit",
+    "languages": "Choose one of Elvish, Giant, or Kraul"
+  },
+  {
+    "id": "grinner",
+    "name": "Grinner",
+    "summary": "All members of the Golden Grin have learned a handful of folk songs in their travels, and use those songs to send secret codes and alert fellow Grinners to danger. Choose a favorite song or roll on the Favorite Code-Songs table.",
+    "source": "Explorer's Guide to Wildemount",
+    "skillProficiencies": "Deception, Performance",
+    "toolProficiencies": "One type of musical instrument, thieves' tools",
+    "languages": "None"
+  },
+  {
+    "id": "gruul-anarch",
+    "name": "Gruul Anarch",
+    "summary": "You are intimately familiar with areas of the city that most people shun: ruined neighborhoods where wurms rampaged, overgrown parks that no hand has tended in decades, and the vast, sprawling rubblebelts of broken terrain that civilized folk have long abandoned. You can find a suitable place for you and your allies to hide or rest in these areas. In addition, you can find food and fresh water in these areas for yourself and up to five other people each day.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Animal Handling, Athletics",
+    "toolProficiencies": "Herbalism Kit",
+    "languages": "Choose one of Draconic, Giant, Goblin, or Sylvan"
+  },
+  {
+    "id": "guild-artisan",
+    "name": "Guild Artisan",
+    "summary": "Instead of an artisans' guild, you might belong to a guild of traders, caravan masters, or shopkeepers. You don't craft items yourself but earn a living by buying and selling the works of others (or the raw materials artisans need to practice their craft). Your guild might be a large merchant consortium (or family) with interests across the region. Perhaps you transported goods from one place to another, by ship, wagon, or caravan, or bought them from traveling traders and sold them in your own little shop. In some ways, the traveling merchant's life lends itself to adventure far more than the life of an artisan.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Insight, Persuasion",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "harborfolk",
+    "name": "Harborfolk",
+    "summary": "You are one of the hundreds of small-time fishermen and -women who haul the bounty of Mulmaster's freshwater harbor to the city's markets each morning. You have spent countless days rowing in the waters in and around Mulmaster and know them and the other fisher folk, dockworkers, and port inhabitants better than anyone. Though you have left that life behind, you still visit once in a while.",
+    "source": "Mulmaster Bonds and Backgrounds",
+    "skillProficiencies": "Athletics, Sleight of Hand",
+    "toolProficiencies": "One type of gaming set, vehicles (water)",
+    "languages": ""
+  },
+  {
+    "id": "haunted-one",
+    "name": "Haunted One",
+    "summary": "1 Chest - Value:5gp Weight:25lbs",
+    "source": "Curse of Strahd",
+    "skillProficiencies": "Choose two of Arcana, Investigation, Religion, or Survival",
+    "toolProficiencies": "None",
+    "languages": "Choose two languages, one of which being an exotic language (Abyssal, Celestial, Deep Speech, Draconic, Infernal, Primordial, Sylvan, or Undercommon)"
+  },
+  {
+    "id": "hermit",
+    "name": "Hermit",
+    "summary": "What was the reason for your isolation, and what changed to allow you to end your solitude? You can work with your DM to determine the exact nature of your seclusion, or you can choose to roll on the table below to determine the reason behind your seclusion.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Medicine, Religion",
+    "toolProficiencies": "Herbalism kit",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "hillsfar-merchant",
+    "name": "Hillsfar Merchant",
+    "summary": ", { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });",
+    "source": "",
+    "skillProficiencies": "Insight, Persuasion",
+    "toolProficiencies": "Vehicles (land) and vehicles (water)",
+    "languages": ""
+  },
+  {
+    "id": "hillsfar-smuggler",
+    "name": "Hillsfar Smuggler",
+    "summary": "Hillsfar is the City of Trade. However, the Great Law of Trade only protects \"legitimate\" trade, trade that passes through the city's sole gate, which the Red Plumes monitor and tax. And the Great Law of Humanity banishes non-humans from the city altogether. The two Great Laws create great demand and great risk for smugglers, who shepherd illicit goods and non-humans into and out of the city by secret routes. The Rogues' Guild tightly controls all of this activity, taking its cut from sanctioned jobs and exacting punishment for independent jobs.",
+    "source": "State of Hillsfar",
+    "skillProficiencies": "Perception, Stealth",
+    "toolProficiencies": "Forgery kit",
+    "languages": ""
+  },
+  {
+    "id": "house-agent",
+    "name": "House Agent",
+    "summary": "Your HouseHouse Tool Proficiencies",
+    "source": "Eberron - Rising from the Last War",
+    "skillProficiencies": "Investigation, Persuasion",
+    "toolProficiencies": "Two proficiencies from the House Tool Proficiencies table",
+    "languages": "None"
+  },
+  {
+    "id": "inheritor",
+    "name": "Inheritor",
+    "summary": "Choose or randomly determine your inheritance from among the possibilities in the table below. Work with your DM to come up with details: Why is your inheritance so important, and what is its full story? You might prefer for the DM to invent these details as part of the game, allowing you to learn more about your inheritance as your character does.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Survival, plus one from among Arcana, History, and Religion",
+    "toolProficiencies": "Your choice of a gaming set or a musical instrument",
+    "languages": "Any one of your choice"
+  },
+  {
+    "id": "initiate",
+    "name": "Initiate",
+    "summary": "Your life is oriented around your participation in the five trials that will determine your worthiness in the afterlife. While you prepare for and undergo those trials, you have constant access to training. A comfortable place to live and regular meals are provided to you by servitor mummies (the anointed) under the supervision of viziers. You can enjoy these benefits only as long as you obey the societal norms of Naktamun—training for the trials (with or without your crop), obeying the orders of the gods, and following the instructions of their viziers. If you violate these norms, you risk being treated as a dissenter.",
+    "source": "Plane Shift - Amonkhet",
+    "skillProficiencies": "Athletics, Intimidation",
+    "toolProficiencies": "One type of gaming set, vehicles (land)",
+    "languages": ""
+  },
+  {
+    "id": "inquisitor",
+    "name": "Inquisitor",
+    "summary": "As an inquisitor of the church, you have the authority to arrest criminals. In the absence of other authorities, you are authorized to pass judgment and even carry out sentencing. If you abuse this power, however, your superiors in the church might strip it from you.",
+    "source": "Plane Shift - Innistrad",
+    "skillProficiencies": "Investigation, Religion",
+    "toolProficiencies": "Thieves' tools, one set of artisan's tools of your choice",
+    "languages": ""
+  },
+  {
+    "id": "investigator",
+    "name": "Investigator (VRGR)",
+    "summary": "Your first case influenced the types of mysteries you're interested in. Why was this case so impactful, personal, or traumatic? Whom did it affect besides you? Why and how did you get involved? Was it solved? How did it set you on the path to investigating other mysteries? Roll on or choose details from the First Case table below to develop the mystery that started your career as an investigator.",
+    "source": "Van Richten's Guide to Ravenloft",
+    "skillProficiencies": "Choose two from among Insight, Investigation, or Perception",
+    "toolProficiencies": "Disguise kit, thieves' tools",
+    "languages": ""
+  },
+  {
+    "id": "iron-route-bandit",
+    "name": "Iron Route Bandit",
+    "summary": "The Iron Route, once the primary trade route between Phlan and Zhentil Keep, used to be a site of extensive banditry until the Phlan’s recent occupation. Your time as an erstwhile bandit has given you plenty of experience in the saddle and a knack for acquiring and appraising other people’s mounts, pets, and vehicles among other things. This particular set of skills has become very lucrative for you by working for the underground as a horse thief for a local guild of thieves and other shadowy organizations.",
+    "source": "Curse of Strahd: Optional Backgrounds",
+    "skillProficiencies": "Stealth, Animal Handling",
+    "toolProficiencies": "One type of gaming set, vehicles (land)",
+    "languages": ""
+  },
+  {
+    "id": "izzet-engineer",
+    "name": "Izzet Engineer",
+    "summary": "The popular conception of the Izzet League is based on mad inventions, dangerous experiments, and explosive blasts. Much of that perception is accurate, but the league is also involved with mundane tasks of construction and architecture- primarily in crafting the infrastructure that allows Ravnicans to enjoy running water, levitating platforms, and other magical and technological wonders.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Arcana, Investigation",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": "Choose one of Draconic, Goblin, or Vedalken"
+  },
+  {
+    "id": "knight-of-solamnia",
+    "name": "Knight of Solamnia",
+    "summary": "You gain theSquire of Solamniafeat.",
+    "source": "Dragonlance: Shadow of the Dragon Queen",
+    "skillProficiencies": "Athletics, Survival",
+    "toolProficiencies": "",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "knight-of-the-order",
+    "name": "Knight of the Order",
+    "summary": "Many who rightfully call themselves \"knight\" earn that title as part of an order in service to a deity, such as Kelemvor's Eternal Order or Mystra's Knights of the Mystic Fire. Other knightly orders serve a government, royal family, or are the elite military of a feudal state, such as the brutal Warlock Knights of Vaasa. Other knighthoods are secular and non-governmental organizations of warriors who follow a particular philosophy, or consider themselves a kind of extended family, similar to an order of monks. Although there are organizations, such as the Knights of the Shield, that use the trappings of knighthood without necessarily being warriors, most folk of Faerûn who hear the word \"knight\" think of a mounted warrior in armor beholden to a code. Below are a few knightly organizations.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Persuasion, plus one from among Arcana, History, Nature, and Religion, as appropriate for your order",
+    "toolProficiencies": "One type of gaming set or musical instrument",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "lorehold-student",
+    "name": "Lorehold Student",
+    "summary": "You gain theStrixhaven Initiatefeat and must choose Lorehold within it.",
+    "source": "Strixhaven: A Curriculum of Chaos",
+    "skillProficiencies": "History, Religion",
+    "toolProficiencies": "",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "mage-of-high-sorcery",
+    "name": "Mage of High Sorcery",
+    "summary": "You gain theInitiate of High Sorceryfeat.",
+    "source": "Dragonlance: Shadow of the Dragon Queen",
+    "skillProficiencies": "Arcana, History",
+    "toolProficiencies": "",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "marine",
+    "name": "Marine",
+    "summary": "You were trained for battle on sandy beaches and rocky shores. You have launched midnight raids from swift ships whose names evoke terror in the hearts of your adversaries. The water is your second home, the rain your shelter, and the crashing waves your battle cry.",
+    "source": "",
+    "skillProficiencies": "Athletics, Survival",
+    "toolProficiencies": "Vehicles (land & water)",
+    "languages": "None"
+  },
+  {
+    "id": "mercenary-veteran",
+    "name": "Mercenary Veteran",
+    "summary": "Countless mercenary companies operate up and down the Sword Coast and throughout the North. Most are small-scale operations that employ a dozen to a hundred folk who offer security services, hunt monsters and brigands, or go to war in exchange for gold. Some organizations, such as the Zhentarim, Flaming Fist, and the nation of Mintarn have hundreds or thousands of members and can provide private armies to those with enough funds. A few organizations operating in the North are described below.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Athletics, Persuasion",
+    "toolProficiencies": "One type of gaming set, vehicles (land)",
+    "languages": "None"
+  },
+  {
+    "id": "mulmaster-aristocrat",
+    "name": "Mulmaster Aristocrat",
+    "summary": "From your hilltop home, you have looked down (literally and perhaps figuratively) on the unwashed masses of Mulmaster for your entire life. Your fur-trimmed robes and training in the visual and performing arts mark you as wealthy and perhaps well-born; you are a member of the City of Danger's aristocracy.",
+    "source": "Mulmaster Bonds and Backgrounds",
+    "skillProficiencies": "Deception, Performance",
+    "toolProficiencies": "One type of artistic artisan's tools and one musical instrument",
+    "languages": ""
+  },
+  {
+    "id": "noble",
+    "name": "Noble",
+    "summary": "A knighthood is among the lowest noble titles in most societies, but it can be a path to higher status. If you wish to be a knight, choose the Retainers feature below instead of the Position of Privilege feature. One of your commoner retainers is replaced by a noble who serves as your squire, aiding you in exchange for training on his or her own path to knighthood. Your two remaining retainers might include a groom to care for your horse and a servant who polishes your armor (and even helps you put it on).",
+    "source": "Player's Handbook",
+    "skillProficiencies": "History, Persuasion",
+    "toolProficiencies": "One type of gaming set",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "orzhov-representative",
+    "name": "Orzhov Representative",
+    "summary": "You can exert leverage over one or more individuals below you in the guild's hierarchy and demand their help as needs warrant. For example, you can have a message carried across a neighborhood, procure a short carriage ride without paying, or have others clean up a bloody mess you left in an alley. The DM decides if your demands are reasonable and if there are subordinates available to fulfill them. As your status in the guild improves, you gain influence over more people, including ones in greater positions of power.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Intimidation, Religion",
+    "toolProficiencies": "",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "outlander",
+    "name": "Outlander",
+    "summary": "You've been to strange places and seen things that others cannot begin to fathom. Consider some of the distant lands you have visited, and how they impacted you. You can roll on the following table to determine your occupation during your time in the wild, or choose one that best fits your character.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Athletics, Survival",
+    "toolProficiencies": "One type of musical instrument",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "phlan-insurgent",
+    "name": "Phlan Insurgent",
+    "summary": "The taking of Phlan by Vorgansharax is a clear memory in your mind. You were going about your everyday business when the green dragon's forces spilled out of the sewers and assailed your home. Many of Phlan's citizens, young and old alike, were captured, killed, or offered as tribute to the Maimed Virulence. You, yourself, were one of those captured. But, either with the help of adventurers or through your own wits and sheer determination, you escaped.",
+    "source": "Curse of Strahd: Optional Backgrounds",
+    "skillProficiencies": "Stealth, Survival",
+    "toolProficiencies": "One type of artisan's tools, vehicles (land)",
+    "languages": ""
+  },
+  {
+    "id": "phlan-refugee",
+    "name": "Phlan Refugee",
+    "summary": "Gone are the happier days of walking into the Laughing Goblin Inn after a hard day’s labor. Everything has changed, and you are lucky to be alive. Back in Phlan you could count yourself among those street-wise folks who knew when to pay a bribe and who to work with to make a living. Your ability to listen to the winds of change have saved you before, and this time they allowed you to be one of the lucky few who escaped Phlan with something more than just the shirt on your back.",
+    "source": "Mulmaster Bonds and Backgrounds",
+    "skillProficiencies": "Insight, Athletics",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": "One of your choosing"
+  },
+  {
+    "id": "plaintiff",
+    "name": "Plaintiff",
+    "summary": "Sure, accidents happen. But they seem to happen an awful lot when Acquisitions Incorporated operatives are on the scene. Naturally, nothing ever happens when there are no witnesses left behind. But sometimes one casualty is left a little less than dead, just waiting to discover what a lucky break that accident actually was.",
+    "source": "Acquisitions Incorporated",
+    "skillProficiencies": "Medicine, Persuasion",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": "Any one of your choice"
+  },
+  {
+    "id": "planar-philosopher",
+    "name": "Planar Philosopher",
+    "summary": "Prerequisite: Planescape Campaign.",
+    "source": "Planescape - Adventures in the Multiverse",
+    "skillProficiencies": "Arcana, the skill associated with your faction (see the Sigil Faction Affinities table) or one skill of your choice.",
+    "toolProficiencies": "",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "prismari-student",
+    "name": "Prismari Student",
+    "summary": "You gain theStrixhaven Initiatefeat and must choose Prismari within it.",
+    "source": "Strixhaven: A Curriculum of Chaos",
+    "skillProficiencies": "Acrobatics, Performance",
+    "toolProficiencies": "One type of musical instrument or artisan's tools",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "quandrix-student",
+    "name": "Quandrix Student",
+    "summary": "You gain theStrixhaven Initiatefeat and must choose Quandrix within it.",
+    "source": "Strixhaven: A Curriculum of Chaos",
+    "skillProficiencies": "Arcana, Nature",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "rakdos-cultist",
+    "name": "Rakdos Cultist",
+    "summary": "Rakdos performance styles typically fuse standard circus-style acrobatics with fire, wrought-iron spikes and hooks, and monsters. You can roll a d8 or choose from the options in the Performance Options table to determine your preferred style of performance.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Acrobatics, Performance",
+    "toolProficiencies": "One type of musical instrument",
+    "languages": "Choose one of either Abyssal or Giant"
+  },
+  {
+    "id": "rewarded",
+    "name": "Rewarded",
+    "summary": "You were living a difficult life before your destiny suddenly changed through a miraculous turn of good fortune. Perhaps a benevolent deity gave you precisely what you most desired. You might have stumbled across a Deck of Many Things and drawn a card with a potent, positive effect. Or maybe you inherited a modest fortune from a distant relative you didn’t know you had.",
+    "source": "The Book of Many Things",
+    "skillProficiencies": "Insight, Persuasion",
+    "toolProficiencies": "One gaming set of your choice (such as playing cards or three-dragon ante cards)",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "rival-intern",
+    "name": "Rival Intern",
+    "summary": "You were an intern at a rival of Acquisitions Incorporated, and you gained a healthy respect for not just the job and the franchising opportunities. but for the ruthless and efficient way Acquisitions Incorporated goes about its business. Why deal with the rest, when you can work for the best?",
+    "source": "Acquisitions Incorporated",
+    "skillProficiencies": "History, Investigation",
+    "toolProficiencies": "One type of artisan's tools",
+    "languages": "Any one of your choice"
+  },
+  {
+    "id": "ruined",
+    "name": "Ruined",
+    "summary": "Everything was going so well! You had a life of luxury, love, and comfort when you suddenly lost it all. Perhaps you were framed for crimes you didn’t commit and lost your reputation, fortune, and career. Maybe a rampaging dragon or another monster wiped out everything you had in a single calamitous afternoon. Or you might have sought out a Deck of Many Things, hoping to make your successful life even more glorious—only to draw a destructive card that changed your destiny forever.",
+    "source": "The Book of Many Things",
+    "skillProficiencies": "Stealth, Survival",
+    "toolProficiencies": "One gaming set of your choice (such as playing cards or three-dragon ante cards)",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "rune-carver",
+    "name": "Rune Carver",
+    "summary": "Each rune carver has a unique style and preferred medium. To determine how you make your runes, you can roll on the Rune Style table..",
+    "source": "Bigby Presents - Glory of the Giants",
+    "skillProficiencies": "History, Perception",
+    "toolProficiencies": "One set of artisan's tools",
+    "languages": "Giant"
+  },
+  {
+    "id": "sage",
+    "name": "Sage",
+    "summary": "To determine the nature of your scholarly training, roll a d8 or choose from the options in the table below.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Arcana, History",
+    "toolProficiencies": "None",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "sailor",
+    "name": "Sailor",
+    "summary": "You spent your youth under the sway of a dread pirate, a ruthless cutthroat who taught you how to survive in a world of sharks and savages. You've indulged in larceny on the high seas and sent more than one deserving soul to a briny grave. Fear and bloodshed are no strangers to you, and you've garnered a somewhat unsavory reputation in many a port town.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Athletics, Perception",
+    "toolProficiencies": "Navigator's tools, vehicles (water)",
+    "languages": "None"
+  },
+  {
+    "id": "secret-identity",
+    "name": "Secret Identity",
+    "summary": "Even though you are a non-human, despite Hillsfar's Great Law of Humanity, you continue to live in the City of Trade. You do so by maintaining a secret identity, forging documents, and even wearing a disguise. Few, if any, know you aren't human.",
+    "source": "State of Hillsfar",
+    "skillProficiencies": "Deception, Stealth",
+    "toolProficiencies": "Disguise kit, forgery kit",
+    "languages": ""
+  },
+  {
+    "id": "selesnya-initiate",
+    "name": "Selesnya Initiate",
+    "summary": "As a member of the Selesnya Conclave, you can count on your guild mates to provide shelter and aid. You and your companions can find a place to hide or rest in any Selesnya enclave in the city, unless you have proven to be a danger to them. The members of the enclave will shield you from the law or anyone else searching for you, though they will not risk their lives in this effort.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Nature, Persuasion",
+    "toolProficiencies": "One type of artisan's tools or one musical instrument",
+    "languages": "Choose one of Elvish, Loxodon, or Sylvan"
+  },
+  {
+    "id": "shade-fanatic",
+    "name": "Shade Fanatic",
+    "summary": "You grew up at a time when the wizards of Netheril were at war with the elves of Cormanthor. You recall sitting crosslegged hearing the stories of the glorious Thultanthar, also called the Shade Enclave and the City of Shade, and aspired to study there and maybe even did, for a time. Your dreams came crashing down a few years ago when Thultanthar fell from the sky upon Myth Drannor.",
+    "source": "State of Hillsfar",
+    "skillProficiencies": "Deception, Intimidation",
+    "toolProficiencies": "Forgery kit",
+    "languages": "Netherese"
+  },
+  {
+    "id": "shipwright",
+    "name": "Shipwright",
+    "summary": "You have sailed into war on the decks of great ships, patching their hulls with soup bowls and prayers. You once helped build a fishing vessel that single-handedly saved a town from starvation. You have seen a majestic prow in your dreams that you have not been able to replicate in wood. Since childhood, you have loved the water and have been captivated by the many vessels that travel on it.",
+    "source": "Ghosts of Saltmarsh",
+    "skillProficiencies": "History, Perception",
+    "toolProficiencies": "Carpenter's tools, Vehicles (water)",
+    "languages": ""
+  },
+  {
+    "id": "silverquill-student",
+    "name": "Silverquill Student",
+    "summary": "You gain theStrixhaven Initiatefeat and must choose Silverquill within it.",
+    "source": "Strixhaven: A Curriculum of Chaos",
+    "skillProficiencies": "Intimidation, Persuasion",
+    "toolProficiencies": "",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "simic-scientist",
+    "name": "Simic Scientist",
+    "summary": "As a Simic researcher, you are part of a clade - a diverse group of individuals combining disparate talents in pursuit of a common goal - or a researcher on a specialized, short-term project focused on addressing an immediate need. You can roll a d6 or choose from the options in the Research Options table to determine your area of research.",
+    "source": "Guildmaster's Guide to Ravnica",
+    "skillProficiencies": "Arcana, Medicine",
+    "toolProficiencies": "",
+    "languages": "Two of your choice"
+  },
+  {
+    "id": "smuggler",
+    "name": "Smuggler",
+    "summary": "On a rickety barge, you carried a hundred longswords in fish barrels right past the dock master's oblivious lackeys. You have paddled a riverboat filled with stolen elven wine under the gaze of the moon and sold it for twice its value in the morning. In your more charitable times, you have transported innocents out of war zones or helped guide herd animals to safety on the banks of a burning river.",
+    "source": "Ghosts of Saltmarsh",
+    "skillProficiencies": "Athletics, Deception",
+    "toolProficiencies": "Vehicles (water)",
+    "languages": ""
+  },
+  {
+    "id": "soldier",
+    "name": "Soldier",
+    "summary": "During your time as a soldier, you had a specific role to play in your unit or army. Roll a d8 or choose from the options in the table below to determine your role:",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Athletics, Intimidation",
+    "toolProficiencies": "One type of gaming set, vehicles (land)",
+    "languages": "None"
+  },
+  {
+    "id": "stojanow-prisoner",
+    "name": "Stojanow Prisoner",
+    "summary": "Those words still haunt your dreams at night. When everyone was fleeing Phlan, you chose to stay. Whether out of an emotional attachment, or pursuit of riches, you made the decision that would affect the rest of your life.",
+    "source": "Curse of Strahd: Optional Backgrounds",
+    "skillProficiencies": "Deception, Perception",
+    "toolProficiencies": "One type of gaming set, thieves' tools",
+    "languages": ""
+  },
+  {
+    "id": "ticklebelly-nomad",
+    "name": "Ticklebelly Nomad",
+    "summary": "You were born into a nomadic tribe that called the Ticklebelly Hills home. You migrated from location to location, living off the land with your tribe. The tribe would seasonally travel south into the Grass Sea and the Giant’s Cairn, north into the Dragonspine Mountains, and even occasionally east across the Stojanow River to the borders of the Quivering Forest. In your migrations, your people have come to know the stone giant tribes that populate the Giant’s Cairn.",
+    "source": "Curse of Strahd: Optional Backgrounds",
+    "skillProficiencies": "Nature, Animal Handling",
+    "toolProficiencies": "Herbalism kit",
+    "languages": "Giant"
+  },
+  {
+    "id": "trade-sheriff",
+    "name": "Trade Sheriff",
+    "summary": "You are one of the many people that make sure the trade routes are clear at ALL times. You assure that theGreat Law of Tradeis followed at all costs. You work by yourself or in groups to quell bandits and brigands who might stop trade routes from going through. You investigate potential ambushes and possible rumors as to someone wanting to rob or stop caravans. You are as much an investigator as you are law enforcement.",
+    "source": "State of Hillsfar",
+    "skillProficiencies": "Investigation, Persuasion",
+    "toolProficiencies": "Thieves' tools",
+    "languages": "Elven"
+  },
+  {
+    "id": "urban-bounty-hunter",
+    "name": "Urban Bounty Hunter",
+    "summary": "You are in frequent contact with people in the segment of society that your chosen quarries move through. These people might be associated with the criminal underworld, the rough-and-tumble folk of the streets, or members of high society. This connection comes in the form of a contact in any city you visit, a person who provides information about the people and places of the local area.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Choose two from among Deception, Insight, Persuasion, and Stealth",
+    "toolProficiencies": "Choose two from among one type of gaming set, one musical instrument, and thieves' tools",
+    "languages": "None"
+  },
+  {
+    "id": "urchin",
+    "name": "Urchin",
+    "summary": "You know the secret patterns and flow to cities and can find passages through the urban sprawl that others would miss. When you are not in combat, you (and companions you lead) can travel between any two locations in the city twice as fast as your speed would normally allow.",
+    "source": "Player's Handbook",
+    "skillProficiencies": "Sleight of Hand, Stealth",
+    "toolProficiencies": "Disguise kit, thieves' tools",
+    "languages": "None"
+  },
+  {
+    "id": "uthgardt-tribe-member",
+    "name": "Uthgardt Tribe Member",
+    "summary": "Though this section details the Uthgardt specifically, either it or theOutlanderbackground can be used for a character whose origin lies with one of the other barbarian tribes in Faerûn.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "Athletics, Survival",
+    "toolProficiencies": "One type of musical instrument or artisan's tools",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "vizier",
+    "name": "Vizier",
+    "summary": "Your voice is the voice of your god, at least in theory. Your job might include training and instructing initiates, and they are required to obey you. In any circumstance, an initiate is expected to defer to your voice and obey your commands. If you abuse this authority, though, your god might personally punish you.",
+    "source": "Plane Shift - Amonkhet",
+    "skillProficiencies": "History, Religion",
+    "toolProficiencies": "One type of artisan's tools, one type of musical instrument",
+    "languages": ""
+  },
+  {
+    "id": "volstrucker-agent",
+    "name": "Volstrucker Agent",
+    "summary": "Happy people aren't selected to join the Volstrucker. The Cerberus Assembly preys upon talented individuals who have been broken by tragedy - in some cases, tragedy that the Volstrucker has arranged for. A slightly broken mind is more easily reshaped and reeducated. Choose the tragedy that set you on this path, or roll on the Tragedies table.",
+    "source": "Explorer's Guide to Wildemount",
+    "skillProficiencies": "Deception, Stealth",
+    "toolProficiencies": "Poisoner's Kit",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "waterdhavian-noble",
+    "name": "Waterdhavian Noble",
+    "summary": "While you are in Waterdeep or elsewhere in the North your house sees to your everyday needs. Your name and signet are sufficient to cover most of your expenses; the inns, taverns, and festhalls you frequent are glad to record your debt and send an accounting to your family's estate in Waterdeep to settle what you owe.",
+    "source": "Sword Coast Adventurer's Guide",
+    "skillProficiencies": "History, Persuasion",
+    "toolProficiencies": "One type of gaming set or one musical instrument",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "wildspacer",
+    "name": "Wildspacer",
+    "summary": "You had a harrowing encounter with one of Wildspace’s many terrors. You escaped with your life, but the encounter left you with a scar or two, or perhaps a recurring nightmare. Roll on the Close Encounter table to determine which creature nearly got the best of you.",
+    "source": "Spelljamer: Adventures in Space - Astral Adventurer's Guide",
+    "skillProficiencies": "Athletics, Survival",
+    "toolProficiencies": "Navigator's tools, vehicles (space)",
+    "languages": ""
+  },
+  {
+    "id": "witchlight-hand",
+    "name": "Witchlight Hand",
+    "summary": "Over the years, you have earned the friendship of another carnival fixture. Roll a d8 and consult the Carnival Companion table to determine whom or what you've befriended, or you can choose an option that you like. Work with your DM to flesh out this friendship. This companion hangs around you while you're in the carnival, but it won't voluntarily leave the carnival.",
+    "source": "The Wild Beyond the Witchlight",
+    "skillProficiencies": "Performance, Sleight of Hand",
+    "toolProficiencies": "Disguise kit or one type of musical instrument",
+    "languages": "One of your choice"
+  },
+  {
+    "id": "witherbloom-student",
+    "name": "Witherbloom Student",
+    "summary": "You gain theStrixhaven Initiatefeat and must choose Witherbloom within it.",
+    "source": "Strixhaven: A Curriculum of Chaos",
+    "skillProficiencies": "Nature, Survival",
+    "toolProficiencies": "Herbalism Kit",
+    "languages": "One of your choice"
+  }
+]

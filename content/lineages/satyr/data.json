@@ -1,0 +1,100 @@
+{
+  "id": "satyr",
+  "name": "Satyr",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:satyr",
+  "sourceLabel": "Exotic Lineages",
+  "summary": "Originating in the Feywild — a realm of pure emotion-satyrs thrive on the energy of merriment. They resemble elves but have goatlike legs, cloven hooves, and ram or goat horns. The magic of the fey realm has given them an innate ability to perform, to delight, and to resist magical intrusion. While they’re usually found in the Feywild, satyrs do wander to other planes of existence, most often to the Material Plane. There they seek to bring a bit of their home plane’s splendor to other worlds.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 35 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 2, and your Dexterity score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Satyrs range from just under 5 feet to about 6 feet in height, with generally slender builds. Your size is medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 35 feet.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Charisma score increases by 2, and your Dexterity score increases by 1.",
+    "Size.Satyrs range from just under 5 feet to about 6 feet in height, with generally slender builds. Your size is medium.",
+    "Speed.Your base walking speed is 35 feet.",
+    "Languages.You can speak, read, and write Common and Sylvan."
+  ],
+  "coreTraits": [
+    {
+      "id": "ram",
+      "name": "Ram",
+      "summary": "You can use your head and horns to make unarmed strikes. When you hit with them, the strike deals 1d6 + your Strength modifier bludgeoning damage, instead of the bludgeoning damage normal for an unarmed strike."
+    },
+    {
+      "id": "magic-resistance",
+      "name": "Magic Resistance",
+      "summary": "You have advantage on saving throws against spells."
+    },
+    {
+      "id": "mirthful-leaps",
+      "name": "Mirthful Leaps",
+      "summary": "Whenever you make a long jump or a high jump, you can roll a d8 and add the number rolled to the number of feet you cover, even when making a standing jump. This extra distance costs movement as normal."
+    },
+    {
+      "id": "reveler",
+      "name": "Reveler",
+      "summary": "As an embodiment of revelry, you have proficiency in the Performance and Persuasion skills, and you have proficiency with one musical instrument of your choice."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Satyrs mature and age at about the same rate as humans."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Satyrs delight in living a life free of the mantle of law. They gravitate toward being good, but some have devious streaks and enjoy causing dismay."
+    },
+    {
+      "id": "fey",
+      "name": "Fey",
+      "summary": "Your creature type is fey, rather than humanoid."
+    },
+    {
+      "id": "ram",
+      "name": "Ram",
+      "summary": "You can use your head and horns to make unarmed strikes. If you hit with them, you deal bludgeoning damage equal to 1d4 + your Strength modifier."
+    },
+    {
+      "id": "magic-resistance",
+      "name": "Magic Resistance",
+      "summary": "You have advantage on saving throws against spells and other magical effects."
+    },
+    {
+      "id": "mirthful-leaps",
+      "name": "Mirthful Leaps",
+      "summary": "Whenever you make a long or high jump, you can roll a d8 and add the number to the number of feet you cover, even when making a standing jump. This extra distance costs movement as normal."
+    }
+  ],
+  "subraces": [],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

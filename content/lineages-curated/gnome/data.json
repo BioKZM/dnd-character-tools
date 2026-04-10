@@ -1,0 +1,58 @@
+{
+  "id": "gnome",
+  "name": "Gnome",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:gnome",
+  "sourceLabel": "Standard Lineages",
+  "sourceBook": "Player's Handbook",
+  "summary": "A constant hum of busy activity pervades the warrens and neighborhoods where gnomes form their close-knit communities. Louder sounds punctuate the hum: a crunch of grinding gears here, a minor explosion there, a yelp of surprise or triumph, and especially bursts of laughter. Gnomes take delight in life, enjoying every moment of invention, exploration, investigation, creation, and play.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Intelligence score increases by 2."
+    },
+    {
+      "label": "Size",
+      "value": "Gnomes are between 3 and 4 feet tall and weigh around 40 pounds. Your size is Small."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 25 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can read, speak, and write Common and Gnomish."
+    }
+  ],
+  "coreBonuses": [],
+  "coreTraits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Gnomes mature at the same rate as humans, and most are expected to settle into adult life around the age of 40. They can live to 350 years on average, but it's not too uncommon for them to reach 500 years of age."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Gnomes are generally Good. Those who tend towards Law are sages, engineers, researchers, scholars, investigators, or inventors. Those who tend towards Chaos are often minstrels, tricksters, wanderers, or fanciful jewelers. Gnomes are light-hearted, and even the tricksters amongst them favor harmless pranks over vicious schemes."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "gnome-cunning",
+      "name": "Gnome Cunning",
+      "summary": "You have advantage on all Intelligence, Wisdom, and Charisma saves against magic."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "subraces": [
+    "forest",
+    "rock"
+  ],
+  "notes": [
+    "source isolated from page-content and table of contents",
+    "raw text is preserved in page.html for manual inspection"
+  ]
+}

@@ -1,0 +1,462 @@
+[
+  {
+    "id": "artificer",
+    "name": "Artificer",
+    "hitDie": 8,
+    "primaryAbilities": [
+      "INT"
+    ],
+    "savingThrows": [
+      "CON",
+      "INT"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "magical-tinkering",
+          "name": "Magical Tinkering",
+          "summary": "Imbue tiny objects with minor magical effects and utility enchantments."
+        },
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "summary": "Use tools and infused craft to prepare and cast artificer spells."
+        }
+      ],
+      "2": [
+        {
+          "id": "infuse-item",
+          "name": "Infuse Item",
+          "summary": "Turn mundane equipment into useful magic items with repeatable infusions."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "barbarian",
+    "name": "Barbarian",
+    "hitDie": 12,
+    "primaryAbilities": [
+      "STR",
+      "CON"
+    ],
+    "savingThrows": [
+      "STR",
+      "CON"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "rage",
+          "name": "Rage",
+          "summary": "Enter a battle fury that boosts damage and hardens you against harm."
+        },
+        {
+          "id": "unarmored-defense",
+          "name": "Unarmored Defense",
+          "summary": "Your physical toughness contributes to AC even without armor."
+        }
+      ],
+      "2": [
+        {
+          "id": "reckless-attack",
+          "name": "Reckless Attack",
+          "summary": "Attack with ferocity for advantage at the risk of opening yourself up."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "bard",
+    "name": "Bard",
+    "hitDie": 8,
+    "primaryAbilities": [
+      "CHA"
+    ],
+    "savingThrows": [
+      "DEX",
+      "CHA"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "bardic-inspiration",
+          "name": "Bardic Inspiration",
+          "summary": "Bolster allies with inspiration dice fueled by your performance and presence."
+        },
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "summary": "Channel magic through music, story, and force of personality."
+        }
+      ],
+      "2": [
+        {
+          "id": "jack-of-all-trades",
+          "name": "Jack of All Trades",
+          "summary": "Add half proficiency to many checks where you lack training."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "cleric",
+    "name": "Cleric",
+    "hitDie": 8,
+    "primaryAbilities": [
+      "WIS"
+    ],
+    "savingThrows": [
+      "WIS",
+      "CHA"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "summary": "Prepare divine spells each day through your faith and service."
+        },
+        {
+          "id": "divine-domain",
+          "name": "Divine Domain",
+          "summary": "Choose the sacred portfolio that shapes your miracles and training."
+        }
+      ],
+      "2": [
+        {
+          "id": "channel-divinity",
+          "name": "Channel Divinity",
+          "summary": "Call directly on divine power for potent domain effects."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "druid",
+    "name": "Druid",
+    "hitDie": 8,
+    "primaryAbilities": [
+      "WIS"
+    ],
+    "savingThrows": [
+      "INT",
+      "WIS"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "druidic",
+          "name": "Druidic",
+          "summary": "Learn the secret language and signs of druids."
+        },
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "summary": "Prepare nature magic shaped by primal balance and wisdom."
+        }
+      ],
+      "2": [
+        {
+          "id": "wild-shape",
+          "name": "Wild Shape",
+          "summary": "Assume beast forms for scouting, survival, or combat."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "fighter",
+    "name": "Fighter",
+    "hitDie": 10,
+    "primaryAbilities": [
+      "STR",
+      "DEX"
+    ],
+    "savingThrows": [
+      "STR",
+      "CON"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "fighting-style",
+          "name": "Fighting Style",
+          "summary": "Adopt a combat discipline that grants an ongoing battlefield benefit."
+        },
+        {
+          "id": "second-wind",
+          "name": "Second Wind",
+          "summary": "Use a burst of stamina to regain hit points as a bonus action."
+        }
+      ],
+      "2": [
+        {
+          "id": "action-surge",
+          "name": "Action Surge",
+          "summary": "Push beyond normal limits and take one additional action on your turn."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "monk",
+    "name": "Monk",
+    "hitDie": 8,
+    "primaryAbilities": [
+      "DEX",
+      "WIS"
+    ],
+    "savingThrows": [
+      "STR",
+      "DEX"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "martial-arts",
+          "name": "Martial Arts",
+          "summary": "Blend speed, discipline, and technique into unarmed combat."
+        },
+        {
+          "id": "unarmored-defense",
+          "name": "Unarmored Defense",
+          "summary": "Move freely while Wisdom and Dexterity support your AC."
+        }
+      ],
+      "2": [
+        {
+          "id": "ki",
+          "name": "Ki",
+          "summary": "Spend ki points on speed, defense, and bursts of precise action."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "paladin",
+    "name": "Paladin",
+    "hitDie": 10,
+    "primaryAbilities": [
+      "STR",
+      "CHA"
+    ],
+    "savingThrows": [
+      "WIS",
+      "CHA"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "divine-sense",
+          "name": "Divine Sense",
+          "summary": "Detect celestial, fiendish, and undead presence through holy awareness."
+        },
+        {
+          "id": "lay-on-hands",
+          "name": "Lay on Hands",
+          "summary": "Heal wounds and purge certain afflictions through sacred power."
+        }
+      ],
+      "2": [
+        {
+          "id": "fighting-style",
+          "name": "Fighting Style",
+          "summary": "Adopt disciplined martial training suited to your oath."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "ranger",
+    "name": "Ranger",
+    "hitDie": 10,
+    "primaryAbilities": [
+      "DEX",
+      "WIS"
+    ],
+    "savingThrows": [
+      "STR",
+      "DEX"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "favored-enemy",
+          "name": "Favored Enemy",
+          "summary": "Study specific foes and better track or understand them."
+        },
+        {
+          "id": "natural-explorer",
+          "name": "Natural Explorer",
+          "summary": "Travel efficiently and lead others through the wilderness."
+        }
+      ],
+      "2": [
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "summary": "Draw on primal magic to support hunting, survival, and battle."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "rogue",
+    "name": "Rogue",
+    "hitDie": 8,
+    "primaryAbilities": [
+      "DEX"
+    ],
+    "savingThrows": [
+      "DEX",
+      "INT"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "expertise",
+          "name": "Expertise",
+          "summary": "Double your proficiency in key trained skills or tools."
+        },
+        {
+          "id": "sneak-attack",
+          "name": "Sneak Attack",
+          "summary": "Exploit openings for precise and devastating damage."
+        }
+      ],
+      "2": [
+        {
+          "id": "cunning-action",
+          "name": "Cunning Action",
+          "summary": "Use quick tactical movement as a bonus action each turn."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "sorcerer",
+    "name": "Sorcerer",
+    "hitDie": 6,
+    "primaryAbilities": [
+      "CHA"
+    ],
+    "savingThrows": [
+      "CON",
+      "CHA"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "summary": "Innate magic flows through you without need for study or prayer."
+        },
+        {
+          "id": "sorcerous-origin",
+          "name": "Sorcerous Origin",
+          "summary": "The source of your power shapes your body and your spellcraft."
+        }
+      ],
+      "2": [
+        {
+          "id": "font-of-magic",
+          "name": "Font of Magic",
+          "summary": "Convert sorcery points into flexible spellcasting potential."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "warlock",
+    "name": "Warlock",
+    "hitDie": 8,
+    "primaryAbilities": [
+      "CHA"
+    ],
+    "savingThrows": [
+      "WIS",
+      "CHA"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "otherworldly-patron",
+          "name": "Otherworldly Patron",
+          "summary": "Your pact grants magic from a being beyond the ordinary world."
+        },
+        {
+          "id": "pact-magic",
+          "name": "Pact Magic",
+          "summary": "Cast a small number of potent spells through your patron's gift."
+        }
+      ],
+      "2": [
+        {
+          "id": "eldritch-invocations",
+          "name": "Eldritch Invocations",
+          "summary": "Learn specialized mystical techniques that alter your magic."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  },
+  {
+    "id": "wizard",
+    "name": "Wizard",
+    "hitDie": 6,
+    "primaryAbilities": [
+      "INT"
+    ],
+    "savingThrows": [
+      "INT",
+      "WIS"
+    ],
+    "featuresByLevel": {
+      "1": [
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "summary": "Prepare wizard spells from your spellbook and cast them using Intelligence."
+        },
+        {
+          "id": "arcane-recovery",
+          "name": "Arcane Recovery",
+          "summary": "Recover part of your expended spell power during a short rest once each day."
+        }
+      ],
+      "2": [
+        {
+          "id": "arcane-tradition",
+          "name": "Arcane Tradition",
+          "summary": "Choose the magical discipline that shapes your studies and future features."
+        }
+      ]
+    },
+    "source": "",
+    "multiclassRequirement": ""
+  }
+]

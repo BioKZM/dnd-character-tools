@@ -1,0 +1,70 @@
+{
+  "id": "shifter",
+  "name": "Shifter",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:shifter",
+  "sourceLabel": "Monstrous Lineages",
+  "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+  "summary": "Shifters are sometimes called weretouched, as they are descendants of people who contracted full or partial lycanthropy. Humanoids with a bestial aspect, shifters can’t fully change shape, but they can temporarily enhance their animalistic features by entering a state they call shifting.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. The Player’s Handbook offers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ],
+  "coreBonuses": [],
+  "coreTraits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid."
+    },
+    {
+      "id": "bestial-instincts",
+      "name": "Bestial Instincts",
+      "summary": "Channeling the beast within, you have proficiency in one of the following skills of your choice: Acrobatics, Athletics, Intimidation, or Survival."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "beasthide",
+      "name": "Beasthide",
+      "summary": "You gain 1d6 additional temporary hit points. While shifted, you have a +1 bonus to your Armor Class."
+    },
+    {
+      "id": "longtooth",
+      "name": "Longtooth",
+      "summary": "When you shift and as a bonus action on your other turns while shifted, you can use your elongated fangs to make an unarmed strike. If you hit with your fangs, you can deal piercing damage equal to 1d6 + your Strength modifier, instead of the bludgeoning damage normal for an unarmed strike."
+    },
+    {
+      "id": "swiftstride",
+      "name": "Swiftstride",
+      "summary": "While shifted, your walking speed increases by 10 feet. Additionally, you can move up to 10 feet as a reaction when a creature ends its turn within 5 feet of you. This reactive movement doesn’t provoke opportunity attacks."
+    },
+    {
+      "id": "wildhunt",
+      "name": "Wildhunt",
+      "summary": "While shifted, you have advantage on Wisdom checks, and no creature within 30 feet of you can make an attack roll with advantage against you unless you’re incapacitated."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": true,
+  "subraces": [],
+  "notes": [
+    "source isolated from page-content and table of contents",
+    "raw text is preserved in page.html for manual inspection"
+  ]
+}

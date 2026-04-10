@@ -1,0 +1,68 @@
+{
+  "id": "kor-features",
+  "name": "Kor Features",
+  "summary": "Ability Score Increase.Your Dexterity score increases by 2, and your Wisdom score increases by 1.",
+  "bonuses": [
+    "Source: Plane Shift - Zendikar",
+    "Ability Score Increase.Your Dexterity score increases by 2, and your Wisdom score increases by 1.",
+    "Age.Kor mature at the same rate as humans and live about as long.",
+    "Alignment.Most kor are lawful good, with a strong dedication to community and the traditions of their ancestors.",
+    "Size.Kor average nearly 6 feet tall, but are much lighter and more slender than humans. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet. You also have a climbing speed of 30 feet as long as you are not encumbered or wearing heavy armor."
+  ],
+  "traits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Kor mature at the same rate as humans and live about as long."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Most kor are lawful good, with a strong dedication to community and the traditions of their ancestors."
+    },
+    {
+      "id": "kor-climbing",
+      "name": "Kor Climbing",
+      "summary": "You have proficiency in the Athletics and Acrobatics skills."
+    },
+    {
+      "id": "lucky",
+      "name": "Lucky",
+      "summary": "When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll."
+    },
+    {
+      "id": "brave",
+      "name": "Brave",
+      "summary": "You have advantage on saving throws against being frightened."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Dexterity score increases by 2, and your Wisdom score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Kor average nearly 6 feet tall, but are much lighter and more slender than humans. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet. You also have a climbing speed of 30 feet as long as you are not encumbered or wearing heavy armor."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common, and communicate in the silent speech of the kor."
+    }
+  ]
+}

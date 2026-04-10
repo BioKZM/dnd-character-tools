@@ -1,0 +1,73 @@
+{
+  "id": "dhampir-traits",
+  "name": "Dhampir Traits",
+  "summary": "Ability Score Increase.Increase one ability score by 2 and increase a different one by 1, or increase three different ability scores by 1. If you are replacing your race with this lineage, replace any Ability Score Increase you previously had with this.",
+  "bonuses": [
+    "Ability Score Increase.Increase one ability score by 2 and increase a different one by 1, or increase three different ability scores by 1. If you are replacing your race with this lineage, replace any Ability Score Increase you previously had with this.",
+    "Creature Type.You are a Humanoid.",
+    "Size.You are Medium or Small. You choose the size when you gain this lineage.",
+    "Speed.Your walking speed is 35 feet.",
+    "Darkvision.You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness as shades of gray.",
+    "Deathless Nature.You don't need to breathe."
+  ],
+  "traits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid."
+    },
+    {
+      "id": "ancestral-legacy",
+      "name": "Ancestral Legacy",
+      "summary": "If you replace a race with this lineage, you can keep the following elements of that race: any skill proficiencies you gained from it and any climbing, flying, or swimming speed you gained from it. If you don't keep any of those elements or you choose this lineage at character creation, you gain proficency in two skills of your choice."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness as shades of gray."
+    },
+    {
+      "id": "deathless-nature",
+      "name": "Deathless Nature",
+      "summary": "You don't need to breathe."
+    },
+    {
+      "id": "spider-climb",
+      "name": "Spider Climb",
+      "summary": "You have a climbing speed equal to your walking speed. In addition, at 3rd level, you can move up, down, and across vertical surfaces and upside down along ceilings, while leaving your hands free."
+    },
+    {
+      "id": "vampiric-bite",
+      "name": "Vampiric Bite",
+      "summary": "Your fanged bite is a natural weapon, which counts as a simple melee weapon with which you are proficient. You add your Constitution modifier, instead of your Strength modifier, to the attack and damage rolls when you attack with this bite. It deals 1d4 piercing damage on a hit. While you are missing half or more of your hit points, you have advantage on attack rolls you make with this bite. When you attack with this bite and hit a creature that isn’t a Construct or an Undead, you can empower yourself in one of the following ways of your choice: You regain hit points equal to the piercing damage dealt by the bite."
+    },
+    {
+      "id": "4a-parasite-inhabits-your-body",
+      "name": "4A parasite inhabits your body",
+      "summary": "You indulge your hunger to sate it."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Increase one ability score by 2 and increase a different one by 1, or increase three different ability scores by 1. If you are replacing your race with this lineage, replace any Ability Score Increase you previously had with this."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. If you are replacing your race with this lineage, you retain any languages you had and gain no new languages."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium or Small. You choose the size when you gain this lineage."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 35 feet."
+    }
+  ]
+}

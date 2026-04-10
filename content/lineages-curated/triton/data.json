@@ -1,0 +1,60 @@
+{
+  "id": "triton",
+  "name": "Triton",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:triton",
+  "sourceLabel": "Exotic Lineages",
+  "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+  "summary": "Originally from the Elemental Plane of Water, many tritons entered the Material Plane centuries ago in response to the growing threat of evil elementals. Those tritons spread across the worlds’ oceans, protecting the surface from terrors in the deep. Over time, triton have extended their stewardship over the sea floor to the ocean’s surface.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. The Player’s Handbook offers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ],
+  "coreBonuses": [],
+  "coreTraits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid."
+    },
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "summary": "You can breathe air and water."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "emissary-of-the-sea",
+      "name": "Emissary of the Sea",
+      "summary": "You can communicate simple ideas to any Beast, Elemental, or Monstrosity that has a swimming speed. It can understand your words, though you have no special ability to understand it in return."
+    },
+    {
+      "id": "guardian-of-the-depths",
+      "name": "Guardian of the Depths",
+      "summary": "Adapted to the frigid ocean depths, you have resistance to cold damage."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": true,
+  "subraces": [],
+  "notes": [
+    "source isolated from page-content and table of contents",
+    "raw text is preserved in page.html for manual inspection"
+  ]
+}

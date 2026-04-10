@@ -1,0 +1,13 @@
+{
+  "source": "https://www.aidedd.org/dnd/monstres.php",
+  "indexSource": "https://www.aidedd.org/dnd-filters/monsters.php",
+  "entryCount": 428,
+  "fetchedCount": 428,
+  "errorCount": 0,
+  "durationSeconds": 176.75,
+  "artifacts": {
+    "index": "content/raw/aidedd-monsters/index.json",
+    "all": "content/raw/aidedd-monsters/all.json",
+    "details": "content/raw/aidedd-monsters/details"
+  }
+}

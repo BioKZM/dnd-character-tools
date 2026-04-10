@@ -1,0 +1,422 @@
+{
+  "category": "species",
+  "indexUrl": "https://dnd5e.wikidot.com/lineage",
+  "entryCount": 83,
+  "entries": [
+    {
+      "name": "Dragonborn",
+      "href": "/lineage:dragonborn",
+      "url": "https://dnd5e.wikidot.com/lineage:dragonborn"
+    },
+    {
+      "name": "Dwarf",
+      "href": "/lineage:dwarf",
+      "url": "https://dnd5e.wikidot.com/lineage:dwarf"
+    },
+    {
+      "name": "Elf",
+      "href": "/lineage:elf",
+      "url": "https://dnd5e.wikidot.com/lineage:elf"
+    },
+    {
+      "name": "Gnome",
+      "href": "/lineage:gnome",
+      "url": "https://dnd5e.wikidot.com/lineage:gnome"
+    },
+    {
+      "name": "Half-Elf",
+      "href": "/lineage:half-elf",
+      "url": "https://dnd5e.wikidot.com/lineage:half-elf"
+    },
+    {
+      "name": "Half-Orc",
+      "href": "/lineage:half-orc",
+      "url": "https://dnd5e.wikidot.com/lineage:half-orc"
+    },
+    {
+      "name": "Halfling",
+      "href": "/lineage:halfling",
+      "url": "https://dnd5e.wikidot.com/lineage:halfling"
+    },
+    {
+      "name": "Human",
+      "href": "/lineage:human",
+      "url": "https://dnd5e.wikidot.com/lineage:human"
+    },
+    {
+      "name": "Tiefling",
+      "href": "/lineage:tiefling",
+      "url": "https://dnd5e.wikidot.com/lineage:tiefling"
+    },
+    {
+      "name": "Custom",
+      "href": "/lineage:custom",
+      "url": "https://dnd5e.wikidot.com/lineage:custom"
+    },
+    {
+      "name": "Aarakocra",
+      "href": "/lineage:aarakocra",
+      "url": "https://dnd5e.wikidot.com/lineage:aarakocra"
+    },
+    {
+      "name": "Aasimar",
+      "href": "/lineage:aasimar",
+      "url": "https://dnd5e.wikidot.com/lineage:aasimar"
+    },
+    {
+      "name": "Changeling",
+      "href": "/lineage:changeling",
+      "url": "https://dnd5e.wikidot.com/lineage:changeling"
+    },
+    {
+      "name": "Deep Gnome",
+      "href": "/lineage:deep-gnome",
+      "url": "https://dnd5e.wikidot.com/lineage:deep-gnome"
+    },
+    {
+      "name": "Duergar",
+      "href": "/lineage:duergar",
+      "url": "https://dnd5e.wikidot.com/lineage:duergar"
+    },
+    {
+      "name": "Eladrin",
+      "href": "/lineage:eladrin",
+      "url": "https://dnd5e.wikidot.com/lineage:eladrin"
+    },
+    {
+      "name": "Fairy",
+      "href": "/lineage:fairy",
+      "url": "https://dnd5e.wikidot.com/lineage:fairy"
+    },
+    {
+      "name": "Firbolg",
+      "href": "/lineage:firbolg",
+      "url": "https://dnd5e.wikidot.com/lineage:firbolg"
+    },
+    {
+      "name": "Genasi (Air)",
+      "href": "/lineage:genasi-air",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-air"
+    },
+    {
+      "name": "Genasi (Earth)",
+      "href": "/lineage:genasi-earth",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-earth"
+    },
+    {
+      "name": "Genasi (Fire)",
+      "href": "/lineage:genasi-fire",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-fire"
+    },
+    {
+      "name": "Genasi (Water)",
+      "href": "/lineage:genasi-water",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-water"
+    },
+    {
+      "name": "Githyanki",
+      "href": "/lineage:githyanki",
+      "url": "https://dnd5e.wikidot.com/lineage:githyanki"
+    },
+    {
+      "name": "Githzerai",
+      "href": "/lineage:githzerai",
+      "url": "https://dnd5e.wikidot.com/lineage:githzerai"
+    },
+    {
+      "name": "Goliath",
+      "href": "/lineage:goliath",
+      "url": "https://dnd5e.wikidot.com/lineage:goliath"
+    },
+    {
+      "name": "Harengon",
+      "href": "/lineage:harengon",
+      "url": "https://dnd5e.wikidot.com/lineage:harengon"
+    },
+    {
+      "name": "Kenku",
+      "href": "/lineage:kenku",
+      "url": "https://dnd5e.wikidot.com/lineage:kenku"
+    },
+    {
+      "name": "Locathah",
+      "href": "/lineage:locathah",
+      "url": "https://dnd5e.wikidot.com/lineage:locathah"
+    },
+    {
+      "name": "Owlin",
+      "href": "/lineage:owlin",
+      "url": "https://dnd5e.wikidot.com/lineage:owlin"
+    },
+    {
+      "name": "Satyr",
+      "href": "/lineage:satyr",
+      "url": "https://dnd5e.wikidot.com/lineage:satyr"
+    },
+    {
+      "name": "Sea Elf",
+      "href": "/lineage:sea-elf",
+      "url": "https://dnd5e.wikidot.com/lineage:sea-elf"
+    },
+    {
+      "name": "Shadar-Kai",
+      "href": "/lineage:shadar-kai",
+      "url": "https://dnd5e.wikidot.com/lineage:shadar-kai"
+    },
+    {
+      "name": "Tabaxi",
+      "href": "/lineage:tabaxi",
+      "url": "https://dnd5e.wikidot.com/lineage:tabaxi"
+    },
+    {
+      "name": "Tortle",
+      "href": "/lineage:tortle",
+      "url": "https://dnd5e.wikidot.com/lineage:tortle"
+    },
+    {
+      "name": "Triton",
+      "href": "/lineage:triton",
+      "url": "https://dnd5e.wikidot.com/lineage:triton"
+    },
+    {
+      "name": "Verdan",
+      "href": "/lineage:verdan",
+      "url": "https://dnd5e.wikidot.com/lineage:verdan"
+    },
+    {
+      "name": "Bugbear",
+      "href": "/lineage:bugbear",
+      "url": "https://dnd5e.wikidot.com/lineage:bugbear"
+    },
+    {
+      "name": "Centaur",
+      "href": "/lineage:centaur",
+      "url": "https://dnd5e.wikidot.com/lineage:centaur"
+    },
+    {
+      "name": "Goblin",
+      "href": "/lineage:goblin",
+      "url": "https://dnd5e.wikidot.com/lineage:goblin"
+    },
+    {
+      "name": "Grung",
+      "href": "/lineage:grung",
+      "url": "https://dnd5e.wikidot.com/lineage:grung"
+    },
+    {
+      "name": "Hobgoblin",
+      "href": "/lineage:hobgoblin",
+      "url": "https://dnd5e.wikidot.com/lineage:hobgoblin"
+    },
+    {
+      "name": "Kobold",
+      "href": "/lineage:kobold",
+      "url": "https://dnd5e.wikidot.com/lineage:kobold"
+    },
+    {
+      "name": "Lizardfolk",
+      "href": "/lineage:lizardfolk",
+      "url": "https://dnd5e.wikidot.com/lineage:lizardfolk"
+    },
+    {
+      "name": "Minotaur",
+      "href": "/lineage:minotaur",
+      "url": "https://dnd5e.wikidot.com/lineage:minotaur"
+    },
+    {
+      "name": "Orc",
+      "href": "/lineage:orc",
+      "url": "https://dnd5e.wikidot.com/lineage:orc"
+    },
+    {
+      "name": "Shifter",
+      "href": "/lineage:shifter",
+      "url": "https://dnd5e.wikidot.com/lineage:shifter"
+    },
+    {
+      "name": "Yuan-Ti",
+      "href": "/lineage:yuan-ti",
+      "url": "https://dnd5e.wikidot.com/lineage:yuan-ti"
+    },
+    {
+      "name": "Kender",
+      "href": "/lineage:kender",
+      "url": "https://dnd5e.wikidot.com/lineage:kender"
+    },
+    {
+      "name": "Kalashtar",
+      "href": "/lineage:kalashtar",
+      "url": "https://dnd5e.wikidot.com/lineage:kalashtar"
+    },
+    {
+      "name": "Warforged",
+      "href": "/lineage:warforged",
+      "url": "https://dnd5e.wikidot.com/lineage:warforged"
+    },
+    {
+      "name": "Aetherborn",
+      "href": "/lineage:aetherborn",
+      "url": "https://dnd5e.wikidot.com/lineage:aetherborn"
+    },
+    {
+      "name": "Aven",
+      "href": "/lineage:aven",
+      "url": "https://dnd5e.wikidot.com/lineage:aven"
+    },
+    {
+      "name": "Khenra",
+      "href": "/lineage:khenra",
+      "url": "https://dnd5e.wikidot.com/lineage:khenra"
+    },
+    {
+      "name": "Kor",
+      "href": "/lineage:kor",
+      "url": "https://dnd5e.wikidot.com/lineage:kor"
+    },
+    {
+      "name": "Merfolk",
+      "href": "/lineage:merfolk",
+      "url": "https://dnd5e.wikidot.com/lineage:merfolk"
+    },
+    {
+      "name": "Naga",
+      "href": "/lineage:naga",
+      "url": "https://dnd5e.wikidot.com/lineage:naga"
+    },
+    {
+      "name": "Siren",
+      "href": "/lineage:siren",
+      "url": "https://dnd5e.wikidot.com/lineage:siren"
+    },
+    {
+      "name": "Vampire",
+      "href": "/lineage:vampire",
+      "url": "https://dnd5e.wikidot.com/lineage:vampire"
+    },
+    {
+      "name": "Dhampir",
+      "href": "/lineage:dhampir",
+      "url": "https://dnd5e.wikidot.com/lineage:dhampir"
+    },
+    {
+      "name": "Hexblood",
+      "href": "/lineage:hexblood",
+      "url": "https://dnd5e.wikidot.com/lineage:hexblood"
+    },
+    {
+      "name": "Reborn",
+      "href": "/lineage:reborn",
+      "url": "https://dnd5e.wikidot.com/lineage:reborn"
+    },
+    {
+      "name": "Loxodon",
+      "href": "/lineage:loxodon",
+      "url": "https://dnd5e.wikidot.com/lineage:loxodon"
+    },
+    {
+      "name": "Simic Hybrid",
+      "href": "/lineage:simic-hybrid",
+      "url": "https://dnd5e.wikidot.com/lineage:simic-hybrid"
+    },
+    {
+      "name": "Vedalken",
+      "href": "/lineage:vedalken",
+      "url": "https://dnd5e.wikidot.com/lineage:vedalken"
+    },
+    {
+      "name": "Astral Elf",
+      "href": "/lineage:elf-astral",
+      "url": "https://dnd5e.wikidot.com/lineage:elf-astral"
+    },
+    {
+      "name": "Autognome",
+      "href": "/lineage:autognome",
+      "url": "https://dnd5e.wikidot.com/lineage:autognome"
+    },
+    {
+      "name": "Giff",
+      "href": "/lineage:giff",
+      "url": "https://dnd5e.wikidot.com/lineage:giff"
+    },
+    {
+      "name": "Hadozee",
+      "href": "/lineage:hadozee",
+      "url": "https://dnd5e.wikidot.com/lineage:hadozee"
+    },
+    {
+      "name": "Plasmoid",
+      "href": "/lineage:plasmoid",
+      "url": "https://dnd5e.wikidot.com/lineage:plasmoid"
+    },
+    {
+      "name": "Thri-kreen",
+      "href": "/lineage:thri-kreen",
+      "url": "https://dnd5e.wikidot.com/lineage:thri-kreen"
+    },
+    {
+      "name": "Leonin",
+      "href": "/lineage:leonin",
+      "url": "https://dnd5e.wikidot.com/lineage:leonin"
+    },
+    {
+      "name": "Autognome",
+      "href": "/lineage:autognome-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:autognome-ua"
+    },
+    {
+      "name": "Giff",
+      "href": "/lineage:giff-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:giff-ua"
+    },
+    {
+      "name": "Glitchling",
+      "href": "/lineage:glitchling-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:glitchling-ua"
+    },
+    {
+      "name": "Hadozee",
+      "href": "/lineage:hadozee-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:hadozee-ua"
+    },
+    {
+      "name": "Kender",
+      "href": "/lineage:kender-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:kender-ua"
+    },
+    {
+      "name": "Kender Revised",
+      "href": "/lineage:kender-ua-revised",
+      "url": "https://dnd5e.wikidot.com/lineage:kender-ua-revised"
+    },
+    {
+      "name": "Owlfolk",
+      "href": "/lineage:owlfolk-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:owlfolk-ua"
+    },
+    {
+      "name": "Plasmoid",
+      "href": "/lineage:plasmoid-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:plasmoid-ua"
+    },
+    {
+      "name": "Rabbitfolk",
+      "href": "/lineage:rabbitfolk-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:rabbitfolk-ua"
+    },
+    {
+      "name": "Revenant",
+      "href": "/lineage:revenant-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:revenant-ua"
+    },
+    {
+      "name": "Thri-Kreen",
+      "href": "/lineage:thri-kreen-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:thri-kreen-ua"
+    },
+    {
+      "name": "Viashino",
+      "href": "/lineage:viashino-ua",
+      "url": "https://dnd5e.wikidot.com/lineage:viashino-ua"
+    }
+  ]
+}

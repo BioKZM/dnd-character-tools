@@ -1,0 +1,36 @@
+{
+  "id": "mark-of-handling-spells",
+  "name": "Mark of Handling Spells",
+  "summary": "If your human character has the Mark of Making, the following traits replace the human's Ability Score Increase trait found in the Player's Handbook",
+  "bonuses": [
+    "Spell LevelSpell",
+    "1stAnimal Friendship,Speak With Animals",
+    "2ndBeast Sense,Calm Emotions",
+    "3rdBeacon of Hope,Conjure Animals",
+    "4thAura of Life,Dominate Beast",
+    "5thAwaken"
+  ],
+  "traits": [
+    {
+      "id": "artisan-s-intuition",
+      "name": "Artisan's Intuition",
+      "summary": "Whenever you make an Intelligence (Arcana) or an Ability Check involving Artisan's Tools, you can roll a d4 and add the number rolled to the total ability check."
+    },
+    {
+      "id": "spellsmith",
+      "name": "Spellsmith",
+      "summary": "You learn theMendingcantrip. You can also cast theMagic Weaponspell with this trait. When you do so, the spell lasts for 1 hour and doesn't require concentration. Once you cast this spell with this trait, you can't cast that spell again until you finish a Long Rest. Intelligence is your Spellcasting Ability for these spells."
+    },
+    {
+      "id": "spells-of-the-mark",
+      "name": "Spells of the Mark",
+      "summary": "If you have the Spellcasting or Pact Magic class feature, the spells on the Mark of Making Spells table are added to the spell list of your Spellcasting class."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Intelligence score increases by 2, and one other Ability Score of your choice increases by 1."
+    }
+  ]
+}

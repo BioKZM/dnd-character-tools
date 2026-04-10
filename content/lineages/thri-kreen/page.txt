@@ -1,0 +1,104 @@
+Thri-kreen - DND 5th Editionvar URL_HOST = 'www.wikidot.com'; var URL_DOMAIN = 'wikidot.com'; var USE_SSL = true ; var URL_STATIC = 'https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc'; // global request information var WIKIREQUEST = {}; WIKIREQUEST.info = {}; WIKIREQUEST.info.domain = "dnd5e.wikidot.com"; WIKIREQUEST.info.siteId = 1475899; WIKIREQUEST.info.siteUnixName = "dnd5e"; WIKIREQUEST.info.categoryId = 40932043; WIKIREQUEST.info.themeId = 2386862; WIKIREQUEST.info.requestPageName = "lineage:thri-kreen"; OZONE.request.timestamp = 1775782519; OZONE.request.date = new Date(); WIKIREQUEST.info.lang = 'en'; WIKIREQUEST.info.pageUnixName = "lineage:thri-kreen"; WIKIREQUEST.info.pageId = 1444675550; WIKIREQUEST.info.lang = "en"; OZONE.lang = "en"; var isUAMobile = !!/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);require.config({ baseUrl: URL_STATIC + '/common--javascript', paths: { 'jquery.ui': 'jquery-ui.min', 'jquery.form': 'jquery.form' } });/* modules */ /* bootstrap */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--bootstrap/3.2.0/bootstrap.min.css); /* theme */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--theme/bootstrap-base/css/style.css); @import url(https://dnd5e.wdfiles.com/local--theme/standard-yellow/style.css);var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-18234656-1']); _gaq.push(['_setDomainName', 'none']); _gaq.push(['_setAllowLinker', true]); _gaq.push(['_trackPageview']); _gaq.push(['old._setAccount', 'UA-68540-5']); _gaq.push(['old._setDomainName', 'none']); _gaq.push(['old._setAllowLinker', true]); _gaq.push(['old._trackPageview']);window.google_analytics_uacct = 'UA-18234656-1'; window.google_analytics_domain_name = 'none';var OneSignal = window.OneSignal || []; OneSignal.push(function() { OneSignal.init({ appId: null, }); });.admins-only, li.admins-only{ display: none; }window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{window.nitroAds.queue.push(["createAd",arguments,e])})},addUserToken:function(){window.nitroAds.queue.push(["addUserToken",arguments])},queue:[]};
+
+DND 5th Edition
+
+community wiki
+
+Create accountorSign in
+
+Toggle navigationHome
+
+About
+
+Membership
+
+Help Docs
+User Guide
+
+First Time User
+
+Quick Reference
+
+Creating Pages
+
+Editing Pages
+
+Navigation Bars
+
+Using Modules
+
+Templates
+
+CSS Themes
+
+Site Manager
+
+Edit Top Bar
+
+Edit Side Bar
+
+CSS Manager
+
+Recent Changes
+
+List All Pages
+
+Menu
+
+You should be logged in to clone a site.
+
+Site Navigation
+
+User Guide
+
+First Time User
+
+About
+
+Contact
+
+Legal
+
+Discussion Forums
+
+Members
+
+Create a Page
+
+window['nitroAds'].createAd('wad-dnd5e-below-sidebar', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 160, 600 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 1000px)" });
+
+Thri-kreen
+
+window['nitroAds'].createAd('wad-dnd5e-above-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 728, 90 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 768px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-above-content-mobile', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 320, 50 ], [320, 100] ], "report": { "enabled": true, "icon": true, "wording": "Report Ad", "position": "top-right" }, "mediaQuery": "(min-width: 320px) and (max-width: 767px)" });
+
+Source: Spelljammer: Adventures in Space - Astral Adventurer's Guide
+
+Thri-kreen have insectile features and two pairs of arms. Their bodies are encased in protective chitin. They can alter the coloration of this carapace to blend in with their natural surroundings.\nAlthough thri-kreen don’t sleep, they do require periods of inactivity to revitalize themselves. During these periods, they are fully aware of what’s happening around them.\nThri-kreen speak by clacking their mandibles and waving their antennae, indicating to other thri-kreen what they are thinking and feeling. Other creatures find this method of communication difficult to interpret and impossible to duplicate. To interact with other folk, thri-kreen rely on a form of telepathy.
+
+Thri-kreen Traits
+
+Ability Score Increase.Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1.
+
+Creature Type.You are a Monstrosity.
+
+Size.You are Medium or Small. You choose the size when you select this race.
+
+Speed.Your walking speed is 30 feet.
+
+Chameleon Carapace.While you aren’t wearing armor, your carapace gives you a base Armor Class of 13 + your Dexterity modifier. As an action, you can change the color of your carapace to match the color and texture of your surroundings, giving you advantage on Dexterity (Stealth) checks made to hide in those surroundings.
+
+Darkvision.You can see in dim light within 60 feet of yourself as if it were bright light, and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray.
+
+Secondary Arms.You have two slightly smaller secondary arms below your primary pair of arms. The secondary arms can manipulate an object, open or close a door or container, pick up or set down a Tiny object, or wield a weapon that has the light property.
+
+Sleepless.You do not require sleep and can choose to remain conscious during a long rest, though you must still refrain from strenuous activity to gain the benefit of the rest.
+
+Thri-kreen Telepathy.Without the assistance of magic, you can’t speak the non-thri-kreen languages you know. Instead you use telepathy to convey your thoughts. You have the magical ability to transmit your thoughts mentally to willing creatures within 120 feet of yourself. A contacted creature doesn’t need to share a language with you to understand your thoughts, but it must be able to understand at least one language. Your telepathic link to a creature is broken if you and the creature move more than 120 feet apart, if either of you is incapacitated, or if either of you mentally breaks the contact (no action required).
+
+Languages.You can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character.
+
+window['nitroAds'].createAd('wad-dnd5e-floating-video', { "refreshTime": 30, "format": "floating", "mediaQuery": "(min-width: 1025px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-below-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 300, 250 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" } });

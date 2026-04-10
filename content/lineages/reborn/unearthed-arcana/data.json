@@ -1,0 +1,16 @@
+{
+  "id": "unearthed-arcana",
+  "name": "Unearthed Arcana",
+  "summary": "Death isn’t always the end. The reborn exemplify this, being individuals who have died yet, somehow, still live. Some reborn exhibit the scars of fatal ends, their ashen flesh or bloodless veins making it clear that they’ve been touched by death. Other reborn are marvels of magic or science, being stitched together from disparate beings or bearing mysterious minds in manufactured bodies. Whatever their origins, reborn know a new life and seek experiences and answers all their own.",
+  "bonuses": [
+    "Van Richten's Guide to Ravenloft"
+  ],
+  "traits": [
+    {
+      "id": "death-isn-t-always-the-end",
+      "name": "Death isn’t always the end",
+      "summary": "The reborn exemplify this, being individuals who have died yet, somehow, still live. Some reborn exhibit the scars of fatal ends, their ashen flesh or bloodless veins making it clear that they’ve been touched by death. Other reborn are marvels of magic or science, being stitched together from disparate beings or bearing mysterious minds in manufactured bodies. Whatever their origins, reborn know a new life and seek experiences and answers all their own."
+    }
+  ],
+  "stats": []
+}

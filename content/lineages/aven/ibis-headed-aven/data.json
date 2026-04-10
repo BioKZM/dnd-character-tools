@@ -1,0 +1,22 @@
+{
+  "id": "ibis-headed-aven",
+  "name": "Ibis-Headed Aven",
+  "summary": "A majority of ibis-headed aven, drawn to the teachings of Kefnet, specialize in spellcasting. They take great pride in all the qualities they share with the god of knowledge—not just their avian heads, but their quick wit, self-confidence, cunning, and spellcasting prowess.",
+  "bonuses": [
+    "Ability Score Increase.Your Intelligence score increases by 1.",
+    "Kefnet's Blessing.You can add half your proficiency bonus, rounded down, to any Intelligence check you make that doesn’t already include your proficiency bonus."
+  ],
+  "traits": [
+    {
+      "id": "kefnet-s-blessing",
+      "name": "Kefnet's Blessing",
+      "summary": "You can add half your proficiency bonus, rounded down, to any Intelligence check you make that doesn’t already include your proficiency bonus."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Intelligence score increases by 1."
+    }
+  ]
+}

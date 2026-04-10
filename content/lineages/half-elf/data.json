@@ -1,0 +1,102 @@
+{
+  "id": "half-elf",
+  "name": "Half-Elf",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:half-elf",
+  "sourceLabel": "Standard Lineages",
+  "summary": "Walking in two worlds but truly belonging to neither, half-elves combine what some say are the best qualities of their elf and human parents: human curiosity, inventiveness, and ambition tempered by the refined senses, love of nature, and artistic tastes of the elves.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 2, and two other ability scores of your choice each increase by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Half-elves are more or less the same size as humans, ranging from 5 to 6 feet tall. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can read, speak, and write Common, Elven, and one language of your choice."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Wisdom score increases by 2, and one other Ability Score of your choice increases by 1."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 2, and your Dexterity score increases by 1."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.Your Charisma score increases by 2, and two other ability scores of your choice each increase by 1.",
+    "Size.Half-elves are more or less the same size as humans, ranging from 5 to 6 feet tall. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can read, speak, and write Common, Elven, and one language of your choice.",
+    "Ability Score Increase.Your Wisdom score increases by 2, and one other Ability Score of your choice increases by 1.",
+    "Ability Score Increase.Your Charisma score increases by 2, and your Dexterity score increases by 1."
+  ],
+  "coreTraits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Half-elves age at much the same rate as humans, reaching adulthood at the age of 20. They live much longer than humans, however, often exceeding 180 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Half-elves share the chaotic bent of their elven heritage. They both value personal freedom and creative expression, demonstrating neither love of leaders nor desire for followers. They chafe at rules, resent others' demands, and sometimes prove unreliable, or at least unpredictable. They are good and evil in equal numbers, a trait they share with their human parents."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "Thanks to your elven heritage, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws against being charmed, and magic can't put you to sleep."
+    },
+    {
+      "id": "half-elf-versatility",
+      "name": "Half-Elf Versatility",
+      "summary": "Choose one of the following traits: Skill Versatility (General).You gain proficiency in two skills of your choice."
+    },
+    {
+      "id": "cantrip-high-elf-heritage",
+      "name": "Cantrip (High Elf Heritage)",
+      "summary": "You know one cantrip of your choice from thewizard spell list. Intelligence is your spellcasting ability for it."
+    },
+    {
+      "id": "fleet-of-foot-wood-elf-heritage",
+      "name": "Fleet of Foot (Wood Elf Heritage)",
+      "summary": "Your base walking speed increases to 35 feet."
+    },
+    {
+      "id": "mask-of-the-wild-wood-elf-heritage",
+      "name": "Mask of the Wild (Wood Elf Heritage)",
+      "summary": "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
+    },
+    {
+      "id": "drow-magic-dark-elf-heritage",
+      "name": "Drow Magic (Dark Elf Heritage)",
+      "summary": "You know theDancing Lightscantrip. When you reach 3rd level, you can castFaerie Fireonce, and it recharges after a long rest. When you reach 5th level, you can castDarknessonce, and it recharges after a long rest. Charisma is your spellcasting ability for these spells."
+    },
+    {
+      "id": "swim-speed-aquatic-elf-heritage",
+      "name": "Swim Speed (Aquatic Elf Heritage)",
+      "summary": "You have a swimming speed of 30 feet."
+    }
+  ],
+  "subraces": [
+    "mark-of-storm",
+    "spell-levelspell",
+    "mark-of-storm-spells"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

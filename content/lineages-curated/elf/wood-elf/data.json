@@ -1,0 +1,36 @@
+{
+  "id": "wood-elf",
+  "name": "Wood Elf",
+  "summary": "As a wood elf, you have keen senses and intuition, and your fleet feet carry you quickly and stealthily through your native forests. This category includes the wild elves (grugach) of Greyhawk and the Kagonesti of Dragonlance, as well as the races called wood elves in Greyhawk and the Forgotten Realms. In Faerun, wood elves (also called wild elves. green elves, or forest elves) are reclusive and distrusting of non-elves.",
+  "bonuses": [
+    "Ability Score Increase. Your Wisdom score increases by 1.",
+    "Elf Weapon Training. You have proficiency with the longsword, shortsword, shortbow, and longbow.",
+    "Fleet of Foot. Your base walking speed increases to 35 feet.",
+    "Mask of the Wild. You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
+  ],
+  "traits": [
+    {
+      "id": "elf-weapon-training",
+      "name": "Elf Weapon Training",
+      "summary": "You have proficiency with the longsword, shortsword, shortbow, and longbow."
+    },
+    {
+      "id": "fleet-of-foot",
+      "name": "Fleet of Foot",
+      "summary": "Your base walking speed increases to 35 feet."
+    },
+    {
+      "id": "mask-of-the-wild",
+      "name": "Mask of the Wild",
+      "summary": "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Wisdom score increases by 1."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "tables": []
+}

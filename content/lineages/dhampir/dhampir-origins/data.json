@@ -1,0 +1,26 @@
+{
+  "id": "dhampir-origins",
+  "name": "Dhampir Origins",
+  "summary": "Dhampirs often arise from encounters with vampires, but all manner of macabre bargains, necromantic influences, and encounters with mysterious immortals might have transformed your character. The Dhampir Origins table provides suggestions for how your character gained their lineage.",
+  "bonuses": [
+    "Dhampir Origins",
+    "d8Origin",
+    "1You are the reincarnation of an ancestor who was a vampiric tyrant.",
+    "2Your pact with a predatory deity, fiend, fey, or spirit causes you to share their hunger.",
+    "3You survived being attacked by a vampire but were forever changed.",
+    "4A parasite lives inside you. You indulge its hunger."
+  ],
+  "traits": [
+    {
+      "id": "4a-parasite-lives-inside-you",
+      "name": "4A parasite lives inside you",
+      "summary": "You indulge its hunger."
+    },
+    {
+      "id": "7one-of-your-parents-was-a-vampire",
+      "name": "7One of your parents was a vampire",
+      "summary": ""
+    }
+  ],
+  "stats": []
+}

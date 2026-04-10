@@ -1,0 +1,73 @@
+{
+  "id": "abyssal-tiefling",
+  "name": "Abyssal Tiefling",
+  "summary": "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling. And to twist the knife, tieflings know that this is because a pact struck generations ago infused the essence of Asmodeus, overlord of the Nine Hells (and many of the other powerful devils serving under him) into their bloodline. Their appearance and their nature are not their fault but the result of an ancient sin, for which they and their children and their children's children will always be held accountable.",
+  "bonuses": [
+    "Player's Handbook",
+    "Ability Score Increase.Your Charisma score increases by 2.",
+    "Age.Tieflings mature at the same rate as humans but live a few years longer.",
+    "Alignment.Tieflings might not have an innate tendency toward evil, but many of them end up there. Evil or not, an independent nature inclines many tieflings toward a chaotic alignment.",
+    "Size.Tieflings are about the same size and build as humans. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet."
+  ],
+  "traits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Tieflings mature at the same rate as humans but live a few years longer."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Tieflings might not have an innate tendency toward evil, but many of them end up there. Evil or not, an independent nature inclines many tieflings toward a chaotic alignment."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "Thanks to your infernal heritage, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "hellish-resistance",
+      "name": "Hellish Resistance",
+      "summary": "You have resistance to fire damage."
+    },
+    {
+      "id": "infernal-legacy",
+      "name": "Infernal Legacy",
+      "summary": "You know theThaumaturgycantrip. Once you reach 3rd level, you can cast theHellish Rebukespell once as a 2nd-level spell. Once you reach 5th level, you can also cast theDarknessspell once. You must finish a long rest to cast these spells again with this trait. Charisma is your spellcasting ability for these spells."
+    },
+    {
+      "id": "legacy-of-maladomini",
+      "name": "Legacy of Maladomini",
+      "summary": "You know theThaumaturgycantrip. Once you reach 3rd level, you can cast theRay of Sicknessspell once as a 2nd-level spell. Once you reach 5th level, you can also cast theCrown of Madnessspell once. You must finish a long rest to cast these spells again with this trait. Charisma is your spellcasting ability for these spells."
+    },
+    {
+      "id": "legacy-of-dis",
+      "name": "Legacy of Dis",
+      "summary": "You know theThaumaturgycantrip. Once you reach 3rd level, you can cast theDisguise Selfspell once as a 2nd-level spell. Once you reach 5th level, you can also cast theDetect Thoughtsspell once. You must finish a long rest to cast these spells again with this trait. Charisma is your spellcasting ability for these spells."
+    },
+    {
+      "id": "legacy-of-phlegethos",
+      "name": "Legacy of Phlegethos",
+      "summary": "You know theFriendscantrip. Once you reach 3rd level, you can cast theCharm Personspell once as a 2nd-level spell. Once you reach 5th level, you can also cast theSuggestionspell once. You must finish a long rest to cast these spells again with this trait. Charisma is your spellcasting ability for these spells."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 2."
+    },
+    {
+      "label": "Size",
+      "value": "Tieflings are about the same size and build as humans. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and Infernal."
+    }
+  ]
+}

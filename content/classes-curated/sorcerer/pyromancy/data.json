@@ -1,0 +1,32 @@
+{
+  "id": "pyromancy",
+  "name": "Pyromancy",
+  "source": "Plane Shift: Kaladesh",
+  "sourceUrl": "https://dnd5e.wikidot.com/sorcerer:pyromancy",
+  "summary": "Although this Sorcerous Origin was created for MTG, it is not tied to a specific setting or story, meaning its flavor is open to any setting and story. Regardless, ask your DM before using it.",
+  "features": [
+    {
+      "id": "heart-of-fire",
+      "name": "Heart of Fire",
+      "summary": "At 1st level, whenever you start casting a spell of 1st level or higher that deals fire damage, fiery magic erupts from you. This eruption causes creatures of your choice that you can see within 10 feet of you to take fire damage equal to half your sorcerer level (minimum of 1)."
+    },
+    {
+      "id": "fire-in-the-veins",
+      "name": "Fire in the Veins",
+      "summary": "At 6th level, you gain resistance to fire damage. In addition, spells you cast ignore resistance to fire damage."
+    },
+    {
+      "id": "pyromancer-s-fury",
+      "name": "Pyromancer's Fury",
+      "summary": "Starting at 14th level, when you are hit by a melee attack, you can use your reaction to deal fire damage to the attacker. The damage equals your sorcerer level, and ignores resistance to fire damage."
+    },
+    {
+      "id": "fiery-soul",
+      "name": "Fiery Soul",
+      "summary": "At 18th level, you gain immunity to fire damage. In addition, any spell or effect you create ignores resistance to fire damage and treats immunity to fire damage as resistance to fire damage."
+    }
+  ],
+  "notes": [
+    "details collected from subclass page"
+  ]
+}

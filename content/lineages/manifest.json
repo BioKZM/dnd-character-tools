@@ -1,0 +1,575 @@
+{
+  "source": "https://dnd5e.wikidot.com/lineage",
+  "entryCount": 71,
+  "generatedAt": "2026-04-10T00:55:20Z",
+  "entries": [
+    {
+      "id": "dragonborn",
+      "name": "Dragonborn",
+      "url": "https://dnd5e.wikidot.com/lineage:dragonborn",
+      "section": "Standard Lineages",
+      "subraceCount": 7,
+      "path": "content/lineages/dragonborn/data.json"
+    },
+    {
+      "id": "dwarf",
+      "name": "Dwarf",
+      "url": "https://dnd5e.wikidot.com/lineage:dwarf",
+      "section": "Standard Lineages",
+      "subraceCount": 3,
+      "path": "content/lineages/dwarf/data.json"
+    },
+    {
+      "id": "elf",
+      "name": "Elf",
+      "url": "https://dnd5e.wikidot.com/lineage:elf",
+      "section": "Standard Lineages",
+      "subraceCount": 7,
+      "path": "content/lineages/elf/data.json"
+    },
+    {
+      "id": "gnome",
+      "name": "Gnome",
+      "url": "https://dnd5e.wikidot.com/lineage:gnome",
+      "section": "Standard Lineages",
+      "subraceCount": 3,
+      "path": "content/lineages/gnome/data.json"
+    },
+    {
+      "id": "half-elf",
+      "name": "Half-Elf",
+      "url": "https://dnd5e.wikidot.com/lineage:half-elf",
+      "section": "Standard Lineages",
+      "subraceCount": 3,
+      "path": "content/lineages/half-elf/data.json"
+    },
+    {
+      "id": "half-orc",
+      "name": "Half-Orc",
+      "url": "https://dnd5e.wikidot.com/lineage:half-orc",
+      "section": "Standard Lineages",
+      "subraceCount": 2,
+      "path": "content/lineages/half-orc/data.json"
+    },
+    {
+      "id": "halfling",
+      "name": "Halfling",
+      "url": "https://dnd5e.wikidot.com/lineage:halfling",
+      "section": "Standard Lineages",
+      "subraceCount": 6,
+      "path": "content/lineages/halfling/data.json"
+    },
+    {
+      "id": "human",
+      "name": "Human",
+      "url": "https://dnd5e.wikidot.com/lineage:human",
+      "section": "Standard Lineages",
+      "subraceCount": 9,
+      "path": "content/lineages/human/data.json"
+    },
+    {
+      "id": "tiefling",
+      "name": "Tiefling",
+      "url": "https://dnd5e.wikidot.com/lineage:tiefling",
+      "section": "Standard Lineages",
+      "subraceCount": 3,
+      "path": "content/lineages/tiefling/data.json"
+    },
+    {
+      "id": "custom",
+      "name": "Custom",
+      "url": "https://dnd5e.wikidot.com/lineage:custom",
+      "section": "Custom Lineage",
+      "subraceCount": 4,
+      "path": "content/lineages/custom/data.json"
+    },
+    {
+      "id": "aarakocra",
+      "name": "Aarakocra",
+      "url": "https://dnd5e.wikidot.com/lineage:aarakocra",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/aarakocra/data.json"
+    },
+    {
+      "id": "aasimar",
+      "name": "Aasimar",
+      "url": "https://dnd5e.wikidot.com/lineage:aasimar",
+      "section": "Exotic Lineages",
+      "subraceCount": 2,
+      "path": "content/lineages/aasimar/data.json"
+    },
+    {
+      "id": "changeling",
+      "name": "Changeling",
+      "url": "https://dnd5e.wikidot.com/lineage:changeling",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/changeling/data.json"
+    },
+    {
+      "id": "deep-gnome",
+      "name": "Deep Gnome",
+      "url": "https://dnd5e.wikidot.com/lineage:deep-gnome",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/deep-gnome/data.json"
+    },
+    {
+      "id": "duergar",
+      "name": "Duergar",
+      "url": "https://dnd5e.wikidot.com/lineage:duergar",
+      "section": "Exotic Lineages",
+      "subraceCount": 0,
+      "path": "content/lineages/duergar/data.json"
+    },
+    {
+      "id": "eladrin",
+      "name": "Eladrin",
+      "url": "https://dnd5e.wikidot.com/lineage:eladrin",
+      "section": "Exotic Lineages",
+      "subraceCount": 6,
+      "path": "content/lineages/eladrin/data.json"
+    },
+    {
+      "id": "fairy",
+      "name": "Fairy",
+      "url": "https://dnd5e.wikidot.com/lineage:fairy",
+      "section": "Exotic Lineages",
+      "subraceCount": 2,
+      "path": "content/lineages/fairy/data.json"
+    },
+    {
+      "id": "firbolg",
+      "name": "Firbolg",
+      "url": "https://dnd5e.wikidot.com/lineage:firbolg",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/firbolg/data.json"
+    },
+    {
+      "id": "genasi-air",
+      "name": "Genasi (Air)",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-air",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/genasi-air/data.json"
+    },
+    {
+      "id": "genasi-earth",
+      "name": "Genasi (Earth)",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-earth",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/genasi-earth/data.json"
+    },
+    {
+      "id": "genasi-fire",
+      "name": "Genasi (Fire)",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-fire",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/genasi-fire/data.json"
+    },
+    {
+      "id": "genasi-water",
+      "name": "Genasi (Water)",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-water",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/genasi-water/data.json"
+    },
+    {
+      "id": "githyanki",
+      "name": "Githyanki",
+      "url": "https://dnd5e.wikidot.com/lineage:githyanki",
+      "section": "Exotic Lineages",
+      "subraceCount": 2,
+      "path": "content/lineages/githyanki/data.json"
+    },
+    {
+      "id": "githzerai",
+      "name": "Githzerai",
+      "url": "https://dnd5e.wikidot.com/lineage:githzerai",
+      "section": "Exotic Lineages",
+      "subraceCount": 2,
+      "path": "content/lineages/githzerai/data.json"
+    },
+    {
+      "id": "goliath",
+      "name": "Goliath",
+      "url": "https://dnd5e.wikidot.com/lineage:goliath",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/goliath/data.json"
+    },
+    {
+      "id": "harengon",
+      "name": "Harengon",
+      "url": "https://dnd5e.wikidot.com/lineage:harengon",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/harengon/data.json"
+    },
+    {
+      "id": "kenku",
+      "name": "Kenku",
+      "url": "https://dnd5e.wikidot.com/lineage:kenku",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/kenku/data.json"
+    },
+    {
+      "id": "locathah",
+      "name": "Locathah",
+      "url": "https://dnd5e.wikidot.com/lineage:locathah",
+      "section": "Exotic Lineages",
+      "subraceCount": 4,
+      "path": "content/lineages/locathah/data.json"
+    },
+    {
+      "id": "owlin",
+      "name": "Owlin",
+      "url": "https://dnd5e.wikidot.com/lineage:owlin",
+      "section": "Exotic Lineages",
+      "subraceCount": 4,
+      "path": "content/lineages/owlin/data.json"
+    },
+    {
+      "id": "satyr",
+      "name": "Satyr",
+      "url": "https://dnd5e.wikidot.com/lineage:satyr",
+      "section": "Exotic Lineages",
+      "subraceCount": 0,
+      "path": "content/lineages/satyr/data.json"
+    },
+    {
+      "id": "sea-elf",
+      "name": "Sea Elf",
+      "url": "https://dnd5e.wikidot.com/lineage:sea-elf",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/sea-elf/data.json"
+    },
+    {
+      "id": "shadar-kai",
+      "name": "Shadar-Kai",
+      "url": "https://dnd5e.wikidot.com/lineage:shadar-kai",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/shadar-kai/data.json"
+    },
+    {
+      "id": "tabaxi",
+      "name": "Tabaxi",
+      "url": "https://dnd5e.wikidot.com/lineage:tabaxi",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/tabaxi/data.json"
+    },
+    {
+      "id": "tortle",
+      "name": "Tortle",
+      "url": "https://dnd5e.wikidot.com/lineage:tortle",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/tortle/data.json"
+    },
+    {
+      "id": "triton",
+      "name": "Triton",
+      "url": "https://dnd5e.wikidot.com/lineage:triton",
+      "section": "Exotic Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/triton/data.json"
+    },
+    {
+      "id": "verdan",
+      "name": "Verdan",
+      "url": "https://dnd5e.wikidot.com/lineage:verdan",
+      "section": "Exotic Lineages",
+      "subraceCount": 4,
+      "path": "content/lineages/verdan/data.json"
+    },
+    {
+      "id": "bugbear",
+      "name": "Bugbear",
+      "url": "https://dnd5e.wikidot.com/lineage:bugbear",
+      "section": "Monstrous Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/bugbear/data.json"
+    },
+    {
+      "id": "centaur",
+      "name": "Centaur",
+      "url": "https://dnd5e.wikidot.com/lineage:centaur",
+      "section": "Monstrous Lineages",
+      "subraceCount": 0,
+      "path": "content/lineages/centaur/data.json"
+    },
+    {
+      "id": "goblin",
+      "name": "Goblin",
+      "url": "https://dnd5e.wikidot.com/lineage:goblin",
+      "section": "Monstrous Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/goblin/data.json"
+    },
+    {
+      "id": "grung",
+      "name": "Grung",
+      "url": "https://dnd5e.wikidot.com/lineage:grung",
+      "section": "Monstrous Lineages",
+      "subraceCount": 4,
+      "path": "content/lineages/grung/data.json"
+    },
+    {
+      "id": "hobgoblin",
+      "name": "Hobgoblin",
+      "url": "https://dnd5e.wikidot.com/lineage:hobgoblin",
+      "section": "Monstrous Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/hobgoblin/data.json"
+    },
+    {
+      "id": "kobold",
+      "name": "Kobold",
+      "url": "https://dnd5e.wikidot.com/lineage:kobold",
+      "section": "Monstrous Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/kobold/data.json"
+    },
+    {
+      "id": "lizardfolk",
+      "name": "Lizardfolk",
+      "url": "https://dnd5e.wikidot.com/lineage:lizardfolk",
+      "section": "Monstrous Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/lizardfolk/data.json"
+    },
+    {
+      "id": "minotaur",
+      "name": "Minotaur",
+      "url": "https://dnd5e.wikidot.com/lineage:minotaur",
+      "section": "Monstrous Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/minotaur/data.json"
+    },
+    {
+      "id": "orc",
+      "name": "Orc",
+      "url": "https://dnd5e.wikidot.com/lineage:orc",
+      "section": "Monstrous Lineages",
+      "subraceCount": 2,
+      "path": "content/lineages/orc/data.json"
+    },
+    {
+      "id": "shifter",
+      "name": "Shifter",
+      "url": "https://dnd5e.wikidot.com/lineage:shifter",
+      "section": "Monstrous Lineages",
+      "subraceCount": 2,
+      "path": "content/lineages/shifter/data.json"
+    },
+    {
+      "id": "yuan-ti",
+      "name": "Yuan-Ti",
+      "url": "https://dnd5e.wikidot.com/lineage:yuan-ti",
+      "section": "Monstrous Lineages",
+      "subraceCount": 1,
+      "path": "content/lineages/yuan-ti/data.json"
+    },
+    {
+      "id": "kender",
+      "name": "Kender",
+      "url": "https://dnd5e.wikidot.com/lineage:kender",
+      "section": "Dragonlance",
+      "subraceCount": 4,
+      "path": "content/lineages/kender/data.json"
+    },
+    {
+      "id": "kalashtar",
+      "name": "Kalashtar",
+      "url": "https://dnd5e.wikidot.com/lineage:kalashtar",
+      "section": "Eberron",
+      "subraceCount": 1,
+      "path": "content/lineages/kalashtar/data.json"
+    },
+    {
+      "id": "warforged",
+      "name": "Warforged",
+      "url": "https://dnd5e.wikidot.com/lineage:warforged",
+      "section": "Eberron",
+      "subraceCount": 2,
+      "path": "content/lineages/warforged/data.json"
+    },
+    {
+      "id": "aetherborn",
+      "name": "Aetherborn",
+      "url": "https://dnd5e.wikidot.com/lineage:aetherborn",
+      "section": "Plane Shift",
+      "subraceCount": 4,
+      "path": "content/lineages/aetherborn/data.json"
+    },
+    {
+      "id": "aven",
+      "name": "Aven",
+      "url": "https://dnd5e.wikidot.com/lineage:aven",
+      "section": "Plane Shift",
+      "subraceCount": 6,
+      "path": "content/lineages/aven/data.json"
+    },
+    {
+      "id": "khenra",
+      "name": "Khenra",
+      "url": "https://dnd5e.wikidot.com/lineage:khenra",
+      "section": "Plane Shift",
+      "subraceCount": 4,
+      "path": "content/lineages/khenra/data.json"
+    },
+    {
+      "id": "kor",
+      "name": "Kor",
+      "url": "https://dnd5e.wikidot.com/lineage:kor",
+      "section": "Plane Shift",
+      "subraceCount": 4,
+      "path": "content/lineages/kor/data.json"
+    },
+    {
+      "id": "merfolk",
+      "name": "Merfolk",
+      "url": "https://dnd5e.wikidot.com/lineage:merfolk",
+      "section": "Plane Shift",
+      "subraceCount": 1,
+      "path": "content/lineages/merfolk/data.json"
+    },
+    {
+      "id": "naga",
+      "name": "Naga",
+      "url": "https://dnd5e.wikidot.com/lineage:naga",
+      "section": "Plane Shift",
+      "subraceCount": 4,
+      "path": "content/lineages/naga/data.json"
+    },
+    {
+      "id": "siren",
+      "name": "Siren",
+      "url": "https://dnd5e.wikidot.com/lineage:siren",
+      "section": "Plane Shift",
+      "subraceCount": 4,
+      "path": "content/lineages/siren/data.json"
+    },
+    {
+      "id": "vampire",
+      "name": "Vampire",
+      "url": "https://dnd5e.wikidot.com/lineage:vampire",
+      "section": "Plane Shift",
+      "subraceCount": 1,
+      "path": "content/lineages/vampire/data.json"
+    },
+    {
+      "id": "dhampir",
+      "name": "Dhampir",
+      "url": "https://dnd5e.wikidot.com/lineage:dhampir",
+      "section": "Ravenloft",
+      "subraceCount": 4,
+      "path": "content/lineages/dhampir/data.json"
+    },
+    {
+      "id": "hexblood",
+      "name": "Hexblood",
+      "url": "https://dnd5e.wikidot.com/lineage:hexblood",
+      "section": "Ravenloft",
+      "subraceCount": 5,
+      "path": "content/lineages/hexblood/data.json"
+    },
+    {
+      "id": "reborn",
+      "name": "Reborn",
+      "url": "https://dnd5e.wikidot.com/lineage:reborn",
+      "section": "Ravenloft",
+      "subraceCount": 5,
+      "path": "content/lineages/reborn/data.json"
+    },
+    {
+      "id": "loxodon",
+      "name": "Loxodon",
+      "url": "https://dnd5e.wikidot.com/lineage:loxodon",
+      "section": "Ravnica",
+      "subraceCount": 4,
+      "path": "content/lineages/loxodon/data.json"
+    },
+    {
+      "id": "simic-hybrid",
+      "name": "Simic Hybrid",
+      "url": "https://dnd5e.wikidot.com/lineage:simic-hybrid",
+      "section": "Ravnica",
+      "subraceCount": 4,
+      "path": "content/lineages/simic-hybrid/data.json"
+    },
+    {
+      "id": "vedalken",
+      "name": "Vedalken",
+      "url": "https://dnd5e.wikidot.com/lineage:vedalken",
+      "section": "Ravnica",
+      "subraceCount": 1,
+      "path": "content/lineages/vedalken/data.json"
+    },
+    {
+      "id": "elf-astral",
+      "name": "Astral Elf",
+      "url": "https://dnd5e.wikidot.com/lineage:elf-astral",
+      "section": "Spelljammer",
+      "subraceCount": 3,
+      "path": "content/lineages/elf-astral/data.json"
+    },
+    {
+      "id": "autognome",
+      "name": "Autognome",
+      "url": "https://dnd5e.wikidot.com/lineage:autognome",
+      "section": "Spelljammer",
+      "subraceCount": 5,
+      "path": "content/lineages/autognome/data.json"
+    },
+    {
+      "id": "giff",
+      "name": "Giff",
+      "url": "https://dnd5e.wikidot.com/lineage:giff",
+      "section": "Spelljammer",
+      "subraceCount": 4,
+      "path": "content/lineages/giff/data.json"
+    },
+    {
+      "id": "hadozee",
+      "name": "Hadozee",
+      "url": "https://dnd5e.wikidot.com/lineage:hadozee",
+      "section": "Spelljammer",
+      "subraceCount": 4,
+      "path": "content/lineages/hadozee/data.json"
+    },
+    {
+      "id": "plasmoid",
+      "name": "Plasmoid",
+      "url": "https://dnd5e.wikidot.com/lineage:plasmoid",
+      "section": "Spelljammer",
+      "subraceCount": 4,
+      "path": "content/lineages/plasmoid/data.json"
+    },
+    {
+      "id": "thri-kreen",
+      "name": "Thri-kreen",
+      "url": "https://dnd5e.wikidot.com/lineage:thri-kreen",
+      "section": "Spelljammer",
+      "subraceCount": 4,
+      "path": "content/lineages/thri-kreen/data.json"
+    },
+    {
+      "id": "leonin",
+      "name": "Leonin",
+      "url": "https://dnd5e.wikidot.com/lineage:leonin",
+      "section": "Theros",
+      "subraceCount": 4,
+      "path": "content/lineages/leonin/data.json"
+    }
+  ]
+}

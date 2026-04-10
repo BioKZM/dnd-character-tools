@@ -1,0 +1,55 @@
+{
+  "id": "deep-gnome",
+  "name": "Deep Gnome",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:deep-gnome",
+  "sourceLabel": "Exotic Lineages",
+  "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+  "summary": "Deep gnomes, or svirfneblin, are natives of the Underdark and are suffused with that subterranean realm’s magic. They can supernaturally camouflage themselves, and their svirfneblin magic renders them difficult to locate. These abilities have enabled them to survive for generations among the perils of the Underdark.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Small."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. The Player’s Handbook offers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ],
+  "coreBonuses": [],
+  "coreTraits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid. You are also considered a gnome for any prerequisite or effect that requires you to be a gnome."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 120 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "gnomish-magic-resistance",
+      "name": "Gnomish Magic Resistance",
+      "summary": "You have advantage on Intelligence, Wisdom, and Charisma saving throws against spells."
+    },
+    {
+      "id": "svirfneblin-camouflage",
+      "name": "Svirfneblin Camouflage",
+      "summary": "When you make a Dexterity (Stealth) check, you can make the check with advantage. You can use this trait a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": true,
+  "subraces": [],
+  "notes": [
+    "source isolated from page-content and table of contents",
+    "raw text is preserved in page.html for manual inspection"
+  ]
+}

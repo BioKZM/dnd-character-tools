@@ -1,0 +1,73 @@
+{
+  "id": "volo-s-guide-to-monsters",
+  "name": "Volo's Guide to Monsters",
+  "summary": "Originally from the Elemental Plane of Water, many tritons entered the Material Plane centuries ago in response to the growing threat of evil elementals. Those tritons spread across the worlds’ oceans, protecting the surface from terrors in the deep. Over time, triton have extended their stewardship over the sea floor to the ocean’s surface.",
+  "bonuses": [
+    "Mordenkainen Presents: Monsters of the Multiverse",
+    "Tritons have webbed hands and feet, small fins on their calves, and coloration that favors blues and greens.",
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Creature Type.You are a Humanoid.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed."
+  ],
+  "traits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid."
+    },
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "summary": "You can breathe air and water."
+    },
+    {
+      "id": "control-air-and-water",
+      "name": "Control Air and Water",
+      "summary": "You can castFog Cloudwith this trait. Starting at 3rd level, you can cast theGust of Windspell with this trait. Starting at 5th level, you can also cast theWater Walkspell with it. Once you cast any of these spells with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast these spells using any spell slots you have of the appropriate level. Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race)."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "emissary-of-the-sea",
+      "name": "Emissary of the Sea",
+      "summary": "You can communicate simple ideas to any Beast, Elemental, or Monstrosity that has a swimming speed. It can understand your words, though you have no special ability to understand it in return."
+    },
+    {
+      "id": "guardian-of-the-depths",
+      "name": "Guardian of the Depths",
+      "summary": "Adapted to the frigid ocean depths, you have resistance to cold damage."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Tritons reach maturity around age 15 and can live up to 200 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Tritons tend toward lawful good. As guardians of the darkest reaches of the sea, their culture pushes them toward order and benevolence."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "mark-of-passage-spells",
+  "name": "Mark of Passage Spells",
+  "summary": "If your human character has the Mark of Sentinel, the following traits replace the human's Ability Score Increase trait found in the Player's Handbook",
+  "bonuses": [
+    "Spell LevelSpell",
+    "1stExpeditious Retreat,Jump",
+    "2ndMisty Step,Pass Without Trace",
+    "3rdBlink,Phantom Steed",
+    "4thDimension Door,Freedom of Movement",
+    "5thTeleportation Circle"
+  ],
+  "traits": [
+    {
+      "id": "sentinel-s-intuition",
+      "name": "Sentinel's Intuition",
+      "summary": "Whenever you make an Wisdom (Insight) or a Wisdom (Perception) check, you can roll a d4 and add the number rolled to the total ability check."
+    },
+    {
+      "id": "guardian-s-shield",
+      "name": "Guardian's Shield",
+      "summary": "You can cast theShieldspell with this trait. Once you cast this spell with this trait, you can't cast that spell again until you finish a Long Rest. Wisdom is your Spellcasting Ability for these spells."
+    },
+    {
+      "id": "spells-of-the-mark",
+      "name": "Spells of the Mark",
+      "summary": "If you have the Spellcasting or Pact Magic class feature, the spells on the Mark of Sentinel Spells table are added to the spell list of your Spellcasting class."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Constitution score increases by 2, and your Wisdom score increases by 1."
+    }
+  ]
+}

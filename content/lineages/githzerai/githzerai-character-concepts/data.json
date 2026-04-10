@@ -1,0 +1,56 @@
+{
+  "id": "githzerai-character-concepts",
+  "name": "Githzerai Character Concepts",
+  "summary": "1All energy must be expended to a useful end. Frivolity is the first step to defeat.",
+  "bonuses": [
+    "d4Githzerai Personality Trait",
+    "1All energy must be expended to a useful end. Frivolity is the first step to defeat.",
+    "2Patience in all things. The first step in any venture is the most treacherous.",
+    "3Emotions are a trap, meant to weaken the intellect and disturb the nerves. Pay them no heed.",
+    "4Begin only those tasks you will finish. Strike only that which you will kill.",
+    "d4Githzerai Ideal"
+  ],
+  "traits": [
+    {
+      "id": "2patience-in-all-things",
+      "name": "2Patience in all things",
+      "summary": "The first step in any venture is the most treacherous."
+    },
+    {
+      "id": "4begin-only-those-tasks-you-will-finish",
+      "name": "4Begin only those tasks you will finish",
+      "summary": "Strike only that which you will kill."
+    },
+    {
+      "id": "1faith",
+      "name": "1Faith",
+      "summary": "Zerthimon shall return, and I will be worthy to walk beside him."
+    },
+    {
+      "id": "2courage",
+      "name": "2Courage",
+      "summary": "The mind can master anything if it is unfettered by fear."
+    },
+    {
+      "id": "3duty",
+      "name": "3Duty",
+      "summary": "My people survive only because those like me place their needs above our own."
+    },
+    {
+      "id": "4freedom",
+      "name": "4Freedom",
+      "summary": "No strong soul should be enslaved. Better to die first than live as another's puppet."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": []
+}

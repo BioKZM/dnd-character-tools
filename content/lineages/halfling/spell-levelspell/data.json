@@ -1,0 +1,36 @@
+{
+  "id": "spell-levelspell",
+  "name": "Spell LevelSpell",
+  "summary": "If you're a halfling with the Mark of Healing, you have this subrace, with the following traits.",
+  "bonuses": [
+    "1stGoodberry,Sleep",
+    "2ndAid,Calm Emotions",
+    "3rdCreate Food and Water,Leomund's Tiny Hut",
+    "4thAura of Purity,Mordenkainen's Private Sanctum",
+    "5thHallow",
+    "Mark of Healing"
+  ],
+  "traits": [
+    {
+      "id": "medical-intuition",
+      "name": "Medical Intuition",
+      "summary": "Whenever you roll a Wisdom (Medicine) check or an ability check involving an Herbalism Kit, roll a d4 and add the number rolled to the total ability check."
+    },
+    {
+      "id": "healing-touch",
+      "name": "Healing Touch",
+      "summary": "You can cast theCure Woundsspell with this trait. Beginning at 3rd level, you can also cast theLesser Restorationspell with this trait. Once you cast either spell with this trait, you can't cast that spell again until you finish a long rest. Wisdom is your Spellcasting Ability for these spells."
+    },
+    {
+      "id": "spells-of-the-mark",
+      "name": "Spells of the Mark",
+      "summary": "If you have the Spellcasting or Pact Magic class features, the spells on the Mark of Healing Spells table are added to the spell list of your spellcasting class."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Wisdom score increases by 1."
+    }
+  ]
+}

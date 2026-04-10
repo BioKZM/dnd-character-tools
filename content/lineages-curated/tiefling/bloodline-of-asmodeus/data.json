@@ -1,0 +1,24 @@
+{
+  "id": "bloodline-of-asmodeus",
+  "name": "Bloodline of Asmodeus",
+  "summary": "The tieflings connected to Nessus command the power of fire and darkness, guided by a keener than normal intellect, as befits those linked to Asmodeus himself.",
+  "bonuses": [
+    "Ability Score Increase. Your Intelligence score increases by 1.",
+    "Infernal Legacy. You know the Thaumaturgy cantrip. Once you reach 3rd level, you can cast the Hellish Rebuke spell once as a 2nd-level spell. Once you reach 5th level, you can also cast the Darkness spell once. You must finish a long rest to cast these spells again with this trait. Charisma is your spellcasting ability for these spells."
+  ],
+  "traits": [
+    {
+      "id": "infernal-legacy",
+      "name": "Infernal Legacy",
+      "summary": "You know the Thaumaturgy cantrip. Once you reach 3rd level, you can cast the Hellish Rebuke spell once as a 2nd-level spell. Once you reach 5th level, you can also cast the Darkness spell once. You must finish a long rest to cast these spells again with this trait. Charisma is your spellcasting ability for these spells."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Intelligence score increases by 1."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "tables": []
+}

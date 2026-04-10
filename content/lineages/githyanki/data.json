@@ -1,0 +1,103 @@
+{
+  "id": "githyanki",
+  "name": "Githyanki",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:githyanki",
+  "sourceLabel": "Exotic Lineages",
+  "summary": "Once members of a people who escaped servitude to mind flayers, githyanki split from their cousins, githzerai, and fled to the Astral Plane. In that timeless, silvery realm, githyanki honed their psionic powers and built a great city called Tu’narath. They have since spread throughout the multiverse, starting in outposts outside the Astral Plane, called creches, where time passes and their children can reach adulthood.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Strength score increases by 2, and your Intelligence score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Gith are taller and leaner than humans, with most a slender 6 feet in height. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Strength score increases by 2, and your Intelligence score increases by 1.",
+    "Size.Gith are taller and leaner than humans, with most a slender 6 feet in height. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common and Gith."
+  ],
+  "coreTraits": [
+    {
+      "id": "astral-knowledge",
+      "name": "Astral Knowledge",
+      "summary": "You can mystically access a reservoir of experiences of entities connected to the Astral Plane. Whenever you finish a long rest, you gain proficiency in one skill of your choice and with one weapon or tool of your choice, selected from thePlayer’s Handbook, as you momentarily project your consciousness into the Astral Plane. These proficiencies last until the end of your next long rest."
+    },
+    {
+      "id": "githyanki-psionics",
+      "name": "Githyanki Psionics",
+      "summary": "You know theMage Handcantrip, and the hand is invisible when you cast the cantrip with this trait. Starting at 3rd level, you can cast theJumpspell with this trait. Starting at 5th level, you can also cast theMisty Stepspell with it. Once you cast Jump or Misty Step with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast either of those spells using any spell slots you have of the appropriate level."
+    },
+    {
+      "id": "psychic-resilience",
+      "name": "Psychic Resilience",
+      "summary": "You have resistance to psychic damage."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Gith reach adulthood in their late teens and live for about a century."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Githyanki tend toward lawful evil. They are aggressive and arrogant, and they remain the faithful servants of their lich-queen, Vlaakith. Renegade githyanki tend toward chaos."
+    },
+    {
+      "id": "decadent-mastery",
+      "name": "Decadent Mastery",
+      "summary": "You learn one language of your choice, and you are proficient with one skill or tool of your choice. In the timeless city of Tu'narath, githyanki have bountiful time to master odd bits of knowledge."
+    },
+    {
+      "id": "martial-prodigy",
+      "name": "Martial Prodigy",
+      "summary": "You are proficient with light and medium armor and with shortswords, longswords, and greatswords."
+    },
+    {
+      "id": "githyanki-psionics",
+      "name": "Githyanki Psionics",
+      "summary": "You know theMage Handcantrip, and the hand is invisible when you cast the cantrip with this trait. When you reach 3rd level, you can cast theJumpspell once with this trait, and you regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast theMisty Stepspell once with this trait, and you regain the ability to do so when you finish a long rest."
+    },
+    {
+      "id": "gith-tables",
+      "name": "Gith Tables",
+      "summary": "This section provides tables for players and DMs who want to create githyanki characters"
+    },
+    {
+      "id": "1fidelity",
+      "name": "1Fidelity",
+      "summary": "Warriors are only as good as the vows they keep."
+    }
+  ],
+  "subraces": [
+    "mordenkainen-s-tome-of-foes",
+    "githyanki-character-concepts"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

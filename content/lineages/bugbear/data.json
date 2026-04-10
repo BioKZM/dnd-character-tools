@@ -1,0 +1,102 @@
+{
+  "id": "bugbear",
+  "name": "Bugbear",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:bugbear",
+  "sourceLabel": "Monstrous Lineages",
+  "summary": "Neither bugs nor bears, bugbears are the hulking cousins of goblins and hobgoblins. With roots in the Feywild, early bugbears resided in hidden places, in hard-to-reach and shadowed spaces. Long ago and from out of the corner of your eye, they came to the Material Plane, urged to spread throughout the multiverse by the conquering god Maglubiyet. Centuries later, they still bear a fey gift for lurking just out of sight, and many of them have sneaked away from that god’s influence.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Strength score increases by 2, and your Dexterity score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Bugbears are between 6 and 8 feet tall and weigh between 250 and 350 pounds. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.Your size is Medium.",
+    "Speed.Your walking speed is 30 feet.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Strength score increases by 2, and your Dexterity score increases by 1.",
+    "Size.Bugbears are between 6 and 8 feet tall and weigh between 250 and 350 pounds. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common and Goblin."
+  ],
+  "coreTraits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid. You are also considered a goblinoid for any prerequisite or effect that requires you to be a goblinoid."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws you make to avoid or end the charmed condition on yourself."
+    },
+    {
+      "id": "long-limbed",
+      "name": "Long-Limbed",
+      "summary": "When you make a melee attack on your turn, your reach for it is 5 feet greater than normal."
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "summary": "You count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift."
+    },
+    {
+      "id": "sneaky",
+      "name": "Sneaky",
+      "summary": "You are proficient in the Stealth skill. In addition, without squeezing, you can move through and stop in a space large enough for a Small creature."
+    },
+    {
+      "id": "surprise-attack",
+      "name": "Surprise Attack",
+      "summary": "If you hit a creature with an attack roll, the creature takes an extra 2d6 damage if it hasn’t taken a turn yet in the current combat."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Bugbears reach adulthood at age 16 and live up to 80 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Bugbears endure a harsh existence that demands each of them to remain self-sufficient, even at the expense of their fellows. They tend to be chaotic evil."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+    }
+  ],
+  "subraces": [
+    "volo-s-guide-to-monsters"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

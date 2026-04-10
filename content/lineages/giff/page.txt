@@ -1,0 +1,106 @@
+Giff - DND 5th Editionvar URL_HOST = 'www.wikidot.com'; var URL_DOMAIN = 'wikidot.com'; var USE_SSL = true ; var URL_STATIC = 'https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc'; // global request information var WIKIREQUEST = {}; WIKIREQUEST.info = {}; WIKIREQUEST.info.domain = "dnd5e.wikidot.com"; WIKIREQUEST.info.siteId = 1475899; WIKIREQUEST.info.siteUnixName = "dnd5e"; WIKIREQUEST.info.categoryId = 40932043; WIKIREQUEST.info.themeId = 2386862; WIKIREQUEST.info.requestPageName = "lineage:giff"; OZONE.request.timestamp = 1775782516; OZONE.request.date = new Date(); WIKIREQUEST.info.lang = 'en'; WIKIREQUEST.info.pageUnixName = "lineage:giff"; WIKIREQUEST.info.pageId = 1444577169; WIKIREQUEST.info.lang = "en"; OZONE.lang = "en"; var isUAMobile = !!/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);require.config({ baseUrl: URL_STATIC + '/common--javascript', paths: { 'jquery.ui': 'jquery-ui.min', 'jquery.form': 'jquery.form' } });/* modules */ /* bootstrap */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--bootstrap/3.2.0/bootstrap.min.css); /* theme */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--theme/bootstrap-base/css/style.css); @import url(https://dnd5e.wdfiles.com/local--theme/standard-yellow/style.css);var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-18234656-1']); _gaq.push(['_setDomainName', 'none']); _gaq.push(['_setAllowLinker', true]); _gaq.push(['_trackPageview']); _gaq.push(['old._setAccount', 'UA-68540-5']); _gaq.push(['old._setDomainName', 'none']); _gaq.push(['old._setAllowLinker', true]); _gaq.push(['old._trackPageview']);window.google_analytics_uacct = 'UA-18234656-1'; window.google_analytics_domain_name = 'none';var OneSignal = window.OneSignal || []; OneSignal.push(function() { OneSignal.init({ appId: null, }); });.admins-only, li.admins-only{ display: none; }window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{window.nitroAds.queue.push(["createAd",arguments,e])})},addUserToken:function(){window.nitroAds.queue.push(["addUserToken",arguments])},queue:[]};
+
+DND 5th Edition
+
+community wiki
+
+Create accountorSign in
+
+Toggle navigationHome
+
+About
+
+Membership
+
+Help Docs
+User Guide
+
+First Time User
+
+Quick Reference
+
+Creating Pages
+
+Editing Pages
+
+Navigation Bars
+
+Using Modules
+
+Templates
+
+CSS Themes
+
+Site Manager
+
+Edit Top Bar
+
+Edit Side Bar
+
+CSS Manager
+
+Recent Changes
+
+List All Pages
+
+Menu
+
+You should be logged in to clone a site.
+
+Site Navigation
+
+User Guide
+
+First Time User
+
+About
+
+Contact
+
+Legal
+
+Discussion Forums
+
+Members
+
+Create a Page
+
+window['nitroAds'].createAd('wad-dnd5e-below-sidebar', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 160, 600 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 1000px)" });
+
+Giff
+
+window['nitroAds'].createAd('wad-dnd5e-above-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 728, 90 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 768px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-above-content-mobile', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 320, 50 ], [320, 100] ], "report": { "enabled": true, "icon": true, "wording": "Report Ad", "position": "top-right" }, "mediaQuery": "(min-width: 320px) and (max-width: 767px)" });
+
+Source: Spelljammer: Adventures in Space - Astral Adventurer's Guide
+
+Giff are tall, broad-shouldered folk with hippo-like features. Some have smooth skin, while others have short bristles on their faces and the tops of their heads. As beings of impressive size and unforgettable appearance, giff are noticed wherever they go.
+
+Most giff believe they originated on one world, but their home world is now the stuff of legend, because no living giff has seen it or knows where it is. The divine beings who created giff have likewise been forgotten. Their titanic petrified bodies drift on the Astral Sea, isolated and unrecognizable in their current form.
+
+Although they don't realize it, giff are drawn to the Astral Plane because, on a deep psychic level, they remain connected to their creator gods, who have just enough divine spark left in them to imbue giff with sparks of their own, which giff have learned to channel through their weapons. Most giff have no idea where this so-called astral spark comes from, but they feel its presence most strongly when they are in Wildspace or the Astral Sea.
+
+Giff are split into two camps concerning how their name is pronounced. Half of them say it with a hard g, half with a soft g. Disagreements over the correct pronunciation often blossom into hard feelings, loud arguments, and head-butting contests, but they rarely escalate beyond that.
+
+Giff Traits
+
+Ability Score Increase.Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1.
+
+Creature Type.You are a Humanoid.
+
+Size.You are Medium.
+
+Speed.Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed.
+
+Astral Spark.Your psychic connection to the Astral Plane enables you to mystically access a spark of divine power, which you can channel through your weapons. When you hit a target with a simple or martial weapon, you can cause the target to take extra force damage equal to your proficiency bonus. You can use this trait a number of times equal to your proficiency bonus, but you can use it no more than once per turn. You regain all expended uses when you finish a long rest.
+
+Firearms Mastery.You have a mystical connection to firearms that traces back to the gods of the giff, who delighted in such weapons. You have proficiency with all firearms and ignore the loading property of any firearm. In addition, attacking at long range with a firearm doesn't impose disadvantage on your attack roll.
+
+Hippo Build.You have advantage on Strength-based ability checks and Strength saving throws. In addition, you count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift.
+
+Languages.You can speak, read, and write Common and one other language that you and your DM agree is appropriate.
+
+window['nitroAds'].createAd('wad-dnd5e-floating-video', { "refreshTime": 30, "format": "floating", "mediaQuery": "(min-width: 1025px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-below-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 300, 250 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" } });

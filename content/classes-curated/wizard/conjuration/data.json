@@ -1,0 +1,37 @@
+{
+  "id": "conjuration",
+  "name": "Conjuration",
+  "source": "Player's Handbook",
+  "sourceUrl": "https://dnd5e.wikidot.com/wizard:conjuration",
+  "summary": "As a conjurer, you favor spells that produce objects and creatures out of thin air. You can conjure billowing clouds of killing fog or summon creatures from elsewhere to fight on your behalf. As your mastery grows, you learn spells of transportation and can teleport yourself across vast distances, even to other planes of existence, in an instant.",
+  "features": [
+    {
+      "id": "conjuration-savant",
+      "name": "Conjuration Savant",
+      "summary": "Beginning when you select this school at 2nd level, the gold and time you must spend to copy a Conjuration spell into your spellbook is halved."
+    },
+    {
+      "id": "minor-conjuration",
+      "name": "Minor Conjuration",
+      "summary": "Starting at 2nd level when you select this school, you can use your action to conjure up an inanimate object in your hand or on the ground in an unoccupied space that you can see within 10 feet of you. This object can be no larger than 3 feet on a side and weigh no more than 10 pounds, and its form must be that of a nonmagical object that you have seen. The object is visibly magical, radiating dim light out to 5 feet. The object disappears after 1 hour, when you use this feature again, or if it takes or deals any damage."
+    },
+    {
+      "id": "benign-transportation",
+      "name": "Benign Transportation",
+      "summary": "Starting at 6th level, you can use your action to teleport up to 30 feet to an unoccupied space that you can see. Alternatively, you can choose a space within range that is occupied by a Small or Medium creature. If that creature is willing, you both teleport, swapping places. Once you use this feature, you can't use it again until you finish a long rest or you cast a conjuration spell of 1st level or higher."
+    },
+    {
+      "id": "focused-conjuration",
+      "name": "Focused Conjuration",
+      "summary": "Beginning at 10th level, while you are concentrating on a conjuration spell, your concentration can't be broken as a result of taking damage."
+    },
+    {
+      "id": "durable-summons",
+      "name": "Durable Summons",
+      "summary": "Starting at 14th level, any creature that you summon or create with a conjuration spell has 30 temporary hit points."
+    }
+  ],
+  "notes": [
+    "details collected from subclass page"
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "id": "spell-levelspell",
+  "name": "Spell LevelSpell",
+  "summary": "4thLeomund's Secret Chest,Mordenkainen's Faithful Hound",
+  "bonuses": [
+    "1stAlarm,Armor of Agathys",
+    "2ndArcane Lock,Knock",
+    "3rdGlyph of Warding,Magic Circle",
+    "4thLeomund's Secret Chest,Mordenkainen's Faithful Hound",
+    "5thAntilife Shell",
+    "Plane Shift: Kaladesh"
+  ],
+  "traits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Dwarves mature at the same rate as humans, but they're considered young until they reach the age of 50. On average, they live about 350 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Most dwarves are lawful, believing firmly in the benefits of a well-ordered society. They tend toward good as well, with a strong sense of fair play and a belief that everyone deserves to share in the benefits of a just order."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "Accustomed to life underground in your race’s ancient past, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "dwarven-resilience",
+      "name": "Dwarven Resilience",
+      "summary": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+    },
+    {
+      "id": "dwarven-toughness",
+      "name": "Dwarven Toughness",
+      "summary": "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level."
+    },
+    {
+      "id": "artisan-s-expertise",
+      "name": "Artisan's Expertise",
+      "summary": "You gain proficiency with two kinds of artisan’s tools of your choice. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. In addition, whenever you make an Intelligence (History) check related to the origin of any architectural construction (including buildings, public works such as canals and aqueducts, and the massive cogwork that underlies much of the construction of Ghirapur), you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Constitution score increases by 2, and your Wisdom score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Dwarves stand around 5 feet tall and average about 150 pounds. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 25 feet. Your speed is not reduced by wearing heavy armor."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and Dwarvish. Dwarvish is full of hard consonants and guttural sounds, and those characteristics spill over into whatever other language a dwarf might"
+    }
+  ]
+}

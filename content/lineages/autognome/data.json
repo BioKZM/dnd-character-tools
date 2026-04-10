@@ -1,0 +1,94 @@
+{
+  "id": "autognome",
+  "name": "Autognome",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:autognome",
+  "sourceLabel": "Spelljammer",
+  "summary": "Autognomes are mechanical beings built by rock gnomes. Sometimes, because of a malfunction or a unique circumstance, an autognome becomes separated from its creator and strikes out on its own. An autognome bears a resemblance to its creator, and most autognomes are programmed to speak and understand Gnomish. The internal components used in an autognome’s manufacture can vary wildly; one autognome might have an actual beating heart in its chest cavity, while another might be powered by stardust or intricate clockwork gears. Roll on the Autognome History table or choose an entry that you like to identify what event set you on the path to adventure. If nothing on the table appeals to you, work with your DM to create an origin story for your character. Like gnomes, autognomes can live for centuries, typically up to 500 years.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1."
+    },
+    {
+      "label": "Size",
+      "value": "You are Small."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1.",
+    "Size.You are Small.",
+    "Speed.Your walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
+  ],
+  "coreTraits": [
+    {
+      "id": "you-should-be-logged-in-to-clone-a-site",
+      "name": "You should be logged in to clone a site",
+      "summary": ""
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-sidebar', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content-mobile', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 320, 50 ], [320, 100] ], \"report\": { \"enabled\": true, \"icon\": true, \"wording\": \"Report Ad\", \"position\": \"top-right\" }, \"mediaQuery\": \"(min-width: 320px) and (max-width: 767px)\" });"
+    },
+    {
+      "id": "armored-casing",
+      "name": "Armored Casing",
+      "summary": "You are encased in a thin metal or some other durable material. While you aren't wearing armor, your base Armor Class is 13 + your Dexterity modifier."
+    },
+    {
+      "id": "built-for-success",
+      "name": "Built for Success",
+      "summary": "You can add a d4 to one attack roll, ability check, or saving throw you make, and you can do so after seeing the d20 roll but before the effects of the roll are resolved. You can use this trait a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest."
+    },
+    {
+      "id": "healing-machine",
+      "name": "Healing Machine",
+      "summary": "If theMendingspell is cast on you, you can spend a Hit Die, roll it, and regain a number of hit points equal to the roll plus your Constitution modifier (minimum of 1 hit point). In addition, your creator designed you to benefit from several spells that preserve life but that normally don't affect Constructs:Cure Wounds,Healing Word,Mass Cure Wounds,Mass Healing Word, andSpare the Dying."
+    },
+    {
+      "id": "mechanical-nature",
+      "name": "Mechanical Nature",
+      "summary": "You have resistance to poison damage and immunity to disease, and you have advantage on saving throws against being paralyzed or poisoned. You don't need to eat, drink, or breathe."
+    },
+    {
+      "id": "sentry-s-rest",
+      "name": "Sentry's Rest",
+      "summary": "When you take a long rest, you spend at least 6 hours in an inactive, motionless state, instead of sleeping. In this state, you appear inert, but you remain conscious."
+    },
+    {
+      "id": "specialized-design",
+      "name": "Specialized Design",
+      "summary": "You gain two tool proficiencies of your choice, selected from thePlayer's Handbook."
+    }
+  ],
+  "subraces": [
+    "menu",
+    "user-guide",
+    "create-a-page",
+    "autognome-history",
+    "autognome-traits"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

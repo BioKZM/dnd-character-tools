@@ -1,0 +1,104 @@
+Plasmoid - DND 5th Editionvar URL_HOST = 'www.wikidot.com'; var URL_DOMAIN = 'wikidot.com'; var USE_SSL = true ; var URL_STATIC = 'https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc'; // global request information var WIKIREQUEST = {}; WIKIREQUEST.info = {}; WIKIREQUEST.info.domain = "dnd5e.wikidot.com"; WIKIREQUEST.info.siteId = 1475899; WIKIREQUEST.info.siteUnixName = "dnd5e"; WIKIREQUEST.info.categoryId = 40932043; WIKIREQUEST.info.themeId = 2386862; WIKIREQUEST.info.requestPageName = "lineage:plasmoid"; OZONE.request.timestamp = 1775782518; OZONE.request.date = new Date(); WIKIREQUEST.info.lang = 'en'; WIKIREQUEST.info.pageUnixName = "lineage:plasmoid"; WIKIREQUEST.info.pageId = 1444675493; WIKIREQUEST.info.lang = "en"; OZONE.lang = "en"; var isUAMobile = !!/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);require.config({ baseUrl: URL_STATIC + '/common--javascript', paths: { 'jquery.ui': 'jquery-ui.min', 'jquery.form': 'jquery.form' } });/* modules */ /* bootstrap */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--bootstrap/3.2.0/bootstrap.min.css); /* theme */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--theme/bootstrap-base/css/style.css); @import url(https://dnd5e.wdfiles.com/local--theme/standard-yellow/style.css);var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-18234656-1']); _gaq.push(['_setDomainName', 'none']); _gaq.push(['_setAllowLinker', true]); _gaq.push(['_trackPageview']); _gaq.push(['old._setAccount', 'UA-68540-5']); _gaq.push(['old._setDomainName', 'none']); _gaq.push(['old._setAllowLinker', true]); _gaq.push(['old._trackPageview']);window.google_analytics_uacct = 'UA-18234656-1'; window.google_analytics_domain_name = 'none';var OneSignal = window.OneSignal || []; OneSignal.push(function() { OneSignal.init({ appId: null, }); });.admins-only, li.admins-only{ display: none; }window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{window.nitroAds.queue.push(["createAd",arguments,e])})},addUserToken:function(){window.nitroAds.queue.push(["addUserToken",arguments])},queue:[]};
+
+DND 5th Edition
+
+community wiki
+
+Create accountorSign in
+
+Toggle navigationHome
+
+About
+
+Membership
+
+Help Docs
+User Guide
+
+First Time User
+
+Quick Reference
+
+Creating Pages
+
+Editing Pages
+
+Navigation Bars
+
+Using Modules
+
+Templates
+
+CSS Themes
+
+Site Manager
+
+Edit Top Bar
+
+Edit Side Bar
+
+CSS Manager
+
+Recent Changes
+
+List All Pages
+
+Menu
+
+You should be logged in to clone a site.
+
+Site Navigation
+
+User Guide
+
+First Time User
+
+About
+
+Contact
+
+Legal
+
+Discussion Forums
+
+Members
+
+Create a Page
+
+window['nitroAds'].createAd('wad-dnd5e-below-sidebar', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 160, 600 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 1000px)" });
+
+Plasmoid
+
+window['nitroAds'].createAd('wad-dnd5e-above-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 728, 90 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 768px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-above-content-mobile', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 320, 50 ], [320, 100] ], "report": { "enabled": true, "icon": true, "wording": "Report Ad", "position": "top-right" }, "mediaQuery": "(min-width: 320px) and (max-width: 767px)" });
+
+Source: Spelljammer: Adventures in Space - Astral Adventurer's Guide
+
+Plasmoids are amorphous beings with no typical shape. In the presence of other folk, they often adopt a similar shape, but there’s little chance of mistaking a plasmoid for anything else. They consume food by osmosis, the way an amoeba does, and excrete waste through tiny pores. They breathe by absorbing oxygen through another set of pores, and their limbs are strong and flexible enough to grasp and manipulate weapons and tools. Although most plasmoids are translucent gray, they can alter their color and translucence by absorbing dyes through their pores.\nPlasmoids don’t have internal organs of the usual sort. Their bodies are composed of cells, fibers, plasma-like ooze, and clusters of nerves. These nerves enable a plasmoid to detect light, heat, texture, sound, pain, and vibrations. Plasmoids can stiffen the outer layers of their bodies to maintain a humanlike shape, so they can wear clothing and accessories. They speak by forcing air out of tubular cavities that constrict to produce sound.\nWhen plasmoids sleep, they lose their rigidity and spread out and are thus sometimes mistaken for a rock or some other feature of the environment.
+
+Plasmoid Traits
+
+Ability Score Increase.Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1.
+
+Creature Type.You are an Ooze.
+
+Size.You are Medium or Small. You choose the size when you gain this race.
+
+Speed.Your walking speed is 30 feet.
+
+Amorphous.You can squeeze through a space as narrow as 1 inch wide, provided you are wearing and carrying nothing. You also have advantage on ability checks you make to initiate or escape a grapple.
+
+Darkvision.You can see in dim light within 60 feet of yourself as if it were bright light, and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray.
+
+Hold Breath.You can hold your breath for 1 hour.
+
+Natural Resilience.You have resistance to acid and poison damage, and you have advantage on saving throws against being poisoned.
+
+Shape Self.As an action, you can reshape your body to give yourself a head, one or two arms, one or two legs, and makeshift hands and feet, or you can revert to a limbless blob. While you have a humanlike shape, you can wear clothing and armor made for a Humanoid of your size. As a bonus action, you can extrude a pseudopod that is up to 6 inches wide and 10 feet long or reabsorb it into your body. As part of the same bonus action, you can use this pseudopod to manipulate an object, open or close a door or container, or pick up or set down a Tiny object. The pseudopod contains no sensory organs and can’t attack, activate magic items, or lift more than 10 pounds.
+
+Languages.You can speak, read, and write Common and one other language that you and your DM agree is appropriate.
+
+window['nitroAds'].createAd('wad-dnd5e-floating-video', { "refreshTime": 30, "format": "floating", "mediaQuery": "(min-width: 1025px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-below-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 300, 250 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" } });

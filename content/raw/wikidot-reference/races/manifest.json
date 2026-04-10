@@ -1,0 +1,20 @@
+{
+  "target": "races",
+  "entryCount": 83,
+  "fetchedCount": 83,
+  "errorCount": 0,
+  "publishedCount": 60,
+  "collections": [
+    {
+      "collection": "races",
+      "indexUrl": "https://dnd5e.wikidot.com/lineage",
+      "entryCount": 83,
+      "status": "ok"
+    }
+  ],
+  "durationSeconds": 73.25,
+  "artifacts": {
+    "all": "content/raw/wikidot-reference/races/all.json",
+    "published": "content/raw/wikidot-reference/races/published.json"
+  }
+}

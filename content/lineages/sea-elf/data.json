@@ -1,0 +1,102 @@
+{
+  "id": "sea-elf",
+  "name": "Sea Elf",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:sea-elf",
+  "sourceLabel": "Exotic Lineages",
+  "summary": "Sea elves fell in love with the wild beauty of the ocean in the earliest days of the multiverse. While other elves traveled from realm to realm, sea elves navigated the currents and explored the waters of many worlds. Today these elves can be found wherever oceans exist, as well as in the Elemental Plane of Water.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Dexterity score increases by 2, and your Constitution score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Dexterity score increases by 2, and your Constitution score increases by 1.",
+    "Size.Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common, Elven, and Aquan."
+  ],
+  "coreTraits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid. You are also considered an elf for any prerequisite or effect that requires you to be an elf."
+    },
+    {
+      "id": "child-of-the-sea",
+      "name": "Child of the Sea",
+      "summary": "You can breathe air and water, and you have resistance to cold damage."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws you make to avoid or end the charmed condition on yourself."
+    },
+    {
+      "id": "friend-of-the-sea",
+      "name": "Friend of the Sea",
+      "summary": "Aquatic animals have an extraordinary affinity with your people. You can communicate simple ideas to any Beast that has a swimming speed. It can understand your words, though you have no special ability to understand it in return."
+    },
+    {
+      "id": "keen-senses",
+      "name": "Keen Senses",
+      "summary": "You have proficiency in the Perception skill."
+    },
+    {
+      "id": "trance",
+      "name": "Trance",
+      "summary": "You don’t need to sleep, and magic can’t put you to sleep. You can finish a long rest in 4 hours if you spend those hours in a trancelike meditation, during which you retain consciousness. Whenever you finish this trance, you can gain two proficiencies that you don’t have, each one with a weapon or a tool of your choice selected from thePlayer’s Handbook. You mystically acquire these proficiencies by drawing them from shared elven memory, and you retain them until you finish your next long rest."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Although elves reach physical maturity at about the same age as humans, the elven understanding of adulthood goes beyond physical growth to encompass worldly experience. An elf typically claims adulthood and an adult name around the age of 100 and can live to be 750 years old."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws against being charmed, and magic can't put you to sleep."
+    }
+  ],
+  "subraces": [
+    "mordenkainen-s-tome-of-foes"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

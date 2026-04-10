@@ -1,0 +1,36 @@
+{
+  "id": "high-elf",
+  "name": "High Elf",
+  "summary": "As a high elf, you have a keen mind and a mastery of at least the basics of magic. In many of the worlds of D&D, there are two kinds of high elves. One type (which includes the gray elves and valley elves of Greyhawk, the Silvanesti of Dragonlance, and the sun elves of the Forgotten Realms) is haughty and reclusive, believing themselves to be superior to non-elves and even other elves. The other type (including the high elves of Greyhawk. the Qualinesti of Dragonlance, and the moon elves of the Forgotten Realms) are more common and more friendly, and often encountered among humans and other races.",
+  "bonuses": [
+    "Ability Score Increase. Your Intelligence score increases by 1.",
+    "Cantrip. You know one cantrip of your choice from the Wizard spell list. Intelligence is your spellcasting ability for it.",
+    "Elf Weapon Training. You have proficiency with the longsword, shortsword, shortbow, and longbow.",
+    "Extra Language. You can read, speak, and write one additional language of your choice."
+  ],
+  "traits": [
+    {
+      "id": "cantrip",
+      "name": "Cantrip",
+      "summary": "You know one cantrip of your choice from the Wizard spell list. Intelligence is your spellcasting ability for it."
+    },
+    {
+      "id": "elf-weapon-training",
+      "name": "Elf Weapon Training",
+      "summary": "You have proficiency with the longsword, shortsword, shortbow, and longbow."
+    },
+    {
+      "id": "extra-language",
+      "name": "Extra Language",
+      "summary": "You can read, speak, and write one additional language of your choice."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Intelligence score increases by 1."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "tables": []
+}

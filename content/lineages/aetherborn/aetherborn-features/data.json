@@ -1,0 +1,68 @@
+{
+  "id": "aetherborn-features",
+  "name": "Aetherborn Features",
+  "summary": "Ability Score Increase.Your Charisma score increases by 2, and two other ability scores of your choice increase by 1.",
+  "bonuses": [
+    "Source: Plane Shift - Kaladesh",
+    "Ability Score Increase.Your Charisma score increases by 2, and two other ability scores of your choice increase by 1.",
+    "Age.Aetherborn come into being as adults and live no more than a few years.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Born of Aether.You have resistance to necrotic damage.",
+    "Menacing.You gain proficiency in the Intimidation skill."
+  ],
+  "traits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Aetherborn come into being as adults and live no more than a few years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "As a rule, aetherborn are driven by hedonism and self-interest, making them neutral at best and thoroughly evil at worst. Neutral aetherborn might devote much of their time (and wealth) to parties and social activity, while evil aetherborn are usually involved in the criminal underworld."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "Accustomed to the night, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "born-of-aether",
+      "name": "Born of Aether",
+      "summary": "You have resistance to necrotic damage."
+    },
+    {
+      "id": "menacing",
+      "name": "Menacing",
+      "summary": "You gain proficiency in the Intimidation skill."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 2, and two other ability scores of your choice increase by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Aetherborn are about the same size as humans, ranging from 5 to 6 feet tall. They are quite light—only about 100 pounds—and their weight diminishes as they age and more and more of their substance returns to the aethersphere. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and two other languages of your choice."
+    }
+  ]
+}

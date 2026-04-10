@@ -1,0 +1,26 @@
+{
+  "id": "autumn",
+  "name": "Autumn",
+  "summary": "2You share what you have, with little regard to your own needs.",
+  "bonuses": [
+    "d4Autumn Personality Trait",
+    "1If someone is in need, you never withhold aid.",
+    "2You share what you have, with little regard to your own needs.",
+    "3There are no simple meals, only lavish feasts.",
+    "4You stock up on fine food and drink. You hate going without such comforts.",
+    "d4Autumn Flaw"
+  ],
+  "traits": [
+    {
+      "id": "4you-stock-up-on-fine-food-and-drink",
+      "name": "4You stock up on fine food and drink",
+      "summary": "You hate going without such comforts."
+    },
+    {
+      "id": "1you-trust-others-without-thought",
+      "name": "1You trust others without thought",
+      "summary": ""
+    }
+  ],
+  "stats": []
+}

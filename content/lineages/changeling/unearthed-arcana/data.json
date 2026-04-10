@@ -1,0 +1,73 @@
+{
+  "id": "unearthed-arcana",
+  "name": "Unearthed Arcana",
+  "summary": "With ever-changing appearances, changelings reside in many societies undetected. Each changeling can supernaturally adopt any face they like. For some changelings, a new face is only a disguise. For other changelings, a new face may reveal an aspect of their soul.",
+  "bonuses": [
+    "Mordenkainen Presents: Monsters of the Multiverse",
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Creature Type.You are a Fey.",
+    "Size.You are Medium or Small. You choose the size when you select this race.",
+    "Speed.Your walking speed is 30 feet.",
+    "Changeling Instincts.Thanks to your connection to the fey realm, you gain proficiency with two of the following skills of your choice: Deception, Insight, Intimidation, Performance, or Persuasion."
+  ],
+  "traits": [
+    {
+      "id": "changeling-instincts",
+      "name": "Changeling Instincts",
+      "summary": "Thanks to your connection to the fey realm, you gain proficiency with two of the following skills of your choice: Deception, Insight, Intimidation, Performance, or Persuasion."
+    },
+    {
+      "id": "shapechanger",
+      "name": "Shapechanger",
+      "summary": "As an action, you can change your appearance and your voice. You determine the specifics of the changes, including your coloration, hair length, and sex. You can also adjust your height and weight and can change your size between Medium and Small. You can make yourself appear as a member of another race, though none of your game statistics change. You can’t duplicate the appearance of an individual you’ve never seen, and you must adopt a form that has the same basic arrangement of limbs that you have. Your clothing and equipment aren’t changed by this trait. You stay in the new form until you use an action to revert to your true form or until you die."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Changelings mature slightly faster than humans but share a similar lifespan — typically a century or less. While a changeling can transform to conceal their age, the effects of aging affect them similarly to humans."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Changelings tend toward pragmatic neutrality, and few changelings embrace evil."
+    },
+    {
+      "id": "shapechanger",
+      "name": "Shapechanger",
+      "summary": "As an action, you can change your appearance and your voice. You determine the specifics of the changes, including your coloration, hair length, and sex. You can also adjust your height and weight, but not so much that your size changes. You can make yourself appear as a member of another race, though none of your game statistics change. You can't duplicate the appearance of a creature you've never seen, and you must adopt a form that has the same basic arrangement of limbs that you have. Your clothing and equipment aren't changed by this trait. You stay in the new form until you use an action to revert to your true form or until you die."
+    },
+    {
+      "id": "changeling-instincts",
+      "name": "Changeling Instincts",
+      "summary": "You gain proficiency with two of the following skills of your choice: Deception, Insight, Intimidation, and Persuasion."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Changelings mature slightly faster than humans but share a similar lifespan — typically a century or less. While a changeling can transform to conceal their age, the effects of aging affect them similarly to humans."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Changelings hate to be bound in any way, and those who follow the path of the Traveler believe that chaos and change are important aspects of life. Most tend toward pragmatic neutrality as opposed to being concerned with lofty ideals. Few changelings embrace evil."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium or Small. You choose the size when you select this race."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ]
+}

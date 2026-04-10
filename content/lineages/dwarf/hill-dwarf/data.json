@@ -1,0 +1,21 @@
+{
+  "id": "hill-dwarf",
+  "name": "Hill Dwarf",
+  "summary": "Hill dwarves are known for keen senses, deep intuition, and remarkable resilience.",
+  "bonuses": [
+    "Ability Score Increase: Your Wisdom score increases by 1.",
+    "Dwarven Toughness: Your hit point maximum increases by 1, and it increases by 1 every time you gain a level."
+  ],
+  "traits": [
+    {
+      "id": "hill-dwarf-lore",
+      "name": "Lore",
+      "summary": "The gold dwarves of Faerun and several classic Dragonlance clans are hill dwarves."
+    }
+  ],
+  "stats": [
+    { "label": "Bonus Ability", "value": "WIS +1" },
+    { "label": "Signature", "value": "Dwarven Toughness" }
+  ],
+  "source": "Player's Handbook"
+}

@@ -1,0 +1,102 @@
+{
+  "id": "triton",
+  "name": "Triton",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:triton",
+  "sourceLabel": "Exotic Lineages",
+  "summary": "Originally from the Elemental Plane of Water, many tritons entered the Material Plane centuries ago in response to the growing threat of evil elementals. Those tritons spread across the worlds’ oceans, protecting the surface from terrors in the deep. Over time, triton have extended their stewardship over the sea floor to the ocean’s surface.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Strength, Constitution, and Charisma scores each increase by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Tritons are slightly shorter than humans, averaging about 5 feet tall. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet, and you have a swimming speed equal to your walking speed.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Strength, Constitution, and Charisma scores each increase by 1.",
+    "Size.Tritons are slightly shorter than humans, averaging about 5 feet tall. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet, and you have a swimming speed of 30 feet.",
+    "Languages.You can speak, read, and write Common and Primordial."
+  ],
+  "coreTraits": [
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "summary": "You can breathe air and water."
+    },
+    {
+      "id": "control-air-and-water",
+      "name": "Control Air and Water",
+      "summary": "You can castFog Cloudwith this trait. Starting at 3rd level, you can cast theGust of Windspell with this trait. Starting at 5th level, you can also cast theWater Walkspell with it. Once you cast any of these spells with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast these spells using any spell slots you have of the appropriate level. Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race)."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "emissary-of-the-sea",
+      "name": "Emissary of the Sea",
+      "summary": "You can communicate simple ideas to any Beast, Elemental, or Monstrosity that has a swimming speed. It can understand your words, though you have no special ability to understand it in return."
+    },
+    {
+      "id": "guardian-of-the-depths",
+      "name": "Guardian of the Depths",
+      "summary": "Adapted to the frigid ocean depths, you have resistance to cold damage."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Tritons reach maturity around age 15 and can live up to 200 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Tritons tend toward lawful good. As guardians of the darkest reaches of the sea, their culture pushes them toward order and benevolence."
+    },
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "summary": "You can breathe air and water."
+    },
+    {
+      "id": "control-air-and-water",
+      "name": "Control Air and Water",
+      "summary": "A child of the sea, you can call on the magic of elemental air and water. You can castFog Cloudwith this trait. Starting at 3rd level, you can castGust of Windwith it, and starting at 5th level, you can also castWall of Waterwith it. Once you cast a spell with this trait, you can’t cast that spell with it again until you finish a long rest. Charisma is your spellcasting ability for these spells."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+    }
+  ],
+  "subraces": [
+    "volo-s-guide-to-monsters"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "id": "grung",
+  "name": "Grung",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:grung",
+  "sourceLabel": "Monstrous Lineages",
+  "summary": "Grungs are aggressive froglike humanoids found in rain forests and tropical jungles. They are fiercely territorial and see themselves as superior to most other creatures. Grung society is a caste system. Each caste lays eggs in a separate hatching pool, and juvenile grungs join their caste upon emergence from the hatchery. All grungs are a dull greenish gray when they are born, but each individual takes on the color of its caste as it grows to adulthood. From lowest to highest caste, grungs can be green, blue, purple, red, orange, or gold.\nAll grungs secrete a substance that is harmless to them but poisonous to other creatures. A grung also uses venom to poison its weapons. Grungs are always on the lookout for creatures they can capture and enslave. Grungs use slaves for all manner of menial tasks, but mostly they just like bossing them around. Slaves are fed mildly poisoned food to keep them lethargic and compliant. A creature afflicted in this way over a long period of time becomes a shell of its former self and can be restored to normalcy only by magic. Being amphibious, grungs require water to live; any grung that fails to immerse itself in water for at least 1 hour during a day becomes quite exhausted.\nGreen grungs are the tribe's warriors, hunters, and laborers, and blue grungs work as artisans and in other domestic roles. Supervising and guiding both groups are the purple grungs, which serve as administrators and commanders. Red grungs are the tribe's scholars and magic users. They are superior to purple, blue, and green grungs and given proper respect even by grungs of higher status. Higher castes include orange grungs, which are elite warriors that have authority over all lesser grungs, and gold grungs, which hold the highest leadership positions. A tribe's sovereign is always a gold grung.\nA grung normally remains in its caste for life. On rare occasions, an individual that distinguishes itself with great deeds can earn an invitation to join a higher caste. Through a combination of herbal tonics and ritual magic, an elevated grung changes color and is inducted into its new caste in the same way that a juvenile of the caste would be. From then on, the grung and its progeny are members of the higher caste.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Dexterity score increases by 2 and your Constitution score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Grungs stand between 2 ½ and 3 ½ feet tall and average about 30 pounds. Your size is Small."
+    },
+    {
+      "label": "Speed",
+      "value": "You have a walking speed of 25 feet. Your sticky finger and toe pads give you a climb speed of 25 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Grung."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.Your Dexterity score increases by 2 and your Constitution score increases by 1.",
+    "Size.Grungs stand between 2 ½ and 3 ½ feet tall and average about 30 pounds. Your size is Small.",
+    "Speed.You have a walking speed of 25 feet. Your sticky finger and toe pads give you a climb speed of 25 feet.",
+    "Languages.You can speak, read, and write Grung."
+  ],
+  "coreTraits": [
+    {
+      "id": "you-should-be-logged-in-to-clone-a-site",
+      "name": "You should be logged in to clone a site",
+      "summary": ""
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-sidebar', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content-mobile', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 320, 50 ], [320, 100] ], \"report\": { \"enabled\": true, \"icon\": true, \"wording\": \"Report Ad\", \"position\": \"top-right\" }, \"mediaQuery\": \"(min-width: 320px) and (max-width: 767px)\" });"
+    },
+    {
+      "id": "grung-society-is-a-caste-system",
+      "name": "Grung society is a caste system",
+      "summary": "Each caste lays eggs in a separate hatching pool, and juvenile grungs join their caste upon emergence from the hatchery. All grungs are a dull greenish gray when they are born, but each individual takes on the color of its caste as it grows to adulthood. From lowest to highest caste, grungs can be green, blue, purple, red, orange, or gold."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Grungs mature to adulthood in a single year, but have been known to live up to 50 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Most grungs are lawful, having been raised in a strict caste system. They tend toward evil as well, coming from a culture where social advancement occurs rarely, and most often because another member of your army has died and there is no one else of that caste to fill the vacancy."
+    },
+    {
+      "id": "arboreal-alertness",
+      "name": "Arboreal Alertness",
+      "summary": "You have proficiency in the Perception skill."
+    },
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "summary": "You can breathe air and water."
+    },
+    {
+      "id": "poison-immunity",
+      "name": "Poison Immunity",
+      "summary": "You are immune to poison damage and the poisoned condition."
+    }
+  ],
+  "subraces": [
+    "menu",
+    "user-guide",
+    "create-a-page",
+    "grung-oga"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

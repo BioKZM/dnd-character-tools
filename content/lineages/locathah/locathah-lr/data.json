@@ -1,0 +1,73 @@
+{
+  "id": "locathah-lr",
+  "name": "Locathah (LR)",
+  "summary": "window['nitroAds'].createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });",
+  "bonuses": [
+    "Source: Locathah Rising, Extra Life 2019",
+    "Ability Score Increase.Your Strength score increases by 2 and your Dexterity score increases by 1.",
+    "Age.Locathah mature to adulthood by the age of 10 but have been known to live up to 80 years.",
+    "Alignment.Most locathah are true neutral or have some aspect of neutrality in their alignment. They tend toward good, coming from a culture where compassion for the downtrodden is a commonality.",
+    "Size.Locathah stand between 5 and 6 feet tall and average about 150 pounds. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet, and you have a swim speed of 30 feet."
+  ],
+  "traits": [
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content-mobile', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 320, 50 ], [320, 100] ], \"report\": { \"enabled\": true, \"icon\": true, \"wording\": \"Report Ad\", \"position\": \"top-right\" }, \"mediaQuery\": \"(min-width: 320px) and (max-width: 767px)\" });"
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Locathah mature to adulthood by the age of 10 but have been known to live up to 80 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Most locathah are true neutral or have some aspect of neutrality in their alignment. They tend toward good, coming from a culture where compassion for the downtrodden is a commonality."
+    },
+    {
+      "id": "natural-armor",
+      "name": "Natural Armor",
+      "summary": "You have tough, scaly skin. When you aren’t wearing armor, your AC is 12 + your Dexterity modifier. You can use your natural armor to determine your AC if the armor you wear would leave you with a lower AC. A shield’s benefits apply as normal while you use your natural armor."
+    },
+    {
+      "id": "observant-and-athletic",
+      "name": "Observant and Athletic",
+      "summary": "You have proficiency in the Athletics and Perception skills."
+    },
+    {
+      "id": "leviathan-will",
+      "name": "Leviathan Will",
+      "summary": "You have advantage on saving throws against being charmed, frightened, paralyzed, poisoned, stunned, or put to sleep."
+    },
+    {
+      "id": "limited-amphibiousness",
+      "name": "Limited Amphibiousness",
+      "summary": "You can breathe air and water, but you need to be submerged at least once every 4 hours to avoid suffocating."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Strength score increases by 2 and your Dexterity score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Locathah stand between 5 and 6 feet tall and average about 150 pounds. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet, and you have a swim speed of 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Aquan and Common."
+    }
+  ]
+}

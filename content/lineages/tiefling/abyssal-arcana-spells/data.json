@@ -1,0 +1,26 @@
+{
+  "id": "abyssal-arcana-spells",
+  "name": "Abyssal Arcana Spells",
+  "summary": "5Spare the DyingTasha's Hideous LaughterMirror Image",
+  "bonuses": [
+    "d61st Level3rd Level5th Level",
+    "1Dancing LightsBurning HandsAlter Self",
+    "2True StrikeCharm PersonDarkness",
+    "3LightMagic MissileInvisibility",
+    "4MessageCure WoundsLevitate",
+    "5Spare the DyingTasha's Hideous LaughterMirror Image"
+  ],
+  "traits": [
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": []
+}

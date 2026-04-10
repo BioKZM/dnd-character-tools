@@ -1,0 +1,511 @@
+{
+  "generatedAt": "2026-03-17T23:22:44Z",
+  "categories": [
+    {
+      "category": "species",
+      "indexUrl": "https://dnd5e.wikidot.com/lineage",
+      "entryCount": 83,
+      "fetchedCount": 83,
+      "details": [
+        {
+          "id": "dragonborn",
+          "name": "Dragonborn",
+          "url": "https://dnd5e.wikidot.com/lineage:dragonborn",
+          "detailPath": "content/raw/wikidot/species/details/dragonborn.json"
+        },
+        {
+          "id": "dwarf",
+          "name": "Dwarf",
+          "url": "https://dnd5e.wikidot.com/lineage:dwarf",
+          "detailPath": "content/raw/wikidot/species/details/dwarf.json"
+        },
+        {
+          "id": "elf",
+          "name": "Elf",
+          "url": "https://dnd5e.wikidot.com/lineage:elf",
+          "detailPath": "content/raw/wikidot/species/details/elf.json"
+        },
+        {
+          "id": "gnome",
+          "name": "Gnome",
+          "url": "https://dnd5e.wikidot.com/lineage:gnome",
+          "detailPath": "content/raw/wikidot/species/details/gnome.json"
+        },
+        {
+          "id": "half-elf",
+          "name": "Half-Elf",
+          "url": "https://dnd5e.wikidot.com/lineage:half-elf",
+          "detailPath": "content/raw/wikidot/species/details/half-elf.json"
+        },
+        {
+          "id": "half-orc",
+          "name": "Half-Orc",
+          "url": "https://dnd5e.wikidot.com/lineage:half-orc",
+          "detailPath": "content/raw/wikidot/species/details/half-orc.json"
+        },
+        {
+          "id": "halfling",
+          "name": "Halfling",
+          "url": "https://dnd5e.wikidot.com/lineage:halfling",
+          "detailPath": "content/raw/wikidot/species/details/halfling.json"
+        },
+        {
+          "id": "human",
+          "name": "Human",
+          "url": "https://dnd5e.wikidot.com/lineage:human",
+          "detailPath": "content/raw/wikidot/species/details/human.json"
+        },
+        {
+          "id": "tiefling",
+          "name": "Tiefling",
+          "url": "https://dnd5e.wikidot.com/lineage:tiefling",
+          "detailPath": "content/raw/wikidot/species/details/tiefling.json"
+        },
+        {
+          "id": "custom",
+          "name": "Custom",
+          "url": "https://dnd5e.wikidot.com/lineage:custom",
+          "detailPath": "content/raw/wikidot/species/details/custom.json"
+        },
+        {
+          "id": "aarakocra",
+          "name": "Aarakocra",
+          "url": "https://dnd5e.wikidot.com/lineage:aarakocra",
+          "detailPath": "content/raw/wikidot/species/details/aarakocra.json"
+        },
+        {
+          "id": "aasimar",
+          "name": "Aasimar",
+          "url": "https://dnd5e.wikidot.com/lineage:aasimar",
+          "detailPath": "content/raw/wikidot/species/details/aasimar.json"
+        },
+        {
+          "id": "changeling",
+          "name": "Changeling",
+          "url": "https://dnd5e.wikidot.com/lineage:changeling",
+          "detailPath": "content/raw/wikidot/species/details/changeling.json"
+        },
+        {
+          "id": "deep-gnome",
+          "name": "Deep Gnome",
+          "url": "https://dnd5e.wikidot.com/lineage:deep-gnome",
+          "detailPath": "content/raw/wikidot/species/details/deep-gnome.json"
+        },
+        {
+          "id": "duergar",
+          "name": "Duergar",
+          "url": "https://dnd5e.wikidot.com/lineage:duergar",
+          "detailPath": "content/raw/wikidot/species/details/duergar.json"
+        },
+        {
+          "id": "eladrin",
+          "name": "Eladrin",
+          "url": "https://dnd5e.wikidot.com/lineage:eladrin",
+          "detailPath": "content/raw/wikidot/species/details/eladrin.json"
+        },
+        {
+          "id": "fairy",
+          "name": "Fairy",
+          "url": "https://dnd5e.wikidot.com/lineage:fairy",
+          "detailPath": "content/raw/wikidot/species/details/fairy.json"
+        },
+        {
+          "id": "firbolg",
+          "name": "Firbolg",
+          "url": "https://dnd5e.wikidot.com/lineage:firbolg",
+          "detailPath": "content/raw/wikidot/species/details/firbolg.json"
+        },
+        {
+          "id": "genasi-air",
+          "name": "Genasi (Air)",
+          "url": "https://dnd5e.wikidot.com/lineage:genasi-air",
+          "detailPath": "content/raw/wikidot/species/details/genasi-air.json"
+        },
+        {
+          "id": "genasi-earth",
+          "name": "Genasi (Earth)",
+          "url": "https://dnd5e.wikidot.com/lineage:genasi-earth",
+          "detailPath": "content/raw/wikidot/species/details/genasi-earth.json"
+        },
+        {
+          "id": "genasi-fire",
+          "name": "Genasi (Fire)",
+          "url": "https://dnd5e.wikidot.com/lineage:genasi-fire",
+          "detailPath": "content/raw/wikidot/species/details/genasi-fire.json"
+        },
+        {
+          "id": "genasi-water",
+          "name": "Genasi (Water)",
+          "url": "https://dnd5e.wikidot.com/lineage:genasi-water",
+          "detailPath": "content/raw/wikidot/species/details/genasi-water.json"
+        },
+        {
+          "id": "githyanki",
+          "name": "Githyanki",
+          "url": "https://dnd5e.wikidot.com/lineage:githyanki",
+          "detailPath": "content/raw/wikidot/species/details/githyanki.json"
+        },
+        {
+          "id": "githzerai",
+          "name": "Githzerai",
+          "url": "https://dnd5e.wikidot.com/lineage:githzerai",
+          "detailPath": "content/raw/wikidot/species/details/githzerai.json"
+        },
+        {
+          "id": "goliath",
+          "name": "Goliath",
+          "url": "https://dnd5e.wikidot.com/lineage:goliath",
+          "detailPath": "content/raw/wikidot/species/details/goliath.json"
+        },
+        {
+          "id": "harengon",
+          "name": "Harengon",
+          "url": "https://dnd5e.wikidot.com/lineage:harengon",
+          "detailPath": "content/raw/wikidot/species/details/harengon.json"
+        },
+        {
+          "id": "kenku",
+          "name": "Kenku",
+          "url": "https://dnd5e.wikidot.com/lineage:kenku",
+          "detailPath": "content/raw/wikidot/species/details/kenku.json"
+        },
+        {
+          "id": "locathah",
+          "name": "Locathah",
+          "url": "https://dnd5e.wikidot.com/lineage:locathah",
+          "detailPath": "content/raw/wikidot/species/details/locathah.json"
+        },
+        {
+          "id": "owlin",
+          "name": "Owlin",
+          "url": "https://dnd5e.wikidot.com/lineage:owlin",
+          "detailPath": "content/raw/wikidot/species/details/owlin.json"
+        },
+        {
+          "id": "satyr",
+          "name": "Satyr",
+          "url": "https://dnd5e.wikidot.com/lineage:satyr",
+          "detailPath": "content/raw/wikidot/species/details/satyr.json"
+        },
+        {
+          "id": "sea-elf",
+          "name": "Sea Elf",
+          "url": "https://dnd5e.wikidot.com/lineage:sea-elf",
+          "detailPath": "content/raw/wikidot/species/details/sea-elf.json"
+        },
+        {
+          "id": "shadar-kai",
+          "name": "Shadar-Kai",
+          "url": "https://dnd5e.wikidot.com/lineage:shadar-kai",
+          "detailPath": "content/raw/wikidot/species/details/shadar-kai.json"
+        },
+        {
+          "id": "tabaxi",
+          "name": "Tabaxi",
+          "url": "https://dnd5e.wikidot.com/lineage:tabaxi",
+          "detailPath": "content/raw/wikidot/species/details/tabaxi.json"
+        },
+        {
+          "id": "tortle",
+          "name": "Tortle",
+          "url": "https://dnd5e.wikidot.com/lineage:tortle",
+          "detailPath": "content/raw/wikidot/species/details/tortle.json"
+        },
+        {
+          "id": "triton",
+          "name": "Triton",
+          "url": "https://dnd5e.wikidot.com/lineage:triton",
+          "detailPath": "content/raw/wikidot/species/details/triton.json"
+        },
+        {
+          "id": "verdan",
+          "name": "Verdan",
+          "url": "https://dnd5e.wikidot.com/lineage:verdan",
+          "detailPath": "content/raw/wikidot/species/details/verdan.json"
+        },
+        {
+          "id": "bugbear",
+          "name": "Bugbear",
+          "url": "https://dnd5e.wikidot.com/lineage:bugbear",
+          "detailPath": "content/raw/wikidot/species/details/bugbear.json"
+        },
+        {
+          "id": "centaur",
+          "name": "Centaur",
+          "url": "https://dnd5e.wikidot.com/lineage:centaur",
+          "detailPath": "content/raw/wikidot/species/details/centaur.json"
+        },
+        {
+          "id": "goblin",
+          "name": "Goblin",
+          "url": "https://dnd5e.wikidot.com/lineage:goblin",
+          "detailPath": "content/raw/wikidot/species/details/goblin.json"
+        },
+        {
+          "id": "grung",
+          "name": "Grung",
+          "url": "https://dnd5e.wikidot.com/lineage:grung",
+          "detailPath": "content/raw/wikidot/species/details/grung.json"
+        },
+        {
+          "id": "hobgoblin",
+          "name": "Hobgoblin",
+          "url": "https://dnd5e.wikidot.com/lineage:hobgoblin",
+          "detailPath": "content/raw/wikidot/species/details/hobgoblin.json"
+        },
+        {
+          "id": "kobold",
+          "name": "Kobold",
+          "url": "https://dnd5e.wikidot.com/lineage:kobold",
+          "detailPath": "content/raw/wikidot/species/details/kobold.json"
+        },
+        {
+          "id": "lizardfolk",
+          "name": "Lizardfolk",
+          "url": "https://dnd5e.wikidot.com/lineage:lizardfolk",
+          "detailPath": "content/raw/wikidot/species/details/lizardfolk.json"
+        },
+        {
+          "id": "minotaur",
+          "name": "Minotaur",
+          "url": "https://dnd5e.wikidot.com/lineage:minotaur",
+          "detailPath": "content/raw/wikidot/species/details/minotaur.json"
+        },
+        {
+          "id": "orc",
+          "name": "Orc",
+          "url": "https://dnd5e.wikidot.com/lineage:orc",
+          "detailPath": "content/raw/wikidot/species/details/orc.json"
+        },
+        {
+          "id": "shifter",
+          "name": "Shifter",
+          "url": "https://dnd5e.wikidot.com/lineage:shifter",
+          "detailPath": "content/raw/wikidot/species/details/shifter.json"
+        },
+        {
+          "id": "yuan-ti",
+          "name": "Yuan-Ti",
+          "url": "https://dnd5e.wikidot.com/lineage:yuan-ti",
+          "detailPath": "content/raw/wikidot/species/details/yuan-ti.json"
+        },
+        {
+          "id": "kender",
+          "name": "Kender",
+          "url": "https://dnd5e.wikidot.com/lineage:kender",
+          "detailPath": "content/raw/wikidot/species/details/kender.json"
+        },
+        {
+          "id": "kalashtar",
+          "name": "Kalashtar",
+          "url": "https://dnd5e.wikidot.com/lineage:kalashtar",
+          "detailPath": "content/raw/wikidot/species/details/kalashtar.json"
+        },
+        {
+          "id": "warforged",
+          "name": "Warforged",
+          "url": "https://dnd5e.wikidot.com/lineage:warforged",
+          "detailPath": "content/raw/wikidot/species/details/warforged.json"
+        },
+        {
+          "id": "aetherborn",
+          "name": "Aetherborn",
+          "url": "https://dnd5e.wikidot.com/lineage:aetherborn",
+          "detailPath": "content/raw/wikidot/species/details/aetherborn.json"
+        },
+        {
+          "id": "aven",
+          "name": "Aven",
+          "url": "https://dnd5e.wikidot.com/lineage:aven",
+          "detailPath": "content/raw/wikidot/species/details/aven.json"
+        },
+        {
+          "id": "khenra",
+          "name": "Khenra",
+          "url": "https://dnd5e.wikidot.com/lineage:khenra",
+          "detailPath": "content/raw/wikidot/species/details/khenra.json"
+        },
+        {
+          "id": "kor",
+          "name": "Kor",
+          "url": "https://dnd5e.wikidot.com/lineage:kor",
+          "detailPath": "content/raw/wikidot/species/details/kor.json"
+        },
+        {
+          "id": "merfolk",
+          "name": "Merfolk",
+          "url": "https://dnd5e.wikidot.com/lineage:merfolk",
+          "detailPath": "content/raw/wikidot/species/details/merfolk.json"
+        },
+        {
+          "id": "naga",
+          "name": "Naga",
+          "url": "https://dnd5e.wikidot.com/lineage:naga",
+          "detailPath": "content/raw/wikidot/species/details/naga.json"
+        },
+        {
+          "id": "siren",
+          "name": "Siren",
+          "url": "https://dnd5e.wikidot.com/lineage:siren",
+          "detailPath": "content/raw/wikidot/species/details/siren.json"
+        },
+        {
+          "id": "vampire",
+          "name": "Vampire",
+          "url": "https://dnd5e.wikidot.com/lineage:vampire",
+          "detailPath": "content/raw/wikidot/species/details/vampire.json"
+        },
+        {
+          "id": "dhampir",
+          "name": "Dhampir",
+          "url": "https://dnd5e.wikidot.com/lineage:dhampir",
+          "detailPath": "content/raw/wikidot/species/details/dhampir.json"
+        },
+        {
+          "id": "hexblood",
+          "name": "Hexblood",
+          "url": "https://dnd5e.wikidot.com/lineage:hexblood",
+          "detailPath": "content/raw/wikidot/species/details/hexblood.json"
+        },
+        {
+          "id": "reborn",
+          "name": "Reborn",
+          "url": "https://dnd5e.wikidot.com/lineage:reborn",
+          "detailPath": "content/raw/wikidot/species/details/reborn.json"
+        },
+        {
+          "id": "loxodon",
+          "name": "Loxodon",
+          "url": "https://dnd5e.wikidot.com/lineage:loxodon",
+          "detailPath": "content/raw/wikidot/species/details/loxodon.json"
+        },
+        {
+          "id": "simic-hybrid",
+          "name": "Simic Hybrid",
+          "url": "https://dnd5e.wikidot.com/lineage:simic-hybrid",
+          "detailPath": "content/raw/wikidot/species/details/simic-hybrid.json"
+        },
+        {
+          "id": "vedalken",
+          "name": "Vedalken",
+          "url": "https://dnd5e.wikidot.com/lineage:vedalken",
+          "detailPath": "content/raw/wikidot/species/details/vedalken.json"
+        },
+        {
+          "id": "elf-astral",
+          "name": "Astral Elf",
+          "url": "https://dnd5e.wikidot.com/lineage:elf-astral",
+          "detailPath": "content/raw/wikidot/species/details/elf-astral.json"
+        },
+        {
+          "id": "autognome",
+          "name": "Autognome",
+          "url": "https://dnd5e.wikidot.com/lineage:autognome",
+          "detailPath": "content/raw/wikidot/species/details/autognome.json"
+        },
+        {
+          "id": "giff",
+          "name": "Giff",
+          "url": "https://dnd5e.wikidot.com/lineage:giff",
+          "detailPath": "content/raw/wikidot/species/details/giff.json"
+        },
+        {
+          "id": "hadozee",
+          "name": "Hadozee",
+          "url": "https://dnd5e.wikidot.com/lineage:hadozee",
+          "detailPath": "content/raw/wikidot/species/details/hadozee.json"
+        },
+        {
+          "id": "plasmoid",
+          "name": "Plasmoid",
+          "url": "https://dnd5e.wikidot.com/lineage:plasmoid",
+          "detailPath": "content/raw/wikidot/species/details/plasmoid.json"
+        },
+        {
+          "id": "thri-kreen",
+          "name": "Thri-kreen",
+          "url": "https://dnd5e.wikidot.com/lineage:thri-kreen",
+          "detailPath": "content/raw/wikidot/species/details/thri-kreen.json"
+        },
+        {
+          "id": "leonin",
+          "name": "Leonin",
+          "url": "https://dnd5e.wikidot.com/lineage:leonin",
+          "detailPath": "content/raw/wikidot/species/details/leonin.json"
+        },
+        {
+          "id": "autognome-ua",
+          "name": "Autognome",
+          "url": "https://dnd5e.wikidot.com/lineage:autognome-ua",
+          "detailPath": "content/raw/wikidot/species/details/autognome-ua.json"
+        },
+        {
+          "id": "giff-ua",
+          "name": "Giff",
+          "url": "https://dnd5e.wikidot.com/lineage:giff-ua",
+          "detailPath": "content/raw/wikidot/species/details/giff-ua.json"
+        },
+        {
+          "id": "glitchling-ua",
+          "name": "Glitchling",
+          "url": "https://dnd5e.wikidot.com/lineage:glitchling-ua",
+          "detailPath": "content/raw/wikidot/species/details/glitchling-ua.json"
+        },
+        {
+          "id": "hadozee-ua",
+          "name": "Hadozee",
+          "url": "https://dnd5e.wikidot.com/lineage:hadozee-ua",
+          "detailPath": "content/raw/wikidot/species/details/hadozee-ua.json"
+        },
+        {
+          "id": "kender-ua",
+          "name": "Kender",
+          "url": "https://dnd5e.wikidot.com/lineage:kender-ua",
+          "detailPath": "content/raw/wikidot/species/details/kender-ua.json"
+        },
+        {
+          "id": "kender-ua-revised",
+          "name": "Kender Revised",
+          "url": "https://dnd5e.wikidot.com/lineage:kender-ua-revised",
+          "detailPath": "content/raw/wikidot/species/details/kender-ua-revised.json"
+        },
+        {
+          "id": "owlfolk-ua",
+          "name": "Owlfolk",
+          "url": "https://dnd5e.wikidot.com/lineage:owlfolk-ua",
+          "detailPath": "content/raw/wikidot/species/details/owlfolk-ua.json"
+        },
+        {
+          "id": "plasmoid-ua",
+          "name": "Plasmoid",
+          "url": "https://dnd5e.wikidot.com/lineage:plasmoid-ua",
+          "detailPath": "content/raw/wikidot/species/details/plasmoid-ua.json"
+        },
+        {
+          "id": "rabbitfolk-ua",
+          "name": "Rabbitfolk",
+          "url": "https://dnd5e.wikidot.com/lineage:rabbitfolk-ua",
+          "detailPath": "content/raw/wikidot/species/details/rabbitfolk-ua.json"
+        },
+        {
+          "id": "revenant-ua",
+          "name": "Revenant",
+          "url": "https://dnd5e.wikidot.com/lineage:revenant-ua",
+          "detailPath": "content/raw/wikidot/species/details/revenant-ua.json"
+        },
+        {
+          "id": "thri-kreen-ua",
+          "name": "Thri-Kreen",
+          "url": "https://dnd5e.wikidot.com/lineage:thri-kreen-ua",
+          "detailPath": "content/raw/wikidot/species/details/thri-kreen-ua.json"
+        },
+        {
+          "id": "viashino-ua",
+          "name": "Viashino",
+          "url": "https://dnd5e.wikidot.com/lineage:viashino-ua",
+          "detailPath": "content/raw/wikidot/species/details/viashino-ua.json"
+        }
+      ]
+    }
+  ]
+}

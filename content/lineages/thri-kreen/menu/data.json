@@ -1,0 +1,16 @@
+{
+  "id": "menu",
+  "name": "Menu",
+  "summary": "",
+  "bonuses": [
+    "You should be logged in to clone a site."
+  ],
+  "traits": [
+    {
+      "id": "you-should-be-logged-in-to-clone-a-site",
+      "name": "You should be logged in to clone a site",
+      "summary": ""
+    }
+  ],
+  "stats": []
+}

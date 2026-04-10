@@ -1,0 +1,37 @@
+{
+  "id": "war-magic",
+  "name": "War Magic",
+  "source": "Xanathar's Guide to Everything",
+  "sourceUrl": "https://dnd5e.wikidot.com/wizard:war-magic",
+  "summary": "A variety of arcane colleges specialize in training wizards for war. The tradition of War Magic blends principles of evocation and abjuration, rather than specializing in either of those schools. It teaches techniques that empower a caster’s spells, while also providing methods for wizards to bolster their own defenses.",
+  "features": [
+    {
+      "id": "arcane-deflection",
+      "name": "Arcane Deflection",
+      "summary": "At 2nd level, you have learned to weave your magic to fortify yourself against harm. When you are hit by an attack or you fail a saving throw, you can use your reaction to gain a +2 bonus to your AC against that attack or a +4 bonus to that saving throw. When you use this feature, you can't cast spells other than cantrips until the end of your next turn."
+    },
+    {
+      "id": "tactical-wit",
+      "name": "Tactical Wit",
+      "summary": "Starting at 2nd level, your keen ability to assess tactical situations allows you to act quickly in battle. You can give yourself a bonus to your initiative rolls equal to your Intelligence modifier."
+    },
+    {
+      "id": "power-surge",
+      "name": "Power Surge",
+      "summary": "Starting at 6th level, you can store magical energy within yourself to later empower your damaging spells. You can store a maximum number of power surges equal to your Intelligence modifier (minimum of one). Whenever you finish a long rest, your number of power surges resets to one. Whenever you successfully end a spell with Dispel Magic or Counterspell, you gain one power surge, as you steal magic from the spell you foiled. If you end a short rest with no power surges, you gain one power surge. Once per turn when you deal damage to a creature or object with a wizard spell, you can spend one power surge to deal extra force damage to that target. The extra damage equals half your wizard level."
+    },
+    {
+      "id": "durable-magic",
+      "name": "Durable Magic",
+      "summary": "Beginning at 10th level, the magic you channel helps ward off harm. While you maintain concentration on a spell, you have a +2 bonus to AC and all saving throws."
+    },
+    {
+      "id": "deflecting-shroud",
+      "name": "Deflecting Shroud",
+      "summary": "At 14th level, your Arcane Deflection becomes infused with deadly magic. When you use your Arcane Deflection feature, you can cause magical energy to arc from you. Up to three creatures of your choice within 60 feet of you each take force damage equal to half your wizard level."
+    }
+  ],
+  "notes": [
+    "details collected from subclass page"
+  ]
+}

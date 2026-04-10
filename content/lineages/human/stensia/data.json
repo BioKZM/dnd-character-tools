@@ -1,0 +1,73 @@
+{
+  "id": "stensia",
+  "name": "Stensia",
+  "summary": "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that's why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
+  "bonuses": [
+    "Player's Handbook",
+    "Ability Score Increase.Your ability scores each increase by 1.",
+    "Age.Humans reach adulthood in their late teens and live less than a century.",
+    "Alignment.Humans tend toward no particular alignment. The best and the worst are found among them.",
+    "Size.Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is Medium.",
+    "Speed.Your base walking speed is 30 feet."
+  ],
+  "traits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Humans reach adulthood in their late teens and live less than a century."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Humans tend toward no particular alignment. The best and the worst are found among them."
+    },
+    {
+      "id": "skills",
+      "name": "Skills",
+      "summary": "You gain proficiency in one skill of your choice."
+    },
+    {
+      "id": "feat",
+      "name": "Feat",
+      "summary": "You gain oneFeatof your choice."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60ft. of you as if it were bright light, and in darkness as if it were dim light. You can't discern colors in darkness, only shades of grey."
+    },
+    {
+      "id": "hunter-s-intuition",
+      "name": "Hunter's Intuition",
+      "summary": "Whenever you make a Wisdom (Perception) or a Wisdom (Survival) check, you can roll a d4 and add the number rolled to the total ability check."
+    },
+    {
+      "id": "finder-s-magic",
+      "name": "Finder's Magic",
+      "summary": "You can cast theHunter's Markspell with this trait. Starting at 3rd level, you can also cast theLocate Objectspell with it. Once you cast either spell with this trait, you can't cast that spell again until you finish a Long Rest. Wisdom is your Spellcasting Ability for these spells."
+    },
+    {
+      "id": "spells-of-the-mark",
+      "name": "Spells of the Mark",
+      "summary": "If you have the Spellcasting or Pact Magic class feature, the spells on the Mark of Finding Spells table are added to the spell list of your Spellcasting class."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your ability scores each increase by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on."
+    }
+  ]
+}

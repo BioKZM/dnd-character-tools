@@ -1,0 +1,75 @@
+{
+  "id": "aasimar",
+  "name": "Aasimar",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:aasimar",
+  "sourceLabel": "Exotic Lineages",
+  "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+  "summary": "Whether descended from a celestial being or infused with heavenly power, aasimar are mortals who carry a spark of the Upper Planes within their souls. They can fan that spark to bring light, ease wounds, and unleash the fury of the heavens.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium or Small. You choose the size when you select this race."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. The Player’s Handbook offers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ],
+  "coreBonuses": [],
+  "coreTraits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "celestial-resistance",
+      "name": "Celestial Resistance",
+      "summary": "You have resistance to necrotic damage and radiant damage."
+    },
+    {
+      "id": "healing-hands",
+      "name": "Healing Hands",
+      "summary": "As an action, you can touch a creature and roll a number of d4s equal to your proficiency bonus. The creature regains a number of hit points equal to the total rolled. Once you use this trait, you can’t use it again until you finish a long rest."
+    },
+    {
+      "id": "light-bearer",
+      "name": "Light Bearer",
+      "summary": "You know the Light cantrip. Charisma is your spellcasting ability for it."
+    },
+    {
+      "id": "necrotic-shroud",
+      "name": "Necrotic Shroud",
+      "summary": "Your eyes briefly become pools of darkness, and ghostly, flightless wings sprout from your back temporarily. Creatures other than your allies within 10 feet of you that can see you must succeed on a Charisma saving throw (DC 8 + your proficiency bonus + your Charisma modifier) or become frightened of you until the end of your next turn. Until the transformation ends, once on each of your turns, you can deal extra necrotic damage to one target when you deal damage to it with an attack or a spell. The extra damage equals your proficiency bonus."
+    },
+    {
+      "id": "radiant-consumption",
+      "name": "Radiant Consumption",
+      "summary": "Searing light temporarily radiates from your eyes and mouth. For the duration, you shed bright light in a 10-foot radius and dim light for an additional 10 feet, and at the end of each of your turns, each creature within 10 feet of you takes radiant damage equal to your proficiency bonus. Until the transformation ends, once on each of your turns, you can deal extra radiant damage to one target when you deal damage to it with an attack or a spell. The extra damage equals your proficiency bonus."
+    },
+    {
+      "id": "radiant-soul",
+      "name": "Radiant Soul",
+      "summary": "Two luminous, spectral wings sprout from your back temporarily. Until the transformation ends, you have a flying speed equal to your walking speed, and once on each of your turns, you can deal extra radiant damage to one target when you deal damage to it with an attack or a spell. The extra damage equals your proficiency bonus."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": true,
+  "subraces": [],
+  "notes": [
+    "source isolated from page-content and table of contents",
+    "raw text is preserved in page.html for manual inspection"
+  ]
+}

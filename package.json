@@ -1,0 +1,37 @@
+{
+  "name": "dndbeyond",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "extract:pdfs": "python scripts/extract_pdfs.py",
+    "extract:monsters": "python scripts/extract_monster_manual.py",
+    "collect:aidedd:monsters": "python scripts/collect_aidedd_monsters.py",
+    "import:aidedd:monsters": "python scripts/import_aidedd_monsters.py",
+    "generate:candidates": "python scripts/generate_candidates.py",
+    "scrape:wikidot": "python scripts/scrape_wikidot.py",
+    "collect:wikidot": "python scripts/collect_wikidot_reference.py",
+    "import:wikidot": "python scripts/import_wikidot_reference.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "next": "^16.1.7",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.1.7",
+    "typescript": "^5.9.3"
+  }
+}

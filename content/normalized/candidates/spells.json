@@ -1,0 +1,82 @@
+[
+  {
+    "id": "gate",
+    "name": "Gate",
+    "bookId": "tcoe",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "page": 72,
+    "snippet": "Gate Weird PACT BOO N O PTION 3rd-level warlock feature",
+    "category": "spell",
+    "confidence": "medium"
+  },
+  {
+    "id": "light",
+    "name": "Light",
+    "bookId": "phb",
+    "sourceTitle": "Player's Handbook",
+    "page": 188,
+    "snippet": "Light Mage Hand Mending Message",
+    "category": "spell",
+    "confidence": "medium"
+  },
+  {
+    "id": "mage-hand",
+    "name": "Mage Hand",
+    "bookId": "phb",
+    "sourceTitle": "Player's Handbook",
+    "page": 188,
+    "snippet": "Mage Hand Mending Message Minor Illusion",
+    "category": "spell",
+    "confidence": "medium"
+  },
+  {
+    "id": "mass-suggestion",
+    "name": "Mass Suggestion",
+    "bookId": "phb",
+    "sourceTitle": "Player's Handbook",
+    "page": 188,
+    "snippet": "Mass Suggestion Otto's Irresistible Dance Programmed Illusion True Seeing",
+    "category": "spell",
+    "confidence": "medium"
+  },
+  {
+    "id": "mending",
+    "name": "Mending",
+    "bookId": "phb",
+    "sourceTitle": "Player's Handbook",
+    "page": 188,
+    "snippet": "Mending Message Minor Illusion Prestidigitation",
+    "category": "spell",
+    "confidence": "medium"
+  },
+  {
+    "id": "message",
+    "name": "Message",
+    "bookId": "phb",
+    "sourceTitle": "Player's Handbook",
+    "page": 188,
+    "snippet": "Message Minor Illusion Prestidigitation True Strike",
+    "category": "spell",
+    "confidence": "medium"
+  },
+  {
+    "id": "otto-s-irresistible-dance",
+    "name": "Otto's Irresistible Dance",
+    "bookId": "phb",
+    "sourceTitle": "Player's Handbook",
+    "page": 188,
+    "snippet": "Otto's Irresistible Dance Programmed Illusion True Seeing 7th Level",
+    "category": "spell",
+    "confidence": "medium"
+  },
+  {
+    "id": "weird",
+    "name": "Weird",
+    "bookId": "tcoe",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "page": 72,
+    "snippet": "Weird PACT BOO N O PTION 3rd-level warlock feature When you choose your Pact Boon feature, the fol­",
+    "category": "spell",
+    "confidence": "medium"
+  }
+]

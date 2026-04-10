@@ -1,0 +1,288 @@
+{
+  "id": "xgte",
+  "slug": "xanathar-s-guide-to-everything",
+  "title": "Xanathar's Guide to Everything",
+  "status": "extracted",
+  "sourcePath": "C:\\Users\\qRnt\\Downloads\\D&D 5E - Xanathar's Guide to Everything.pdf",
+  "pageCount": 194,
+  "totalCharacters": 731842,
+  "tags": [
+    "expansion",
+    "subclasses",
+    "spells",
+    "feats"
+  ],
+  "artifacts": {
+    "text": "raw\\books\\xgte\\book.txt",
+    "pages": "raw\\books\\xgte\\pages.json"
+  },
+  "detectedSections": {
+    "spellSectionHints": [
+      "Bard Spells",
+      "Cleric Spells",
+      "Druid Spells",
+      "Ranger Spells",
+      "Sorcerer Spells",
+      "Spell Descriptions",
+      "Warlock Spells",
+      "Wizard Spells"
+    ],
+    "subclassSectionHints": [
+      "Arcane Tradition",
+      "Bard College",
+      "Divine Domain",
+      "Druid Circle",
+      "Martial Archetype",
+      "Monastic Tradition",
+      "Otherworldly Patron",
+      "Primal Path",
+      "Ranger Archetype",
+      "Roguish Archetype",
+      "Sacred Oath",
+      "Sorcerous Origin"
+    ],
+    "spellCandidatePages": [
+      {
+        "page": 4,
+        "hits": [
+          "Spell Descriptions"
+        ]
+      },
+      {
+        "page": 44,
+        "hits": [
+          "Ranger Spells"
+        ]
+      },
+      {
+        "page": 138,
+        "hits": [
+          "Warlock Spells",
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 148,
+        "hits": [
+          "Bard Spells",
+          "Cleric Spells",
+          "Druid Spells",
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 149,
+        "hits": [
+          "Ranger Spells",
+          "Sorcerer Spells",
+          "Warlock Spells"
+        ]
+      },
+      {
+        "page": 150,
+        "hits": [
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 151,
+        "hits": [
+          "Spell Descriptions"
+        ]
+      }
+    ],
+    "subclassCandidatePages": [
+      {
+        "page": 4,
+        "hits": [
+          "Bard College",
+          "Divine Domain",
+          "Druid Circle",
+          "Primal Path",
+          "Ranger Archetype",
+          "Sacred Oath",
+          "Sorcerous Origin"
+        ]
+      },
+      {
+        "page": 8,
+        "hits": [
+          "Bard College",
+          "Druid Circle"
+        ]
+      },
+      {
+        "page": 10,
+        "hits": [
+          "Primal Path"
+        ]
+      },
+      {
+        "page": 15,
+        "hits": [
+          "Bard College"
+        ]
+      },
+      {
+        "page": 19,
+        "hits": [
+          "Divine Domain"
+        ]
+      },
+      {
+        "page": 23,
+        "hits": [
+          "Druid Circle"
+        ]
+      },
+      {
+        "page": 29,
+        "hits": [
+          "Martial Archetype"
+        ]
+      },
+      {
+        "page": 34,
+        "hits": [
+          "Monastic Tradition"
+        ]
+      },
+      {
+        "page": 37,
+        "hits": [
+          "Sacred Oath"
+        ]
+      },
+      {
+        "page": 38,
+        "hits": [
+          "Sacred Oath"
+        ]
+      },
+      {
+        "page": 39,
+        "hits": [
+          "Sacred Oath"
+        ]
+      },
+      {
+        "page": 40,
+        "hits": [
+          "Sacred Oath"
+        ]
+      },
+      {
+        "page": 42,
+        "hits": [
+          "Ranger Archetype"
+        ]
+      },
+      {
+        "page": 46,
+        "hits": [
+          "Roguish Archetype"
+        ]
+      },
+      {
+        "page": 51,
+        "hits": [
+          "Sorcerous Origin"
+        ]
+      },
+      {
+        "page": 55,
+        "hits": [
+          "Otherworldly Patron"
+        ]
+      },
+      {
+        "page": 60,
+        "hits": [
+          "Arcane Tradition"
+        ]
+      }
+    ],
+    "ocrHeadings": [
+      "CREDITS",
+      "ON THE COVER",
+      "620C2215000001 EN",
+      "ISBN: 978-0 -7869-6612-7",
+      "ON THE ALTERNATIVE COVER",
+      "CONTENTS",
+      "ENEATH THE BUSTLING CITY OF WATERDEEP,",
+      "USING THIS BOOK",
+      "U NEA RT H ED A RCA NA",
+      "INTRODUCTION",
+      "THE C O RE RULES",
+      "THE DM ADJUDICATES THE RULE S",
+      "TEN R ULES T O REMEMBER",
+      "EXCEPTIONS SUPERSED E GENERAL RULES",
+      "ROUND DOW N",
+      "ADVANTAGE AND DISADV A NTA GE",
+      "C OMBIN I NG D I FFER E NT EFF ECTS",
+      "R EACTION TIMIN G",
+      "RESISTANCE AND VUL N ERABILITY",
+      "PROFICIEN CY BONUS",
+      "BONUS ACTIQN SPELL S",
+      "CON CENTR ATIO N",
+      "'TEMPORARY H I T POI NTS",
+      "CHAPTER 1",
+      "CHARACTER OPTIONS",
+      "H E MAI N FIGURES I N ANY D&D CAMPA I GN",
+      "SUB C LASSES",
+      "BARBARIAN",
+      "I HAVE WITNESSED THE INDOMITABLE PERFORMANCE OF",
+      "PERSONAL TOTEMS",
+      "P ERSO N AL TOTEMS",
+      "TATTOOS",
+      "TATT OOS",
+      "SUPERSTITIONS",
+      "LEFT T O RI G HT : Z E AL OT , STORM 11E RA L O, ANO A N C.ESTRA L GUARD IAN",
+      "SUPERSTITIO N S",
+      "PRIMAL PATHS",
+      "PATH OF THE ANCESTRAL GUARDIAN",
+      "PATH OF THE A N CESTRAL GU A RDIAN FEATURES",
+      "CHAPTER 1 I CHARACTER OPTIONS",
+      "ANCESTRAL PROTECTORS",
+      "SPIRIT SHIELD",
+      "CONSULT THE SPIRITS",
+      "VENGEFUL ANCESTORS",
+      "PATH OF THE STORM HERALD",
+      "PATH OF THE STORM HERALD FEAT URES",
+      "CHAPTER 1 I CHARACTER OPTIONS",
+      "STOR M AURA",
+      "STORM SOUL",
+      "SHIELDING STORM",
+      "RAGING STORM",
+      "PATH OF THE ZEALOT",
+      "PATH OF THE ZEALOT FEATURES",
+      "DIVINE FURY",
+      "ZEALOUS PRESEN CE",
+      "RAGE BEYOND DEATH",
+      "CHAPTER 1 I CHARACTER OPTIONS",
+      "BARD",
+      "MUSIC I S THE FRU IT OF THE DJVI NE TREE THAT V IBRATES",
+      "DEFINING WORK",
+      "DEFINING WOR KS",
+      "INSTRUMENT",
+      "INSTRUMENTS",
+      "EMBARRASSMENT",
+      "EMBARRASSMENTS",
+      "A BARD'S MUSE",
+      "CHAPTER I I CHARACTER OPTIONS",
+      "BARD COLLEGES",
+      "COLLEGE OF GLAMOUR",
+      "COLLEGE OF GLAMOUR FEATURES",
+      "M AN TLE OF I NSP IRATION",
+      "CHAPTER 1 I CHARACTER OPTIONS",
+      "ENTHRALLING PERFORMA NCE",
+      "M ANTL E OF MAJ ESTY",
+      "UN BREAKA BLE M AJ ESTY",
+      "COLLEGE OF SWORDS",
+      "COLLEGE OF SWORDS FEATURES",
+      "BONUS PROFICIENCIES",
+      "FIGHTING S TYLE",
+      "BLAD E FLOURISH"
+    ]
+  }
+}

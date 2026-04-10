@@ -1,0 +1,73 @@
+{
+  "id": "loxodon-features",
+  "name": "Loxodon Features",
+  "summary": "Ability Score Increase.Your Constitution score increases by 2, and your Wisdom score increases by 1.",
+  "bonuses": [
+    "Source: Guildmaster's Guide to Ravnica",
+    "Ability Score Increase.Your Constitution score increases by 2, and your Wisdom score increases by 1.",
+    "Age.Loxodons mature at the same rate as humans, however, they are considered mature by their people at 60 years old. Their lifespan can be as long as 450 years.",
+    "Alignment.Most Loxodons are lawful. They also tend to be good.",
+    "Size.Loxodons are between 7 and 8 feet (≈2.5 meters) tall and weigh between 300(130kg) and 400 pounds(181kg). Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet."
+  ],
+  "traits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Loxodons mature at the same rate as humans, however, they are considered mature by their people at 60 years old. Their lifespan can be as long as 450 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Most Loxodons are lawful. They also tend to be good."
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "summary": "You count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift."
+    },
+    {
+      "id": "loxodon-serenity",
+      "name": "Loxodon Serenity",
+      "summary": "You have advantage against being charmed or frightened."
+    },
+    {
+      "id": "natural-armour",
+      "name": "Natural Armour",
+      "summary": "You have thick, leathery skin. When you aren't wearing armor, your AC is 12 + your Constitution modifier. You can use your natural armor to determine your AC if the armor you wear would leave you with a lower AC. A shield's benefits apply as normal while you use your natural armor."
+    },
+    {
+      "id": "trunk",
+      "name": "Trunk",
+      "summary": "You can grasp things with your trunk, and you can use it as a snorkel. It has a reach of 5 feet, and it can lift a number of pounds equal to five times your Strength score. You can use it to do the following simple tasks: lift, drop, hold, push, or pull an object or a creature; open or close a door or a container; grapple someone; or make an unarmed strike. Your DM might allow other simple tasks to be added to that list of options. It can't wield weapons or shields or do anything that requires manual precision, such as using tools or magic items or performing the somatic components of a spell."
+    },
+    {
+      "id": "keen-smell",
+      "name": "Keen Smell",
+      "summary": "Thanks to your sensitive trunk, you have advantage on Wisdom (Perception), Wisdom (Survival), and Intelligence (Investigation) checks that involve smell."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Constitution score increases by 2, and your Wisdom score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Loxodons are between 7 and 8 feet (≈2.5 meters) tall and weigh between 300(130kg) and 400 pounds(181kg). Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and Loxodon."
+    }
+  ]
+}

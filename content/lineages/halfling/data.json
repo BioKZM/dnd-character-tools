@@ -1,0 +1,107 @@
+{
+  "id": "halfling",
+  "name": "Halfling",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:halfling",
+  "sourceLabel": "Standard Lineages",
+  "summary": "The comforts of home are the goals of most halflings' lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies. Others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. Halflings work readily with others, and they are loyal to their friends, whether halfling or otherwise. They can display remarkable ferocity when their friends, families, or communities are threatened.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Dexterity score increases by 2."
+    },
+    {
+      "label": "Size",
+      "value": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is small."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 25 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and Halfling."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 1."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Constitution score increases by 1."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.Your Dexterity score increases by 2.",
+    "Size.Halflings average about 3 feet tall and weigh about 40 pounds. Your size is small.",
+    "Speed.Your base walking speed is 25 feet.",
+    "Languages.You can speak, read, and write Common and Halfling.",
+    "Ability Score Increase.Your Charisma score increases by 1.",
+    "Ability Score Increase.Your Constitution score increases by 1.",
+    "Ability Score Increase.Your Wisdom score increases by 1.",
+    "Ability Score Increase.Your Wisdom score increases by 1."
+  ],
+  "coreTraits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of the old ways."
+    },
+    {
+      "id": "lucky",
+      "name": "Lucky",
+      "summary": "When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die. You must use the new result, even if it is a 1."
+    },
+    {
+      "id": "brave",
+      "name": "Brave",
+      "summary": "You have advantage on saving throws against being frightened."
+    },
+    {
+      "id": "nimble",
+      "name": "Nimble",
+      "summary": "You can move through the space of any creature that is of a size larger than yours."
+    },
+    {
+      "id": "naturally-stealthy",
+      "name": "Naturally Stealthy",
+      "summary": "You can attempt to hide even when you are only obscured by a creature that is at least one size larger than you."
+    },
+    {
+      "id": "stout-resilience",
+      "name": "Stout Resilience",
+      "summary": "You have advantage on saving throws against poison, and you have resistance to poison damage."
+    },
+    {
+      "id": "silent-speech",
+      "name": "Silent Speech",
+      "summary": "You can speak telepathically to any creature within 30 feet of you. The creature understands you only if the two of you share a language. You can speak telepathically in this way to one creature at a time."
+    },
+    {
+      "id": "children-of-the-woods",
+      "name": "Children of the Woods",
+      "summary": "You know theDruidcraftCantrip. At 3rd level, you can cast theEntanglespell once per long rest. At 5th level, you can castSpike Growthspell once per long rest. These spells don't require the material components normally required. Wisdom is your spellcasting ability for these spells."
+    },
+    {
+      "id": "timberwalk",
+      "name": "Timberwalk",
+      "summary": "Ability checks made to track you are at disadvantage and you can move through difficult terrain made of non-magical plants and overgrowth without expending extra movement."
+    }
+  ],
+  "subraces": [
+    "stout",
+    "ghostwise",
+    "lotusden",
+    "mark-of-healing",
+    "spell-levelspell",
+    "mark-of-healing-spells"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "phb",
+    "title": "Player's Handbook",
+    "status": "ready",
+    "notes": "Baseline rules and starter character options available to the sheet."
+  },
+  {
+    "id": "xgte",
+    "title": "Xanathar's Guide to Everything",
+    "status": "draft",
+    "notes": "Initial normalized entries added for feats and future subclass expansion."
+  },
+  {
+    "id": "tcoe",
+    "title": "Tasha's Cauldron of Everything",
+    "status": "draft",
+    "notes": "Initial normalized entries added for feats and expanded spells."
+  }
+]

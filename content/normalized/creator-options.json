@@ -1,0 +1,210 @@
+{
+  "classOptions": {
+    "artificer": {
+      "armor": ["Light Armor", "Medium Armor", "Shields"],
+      "weapons": ["Simple Weapons"],
+      "tools": ["Thieves' Tools", "Tinker's Tools"],
+      "languages": [],
+      "skillChoices": ["arcana", "history", "investigation", "medicine", "nature", "perception", "sleight-of-hand"],
+      "recommendedSkills": ["arcana", "investigation"],
+      "skillChoiceCount": 2
+    },
+    "barbarian": {
+      "armor": ["Light Armor", "Medium Armor", "Shields"],
+      "weapons": ["Simple Weapons", "Martial Weapons"],
+      "tools": [],
+      "languages": [],
+      "skillChoices": ["animal-handling", "athletics", "intimidation", "nature", "perception", "survival"],
+      "recommendedSkills": ["athletics", "survival"],
+      "skillChoiceCount": 2
+    },
+    "bard": {
+      "armor": ["Light Armor"],
+      "weapons": ["Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
+      "tools": ["Musical Instrument"],
+      "languages": [],
+      "skillChoices": ["acrobatics", "animal-handling", "arcana", "athletics", "deception", "history", "insight", "intimidation", "investigation", "medicine", "nature", "perception", "performance", "persuasion", "religion", "sleight-of-hand", "stealth", "survival"],
+      "recommendedSkills": ["performance", "persuasion", "insight"],
+      "skillChoiceCount": 3
+    },
+    "cleric": {
+      "armor": ["Light Armor", "Medium Armor", "Shields"],
+      "weapons": ["Simple Weapons"],
+      "tools": [],
+      "languages": [],
+      "skillChoices": ["history", "insight", "medicine", "persuasion", "religion"],
+      "recommendedSkills": ["insight", "religion"],
+      "skillChoiceCount": 2
+    },
+    "druid": {
+      "armor": ["Light Armor", "Medium Armor", "Shields"],
+      "weapons": ["Clubs", "Daggers", "Darts", "Javelins", "Maces", "Quarterstaffs", "Scimitars", "Sickles", "Slings", "Spears"],
+      "tools": ["Herbalism Kit"],
+      "languages": ["Druidic"],
+      "skillChoices": ["arcana", "animal-handling", "insight", "medicine", "nature", "perception", "religion", "survival"],
+      "recommendedSkills": ["nature", "survival"],
+      "skillChoiceCount": 2
+    },
+    "fighter": {
+      "armor": ["All Armor", "Shields"],
+      "weapons": ["Simple Weapons", "Martial Weapons"],
+      "tools": [],
+      "languages": [],
+      "skillChoices": ["acrobatics", "animal-handling", "athletics", "history", "insight", "intimidation", "perception", "survival"],
+      "recommendedSkills": ["athletics", "insight"],
+      "skillChoiceCount": 2
+    },
+    "monk": {
+      "armor": [],
+      "weapons": ["Simple Weapons", "Shortswords"],
+      "tools": ["Artisan's Tools"],
+      "languages": [],
+      "skillChoices": ["acrobatics", "athletics", "history", "insight", "religion", "stealth"],
+      "recommendedSkills": ["acrobatics", "insight"],
+      "skillChoiceCount": 2
+    },
+    "paladin": {
+      "armor": ["All Armor", "Shields"],
+      "weapons": ["Simple Weapons", "Martial Weapons"],
+      "tools": [],
+      "languages": [],
+      "skillChoices": ["athletics", "insight", "intimidation", "medicine", "persuasion", "religion"],
+      "recommendedSkills": ["persuasion", "religion"],
+      "skillChoiceCount": 2
+    },
+    "ranger": {
+      "armor": ["Light Armor", "Medium Armor", "Shields"],
+      "weapons": ["Simple Weapons", "Martial Weapons"],
+      "tools": [],
+      "languages": [],
+      "skillChoices": ["animal-handling", "athletics", "insight", "investigation", "nature", "perception", "stealth", "survival"],
+      "recommendedSkills": ["perception", "survival", "stealth"],
+      "skillChoiceCount": 3
+    },
+    "rogue": {
+      "armor": ["Light Armor"],
+      "weapons": ["Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
+      "tools": ["Thieves' Tools"],
+      "languages": [],
+      "skillChoices": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight-of-hand", "stealth"],
+      "recommendedSkills": ["stealth", "investigation", "perception", "sleight-of-hand"],
+      "skillChoiceCount": 4
+    },
+    "sorcerer": {
+      "armor": [],
+      "weapons": ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
+      "tools": [],
+      "languages": [],
+      "skillChoices": ["arcana", "deception", "insight", "intimidation", "persuasion", "religion"],
+      "recommendedSkills": ["arcana", "persuasion"],
+      "skillChoiceCount": 2
+    },
+    "warlock": {
+      "armor": ["Light Armor"],
+      "weapons": ["Simple Weapons"],
+      "tools": [],
+      "languages": [],
+      "skillChoices": ["arcana", "deception", "history", "intimidation", "investigation", "nature", "religion"],
+      "recommendedSkills": ["arcana", "deception"],
+      "skillChoiceCount": 2
+    },
+    "wizard": {
+      "armor": ["Light Armor"],
+      "weapons": ["Daggers", "Quarterstaffs", "Light Crossbows"],
+      "tools": [],
+      "languages": [],
+      "skillChoices": ["arcana", "history", "insight", "investigation", "medicine", "religion"],
+      "recommendedSkills": ["arcana", "investigation"],
+      "skillChoiceCount": 2
+    }
+  },
+  "speciesOptions": {
+    "high-elf": {
+      "languages": ["Common", "Elvish"],
+      "toolChoices": [],
+      "notes": "High elves are trained in keen senses and arcane learning."
+    },
+    "wood-elf": {
+      "languages": ["Common", "Elvish"],
+      "toolChoices": [],
+      "notes": "Wood elves trade high magic for speed, perception, and easy stealth in nature."
+    },
+    "drow": {
+      "languages": ["Common", "Elvish"],
+      "toolChoices": [],
+      "notes": "Drow bring Underdark darkvision, innate magic, and notable sunlight drawbacks."
+    },
+    "hill-dwarf": {
+      "languages": ["Common", "Dwarvish"],
+      "toolChoices": ["Smith's Tools"],
+      "notes": "Hill dwarves are sturdy and culturally tied to craft traditions."
+    },
+    "mountain-dwarf": {
+      "languages": ["Common", "Dwarvish"],
+      "toolChoices": ["Smith's Tools", "Brewer's Supplies", "Mason's Tools"],
+      "notes": "Mountain dwarves are heavier-armored clan warriors with the same core dwarven resilience."
+    },
+    "lightfoot-halfling": {
+      "languages": ["Common", "Halfling"],
+      "toolChoices": [],
+      "notes": "Lightfoot halflings are quiet wanderers with classic halfling luck and stealth."
+    },
+    "stout-halfling": {
+      "languages": ["Common", "Halfling"],
+      "toolChoices": [],
+      "notes": "Stout halflings pair halfling luck with dwarven-style poison resilience."
+    },
+    "human": {
+      "languages": ["Common"],
+      "toolChoices": [],
+      "notes": "Humans are broad generalists and typically add one extra language."
+    },
+    "dragonborn": {
+      "languages": ["Common", "Draconic"],
+      "toolChoices": [],
+      "notes": "Dragonborn inherit a draconic breath weapon and an ancestry-based elemental resistance."
+    },
+    "forest-gnome": {
+      "languages": ["Common", "Gnomish"],
+      "toolChoices": [],
+      "notes": "Forest gnomes blend illusion magic with a natural rapport for small beasts."
+    },
+    "rock-gnome": {
+      "languages": ["Common", "Gnomish"],
+      "toolChoices": ["Tinker's Tools"],
+      "notes": "Rock gnomes lean into craft knowledge, tinkering, and magical curiosity."
+    },
+    "half-elf": {
+      "languages": ["Common", "Elvish"],
+      "toolChoices": [],
+      "notes": "Half-elves are socially flexible and gain extra skill breadth over most lineages."
+    },
+    "half-orc": {
+      "languages": ["Common", "Orc"],
+      "toolChoices": [],
+      "notes": "Half-orcs bring intimidation, relentless toughness, and brutal critical strikes."
+    },
+    "tiefling": {
+      "languages": ["Common", "Infernal"],
+      "toolChoices": [],
+      "notes": "Tieflings gain infernal magic, fire resistance, and strong darkvision."
+    },
+    "custom-lineage": {
+      "languages": ["Common"],
+      "toolChoices": [],
+      "notes": "Custom lineage from Tasha's starts with a feat and a flexible lineage trait."
+    }
+  },
+  "backgroundOptions": {
+    "sage": {
+      "languages": ["Draconic", "Sylvan"],
+      "tools": ["Calligrapher's Supplies"],
+      "skillProficiencies": ["arcana", "history"]
+    },
+    "soldier": {
+      "languages": [],
+      "tools": ["Dice Set"],
+      "skillProficiencies": ["athletics", "intimidation"]
+    }
+  }
+}

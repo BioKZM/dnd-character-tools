@@ -1,0 +1,24 @@
+{
+  "id": "mountain-dwarf",
+  "name": "Mountain Dwarf",
+  "summary": "As a mountain dwarf, you're strong and hardy, accustomed to a difficult life in rugged terrain. You're probably on the tall side (for a dwarf), and tend toward lighter coloration, The shield dwarves of northern Faerun, as well as the ruling Hylar clan and the noble Daewar clan of Dragonlance, are mountain dwarves.",
+  "bonuses": [
+    "Ability Score Increase. Your Strength score increases by 2.",
+    "Dwarven Armor Training. You have proficiency with light and medium armor."
+  ],
+  "traits": [
+    {
+      "id": "dwarven-armor-training",
+      "name": "Dwarven Armor Training",
+      "summary": "You have proficiency with light and medium armor."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Strength score increases by 2."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "tables": []
+}

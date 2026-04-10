@@ -1,0 +1,20 @@
+{
+  "target": "backgrounds",
+  "entryCount": 108,
+  "fetchedCount": 108,
+  "errorCount": 0,
+  "publishedCount": 102,
+  "collections": [
+    {
+      "collection": "backgrounds",
+      "indexUrl": "https://dnd5e.wikidot.com/",
+      "entryCount": 108,
+      "status": "ok"
+    }
+  ],
+  "durationSeconds": 96.41,
+  "artifacts": {
+    "all": "content/raw/wikidot-reference/backgrounds/all.json",
+    "published": "content/raw/wikidot-reference/backgrounds/published.json"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "classId": "sorcerer",
+  "durationSeconds": 1.13,
+  "sources": {
+    "sorcerer": "https://dnd5e.wikidot.com/sorcerer"
+  },
+  "counts": {
+    "fontOfMagicNotes": 13,
+    "metamagicOptions": 7
+  }
+}

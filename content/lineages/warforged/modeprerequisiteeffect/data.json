@@ -1,0 +1,73 @@
+{
+  "id": "modeprerequisiteeffect",
+  "name": "ModePrerequisiteEffect",
+  "summary": "Darkwood Core (unarmored)NoneAC = 11 + your Dexterity modifier (add proficiency bonus if proficient with light armor).",
+  "bonuses": [
+    "Darkwood Core (unarmored)NoneAC = 11 + your Dexterity modifier (add proficiency bonus if proficient with light armor).",
+    "Composite Plating (armored)Medium armor proficiencyAC = 13 + your Dexterity modifier (maximum of 2) + your proficiency bonus.",
+    "Heavy Plating (armored)Heavy armor proficiencyAC = 16 + your proficiency bonus; disadvantage on Dexterity (Stealth) checks.",
+    "Languages.You can speak, read, and write Common.",
+    "Envoy",
+    "Ability Score Increase.Two different ability scores of your choice increase by 1."
+  ],
+  "traits": [
+    {
+      "id": "specialized-design",
+      "name": "Specialized Design",
+      "summary": "You gain one skill proficiency of your choice, one tool proficiency of your choice, and fluency in one language of your choice."
+    },
+    {
+      "id": "integrated-tool",
+      "name": "Integrated Tool",
+      "summary": "Choose one tool you’re proficient with. This tool is integrated into your body, and you double your proficiency bonus for any ability checks you make with it. You must have your hands free to use this integrated tool."
+    },
+    {
+      "id": "iron-fists",
+      "name": "Iron Fists",
+      "summary": "When you make an unarmed strike, you can deal 1d4 + your Strength modifier bludgeoning damage instead of the normal damage."
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "summary": "You count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift."
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "summary": "Your walking speed is increased by 5 feet."
+    },
+    {
+      "id": "light-step",
+      "name": "Light Step",
+      "summary": "When you are traveling alone for an extended period of time (one hour or more), you can move stealthily at a normal pace."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Two different ability scores of your choice increase by 1."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Strength score increases by 2."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Dexterity score increases by 2."
+    }
+  ]
+}

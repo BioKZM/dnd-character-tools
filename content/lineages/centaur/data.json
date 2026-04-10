@@ -1,0 +1,100 @@
+{
+  "id": "centaur",
+  "name": "Centaur",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:centaur",
+  "sourceLabel": "Monstrous Lineages",
+  "summary": "Centaurs gallop throughout the multiverse and trace their origins to many different realms. The centaurs presented here hail from the Feywild and mystically resonate with the natural world. From the waist up, they resemble elves, displaying all the elf varieties of skin tone. From the waist down, they have the bodies of horses.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 40 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Strength score increases by 2, and your Wisdom score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Centaurs stand between 6 and 7 feet tall, with their equine bodies reaching about 4 feet at the withers. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.Your size is Medium.",
+    "Speed.Your walking speed is 40 feet.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Strength score increases by 2, and your Wisdom score increases by 1.",
+    "Size.Centaurs stand between 6 and 7 feet tall, with their equine bodies reaching about 4 feet at the withers. Your size is Medium.",
+    "Speed.Your base walking speed is 40 feet.",
+    "Languages.You can speak, read, and write Common and Sylvan. Sylvan is widely spoken in the Selesnya Conclave, for it is rich in vocabulary to describe natural phenomena and spiritual forces."
+  ],
+  "coreTraits": [
+    {
+      "id": "charge",
+      "name": "Charge",
+      "summary": "If you move at least 30 feet straight toward a target and then hit it with a melee weapon attack on the same turn, you can immediately follow that attack with a bonus action, making one attack against the target with your hooves."
+    },
+    {
+      "id": "equine-build",
+      "name": "Equine Build",
+      "summary": "You count as one size larger when determining your carrying capacity and the weight you can push or drag. In addition, any climb that requires hands and feet is especially difficult for you because of your equine legs. When you make such a climb, each foot of movement costs you 4 extra feet instead of the normal 1 extra foot."
+    },
+    {
+      "id": "hooves",
+      "name": "Hooves",
+      "summary": "You have hooves that you can use to make unarmed strikes. When you hit with them, the strike deals 1d6 + your Strength modifier bludgeoning damage, instead of the bludgeoning damage normal for an unarmed strike."
+    },
+    {
+      "id": "natural-affinity",
+      "name": "Natural Affinity",
+      "summary": "Your fey connection to nature gives you an intuitive connection to the natural world and the animals within it. You therefore have proficiency in one of the following skills of your choice: Animal Handling, Medicine, Nature, or Survival."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Centaurs mature and age at about the same rate as humans."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Centaurs are inclined toward neutrality. Those who join the Selesnya are more often neutral good, while those who join the Gruul are typically chaotic neutral."
+    },
+    {
+      "id": "fey",
+      "name": "Fey",
+      "summary": "Your creature type is fey, rather than humanoid."
+    },
+    {
+      "id": "charge",
+      "name": "Charge",
+      "summary": "If you move at least 30 feet straight toward a target and then hit it with a melee weapon attack on the same turn, you can immediately follow that attack with a bonus action, making one attack against the target with your hooves."
+    },
+    {
+      "id": "hooves",
+      "name": "Hooves",
+      "summary": "Your hooves are natural melee weapons, which you can use to make unarmed strikes. If you hit with them, you deal bludgeoning damage equal to 1d4 + your Strength modifier, instead of the bludgeoning damage normal for an unarmed strike."
+    },
+    {
+      "id": "equine-build",
+      "name": "Equine Build",
+      "summary": "You count as one size larger when determining your carrying capacity and the weight you can push or drag. In addition, any climb that requires hands and feet is especially difficult for you because of your equine legs. When you make such a climb, each foot of movement costs you 4 extra feet, instead of the normal 1 extra foot."
+    }
+  ],
+  "subraces": [],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

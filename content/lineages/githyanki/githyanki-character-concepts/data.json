@@ -1,0 +1,56 @@
+{
+  "id": "githyanki-character-concepts",
+  "name": "Githyanki Character Concepts",
+  "summary": "1When I'm bored I make my own excitement, and I'm always bored.",
+  "bonuses": [
+    "d4Githyanki Personality Trait",
+    "1When I'm bored I make my own excitement, and I'm always bored.",
+    "2I treat others as if they were animals that simply don't know any better.",
+    "3Violence is a spice that makes life worth living.",
+    "4Old age is a concept that I find fascinating. Maybe someday I too will be aged.",
+    "d4Githyanki Ideal"
+  ],
+  "traits": [
+    {
+      "id": "1fidelity",
+      "name": "1Fidelity",
+      "summary": "Warriors are only as good as the vows they keep."
+    },
+    {
+      "id": "2power",
+      "name": "2Power",
+      "summary": "The weak rule the strong."
+    },
+    {
+      "id": "3duty",
+      "name": "3Duty",
+      "summary": "It is by Vlaakith's will alone that I act."
+    },
+    {
+      "id": "4freedom",
+      "name": "4Freedom",
+      "summary": "No strong soul should be enslaved. Better to die first than live as another's puppet."
+    },
+    {
+      "id": "3without-battle-life-has-no-purpose",
+      "name": "3Without battle, life has no purpose",
+      "summary": ""
+    },
+    {
+      "id": "4life-is-but-a-spark-in-the-dark",
+      "name": "4Life is but a spark in the dark",
+      "summary": "We all go dark, but those who dare can burn bright."
+    },
+    {
+      "id": "4i-start-projects-but-never-finish-them",
+      "name": "4I start projects but never finish them",
+      "summary": ""
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    }
+  ],
+  "stats": []
+}

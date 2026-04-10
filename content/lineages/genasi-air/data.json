@@ -1,0 +1,102 @@
+{
+  "id": "genasi-air",
+  "name": "Genasi (Air)",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:genasi-air",
+  "sourceLabel": "Exotic Lineages",
+  "summary": "Tracing their ancestry to the genies of the Elemental Planes, each genasi can tap into the power of one of the elements. Air, earth, fire, and water — these are the four pillars of the Material Plane and the four types of genasi. Some genasi are direct descendants of a genie, while others were born to non-genasi parents who lived near a place suffused by a genie’s magic.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium or Small. You choose the size when you select this race."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 35 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Constitution score increases by 2, and Dexterity score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Genasi are as varied as their mortal parents but are generally built like humans, standing anywhere from 5 feet to over 6 feet tall. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.You are Medium or Small. You choose the size when you select this race.",
+    "Speed.Your walking speed is 35 feet.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Constitution score increases by 2, and Dexterity score increases by 1.",
+    "Size.Genasi are as varied as their mortal parents but are generally built like humans, standing anywhere from 5 feet to over 6 feet tall. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common and Primordial. Primordial is a guttural language, filled with harsh syllables and hard consonants."
+  ],
+  "coreTraits": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "unending-breath",
+      "name": "Unending Breath",
+      "summary": "You can hold your breath indefinitely while you’re not incapacitated."
+    },
+    {
+      "id": "lightning-resistance",
+      "name": "Lightning Resistance",
+      "summary": "You have resistance to lightning damage."
+    },
+    {
+      "id": "mingle-with-the-wind",
+      "name": "Mingle with the Wind",
+      "summary": "You know theShocking Graspcantrip. Starting at 3rd level, you can cast theFeather Fallspell with this trait, without requiring a material component. Starting at 5th level, you can also cast theLevitatespell with this trait, without requiring a material component. Once you cast Feather Fall or Levitate with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast either of those spells using any spell slots you have of the appropriate level. Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race)."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Genasi mature at about the same rate as humans and reach adulthood in their late teens. They live somewhat longer than humans do, up to 120 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Independent and self-reliant, genasi tend toward a neutral alignment."
+    },
+    {
+      "id": "unending-breath",
+      "name": "Unending Breath",
+      "summary": "You can hold your breath indefinitely while you’re not incapacitated."
+    },
+    {
+      "id": "mingle-with-the-wind",
+      "name": "Mingle with the Wind",
+      "summary": "You can cast theLevitatespell once with this trait, requiring no material components, and you regain the ability to cast it this way when you finish a long rest. Constitution is your spellcasting ability for this spell."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "subraces": [
+    "elemental-evil-player-s-companion"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

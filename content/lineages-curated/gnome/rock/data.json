@@ -1,0 +1,48 @@
+{
+  "id": "rock",
+  "name": "Rock",
+  "summary": "As a rock gnome, you have a natural inventiveness and hardiness beyond that of other gnomes. Most gnomes in the worlds of D&D are rock gnomes, including the tinker gnomes of the Dragonlance setting.",
+  "bonuses": [
+    "Ability Score Increase. Your Constitution score increases by 1.",
+    "Artificer's Lore. Whenever you make an Intelligence (History) check related to magical, alchemical, or technological items, you can add twice your proficiency bonus instead of any other proficiency bonus that may apply.",
+    "Clockwork Toy. This toy is a clockwork animal, monster, or person, such as a frog, mouse, bird, dragon, or soldier. When placed on the ground, the toy moves 5 feet across the ground on each of your turns in a random direction. It makes noises as appropriate to the creature it represents.",
+    "Fire Starter. The device produces a miniature flame, which you can use to light a candle, torch, or campfire. Using the device requires your action.",
+    "Music Box. When opened, this music box plays a single song at a moderate volume. The box stops playing when it reaches the song's end or when it is closed.",
+    "At your DM's discretion, you may make other objects with effects similar in power to these. The Prestidigitation cantrip is a good baseline for such effects."
+  ],
+  "traits": [
+    {
+      "id": "artificer-s-lore",
+      "name": "Artificer's Lore",
+      "summary": "Whenever you make an Intelligence (History) check related to magical, alchemical, or technological items, you can add twice your proficiency bonus instead of any other proficiency bonus that may apply."
+    },
+    {
+      "id": "clockwork-toy",
+      "name": "Clockwork Toy",
+      "summary": "This toy is a clockwork animal, monster, or person, such as a frog, mouse, bird, dragon, or soldier. When placed on the ground, the toy moves 5 feet across the ground on each of your turns in a random direction. It makes noises as appropriate to the creature it represents."
+    },
+    {
+      "id": "fire-starter",
+      "name": "Fire Starter",
+      "summary": "The device produces a miniature flame, which you can use to light a candle, torch, or campfire. Using the device requires your action."
+    },
+    {
+      "id": "music-box",
+      "name": "Music Box",
+      "summary": "When opened, this music box plays a single song at a moderate volume. The box stops playing when it reaches the song's end or when it is closed."
+    },
+    {
+      "id": "at-your-dm-s-discretion-you-may-make-other-objects-with-effects-similar-in-power-to-these",
+      "name": "At your DM's discretion, you may make other objects with effects similar in power to these",
+      "summary": "The Prestidigitation cantrip is a good baseline for such effects."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Constitution score increases by 1."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "tables": []
+}

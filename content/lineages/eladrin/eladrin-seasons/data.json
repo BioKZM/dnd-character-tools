@@ -1,0 +1,73 @@
+{
+  "id": "eladrin-seasons",
+  "name": "Eladrin Seasons",
+  "summary": "1Autumn:peace and goodwill, when summer's harvest is shared with all",
+  "bonuses": [
+    "d4Season",
+    "1Autumn:peace and goodwill, when summer's harvest is shared with all",
+    "2Winter:contemplation and dolor, when the vibrant energy of the world slumbers",
+    "3Spring:cheerfulness and celebration, marked by merriment and hope as winter's sorrow passes",
+    "4Summer:boldness and aggression, a time of unfettered energy and calls to action",
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+  ],
+  "traits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid. You are also considered an elf for any prerequisite or effect that requires you to be an elf."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see in dim light within 60 feet of you as if it were bright light and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws you make to avoid or end the charmed condition on yourself."
+    },
+    {
+      "id": "fey-step",
+      "name": "Fey Step",
+      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. You can use this trait a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest. When you reach 3rd level, your Fey Step gains an additional effect based on your season; if the effect requires a saving throw, the DC equals 8 + your proficiency bonus + your Intelligence, Wisdom, or Charisma modifier (choose when you select this race): Autumn.Immediately after you use your Fey Step, up to two creatures of your choice that you can see within 10 feet of you must succeed on a Wisdom saving throw or be charmed by you for 1 minute, or until you or your companions deal any damage to the creatures."
+    },
+    {
+      "id": "winter",
+      "name": "Winter",
+      "summary": "When you use your Fey Step, one creature of your choice that you can see within 5 feet of you before you teleport must succeed on a Wisdom saving throw or be frightened of you until the end of your next turn."
+    },
+    {
+      "id": "spring",
+      "name": "Spring",
+      "summary": "When you use your Fey Step, you can touch one willing creature within 5 feet of you. That creature then teleports instead of you, appearing in an unoccupied space of your choice that you can see within 30 feet of you."
+    },
+    {
+      "id": "summer",
+      "name": "Summer",
+      "summary": "Immediately after you use your Fey Step, each creature of your choice that you can see within 5 feet of you takes fire damage equal to your proficiency bonus."
+    },
+    {
+      "id": "keen-senses",
+      "name": "Keen Senses",
+      "summary": "You have proficiency in the Perception skill."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ]
+}

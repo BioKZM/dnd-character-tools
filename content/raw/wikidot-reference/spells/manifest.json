@@ -1,0 +1,20 @@
+{
+  "target": "spells",
+  "entryCount": 574,
+  "fetchedCount": 574,
+  "errorCount": 0,
+  "publishedCount": 524,
+  "collections": [
+    {
+      "collection": "spells",
+      "indexUrl": "https://dnd5e.wikidot.com/spells",
+      "entryCount": 574,
+      "status": "ok"
+    }
+  ],
+  "durationSeconds": 511.37,
+  "artifacts": {
+    "all": "content/raw/wikidot-reference/spells/all.json",
+    "published": "content/raw/wikidot-reference/spells/published.json"
+  }
+}

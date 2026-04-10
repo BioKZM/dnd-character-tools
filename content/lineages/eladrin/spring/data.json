@@ -1,0 +1,26 @@
+{
+  "id": "spring",
+  "name": "Spring",
+  "summary": "2You do everything with enthusiasm, even the most mundane chores.",
+  "bonuses": [
+    "d4Spring Personality Trait",
+    "1Every day is the greatest day of your life.",
+    "2You do everything with enthusiasm, even the most mundane chores.",
+    "3You love music and song. You supply a tune yourself if no one else can.",
+    "4You can’t stay still.",
+    "d4Spring Flaw"
+  ],
+  "traits": [
+    {
+      "id": "3you-love-music-and-song",
+      "name": "3You love music and song",
+      "summary": "You supply a tune yourself if no one else can."
+    },
+    {
+      "id": "2toil-is-for-drudges",
+      "name": "2Toil is for drudges",
+      "summary": "Yours should be a life of leisure."
+    }
+  ],
+  "stats": []
+}

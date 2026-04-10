@@ -1,0 +1,36 @@
+{
+  "id": "mark-of-making-spells",
+  "name": "Mark of Making Spells",
+  "summary": "If your human character has the Mark of Passage, the following traits replace the human's Ability Score Increase trait found in the Player's Handbook",
+  "bonuses": [
+    "Spell LevelSpell",
+    "1stIdentify,Tenser's Floating Disk",
+    "2ndContinual Flame,Magic Weapon",
+    "3rdConjure Barrage,Elemental Weapon",
+    "4thFabricate,Stone Shape",
+    "5thCreation"
+  ],
+  "traits": [
+    {
+      "id": "intuitive-motion",
+      "name": "Intuitive Motion",
+      "summary": "Whenever you make an Dexterity (Acrobatics) or an Ability Check involving operating or maintaining a Land Vehicle, you can roll a d4 and add the number rolled to the total ability check."
+    },
+    {
+      "id": "magical-passage",
+      "name": "Magical Passage",
+      "summary": "You can cast theMisty Stepspell with this trait. Once you cast this spell with this trait, you can't cast that spell again until you finish a Long Rest. Dexterity is your Spellcasting Ability for these spells."
+    },
+    {
+      "id": "spells-of-the-mark",
+      "name": "Spells of the Mark",
+      "summary": "If you have the Spellcasting or Pact Magic class feature, the spells on the Mark of Passage Spells table are added to the spell list of your Spellcasting class."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Dexterity score increases by 2, and one other Ability Score of your choice increases by 1."
+    }
+  ]
+}

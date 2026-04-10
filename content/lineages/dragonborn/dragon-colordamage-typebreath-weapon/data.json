@@ -1,0 +1,73 @@
+{
+  "id": "dragon-colordamage-typebreath-weapon",
+  "name": "Dragon ColorDamage TypeBreath Weapon",
+  "summary": "Breath Weapon.You can use your action to exhale destructive energy. It deals damage in an area according to your ancestry. When you use your breath weapon, all creatures in the area must make a saving throw, the type of which is determined by your ancestry. The DC of this saving throw is 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increase to 3d6 at 6th level, 4d6 at 11th, and 5d6 at 16th level. After using your breath weapon, you cannot use it again until you complete a short or long rest.",
+  "bonuses": [
+    "BlackAcid5 by 30 ft. line (DEX save)",
+    "BlueLightning5 by 30 ft. line (DEX save)",
+    "BrassFire5 by 30 ft. line (DEX save)",
+    "BronzeLightning5 by 30 ft. line (DEX save)",
+    "CopperAcid5 by 30 ft. line (DEX save)",
+    "GoldFire15 ft. cone (DEX save)"
+  ],
+  "traits": [
+    {
+      "id": "blackacid5-by-30-ft",
+      "name": "BlackAcid5 by 30 ft",
+      "summary": "line (DEX save)"
+    },
+    {
+      "id": "bluelightning5-by-30-ft",
+      "name": "BlueLightning5 by 30 ft",
+      "summary": "line (DEX save)"
+    },
+    {
+      "id": "brassfire5-by-30-ft",
+      "name": "BrassFire5 by 30 ft",
+      "summary": "line (DEX save)"
+    },
+    {
+      "id": "bronzelightning5-by-30-ft",
+      "name": "BronzeLightning5 by 30 ft",
+      "summary": "line (DEX save)"
+    },
+    {
+      "id": "copperacid5-by-30-ft",
+      "name": "CopperAcid5 by 30 ft",
+      "summary": "line (DEX save)"
+    },
+    {
+      "id": "greenpoison15-ft",
+      "name": "GreenPoison15 ft",
+      "summary": "cone (CON save)"
+    },
+    {
+      "id": "silvercold15-ft",
+      "name": "SilverCold15 ft",
+      "summary": "cone (CON save)"
+    },
+    {
+      "id": "whitecold15-ft",
+      "name": "WhiteCold15 ft",
+      "summary": "cone (CON save)"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Languages",
+      "value": "You can read, speak, and write Common and Draconic."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Intelligence score increases by 2, and your Charisma score increases by 1."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Strength score increases by 2, and your Constitution score increases by 1."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Increase one ability score by 2 and increase a different one by 1, or you increase three different scores by 1."
+    }
+  ]
+}

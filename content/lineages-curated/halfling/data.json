@@ -1,0 +1,63 @@
+{
+  "id": "halfling",
+  "name": "Halfling",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:halfling",
+  "sourceLabel": "Standard Lineages",
+  "sourceBook": "Player's Handbook",
+  "summary": "The comforts of home are the goals of most halflings' lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies. Others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. Halflings work readily with others, and they are loyal to their friends, whether halfling or otherwise. They can display remarkable ferocity when their friends, families, or communities are threatened.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Dexterity score increases by 2."
+    },
+    {
+      "label": "Size",
+      "value": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is small."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 25 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and Halfling."
+    }
+  ],
+  "coreBonuses": [],
+  "coreTraits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of the old ways."
+    },
+    {
+      "id": "lucky",
+      "name": "Lucky",
+      "summary": "When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die. You must use the new result, even if it is a 1."
+    },
+    {
+      "id": "brave",
+      "name": "Brave",
+      "summary": "You have advantage on saving throws against being frightened."
+    },
+    {
+      "id": "nimble",
+      "name": "Nimble",
+      "summary": "You can move through the space of any creature that is of a size larger than yours."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "subraces": [
+    "lightfoot",
+    "stout"
+  ],
+  "notes": [
+    "source isolated from page-content and table of contents",
+    "raw text is preserved in page.html for manual inspection"
+  ]
+}

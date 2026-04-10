@@ -1,0 +1,26 @@
+{
+  "id": "mark-of-healing-spells",
+  "name": "Mark of Healing Spells",
+  "summary": "window['nitroAds'].createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });",
+  "bonuses": [
+    "Spell LevelSpell",
+    "1stCure Wounds,Healing Word",
+    "2ndLesser Restoration,Prayer of Healing",
+    "3rdAura of Vitality,Mass Healing Word",
+    "4thAura of Purity,Aura of Life",
+    "5thGreater Restoration"
+  ],
+  "traits": [
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": []
+}

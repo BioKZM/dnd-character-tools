@@ -1,0 +1,98 @@
+{
+  "source": "https://dnd5e.wikidot.com",
+  "entryCount": 13,
+  "generatedAt": "2026-04-10T15:31:56Z",
+  "entries": [
+    {
+      "id": "artificer",
+      "name": "Artificer",
+      "url": "https://dnd5e.wikidot.com/artificer",
+      "subclassCount": 4,
+      "path": "content/classes-curated/artificer/data.json"
+    },
+    {
+      "id": "barbarian",
+      "name": "Barbarian",
+      "url": "https://dnd5e.wikidot.com/barbarian",
+      "subclassCount": 9,
+      "path": "content/classes-curated/barbarian/data.json"
+    },
+    {
+      "id": "bard",
+      "name": "Bard",
+      "url": "https://dnd5e.wikidot.com/bard",
+      "subclassCount": 8,
+      "path": "content/classes-curated/bard/data.json"
+    },
+    {
+      "id": "cleric",
+      "name": "Cleric",
+      "url": "https://dnd5e.wikidot.com/cleric",
+      "subclassCount": 18,
+      "path": "content/classes-curated/cleric/data.json"
+    },
+    {
+      "id": "druid",
+      "name": "Druid",
+      "url": "https://dnd5e.wikidot.com/druid",
+      "subclassCount": 7,
+      "path": "content/classes-curated/druid/data.json"
+    },
+    {
+      "id": "fighter",
+      "name": "Fighter",
+      "url": "https://dnd5e.wikidot.com/fighter",
+      "subclassCount": 10,
+      "path": "content/classes-curated/fighter/data.json"
+    },
+    {
+      "id": "monk",
+      "name": "Monk",
+      "url": "https://dnd5e.wikidot.com/monk",
+      "subclassCount": 10,
+      "path": "content/classes-curated/monk/data.json"
+    },
+    {
+      "id": "paladin",
+      "name": "Paladin",
+      "url": "https://dnd5e.wikidot.com/paladin",
+      "subclassCount": 9,
+      "path": "content/classes-curated/paladin/data.json"
+    },
+    {
+      "id": "ranger",
+      "name": "Ranger",
+      "url": "https://dnd5e.wikidot.com/ranger",
+      "subclassCount": 0,
+      "path": "content/classes-curated/ranger/data.json"
+    },
+    {
+      "id": "rogue",
+      "name": "Rogue",
+      "url": "https://dnd5e.wikidot.com/rogue",
+      "subclassCount": 9,
+      "path": "content/classes-curated/rogue/data.json"
+    },
+    {
+      "id": "sorcerer",
+      "name": "Sorcerer",
+      "url": "https://dnd5e.wikidot.com/sorcerer",
+      "subclassCount": 9,
+      "path": "content/classes-curated/sorcerer/data.json"
+    },
+    {
+      "id": "warlock",
+      "name": "Warlock",
+      "url": "https://dnd5e.wikidot.com/warlock",
+      "subclassCount": 9,
+      "path": "content/classes-curated/warlock/data.json"
+    },
+    {
+      "id": "wizard",
+      "name": "Wizard",
+      "url": "https://dnd5e.wikidot.com/wizard",
+      "subclassCount": 13,
+      "path": "content/classes-curated/wizard/data.json"
+    }
+  ]
+}

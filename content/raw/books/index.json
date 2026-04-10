@@ -1,0 +1,1162 @@
+{
+  "generatedAt": "2026-03-17T21:00:24.943312+00:00",
+  "books": [
+    {
+      "id": "phb",
+      "slug": "player-s-handbook",
+      "title": "Player's Handbook",
+      "status": "extracted",
+      "sourcePath": "C:\\Users\\qRnt\\Downloads\\DnD 5e Players Handbook (BnW OCR).pdf",
+      "pageCount": 293,
+      "totalCharacters": 1243235,
+      "tags": [
+        "core",
+        "classes",
+        "spells",
+        "species",
+        "backgrounds"
+      ],
+      "artifacts": {
+        "text": "raw\\books\\phb\\book.txt",
+        "pages": "raw\\books\\phb\\pages.json"
+      },
+      "detectedSections": {
+        "spellSectionHints": [
+          "Bard Spells",
+          "Cleric Spells",
+          "Druid Spells",
+          "Paladin Spells",
+          "Ranger Spells",
+          "Sorcerer Spells",
+          "Spell Descriptions",
+          "Warlock Spells",
+          "Wizard Spells"
+        ],
+        "subclassSectionHints": [
+          "Arcane Tradition",
+          "Bard College",
+          "Divine Domain",
+          "Druid Circle",
+          "Martial Archetype",
+          "Monastic Tradition",
+          "Otherworldly Patron",
+          "Primal Path",
+          "Ranger Archetype",
+          "Roguish Archetype",
+          "Sacred Oath",
+          "Sorcerous Origin"
+        ],
+        "spellCandidatePages": [
+          {
+            "page": 2,
+            "hits": [
+              "Spell Descriptions"
+            ]
+          },
+          {
+            "page": 47,
+            "hits": [
+              "Bard Spells"
+            ]
+          },
+          {
+            "page": 48,
+            "hits": [
+              "Bard Spells"
+            ]
+          },
+          {
+            "page": 49,
+            "hits": [
+              "Bard Spells"
+            ]
+          },
+          {
+            "page": 50,
+            "hits": [
+              "Cleric Spells"
+            ]
+          },
+          {
+            "page": 52,
+            "hits": [
+              "Cleric Spells"
+            ]
+          },
+          {
+            "page": 58,
+            "hits": [
+              "Druid Spells"
+            ]
+          },
+          {
+            "page": 60,
+            "hits": [
+              "Druid Spells"
+            ]
+          },
+          {
+            "page": 62,
+            "hits": [
+              "Druid Spells"
+            ]
+          },
+          {
+            "page": 69,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 78,
+            "hits": [
+              "Paladin Spells"
+            ]
+          },
+          {
+            "page": 79,
+            "hits": [
+              "Paladin Spells"
+            ]
+          },
+          {
+            "page": 81,
+            "hits": [
+              "Paladin Spells"
+            ]
+          },
+          {
+            "page": 85,
+            "hits": [
+              "Ranger Spells"
+            ]
+          },
+          {
+            "page": 86,
+            "hits": [
+              "Ranger Spells"
+            ]
+          },
+          {
+            "page": 92,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 95,
+            "hits": [
+              "Sorcerer Spells"
+            ]
+          },
+          {
+            "page": 101,
+            "hits": [
+              "Warlock Spells"
+            ]
+          },
+          {
+            "page": 102,
+            "hits": [
+              "Warlock Spells"
+            ]
+          },
+          {
+            "page": 108,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 109,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 153,
+            "hits": [
+              "Ranger Spells",
+              "Warlock Spells",
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 188,
+            "hits": [
+              "Spell Descriptions"
+            ]
+          },
+          {
+            "page": 293,
+            "hits": [
+              "Spell Descriptions"
+            ]
+          }
+        ],
+        "subclassCandidatePages": [
+          {
+            "page": 12,
+            "hits": [
+              "Martial Archetype"
+            ]
+          },
+          {
+            "page": 39,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 41,
+            "hits": [
+              "Primal Path"
+            ]
+          },
+          {
+            "page": 47,
+            "hits": [
+              "Bard College"
+            ]
+          },
+          {
+            "page": 48,
+            "hits": [
+              "Bard College"
+            ]
+          },
+          {
+            "page": 51,
+            "hits": [
+              "Divine Domain"
+            ]
+          },
+          {
+            "page": 59,
+            "hits": [
+              "Druid Circle"
+            ]
+          },
+          {
+            "page": 65,
+            "hits": [
+              "Martial Archetype"
+            ]
+          },
+          {
+            "page": 66,
+            "hits": [
+              "Martial Archetype"
+            ]
+          },
+          {
+            "page": 70,
+            "hits": [
+              "Monastic Tradition"
+            ]
+          },
+          {
+            "page": 71,
+            "hits": [
+              "Monastic Tradition"
+            ]
+          },
+          {
+            "page": 72,
+            "hits": [
+              "Monastic Tradition"
+            ]
+          },
+          {
+            "page": 74,
+            "hits": [
+              "Monastic Tradition"
+            ]
+          },
+          {
+            "page": 75,
+            "hits": [
+              "Monastic Tradition"
+            ]
+          },
+          {
+            "page": 77,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 79,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 84,
+            "hits": [
+              "Ranger Archetype"
+            ]
+          },
+          {
+            "page": 86,
+            "hits": [
+              "Ranger Archetype"
+            ]
+          },
+          {
+            "page": 89,
+            "hits": [
+              "Roguish Archetype"
+            ]
+          },
+          {
+            "page": 94,
+            "hits": [
+              "Sorcerous Origin"
+            ]
+          },
+          {
+            "page": 95,
+            "hits": [
+              "Sorcerous Origin"
+            ]
+          },
+          {
+            "page": 100,
+            "hits": [
+              "Otherworldly Patron"
+            ]
+          },
+          {
+            "page": 101,
+            "hits": [
+              "Otherworldly Patron"
+            ]
+          },
+          {
+            "page": 102,
+            "hits": [
+              "Otherworldly Patron"
+            ]
+          },
+          {
+            "page": 107,
+            "hits": [
+              "Arcane Tradition"
+            ]
+          },
+          {
+            "page": 109,
+            "hits": [
+              "Arcane Tradition"
+            ]
+          },
+          {
+            "page": 290,
+            "hits": [
+              "Arcane Tradition",
+              "Bard College",
+              "Divine Domain",
+              "Druid Circle",
+              "Martial Archetype",
+              "Otherworldly Patron",
+              "Primal Path",
+              "Ranger Archetype",
+              "Roguish Archetype"
+            ]
+          },
+          {
+            "page": 291,
+            "hits": [
+              "Arcane Tradition",
+              "Divine Domain",
+              "Druid Circle",
+              "Martial Archetype",
+              "Otherworldly Patron"
+            ]
+          },
+          {
+            "page": 292,
+            "hits": [
+              "Arcane Tradition",
+              "Divine Domain",
+              "Martial Archetype",
+              "Monastic Tradition",
+              "Otherworldly Patron",
+              "Primal Path",
+              "Ranger Archetype",
+              "Roguish Archetype",
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 293,
+            "hits": [
+              "Arcane Tradition",
+              "Divine Domain",
+              "Otherworldly Patron",
+              "Sorcerous Origin"
+            ]
+          }
+        ],
+        "ocrHeadings": [
+          "O NCE UPON A TIME, LONG, LONG AGO, IN A",
+          "OUR FIRST STEP IN PLAYING AN ADVENTURER IN THE",
+          "PART 1 STEP-BY-STEP CHARACTERS",
+          "A VISIT TO ONE OF THE GREAT CITIES IN THE",
+          "“I HAVE NEVER IMAGINED SUCH BEAUTY EXISTED,”",
+          "A DVENTURERS ARE EXTRAORDINARY PEOPLE,",
+          "C REAT ING A M O N K",
+          "CH ARACTERS ARE DEFINED BY MUCH MORE THAN",
+          "OUTLANDER",
+          "TH E MARKETPLACE OF A LARGE CITY TEEMS",
+          "331422-W\"",
+          "T HE COMBINATION OF ABILITY SCORES, RACE,",
+          "S IX ABILITIES PROVIDE A QUICK DESCRIPTION",
+          "D ELVING INTO THE ANCIENT TOMB OF HORRORS.",
+          "T HE CLATTER OF A SWORD STRIKING AGAINST",
+          "M AGIC PERMEATES THE WORLDS OF D&D AND",
+          "T HIS CHAPTER DESCRIBES THE MOST COMMON",
+          "C ONDITIONS ALTER A CREATURE’S CAPABILITIES IN",
+          "R ELIGION IS AN IMPORTANT PART OF LIFE IN",
+          "I NCREDIBLY VAST IS THE COSMOS OF THE",
+          "S PELLS AND CLASS FEATURES ALLOW CHARACTERS",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "STR DEX CON INT WIS CHA",
+          "I NSPIRATION FOR ALL OF THE FANTASY WORK I HAVE"
+        ]
+      }
+    },
+    {
+      "id": "xgte",
+      "slug": "xanathar-s-guide-to-everything",
+      "title": "Xanathar's Guide to Everything",
+      "status": "extracted",
+      "sourcePath": "C:\\Users\\qRnt\\Downloads\\D&D 5E - Xanathar's Guide to Everything.pdf",
+      "pageCount": 194,
+      "totalCharacters": 731842,
+      "tags": [
+        "expansion",
+        "subclasses",
+        "spells",
+        "feats"
+      ],
+      "artifacts": {
+        "text": "raw\\books\\xgte\\book.txt",
+        "pages": "raw\\books\\xgte\\pages.json"
+      },
+      "detectedSections": {
+        "spellSectionHints": [
+          "Bard Spells",
+          "Cleric Spells",
+          "Druid Spells",
+          "Ranger Spells",
+          "Sorcerer Spells",
+          "Spell Descriptions",
+          "Warlock Spells",
+          "Wizard Spells"
+        ],
+        "subclassSectionHints": [
+          "Arcane Tradition",
+          "Bard College",
+          "Divine Domain",
+          "Druid Circle",
+          "Martial Archetype",
+          "Monastic Tradition",
+          "Otherworldly Patron",
+          "Primal Path",
+          "Ranger Archetype",
+          "Roguish Archetype",
+          "Sacred Oath",
+          "Sorcerous Origin"
+        ],
+        "spellCandidatePages": [
+          {
+            "page": 4,
+            "hits": [
+              "Spell Descriptions"
+            ]
+          },
+          {
+            "page": 44,
+            "hits": [
+              "Ranger Spells"
+            ]
+          },
+          {
+            "page": 138,
+            "hits": [
+              "Warlock Spells",
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 148,
+            "hits": [
+              "Bard Spells",
+              "Cleric Spells",
+              "Druid Spells",
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 149,
+            "hits": [
+              "Ranger Spells",
+              "Sorcerer Spells",
+              "Warlock Spells"
+            ]
+          },
+          {
+            "page": 150,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 151,
+            "hits": [
+              "Spell Descriptions"
+            ]
+          }
+        ],
+        "subclassCandidatePages": [
+          {
+            "page": 4,
+            "hits": [
+              "Bard College",
+              "Divine Domain",
+              "Druid Circle",
+              "Primal Path",
+              "Ranger Archetype",
+              "Sacred Oath",
+              "Sorcerous Origin"
+            ]
+          },
+          {
+            "page": 8,
+            "hits": [
+              "Bard College",
+              "Druid Circle"
+            ]
+          },
+          {
+            "page": 10,
+            "hits": [
+              "Primal Path"
+            ]
+          },
+          {
+            "page": 15,
+            "hits": [
+              "Bard College"
+            ]
+          },
+          {
+            "page": 19,
+            "hits": [
+              "Divine Domain"
+            ]
+          },
+          {
+            "page": 23,
+            "hits": [
+              "Druid Circle"
+            ]
+          },
+          {
+            "page": 29,
+            "hits": [
+              "Martial Archetype"
+            ]
+          },
+          {
+            "page": 34,
+            "hits": [
+              "Monastic Tradition"
+            ]
+          },
+          {
+            "page": 37,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 38,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 39,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 40,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 42,
+            "hits": [
+              "Ranger Archetype"
+            ]
+          },
+          {
+            "page": 46,
+            "hits": [
+              "Roguish Archetype"
+            ]
+          },
+          {
+            "page": 51,
+            "hits": [
+              "Sorcerous Origin"
+            ]
+          },
+          {
+            "page": 55,
+            "hits": [
+              "Otherworldly Patron"
+            ]
+          },
+          {
+            "page": 60,
+            "hits": [
+              "Arcane Tradition"
+            ]
+          }
+        ],
+        "ocrHeadings": [
+          "CREDITS",
+          "ON THE COVER",
+          "620C2215000001 EN",
+          "ISBN: 978-0 -7869-6612-7",
+          "ON THE ALTERNATIVE COVER",
+          "CONTENTS",
+          "ENEATH THE BUSTLING CITY OF WATERDEEP,",
+          "USING THIS BOOK",
+          "U NEA RT H ED A RCA NA",
+          "INTRODUCTION",
+          "THE C O RE RULES",
+          "THE DM ADJUDICATES THE RULE S",
+          "TEN R ULES T O REMEMBER",
+          "EXCEPTIONS SUPERSED E GENERAL RULES",
+          "ROUND DOW N",
+          "ADVANTAGE AND DISADV A NTA GE",
+          "C OMBIN I NG D I FFER E NT EFF ECTS",
+          "R EACTION TIMIN G",
+          "RESISTANCE AND VUL N ERABILITY",
+          "PROFICIEN CY BONUS",
+          "BONUS ACTIQN SPELL S",
+          "CON CENTR ATIO N",
+          "'TEMPORARY H I T POI NTS",
+          "CHAPTER 1",
+          "CHARACTER OPTIONS",
+          "H E MAI N FIGURES I N ANY D&D CAMPA I GN",
+          "SUB C LASSES",
+          "BARBARIAN",
+          "I HAVE WITNESSED THE INDOMITABLE PERFORMANCE OF",
+          "PERSONAL TOTEMS",
+          "P ERSO N AL TOTEMS",
+          "TATTOOS",
+          "TATT OOS",
+          "SUPERSTITIONS",
+          "LEFT T O RI G HT : Z E AL OT , STORM 11E RA L O, ANO A N C.ESTRA L GUARD IAN",
+          "SUPERSTITIO N S",
+          "PRIMAL PATHS",
+          "PATH OF THE ANCESTRAL GUARDIAN",
+          "PATH OF THE A N CESTRAL GU A RDIAN FEATURES",
+          "CHAPTER 1 I CHARACTER OPTIONS",
+          "ANCESTRAL PROTECTORS",
+          "SPIRIT SHIELD",
+          "CONSULT THE SPIRITS",
+          "VENGEFUL ANCESTORS",
+          "PATH OF THE STORM HERALD",
+          "PATH OF THE STORM HERALD FEAT URES",
+          "CHAPTER 1 I CHARACTER OPTIONS",
+          "STOR M AURA",
+          "STORM SOUL",
+          "SHIELDING STORM",
+          "RAGING STORM",
+          "PATH OF THE ZEALOT",
+          "PATH OF THE ZEALOT FEATURES",
+          "DIVINE FURY",
+          "ZEALOUS PRESEN CE",
+          "RAGE BEYOND DEATH",
+          "CHAPTER 1 I CHARACTER OPTIONS",
+          "BARD",
+          "MUSIC I S THE FRU IT OF THE DJVI NE TREE THAT V IBRATES",
+          "DEFINING WORK",
+          "DEFINING WOR KS",
+          "INSTRUMENT",
+          "INSTRUMENTS",
+          "EMBARRASSMENT",
+          "EMBARRASSMENTS",
+          "A BARD'S MUSE",
+          "CHAPTER I I CHARACTER OPTIONS",
+          "BARD COLLEGES",
+          "COLLEGE OF GLAMOUR",
+          "COLLEGE OF GLAMOUR FEATURES",
+          "M AN TLE OF I NSP IRATION",
+          "CHAPTER 1 I CHARACTER OPTIONS",
+          "ENTHRALLING PERFORMA NCE",
+          "M ANTL E OF MAJ ESTY",
+          "UN BREAKA BLE M AJ ESTY",
+          "COLLEGE OF SWORDS",
+          "COLLEGE OF SWORDS FEATURES",
+          "BONUS PROFICIENCIES",
+          "FIGHTING S TYLE",
+          "BLAD E FLOURISH"
+        ]
+      }
+    },
+    {
+      "id": "tcoe",
+      "slug": "tasha-s-cauldron-of-everything",
+      "title": "Tasha's Cauldron of Everything",
+      "status": "extracted",
+      "sourcePath": "C:\\Users\\qRnt\\Downloads\\D&D 5E - Tashas Cauldron of Everything.pdf",
+      "pageCount": 194,
+      "totalCharacters": 622095,
+      "tags": [
+        "expansion",
+        "optional-features",
+        "subclasses",
+        "spells",
+        "feats"
+      ],
+      "artifacts": {
+        "text": "raw\\books\\tcoe\\book.txt",
+        "pages": "raw\\books\\tcoe\\pages.json"
+      },
+      "detectedSections": {
+        "spellSectionHints": [
+          "Artificer Spells",
+          "Bard Spells",
+          "Cleric Spells",
+          "Druid Spells",
+          "Paladin Spells",
+          "Ranger Spells",
+          "Sorcerer Spells",
+          "Spell Descriptions",
+          "Warlock Spells",
+          "Wizard Spells"
+        ],
+        "subclassSectionHints": [
+          "Arcane Tradition",
+          "Bard College",
+          "Divine Domain",
+          "Druid Circle",
+          "Martial Archetype",
+          "Monastic Tradition",
+          "Otherworldly Patron",
+          "Primal Path",
+          "Ranger Archetype",
+          "Roguish Archetype",
+          "Sacred Oath",
+          "Sorcerous Origin"
+        ],
+        "spellCandidatePages": [
+          {
+            "page": 13,
+            "hits": [
+              "Artificer Spells"
+            ]
+          },
+          {
+            "page": 16,
+            "hits": [
+              "Artificer Spells"
+            ]
+          },
+          {
+            "page": 17,
+            "hits": [
+              "Artificer Spells"
+            ]
+          },
+          {
+            "page": 19,
+            "hits": [
+              "Artificer Spells"
+            ]
+          },
+          {
+            "page": 20,
+            "hits": [
+              "Artificer Spells"
+            ]
+          },
+          {
+            "page": 21,
+            "hits": [
+              "Artificer Spells"
+            ]
+          },
+          {
+            "page": 29,
+            "hits": [
+              "Bard Spells"
+            ]
+          },
+          {
+            "page": 32,
+            "hits": [
+              "Cleric Spells"
+            ]
+          },
+          {
+            "page": 40,
+            "hits": [
+              "Druid Spells"
+            ]
+          },
+          {
+            "page": 54,
+            "hits": [
+              "Paladin Spells"
+            ]
+          },
+          {
+            "page": 59,
+            "hits": [
+              "Ranger Spells"
+            ]
+          },
+          {
+            "page": 60,
+            "hits": [
+              "Ranger Spells"
+            ]
+          },
+          {
+            "page": 61,
+            "hits": [
+              "Ranger Spells"
+            ]
+          },
+          {
+            "page": 62,
+            "hits": [
+              "Ranger Spells"
+            ]
+          },
+          {
+            "page": 67,
+            "hits": [
+              "Sorcerer Spells"
+            ]
+          },
+          {
+            "page": 69,
+            "hits": [
+              "Sorcerer Spells"
+            ]
+          },
+          {
+            "page": 70,
+            "hits": [
+              "Sorcerer Spells"
+            ]
+          },
+          {
+            "page": 72,
+            "hits": [
+              "Warlock Spells"
+            ]
+          },
+          {
+            "page": 75,
+            "hits": [
+              "Warlock Spells"
+            ]
+          },
+          {
+            "page": 80,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 108,
+            "hits": [
+              "Spell Descriptions"
+            ]
+          },
+          {
+            "page": 121,
+            "hits": [
+              "Artificer Spells",
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 122,
+            "hits": [
+              "Sorcerer Spells",
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 124,
+            "hits": [
+              "Druid Spells",
+              "Sorcerer Spells"
+            ]
+          },
+          {
+            "page": 127,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 128,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 130,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 131,
+            "hits": [
+              "Wizard Spells"
+            ]
+          },
+          {
+            "page": 135,
+            "hits": [
+              "Ranger Spells"
+            ]
+          },
+          {
+            "page": 136,
+            "hits": [
+              "Bard Spells",
+              "Wizard Spells"
+            ]
+          }
+        ],
+        "subclassCandidatePages": [
+          {
+            "page": 26,
+            "hits": [
+              "Primal Path"
+            ]
+          },
+          {
+            "page": 30,
+            "hits": [
+              "Bard College"
+            ]
+          },
+          {
+            "page": 33,
+            "hits": [
+              "Divine Domain"
+            ]
+          },
+          {
+            "page": 38,
+            "hits": [
+              "Druid Circle"
+            ]
+          },
+          {
+            "page": 44,
+            "hits": [
+              "Martial Archetype"
+            ]
+          },
+          {
+            "page": 48,
+            "hits": [
+              "Martial Archetype"
+            ]
+          },
+          {
+            "page": 51,
+            "hits": [
+              "Monastic Tradition"
+            ]
+          },
+          {
+            "page": 53,
+            "hits": [
+              "Monastic Tradition"
+            ]
+          },
+          {
+            "page": 55,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 56,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 57,
+            "hits": [
+              "Sacred Oath"
+            ]
+          },
+          {
+            "page": 60,
+            "hits": [
+              "Ranger Archetype"
+            ]
+          },
+          {
+            "page": 64,
+            "hits": [
+              "Roguish Archetype"
+            ]
+          },
+          {
+            "page": 68,
+            "hits": [
+              "Sorcerous Origin"
+            ]
+          },
+          {
+            "page": 78,
+            "hits": [
+              "Arcane Tradition"
+            ]
+          },
+          {
+            "page": 154,
+            "hits": [
+              "Otherworldly Patron"
+            ]
+          }
+        ],
+        "ocrHeadings": [
+          "CREDITS",
+          "D&D GAM E STUDIO",
+          "ON THE COVER",
+          "620C7878000007 EN",
+          "ISBN: 978-0-7869-6702-S",
+          "ON THE ALT-COVER",
+          "CONTENTS",
+          "U SING THIS BOOK",
+          "W HAT Y OU'LL F IN D W IT H I N",
+          "IT'S A LL O PTION AL",
+          "UNEARTHED ARCANA",
+          "T EN RULES TO R EME MBER",
+          "1. TH E DM A DJUDICATES THE RULES",
+          "2. EXCEPTIONS SUPERSEDE GENERAL RULES",
+          "3. A DVANTAGE AND DISADVANTAGE",
+          "4. REACTION TIMING",
+          "4 USING TH IS BOOK",
+          "• TAIH~ _J",
+          "5. PROFICIENCY BONUS",
+          "6. BONUS A CTION SPELLS",
+          "7. CONCENTRATION",
+          "8. TEMPORARY H IT POINTS",
+          "9. ROUND DOWN",
+          "10. H AVE FUN",
+          "USING THIS BOOK",
+          "CHAPTER I",
+          "CHARACTER O PTIONS",
+          "HEN YOU MAKE YOUR D&D CHARACTER,",
+          "CU STOMIZING YOUR ORIGIN",
+          "A BILITY SCORE IN CREASES",
+          "LANGUAGES",
+          "PROFICIENCIES",
+          "PROFICIENCY SWAPS",
+          "CH APTER 1 I CHA RACT ER OPTI ONS",
+          "CUSTO M LINEAGE",
+          "PERSONALITY",
+          "CHANGING YOUR SUBCLASS",
+          "TRAINING T IME",
+          "CHANGING A SKILL",
+          "SUDDEN CHANGE",
+          "8 CH APTER 1 I CH ARA CTER OPTION S",
+          "A RTIFICER",
+          "A RTIF ICER S IN M AN Y W ORLDS",
+          "CREATING AN A RTIFICER",
+          "TASHA",
+          "T HE A RTIFICER",
+          "Q UICK BUILD",
+          "H IT POINTS",
+          "PROFICIENCIES",
+          "STARTING E QUIPMENT",
+          "MULTICLASSING AND THE ARTIFICER",
+          "CLASS FEATURES",
+          "MAGICAL T INKERING",
+          "SPELLCASTIN G",
+          "T OOLS REQUIRED",
+          "THE MAGIC OF ARTIFICE",
+          "CANTRIPS (O- L EVEL SPELLS)",
+          "PREPARING AND CASTING SPELLS",
+          "CHA PTER 1 I CHAR ACTER OPT ION S",
+          "SPELLCAST ING A BILITY",
+          "RITUAL CASTING",
+          "A RTIFICER SPELL LIST",
+          "CANTRIPS (O LEVEL)",
+          "1ST LEVEL",
+          "2ND LEVEL",
+          "3RD LEVEL",
+          "INFUSE ITEM",
+          "4TH LEVEL",
+          "5TH LEVEL",
+          "INFUSIONS K NOWN",
+          "INFUSIN G AN ITEM",
+          "CH APTER 1 I CHARA CTER OPT IONS",
+          "A RTIFICER SPECIA LIST",
+          "FLASH OF G ENIUS",
+          "M AGIC ITEM A DEPT",
+          "T HE RI GHT TO OL FOR THE JOB",
+          "SPELL- STORING ITEM",
+          "A BILITY SCORE IMPROVEMENT",
+          "TOOL EXPERTISE",
+          "DWARF ALCHEMIST WITH"
+        ]
+      }
+    }
+  ]
+}

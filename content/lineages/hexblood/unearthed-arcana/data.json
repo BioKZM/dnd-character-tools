@@ -1,0 +1,10 @@
+{
+  "id": "unearthed-arcana",
+  "name": "Unearthed Arcana",
+  "summary": "Where wishing fails, ancient magic can offer a heart’s desire—at least, for a time. Hexbloods are individuals infused with eldritch magic, fey energy, or mysterious witchcraft. Some who enter into bargains with hags gain their deepest wishes but eventually find themselves transformed. These changes evidence a hag’s influence: ears that split in forked points, skin in lurid shades, long hair that regrows if cut, and an irremovable living crown. Along with these marks, hexbloods manifest hag-like traits, such as darkvision, and a variety of magical methods to beguile the senses and avoid the same.",
+  "bonuses": [
+    "Van Richten's Guide to Ravenloft"
+  ],
+  "traits": [],
+  "stats": []
+}

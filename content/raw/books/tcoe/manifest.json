@@ -1,0 +1,414 @@
+{
+  "id": "tcoe",
+  "slug": "tasha-s-cauldron-of-everything",
+  "title": "Tasha's Cauldron of Everything",
+  "status": "extracted",
+  "sourcePath": "C:\\Users\\qRnt\\Downloads\\D&D 5E - Tashas Cauldron of Everything.pdf",
+  "pageCount": 194,
+  "totalCharacters": 622095,
+  "tags": [
+    "expansion",
+    "optional-features",
+    "subclasses",
+    "spells",
+    "feats"
+  ],
+  "artifacts": {
+    "text": "raw\\books\\tcoe\\book.txt",
+    "pages": "raw\\books\\tcoe\\pages.json"
+  },
+  "detectedSections": {
+    "spellSectionHints": [
+      "Artificer Spells",
+      "Bard Spells",
+      "Cleric Spells",
+      "Druid Spells",
+      "Paladin Spells",
+      "Ranger Spells",
+      "Sorcerer Spells",
+      "Spell Descriptions",
+      "Warlock Spells",
+      "Wizard Spells"
+    ],
+    "subclassSectionHints": [
+      "Arcane Tradition",
+      "Bard College",
+      "Divine Domain",
+      "Druid Circle",
+      "Martial Archetype",
+      "Monastic Tradition",
+      "Otherworldly Patron",
+      "Primal Path",
+      "Ranger Archetype",
+      "Roguish Archetype",
+      "Sacred Oath",
+      "Sorcerous Origin"
+    ],
+    "spellCandidatePages": [
+      {
+        "page": 13,
+        "hits": [
+          "Artificer Spells"
+        ]
+      },
+      {
+        "page": 16,
+        "hits": [
+          "Artificer Spells"
+        ]
+      },
+      {
+        "page": 17,
+        "hits": [
+          "Artificer Spells"
+        ]
+      },
+      {
+        "page": 19,
+        "hits": [
+          "Artificer Spells"
+        ]
+      },
+      {
+        "page": 20,
+        "hits": [
+          "Artificer Spells"
+        ]
+      },
+      {
+        "page": 21,
+        "hits": [
+          "Artificer Spells"
+        ]
+      },
+      {
+        "page": 29,
+        "hits": [
+          "Bard Spells"
+        ]
+      },
+      {
+        "page": 32,
+        "hits": [
+          "Cleric Spells"
+        ]
+      },
+      {
+        "page": 40,
+        "hits": [
+          "Druid Spells"
+        ]
+      },
+      {
+        "page": 54,
+        "hits": [
+          "Paladin Spells"
+        ]
+      },
+      {
+        "page": 59,
+        "hits": [
+          "Ranger Spells"
+        ]
+      },
+      {
+        "page": 60,
+        "hits": [
+          "Ranger Spells"
+        ]
+      },
+      {
+        "page": 61,
+        "hits": [
+          "Ranger Spells"
+        ]
+      },
+      {
+        "page": 62,
+        "hits": [
+          "Ranger Spells"
+        ]
+      },
+      {
+        "page": 67,
+        "hits": [
+          "Sorcerer Spells"
+        ]
+      },
+      {
+        "page": 69,
+        "hits": [
+          "Sorcerer Spells"
+        ]
+      },
+      {
+        "page": 70,
+        "hits": [
+          "Sorcerer Spells"
+        ]
+      },
+      {
+        "page": 72,
+        "hits": [
+          "Warlock Spells"
+        ]
+      },
+      {
+        "page": 75,
+        "hits": [
+          "Warlock Spells"
+        ]
+      },
+      {
+        "page": 80,
+        "hits": [
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 108,
+        "hits": [
+          "Spell Descriptions"
+        ]
+      },
+      {
+        "page": 121,
+        "hits": [
+          "Artificer Spells",
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 122,
+        "hits": [
+          "Sorcerer Spells",
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 124,
+        "hits": [
+          "Druid Spells",
+          "Sorcerer Spells"
+        ]
+      },
+      {
+        "page": 127,
+        "hits": [
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 128,
+        "hits": [
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 130,
+        "hits": [
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 131,
+        "hits": [
+          "Wizard Spells"
+        ]
+      },
+      {
+        "page": 135,
+        "hits": [
+          "Ranger Spells"
+        ]
+      },
+      {
+        "page": 136,
+        "hits": [
+          "Bard Spells",
+          "Wizard Spells"
+        ]
+      }
+    ],
+    "subclassCandidatePages": [
+      {
+        "page": 26,
+        "hits": [
+          "Primal Path"
+        ]
+      },
+      {
+        "page": 30,
+        "hits": [
+          "Bard College"
+        ]
+      },
+      {
+        "page": 33,
+        "hits": [
+          "Divine Domain"
+        ]
+      },
+      {
+        "page": 38,
+        "hits": [
+          "Druid Circle"
+        ]
+      },
+      {
+        "page": 44,
+        "hits": [
+          "Martial Archetype"
+        ]
+      },
+      {
+        "page": 48,
+        "hits": [
+          "Martial Archetype"
+        ]
+      },
+      {
+        "page": 51,
+        "hits": [
+          "Monastic Tradition"
+        ]
+      },
+      {
+        "page": 53,
+        "hits": [
+          "Monastic Tradition"
+        ]
+      },
+      {
+        "page": 55,
+        "hits": [
+          "Sacred Oath"
+        ]
+      },
+      {
+        "page": 56,
+        "hits": [
+          "Sacred Oath"
+        ]
+      },
+      {
+        "page": 57,
+        "hits": [
+          "Sacred Oath"
+        ]
+      },
+      {
+        "page": 60,
+        "hits": [
+          "Ranger Archetype"
+        ]
+      },
+      {
+        "page": 64,
+        "hits": [
+          "Roguish Archetype"
+        ]
+      },
+      {
+        "page": 68,
+        "hits": [
+          "Sorcerous Origin"
+        ]
+      },
+      {
+        "page": 78,
+        "hits": [
+          "Arcane Tradition"
+        ]
+      },
+      {
+        "page": 154,
+        "hits": [
+          "Otherworldly Patron"
+        ]
+      }
+    ],
+    "ocrHeadings": [
+      "CREDITS",
+      "D&D GAM E STUDIO",
+      "ON THE COVER",
+      "620C7878000007 EN",
+      "ISBN: 978-0-7869-6702-S",
+      "ON THE ALT-COVER",
+      "CONTENTS",
+      "U SING THIS BOOK",
+      "W HAT Y OU'LL F IN D W IT H I N",
+      "IT'S A LL O PTION AL",
+      "UNEARTHED ARCANA",
+      "T EN RULES TO R EME MBER",
+      "1. TH E DM A DJUDICATES THE RULES",
+      "2. EXCEPTIONS SUPERSEDE GENERAL RULES",
+      "3. A DVANTAGE AND DISADVANTAGE",
+      "4. REACTION TIMING",
+      "4 USING TH IS BOOK",
+      "• TAIH~ _J",
+      "5. PROFICIENCY BONUS",
+      "6. BONUS A CTION SPELLS",
+      "7. CONCENTRATION",
+      "8. TEMPORARY H IT POINTS",
+      "9. ROUND DOWN",
+      "10. H AVE FUN",
+      "USING THIS BOOK",
+      "CHAPTER I",
+      "CHARACTER O PTIONS",
+      "HEN YOU MAKE YOUR D&D CHARACTER,",
+      "CU STOMIZING YOUR ORIGIN",
+      "A BILITY SCORE IN CREASES",
+      "LANGUAGES",
+      "PROFICIENCIES",
+      "PROFICIENCY SWAPS",
+      "CH APTER 1 I CHA RACT ER OPTI ONS",
+      "CUSTO M LINEAGE",
+      "PERSONALITY",
+      "CHANGING YOUR SUBCLASS",
+      "TRAINING T IME",
+      "CHANGING A SKILL",
+      "SUDDEN CHANGE",
+      "8 CH APTER 1 I CH ARA CTER OPTION S",
+      "A RTIFICER",
+      "A RTIF ICER S IN M AN Y W ORLDS",
+      "CREATING AN A RTIFICER",
+      "TASHA",
+      "T HE A RTIFICER",
+      "Q UICK BUILD",
+      "H IT POINTS",
+      "PROFICIENCIES",
+      "STARTING E QUIPMENT",
+      "MULTICLASSING AND THE ARTIFICER",
+      "CLASS FEATURES",
+      "MAGICAL T INKERING",
+      "SPELLCASTIN G",
+      "T OOLS REQUIRED",
+      "THE MAGIC OF ARTIFICE",
+      "CANTRIPS (O- L EVEL SPELLS)",
+      "PREPARING AND CASTING SPELLS",
+      "CHA PTER 1 I CHAR ACTER OPT ION S",
+      "SPELLCAST ING A BILITY",
+      "RITUAL CASTING",
+      "A RTIFICER SPELL LIST",
+      "CANTRIPS (O LEVEL)",
+      "1ST LEVEL",
+      "2ND LEVEL",
+      "3RD LEVEL",
+      "INFUSE ITEM",
+      "4TH LEVEL",
+      "5TH LEVEL",
+      "INFUSIONS K NOWN",
+      "INFUSIN G AN ITEM",
+      "CH APTER 1 I CHARA CTER OPT IONS",
+      "A RTIFICER SPECIA LIST",
+      "FLASH OF G ENIUS",
+      "M AGIC ITEM A DEPT",
+      "T HE RI GHT TO OL FOR THE JOB",
+      "SPELL- STORING ITEM",
+      "A BILITY SCORE IMPROVEMENT",
+      "TOOL EXPERTISE",
+      "DWARF ALCHEMIST WITH"
+    ]
+  }
+}

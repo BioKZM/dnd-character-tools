@@ -1,0 +1,73 @@
+{
+  "id": "fey-characteristics",
+  "name": "Fey Characteristics",
+  "summary": "5You have a small spectral horn on your forehead, like a little unicorn horn.",
+  "bonuses": [
+    "d8Characteristic",
+    "1Your wings are like those of a bird.",
+    "2You have shimmering, multicolored skin.",
+    "3You have exceptionally large ears.",
+    "4A glittering mist constantly surrounds you.",
+    "5You have a small spectral horn on your forehead, like a little unicorn horn."
+  ],
+  "traits": [
+    {
+      "id": "1your-wings-are-like-those-of-a-bird",
+      "name": "1Your wings are like those of a bird",
+      "summary": ""
+    },
+    {
+      "id": "2you-have-shimmering-multicolored-skin",
+      "name": "2You have shimmering, multicolored skin",
+      "summary": ""
+    },
+    {
+      "id": "3you-have-exceptionally-large-ears",
+      "name": "3You have exceptionally large ears",
+      "summary": ""
+    },
+    {
+      "id": "7you-smell-like-fresh-brownies",
+      "name": "7You smell like fresh brownies",
+      "summary": ""
+    },
+    {
+      "id": "fairy-magic",
+      "name": "Fairy Magic",
+      "summary": "You know theDruidcraftcantrip. Starting at 3rd level, you can cast theFaerie Firespell with this trait. Starting at 5th level, you can also cast theEnlarge/Reducespell with this trait. Once you cast Faerie Fire or Enlarge/Reduce with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast either of those spells using any spell slots you have of the appropriate level."
+    },
+    {
+      "id": "flight",
+      "name": "Flight",
+      "summary": "Because of your wings, you have a flying speed equal to your walking speed. You can’t use this flying speed if you’re wearing medium or heavy armor."
+    },
+    {
+      "id": "1your-wings-are-like-those-of-a-bird",
+      "name": "1Your wings are like those of a bird",
+      "summary": ""
+    },
+    {
+      "id": "2you-have-shimmering-multicolored-skin",
+      "name": "2You have shimmering, multicolored skin",
+      "summary": ""
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Small."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "winter",
+  "name": "Winter",
+  "summary": "2You preserve what you have. Better to be hungry today and have food for tomorrow.",
+  "bonuses": [
+    "d4Winter Personality Trait",
+    "1The worst case is most likely to occur.",
+    "2You preserve what you have. Better to be hungry today and have food for tomorrow.",
+    "3Life is full of dangers, but you are ready for them.",
+    "4A penny spent is a penny lost forever.",
+    "d4Winter Flaw"
+  ],
+  "traits": [
+    {
+      "id": "1the-worst-case-is-most-likely-to-occur",
+      "name": "1The worst case is most likely to occur",
+      "summary": ""
+    },
+    {
+      "id": "2you-preserve-what-you-have",
+      "name": "2You preserve what you have",
+      "summary": "Better to be hungry today and have food for tomorrow."
+    },
+    {
+      "id": "4a-penny-spent-is-a-penny-lost-forever",
+      "name": "4A penny spent is a penny lost forever",
+      "summary": ""
+    },
+    {
+      "id": "1everything-dies-eventually",
+      "name": "1Everything dies eventually",
+      "summary": "Why bother building anything that is supposedly meant to last?"
+    },
+    {
+      "id": "3your-needs-come-first",
+      "name": "3Your needs come first",
+      "summary": "In winter, all must watch out for themselves."
+    }
+  ],
+  "stats": []
+}

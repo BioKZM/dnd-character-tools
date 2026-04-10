@@ -1,0 +1,73 @@
+{
+  "id": "spell-levelspell",
+  "name": "Spell LevelSpell",
+  "summary": "Long ago, groups of elves ventured from the Feywild to the Astral Plane to be closer to their gods. Life in the Silver Void has imbued their souls with a spark of divine light. That light manifests as a starry gleam in an astral elf's eyes.",
+  "bonuses": [
+    "1stDisguise Self,Silent Image",
+    "2ndDarkness,Pass Without Trace",
+    "3rdClairvoyance,Major Image",
+    "4thGreater Invisibility,Hallucinatory Terrain",
+    "5thMislead",
+    "Spelljammer: Adventures in Space"
+  ],
+  "traits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid. You are also considered an elf for any prerequisite or effect that requires you to be an elf."
+    },
+    {
+      "id": "astral-fire",
+      "name": "Astral Fire",
+      "summary": "You know one of the following cantrips of your choice:Dancing Lights,Light, orSacred Flame. Intelligence, Wisdom, or Charisma is your spellcasting ability for it (choose when you select this race)."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "You can see dim light within 60 feet of yourself as if it were bright light, and in darkness as if it were dim light. You discern colors in darkness only as shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws you make to avoid or end the charmed condition on yourself."
+    },
+    {
+      "id": "keen-senses",
+      "name": "Keen Senses",
+      "summary": "You have proficiency in the Perception skill."
+    },
+    {
+      "id": "starlight-step",
+      "name": "Starlight Step",
+      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. You can use this trait a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest."
+    },
+    {
+      "id": "astral-trance",
+      "name": "Astral Trance",
+      "summary": "You don't need to sleep, and magic can't put you to sleep. You can finish a long rest in 4 hours if you spend those hours in a trancelike meditation, during which you remain conscious. Whenever you finish this trance, you gain proficiency in one skill of your choice and with one weapon or tool of your choice, selected from thePlayer's Handbook. You magically acquire these proficiencies by drawing them from shared elven memory and the experiences of entities on the Astral Plane, and you retain them until you finish your next long rest."
+    },
+    {
+      "id": "elf-weapon-training",
+      "name": "Elf Weapon Training",
+      "summary": "You have proficiency with the longsword, shortsword, shortbow, and longbow."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
+    }
+  ]
+}

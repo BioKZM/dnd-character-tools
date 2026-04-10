@@ -1,0 +1,385 @@
+{
+  "source": "https://dnd5e.wikidot.com/lineage",
+  "entryCount": 42,
+  "generatedAt": "2026-04-10T14:19:18Z",
+  "entries": [
+    {
+      "id": "dragonborn",
+      "name": "Dragonborn",
+      "url": "https://dnd5e.wikidot.com/lineage:dragonborn",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/dragonborn/data.json"
+    },
+    {
+      "id": "dwarf",
+      "name": "Dwarf",
+      "url": "https://dnd5e.wikidot.com/lineage:dwarf",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 2,
+      "path": "content/lineages-curated/dwarf/data.json"
+    },
+    {
+      "id": "elf",
+      "name": "Elf",
+      "url": "https://dnd5e.wikidot.com/lineage:elf",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 3,
+      "path": "content/lineages-curated/elf/data.json"
+    },
+    {
+      "id": "gnome",
+      "name": "Gnome",
+      "url": "https://dnd5e.wikidot.com/lineage:gnome",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 2,
+      "path": "content/lineages-curated/gnome/data.json"
+    },
+    {
+      "id": "half-elf",
+      "name": "Half-Elf",
+      "url": "https://dnd5e.wikidot.com/lineage:half-elf",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/half-elf/data.json"
+    },
+    {
+      "id": "half-orc",
+      "name": "Half-Orc",
+      "url": "https://dnd5e.wikidot.com/lineage:half-orc",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/half-orc/data.json"
+    },
+    {
+      "id": "halfling",
+      "name": "Halfling",
+      "url": "https://dnd5e.wikidot.com/lineage:halfling",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 2,
+      "path": "content/lineages-curated/halfling/data.json"
+    },
+    {
+      "id": "human",
+      "name": "Human",
+      "url": "https://dnd5e.wikidot.com/lineage:human",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 1,
+      "path": "content/lineages-curated/human/data.json"
+    },
+    {
+      "id": "tiefling",
+      "name": "Tiefling",
+      "url": "https://dnd5e.wikidot.com/lineage:tiefling",
+      "section": "Standard Lineages",
+      "sourceBook": "Player's Handbook",
+      "subraceCount": 1,
+      "path": "content/lineages-curated/tiefling/data.json"
+    },
+    {
+      "id": "aarakocra",
+      "name": "Aarakocra",
+      "url": "https://dnd5e.wikidot.com/lineage:aarakocra",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/aarakocra/data.json"
+    },
+    {
+      "id": "aasimar",
+      "name": "Aasimar",
+      "url": "https://dnd5e.wikidot.com/lineage:aasimar",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/aasimar/data.json"
+    },
+    {
+      "id": "changeling",
+      "name": "Changeling",
+      "url": "https://dnd5e.wikidot.com/lineage:changeling",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/changeling/data.json"
+    },
+    {
+      "id": "deep-gnome",
+      "name": "Deep Gnome",
+      "url": "https://dnd5e.wikidot.com/lineage:deep-gnome",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/deep-gnome/data.json"
+    },
+    {
+      "id": "duergar",
+      "name": "Duergar",
+      "url": "https://dnd5e.wikidot.com/lineage:duergar",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/duergar/data.json"
+    },
+    {
+      "id": "eladrin",
+      "name": "Eladrin",
+      "url": "https://dnd5e.wikidot.com/lineage:eladrin",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/eladrin/data.json"
+    },
+    {
+      "id": "fairy",
+      "name": "Fairy",
+      "url": "https://dnd5e.wikidot.com/lineage:fairy",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/fairy/data.json"
+    },
+    {
+      "id": "firbolg",
+      "name": "Firbolg",
+      "url": "https://dnd5e.wikidot.com/lineage:firbolg",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/firbolg/data.json"
+    },
+    {
+      "id": "genasi-air",
+      "name": "Genasi (Air)",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-air",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/genasi-air/data.json"
+    },
+    {
+      "id": "genasi-earth",
+      "name": "Genasi (Earth)",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-earth",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/genasi-earth/data.json"
+    },
+    {
+      "id": "genasi-fire",
+      "name": "Genasi (Fire)",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-fire",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/genasi-fire/data.json"
+    },
+    {
+      "id": "genasi-water",
+      "name": "Genasi (Water)",
+      "url": "https://dnd5e.wikidot.com/lineage:genasi-water",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/genasi-water/data.json"
+    },
+    {
+      "id": "githyanki",
+      "name": "Githyanki",
+      "url": "https://dnd5e.wikidot.com/lineage:githyanki",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/githyanki/data.json"
+    },
+    {
+      "id": "githzerai",
+      "name": "Githzerai",
+      "url": "https://dnd5e.wikidot.com/lineage:githzerai",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/githzerai/data.json"
+    },
+    {
+      "id": "goliath",
+      "name": "Goliath",
+      "url": "https://dnd5e.wikidot.com/lineage:goliath",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/goliath/data.json"
+    },
+    {
+      "id": "harengon",
+      "name": "Harengon",
+      "url": "https://dnd5e.wikidot.com/lineage:harengon",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/harengon/data.json"
+    },
+    {
+      "id": "kenku",
+      "name": "Kenku",
+      "url": "https://dnd5e.wikidot.com/lineage:kenku",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/kenku/data.json"
+    },
+    {
+      "id": "satyr",
+      "name": "Satyr",
+      "url": "https://dnd5e.wikidot.com/lineage:satyr",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/satyr/data.json"
+    },
+    {
+      "id": "sea-elf",
+      "name": "Sea Elf",
+      "url": "https://dnd5e.wikidot.com/lineage:sea-elf",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/sea-elf/data.json"
+    },
+    {
+      "id": "shadar-kai",
+      "name": "Shadar-Kai",
+      "url": "https://dnd5e.wikidot.com/lineage:shadar-kai",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/shadar-kai/data.json"
+    },
+    {
+      "id": "tabaxi",
+      "name": "Tabaxi",
+      "url": "https://dnd5e.wikidot.com/lineage:tabaxi",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/tabaxi/data.json"
+    },
+    {
+      "id": "tortle",
+      "name": "Tortle",
+      "url": "https://dnd5e.wikidot.com/lineage:tortle",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/tortle/data.json"
+    },
+    {
+      "id": "triton",
+      "name": "Triton",
+      "url": "https://dnd5e.wikidot.com/lineage:triton",
+      "section": "Exotic Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/triton/data.json"
+    },
+    {
+      "id": "bugbear",
+      "name": "Bugbear",
+      "url": "https://dnd5e.wikidot.com/lineage:bugbear",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/bugbear/data.json"
+    },
+    {
+      "id": "centaur",
+      "name": "Centaur",
+      "url": "https://dnd5e.wikidot.com/lineage:centaur",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/centaur/data.json"
+    },
+    {
+      "id": "goblin",
+      "name": "Goblin",
+      "url": "https://dnd5e.wikidot.com/lineage:goblin",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/goblin/data.json"
+    },
+    {
+      "id": "hobgoblin",
+      "name": "Hobgoblin",
+      "url": "https://dnd5e.wikidot.com/lineage:hobgoblin",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/hobgoblin/data.json"
+    },
+    {
+      "id": "kobold",
+      "name": "Kobold",
+      "url": "https://dnd5e.wikidot.com/lineage:kobold",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/kobold/data.json"
+    },
+    {
+      "id": "lizardfolk",
+      "name": "Lizardfolk",
+      "url": "https://dnd5e.wikidot.com/lineage:lizardfolk",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/lizardfolk/data.json"
+    },
+    {
+      "id": "minotaur",
+      "name": "Minotaur",
+      "url": "https://dnd5e.wikidot.com/lineage:minotaur",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/minotaur/data.json"
+    },
+    {
+      "id": "orc",
+      "name": "Orc",
+      "url": "https://dnd5e.wikidot.com/lineage:orc",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/orc/data.json"
+    },
+    {
+      "id": "shifter",
+      "name": "Shifter",
+      "url": "https://dnd5e.wikidot.com/lineage:shifter",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/shifter/data.json"
+    },
+    {
+      "id": "yuan-ti",
+      "name": "Yuan-Ti",
+      "url": "https://dnd5e.wikidot.com/lineage:yuan-ti",
+      "section": "Monstrous Lineages",
+      "sourceBook": "Mordenkainen Presents: Monsters of the Multiverse",
+      "subraceCount": 0,
+      "path": "content/lineages-curated/yuan-ti/data.json"
+    }
+  ]
+}

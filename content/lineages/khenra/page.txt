@@ -1,0 +1,100 @@
+Khenra - DND 5th Editionvar URL_HOST = 'www.wikidot.com'; var URL_DOMAIN = 'wikidot.com'; var USE_SSL = true ; var URL_STATIC = 'https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc'; // global request information var WIKIREQUEST = {}; WIKIREQUEST.info = {}; WIKIREQUEST.info.domain = "dnd5e.wikidot.com"; WIKIREQUEST.info.siteId = 1475899; WIKIREQUEST.info.siteUnixName = "dnd5e"; WIKIREQUEST.info.categoryId = 40932043; WIKIREQUEST.info.themeId = 2386862; WIKIREQUEST.info.requestPageName = "lineage:khenra"; OZONE.request.timestamp = 1775782501; OZONE.request.date = new Date(); WIKIREQUEST.info.lang = 'en'; WIKIREQUEST.info.pageUnixName = "lineage:khenra"; WIKIREQUEST.info.pageId = 1330948499; WIKIREQUEST.info.lang = "en"; OZONE.lang = "en"; var isUAMobile = !!/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);require.config({ baseUrl: URL_STATIC + '/common--javascript', paths: { 'jquery.ui': 'jquery-ui.min', 'jquery.form': 'jquery.form' } });/* modules */ /* bootstrap */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--bootstrap/3.2.0/bootstrap.min.css); /* theme */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--theme/bootstrap-base/css/style.css); @import url(https://dnd5e.wdfiles.com/local--theme/standard-yellow/style.css);var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-18234656-1']); _gaq.push(['_setDomainName', 'none']); _gaq.push(['_setAllowLinker', true]); _gaq.push(['_trackPageview']); _gaq.push(['old._setAccount', 'UA-68540-5']); _gaq.push(['old._setDomainName', 'none']); _gaq.push(['old._setAllowLinker', true]); _gaq.push(['old._trackPageview']);window.google_analytics_uacct = 'UA-18234656-1'; window.google_analytics_domain_name = 'none';var OneSignal = window.OneSignal || []; OneSignal.push(function() { OneSignal.init({ appId: null, }); });.admins-only, li.admins-only{ display: none; }window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{window.nitroAds.queue.push(["createAd",arguments,e])})},addUserToken:function(){window.nitroAds.queue.push(["addUserToken",arguments])},queue:[]};
+
+DND 5th Edition
+
+community wiki
+
+Create accountorSign in
+
+Toggle navigationHome
+
+About
+
+Membership
+
+Help Docs
+User Guide
+
+First Time User
+
+Quick Reference
+
+Creating Pages
+
+Editing Pages
+
+Navigation Bars
+
+Using Modules
+
+Templates
+
+CSS Themes
+
+Site Manager
+
+Edit Top Bar
+
+Edit Side Bar
+
+CSS Manager
+
+Recent Changes
+
+List All Pages
+
+Menu
+
+You should be logged in to clone a site.
+
+Site Navigation
+
+User Guide
+
+First Time User
+
+About
+
+Contact
+
+Legal
+
+Discussion Forums
+
+Members
+
+Create a Page
+
+window['nitroAds'].createAd('wad-dnd5e-below-sidebar', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 160, 600 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 1000px)" });
+
+Khenra
+
+window['nitroAds'].createAd('wad-dnd5e-above-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 728, 90 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 768px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-above-content-mobile', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 320, 50 ], [320, 100] ], "report": { "enabled": true, "icon": true, "wording": "Report Ad", "position": "top-right" }, "mediaQuery": "(min-width: 320px) and (max-width: 767px)" });
+
+The khenra of Amonkhet are tall and lean, with graceful bodies and heads that strongly resemble jackals. Their snouts are long and sharp, and their angular ears rise straight above their heads. Their bodies are covered in dark, sleek hair that ranges from the brown of the desert sands to ebony black. Despite their sharp teeth, they consider biting to be an uncouth and unworthy combat tactic.\nNearly every khenra is born a fraternal or identical twin, and a pair of khenra twins forms an extremely close emotional bond unknown to most other residents of Amonkhet. The death of one twin in training or the trials causes a tremendous shock to the survivor, who typically grows more aggressive and foolhardy in battle. The rare khenra who are born without twins are believed to have killed their siblings in the womb, and are thus viewed as natural-born initiates, sure to achieve a glorified death in the Trial of Zeal.
+
+Khenra Features
+
+Source: Plane Shift - Amonkhet
+
+Ability Score Increase.Your Dexterity score increases by 2, and your Strength score increases by 1.
+
+Age.Khenra mature quickly, reaching adulthood in their early teens. Khenra initiates are usually the youngest in a crop, completing the trials by their late teens. Even without a violent death, they rarely live past 60.
+
+Alignment.Most khenra lean toward chaotic alignments. They have no particular inclination toward good or evil.
+
+Size.Khenra have similar builds to humans. Your size is Medium.
+
+Speed.Your base walking speed is 35 feet.
+
+Khenra Weapon Training.You have proficiency with the khopesh, spear, and javelin.
+
+Khenra Twins.If your twin is alive and you can see your twin, whenever you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll. If your twin is dead (or if you were born without a twin), you can’t be frightened.
+
+Languages.You can speak, read, and write Common and Khenra.
+
+window['nitroAds'].createAd('wad-dnd5e-floating-video', { "refreshTime": 30, "format": "floating", "mediaQuery": "(min-width: 1025px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-below-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 300, 250 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" } });

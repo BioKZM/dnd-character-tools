@@ -1,0 +1,41 @@
+{
+  "id": "spell-levelspell",
+  "name": "Spell LevelSpell",
+  "summary": "If your human character has the Mark of Handling, the following traits replace the human's Ability Score Increase trait found in the Player's Handbook",
+  "bonuses": [
+    "1stFaerie Fire,Longstrider",
+    "2ndLocate Animals or Plants,Locate Object",
+    "3rdClairvoyance,Speak With Plants",
+    "4thDivination,Locate Creature",
+    "5thCommune With Nature",
+    "Mark of Handling"
+  ],
+  "traits": [
+    {
+      "id": "wild-intuition",
+      "name": "Wild Intuition",
+      "summary": "Whenever you make a Wisdom (Animal Handling) or a Intelligence (Nature) check, you can roll a d4 and add the number rolled to the total ability check."
+    },
+    {
+      "id": "primal-connection",
+      "name": "Primal Connection",
+      "summary": "You can cast theAnimal Friendshipspell and theSpeak With Animalswith this trait, requiring no material components. Once you cast either spell with this trait, you can't cast that spell again until you finish a Long Rest. Wisdom is your Spellcasting Ability for these spells."
+    },
+    {
+      "id": "the-bigger-they-are",
+      "name": "The Bigger They Are",
+      "summary": "Starting at 3rd level, you can target a Beast or a Monstrosity when you castAnimal FriendshiporSpeak With Animals, provided that the creature's intelligence is 3 or lower."
+    },
+    {
+      "id": "spells-of-the-mark",
+      "name": "Spells of the Mark",
+      "summary": "If you have the Spellcasting or Pact Magic class feature, the spells on the Mark of Handling Spells table are added to the spell list of your Spellcasting class."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Wisdom score increases by 2, and one other Ability Score of your choice increases by 1."
+    }
+  ]
+}

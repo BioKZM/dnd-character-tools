@@ -1,0 +1,20 @@
+{
+  "target": "feats",
+  "entryCount": 199,
+  "fetchedCount": 199,
+  "errorCount": 0,
+  "publishedCount": 115,
+  "collections": [
+    {
+      "collection": "feats",
+      "indexUrl": "https://dnd5e.wikidot.com/",
+      "entryCount": 199,
+      "status": "ok"
+    }
+  ],
+  "durationSeconds": 174.25,
+  "artifacts": {
+    "all": "content/raw/wikidot-reference/feats/all.json",
+    "published": "content/raw/wikidot-reference/feats/published.json"
+  }
+}

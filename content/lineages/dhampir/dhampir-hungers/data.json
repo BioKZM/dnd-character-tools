@@ -1,0 +1,15 @@
+{
+  "id": "dhampir-hungers",
+  "name": "Dhampir Hungers",
+  "summary": "Every dhampir knows a thirst slaked only by the living. Those who overindulge their thirst risk losing control and forever viewing others as prey. Those who resist might find exceptional ways of controlling their urges or suppress them through constant, molar-grinding restraint. In any case, temptation haunts dhampirs, and circumstances conspire to give them endless reasons to indulge.",
+  "bonuses": [
+    "While many dhampirs thirst for blood, your character might otherwise gain sustenance from the living. Roll on or choose an option from the Dhampir Hungers table to determine what tempts your character to feed.",
+    "Dhampir Hungers",
+    "d6Hunger",
+    "1Blood",
+    "2Flesh or raw meat",
+    "3Cerebral spinal fluid"
+  ],
+  "traits": [],
+  "stats": []
+}

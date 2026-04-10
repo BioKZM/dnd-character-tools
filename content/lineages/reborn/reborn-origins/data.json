@@ -1,0 +1,15 @@
+{
+  "id": "reborn-origins",
+  "name": "Reborn Origins",
+  "summary": "Reborn might originate from circumstances similar to those of various undead or constructs. The Reborn Origins table provides suggestions for how your character became reborn.",
+  "bonuses": [
+    "Reborn might originate from circumstances similar to those of various undead or constructs. The Reborn Origins table provides suggestions for how your character became reborn.",
+    "Reborn Origins",
+    "d8Origins",
+    "1You were magically resurrected but something went wrong.",
+    "2Stitches bind your body’s mismatched pieces, and your memories come from multiple different lives.",
+    "3After clawing free from your grave, you realized you have no memories except for a single name."
+  ],
+  "traits": [],
+  "stats": []
+}

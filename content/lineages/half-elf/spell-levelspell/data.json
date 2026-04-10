@@ -1,0 +1,41 @@
+{
+  "id": "spell-levelspell",
+  "name": "Spell LevelSpell",
+  "summary": "If your Half-Elf has the Mark of Storm, these features replace the Ability Score Increase and the Half-Elf Versatility traits in thePlayer's Handbook.",
+  "bonuses": [
+    "1stDetect Magic,Detect Poison and Disease",
+    "2ndDetect Thoughts,Find Traps",
+    "3rdClairvoyance,Nondetection",
+    "4thArcane Eye,Divination",
+    "5thLegend Lore",
+    "Mark of Storm"
+  ],
+  "traits": [
+    {
+      "id": "windwright-s-intuition",
+      "name": "Windwright's Intuition",
+      "summary": "Whenever you make a Dexterity (Acrobatics) check or any Ability Check involving Navigator's Tools, you can roll a d4 and add the number rolled to the total ability check."
+    },
+    {
+      "id": "storm-s-boon",
+      "name": "Storm's Boon",
+      "summary": "You have resistance to Lightning damage."
+    },
+    {
+      "id": "headwinds",
+      "name": "Headwinds",
+      "summary": "You know theGustcantrip. Starting at 3rd level, you can also cast theGust of Windspell with it. Once you cast this spell with this trait, you can't cast that spell again until you finish a Long Rest. Charisma is your Spellcasting Ability for this spell."
+    },
+    {
+      "id": "spells-of-the-mark",
+      "name": "Spells of the Mark",
+      "summary": "If you have the Spellcasting or Pact Magic class feature, the spells on the Mark of Storm Spells table are added to the spell list of your Spellcasting class."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 2, and your Dexterity score increases by 1."
+    }
+  ]
+}

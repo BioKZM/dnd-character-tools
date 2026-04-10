@@ -1,0 +1,73 @@
+{
+  "id": "summer",
+  "name": "Summer",
+  "summary": "1You believe that direct confrontation is the best way to solve problems.",
+  "bonuses": [
+    "d4Summer Personality Trait",
+    "1You believe that direct confrontation is the best way to solve problems.",
+    "2Overwhelming force can solve almost anything. The tougher the problem, the more force you apply.",
+    "3You stand tall and strong so that others can lean on you.",
+    "4You maintain an intimidating front. Better to prevent fights with a show of force than to harm others.",
+    "d4Summer Flaw"
+  ],
+  "traits": [
+    {
+      "id": "4you-maintain-an-intimidating-front",
+      "name": "4You maintain an intimidating front",
+      "summary": "Better to prevent fights with a show of force than to harm others."
+    },
+    {
+      "id": "1you-are-stubborn",
+      "name": "1You are stubborn",
+      "summary": "Let others change."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Although elves reach physical maturity at about the same age as humans, the elven understanding of adulthood goes beyond physical growth to encompass worldly experience. An elf typically claims adulthood and an adult name around the age of 100 and can live to be 750 years old."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "summary": "You have advantage on saving throws against being charmed, and magic can't put you to sleep."
+    },
+    {
+      "id": "trance",
+      "name": "Trance",
+      "summary": "Elves do not sleep. Instead they meditate deeply, remaining semi-conscious, for 4 hours a day. The Common word for this meditation is \"trance.\" While meditating, you dream after a fashion; such dreams are actually mental exercises that have become reflexive after years of practice. After resting in this way, you gain the same benefit a human would from 8 hours of sleep."
+    },
+    {
+      "id": "keen-senses",
+      "name": "Keen Senses",
+      "summary": "You have proficiency in the Perception skill."
+    },
+    {
+      "id": "fey-step",
+      "name": "Fey Step",
+      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Once you use this trait, you can't do so again until you finish a short or long rest. When you reach 3rd level, your Fey Step gains an additional effect based on your season; if the effect requires a saving throw, the DC equals 8 + your proficiency bonus + your Charisma modifier. The effects are as follows: Autumn.Immediately after you use your Fey Step, up to two creatures of your choice that you can see within 10 feet of you must succeed on a Wisdom saving throw or be charmed by you for 1 minute, or until you or your companions deal any damage to it."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Dexterity score increases by 2, and your Charisma score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and Elven."
+    }
+  ]
+}

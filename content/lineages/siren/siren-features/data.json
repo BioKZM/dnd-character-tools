@@ -1,0 +1,58 @@
+{
+  "id": "siren-features",
+  "name": "Siren Features",
+  "summary": "Ability Score Increase.Your Charisma score increases by 2.",
+  "bonuses": [
+    "Source: Plane Shift - Ixalan",
+    "Ability Score Increase.Your Charisma score increases by 2.",
+    "Alignment.Most sirens lean toward chaotic alignment, cherishing the freedom and independence that comes from joining a pirate crew.",
+    "Size.Sirens stand about 5 to 6 feet tall, but their bodies are slender and their bones partially hollow to facilitate their flight. Your size is Medium.",
+    "Speed.Your base walking speed is 25 feet.",
+    "Siren’s Song.You know theFriendscantrip and can cast it without material components."
+  ],
+  "traits": [
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Most sirens lean toward chaotic alignment, cherishing the freedom and independence that comes from joining a pirate crew."
+    },
+    {
+      "id": "flight",
+      "name": "Flight",
+      "summary": "You have a flying speed of 30 feet. You can’t use your flying speed while you wear medium or heavy armor. (If your campaign uses the variant rule for encumbrance, you can’t use your flying speed if you are encumbered.)"
+    },
+    {
+      "id": "siren-s-song",
+      "name": "Siren’s Song",
+      "summary": "You know theFriendscantrip and can cast it without material components."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 2."
+    },
+    {
+      "label": "Size",
+      "value": "Sirens stand about 5 to 6 feet tall, but their bodies are slender and their bones partially hollow to facilitate their flight. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 25 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common (if it exists in your campaign) and Siren."
+    }
+  ]
+}

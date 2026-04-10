@@ -1,0 +1,57 @@
+{
+  "id": "tiefling",
+  "name": "Tiefling",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:tiefling",
+  "sourceLabel": "Standard Lineages",
+  "sourceBook": "Player's Handbook",
+  "summary": "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling. And to twist the knife, tieflings know that this is because a pact struck generations ago infused the essence of Asmodeus, overlord of the Nine Hells (and many of the other powerful devils serving under him) into their bloodline. Their appearance and their nature are not their fault but the result of an ancient sin, for which they and their children and their children's children will always be held accountable.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Charisma score increases by 2."
+    },
+    {
+      "label": "Size",
+      "value": "Tieflings are about the same size and build as humans. Your size is Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and Infernal."
+    }
+  ],
+  "coreBonuses": [],
+  "coreTraits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Tieflings mature at the same rate as humans but live a few years longer."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Tieflings might not have an innate tendency toward evil, but many of them end up there. Evil or not, an independent nature inclines many tieflings toward a chaotic alignment."
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "Thanks to your infernal heritage, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+    },
+    {
+      "id": "hellish-resistance",
+      "name": "Hellish Resistance",
+      "summary": "You have resistance to fire damage."
+    }
+  ],
+  "flexibleAbilityScoreIncrease": false,
+  "subraces": [
+    "bloodline-of-asmodeus"
+  ],
+  "notes": [
+    "source isolated from page-content and table of contents",
+    "raw text is preserved in page.html for manual inspection"
+  ]
+}

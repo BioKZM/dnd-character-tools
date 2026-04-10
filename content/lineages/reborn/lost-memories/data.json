@@ -1,0 +1,31 @@
+{
+  "id": "lost-memories",
+  "name": "Lost Memories",
+  "summary": "1You recall a physically painful moment. What mark or scar on your body does it relate to?",
+  "bonuses": [
+    "d8Memory",
+    "1You recall a physically painful moment. What mark or scar on your body does it relate to?",
+    "2A memory brings tears to your eyes. Is it a bitter or cheerful memory? Does recalling it make you feel the same way?",
+    "3You recall a childhood memory. What about that event or who you were still influences you?",
+    "4A memory brings with it the voice of someone once close to you. How do they advise you?",
+    "5You recall enjoying something that you can’t stand doing now. What is it? Why don’t you like it now?"
+  ],
+  "traits": [
+    {
+      "id": "1you-recall-a-physically-painful-moment",
+      "name": "1You recall a physically painful moment",
+      "summary": "What mark or scar on your body does it relate to?"
+    },
+    {
+      "id": "2a-memory-brings-tears-to-your-eyes",
+      "name": "2A memory brings tears to your eyes",
+      "summary": "Is it a bitter or cheerful memory? Does recalling it make you feel the same way?"
+    },
+    {
+      "id": "3you-recall-a-childhood-memory",
+      "name": "3You recall a childhood memory",
+      "summary": "What about that event or who you were still influences you?"
+    }
+  ],
+  "stats": []
+}

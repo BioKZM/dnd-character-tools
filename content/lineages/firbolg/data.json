@@ -1,0 +1,102 @@
+{
+  "id": "firbolg",
+  "name": "Firbolg",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:firbolg",
+  "sourceLabel": "Exotic Lineages",
+  "summary": "Distant cousins of giants, the first firbolgs wandered the primeval forests of the multiverse, and the magic of those forests entwined itself with the firbolgs’ souls. Centuries later, that magic still thrums inside a firbolg, even one who has never lived under the boughs of a great forest.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Wisdom score increases by 2, and your Strength score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Firbolg are between 7 and 8 feet tall and weigh between 240 and 300 pounds. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.When determining your character’s ability scores, increase one score by 2 and increase a different score by 1, or increase three different scores by 1. You can't raise any of your scores above 20.",
+    "Size.You are Medium.",
+    "Speed.Your walking speed is 30 feet.",
+    "Languages.Your character can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. ThePlayer’s Handbookoffers a list of languages to choose from. The DM is free to modify that list for a campaign.",
+    "Ability Score Increase.Your Wisdom score increases by 2, and your Strength score increases by 1.",
+    "Size.Firbolg are between 7 and 8 feet tall and weigh between 240 and 300 pounds. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common, Elvish, and Giant."
+  ],
+  "coreTraits": [
+    {
+      "id": "firbolg-magic",
+      "name": "Firbolg Magic",
+      "summary": "You can cast theDetect MagicandDisguise Selfspells with this trait. When you use this version of Disguise Self, you can seem up to 3 feet shorter or taller. Once you cast either of these spells with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast these spells using any spell slots you have. Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race)."
+    },
+    {
+      "id": "hidden-step",
+      "name": "Hidden Step",
+      "summary": "As a bonus action, you can magically turn invisible until the start of your next turn or until you attack, make a damage roll, or force someone to make a saving throw. You can use this trait a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest."
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "summary": "You count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift."
+    },
+    {
+      "id": "speech-of-beast-and-leaf",
+      "name": "Speech of Beast and Leaf",
+      "summary": "You have the ability to communicate in a limited manner with Beasts, Plants, and vegetation. They can understand the meaning of your words, though you have no special ability to understand them in return. You have advantage on all Charisma checks you make to influence them."
+    },
+    {
+      "id": "firbolgs-are-fey-oriented-half-giants",
+      "name": "Firbolgs are fey-oriented half-giants",
+      "summary": "Their tribes cloister in remote forest strongholds, preferring to spend their days in quiet harmony with the woods. When provoked, firbolgs demonstrate formidable skills with weapons and druidic magic."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "As humanoids related to the fey, firbolg have long lifespans. A firbolg reaches adulthood around 30, and the oldest of them can live for 500 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "As people who follow the rhythm of nature and see themselves as its caretakers, firbolg are typically neutral good. Evil firbolg are rare and are usually the sworn enemies of the rest of their kind."
+    },
+    {
+      "id": "firbolg-magic",
+      "name": "Firbolg Magic",
+      "summary": "You can castDetect MagicandDisguise Selfwith this trait, using Wisdom as your spellcasting ability for them. Once you cast either spell, you can't cast it again with this trait until you finish a short or long rest. When you use this version of disguise self, you can seem up to 3 feet shorter than normal, allowing you to more easily blend in with humans and elves."
+    },
+    {
+      "id": "hidden-step",
+      "name": "Hidden Step",
+      "summary": "As a bonus action, you can magically turn invisible until the start of your next turn or until you attack, make a damage roll, or force someone to make a saving throw. Once you use this trait, you can't use it again until you finish a short or long rest."
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "summary": "You count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift."
+    }
+  ],
+  "subraces": [
+    "volo-s-guide-to-monsters"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

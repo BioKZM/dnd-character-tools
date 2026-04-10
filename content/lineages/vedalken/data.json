@@ -1,0 +1,102 @@
+{
+  "id": "vedalken",
+  "name": "Vedalken",
+  "sourceUrl": "https://dnd5e.wikidot.com/lineage:vedalken",
+  "sourceLabel": "Ravnica",
+  "summary": "Vedalken are tall and slender, standing almost a head taller than humans but weighing about the same. Their hairless skin comes in a range of shades of blue. Their eyes are darker shades of blue or violet. They lack external ears, their noses are broad and flat, and they are partially amphibious.",
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Intelligence score increases by 2, and your Wisdom score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Tall and slender, Vedalken stand around 6 to 6½ feet tall. They usually weigh around 200Ibs(90kg).They are medium creatures."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common, Vedalken, and one language of your choice."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "Your Intelligence score increases by 2, and your Wisdom score increases by 1."
+    },
+    {
+      "label": "Size",
+      "value": "Vedalken are taller than humans but more slender. They average 6 to 6½ feet tall, but usually weigh less than 200 pounds. Your size is Medium."
+    }
+  ],
+  "coreBonuses": [
+    "Ability Score Increase.Your Intelligence score increases by 2, and your Wisdom score increases by 1.",
+    "Size.Tall and slender, Vedalken stand around 6 to 6½ feet tall. They usually weigh around 200Ibs(90kg).They are medium creatures.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common, Vedalken, and one language of your choice.",
+    "Ability Score Increase.Your Intelligence score increases by 2, and your Wisdom score increases by 1.",
+    "Size.Vedalken are taller than humans but more slender. They average 6 to 6½ feet tall, but usually weigh less than 200 pounds. Your size is Medium.",
+    "Speed.Your base walking speed is 30 feet.",
+    "Languages.You can speak, read, and write Common and Vedalken. The Vedalken language is renowned for its technical treatises and its catalogs of knowledge about the natural world and the aether that pervades it."
+  ],
+  "coreTraits": [
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Vedalken mature slower than humans do. reaching maturity around age 40. Their life span is typically 350 years, with some living to the age of 500."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Vedalken are usually lawful and non-evil."
+    },
+    {
+      "id": "vedalken-dispassion",
+      "name": "Vedalken Dispassion",
+      "summary": "You have advantage on all Intelligence, Wisdom, and Charisma Saving Throws."
+    },
+    {
+      "id": "tireless-precision",
+      "name": "Tireless Precision",
+      "summary": "You are proficient in one of the following skills of your choice: Arcana, History, Investigation, Medicine, Performance, or Sleight of Hand. You are also proficient with one tool of your choice. Whenever you make an ability check with the chosen skill or tool, roll a d4 and add the number rolled to the check's total."
+    },
+    {
+      "id": "partially-amphibious",
+      "name": "Partially Amphibious",
+      "summary": "By absorbing oxygen through your skin, you can breathe underwater for up to 1 hour. Once you've reached that limit, you can't use this trait again until you finish a long rest."
+    },
+    {
+      "id": "age",
+      "name": "Age",
+      "summary": "Vedalken mature at the same rate humans do, and most are expected to settle down into an adult life by around age 40. They can live 350 to almost 500 years."
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "summary": "Vedalken are most often lawful and rarely evil."
+    },
+    {
+      "id": "vedalken-cunning",
+      "name": "Vedalken Cunning",
+      "summary": "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."
+    },
+    {
+      "id": "aether-lore",
+      "name": "Aether Lore",
+      "summary": "Whenever you make an Intelligence (History) check related to magic items or aether-powered technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply."
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    }
+  ],
+  "subraces": [
+    "plane-shift-kaladesh"
+  ],
+  "notes": [
+    "raw text is preserved in page.txt for manual inspection",
+    "subrace extraction is heuristic; inspect outputs for edge cases"
+  ]
+}

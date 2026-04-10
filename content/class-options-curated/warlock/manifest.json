@@ -1,0 +1,12 @@
+{
+  "classId": "warlock",
+  "durationSeconds": 1.97,
+  "sources": {
+    "warlock": "https://dnd5e.wikidot.com/warlock",
+    "invocations": "https://dnd5e.wikidot.com/warlock:eldritch-invocations"
+  },
+  "counts": {
+    "pactBoonOptions": 0,
+    "invocations": 54
+  }
+}

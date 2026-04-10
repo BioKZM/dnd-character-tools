@@ -1,0 +1,3452 @@
+{
+  "category": "spells",
+  "indexUrl": "https://dnd5e.wikidot.com/spells",
+  "entryCount": 574,
+  "fetchedCount": 574,
+  "details": [
+    {
+      "id": "acid-splash",
+      "name": "Acid Splash",
+      "url": "https://dnd5e.wikidot.com/spell:acid-splash",
+      "detailPath": "content/raw/wikidot/spells/details/acid-splash.json"
+    },
+    {
+      "id": "blade-ward",
+      "name": "Blade Ward",
+      "url": "https://dnd5e.wikidot.com/spell:blade-ward",
+      "detailPath": "content/raw/wikidot/spells/details/blade-ward.json"
+    },
+    {
+      "id": "booming-blade",
+      "name": "Booming Blade",
+      "url": "https://dnd5e.wikidot.com/spell:booming-blade",
+      "detailPath": "content/raw/wikidot/spells/details/booming-blade.json"
+    },
+    {
+      "id": "chill-touch",
+      "name": "Chill Touch",
+      "url": "https://dnd5e.wikidot.com/spell:chill-touch",
+      "detailPath": "content/raw/wikidot/spells/details/chill-touch.json"
+    },
+    {
+      "id": "control-flames",
+      "name": "Control Flames",
+      "url": "https://dnd5e.wikidot.com/spell:control-flames",
+      "detailPath": "content/raw/wikidot/spells/details/control-flames.json"
+    },
+    {
+      "id": "create-bonfire",
+      "name": "Create Bonfire",
+      "url": "https://dnd5e.wikidot.com/spell:create-bonfire",
+      "detailPath": "content/raw/wikidot/spells/details/create-bonfire.json"
+    },
+    {
+      "id": "dancing-lights",
+      "name": "Dancing Lights",
+      "url": "https://dnd5e.wikidot.com/spell:dancing-lights",
+      "detailPath": "content/raw/wikidot/spells/details/dancing-lights.json"
+    },
+    {
+      "id": "druidcraft",
+      "name": "Druidcraft",
+      "url": "https://dnd5e.wikidot.com/spell:druidcraft",
+      "detailPath": "content/raw/wikidot/spells/details/druidcraft.json"
+    },
+    {
+      "id": "eldritch-blast",
+      "name": "Eldritch Blast",
+      "url": "https://dnd5e.wikidot.com/spell:eldritch-blast",
+      "detailPath": "content/raw/wikidot/spells/details/eldritch-blast.json"
+    },
+    {
+      "id": "encode-thoughts",
+      "name": "Encode Thoughts",
+      "url": "https://dnd5e.wikidot.com/spell:encode-thoughts",
+      "detailPath": "content/raw/wikidot/spells/details/encode-thoughts.json"
+    },
+    {
+      "id": "fire-bolt",
+      "name": "Fire Bolt",
+      "url": "https://dnd5e.wikidot.com/spell:fire-bolt",
+      "detailPath": "content/raw/wikidot/spells/details/fire-bolt.json"
+    },
+    {
+      "id": "friends",
+      "name": "Friends",
+      "url": "https://dnd5e.wikidot.com/spell:friends",
+      "detailPath": "content/raw/wikidot/spells/details/friends.json"
+    },
+    {
+      "id": "frostbite",
+      "name": "Frostbite",
+      "url": "https://dnd5e.wikidot.com/spell:frostbite",
+      "detailPath": "content/raw/wikidot/spells/details/frostbite.json"
+    },
+    {
+      "id": "green-flame-blade",
+      "name": "Green-Flame Blade",
+      "url": "https://dnd5e.wikidot.com/spell:green-flame-blade",
+      "detailPath": "content/raw/wikidot/spells/details/green-flame-blade.json"
+    },
+    {
+      "id": "guidance",
+      "name": "Guidance",
+      "url": "https://dnd5e.wikidot.com/spell:guidance",
+      "detailPath": "content/raw/wikidot/spells/details/guidance.json"
+    },
+    {
+      "id": "gust",
+      "name": "Gust",
+      "url": "https://dnd5e.wikidot.com/spell:gust",
+      "detailPath": "content/raw/wikidot/spells/details/gust.json"
+    },
+    {
+      "id": "hand-of-radiance",
+      "name": "Hand of Radiance (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:hand-of-radiance",
+      "detailPath": "content/raw/wikidot/spells/details/hand-of-radiance.json"
+    },
+    {
+      "id": "infestation",
+      "name": "Infestation",
+      "url": "https://dnd5e.wikidot.com/spell:infestation",
+      "detailPath": "content/raw/wikidot/spells/details/infestation.json"
+    },
+    {
+      "id": "light",
+      "name": "Light",
+      "url": "https://dnd5e.wikidot.com/spell:light",
+      "detailPath": "content/raw/wikidot/spells/details/light.json"
+    },
+    {
+      "id": "lightning-lure",
+      "name": "Lightning Lure",
+      "url": "https://dnd5e.wikidot.com/spell:lightning-lure",
+      "detailPath": "content/raw/wikidot/spells/details/lightning-lure.json"
+    },
+    {
+      "id": "mage-hand",
+      "name": "Mage Hand",
+      "url": "https://dnd5e.wikidot.com/spell:mage-hand",
+      "detailPath": "content/raw/wikidot/spells/details/mage-hand.json"
+    },
+    {
+      "id": "magic-stone",
+      "name": "Magic Stone",
+      "url": "https://dnd5e.wikidot.com/spell:magic-stone",
+      "detailPath": "content/raw/wikidot/spells/details/magic-stone.json"
+    },
+    {
+      "id": "mending",
+      "name": "Mending",
+      "url": "https://dnd5e.wikidot.com/spell:mending",
+      "detailPath": "content/raw/wikidot/spells/details/mending.json"
+    },
+    {
+      "id": "message",
+      "name": "Message",
+      "url": "https://dnd5e.wikidot.com/spell:message",
+      "detailPath": "content/raw/wikidot/spells/details/message.json"
+    },
+    {
+      "id": "mind-sliver",
+      "name": "Mind Sliver",
+      "url": "https://dnd5e.wikidot.com/spell:mind-sliver",
+      "detailPath": "content/raw/wikidot/spells/details/mind-sliver.json"
+    },
+    {
+      "id": "minor-illusion",
+      "name": "Minor Illusion",
+      "url": "https://dnd5e.wikidot.com/spell:minor-illusion",
+      "detailPath": "content/raw/wikidot/spells/details/minor-illusion.json"
+    },
+    {
+      "id": "mold-earth",
+      "name": "Mold Earth",
+      "url": "https://dnd5e.wikidot.com/spell:mold-earth",
+      "detailPath": "content/raw/wikidot/spells/details/mold-earth.json"
+    },
+    {
+      "id": "on-off",
+      "name": "On/Off (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:on-off",
+      "detailPath": "content/raw/wikidot/spells/details/on-off.json"
+    },
+    {
+      "id": "poison-spray",
+      "name": "Poison Spray",
+      "url": "https://dnd5e.wikidot.com/spell:poison-spray",
+      "detailPath": "content/raw/wikidot/spells/details/poison-spray.json"
+    },
+    {
+      "id": "prestidigitation",
+      "name": "Prestidigitation",
+      "url": "https://dnd5e.wikidot.com/spell:prestidigitation",
+      "detailPath": "content/raw/wikidot/spells/details/prestidigitation.json"
+    },
+    {
+      "id": "primal-savagery",
+      "name": "Primal Savagery",
+      "url": "https://dnd5e.wikidot.com/spell:primal-savagery",
+      "detailPath": "content/raw/wikidot/spells/details/primal-savagery.json"
+    },
+    {
+      "id": "produce-flame",
+      "name": "Produce Flame",
+      "url": "https://dnd5e.wikidot.com/spell:produce-flame",
+      "detailPath": "content/raw/wikidot/spells/details/produce-flame.json"
+    },
+    {
+      "id": "ray-of-frost",
+      "name": "Ray of Frost",
+      "url": "https://dnd5e.wikidot.com/spell:ray-of-frost",
+      "detailPath": "content/raw/wikidot/spells/details/ray-of-frost.json"
+    },
+    {
+      "id": "resistance",
+      "name": "Resistance",
+      "url": "https://dnd5e.wikidot.com/spell:resistance",
+      "detailPath": "content/raw/wikidot/spells/details/resistance.json"
+    },
+    {
+      "id": "sacred-flame",
+      "name": "Sacred Flame",
+      "url": "https://dnd5e.wikidot.com/spell:sacred-flame",
+      "detailPath": "content/raw/wikidot/spells/details/sacred-flame.json"
+    },
+    {
+      "id": "sapping-sting",
+      "name": "Sapping Sting",
+      "url": "https://dnd5e.wikidot.com/spell:sapping-sting",
+      "detailPath": "content/raw/wikidot/spells/details/sapping-sting.json"
+    },
+    {
+      "id": "shape-water",
+      "name": "Shape Water",
+      "url": "https://dnd5e.wikidot.com/spell:shape-water",
+      "detailPath": "content/raw/wikidot/spells/details/shape-water.json"
+    },
+    {
+      "id": "shillelagh",
+      "name": "Shillelagh",
+      "url": "https://dnd5e.wikidot.com/spell:shillelagh",
+      "detailPath": "content/raw/wikidot/spells/details/shillelagh.json"
+    },
+    {
+      "id": "shocking-grasp",
+      "name": "Shocking Grasp",
+      "url": "https://dnd5e.wikidot.com/spell:shocking-grasp",
+      "detailPath": "content/raw/wikidot/spells/details/shocking-grasp.json"
+    },
+    {
+      "id": "spare-the-dying",
+      "name": "Spare the Dying",
+      "url": "https://dnd5e.wikidot.com/spell:spare-the-dying",
+      "detailPath": "content/raw/wikidot/spells/details/spare-the-dying.json"
+    },
+    {
+      "id": "sword-burst",
+      "name": "Sword Burst",
+      "url": "https://dnd5e.wikidot.com/spell:sword-burst",
+      "detailPath": "content/raw/wikidot/spells/details/sword-burst.json"
+    },
+    {
+      "id": "thaumaturgy",
+      "name": "Thaumaturgy",
+      "url": "https://dnd5e.wikidot.com/spell:thaumaturgy",
+      "detailPath": "content/raw/wikidot/spells/details/thaumaturgy.json"
+    },
+    {
+      "id": "thorn-whip",
+      "name": "Thorn Whip",
+      "url": "https://dnd5e.wikidot.com/spell:thorn-whip",
+      "detailPath": "content/raw/wikidot/spells/details/thorn-whip.json"
+    },
+    {
+      "id": "thunderclap",
+      "name": "Thunderclap",
+      "url": "https://dnd5e.wikidot.com/spell:thunderclap",
+      "detailPath": "content/raw/wikidot/spells/details/thunderclap.json"
+    },
+    {
+      "id": "toll-the-dead",
+      "name": "Toll the Dead",
+      "url": "https://dnd5e.wikidot.com/spell:toll-the-dead",
+      "detailPath": "content/raw/wikidot/spells/details/toll-the-dead.json"
+    },
+    {
+      "id": "true-strike",
+      "name": "True Strike",
+      "url": "https://dnd5e.wikidot.com/spell:true-strike",
+      "detailPath": "content/raw/wikidot/spells/details/true-strike.json"
+    },
+    {
+      "id": "vicious-mockery",
+      "name": "Vicious Mockery",
+      "url": "https://dnd5e.wikidot.com/spell:vicious-mockery",
+      "detailPath": "content/raw/wikidot/spells/details/vicious-mockery.json"
+    },
+    {
+      "id": "virtue",
+      "name": "Virtue (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:virtue",
+      "detailPath": "content/raw/wikidot/spells/details/virtue.json"
+    },
+    {
+      "id": "word-of-radiance",
+      "name": "Word of Radiance",
+      "url": "https://dnd5e.wikidot.com/spell:word-of-radiance",
+      "detailPath": "content/raw/wikidot/spells/details/word-of-radiance.json"
+    },
+    {
+      "id": "absorb-elements",
+      "name": "Absorb Elements",
+      "url": "https://dnd5e.wikidot.com/spell:absorb-elements",
+      "detailPath": "content/raw/wikidot/spells/details/absorb-elements.json"
+    },
+    {
+      "id": "acid-stream",
+      "name": "Acid Stream (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:acid-stream",
+      "detailPath": "content/raw/wikidot/spells/details/acid-stream.json"
+    },
+    {
+      "id": "alarm",
+      "name": "Alarm",
+      "url": "https://dnd5e.wikidot.com/spell:alarm",
+      "detailPath": "content/raw/wikidot/spells/details/alarm.json"
+    },
+    {
+      "id": "animal-friendship",
+      "name": "Animal Friendship",
+      "url": "https://dnd5e.wikidot.com/spell:animal-friendship",
+      "detailPath": "content/raw/wikidot/spells/details/animal-friendship.json"
+    },
+    {
+      "id": "arcane-weapon",
+      "name": "Arcane Weapon (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:arcane-weapon",
+      "detailPath": "content/raw/wikidot/spells/details/arcane-weapon.json"
+    },
+    {
+      "id": "armor-of-agathys",
+      "name": "Armor of Agathys",
+      "url": "https://dnd5e.wikidot.com/spell:armor-of-agathys",
+      "detailPath": "content/raw/wikidot/spells/details/armor-of-agathys.json"
+    },
+    {
+      "id": "arms-of-hadar",
+      "name": "Arms of Hadar",
+      "url": "https://dnd5e.wikidot.com/spell:arms-of-hadar",
+      "detailPath": "content/raw/wikidot/spells/details/arms-of-hadar.json"
+    },
+    {
+      "id": "bane",
+      "name": "Bane",
+      "url": "https://dnd5e.wikidot.com/spell:bane",
+      "detailPath": "content/raw/wikidot/spells/details/bane.json"
+    },
+    {
+      "id": "beast-bond",
+      "name": "Beast Bond",
+      "url": "https://dnd5e.wikidot.com/spell:beast-bond",
+      "detailPath": "content/raw/wikidot/spells/details/beast-bond.json"
+    },
+    {
+      "id": "bless",
+      "name": "Bless",
+      "url": "https://dnd5e.wikidot.com/spell:bless",
+      "detailPath": "content/raw/wikidot/spells/details/bless.json"
+    },
+    {
+      "id": "burning-hands",
+      "name": "Burning Hands",
+      "url": "https://dnd5e.wikidot.com/spell:burning-hands",
+      "detailPath": "content/raw/wikidot/spells/details/burning-hands.json"
+    },
+    {
+      "id": "catapult",
+      "name": "Catapult",
+      "url": "https://dnd5e.wikidot.com/spell:catapult",
+      "detailPath": "content/raw/wikidot/spells/details/catapult.json"
+    },
+    {
+      "id": "cause-fear",
+      "name": "Cause Fear",
+      "url": "https://dnd5e.wikidot.com/spell:cause-fear",
+      "detailPath": "content/raw/wikidot/spells/details/cause-fear.json"
+    },
+    {
+      "id": "ceremony",
+      "name": "Ceremony",
+      "url": "https://dnd5e.wikidot.com/spell:ceremony",
+      "detailPath": "content/raw/wikidot/spells/details/ceremony.json"
+    },
+    {
+      "id": "chaos-bolt",
+      "name": "Chaos Bolt",
+      "url": "https://dnd5e.wikidot.com/spell:chaos-bolt",
+      "detailPath": "content/raw/wikidot/spells/details/chaos-bolt.json"
+    },
+    {
+      "id": "charm-person",
+      "name": "Charm Person",
+      "url": "https://dnd5e.wikidot.com/spell:charm-person",
+      "detailPath": "content/raw/wikidot/spells/details/charm-person.json"
+    },
+    {
+      "id": "chromatic-orb",
+      "name": "Chromatic Orb",
+      "url": "https://dnd5e.wikidot.com/spell:chromatic-orb",
+      "detailPath": "content/raw/wikidot/spells/details/chromatic-orb.json"
+    },
+    {
+      "id": "color-spray",
+      "name": "Color Spray",
+      "url": "https://dnd5e.wikidot.com/spell:color-spray",
+      "detailPath": "content/raw/wikidot/spells/details/color-spray.json"
+    },
+    {
+      "id": "command",
+      "name": "Command",
+      "url": "https://dnd5e.wikidot.com/spell:command",
+      "detailPath": "content/raw/wikidot/spells/details/command.json"
+    },
+    {
+      "id": "compelled-duel",
+      "name": "Compelled Duel",
+      "url": "https://dnd5e.wikidot.com/spell:compelled-duel",
+      "detailPath": "content/raw/wikidot/spells/details/compelled-duel.json"
+    },
+    {
+      "id": "comprehend-languages",
+      "name": "Comprehend Languages",
+      "url": "https://dnd5e.wikidot.com/spell:comprehend-languages",
+      "detailPath": "content/raw/wikidot/spells/details/comprehend-languages.json"
+    },
+    {
+      "id": "create-or-destroy-water",
+      "name": "Create or Destroy Water",
+      "url": "https://dnd5e.wikidot.com/spell:create-or-destroy-water",
+      "detailPath": "content/raw/wikidot/spells/details/create-or-destroy-water.json"
+    },
+    {
+      "id": "cure-wounds",
+      "name": "Cure Wounds",
+      "url": "https://dnd5e.wikidot.com/spell:cure-wounds",
+      "detailPath": "content/raw/wikidot/spells/details/cure-wounds.json"
+    },
+    {
+      "id": "detect-evil-and-good",
+      "name": "Detect Evil and Good",
+      "url": "https://dnd5e.wikidot.com/spell:detect-evil-and-good",
+      "detailPath": "content/raw/wikidot/spells/details/detect-evil-and-good.json"
+    },
+    {
+      "id": "detect-magic",
+      "name": "Detect Magic",
+      "url": "https://dnd5e.wikidot.com/spell:detect-magic",
+      "detailPath": "content/raw/wikidot/spells/details/detect-magic.json"
+    },
+    {
+      "id": "detect-poison-and-disease",
+      "name": "Detect Poison and Disease",
+      "url": "https://dnd5e.wikidot.com/spell:detect-poison-and-disease",
+      "detailPath": "content/raw/wikidot/spells/details/detect-poison-and-disease.json"
+    },
+    {
+      "id": "disguise-self",
+      "name": "Disguise Self",
+      "url": "https://dnd5e.wikidot.com/spell:disguise-self",
+      "detailPath": "content/raw/wikidot/spells/details/disguise-self.json"
+    },
+    {
+      "id": "dissonant-whispers",
+      "name": "Dissonant Whispers",
+      "url": "https://dnd5e.wikidot.com/spell:dissonant-whispers",
+      "detailPath": "content/raw/wikidot/spells/details/dissonant-whispers.json"
+    },
+    {
+      "id": "distort-value",
+      "name": "Distort Value",
+      "url": "https://dnd5e.wikidot.com/spell:distort-value",
+      "detailPath": "content/raw/wikidot/spells/details/distort-value.json"
+    },
+    {
+      "id": "divine-favor",
+      "name": "Divine Favor",
+      "url": "https://dnd5e.wikidot.com/spell:divine-favor",
+      "detailPath": "content/raw/wikidot/spells/details/divine-favor.json"
+    },
+    {
+      "id": "earth-tremor",
+      "name": "Earth Tremor",
+      "url": "https://dnd5e.wikidot.com/spell:earth-tremor",
+      "detailPath": "content/raw/wikidot/spells/details/earth-tremor.json"
+    },
+    {
+      "id": "ensnaring-strike",
+      "name": "Ensnaring Strike",
+      "url": "https://dnd5e.wikidot.com/spell:ensnaring-strike",
+      "detailPath": "content/raw/wikidot/spells/details/ensnaring-strike.json"
+    },
+    {
+      "id": "entangle",
+      "name": "Entangle",
+      "url": "https://dnd5e.wikidot.com/spell:entangle",
+      "detailPath": "content/raw/wikidot/spells/details/entangle.json"
+    },
+    {
+      "id": "expeditious-retreat",
+      "name": "Expeditious Retreat",
+      "url": "https://dnd5e.wikidot.com/spell:expeditious-retreat",
+      "detailPath": "content/raw/wikidot/spells/details/expeditious-retreat.json"
+    },
+    {
+      "id": "faerie-fire",
+      "name": "Faerie Fire",
+      "url": "https://dnd5e.wikidot.com/spell:faerie-fire",
+      "detailPath": "content/raw/wikidot/spells/details/faerie-fire.json"
+    },
+    {
+      "id": "false-life",
+      "name": "False Life",
+      "url": "https://dnd5e.wikidot.com/spell:false-life",
+      "detailPath": "content/raw/wikidot/spells/details/false-life.json"
+    },
+    {
+      "id": "feather-fall",
+      "name": "Feather Fall",
+      "url": "https://dnd5e.wikidot.com/spell:feather-fall",
+      "detailPath": "content/raw/wikidot/spells/details/feather-fall.json"
+    },
+    {
+      "id": "find-familiar",
+      "name": "Find Familiar",
+      "url": "https://dnd5e.wikidot.com/spell:find-familiar",
+      "detailPath": "content/raw/wikidot/spells/details/find-familiar.json"
+    },
+    {
+      "id": "fog-cloud",
+      "name": "Fog Cloud",
+      "url": "https://dnd5e.wikidot.com/spell:fog-cloud",
+      "detailPath": "content/raw/wikidot/spells/details/fog-cloud.json"
+    },
+    {
+      "id": "frost-fingers",
+      "name": "Frost Fingers",
+      "url": "https://dnd5e.wikidot.com/spell:frost-fingers",
+      "detailPath": "content/raw/wikidot/spells/details/frost-fingers.json"
+    },
+    {
+      "id": "gift-of-alacrity",
+      "name": "Gift of Alacrity",
+      "url": "https://dnd5e.wikidot.com/spell:gift-of-alacrity",
+      "detailPath": "content/raw/wikidot/spells/details/gift-of-alacrity.json"
+    },
+    {
+      "id": "goodberry",
+      "name": "Goodberry",
+      "url": "https://dnd5e.wikidot.com/spell:goodberry",
+      "detailPath": "content/raw/wikidot/spells/details/goodberry.json"
+    },
+    {
+      "id": "grease",
+      "name": "Grease",
+      "url": "https://dnd5e.wikidot.com/spell:grease",
+      "detailPath": "content/raw/wikidot/spells/details/grease.json"
+    },
+    {
+      "id": "guiding-bolt",
+      "name": "Guiding Bolt",
+      "url": "https://dnd5e.wikidot.com/spell:guiding-bolt",
+      "detailPath": "content/raw/wikidot/spells/details/guiding-bolt.json"
+    },
+    {
+      "id": "guiding-hand-ua",
+      "name": "Guiding Hand (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:guiding-hand-ua",
+      "detailPath": "content/raw/wikidot/spells/details/guiding-hand-ua.json"
+    },
+    {
+      "id": "hail-of-thorns",
+      "name": "Hail of Thorns",
+      "url": "https://dnd5e.wikidot.com/spell:hail-of-thorns",
+      "detailPath": "content/raw/wikidot/spells/details/hail-of-thorns.json"
+    },
+    {
+      "id": "healing-elixir-ua",
+      "name": "Healing Elixir (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:healing-elixir-ua",
+      "detailPath": "content/raw/wikidot/spells/details/healing-elixir-ua.json"
+    },
+    {
+      "id": "healing-word",
+      "name": "Healing Word",
+      "url": "https://dnd5e.wikidot.com/spell:healing-word",
+      "detailPath": "content/raw/wikidot/spells/details/healing-word.json"
+    },
+    {
+      "id": "hellish-rebuke",
+      "name": "Hellish Rebuke",
+      "url": "https://dnd5e.wikidot.com/spell:hellish-rebuke",
+      "detailPath": "content/raw/wikidot/spells/details/hellish-rebuke.json"
+    },
+    {
+      "id": "heroism",
+      "name": "Heroism",
+      "url": "https://dnd5e.wikidot.com/spell:heroism",
+      "detailPath": "content/raw/wikidot/spells/details/heroism.json"
+    },
+    {
+      "id": "hex",
+      "name": "Hex",
+      "url": "https://dnd5e.wikidot.com/spell:hex",
+      "detailPath": "content/raw/wikidot/spells/details/hex.json"
+    },
+    {
+      "id": "hunters-mark",
+      "name": "Hunter's Mark",
+      "url": "https://dnd5e.wikidot.com/spell:hunters-mark",
+      "detailPath": "content/raw/wikidot/spells/details/hunters-mark.json"
+    },
+    {
+      "id": "ice-knife",
+      "name": "Ice Knife",
+      "url": "https://dnd5e.wikidot.com/spell:ice-knife",
+      "detailPath": "content/raw/wikidot/spells/details/ice-knife.json"
+    },
+    {
+      "id": "id-insinuation",
+      "name": "Id Insinuation (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:id-insinuation",
+      "detailPath": "content/raw/wikidot/spells/details/id-insinuation.json"
+    },
+    {
+      "id": "identify",
+      "name": "Identify",
+      "url": "https://dnd5e.wikidot.com/spell:identify",
+      "detailPath": "content/raw/wikidot/spells/details/identify.json"
+    },
+    {
+      "id": "illusory-script",
+      "name": "Illusory Script",
+      "url": "https://dnd5e.wikidot.com/spell:illusory-script",
+      "detailPath": "content/raw/wikidot/spells/details/illusory-script.json"
+    },
+    {
+      "id": "infallible-relay",
+      "name": "Infallible Relay (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:infallible-relay",
+      "detailPath": "content/raw/wikidot/spells/details/infallible-relay.json"
+    },
+    {
+      "id": "inflict-wounds",
+      "name": "Inflict Wounds",
+      "url": "https://dnd5e.wikidot.com/spell:inflict-wounds",
+      "detailPath": "content/raw/wikidot/spells/details/inflict-wounds.json"
+    },
+    {
+      "id": "jims-magic-missile",
+      "name": "Jim's Magic Missile",
+      "url": "https://dnd5e.wikidot.com/spell:jims-magic-missile",
+      "detailPath": "content/raw/wikidot/spells/details/jims-magic-missile.json"
+    },
+    {
+      "id": "jump",
+      "name": "Jump",
+      "url": "https://dnd5e.wikidot.com/spell:jump",
+      "detailPath": "content/raw/wikidot/spells/details/jump.json"
+    },
+    {
+      "id": "longstrider",
+      "name": "Longstrider",
+      "url": "https://dnd5e.wikidot.com/spell:longstrider",
+      "detailPath": "content/raw/wikidot/spells/details/longstrider.json"
+    },
+    {
+      "id": "mage-armor",
+      "name": "Mage Armor",
+      "url": "https://dnd5e.wikidot.com/spell:mage-armor",
+      "detailPath": "content/raw/wikidot/spells/details/mage-armor.json"
+    },
+    {
+      "id": "magic-missile",
+      "name": "Magic Missile",
+      "url": "https://dnd5e.wikidot.com/spell:magic-missile",
+      "detailPath": "content/raw/wikidot/spells/details/magic-missile.json"
+    },
+    {
+      "id": "magnify-gravity",
+      "name": "Magnify Gravity",
+      "url": "https://dnd5e.wikidot.com/spell:magnify-gravity",
+      "detailPath": "content/raw/wikidot/spells/details/magnify-gravity.json"
+    },
+    {
+      "id": "protection-from-evil-and-good",
+      "name": "Protection from Evil and Good",
+      "url": "https://dnd5e.wikidot.com/spell:protection-from-evil-and-good",
+      "detailPath": "content/raw/wikidot/spells/details/protection-from-evil-and-good.json"
+    },
+    {
+      "id": "puppet",
+      "name": "Puppet (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:puppet",
+      "detailPath": "content/raw/wikidot/spells/details/puppet.json"
+    },
+    {
+      "id": "purify-food-and-drink",
+      "name": "Purify Food and Drink",
+      "url": "https://dnd5e.wikidot.com/spell:purify-food-and-drink",
+      "detailPath": "content/raw/wikidot/spells/details/purify-food-and-drink.json"
+    },
+    {
+      "id": "ray-of-sickness",
+      "name": "Ray of Sickness",
+      "url": "https://dnd5e.wikidot.com/spell:ray-of-sickness",
+      "detailPath": "content/raw/wikidot/spells/details/ray-of-sickness.json"
+    },
+    {
+      "id": "remote-access",
+      "name": "Remote Access (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:remote-access",
+      "detailPath": "content/raw/wikidot/spells/details/remote-access.json"
+    },
+    {
+      "id": "sanctuary",
+      "name": "Sanctuary",
+      "url": "https://dnd5e.wikidot.com/spell:sanctuary",
+      "detailPath": "content/raw/wikidot/spells/details/sanctuary.json"
+    },
+    {
+      "id": "searing-smite",
+      "name": "Searing Smite",
+      "url": "https://dnd5e.wikidot.com/spell:searing-smite",
+      "detailPath": "content/raw/wikidot/spells/details/searing-smite.json"
+    },
+    {
+      "id": "sense-emotion",
+      "name": "Sense Emotion (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:sense-emotion",
+      "detailPath": "content/raw/wikidot/spells/details/sense-emotion.json"
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "url": "https://dnd5e.wikidot.com/spell:shield",
+      "detailPath": "content/raw/wikidot/spells/details/shield.json"
+    },
+    {
+      "id": "shield-of-faith",
+      "name": "Shield of Faith",
+      "url": "https://dnd5e.wikidot.com/spell:shield-of-faith",
+      "detailPath": "content/raw/wikidot/spells/details/shield-of-faith.json"
+    },
+    {
+      "id": "silent-image",
+      "name": "Silent Image",
+      "url": "https://dnd5e.wikidot.com/spell:silent-image",
+      "detailPath": "content/raw/wikidot/spells/details/silent-image.json"
+    },
+    {
+      "id": "silvery-barbs",
+      "name": "Silvery Barbs",
+      "url": "https://dnd5e.wikidot.com/spell:silvery-barbs",
+      "detailPath": "content/raw/wikidot/spells/details/silvery-barbs.json"
+    },
+    {
+      "id": "sleep",
+      "name": "Sleep",
+      "url": "https://dnd5e.wikidot.com/spell:sleep",
+      "detailPath": "content/raw/wikidot/spells/details/sleep.json"
+    },
+    {
+      "id": "snare",
+      "name": "Snare",
+      "url": "https://dnd5e.wikidot.com/spell:snare",
+      "detailPath": "content/raw/wikidot/spells/details/snare.json"
+    },
+    {
+      "id": "speak-with-animals",
+      "name": "Speak with Animals",
+      "url": "https://dnd5e.wikidot.com/spell:speak-with-animals",
+      "detailPath": "content/raw/wikidot/spells/details/speak-with-animals.json"
+    },
+    {
+      "id": "sudden-awakening",
+      "name": "Sudden Awakening (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:sudden-awakening",
+      "detailPath": "content/raw/wikidot/spells/details/sudden-awakening.json"
+    },
+    {
+      "id": "tashas-caustic-brew",
+      "name": "Tasha's Caustic Brew",
+      "url": "https://dnd5e.wikidot.com/spell:tashas-caustic-brew",
+      "detailPath": "content/raw/wikidot/spells/details/tashas-caustic-brew.json"
+    },
+    {
+      "id": "tashas-hideous-laughter",
+      "name": "Tasha's Hideous Laughter",
+      "url": "https://dnd5e.wikidot.com/spell:tashas-hideous-laughter",
+      "detailPath": "content/raw/wikidot/spells/details/tashas-hideous-laughter.json"
+    },
+    {
+      "id": "tensers-floating-disk",
+      "name": "Tenser's Floating Disk",
+      "url": "https://dnd5e.wikidot.com/spell:tensers-floating-disk",
+      "detailPath": "content/raw/wikidot/spells/details/tensers-floating-disk.json"
+    },
+    {
+      "id": "thunderous-smite",
+      "name": "Thunderous Smite",
+      "url": "https://dnd5e.wikidot.com/spell:thunderous-smite",
+      "detailPath": "content/raw/wikidot/spells/details/thunderous-smite.json"
+    },
+    {
+      "id": "thunderwave",
+      "name": "Thunderwave",
+      "url": "https://dnd5e.wikidot.com/spell:thunderwave",
+      "detailPath": "content/raw/wikidot/spells/details/thunderwave.json"
+    },
+    {
+      "id": "unearthly-chorus",
+      "name": "Unearthly Chorus (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:unearthly-chorus",
+      "detailPath": "content/raw/wikidot/spells/details/unearthly-chorus.json"
+    },
+    {
+      "id": "unseen-servant",
+      "name": "Unseen Servant",
+      "url": "https://dnd5e.wikidot.com/spell:unseen-servant",
+      "detailPath": "content/raw/wikidot/spells/details/unseen-servant.json"
+    },
+    {
+      "id": "wild-cunning",
+      "name": "Wild Cunning (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:wild-cunning",
+      "detailPath": "content/raw/wikidot/spells/details/wild-cunning.json"
+    },
+    {
+      "id": "witch-bolt",
+      "name": "Witch Bolt",
+      "url": "https://dnd5e.wikidot.com/spell:witch-bolt",
+      "detailPath": "content/raw/wikidot/spells/details/witch-bolt.json"
+    },
+    {
+      "id": "wrathful-smite",
+      "name": "Wrathful Smite",
+      "url": "https://dnd5e.wikidot.com/spell:wrathful-smite",
+      "detailPath": "content/raw/wikidot/spells/details/wrathful-smite.json"
+    },
+    {
+      "id": "zephyr-strike",
+      "name": "Zephyr Strike",
+      "url": "https://dnd5e.wikidot.com/spell:zephyr-strike",
+      "detailPath": "content/raw/wikidot/spells/details/zephyr-strike.json"
+    },
+    {
+      "id": "aganazzars-scorcher",
+      "name": "Aganazzar's Scorcher",
+      "url": "https://dnd5e.wikidot.com/spell:aganazzars-scorcher",
+      "detailPath": "content/raw/wikidot/spells/details/aganazzars-scorcher.json"
+    },
+    {
+      "id": "aid",
+      "name": "Aid",
+      "url": "https://dnd5e.wikidot.com/spell:aid",
+      "detailPath": "content/raw/wikidot/spells/details/aid.json"
+    },
+    {
+      "id": "air-bubble",
+      "name": "Air Bubble",
+      "url": "https://dnd5e.wikidot.com/spell:air-bubble",
+      "detailPath": "content/raw/wikidot/spells/details/air-bubble.json"
+    },
+    {
+      "id": "alter-self",
+      "name": "Alter Self",
+      "url": "https://dnd5e.wikidot.com/spell:alter-self",
+      "detailPath": "content/raw/wikidot/spells/details/alter-self.json"
+    },
+    {
+      "id": "animal-messenger",
+      "name": "Animal Messenger",
+      "url": "https://dnd5e.wikidot.com/spell:animal-messenger",
+      "detailPath": "content/raw/wikidot/spells/details/animal-messenger.json"
+    },
+    {
+      "id": "arcane-hacking",
+      "name": "Arcane Hacking (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:arcane-hacking",
+      "detailPath": "content/raw/wikidot/spells/details/arcane-hacking.json"
+    },
+    {
+      "id": "arcane-lock",
+      "name": "Arcane Lock",
+      "url": "https://dnd5e.wikidot.com/spell:arcane-lock",
+      "detailPath": "content/raw/wikidot/spells/details/arcane-lock.json"
+    },
+    {
+      "id": "augury",
+      "name": "Augury",
+      "url": "https://dnd5e.wikidot.com/spell:augury",
+      "detailPath": "content/raw/wikidot/spells/details/augury.json"
+    },
+    {
+      "id": "barkskin",
+      "name": "Barkskin",
+      "url": "https://dnd5e.wikidot.com/spell:barkskin",
+      "detailPath": "content/raw/wikidot/spells/details/barkskin.json"
+    },
+    {
+      "id": "beast-sense",
+      "name": "Beast Sense",
+      "url": "https://dnd5e.wikidot.com/spell:beast-sense",
+      "detailPath": "content/raw/wikidot/spells/details/beast-sense.json"
+    },
+    {
+      "id": "blindness-deafness",
+      "name": "Blindness/Deafness",
+      "url": "https://dnd5e.wikidot.com/spell:blindness-deafness",
+      "detailPath": "content/raw/wikidot/spells/details/blindness-deafness.json"
+    },
+    {
+      "id": "blur",
+      "name": "Blur",
+      "url": "https://dnd5e.wikidot.com/spell:blur",
+      "detailPath": "content/raw/wikidot/spells/details/blur.json"
+    },
+    {
+      "id": "borrowed-knowledge",
+      "name": "Borrowed Knowledge",
+      "url": "https://dnd5e.wikidot.com/spell:borrowed-knowledge",
+      "detailPath": "content/raw/wikidot/spells/details/borrowed-knowledge.json"
+    },
+    {
+      "id": "branding-smite",
+      "name": "Branding Smite",
+      "url": "https://dnd5e.wikidot.com/spell:branding-smite",
+      "detailPath": "content/raw/wikidot/spells/details/branding-smite.json"
+    },
+    {
+      "id": "calm-emotions",
+      "name": "Calm Emotions",
+      "url": "https://dnd5e.wikidot.com/spell:calm-emotions",
+      "detailPath": "content/raw/wikidot/spells/details/calm-emotions.json"
+    },
+    {
+      "id": "cloud-of-daggers",
+      "name": "Cloud of Daggers",
+      "url": "https://dnd5e.wikidot.com/spell:cloud-of-daggers",
+      "detailPath": "content/raw/wikidot/spells/details/cloud-of-daggers.json"
+    },
+    {
+      "id": "continual-flame",
+      "name": "Continual Flame",
+      "url": "https://dnd5e.wikidot.com/spell:continual-flame",
+      "detailPath": "content/raw/wikidot/spells/details/continual-flame.json"
+    },
+    {
+      "id": "cordon-of-arrows",
+      "name": "Cordon of Arrows",
+      "url": "https://dnd5e.wikidot.com/spell:cordon-of-arrows",
+      "detailPath": "content/raw/wikidot/spells/details/cordon-of-arrows.json"
+    },
+    {
+      "id": "crown-of-madness",
+      "name": "Crown of Madness",
+      "url": "https://dnd5e.wikidot.com/spell:crown-of-madness",
+      "detailPath": "content/raw/wikidot/spells/details/crown-of-madness.json"
+    },
+    {
+      "id": "darkness",
+      "name": "Darkness",
+      "url": "https://dnd5e.wikidot.com/spell:darkness",
+      "detailPath": "content/raw/wikidot/spells/details/darkness.json"
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "url": "https://dnd5e.wikidot.com/spell:darkvision",
+      "detailPath": "content/raw/wikidot/spells/details/darkvision.json"
+    },
+    {
+      "id": "detect-thoughts",
+      "name": "Detect Thoughts",
+      "url": "https://dnd5e.wikidot.com/spell:detect-thoughts",
+      "detailPath": "content/raw/wikidot/spells/details/detect-thoughts.json"
+    },
+    {
+      "id": "digital-phantom",
+      "name": "Digital Phantom (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:digital-phantom",
+      "detailPath": "content/raw/wikidot/spells/details/digital-phantom.json"
+    },
+    {
+      "id": "dragons-breath",
+      "name": "Dragon's Breath",
+      "url": "https://dnd5e.wikidot.com/spell:dragons-breath",
+      "detailPath": "content/raw/wikidot/spells/details/dragons-breath.json"
+    },
+    {
+      "id": "dust-devil",
+      "name": "Dust Devil",
+      "url": "https://dnd5e.wikidot.com/spell:dust-devil",
+      "detailPath": "content/raw/wikidot/spells/details/dust-devil.json"
+    },
+    {
+      "id": "earthbind",
+      "name": "Earthbind",
+      "url": "https://dnd5e.wikidot.com/spell:earthbind",
+      "detailPath": "content/raw/wikidot/spells/details/earthbind.json"
+    },
+    {
+      "id": "enhance-ability",
+      "name": "Enhance Ability",
+      "url": "https://dnd5e.wikidot.com/spell:enhance-ability",
+      "detailPath": "content/raw/wikidot/spells/details/enhance-ability.json"
+    },
+    {
+      "id": "enlarge-reduce",
+      "name": "Enlarge/Reduce",
+      "url": "https://dnd5e.wikidot.com/spell:enlarge-reduce",
+      "detailPath": "content/raw/wikidot/spells/details/enlarge-reduce.json"
+    },
+    {
+      "id": "enthrall",
+      "name": "Enthrall",
+      "url": "https://dnd5e.wikidot.com/spell:enthrall",
+      "detailPath": "content/raw/wikidot/spells/details/enthrall.json"
+    },
+    {
+      "id": "find-steed",
+      "name": "Find Steed",
+      "url": "https://dnd5e.wikidot.com/spell:find-steed",
+      "detailPath": "content/raw/wikidot/spells/details/find-steed.json"
+    },
+    {
+      "id": "find-traps",
+      "name": "Find Traps",
+      "url": "https://dnd5e.wikidot.com/spell:find-traps",
+      "detailPath": "content/raw/wikidot/spells/details/find-traps.json"
+    },
+    {
+      "id": "find-vehicle",
+      "name": "Find Vehicle (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:find-vehicle",
+      "detailPath": "content/raw/wikidot/spells/details/find-vehicle.json"
+    },
+    {
+      "id": "flame-blade",
+      "name": "Flame Blade",
+      "url": "https://dnd5e.wikidot.com/spell:flame-blade",
+      "detailPath": "content/raw/wikidot/spells/details/flame-blade.json"
+    },
+    {
+      "id": "flaming-sphere",
+      "name": "Flaming Sphere",
+      "url": "https://dnd5e.wikidot.com/spell:flaming-sphere",
+      "detailPath": "content/raw/wikidot/spells/details/flaming-sphere.json"
+    },
+    {
+      "id": "flock-of-familiars",
+      "name": "Flock of Familiars",
+      "url": "https://dnd5e.wikidot.com/spell:flock-of-familiars",
+      "detailPath": "content/raw/wikidot/spells/details/flock-of-familiars.json"
+    },
+    {
+      "id": "fortunes-favor",
+      "name": "Fortune's Favor",
+      "url": "https://dnd5e.wikidot.com/spell:fortunes-favor",
+      "detailPath": "content/raw/wikidot/spells/details/fortunes-favor.json"
+    },
+    {
+      "id": "gentle-repose",
+      "name": "Gentle Repose",
+      "url": "https://dnd5e.wikidot.com/spell:gentle-repose",
+      "detailPath": "content/raw/wikidot/spells/details/gentle-repose.json"
+    },
+    {
+      "id": "gift-of-gab",
+      "name": "Gift of Gab",
+      "url": "https://dnd5e.wikidot.com/spell:gift-of-gab",
+      "detailPath": "content/raw/wikidot/spells/details/gift-of-gab.json"
+    },
+    {
+      "id": "gust-of-wind",
+      "name": "Gust of Wind",
+      "url": "https://dnd5e.wikidot.com/spell:gust-of-wind",
+      "detailPath": "content/raw/wikidot/spells/details/gust-of-wind.json"
+    },
+    {
+      "id": "healing-spirit",
+      "name": "Healing Spirit",
+      "url": "https://dnd5e.wikidot.com/spell:healing-spirit",
+      "detailPath": "content/raw/wikidot/spells/details/healing-spirit.json"
+    },
+    {
+      "id": "heat-metal",
+      "name": "Heat Metal",
+      "url": "https://dnd5e.wikidot.com/spell:heat-metal",
+      "detailPath": "content/raw/wikidot/spells/details/heat-metal.json"
+    },
+    {
+      "id": "hold-person",
+      "name": "Hold Person",
+      "url": "https://dnd5e.wikidot.com/spell:hold-person",
+      "detailPath": "content/raw/wikidot/spells/details/hold-person.json"
+    },
+    {
+      "id": "icingdeath-s-frost",
+      "name": "Icingdeath's Frost (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:icingdeath-s-frost",
+      "detailPath": "content/raw/wikidot/spells/details/icingdeath-s-frost.json"
+    },
+    {
+      "id": "immovable-object",
+      "name": "Immovable Object",
+      "url": "https://dnd5e.wikidot.com/spell:immovable-object",
+      "detailPath": "content/raw/wikidot/spells/details/immovable-object.json"
+    },
+    {
+      "id": "invisibility",
+      "name": "Invisibility",
+      "url": "https://dnd5e.wikidot.com/spell:invisibility",
+      "detailPath": "content/raw/wikidot/spells/details/invisibility.json"
+    },
+    {
+      "id": "jims-glowing-coin",
+      "name": "Jim's Glowing Coin",
+      "url": "https://dnd5e.wikidot.com/spell:jims-glowing-coin",
+      "detailPath": "content/raw/wikidot/spells/details/jims-glowing-coin.json"
+    },
+    {
+      "id": "kinetic-jaunt",
+      "name": "Kinetic Jaunt",
+      "url": "https://dnd5e.wikidot.com/spell:kinetic-jaunt",
+      "detailPath": "content/raw/wikidot/spells/details/kinetic-jaunt.json"
+    },
+    {
+      "id": "knock",
+      "name": "Knock",
+      "url": "https://dnd5e.wikidot.com/spell:knock",
+      "detailPath": "content/raw/wikidot/spells/details/knock.json"
+    },
+    {
+      "id": "lesser-restoration",
+      "name": "Lesser Restoration",
+      "url": "https://dnd5e.wikidot.com/spell:lesser-restoration",
+      "detailPath": "content/raw/wikidot/spells/details/lesser-restoration.json"
+    },
+    {
+      "id": "levitate",
+      "name": "Levitate",
+      "url": "https://dnd5e.wikidot.com/spell:levitate",
+      "detailPath": "content/raw/wikidot/spells/details/levitate.json"
+    },
+    {
+      "id": "locate-animals-or-plants",
+      "name": "Locate Animals or Plants",
+      "url": "https://dnd5e.wikidot.com/spell:locate-animals-or-plants",
+      "detailPath": "content/raw/wikidot/spells/details/locate-animals-or-plants.json"
+    },
+    {
+      "id": "locate-object",
+      "name": "Locate Object",
+      "url": "https://dnd5e.wikidot.com/spell:locate-object",
+      "detailPath": "content/raw/wikidot/spells/details/locate-object.json"
+    },
+    {
+      "id": "magic-mouth",
+      "name": "Magic Mouth",
+      "url": "https://dnd5e.wikidot.com/spell:magic-mouth",
+      "detailPath": "content/raw/wikidot/spells/details/magic-mouth.json"
+    },
+    {
+      "id": "magic-weapon",
+      "name": "Magic Weapon",
+      "url": "https://dnd5e.wikidot.com/spell:magic-weapon",
+      "detailPath": "content/raw/wikidot/spells/details/magic-weapon.json"
+    },
+    {
+      "id": "maximillians-earthen-grasp",
+      "name": "Maximillian's Earthen Grasp",
+      "url": "https://dnd5e.wikidot.com/spell:maximillians-earthen-grasp",
+      "detailPath": "content/raw/wikidot/spells/details/maximillians-earthen-grasp.json"
+    },
+    {
+      "id": "melfs-acid-arrow",
+      "name": "Melf's Acid Arrow",
+      "url": "https://dnd5e.wikidot.com/spell:melfs-acid-arrow",
+      "detailPath": "content/raw/wikidot/spells/details/melfs-acid-arrow.json"
+    },
+    {
+      "id": "mental-barrier",
+      "name": "Mental Barrier (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:mental-barrier",
+      "detailPath": "content/raw/wikidot/spells/details/mental-barrier.json"
+    },
+    {
+      "id": "mind-spike",
+      "name": "Mind Spike",
+      "url": "https://dnd5e.wikidot.com/spell:mind-spike",
+      "detailPath": "content/raw/wikidot/spells/details/mind-spike.json"
+    },
+    {
+      "id": "mind-thrust",
+      "name": "Mind Thrust (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:mind-thrust",
+      "detailPath": "content/raw/wikidot/spells/details/mind-thrust.json"
+    },
+    {
+      "id": "mirror-image",
+      "name": "Mirror Image",
+      "url": "https://dnd5e.wikidot.com/spell:mirror-image",
+      "detailPath": "content/raw/wikidot/spells/details/mirror-image.json"
+    },
+    {
+      "id": "misty-step",
+      "name": "Misty Step",
+      "url": "https://dnd5e.wikidot.com/spell:misty-step",
+      "detailPath": "content/raw/wikidot/spells/details/misty-step.json"
+    },
+    {
+      "id": "moonbeam",
+      "name": "Moonbeam",
+      "url": "https://dnd5e.wikidot.com/spell:moonbeam",
+      "detailPath": "content/raw/wikidot/spells/details/moonbeam.json"
+    },
+    {
+      "id": "nathairs-mischief",
+      "name": "Nathair's Mischief",
+      "url": "https://dnd5e.wikidot.com/spell:nathairs-mischief",
+      "detailPath": "content/raw/wikidot/spells/details/nathairs-mischief.json"
+    },
+    {
+      "id": "nathairs-mischief-ua",
+      "name": "Nathair's Mischief (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:nathairs-mischief-ua",
+      "detailPath": "content/raw/wikidot/spells/details/nathairs-mischief-ua.json"
+    },
+    {
+      "id": "nystuls-magic-aura",
+      "name": "Nystul's Magic Aura",
+      "url": "https://dnd5e.wikidot.com/spell:nystuls-magic-aura",
+      "detailPath": "content/raw/wikidot/spells/details/nystuls-magic-aura.json"
+    },
+    {
+      "id": "pass-without-trace",
+      "name": "Pass Without Trace",
+      "url": "https://dnd5e.wikidot.com/spell:pass-without-trace",
+      "detailPath": "content/raw/wikidot/spells/details/pass-without-trace.json"
+    },
+    {
+      "id": "phantasmal-force",
+      "name": "Phantasmal Force",
+      "url": "https://dnd5e.wikidot.com/spell:phantasmal-force",
+      "detailPath": "content/raw/wikidot/spells/details/phantasmal-force.json"
+    },
+    {
+      "id": "prayer-of-healing",
+      "name": "Prayer of Healing",
+      "url": "https://dnd5e.wikidot.com/spell:prayer-of-healing",
+      "detailPath": "content/raw/wikidot/spells/details/prayer-of-healing.json"
+    },
+    {
+      "id": "protection-from-poison",
+      "name": "Protection from Poison",
+      "url": "https://dnd5e.wikidot.com/spell:protection-from-poison",
+      "detailPath": "content/raw/wikidot/spells/details/protection-from-poison.json"
+    },
+    {
+      "id": "pyrotechnics",
+      "name": "Pyrotechnics",
+      "url": "https://dnd5e.wikidot.com/spell:pyrotechnics",
+      "detailPath": "content/raw/wikidot/spells/details/pyrotechnics.json"
+    },
+    {
+      "id": "ray-of-enfeeblement",
+      "name": "Ray of Enfeeblement",
+      "url": "https://dnd5e.wikidot.com/spell:ray-of-enfeeblement",
+      "detailPath": "content/raw/wikidot/spells/details/ray-of-enfeeblement.json"
+    },
+    {
+      "id": "rimes-binding-ice",
+      "name": "Rime's Binding Ice",
+      "url": "https://dnd5e.wikidot.com/spell:rimes-binding-ice",
+      "detailPath": "content/raw/wikidot/spells/details/rimes-binding-ice.json"
+    },
+    {
+      "id": "rope-trick",
+      "name": "Rope Trick",
+      "url": "https://dnd5e.wikidot.com/spell:rope-trick",
+      "detailPath": "content/raw/wikidot/spells/details/rope-trick.json"
+    },
+    {
+      "id": "scorching-ray",
+      "name": "Scorching Ray",
+      "url": "https://dnd5e.wikidot.com/spell:scorching-ray",
+      "detailPath": "content/raw/wikidot/spells/details/scorching-ray.json"
+    },
+    {
+      "id": "see-invisibility",
+      "name": "See Invisibility",
+      "url": "https://dnd5e.wikidot.com/spell:see-invisibility",
+      "detailPath": "content/raw/wikidot/spells/details/see-invisibility.json"
+    },
+    {
+      "id": "shadow-blade",
+      "name": "Shadow Blade",
+      "url": "https://dnd5e.wikidot.com/spell:shadow-blade",
+      "detailPath": "content/raw/wikidot/spells/details/shadow-blade.json"
+    },
+    {
+      "id": "shatter",
+      "name": "Shatter",
+      "url": "https://dnd5e.wikidot.com/spell:shatter",
+      "detailPath": "content/raw/wikidot/spells/details/shatter.json"
+    },
+    {
+      "id": "silence",
+      "name": "Silence",
+      "url": "https://dnd5e.wikidot.com/spell:silence",
+      "detailPath": "content/raw/wikidot/spells/details/silence.json"
+    },
+    {
+      "id": "skywrite",
+      "name": "Skywrite",
+      "url": "https://dnd5e.wikidot.com/spell:skywrite",
+      "detailPath": "content/raw/wikidot/spells/details/skywrite.json"
+    },
+    {
+      "id": "snillocs-snowball-swarm",
+      "name": "Snilloc's Snowball Swarm",
+      "url": "https://dnd5e.wikidot.com/spell:snillocs-snowball-swarm",
+      "detailPath": "content/raw/wikidot/spells/details/snillocs-snowball-swarm.json"
+    },
+    {
+      "id": "spider-climb",
+      "name": "Spider Climb",
+      "url": "https://dnd5e.wikidot.com/spell:spider-climb",
+      "detailPath": "content/raw/wikidot/spells/details/spider-climb.json"
+    },
+    {
+      "id": "spike-growth",
+      "name": "Spike Growth",
+      "url": "https://dnd5e.wikidot.com/spell:spike-growth",
+      "detailPath": "content/raw/wikidot/spells/details/spike-growth.json"
+    },
+    {
+      "id": "spiritual-weapon",
+      "name": "Spiritual Weapon",
+      "url": "https://dnd5e.wikidot.com/spell:spiritual-weapon",
+      "detailPath": "content/raw/wikidot/spells/details/spiritual-weapon.json"
+    },
+    {
+      "id": "spray-of-cards",
+      "name": "Spray Of Cards",
+      "url": "https://dnd5e.wikidot.com/spell:spray-of-cards",
+      "detailPath": "content/raw/wikidot/spells/details/spray-of-cards.json"
+    },
+    {
+      "id": "spray-of-cards-ua",
+      "name": "Spray of Cards (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:spray-of-cards-ua",
+      "detailPath": "content/raw/wikidot/spells/details/spray-of-cards-ua.json"
+    },
+    {
+      "id": "suggestion",
+      "name": "Suggestion",
+      "url": "https://dnd5e.wikidot.com/spell:suggestion",
+      "detailPath": "content/raw/wikidot/spells/details/suggestion.json"
+    },
+    {
+      "id": "summon-beast",
+      "name": "Summon Beast",
+      "url": "https://dnd5e.wikidot.com/spell:summon-beast",
+      "detailPath": "content/raw/wikidot/spells/details/summon-beast.json"
+    },
+    {
+      "id": "tashas-mind-whip",
+      "name": "Tasha's Mind Whip",
+      "url": "https://dnd5e.wikidot.com/spell:tashas-mind-whip",
+      "detailPath": "content/raw/wikidot/spells/details/tashas-mind-whip.json"
+    },
+    {
+      "id": "thought-shield",
+      "name": "Thought Shield (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:thought-shield",
+      "detailPath": "content/raw/wikidot/spells/details/thought-shield.json"
+    },
+    {
+      "id": "vortex-warp",
+      "name": "Vortex Warp",
+      "url": "https://dnd5e.wikidot.com/spell:vortex-warp",
+      "detailPath": "content/raw/wikidot/spells/details/vortex-warp.json"
+    },
+    {
+      "id": "warding-bond",
+      "name": "Warding Bond",
+      "url": "https://dnd5e.wikidot.com/spell:warding-bond",
+      "detailPath": "content/raw/wikidot/spells/details/warding-bond.json"
+    },
+    {
+      "id": "warding-wind",
+      "name": "Warding Wind",
+      "url": "https://dnd5e.wikidot.com/spell:warding-wind",
+      "detailPath": "content/raw/wikidot/spells/details/warding-wind.json"
+    },
+    {
+      "id": "warp-sense",
+      "name": "Warp Sense",
+      "url": "https://dnd5e.wikidot.com/spell:warp-sense",
+      "detailPath": "content/raw/wikidot/spells/details/warp-sense.json"
+    },
+    {
+      "id": "web",
+      "name": "Web",
+      "url": "https://dnd5e.wikidot.com/spell:web",
+      "detailPath": "content/raw/wikidot/spells/details/web.json"
+    },
+    {
+      "id": "wither-and-bloom",
+      "name": "Wither and Bloom",
+      "url": "https://dnd5e.wikidot.com/spell:wither-and-bloom",
+      "detailPath": "content/raw/wikidot/spells/details/wither-and-bloom.json"
+    },
+    {
+      "id": "wristpocket",
+      "name": "Wristpocket",
+      "url": "https://dnd5e.wikidot.com/spell:wristpocket",
+      "detailPath": "content/raw/wikidot/spells/details/wristpocket.json"
+    },
+    {
+      "id": "zone-of-truth",
+      "name": "Zone of Truth",
+      "url": "https://dnd5e.wikidot.com/spell:zone-of-truth",
+      "detailPath": "content/raw/wikidot/spells/details/zone-of-truth.json"
+    },
+    {
+      "id": "animate-dead",
+      "name": "Animate Dead",
+      "url": "https://dnd5e.wikidot.com/spell:animate-dead",
+      "detailPath": "content/raw/wikidot/spells/details/animate-dead.json"
+    },
+    {
+      "id": "antagonize",
+      "name": "Antagonize",
+      "url": "https://dnd5e.wikidot.com/spell:antagonize",
+      "detailPath": "content/raw/wikidot/spells/details/antagonize.json"
+    },
+    {
+      "id": "antagonize-ua",
+      "name": "Antagonize (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:antagonize-ua",
+      "detailPath": "content/raw/wikidot/spells/details/antagonize-ua.json"
+    },
+    {
+      "id": "ashardalons-stride",
+      "name": "Ashardalon's Stride",
+      "url": "https://dnd5e.wikidot.com/spell:ashardalons-stride",
+      "detailPath": "content/raw/wikidot/spells/details/ashardalons-stride.json"
+    },
+    {
+      "id": "aura-of-vitality",
+      "name": "Aura of Vitality",
+      "url": "https://dnd5e.wikidot.com/spell:aura-of-vitality",
+      "detailPath": "content/raw/wikidot/spells/details/aura-of-vitality.json"
+    },
+    {
+      "id": "beacon-of-hope",
+      "name": "Beacon of Hope",
+      "url": "https://dnd5e.wikidot.com/spell:beacon-of-hope",
+      "detailPath": "content/raw/wikidot/spells/details/beacon-of-hope.json"
+    },
+    {
+      "id": "bestow-curse",
+      "name": "Bestow Curse",
+      "url": "https://dnd5e.wikidot.com/spell:bestow-curse",
+      "detailPath": "content/raw/wikidot/spells/details/bestow-curse.json"
+    },
+    {
+      "id": "blinding-smite",
+      "name": "Blinding Smite",
+      "url": "https://dnd5e.wikidot.com/spell:blinding-smite",
+      "detailPath": "content/raw/wikidot/spells/details/blinding-smite.json"
+    },
+    {
+      "id": "blink",
+      "name": "Blink",
+      "url": "https://dnd5e.wikidot.com/spell:blink",
+      "detailPath": "content/raw/wikidot/spells/details/blink.json"
+    },
+    {
+      "id": "call-lightning",
+      "name": "Call Lightning",
+      "url": "https://dnd5e.wikidot.com/spell:call-lightning",
+      "detailPath": "content/raw/wikidot/spells/details/call-lightning.json"
+    },
+    {
+      "id": "catnap",
+      "name": "Catnap",
+      "url": "https://dnd5e.wikidot.com/spell:catnap",
+      "detailPath": "content/raw/wikidot/spells/details/catnap.json"
+    },
+    {
+      "id": "clairvoyance",
+      "name": "Clairvoyance",
+      "url": "https://dnd5e.wikidot.com/spell:clairvoyance",
+      "detailPath": "content/raw/wikidot/spells/details/clairvoyance.json"
+    },
+    {
+      "id": "conjure-animals",
+      "name": "Conjure Animals",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-animals",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-animals.json"
+    },
+    {
+      "id": "conjure-barrage",
+      "name": "Conjure Barrage",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-barrage",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-barrage.json"
+    },
+    {
+      "id": "conjure-lesser-demon",
+      "name": "Conjure Lesser Demon (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-lesser-demon",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-lesser-demon.json"
+    },
+    {
+      "id": "counterspell",
+      "name": "Counterspell",
+      "url": "https://dnd5e.wikidot.com/spell:counterspell",
+      "detailPath": "content/raw/wikidot/spells/details/counterspell.json"
+    },
+    {
+      "id": "create-food-and-water",
+      "name": "Create Food and Water",
+      "url": "https://dnd5e.wikidot.com/spell:create-food-and-water",
+      "detailPath": "content/raw/wikidot/spells/details/create-food-and-water.json"
+    },
+    {
+      "id": "crusaders-mantle",
+      "name": "Crusader's Mantle",
+      "url": "https://dnd5e.wikidot.com/spell:crusaders-mantle",
+      "detailPath": "content/raw/wikidot/spells/details/crusaders-mantle.json"
+    },
+    {
+      "id": "daylight",
+      "name": "Daylight",
+      "url": "https://dnd5e.wikidot.com/spell:daylight",
+      "detailPath": "content/raw/wikidot/spells/details/daylight.json"
+    },
+    {
+      "id": "dispel-magic",
+      "name": "Dispel Magic",
+      "url": "https://dnd5e.wikidot.com/spell:dispel-magic",
+      "detailPath": "content/raw/wikidot/spells/details/dispel-magic.json"
+    },
+    {
+      "id": "elemental-weapon",
+      "name": "Elemental Weapon",
+      "url": "https://dnd5e.wikidot.com/spell:elemental-weapon",
+      "detailPath": "content/raw/wikidot/spells/details/elemental-weapon.json"
+    },
+    {
+      "id": "enemies-abound",
+      "name": "Enemies Abound",
+      "url": "https://dnd5e.wikidot.com/spell:enemies-abound",
+      "detailPath": "content/raw/wikidot/spells/details/enemies-abound.json"
+    },
+    {
+      "id": "erupting-earth",
+      "name": "Erupting Earth",
+      "url": "https://dnd5e.wikidot.com/spell:erupting-earth",
+      "detailPath": "content/raw/wikidot/spells/details/erupting-earth.json"
+    },
+    {
+      "id": "fast-friends",
+      "name": "Fast Friends",
+      "url": "https://dnd5e.wikidot.com/spell:fast-friends",
+      "detailPath": "content/raw/wikidot/spells/details/fast-friends.json"
+    },
+    {
+      "id": "fear",
+      "name": "Fear",
+      "url": "https://dnd5e.wikidot.com/spell:fear",
+      "detailPath": "content/raw/wikidot/spells/details/fear.json"
+    },
+    {
+      "id": "feign-death",
+      "name": "Feign Death",
+      "url": "https://dnd5e.wikidot.com/spell:feign-death",
+      "detailPath": "content/raw/wikidot/spells/details/feign-death.json"
+    },
+    {
+      "id": "fireball",
+      "name": "Fireball",
+      "url": "https://dnd5e.wikidot.com/spell:fireball",
+      "detailPath": "content/raw/wikidot/spells/details/fireball.json"
+    },
+    {
+      "id": "flame-arrows",
+      "name": "Flame Arrows",
+      "url": "https://dnd5e.wikidot.com/spell:flame-arrows",
+      "detailPath": "content/raw/wikidot/spells/details/flame-arrows.json"
+    },
+    {
+      "id": "flame-stride",
+      "name": "Flame Stride (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:flame-stride",
+      "detailPath": "content/raw/wikidot/spells/details/flame-stride.json"
+    },
+    {
+      "id": "fly",
+      "name": "Fly",
+      "url": "https://dnd5e.wikidot.com/spell:fly",
+      "detailPath": "content/raw/wikidot/spells/details/fly.json"
+    },
+    {
+      "id": "galders-tower",
+      "name": "Galder's Tower",
+      "url": "https://dnd5e.wikidot.com/spell:galders-tower",
+      "detailPath": "content/raw/wikidot/spells/details/galders-tower.json"
+    },
+    {
+      "id": "gaseous-form",
+      "name": "Gaseous Form",
+      "url": "https://dnd5e.wikidot.com/spell:gaseous-form",
+      "detailPath": "content/raw/wikidot/spells/details/gaseous-form.json"
+    },
+    {
+      "id": "glyph-of-warding",
+      "name": "Glyph of Warding",
+      "url": "https://dnd5e.wikidot.com/spell:glyph-of-warding",
+      "detailPath": "content/raw/wikidot/spells/details/glyph-of-warding.json"
+    },
+    {
+      "id": "haste",
+      "name": "Haste",
+      "url": "https://dnd5e.wikidot.com/spell:haste",
+      "detailPath": "content/raw/wikidot/spells/details/haste.json"
+    },
+    {
+      "id": "haywire",
+      "name": "Haywire (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:haywire",
+      "detailPath": "content/raw/wikidot/spells/details/haywire.json"
+    },
+    {
+      "id": "house-of-cards-ua",
+      "name": "House of Cards (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:house-of-cards-ua",
+      "detailPath": "content/raw/wikidot/spells/details/house-of-cards-ua.json"
+    },
+    {
+      "id": "hunger-of-hadar",
+      "name": "Hunger Of Hadar",
+      "url": "https://dnd5e.wikidot.com/spell:hunger-of-hadar",
+      "detailPath": "content/raw/wikidot/spells/details/hunger-of-hadar.json"
+    },
+    {
+      "id": "hypnotic-pattern",
+      "name": "Hypnotic Pattern",
+      "url": "https://dnd5e.wikidot.com/spell:hypnotic-pattern",
+      "detailPath": "content/raw/wikidot/spells/details/hypnotic-pattern.json"
+    },
+    {
+      "id": "incite-greed",
+      "name": "Incite Greed",
+      "url": "https://dnd5e.wikidot.com/spell:incite-greed",
+      "detailPath": "content/raw/wikidot/spells/details/incite-greed.json"
+    },
+    {
+      "id": "intellect-fortress",
+      "name": "Intellect Fortress",
+      "url": "https://dnd5e.wikidot.com/spell:intellect-fortress",
+      "detailPath": "content/raw/wikidot/spells/details/intellect-fortress.json"
+    },
+    {
+      "id": "invisibility-to-cameras",
+      "name": "Invisibility To Cameras (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:invisibility-to-cameras",
+      "detailPath": "content/raw/wikidot/spells/details/invisibility-to-cameras.json"
+    },
+    {
+      "id": "leomunds-tiny-hut",
+      "name": "Leomund's Tiny Hut",
+      "url": "https://dnd5e.wikidot.com/spell:leomunds-tiny-hut",
+      "detailPath": "content/raw/wikidot/spells/details/leomunds-tiny-hut.json"
+    },
+    {
+      "id": "life-transference",
+      "name": "Life Transference",
+      "url": "https://dnd5e.wikidot.com/spell:life-transference",
+      "detailPath": "content/raw/wikidot/spells/details/life-transference.json"
+    },
+    {
+      "id": "lightning-arrow",
+      "name": "Lightning Arrow",
+      "url": "https://dnd5e.wikidot.com/spell:lightning-arrow",
+      "detailPath": "content/raw/wikidot/spells/details/lightning-arrow.json"
+    },
+    {
+      "id": "lightning-bolt",
+      "name": "Lightning Bolt",
+      "url": "https://dnd5e.wikidot.com/spell:lightning-bolt",
+      "detailPath": "content/raw/wikidot/spells/details/lightning-bolt.json"
+    },
+    {
+      "id": "magic-circle",
+      "name": "Magic Circle",
+      "url": "https://dnd5e.wikidot.com/spell:magic-circle",
+      "detailPath": "content/raw/wikidot/spells/details/magic-circle.json"
+    },
+    {
+      "id": "major-image",
+      "name": "Major Image",
+      "url": "https://dnd5e.wikidot.com/spell:major-image",
+      "detailPath": "content/raw/wikidot/spells/details/major-image.json"
+    },
+    {
+      "id": "mass-healing-word",
+      "name": "Mass Healing Word",
+      "url": "https://dnd5e.wikidot.com/spell:mass-healing-word",
+      "detailPath": "content/raw/wikidot/spells/details/mass-healing-word.json"
+    },
+    {
+      "id": "meld-into-stone",
+      "name": "Meld into Stone",
+      "url": "https://dnd5e.wikidot.com/spell:meld-into-stone",
+      "detailPath": "content/raw/wikidot/spells/details/meld-into-stone.json"
+    },
+    {
+      "id": "melfs-minute-meteors",
+      "name": "Melf's Minute Meteors",
+      "url": "https://dnd5e.wikidot.com/spell:melfs-minute-meteors",
+      "detailPath": "content/raw/wikidot/spells/details/melfs-minute-meteors.json"
+    },
+    {
+      "id": "motivational-speech",
+      "name": "Motivational Speech",
+      "url": "https://dnd5e.wikidot.com/spell:motivational-speech",
+      "detailPath": "content/raw/wikidot/spells/details/motivational-speech.json"
+    },
+    {
+      "id": "nondetection",
+      "name": "Nondetection",
+      "url": "https://dnd5e.wikidot.com/spell:nondetection",
+      "detailPath": "content/raw/wikidot/spells/details/nondetection.json"
+    },
+    {
+      "id": "phantom-steed",
+      "name": "Phantom Steed",
+      "url": "https://dnd5e.wikidot.com/spell:phantom-steed",
+      "detailPath": "content/raw/wikidot/spells/details/phantom-steed.json"
+    },
+    {
+      "id": "plant-growth",
+      "name": "Plant Growth",
+      "url": "https://dnd5e.wikidot.com/spell:plant-growth",
+      "detailPath": "content/raw/wikidot/spells/details/plant-growth.json"
+    },
+    {
+      "id": "protection-from-ballistics",
+      "name": "Protection from Ballistics (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:protection-from-ballistics",
+      "detailPath": "content/raw/wikidot/spells/details/protection-from-ballistics.json"
+    },
+    {
+      "id": "protection-from-energy",
+      "name": "Protection from Energy",
+      "url": "https://dnd5e.wikidot.com/spell:protection-from-energy",
+      "detailPath": "content/raw/wikidot/spells/details/protection-from-energy.json"
+    },
+    {
+      "id": "psionic-blast",
+      "name": "Psionic Blast (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:psionic-blast",
+      "detailPath": "content/raw/wikidot/spells/details/psionic-blast.json"
+    },
+    {
+      "id": "pulse-wave",
+      "name": "Pulse Wave",
+      "url": "https://dnd5e.wikidot.com/spell:pulse-wave",
+      "detailPath": "content/raw/wikidot/spells/details/pulse-wave.json"
+    },
+    {
+      "id": "remove-curse",
+      "name": "Remove Curse",
+      "url": "https://dnd5e.wikidot.com/spell:remove-curse",
+      "detailPath": "content/raw/wikidot/spells/details/remove-curse.json"
+    },
+    {
+      "id": "revivify",
+      "name": "Revivify",
+      "url": "https://dnd5e.wikidot.com/spell:revivify",
+      "detailPath": "content/raw/wikidot/spells/details/revivify.json"
+    },
+    {
+      "id": "sending",
+      "name": "Sending",
+      "url": "https://dnd5e.wikidot.com/spell:sending",
+      "detailPath": "content/raw/wikidot/spells/details/sending.json"
+    },
+    {
+      "id": "sleet-storm",
+      "name": "Sleet Storm",
+      "url": "https://dnd5e.wikidot.com/spell:sleet-storm",
+      "detailPath": "content/raw/wikidot/spells/details/sleet-storm.json"
+    },
+    {
+      "id": "slow",
+      "name": "Slow",
+      "url": "https://dnd5e.wikidot.com/spell:slow",
+      "detailPath": "content/raw/wikidot/spells/details/slow.json"
+    },
+    {
+      "id": "speak-with-dead",
+      "name": "Speak with Dead",
+      "url": "https://dnd5e.wikidot.com/spell:speak-with-dead",
+      "detailPath": "content/raw/wikidot/spells/details/speak-with-dead.json"
+    },
+    {
+      "id": "speak-with-plants",
+      "name": "Speak with Plants",
+      "url": "https://dnd5e.wikidot.com/spell:speak-with-plants",
+      "detailPath": "content/raw/wikidot/spells/details/speak-with-plants.json"
+    },
+    {
+      "id": "spirit-guardians",
+      "name": "Spirit Guardians",
+      "url": "https://dnd5e.wikidot.com/spell:spirit-guardians",
+      "detailPath": "content/raw/wikidot/spells/details/spirit-guardians.json"
+    },
+    {
+      "id": "spirit-shroud",
+      "name": "Spirit Shroud",
+      "url": "https://dnd5e.wikidot.com/spell:spirit-shroud",
+      "detailPath": "content/raw/wikidot/spells/details/spirit-shroud.json"
+    },
+    {
+      "id": "stinking-cloud",
+      "name": "Stinking Cloud",
+      "url": "https://dnd5e.wikidot.com/spell:stinking-cloud",
+      "detailPath": "content/raw/wikidot/spells/details/stinking-cloud.json"
+    },
+    {
+      "id": "summon-fey",
+      "name": "Summon Fey",
+      "url": "https://dnd5e.wikidot.com/spell:summon-fey",
+      "detailPath": "content/raw/wikidot/spells/details/summon-fey.json"
+    },
+    {
+      "id": "summon-lesser-demons",
+      "name": "Summon Lesser Demons",
+      "url": "https://dnd5e.wikidot.com/spell:summon-lesser-demons",
+      "detailPath": "content/raw/wikidot/spells/details/summon-lesser-demons.json"
+    },
+    {
+      "id": "summon-shadowspawn",
+      "name": "Summon Shadowspawn",
+      "url": "https://dnd5e.wikidot.com/spell:summon-shadowspawn",
+      "detailPath": "content/raw/wikidot/spells/details/summon-shadowspawn.json"
+    },
+    {
+      "id": "summon-undead",
+      "name": "Summon Undead",
+      "url": "https://dnd5e.wikidot.com/spell:summon-undead",
+      "detailPath": "content/raw/wikidot/spells/details/summon-undead.json"
+    },
+    {
+      "id": "summon-warrior-spirit",
+      "name": "Summon Warrior Spirit (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:summon-warrior-spirit",
+      "detailPath": "content/raw/wikidot/spells/details/summon-warrior-spirit.json"
+    },
+    {
+      "id": "thunder-step",
+      "name": "Thunder Step",
+      "url": "https://dnd5e.wikidot.com/spell:thunder-step",
+      "detailPath": "content/raw/wikidot/spells/details/thunder-step.json"
+    },
+    {
+      "id": "tidal-wave",
+      "name": "Tidal Wave",
+      "url": "https://dnd5e.wikidot.com/spell:tidal-wave",
+      "detailPath": "content/raw/wikidot/spells/details/tidal-wave.json"
+    },
+    {
+      "id": "tiny-servant",
+      "name": "Tiny Servant",
+      "url": "https://dnd5e.wikidot.com/spell:tiny-servant",
+      "detailPath": "content/raw/wikidot/spells/details/tiny-servant.json"
+    },
+    {
+      "id": "tongues",
+      "name": "Tongues",
+      "url": "https://dnd5e.wikidot.com/spell:tongues",
+      "detailPath": "content/raw/wikidot/spells/details/tongues.json"
+    },
+    {
+      "id": "vampiric-touch",
+      "name": "Vampiric Touch",
+      "url": "https://dnd5e.wikidot.com/spell:vampiric-touch",
+      "detailPath": "content/raw/wikidot/spells/details/vampiric-touch.json"
+    },
+    {
+      "id": "wall-of-sand",
+      "name": "Wall of Sand",
+      "url": "https://dnd5e.wikidot.com/spell:wall-of-sand",
+      "detailPath": "content/raw/wikidot/spells/details/wall-of-sand.json"
+    },
+    {
+      "id": "wall-of-water",
+      "name": "Wall of Water",
+      "url": "https://dnd5e.wikidot.com/spell:wall-of-water",
+      "detailPath": "content/raw/wikidot/spells/details/wall-of-water.json"
+    },
+    {
+      "id": "water-breathing",
+      "name": "Water Breathing",
+      "url": "https://dnd5e.wikidot.com/spell:water-breathing",
+      "detailPath": "content/raw/wikidot/spells/details/water-breathing.json"
+    },
+    {
+      "id": "water-walk",
+      "name": "Water Walk",
+      "url": "https://dnd5e.wikidot.com/spell:water-walk",
+      "detailPath": "content/raw/wikidot/spells/details/water-walk.json"
+    },
+    {
+      "id": "wind-wall",
+      "name": "Wind Wall",
+      "url": "https://dnd5e.wikidot.com/spell:wind-wall",
+      "detailPath": "content/raw/wikidot/spells/details/wind-wall.json"
+    },
+    {
+      "id": "arcane-eye",
+      "name": "Arcane Eye",
+      "url": "https://dnd5e.wikidot.com/spell:arcane-eye",
+      "detailPath": "content/raw/wikidot/spells/details/arcane-eye.json"
+    },
+    {
+      "id": "aura-of-life",
+      "name": "Aura of Life",
+      "url": "https://dnd5e.wikidot.com/spell:aura-of-life",
+      "detailPath": "content/raw/wikidot/spells/details/aura-of-life.json"
+    },
+    {
+      "id": "aura-of-purity",
+      "name": "Aura of Purity",
+      "url": "https://dnd5e.wikidot.com/spell:aura-of-purity",
+      "detailPath": "content/raw/wikidot/spells/details/aura-of-purity.json"
+    },
+    {
+      "id": "banishment",
+      "name": "Banishment",
+      "url": "https://dnd5e.wikidot.com/spell:banishment",
+      "detailPath": "content/raw/wikidot/spells/details/banishment.json"
+    },
+    {
+      "id": "blight",
+      "name": "Blight",
+      "url": "https://dnd5e.wikidot.com/spell:blight",
+      "detailPath": "content/raw/wikidot/spells/details/blight.json"
+    },
+    {
+      "id": "charm-monster",
+      "name": "Charm Monster",
+      "url": "https://dnd5e.wikidot.com/spell:charm-monster",
+      "detailPath": "content/raw/wikidot/spells/details/charm-monster.json"
+    },
+    {
+      "id": "compulsion",
+      "name": "Compulsion",
+      "url": "https://dnd5e.wikidot.com/spell:compulsion",
+      "detailPath": "content/raw/wikidot/spells/details/compulsion.json"
+    },
+    {
+      "id": "confusion",
+      "name": "Confusion",
+      "url": "https://dnd5e.wikidot.com/spell:confusion",
+      "detailPath": "content/raw/wikidot/spells/details/confusion.json"
+    },
+    {
+      "id": "conjure-barlgura",
+      "name": "Conjure Barlgura (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-barlgura",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-barlgura.json"
+    },
+    {
+      "id": "conjure-knowbot",
+      "name": "Conjure Knowbot (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-knowbot",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-knowbot.json"
+    },
+    {
+      "id": "conjure-minor-elementals",
+      "name": "Conjure Minor Elementals",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-minor-elementals",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-minor-elementals.json"
+    },
+    {
+      "id": "conjure-shadow-demon",
+      "name": "Conjure Shadow Demon (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-shadow-demon",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-shadow-demon.json"
+    },
+    {
+      "id": "conjure-woodland-beings",
+      "name": "Conjure Woodland Beings",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-woodland-beings",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-woodland-beings.json"
+    },
+    {
+      "id": "control-water",
+      "name": "Control Water",
+      "url": "https://dnd5e.wikidot.com/spell:control-water",
+      "detailPath": "content/raw/wikidot/spells/details/control-water.json"
+    },
+    {
+      "id": "death-ward",
+      "name": "Death Ward",
+      "url": "https://dnd5e.wikidot.com/spell:death-ward",
+      "detailPath": "content/raw/wikidot/spells/details/death-ward.json"
+    },
+    {
+      "id": "dimension-door",
+      "name": "Dimension Door",
+      "url": "https://dnd5e.wikidot.com/spell:dimension-door",
+      "detailPath": "content/raw/wikidot/spells/details/dimension-door.json"
+    },
+    {
+      "id": "divination",
+      "name": "Divination",
+      "url": "https://dnd5e.wikidot.com/spell:divination",
+      "detailPath": "content/raw/wikidot/spells/details/divination.json"
+    },
+    {
+      "id": "dominate-beast",
+      "name": "Dominate Beast",
+      "url": "https://dnd5e.wikidot.com/spell:dominate-beast",
+      "detailPath": "content/raw/wikidot/spells/details/dominate-beast.json"
+    },
+    {
+      "id": "ego-whip",
+      "name": "Ego Whip (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:ego-whip",
+      "detailPath": "content/raw/wikidot/spells/details/ego-whip.json"
+    },
+    {
+      "id": "elemental-bane",
+      "name": "Elemental Bane",
+      "url": "https://dnd5e.wikidot.com/spell:elemental-bane",
+      "detailPath": "content/raw/wikidot/spells/details/elemental-bane.json"
+    },
+    {
+      "id": "evards-black-tentacles",
+      "name": "Evard's Black Tentacles",
+      "url": "https://dnd5e.wikidot.com/spell:evards-black-tentacles",
+      "detailPath": "content/raw/wikidot/spells/details/evards-black-tentacles.json"
+    },
+    {
+      "id": "fabricate",
+      "name": "Fabricate",
+      "url": "https://dnd5e.wikidot.com/spell:fabricate",
+      "detailPath": "content/raw/wikidot/spells/details/fabricate.json"
+    },
+    {
+      "id": "find-greater-steed",
+      "name": "Find Greater Steed",
+      "url": "https://dnd5e.wikidot.com/spell:find-greater-steed",
+      "detailPath": "content/raw/wikidot/spells/details/find-greater-steed.json"
+    },
+    {
+      "id": "fire-shield",
+      "name": "Fire Shield",
+      "url": "https://dnd5e.wikidot.com/spell:fire-shield",
+      "detailPath": "content/raw/wikidot/spells/details/fire-shield.json"
+    },
+    {
+      "id": "freedom-of-movement",
+      "name": "Freedom of Movement",
+      "url": "https://dnd5e.wikidot.com/spell:freedom-of-movement",
+      "detailPath": "content/raw/wikidot/spells/details/freedom-of-movement.json"
+    },
+    {
+      "id": "galders-speedy-courier",
+      "name": "Galder's Speedy Courier",
+      "url": "https://dnd5e.wikidot.com/spell:galders-speedy-courier",
+      "detailPath": "content/raw/wikidot/spells/details/galders-speedy-courier.json"
+    },
+    {
+      "id": "gate-seal",
+      "name": "Gate Seal",
+      "url": "https://dnd5e.wikidot.com/spell:gate-seal",
+      "detailPath": "content/raw/wikidot/spells/details/gate-seal.json"
+    },
+    {
+      "id": "giant-insect",
+      "name": "Giant Insect",
+      "url": "https://dnd5e.wikidot.com/spell:giant-insect",
+      "detailPath": "content/raw/wikidot/spells/details/giant-insect.json"
+    },
+    {
+      "id": "grasping-vine",
+      "name": "Grasping Vine",
+      "url": "https://dnd5e.wikidot.com/spell:grasping-vine",
+      "detailPath": "content/raw/wikidot/spells/details/grasping-vine.json"
+    },
+    {
+      "id": "gravity-sinkhole",
+      "name": "Gravity Sinkhole",
+      "url": "https://dnd5e.wikidot.com/spell:gravity-sinkhole",
+      "detailPath": "content/raw/wikidot/spells/details/gravity-sinkhole.json"
+    },
+    {
+      "id": "greater-invisibility",
+      "name": "Greater Invisibility",
+      "url": "https://dnd5e.wikidot.com/spell:greater-invisibility",
+      "detailPath": "content/raw/wikidot/spells/details/greater-invisibility.json"
+    },
+    {
+      "id": "guardian-of-faith",
+      "name": "Guardian of Faith",
+      "url": "https://dnd5e.wikidot.com/spell:guardian-of-faith",
+      "detailPath": "content/raw/wikidot/spells/details/guardian-of-faith.json"
+    },
+    {
+      "id": "guardian-of-nature",
+      "name": "Guardian of Nature",
+      "url": "https://dnd5e.wikidot.com/spell:guardian-of-nature",
+      "detailPath": "content/raw/wikidot/spells/details/guardian-of-nature.json"
+    },
+    {
+      "id": "hallucinatory-terrain",
+      "name": "Hallucinatory Terrain",
+      "url": "https://dnd5e.wikidot.com/spell:hallucinatory-terrain",
+      "detailPath": "content/raw/wikidot/spells/details/hallucinatory-terrain.json"
+    },
+    {
+      "id": "ice-storm",
+      "name": "Ice Storm",
+      "url": "https://dnd5e.wikidot.com/spell:ice-storm",
+      "detailPath": "content/raw/wikidot/spells/details/ice-storm.json"
+    },
+    {
+      "id": "leomunds-secret-chest",
+      "name": "Leomund's Secret Chest",
+      "url": "https://dnd5e.wikidot.com/spell:leomunds-secret-chest",
+      "detailPath": "content/raw/wikidot/spells/details/leomunds-secret-chest.json"
+    },
+    {
+      "id": "locate-creature",
+      "name": "Locate Creature",
+      "url": "https://dnd5e.wikidot.com/spell:locate-creature",
+      "detailPath": "content/raw/wikidot/spells/details/locate-creature.json"
+    },
+    {
+      "id": "mordenkainens-faithful-hound",
+      "name": "Mordenkainen's Faithful Hound",
+      "url": "https://dnd5e.wikidot.com/spell:mordenkainens-faithful-hound",
+      "detailPath": "content/raw/wikidot/spells/details/mordenkainens-faithful-hound.json"
+    },
+    {
+      "id": "mordenkainens-private-sanctum",
+      "name": "Mordenkainen's Private Sanctum",
+      "url": "https://dnd5e.wikidot.com/spell:mordenkainens-private-sanctum",
+      "detailPath": "content/raw/wikidot/spells/details/mordenkainens-private-sanctum.json"
+    },
+    {
+      "id": "otilukes-resilient-sphere",
+      "name": "Otiluke's Resilient Sphere",
+      "url": "https://dnd5e.wikidot.com/spell:otilukes-resilient-sphere",
+      "detailPath": "content/raw/wikidot/spells/details/otilukes-resilient-sphere.json"
+    },
+    {
+      "id": "phantasmal-killer",
+      "name": "Phantasmal Killer",
+      "url": "https://dnd5e.wikidot.com/spell:phantasmal-killer",
+      "detailPath": "content/raw/wikidot/spells/details/phantasmal-killer.json"
+    },
+    {
+      "id": "polymorph",
+      "name": "Polymorph",
+      "url": "https://dnd5e.wikidot.com/spell:polymorph",
+      "detailPath": "content/raw/wikidot/spells/details/polymorph.json"
+    },
+    {
+      "id": "raulothims-psychic-lance",
+      "name": "Raulothim's Psychic Lance",
+      "url": "https://dnd5e.wikidot.com/spell:raulothims-psychic-lance",
+      "detailPath": "content/raw/wikidot/spells/details/raulothims-psychic-lance.json"
+    },
+    {
+      "id": "raulothims-psychic-lance-ua",
+      "name": "Raulothim's Psychic Lance (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:raulothims-psychic-lance-ua",
+      "detailPath": "content/raw/wikidot/spells/details/raulothims-psychic-lance-ua.json"
+    },
+    {
+      "id": "shadow-of-moil",
+      "name": "Shadow Of Moil",
+      "url": "https://dnd5e.wikidot.com/spell:shadow-of-moil",
+      "detailPath": "content/raw/wikidot/spells/details/shadow-of-moil.json"
+    },
+    {
+      "id": "sickening-radiance",
+      "name": "Sickening Radiance",
+      "url": "https://dnd5e.wikidot.com/spell:sickening-radiance",
+      "detailPath": "content/raw/wikidot/spells/details/sickening-radiance.json"
+    },
+    {
+      "id": "spirit-of-death",
+      "name": "Spirit Of Death",
+      "url": "https://dnd5e.wikidot.com/spell:spirit-of-death",
+      "detailPath": "content/raw/wikidot/spells/details/spirit-of-death.json"
+    },
+    {
+      "id": "spirit-of-death-ua",
+      "name": "Spirit of Death (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:spirit-of-death-ua",
+      "detailPath": "content/raw/wikidot/spells/details/spirit-of-death-ua.json"
+    },
+    {
+      "id": "staggering-smite",
+      "name": "Staggering Smite",
+      "url": "https://dnd5e.wikidot.com/spell:staggering-smite",
+      "detailPath": "content/raw/wikidot/spells/details/staggering-smite.json"
+    },
+    {
+      "id": "stone-shape",
+      "name": "Stone Shape",
+      "url": "https://dnd5e.wikidot.com/spell:stone-shape",
+      "detailPath": "content/raw/wikidot/spells/details/stone-shape.json"
+    },
+    {
+      "id": "stoneskin",
+      "name": "Stoneskin",
+      "url": "https://dnd5e.wikidot.com/spell:stoneskin",
+      "detailPath": "content/raw/wikidot/spells/details/stoneskin.json"
+    },
+    {
+      "id": "storm-sphere",
+      "name": "Storm Sphere",
+      "url": "https://dnd5e.wikidot.com/spell:storm-sphere",
+      "detailPath": "content/raw/wikidot/spells/details/storm-sphere.json"
+    },
+    {
+      "id": "summon-aberration",
+      "name": "Summon Aberration",
+      "url": "https://dnd5e.wikidot.com/spell:summon-aberration",
+      "detailPath": "content/raw/wikidot/spells/details/summon-aberration.json"
+    },
+    {
+      "id": "summon-construct",
+      "name": "Summon Construct",
+      "url": "https://dnd5e.wikidot.com/spell:summon-construct",
+      "detailPath": "content/raw/wikidot/spells/details/summon-construct.json"
+    },
+    {
+      "id": "summon-elemental",
+      "name": "Summon Elemental",
+      "url": "https://dnd5e.wikidot.com/spell:summon-elemental",
+      "detailPath": "content/raw/wikidot/spells/details/summon-elemental.json"
+    },
+    {
+      "id": "summon-greater-demon",
+      "name": "Summon Greater Demon",
+      "url": "https://dnd5e.wikidot.com/spell:summon-greater-demon",
+      "detailPath": "content/raw/wikidot/spells/details/summon-greater-demon.json"
+    },
+    {
+      "id": "synchronicity",
+      "name": "Synchronicity (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:synchronicity",
+      "detailPath": "content/raw/wikidot/spells/details/synchronicity.json"
+    },
+    {
+      "id": "system-backdoor",
+      "name": "System Backdoor (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:system-backdoor",
+      "detailPath": "content/raw/wikidot/spells/details/system-backdoor.json"
+    },
+    {
+      "id": "vitriolic-sphere",
+      "name": "Vitriolic Sphere",
+      "url": "https://dnd5e.wikidot.com/spell:vitriolic-sphere",
+      "detailPath": "content/raw/wikidot/spells/details/vitriolic-sphere.json"
+    },
+    {
+      "id": "wall-of-fire",
+      "name": "Wall of Fire",
+      "url": "https://dnd5e.wikidot.com/spell:wall-of-fire",
+      "detailPath": "content/raw/wikidot/spells/details/wall-of-fire.json"
+    },
+    {
+      "id": "watery-sphere",
+      "name": "Watery Sphere",
+      "url": "https://dnd5e.wikidot.com/spell:watery-sphere",
+      "detailPath": "content/raw/wikidot/spells/details/watery-sphere.json"
+    },
+    {
+      "id": "animate-objects",
+      "name": "Animate Objects",
+      "url": "https://dnd5e.wikidot.com/spell:animate-objects",
+      "detailPath": "content/raw/wikidot/spells/details/animate-objects.json"
+    },
+    {
+      "id": "antilife-shell",
+      "name": "Antilife Shell",
+      "url": "https://dnd5e.wikidot.com/spell:antilife-shell",
+      "detailPath": "content/raw/wikidot/spells/details/antilife-shell.json"
+    },
+    {
+      "id": "awaken",
+      "name": "Awaken",
+      "url": "https://dnd5e.wikidot.com/spell:awaken",
+      "detailPath": "content/raw/wikidot/spells/details/awaken.json"
+    },
+    {
+      "id": "banishing-smite",
+      "name": "Banishing Smite",
+      "url": "https://dnd5e.wikidot.com/spell:banishing-smite",
+      "detailPath": "content/raw/wikidot/spells/details/banishing-smite.json"
+    },
+    {
+      "id": "bigbys-hand",
+      "name": "Bigby's Hand",
+      "url": "https://dnd5e.wikidot.com/spell:bigbys-hand",
+      "detailPath": "content/raw/wikidot/spells/details/bigbys-hand.json"
+    },
+    {
+      "id": "circle-of-power",
+      "name": "Circle of Power",
+      "url": "https://dnd5e.wikidot.com/spell:circle-of-power",
+      "detailPath": "content/raw/wikidot/spells/details/circle-of-power.json"
+    },
+    {
+      "id": "cloudkill",
+      "name": "Cloudkill",
+      "url": "https://dnd5e.wikidot.com/spell:cloudkill",
+      "detailPath": "content/raw/wikidot/spells/details/cloudkill.json"
+    },
+    {
+      "id": "commune",
+      "name": "Commune",
+      "url": "https://dnd5e.wikidot.com/spell:commune",
+      "detailPath": "content/raw/wikidot/spells/details/commune.json"
+    },
+    {
+      "id": "commune-with-city",
+      "name": "Commune with City (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:commune-with-city",
+      "detailPath": "content/raw/wikidot/spells/details/commune-with-city.json"
+    },
+    {
+      "id": "commune-with-nature",
+      "name": "Commune with Nature",
+      "url": "https://dnd5e.wikidot.com/spell:commune-with-nature",
+      "detailPath": "content/raw/wikidot/spells/details/commune-with-nature.json"
+    },
+    {
+      "id": "cone-of-cold",
+      "name": "Cone of Cold",
+      "url": "https://dnd5e.wikidot.com/spell:cone-of-cold",
+      "detailPath": "content/raw/wikidot/spells/details/cone-of-cold.json"
+    },
+    {
+      "id": "conjure-elemental",
+      "name": "Conjure Elemental",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-elemental",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-elemental.json"
+    },
+    {
+      "id": "conjure-volley",
+      "name": "Conjure Volley",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-volley",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-volley.json"
+    },
+    {
+      "id": "conjure-vrock",
+      "name": "Conjure Vrock (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-vrock",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-vrock.json"
+    },
+    {
+      "id": "contact-other-plane",
+      "name": "Contact Other Plane",
+      "url": "https://dnd5e.wikidot.com/spell:contact-other-plane",
+      "detailPath": "content/raw/wikidot/spells/details/contact-other-plane.json"
+    },
+    {
+      "id": "contagion",
+      "name": "Contagion",
+      "url": "https://dnd5e.wikidot.com/spell:contagion",
+      "detailPath": "content/raw/wikidot/spells/details/contagion.json"
+    },
+    {
+      "id": "control-winds",
+      "name": "Control Winds",
+      "url": "https://dnd5e.wikidot.com/spell:control-winds",
+      "detailPath": "content/raw/wikidot/spells/details/control-winds.json"
+    },
+    {
+      "id": "create-spelljamming-helm",
+      "name": "Create Spelljamming Helm",
+      "url": "https://dnd5e.wikidot.com/spell:create-spelljamming-helm",
+      "detailPath": "content/raw/wikidot/spells/details/create-spelljamming-helm.json"
+    },
+    {
+      "id": "creation",
+      "name": "Creation",
+      "url": "https://dnd5e.wikidot.com/spell:creation",
+      "detailPath": "content/raw/wikidot/spells/details/creation.json"
+    },
+    {
+      "id": "danse-macabre",
+      "name": "Danse Macabre",
+      "url": "https://dnd5e.wikidot.com/spell:danse-macabre",
+      "detailPath": "content/raw/wikidot/spells/details/danse-macabre.json"
+    },
+    {
+      "id": "dawn",
+      "name": "Dawn",
+      "url": "https://dnd5e.wikidot.com/spell:dawn",
+      "detailPath": "content/raw/wikidot/spells/details/dawn.json"
+    },
+    {
+      "id": "destructive-wave",
+      "name": "Destructive Wave",
+      "url": "https://dnd5e.wikidot.com/spell:destructive-wave",
+      "detailPath": "content/raw/wikidot/spells/details/destructive-wave.json"
+    },
+    {
+      "id": "dispel-evil-and-good",
+      "name": "Dispel Evil and Good",
+      "url": "https://dnd5e.wikidot.com/spell:dispel-evil-and-good",
+      "detailPath": "content/raw/wikidot/spells/details/dispel-evil-and-good.json"
+    },
+    {
+      "id": "dominate-person",
+      "name": "Dominate Person",
+      "url": "https://dnd5e.wikidot.com/spell:dominate-person",
+      "detailPath": "content/raw/wikidot/spells/details/dominate-person.json"
+    },
+    {
+      "id": "dream",
+      "name": "Dream",
+      "url": "https://dnd5e.wikidot.com/spell:dream",
+      "detailPath": "content/raw/wikidot/spells/details/dream.json"
+    },
+    {
+      "id": "enervation",
+      "name": "Enervation",
+      "url": "https://dnd5e.wikidot.com/spell:enervation",
+      "detailPath": "content/raw/wikidot/spells/details/enervation.json"
+    },
+    {
+      "id": "far-step",
+      "name": "Far Step",
+      "url": "https://dnd5e.wikidot.com/spell:far-step",
+      "detailPath": "content/raw/wikidot/spells/details/far-step.json"
+    },
+    {
+      "id": "flame-strike",
+      "name": "Flame Strike",
+      "url": "https://dnd5e.wikidot.com/spell:flame-strike",
+      "detailPath": "content/raw/wikidot/spells/details/flame-strike.json"
+    },
+    {
+      "id": "geas",
+      "name": "Geas",
+      "url": "https://dnd5e.wikidot.com/spell:geas",
+      "detailPath": "content/raw/wikidot/spells/details/geas.json"
+    },
+    {
+      "id": "greater-restoration",
+      "name": "Greater Restoration",
+      "url": "https://dnd5e.wikidot.com/spell:greater-restoration",
+      "detailPath": "content/raw/wikidot/spells/details/greater-restoration.json"
+    },
+    {
+      "id": "hallow",
+      "name": "Hallow",
+      "url": "https://dnd5e.wikidot.com/spell:hallow",
+      "detailPath": "content/raw/wikidot/spells/details/hallow.json"
+    },
+    {
+      "id": "hold-monster",
+      "name": "Hold Monster",
+      "url": "https://dnd5e.wikidot.com/spell:hold-monster",
+      "detailPath": "content/raw/wikidot/spells/details/hold-monster.json"
+    },
+    {
+      "id": "holy-weapon",
+      "name": "Holy Weapon",
+      "url": "https://dnd5e.wikidot.com/spell:holy-weapon",
+      "detailPath": "content/raw/wikidot/spells/details/holy-weapon.json"
+    },
+    {
+      "id": "immolation",
+      "name": "Immolation",
+      "url": "https://dnd5e.wikidot.com/spell:immolation",
+      "detailPath": "content/raw/wikidot/spells/details/immolation.json"
+    },
+    {
+      "id": "infernal-calling",
+      "name": "Infernal Calling",
+      "url": "https://dnd5e.wikidot.com/spell:infernal-calling",
+      "detailPath": "content/raw/wikidot/spells/details/infernal-calling.json"
+    },
+    {
+      "id": "insect-plague",
+      "name": "Insect Plague",
+      "url": "https://dnd5e.wikidot.com/spell:insect-plague",
+      "detailPath": "content/raw/wikidot/spells/details/insect-plague.json"
+    },
+    {
+      "id": "legend-lore",
+      "name": "Legend Lore",
+      "url": "https://dnd5e.wikidot.com/spell:legend-lore",
+      "detailPath": "content/raw/wikidot/spells/details/legend-lore.json"
+    },
+    {
+      "id": "maelstrom",
+      "name": "Maelstrom",
+      "url": "https://dnd5e.wikidot.com/spell:maelstrom",
+      "detailPath": "content/raw/wikidot/spells/details/maelstrom.json"
+    },
+    {
+      "id": "mass-cure-wounds",
+      "name": "Mass Cure Wounds",
+      "url": "https://dnd5e.wikidot.com/spell:mass-cure-wounds",
+      "detailPath": "content/raw/wikidot/spells/details/mass-cure-wounds.json"
+    },
+    {
+      "id": "mislead",
+      "name": "Mislead",
+      "url": "https://dnd5e.wikidot.com/spell:mislead",
+      "detailPath": "content/raw/wikidot/spells/details/mislead.json"
+    },
+    {
+      "id": "modify-memory",
+      "name": "Modify Memory",
+      "url": "https://dnd5e.wikidot.com/spell:modify-memory",
+      "detailPath": "content/raw/wikidot/spells/details/modify-memory.json"
+    },
+    {
+      "id": "negative-energy-flood",
+      "name": "Negative Energy Flood",
+      "url": "https://dnd5e.wikidot.com/spell:negative-energy-flood",
+      "detailPath": "content/raw/wikidot/spells/details/negative-energy-flood.json"
+    },
+    {
+      "id": "passwall",
+      "name": "Passwall",
+      "url": "https://dnd5e.wikidot.com/spell:passwall",
+      "detailPath": "content/raw/wikidot/spells/details/passwall.json"
+    },
+    {
+      "id": "planar-binding",
+      "name": "Planar Binding",
+      "url": "https://dnd5e.wikidot.com/spell:planar-binding",
+      "detailPath": "content/raw/wikidot/spells/details/planar-binding.json"
+    },
+    {
+      "id": "raise-dead",
+      "name": "Raise Dead",
+      "url": "https://dnd5e.wikidot.com/spell:raise-dead",
+      "detailPath": "content/raw/wikidot/spells/details/raise-dead.json"
+    },
+    {
+      "id": "rarys-telepathic-bond",
+      "name": "Rary's Telepathic Bond",
+      "url": "https://dnd5e.wikidot.com/spell:rarys-telepathic-bond",
+      "detailPath": "content/raw/wikidot/spells/details/rarys-telepathic-bond.json"
+    },
+    {
+      "id": "reincarnate",
+      "name": "Reincarnate",
+      "url": "https://dnd5e.wikidot.com/spell:reincarnate",
+      "detailPath": "content/raw/wikidot/spells/details/reincarnate.json"
+    },
+    {
+      "id": "scrying",
+      "name": "Scrying",
+      "url": "https://dnd5e.wikidot.com/spell:scrying",
+      "detailPath": "content/raw/wikidot/spells/details/scrying.json"
+    },
+    {
+      "id": "seeming",
+      "name": "Seeming",
+      "url": "https://dnd5e.wikidot.com/spell:seeming",
+      "detailPath": "content/raw/wikidot/spells/details/seeming.json"
+    },
+    {
+      "id": "shutdown",
+      "name": "Shutdown (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:shutdown",
+      "detailPath": "content/raw/wikidot/spells/details/shutdown.json"
+    },
+    {
+      "id": "skill-empowerment",
+      "name": "Skill Empowerment",
+      "url": "https://dnd5e.wikidot.com/spell:skill-empowerment",
+      "detailPath": "content/raw/wikidot/spells/details/skill-empowerment.json"
+    },
+    {
+      "id": "steel-wind-strike",
+      "name": "Steel Wind Strike",
+      "url": "https://dnd5e.wikidot.com/spell:steel-wind-strike",
+      "detailPath": "content/raw/wikidot/spells/details/steel-wind-strike.json"
+    },
+    {
+      "id": "summon-celestial",
+      "name": "Summon Celestial",
+      "url": "https://dnd5e.wikidot.com/spell:summon-celestial",
+      "detailPath": "content/raw/wikidot/spells/details/summon-celestial.json"
+    },
+    {
+      "id": "summon-draconic-spirit",
+      "name": "Summon Draconic Spirit",
+      "url": "https://dnd5e.wikidot.com/spell:summon-draconic-spirit",
+      "detailPath": "content/raw/wikidot/spells/details/summon-draconic-spirit.json"
+    },
+    {
+      "id": "summon-draconic-spirit-ua",
+      "name": "Summon Draconic Spirit (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:summon-draconic-spirit-ua",
+      "detailPath": "content/raw/wikidot/spells/details/summon-draconic-spirit-ua.json"
+    },
+    {
+      "id": "swift-quiver",
+      "name": "Swift Quiver",
+      "url": "https://dnd5e.wikidot.com/spell:swift-quiver",
+      "detailPath": "content/raw/wikidot/spells/details/swift-quiver.json"
+    },
+    {
+      "id": "synaptic-static",
+      "name": "Synaptic Static",
+      "url": "https://dnd5e.wikidot.com/spell:synaptic-static",
+      "detailPath": "content/raw/wikidot/spells/details/synaptic-static.json"
+    },
+    {
+      "id": "telekinesis",
+      "name": "Telekinesis",
+      "url": "https://dnd5e.wikidot.com/spell:telekinesis",
+      "detailPath": "content/raw/wikidot/spells/details/telekinesis.json"
+    },
+    {
+      "id": "teleportation-circle",
+      "name": "Teleportation Circle",
+      "url": "https://dnd5e.wikidot.com/spell:teleportation-circle",
+      "detailPath": "content/raw/wikidot/spells/details/teleportation-circle.json"
+    },
+    {
+      "id": "temporal-shunt",
+      "name": "Temporal Shunt",
+      "url": "https://dnd5e.wikidot.com/spell:temporal-shunt",
+      "detailPath": "content/raw/wikidot/spells/details/temporal-shunt.json"
+    },
+    {
+      "id": "transmute-rock",
+      "name": "Transmute Rock",
+      "url": "https://dnd5e.wikidot.com/spell:transmute-rock",
+      "detailPath": "content/raw/wikidot/spells/details/transmute-rock.json"
+    },
+    {
+      "id": "tree-stride",
+      "name": "Tree Stride",
+      "url": "https://dnd5e.wikidot.com/spell:tree-stride",
+      "detailPath": "content/raw/wikidot/spells/details/tree-stride.json"
+    },
+    {
+      "id": "wall-of-force",
+      "name": "Wall of Force",
+      "url": "https://dnd5e.wikidot.com/spell:wall-of-force",
+      "detailPath": "content/raw/wikidot/spells/details/wall-of-force.json"
+    },
+    {
+      "id": "wall-of-light",
+      "name": "Wall of Light",
+      "url": "https://dnd5e.wikidot.com/spell:wall-of-light",
+      "detailPath": "content/raw/wikidot/spells/details/wall-of-light.json"
+    },
+    {
+      "id": "wall-of-stone",
+      "name": "Wall of Stone",
+      "url": "https://dnd5e.wikidot.com/spell:wall-of-stone",
+      "detailPath": "content/raw/wikidot/spells/details/wall-of-stone.json"
+    },
+    {
+      "id": "wrath-of-nature",
+      "name": "Wrath Of Nature",
+      "url": "https://dnd5e.wikidot.com/spell:wrath-of-nature",
+      "detailPath": "content/raw/wikidot/spells/details/wrath-of-nature.json"
+    },
+    {
+      "id": "arcane-gate",
+      "name": "Arcane Gate",
+      "url": "https://dnd5e.wikidot.com/spell:arcane-gate",
+      "detailPath": "content/raw/wikidot/spells/details/arcane-gate.json"
+    },
+    {
+      "id": "blade-barrier",
+      "name": "Blade Barrier",
+      "url": "https://dnd5e.wikidot.com/spell:blade-barrier",
+      "detailPath": "content/raw/wikidot/spells/details/blade-barrier.json"
+    },
+    {
+      "id": "bones-of-the-earth",
+      "name": "Bones of the Earth",
+      "url": "https://dnd5e.wikidot.com/spell:bones-of-the-earth",
+      "detailPath": "content/raw/wikidot/spells/details/bones-of-the-earth.json"
+    },
+    {
+      "id": "chain-lightning",
+      "name": "Chain Lightning",
+      "url": "https://dnd5e.wikidot.com/spell:chain-lightning",
+      "detailPath": "content/raw/wikidot/spells/details/chain-lightning.json"
+    },
+    {
+      "id": "circle-of-death",
+      "name": "Circle of Death",
+      "url": "https://dnd5e.wikidot.com/spell:circle-of-death",
+      "detailPath": "content/raw/wikidot/spells/details/circle-of-death.json"
+    },
+    {
+      "id": "conjure-fey",
+      "name": "Conjure Fey",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-fey",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-fey.json"
+    },
+    {
+      "id": "contingency",
+      "name": "Contingency",
+      "url": "https://dnd5e.wikidot.com/spell:contingency",
+      "detailPath": "content/raw/wikidot/spells/details/contingency.json"
+    },
+    {
+      "id": "create-homunculus",
+      "name": "Create Homunculus",
+      "url": "https://dnd5e.wikidot.com/spell:create-homunculus",
+      "detailPath": "content/raw/wikidot/spells/details/create-homunculus.json"
+    },
+    {
+      "id": "create-undead",
+      "name": "Create Undead",
+      "url": "https://dnd5e.wikidot.com/spell:create-undead",
+      "detailPath": "content/raw/wikidot/spells/details/create-undead.json"
+    },
+    {
+      "id": "disintegrate",
+      "name": "Disintegrate",
+      "url": "https://dnd5e.wikidot.com/spell:disintegrate",
+      "detailPath": "content/raw/wikidot/spells/details/disintegrate.json"
+    },
+    {
+      "id": "drawmijs-instant-summons",
+      "name": "Drawmij's Instant Summons",
+      "url": "https://dnd5e.wikidot.com/spell:drawmijs-instant-summons",
+      "detailPath": "content/raw/wikidot/spells/details/drawmijs-instant-summons.json"
+    },
+    {
+      "id": "druid-grove",
+      "name": "Druid Grove",
+      "url": "https://dnd5e.wikidot.com/spell:druid-grove",
+      "detailPath": "content/raw/wikidot/spells/details/druid-grove.json"
+    },
+    {
+      "id": "eyebite",
+      "name": "Eyebite",
+      "url": "https://dnd5e.wikidot.com/spell:eyebite",
+      "detailPath": "content/raw/wikidot/spells/details/eyebite.json"
+    },
+    {
+      "id": "find-the-path",
+      "name": "Find the Path",
+      "url": "https://dnd5e.wikidot.com/spell:find-the-path",
+      "detailPath": "content/raw/wikidot/spells/details/find-the-path.json"
+    },
+    {
+      "id": "fizbans-platinum-shield",
+      "name": "Fizban's Platinum Shield",
+      "url": "https://dnd5e.wikidot.com/spell:fizbans-platinum-shield",
+      "detailPath": "content/raw/wikidot/spells/details/fizbans-platinum-shield.json"
+    },
+    {
+      "id": "fizban-s-platinum-shield-ua",
+      "name": "Fizban's Platinum Shield (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:fizban-s-platinum-shield-ua",
+      "detailPath": "content/raw/wikidot/spells/details/fizban-s-platinum-shield-ua.json"
+    },
+    {
+      "id": "flesh-to-stone",
+      "name": "Flesh to Stone",
+      "url": "https://dnd5e.wikidot.com/spell:flesh-to-stone",
+      "detailPath": "content/raw/wikidot/spells/details/flesh-to-stone.json"
+    },
+    {
+      "id": "forbiddance",
+      "name": "Forbiddance",
+      "url": "https://dnd5e.wikidot.com/spell:forbiddance",
+      "detailPath": "content/raw/wikidot/spells/details/forbiddance.json"
+    },
+    {
+      "id": "globe-of-invulnerability",
+      "name": "Globe of Invulnerability",
+      "url": "https://dnd5e.wikidot.com/spell:globe-of-invulnerability",
+      "detailPath": "content/raw/wikidot/spells/details/globe-of-invulnerability.json"
+    },
+    {
+      "id": "gravity-fissure",
+      "name": "Gravity Fissure",
+      "url": "https://dnd5e.wikidot.com/spell:gravity-fissure",
+      "detailPath": "content/raw/wikidot/spells/details/gravity-fissure.json"
+    },
+    {
+      "id": "guards-and-wards",
+      "name": "Guards and Wards",
+      "url": "https://dnd5e.wikidot.com/spell:guards-and-wards",
+      "detailPath": "content/raw/wikidot/spells/details/guards-and-wards.json"
+    },
+    {
+      "id": "harm",
+      "name": "Harm",
+      "url": "https://dnd5e.wikidot.com/spell:harm",
+      "detailPath": "content/raw/wikidot/spells/details/harm.json"
+    },
+    {
+      "id": "heal",
+      "name": "Heal",
+      "url": "https://dnd5e.wikidot.com/spell:heal",
+      "detailPath": "content/raw/wikidot/spells/details/heal.json"
+    },
+    {
+      "id": "heroes-feast",
+      "name": "Heroes' Feast",
+      "url": "https://dnd5e.wikidot.com/spell:heroes-feast",
+      "detailPath": "content/raw/wikidot/spells/details/heroes-feast.json"
+    },
+    {
+      "id": "investiture-of-flame",
+      "name": "Investiture of Flame",
+      "url": "https://dnd5e.wikidot.com/spell:investiture-of-flame",
+      "detailPath": "content/raw/wikidot/spells/details/investiture-of-flame.json"
+    },
+    {
+      "id": "investiture-of-ice",
+      "name": "Investiture of Ice",
+      "url": "https://dnd5e.wikidot.com/spell:investiture-of-ice",
+      "detailPath": "content/raw/wikidot/spells/details/investiture-of-ice.json"
+    },
+    {
+      "id": "investiture-of-stone",
+      "name": "Investiture of Stone",
+      "url": "https://dnd5e.wikidot.com/spell:investiture-of-stone",
+      "detailPath": "content/raw/wikidot/spells/details/investiture-of-stone.json"
+    },
+    {
+      "id": "investiture-of-wind",
+      "name": "Investiture of Wind",
+      "url": "https://dnd5e.wikidot.com/spell:investiture-of-wind",
+      "detailPath": "content/raw/wikidot/spells/details/investiture-of-wind.json"
+    },
+    {
+      "id": "magic-jar",
+      "name": "Magic Jar",
+      "url": "https://dnd5e.wikidot.com/spell:magic-jar",
+      "detailPath": "content/raw/wikidot/spells/details/magic-jar.json"
+    },
+    {
+      "id": "mass-suggestion",
+      "name": "Mass Suggestion",
+      "url": "https://dnd5e.wikidot.com/spell:mass-suggestion",
+      "detailPath": "content/raw/wikidot/spells/details/mass-suggestion.json"
+    },
+    {
+      "id": "mental-prison",
+      "name": "Mental Prison",
+      "url": "https://dnd5e.wikidot.com/spell:mental-prison",
+      "detailPath": "content/raw/wikidot/spells/details/mental-prison.json"
+    },
+    {
+      "id": "move-earth",
+      "name": "Move Earth",
+      "url": "https://dnd5e.wikidot.com/spell:move-earth",
+      "detailPath": "content/raw/wikidot/spells/details/move-earth.json"
+    },
+    {
+      "id": "otherworldly-form",
+      "name": "Otherworldly Form (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:otherworldly-form",
+      "detailPath": "content/raw/wikidot/spells/details/otherworldly-form.json"
+    },
+    {
+      "id": "otilukes-freezing-sphere",
+      "name": "Otiluke's Freezing Sphere",
+      "url": "https://dnd5e.wikidot.com/spell:otilukes-freezing-sphere",
+      "detailPath": "content/raw/wikidot/spells/details/otilukes-freezing-sphere.json"
+    },
+    {
+      "id": "ottos-irresistible-dance",
+      "name": "Otto's Irresistible Dance",
+      "url": "https://dnd5e.wikidot.com/spell:ottos-irresistible-dance",
+      "detailPath": "content/raw/wikidot/spells/details/ottos-irresistible-dance.json"
+    },
+    {
+      "id": "planar-ally",
+      "name": "Planar Ally",
+      "url": "https://dnd5e.wikidot.com/spell:planar-ally",
+      "detailPath": "content/raw/wikidot/spells/details/planar-ally.json"
+    },
+    {
+      "id": "primordial-ward",
+      "name": "Primordial Ward",
+      "url": "https://dnd5e.wikidot.com/spell:primordial-ward",
+      "detailPath": "content/raw/wikidot/spells/details/primordial-ward.json"
+    },
+    {
+      "id": "programmed-illusion",
+      "name": "Programmed Illusion",
+      "url": "https://dnd5e.wikidot.com/spell:programmed-illusion",
+      "detailPath": "content/raw/wikidot/spells/details/programmed-illusion.json"
+    },
+    {
+      "id": "psychic-crush",
+      "name": "Psychic Crush (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:psychic-crush",
+      "detailPath": "content/raw/wikidot/spells/details/psychic-crush.json"
+    },
+    {
+      "id": "scatter",
+      "name": "Scatter",
+      "url": "https://dnd5e.wikidot.com/spell:scatter",
+      "detailPath": "content/raw/wikidot/spells/details/scatter.json"
+    },
+    {
+      "id": "soul-cage",
+      "name": "Soul Cage",
+      "url": "https://dnd5e.wikidot.com/spell:soul-cage",
+      "detailPath": "content/raw/wikidot/spells/details/soul-cage.json"
+    },
+    {
+      "id": "summon-fiend",
+      "name": "Summon Fiend",
+      "url": "https://dnd5e.wikidot.com/spell:summon-fiend",
+      "detailPath": "content/raw/wikidot/spells/details/summon-fiend.json"
+    },
+    {
+      "id": "sunbeam",
+      "name": "Sunbeam",
+      "url": "https://dnd5e.wikidot.com/spell:sunbeam",
+      "detailPath": "content/raw/wikidot/spells/details/sunbeam.json"
+    },
+    {
+      "id": "tashas-otherworldly-guise",
+      "name": "Tasha's Otherworldly Guise",
+      "url": "https://dnd5e.wikidot.com/spell:tashas-otherworldly-guise",
+      "detailPath": "content/raw/wikidot/spells/details/tashas-otherworldly-guise.json"
+    },
+    {
+      "id": "tensers-transformation",
+      "name": "Tenser's Transformation",
+      "url": "https://dnd5e.wikidot.com/spell:tensers-transformation",
+      "detailPath": "content/raw/wikidot/spells/details/tensers-transformation.json"
+    },
+    {
+      "id": "transport-via-plants",
+      "name": "Transport via Plants",
+      "url": "https://dnd5e.wikidot.com/spell:transport-via-plants",
+      "detailPath": "content/raw/wikidot/spells/details/transport-via-plants.json"
+    },
+    {
+      "id": "true-seeing",
+      "name": "True Seeing",
+      "url": "https://dnd5e.wikidot.com/spell:true-seeing",
+      "detailPath": "content/raw/wikidot/spells/details/true-seeing.json"
+    },
+    {
+      "id": "wall-of-ice",
+      "name": "Wall of Ice",
+      "url": "https://dnd5e.wikidot.com/spell:wall-of-ice",
+      "detailPath": "content/raw/wikidot/spells/details/wall-of-ice.json"
+    },
+    {
+      "id": "wall-of-thorns",
+      "name": "Wall of Thorns",
+      "url": "https://dnd5e.wikidot.com/spell:wall-of-thorns",
+      "detailPath": "content/raw/wikidot/spells/details/wall-of-thorns.json"
+    },
+    {
+      "id": "wind-walk",
+      "name": "Wind Walk",
+      "url": "https://dnd5e.wikidot.com/spell:wind-walk",
+      "detailPath": "content/raw/wikidot/spells/details/wind-walk.json"
+    },
+    {
+      "id": "word-of-recall",
+      "name": "Word of Recall",
+      "url": "https://dnd5e.wikidot.com/spell:word-of-recall",
+      "detailPath": "content/raw/wikidot/spells/details/word-of-recall.json"
+    },
+    {
+      "id": "conjure-celestial",
+      "name": "Conjure Celestial",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-celestial",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-celestial.json"
+    },
+    {
+      "id": "conjure-hezrou",
+      "name": "Conjure Hezrou (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:conjure-hezrou",
+      "detailPath": "content/raw/wikidot/spells/details/conjure-hezrou.json"
+    },
+    {
+      "id": "create-magen",
+      "name": "Create Magen",
+      "url": "https://dnd5e.wikidot.com/spell:create-magen",
+      "detailPath": "content/raw/wikidot/spells/details/create-magen.json"
+    },
+    {
+      "id": "crown-of-stars",
+      "name": "Crown of Stars",
+      "url": "https://dnd5e.wikidot.com/spell:crown-of-stars",
+      "detailPath": "content/raw/wikidot/spells/details/crown-of-stars.json"
+    },
+    {
+      "id": "delayed-blast-fireball",
+      "name": "Delayed Blast Fireball",
+      "url": "https://dnd5e.wikidot.com/spell:delayed-blast-fireball",
+      "detailPath": "content/raw/wikidot/spells/details/delayed-blast-fireball.json"
+    },
+    {
+      "id": "divine-word",
+      "name": "Divine Word",
+      "url": "https://dnd5e.wikidot.com/spell:divine-word",
+      "detailPath": "content/raw/wikidot/spells/details/divine-word.json"
+    },
+    {
+      "id": "draconic-transformation",
+      "name": "Draconic Transformation",
+      "url": "https://dnd5e.wikidot.com/spell:draconic-transformation",
+      "detailPath": "content/raw/wikidot/spells/details/draconic-transformation.json"
+    },
+    {
+      "id": "draconic-transformation-ua",
+      "name": "Draconic Transformation (UA)",
+      "url": "https://dnd5e.wikidot.com/spell:draconic-transformation-ua",
+      "detailPath": "content/raw/wikidot/spells/details/draconic-transformation-ua.json"
+    },
+    {
+      "id": "dream-of-the-blue-veil",
+      "name": "Dream of the Blue Veil",
+      "url": "https://dnd5e.wikidot.com/spell:dream-of-the-blue-veil",
+      "detailPath": "content/raw/wikidot/spells/details/dream-of-the-blue-veil.json"
+    },
+    {
+      "id": "etherealness",
+      "name": "Etherealness",
+      "url": "https://dnd5e.wikidot.com/spell:etherealness",
+      "detailPath": "content/raw/wikidot/spells/details/etherealness.json"
+    },
+    {
+      "id": "finger-of-death",
+      "name": "Finger of Death",
+      "url": "https://dnd5e.wikidot.com/spell:finger-of-death",
+      "detailPath": "content/raw/wikidot/spells/details/finger-of-death.json"
+    },
+    {
+      "id": "fire-storm",
+      "name": "Fire Storm",
+      "url": "https://dnd5e.wikidot.com/spell:fire-storm",
+      "detailPath": "content/raw/wikidot/spells/details/fire-storm.json"
+    },
+    {
+      "id": "forcecage",
+      "name": "Forcecage",
+      "url": "https://dnd5e.wikidot.com/spell:forcecage",
+      "detailPath": "content/raw/wikidot/spells/details/forcecage.json"
+    },
+    {
+      "id": "mirage-arcane",
+      "name": "Mirage Arcane",
+      "url": "https://dnd5e.wikidot.com/spell:mirage-arcane",
+      "detailPath": "content/raw/wikidot/spells/details/mirage-arcane.json"
+    },
+    {
+      "id": "mordenkainens-magnificent-mansion",
+      "name": "Mordenkainen's Magnificent Mansion",
+      "url": "https://dnd5e.wikidot.com/spell:mordenkainens-magnificent-mansion",
+      "detailPath": "content/raw/wikidot/spells/details/mordenkainens-magnificent-mansion.json"
+    },
+    {
+      "id": "mordenkainens-sword",
+      "name": "Mordenkainen's Sword",
+      "url": "https://dnd5e.wikidot.com/spell:mordenkainens-sword",
+      "detailPath": "content/raw/wikidot/spells/details/mordenkainens-sword.json"
+    },
+    {
+      "id": "plane-shift",
+      "name": "Plane Shift",
+      "url": "https://dnd5e.wikidot.com/spell:plane-shift",
+      "detailPath": "content/raw/wikidot/spells/details/plane-shift.json"
+    },
+    {
+      "id": "power-word-pain",
+      "name": "Power Word: Pain",
+      "url": "https://dnd5e.wikidot.com/spell:power-word-pain",
+      "detailPath": "content/raw/wikidot/spells/details/power-word-pain.json"
+    },
+    {
+      "id": "prismatic-spray",
+      "name": "Prismatic Spray",
+      "url": "https://dnd5e.wikidot.com/spell:prismatic-spray",
+      "detailPath": "content/raw/wikidot/spells/details/prismatic-spray.json"
+    },
+    {
+      "id": "project-image",
+      "name": "Project Image",
+      "url": "https://dnd5e.wikidot.com/spell:project-image",
+      "detailPath": "content/raw/wikidot/spells/details/project-image.json"
+    },
+    {
+      "id": "regenerate",
+      "name": "Regenerate",
+      "url": "https://dnd5e.wikidot.com/spell:regenerate",
+      "detailPath": "content/raw/wikidot/spells/details/regenerate.json"
+    },
+    {
+      "id": "resurrection",
+      "name": "Resurrection",
+      "url": "https://dnd5e.wikidot.com/spell:resurrection",
+      "detailPath": "content/raw/wikidot/spells/details/resurrection.json"
+    },
+    {
+      "id": "reverse-gravity",
+      "name": "Reverse Gravity",
+      "url": "https://dnd5e.wikidot.com/spell:reverse-gravity",
+      "detailPath": "content/raw/wikidot/spells/details/reverse-gravity.json"
+    },
+    {
+      "id": "sequester",
+      "name": "Sequester",
+      "url": "https://dnd5e.wikidot.com/spell:sequester",
+      "detailPath": "content/raw/wikidot/spells/details/sequester.json"
+    },
+    {
+      "id": "simulacrum",
+      "name": "Simulacrum",
+      "url": "https://dnd5e.wikidot.com/spell:simulacrum",
+      "detailPath": "content/raw/wikidot/spells/details/simulacrum.json"
+    },
+    {
+      "id": "symbol",
+      "name": "Symbol",
+      "url": "https://dnd5e.wikidot.com/spell:symbol",
+      "detailPath": "content/raw/wikidot/spells/details/symbol.json"
+    },
+    {
+      "id": "teleport",
+      "name": "Teleport",
+      "url": "https://dnd5e.wikidot.com/spell:teleport",
+      "detailPath": "content/raw/wikidot/spells/details/teleport.json"
+    },
+    {
+      "id": "temple-of-the-gods",
+      "name": "Temple of the Gods",
+      "url": "https://dnd5e.wikidot.com/spell:temple-of-the-gods",
+      "detailPath": "content/raw/wikidot/spells/details/temple-of-the-gods.json"
+    },
+    {
+      "id": "tether-essence",
+      "name": "Tether Essence",
+      "url": "https://dnd5e.wikidot.com/spell:tether-essence",
+      "detailPath": "content/raw/wikidot/spells/details/tether-essence.json"
+    },
+    {
+      "id": "whirlwind",
+      "name": "Whirlwind",
+      "url": "https://dnd5e.wikidot.com/spell:whirlwind",
+      "detailPath": "content/raw/wikidot/spells/details/whirlwind.json"
+    },
+    {
+      "id": "abi-dalzims-horrid-wilting",
+      "name": "Abi-Dalzim's Horrid Wilting",
+      "url": "https://dnd5e.wikidot.com/spell:abi-dalzims-horrid-wilting",
+      "detailPath": "content/raw/wikidot/spells/details/abi-dalzims-horrid-wilting.json"
+    },
+    {
+      "id": "animal-shapes",
+      "name": "Animal Shapes",
+      "url": "https://dnd5e.wikidot.com/spell:animal-shapes",
+      "detailPath": "content/raw/wikidot/spells/details/animal-shapes.json"
+    },
+    {
+      "id": "antimagic-field",
+      "name": "Antimagic Field",
+      "url": "https://dnd5e.wikidot.com/spell:antimagic-field",
+      "detailPath": "content/raw/wikidot/spells/details/antimagic-field.json"
+    },
+    {
+      "id": "antipathy-sympathy",
+      "name": "Antipathy/Sympathy",
+      "url": "https://dnd5e.wikidot.com/spell:antipathy-sympathy",
+      "detailPath": "content/raw/wikidot/spells/details/antipathy-sympathy.json"
+    },
+    {
+      "id": "clone",
+      "name": "Clone",
+      "url": "https://dnd5e.wikidot.com/spell:clone",
+      "detailPath": "content/raw/wikidot/spells/details/clone.json"
+    },
+    {
+      "id": "control-weather",
+      "name": "Control Weather",
+      "url": "https://dnd5e.wikidot.com/spell:control-weather",
+      "detailPath": "content/raw/wikidot/spells/details/control-weather.json"
+    },
+    {
+      "id": "dark-star",
+      "name": "Dark Star",
+      "url": "https://dnd5e.wikidot.com/spell:dark-star",
+      "detailPath": "content/raw/wikidot/spells/details/dark-star.json"
+    },
+    {
+      "id": "demiplane",
+      "name": "Demiplane",
+      "url": "https://dnd5e.wikidot.com/spell:demiplane",
+      "detailPath": "content/raw/wikidot/spells/details/demiplane.json"
+    },
+    {
+      "id": "dominate-monster",
+      "name": "Dominate Monster",
+      "url": "https://dnd5e.wikidot.com/spell:dominate-monster",
+      "detailPath": "content/raw/wikidot/spells/details/dominate-monster.json"
+    },
+    {
+      "id": "earthquake",
+      "name": "Earthquake",
+      "url": "https://dnd5e.wikidot.com/spell:earthquake",
+      "detailPath": "content/raw/wikidot/spells/details/earthquake.json"
+    },
+    {
+      "id": "feeblemind",
+      "name": "Feeblemind",
+      "url": "https://dnd5e.wikidot.com/spell:feeblemind",
+      "detailPath": "content/raw/wikidot/spells/details/feeblemind.json"
+    },
+    {
+      "id": "glibness",
+      "name": "Glibness",
+      "url": "https://dnd5e.wikidot.com/spell:glibness",
+      "detailPath": "content/raw/wikidot/spells/details/glibness.json"
+    },
+    {
+      "id": "holy-aura",
+      "name": "Holy Aura",
+      "url": "https://dnd5e.wikidot.com/spell:holy-aura",
+      "detailPath": "content/raw/wikidot/spells/details/holy-aura.json"
+    },
+    {
+      "id": "illusory-dragon",
+      "name": "Illusory Dragon",
+      "url": "https://dnd5e.wikidot.com/spell:illusory-dragon",
+      "detailPath": "content/raw/wikidot/spells/details/illusory-dragon.json"
+    },
+    {
+      "id": "incendiary-cloud",
+      "name": "Incendiary Cloud",
+      "url": "https://dnd5e.wikidot.com/spell:incendiary-cloud",
+      "detailPath": "content/raw/wikidot/spells/details/incendiary-cloud.json"
+    },
+    {
+      "id": "maddening-darkness",
+      "name": "Maddening Darkness",
+      "url": "https://dnd5e.wikidot.com/spell:maddening-darkness",
+      "detailPath": "content/raw/wikidot/spells/details/maddening-darkness.json"
+    },
+    {
+      "id": "maze",
+      "name": "Maze",
+      "url": "https://dnd5e.wikidot.com/spell:maze",
+      "detailPath": "content/raw/wikidot/spells/details/maze.json"
+    },
+    {
+      "id": "mighty-fortress",
+      "name": "Mighty Fortress",
+      "url": "https://dnd5e.wikidot.com/spell:mighty-fortress",
+      "detailPath": "content/raw/wikidot/spells/details/mighty-fortress.json"
+    },
+    {
+      "id": "mind-blank",
+      "name": "Mind Blank",
+      "url": "https://dnd5e.wikidot.com/spell:mind-blank",
+      "detailPath": "content/raw/wikidot/spells/details/mind-blank.json"
+    },
+    {
+      "id": "power-word-stun",
+      "name": "Power Word: Stun",
+      "url": "https://dnd5e.wikidot.com/spell:power-word-stun",
+      "detailPath": "content/raw/wikidot/spells/details/power-word-stun.json"
+    },
+    {
+      "id": "reality-break",
+      "name": "Reality Break",
+      "url": "https://dnd5e.wikidot.com/spell:reality-break",
+      "detailPath": "content/raw/wikidot/spells/details/reality-break.json"
+    },
+    {
+      "id": "sunburst",
+      "name": "Sunburst",
+      "url": "https://dnd5e.wikidot.com/spell:sunburst",
+      "detailPath": "content/raw/wikidot/spells/details/sunburst.json"
+    },
+    {
+      "id": "telepathy",
+      "name": "Telepathy",
+      "url": "https://dnd5e.wikidot.com/spell:telepathy",
+      "detailPath": "content/raw/wikidot/spells/details/telepathy.json"
+    },
+    {
+      "id": "tsunami",
+      "name": "Tsunami",
+      "url": "https://dnd5e.wikidot.com/spell:tsunami",
+      "detailPath": "content/raw/wikidot/spells/details/tsunami.json"
+    },
+    {
+      "id": "astral-projection",
+      "name": "Astral Projection",
+      "url": "https://dnd5e.wikidot.com/spell:astral-projection",
+      "detailPath": "content/raw/wikidot/spells/details/astral-projection.json"
+    },
+    {
+      "id": "blade-of-disaster",
+      "name": "Blade of Disaster",
+      "url": "https://dnd5e.wikidot.com/spell:blade-of-disaster",
+      "detailPath": "content/raw/wikidot/spells/details/blade-of-disaster.json"
+    },
+    {
+      "id": "foresight",
+      "name": "Foresight",
+      "url": "https://dnd5e.wikidot.com/spell:foresight",
+      "detailPath": "content/raw/wikidot/spells/details/foresight.json"
+    },
+    {
+      "id": "gate",
+      "name": "Gate",
+      "url": "https://dnd5e.wikidot.com/spell:gate",
+      "detailPath": "content/raw/wikidot/spells/details/gate.json"
+    },
+    {
+      "id": "imprisonment",
+      "name": "Imprisonment",
+      "url": "https://dnd5e.wikidot.com/spell:imprisonment",
+      "detailPath": "content/raw/wikidot/spells/details/imprisonment.json"
+    },
+    {
+      "id": "invulnerability",
+      "name": "Invulnerability",
+      "url": "https://dnd5e.wikidot.com/spell:invulnerability",
+      "detailPath": "content/raw/wikidot/spells/details/invulnerability.json"
+    },
+    {
+      "id": "mass-heal",
+      "name": "Mass Heal",
+      "url": "https://dnd5e.wikidot.com/spell:mass-heal",
+      "detailPath": "content/raw/wikidot/spells/details/mass-heal.json"
+    },
+    {
+      "id": "mass-polymorph",
+      "name": "Mass Polymorph",
+      "url": "https://dnd5e.wikidot.com/spell:mass-polymorph",
+      "detailPath": "content/raw/wikidot/spells/details/mass-polymorph.json"
+    },
+    {
+      "id": "meteor-swarm",
+      "name": "Meteor Swarm",
+      "url": "https://dnd5e.wikidot.com/spell:meteor-swarm",
+      "detailPath": "content/raw/wikidot/spells/details/meteor-swarm.json"
+    },
+    {
+      "id": "power-word-heal",
+      "name": "Power Word: Heal",
+      "url": "https://dnd5e.wikidot.com/spell:power-word-heal",
+      "detailPath": "content/raw/wikidot/spells/details/power-word-heal.json"
+    },
+    {
+      "id": "power-word-kill",
+      "name": "Power Word: Kill",
+      "url": "https://dnd5e.wikidot.com/spell:power-word-kill",
+      "detailPath": "content/raw/wikidot/spells/details/power-word-kill.json"
+    },
+    {
+      "id": "prismatic-wall",
+      "name": "Prismatic Wall",
+      "url": "https://dnd5e.wikidot.com/spell:prismatic-wall",
+      "detailPath": "content/raw/wikidot/spells/details/prismatic-wall.json"
+    },
+    {
+      "id": "psychic-scream",
+      "name": "Psychic Scream",
+      "url": "https://dnd5e.wikidot.com/spell:psychic-scream",
+      "detailPath": "content/raw/wikidot/spells/details/psychic-scream.json"
+    },
+    {
+      "id": "ravenous-void",
+      "name": "Ravenous Void",
+      "url": "https://dnd5e.wikidot.com/spell:ravenous-void",
+      "detailPath": "content/raw/wikidot/spells/details/ravenous-void.json"
+    },
+    {
+      "id": "shapechange",
+      "name": "Shapechange",
+      "url": "https://dnd5e.wikidot.com/spell:shapechange",
+      "detailPath": "content/raw/wikidot/spells/details/shapechange.json"
+    },
+    {
+      "id": "storm-of-vengeance",
+      "name": "Storm of Vengeance",
+      "url": "https://dnd5e.wikidot.com/spell:storm-of-vengeance",
+      "detailPath": "content/raw/wikidot/spells/details/storm-of-vengeance.json"
+    },
+    {
+      "id": "time-ravage",
+      "name": "Time Ravage",
+      "url": "https://dnd5e.wikidot.com/spell:time-ravage",
+      "detailPath": "content/raw/wikidot/spells/details/time-ravage.json"
+    },
+    {
+      "id": "time-stop",
+      "name": "Time Stop",
+      "url": "https://dnd5e.wikidot.com/spell:time-stop",
+      "detailPath": "content/raw/wikidot/spells/details/time-stop.json"
+    },
+    {
+      "id": "true-polymorph",
+      "name": "True Polymorph",
+      "url": "https://dnd5e.wikidot.com/spell:true-polymorph",
+      "detailPath": "content/raw/wikidot/spells/details/true-polymorph.json"
+    },
+    {
+      "id": "true-resurrection",
+      "name": "True Resurrection",
+      "url": "https://dnd5e.wikidot.com/spell:true-resurrection",
+      "detailPath": "content/raw/wikidot/spells/details/true-resurrection.json"
+    },
+    {
+      "id": "weird",
+      "name": "Weird",
+      "url": "https://dnd5e.wikidot.com/spell:weird",
+      "detailPath": "content/raw/wikidot/spells/details/weird.json"
+    },
+    {
+      "id": "wish",
+      "name": "Wish",
+      "url": "https://dnd5e.wikidot.com/spell:wish",
+      "detailPath": "content/raw/wikidot/spells/details/wish.json"
+    }
+  ]
+}

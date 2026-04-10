@@ -1,0 +1,73 @@
+{
+  "id": "reborn-traits",
+  "name": "Reborn Traits",
+  "summary": "Ability Score Increase.Increase one ability score by 2 and increase a different one by 1, or increase three different ability scores by 1. If you are replacing your race with this lineage, replace any Ability Score Increase you previously had with this.",
+  "bonuses": [
+    "Ability Score Increase.Increase one ability score by 2 and increase a different one by 1, or increase three different ability scores by 1. If you are replacing your race with this lineage, replace any Ability Score Increase you previously had with this.",
+    "Creature Type.You are a Humanoid.",
+    "Size.You are Medium or Small. You choose the size when you gain this lineage.",
+    "Speed.Your walking speed is 30 feet.",
+    "Deathless Nature.You have escaped death, a fact represented by the following benefits: You have advantage on saving throws against disease and being poisoned, and you have resistance to poison damage.",
+    "You have advantage on death saving throws."
+  ],
+  "traits": [
+    {
+      "id": "creature-type",
+      "name": "Creature Type",
+      "summary": "You are a Humanoid."
+    },
+    {
+      "id": "ancestral-legacy",
+      "name": "Ancestral Legacy",
+      "summary": "If you replace a race with this lineage, you can keep the following elements of that race: any skill proficiencies you gained from it and any climbing, flying, or swimming speed you gained from it. If you don't keep any of those elements or you choose this lineage at character creation, you gain proficiency in two skills of your choice."
+    },
+    {
+      "id": "deathless-nature",
+      "name": "Deathless Nature",
+      "summary": "You have escaped death, a fact represented by the following benefits: You have advantage on saving throws against disease and being poisoned, and you have resistance to poison damage."
+    },
+    {
+      "id": "knowledge-from-a-past-life",
+      "name": "Knowledge from a Past Life",
+      "summary": "You temporarily remember glimpses of the past, perhaps faded memories from ages ago or a previous life. When you make an ability check that uses a skill, you can roll a d6 immediately after seeing the number on the d20 and add the number on the d6 to the check. You can use this feature a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest."
+    },
+    {
+      "id": "1you-recall-a-physically-painful-moment",
+      "name": "1You recall a physically painful moment",
+      "summary": "What mark or scar on your body does it relate to?"
+    },
+    {
+      "id": "2a-memory-causes-you-to-shed-a-tear",
+      "name": "2A memory causes you to shed a tear",
+      "summary": "Is it a bitter or cheerful memory? Does recalling it make you feel the same way?"
+    },
+    {
+      "id": "3you-recall-a-childhood-memory",
+      "name": "3You recall a childhood memory",
+      "summary": "What about that event or who you were still influences you?"
+    },
+    {
+      "id": "type",
+      "name": "Type",
+      "summary": "Humanoid, as well as Construct or Undead (choose when you gain this lineage)"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Ability Score Increase",
+      "value": "Increase one ability score by 2 and increase a different one by 1, or increase three different ability scores by 1. If you are replacing your race with this lineage, replace any Ability Score Increase you previously had with this."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character. If you are replacing your race with this lineage, you retain any languages you had and gain no new languages."
+    },
+    {
+      "label": "Size",
+      "value": "You are Medium or Small. You choose the size when you gain this lineage."
+    },
+    {
+      "label": "Speed",
+      "value": "Your walking speed is 30 feet."
+    }
+  ]
+}

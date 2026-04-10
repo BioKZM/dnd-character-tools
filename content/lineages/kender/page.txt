@@ -1,0 +1,100 @@
+Kender - DND 5th Editionvar URL_HOST = 'www.wikidot.com'; var URL_DOMAIN = 'wikidot.com'; var USE_SSL = true ; var URL_STATIC = 'https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc'; // global request information var WIKIREQUEST = {}; WIKIREQUEST.info = {}; WIKIREQUEST.info.domain = "dnd5e.wikidot.com"; WIKIREQUEST.info.siteId = 1475899; WIKIREQUEST.info.siteUnixName = "dnd5e"; WIKIREQUEST.info.categoryId = 40932043; WIKIREQUEST.info.themeId = 2386862; WIKIREQUEST.info.requestPageName = "lineage:kender"; OZONE.request.timestamp = 1775782496; OZONE.request.date = new Date(); WIKIREQUEST.info.lang = 'en'; WIKIREQUEST.info.pageUnixName = "lineage:kender"; WIKIREQUEST.info.pageId = 1445413159; WIKIREQUEST.info.lang = "en"; OZONE.lang = "en"; var isUAMobile = !!/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);require.config({ baseUrl: URL_STATIC + '/common--javascript', paths: { 'jquery.ui': 'jquery-ui.min', 'jquery.form': 'jquery.form' } });/* modules */ /* bootstrap */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--bootstrap/3.2.0/bootstrap.min.css); /* theme */ @import url(https://d3g0gp89917ko0.cloudfront.net/v--7690939296dc/common--theme/bootstrap-base/css/style.css); @import url(https://dnd5e.wdfiles.com/local--theme/standard-yellow/style.css);var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-18234656-1']); _gaq.push(['_setDomainName', 'none']); _gaq.push(['_setAllowLinker', true]); _gaq.push(['_trackPageview']); _gaq.push(['old._setAccount', 'UA-68540-5']); _gaq.push(['old._setDomainName', 'none']); _gaq.push(['old._setAllowLinker', true]); _gaq.push(['old._trackPageview']);window.google_analytics_uacct = 'UA-18234656-1'; window.google_analytics_domain_name = 'none';var OneSignal = window.OneSignal || []; OneSignal.push(function() { OneSignal.init({ appId: null, }); });.admins-only, li.admins-only{ display: none; }window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{window.nitroAds.queue.push(["createAd",arguments,e])})},addUserToken:function(){window.nitroAds.queue.push(["addUserToken",arguments])},queue:[]};
+
+DND 5th Edition
+
+community wiki
+
+Create accountorSign in
+
+Toggle navigationHome
+
+About
+
+Membership
+
+Help Docs
+User Guide
+
+First Time User
+
+Quick Reference
+
+Creating Pages
+
+Editing Pages
+
+Navigation Bars
+
+Using Modules
+
+Templates
+
+CSS Themes
+
+Site Manager
+
+Edit Top Bar
+
+Edit Side Bar
+
+CSS Manager
+
+Recent Changes
+
+List All Pages
+
+Menu
+
+You should be logged in to clone a site.
+
+Site Navigation
+
+User Guide
+
+First Time User
+
+About
+
+Contact
+
+Legal
+
+Discussion Forums
+
+Members
+
+Create a Page
+
+window['nitroAds'].createAd('wad-dnd5e-below-sidebar', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 160, 600 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 1000px)" });
+
+Kender
+
+window['nitroAds'].createAd('wad-dnd5e-above-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 728, 90 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" }, "mediaQuery": "(min-width: 768px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-above-content-mobile', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 320, 50 ], [320, 100] ], "report": { "enabled": true, "icon": true, "wording": "Report Ad", "position": "top-right" }, "mediaQuery": "(min-width: 320px) and (max-width: 767px)" });
+
+During the mythical origins of Krynn, Reorx, god of craft, indulged in an age of unfettered creation. Many peoples sprang from his divine forge, but not all among them remained as the god created them. Altered by unbridled magic, a group of gnomes were transformed and given almost supernatural curiosity and fearlessness. These were the first kender.\nOriginating on the world of Krynn, kender are diminutive Humanoids who look like humans with pointed ears and diverse appearances. Kender have a supernatural curiosity that drives them to adventure. Due to this inquisitiveness, many kender find themselves falling through portals to other planes and worlds.\nKender sometimes amass impressive collections of curiosities. Some might collect mundane knickknacks or relics from magical sites, while others might become professional thieves.
+
+Kender Traits
+
+Source: Dragonlance: Shadow of the Dragon Queen
+
+Ability Score Increase.Increase one ability score by 2, and increase a different one by 1, or increase three different scores by 1.
+
+Creature Type.You are a Humanoid.
+
+Size.You are Small.
+
+Speed.Your walking speed is 30 feet.
+
+Fearless.You have advantage on saving throws you make to avoid or end the frightened condition on yourself. When you fail a saving throw to avoid or end the frighted condition on yourself, you can choose to succeed instead. Once you succeed on a saving throw in this way, you can't do so again until you finish a long rest.
+
+Kender Aptitude.Thanks to the mystical origin of your people, you gain proficiency with one of the following skills of your choice: Insight, Investigation, Sleight of Hand, Stealth, or Survival.
+
+Taunt.You have an extraordinary ability to fluster creatures. As a bonus action, you can unleash a string of provoking words at a creature within 60 feet of yourself that can hear and understand you. The target must succeed on a Wisdom saving throw or it has disadvantage on attack rolls against targets other than you until the start of your next turn. The DC equals 8 + your proficiency bonus + your Intelligence, Wisdom, or Charisma modifier (choose when you select this race). You can use this bonus action a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest.
+
+Languages.You can speak, read, and write Common and one other language that you and your DM agree is appropriate for the character.
+
+window['nitroAds'].createAd('wad-dnd5e-floating-video', { "refreshTime": 30, "format": "floating", "mediaQuery": "(min-width: 1025px)" });
+
+window['nitroAds'].createAd('wad-dnd5e-below-content', { "refreshTime": 30, "renderVisibleOnly": false, "refreshVisibleOnly": true, "sizes": [ [ 300, 250 ] ], "report": { "enabled": true, "wording": "Report Ad", "position": "bottom-right" } });

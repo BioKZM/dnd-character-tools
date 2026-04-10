@@ -1,0 +1,73 @@
+{
+  "id": "custom-lineage",
+  "name": "Custom Lineage",
+  "summary": "window['nitroAds'].createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });",
+  "bonuses": [
+    "Source: Tasha's Cauldron of Everything",
+    "Instead of choosing one of the game's races for your character at 1st level, you can use the following traits to represent your character's lineage, giving you full control over how your character's origin shaped them:",
+    "Creature type.You are a humanoid. You determine your appearance and whether you resemble any of your kin.",
+    "Size.You are Small or Medium (your choice).",
+    "Speed.Your base walking speed is 30 feet.",
+    "Ability Score Increase.One ability score of your choice increases by 2."
+  ],
+  "traits": [
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 728, 90 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 768px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-above-content-mobile', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 320, 50 ], [320, 100] ], \"report\": { \"enabled\": true, \"icon\": true, \"wording\": \"Report Ad\", \"position\": \"top-right\" }, \"mediaQuery\": \"(min-width: 320px) and (max-width: 767px)\" });"
+    },
+    {
+      "id": "creature-type",
+      "name": "Creature type",
+      "summary": "You are a humanoid. You determine your appearance and whether you resemble any of your kin."
+    },
+    {
+      "id": "feat",
+      "name": "Feat",
+      "summary": "You gain one feat of your choice for which you qualify."
+    },
+    {
+      "id": "variable-trait",
+      "name": "Variable Trait",
+      "summary": ". You gain one of the following options of your choice: Darkvision with a range of 60 feet."
+    },
+    {
+      "id": "proficiency-in-one-skill-of-your-choice",
+      "name": "Proficiency in one skill of your choice",
+      "summary": ""
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-floating-video', { \"refreshTime\": 30, \"format\": \"floating\", \"mediaQuery\": \"(min-width: 1025px)\" });"
+    },
+    {
+      "id": "window-nitroads",
+      "name": "window['nitroAds']",
+      "summary": "createAd('wad-dnd5e-below-content', { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 300, 250 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" } });"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Size",
+      "value": "You are Small or Medium (your choice)."
+    },
+    {
+      "label": "Speed",
+      "value": "Your base walking speed is 30 feet."
+    },
+    {
+      "label": "Ability Score Increase",
+      "value": "One ability score of your choice increases by 2."
+    },
+    {
+      "label": "Languages",
+      "value": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate for your character."
+    }
+  ]
+}

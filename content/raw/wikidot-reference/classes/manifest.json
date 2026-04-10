@@ -1,0 +1,20 @@
+{
+  "target": "classes",
+  "entryCount": 13,
+  "fetchedCount": 13,
+  "errorCount": 0,
+  "publishedCount": 13,
+  "collections": [
+    {
+      "collection": "classes",
+      "indexUrl": "https://dnd5e.wikidot.com/",
+      "entryCount": 13,
+      "status": "ok"
+    }
+  ],
+  "durationSeconds": 12.0,
+  "artifacts": {
+    "all": "content/raw/wikidot-reference/classes/all.json",
+    "published": "content/raw/wikidot-reference/classes/published.json"
+  }
+}

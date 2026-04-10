@@ -1,0 +1,1063 @@
+[
+  {
+    "id": "aarakocra",
+    "name": "Aarakocra",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "A winged people who originated on the Elemental Plane of Air, aarakocra soar through the sky wherever they wander. The first aarakocra served the Wind Dukes of Aaqa — mighty beings of air — and were imbued with a measure of their masters’ power over winds. Their descendants still command echoes of that power."
+      }
+    ],
+    "source": "Mordenkainen Presents: Monsters of the Multiverse"
+  },
+  {
+    "id": "aasimar",
+    "name": "Aasimar",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Whether descended from a celestial being or infused with heavenly power, aasimar are mortals who carry a spark of the Upper Planes within their souls. They can fan that spark to bring light, ease wounds, and unleash the fury of the heavens."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "aetherborn",
+    "name": "Aetherborn",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Aetherborn come into being spontaneously as part of the aether refinement process. Their bodies and minds are apparently formed out of some interaction between the volatile elements of aether that are removed during refinement and the psychic impressions created by the people involved in the process. But each aetherborn is a unique individual, not a mere copy of some other person’s mind and shape. This race is little understood, and few aetherborn are willing to waste any of their short lives allowing vedalken scholars to study their biological and psychological characteristics."
+      }
+    ],
+    "source": "Plane Shift - Kaladesh"
+  },
+  {
+    "id": "elf-astral",
+    "name": "Astral Elf",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Long ago, groups of elves ventured from the Feywild to the Astral Plane to be closer to their gods. Life in the Silver Void has imbued their souls with a spark of divine light. That light manifests as a starry gleam in an astral elf's eyes."
+      }
+    ],
+    "source": "Astral Adventurer's Guide"
+  },
+  {
+    "id": "autognome",
+    "name": "Autognome",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Autognomes are mechanical beings built by rock gnomes. Sometimes, because of a malfunction or a unique circumstance, an autognome becomes separated from its creator and strikes out on its own."
+      }
+    ],
+    "source": "Spelljammer: Adventures in Space - Astral Adventurer's Guide"
+  },
+  {
+    "id": "aven",
+    "name": "Aven",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Aven have humanlike bodies, arms, and legs, along with birdlike wings and heads. Two distinct varieties of aven are found in Naktamun. One has the head of a hawk or similar bird of prey, with short wings allowing fast flight. The other variety has the head of an ibis atop a long neck, with wide, angular wings better suited to soaring. All aven have lean bodies with feathers extending from their heads down to their shoulders."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "bugbear",
+    "name": "Bugbear",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Neither bugs nor bears, bugbears are the hulking cousins of goblins and hobgoblins. With roots in the Feywild, early bugbears resided in hidden places, in hard-to-reach and shadowed spaces. Long ago and from out of the corner of your eye, they came to the Material Plane, urged to spread throughout the multiverse by the conquering god Maglubiyet. Centuries later, they still bear a fey gift for lurking just out of sight, and many of them have sneaked away from that god’s influence."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "centaur",
+    "name": "Centaur",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Centaurs gallop throughout the multiverse and trace their origins to many different realms. The centaurs presented here hail from the Feywild and mystically resonate with the natural world. From the waist up, they resemble elves, displaying all the elf varieties of skin tone. From the waist down, they have the bodies of horses."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "custom-lineage",
+    "name": "Custom Lineage",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Instead of choosing one of the game's races for your character at 1st level, you can use the following traits to represent your character's lineage, giving you full control over how your character's origin shaped them:"
+      }
+    ],
+    "source": "Tasha's Cauldron of Everything"
+  },
+  {
+    "id": "deep-gnome",
+    "name": "Deep Gnome",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Deep gnomes, or svirfneblin, are natives of the Underdark and are suffused with that subterranean realm’s magic. They can supernaturally camouflage themselves, and their svirfneblin magic renders them difficult to locate. These abilities have enabled them to survive for generations among the perils of the Underdark."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "dragonborn",
+    "name": "Dragonborn",
+    "traits": [
+      {
+        "id": "draconic-ancestry",
+        "name": "Draconic Ancestry",
+        "summary": "Your draconic lineage determines the element tied to your breath and resistance."
+      },
+      {
+        "id": "breath-weapon",
+        "name": "Breath Weapon",
+        "summary": "Dragonborn can exhale destructive energy in a shape determined by their ancestry."
+      },
+      {
+        "id": "damage-resistance",
+        "name": "Damage Resistance",
+        "summary": "Your lineage grants resistance against the energy of your draconic ancestor."
+      }
+    ]
+  },
+  {
+    "id": "drow",
+    "name": "Drow",
+    "traits": [
+      {
+        "id": "superior-darkvision",
+        "name": "Superior Darkvision",
+        "summary": "Drow are adapted to the Underdark and can see much farther through darkness than other elves."
+      },
+      {
+        "id": "keen-senses",
+        "name": "Keen Senses",
+        "summary": "Your perceptive training grants proficiency in Perception."
+      },
+      {
+        "id": "fey-ancestry",
+        "name": "Fey Ancestry",
+        "summary": "Your elven blood resists charm and magical sleep."
+      },
+      {
+        "id": "trance",
+        "name": "Trance",
+        "summary": "You rest through a meditative trance instead of ordinary sleep."
+      },
+      {
+        "id": "sunlight-sensitivity",
+        "name": "Sunlight Sensitivity",
+        "summary": "Bright sunlight is painfully harsh for drow, making attacks and sight-based perception harder."
+      },
+      {
+        "id": "drow-magic",
+        "name": "Drow Magic",
+        "summary": "Innate spells tied to the Underdark awaken as you gain experience."
+      },
+      {
+        "id": "drow-weapon-training",
+        "name": "Drow Weapon Training",
+        "summary": "Drow drill with rapiers, shortswords, and hand crossbows."
+      }
+    ]
+  },
+  {
+    "id": "duergar",
+    "name": "Duergar",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Duergar are dwarves whose ancestors were transformed by centuries living in the deepest places of the Underdark. That chthonic realm is saturated with strange magical energy, and over generations, early duergar absorbed traces of it. They were further altered when mind flayers and other Aberrations invaded and performed horrific experiments on them. Fueled by Underdark magic, those experiments left early duergar with psionic powers, which have been passed down to their descendants. In time, they liberated themselves from their aberrant tyrants and forged a new life for themselves in the Underdark and beyond."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "dwarf",
+    "name": "Dwarf",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Kingdoms rich in ancient grandeur, halls carved into the roots of mountains, the echoing of picks and hammers in deep mines and blazing forges, a commitment to clan and tradition, and a burning hatred of goblins and orcs – these common threads unite all dwarves."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "eladrin",
+    "name": "Eladrin",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Eladrin are elves of the Feywild, a realm of perilous beauty and boundless magic. Using that magic, eladrin can step from one place to another in the blink of an eye, and each eladrin resonates with emotions captured in the Feywild in the form of seasons — affinities that affect the eladrin’s mood and appearance. An eladrin’s season can change, though some remain in one season forever. Choose your season or roll on the Eladrin Seasons table. Your Trance trait lets you change your season."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "elf",
+    "name": "Elf",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Elves are a magical people of otherworldly grace, living in places of ethereal beauty, in the midst of ancient forests or in silvery spires glittering with faerie light, where soft music drifts through the air and gentle fragrances waft on the breeze. Elves love nature and magic, art and artistry, music and poetry."
+      }
+    ],
+    "source": "Astral Adventurer's Guide"
+  },
+  {
+    "id": "firbolg",
+    "name": "Firbolg",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Distant cousins of giants, the first firbolgs wandered the primeval forests of the multiverse, and the magic of those forests entwined itself with the firbolgs’ souls. Centuries later, that magic still thrums inside a firbolg, even one who has never lived under the boughs of a great forest."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "forest-gnome",
+    "name": "Forest Gnome",
+    "traits": [
+      {
+        "id": "darkvision",
+        "name": "Darkvision",
+        "summary": "Gnomish eyes are at home in dim spaces and darkness."
+      },
+      {
+        "id": "gnome-cunning",
+        "name": "Gnome Cunning",
+        "summary": "Gnomes have unusual mental resilience against magic that targets mind and senses."
+      },
+      {
+        "id": "natural-illusionist",
+        "name": "Natural Illusionist",
+        "summary": "Forest gnomes know minor illusion naturally."
+      },
+      {
+        "id": "speak-with-small-beasts",
+        "name": "Speak with Small Beasts",
+        "summary": "Forest gnomes have a limited but useful rapport with tiny woodland animals."
+      }
+    ]
+  },
+  {
+    "id": "genasi-air",
+    "name": "Genasi (Air)",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Tracing their ancestry to the genies of the Elemental Planes, each genasi can tap into the power of one of the elements. Air, earth, fire, and water — these are the four pillars of the Material Plane and the four types of genasi. Some genasi are direct descendants of a genie, while others were born to non-genasi parents who lived near a place suffused by a genie’s magic."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "genasi-earth",
+    "name": "Genasi (Earth)",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Tracing their ancestry to the genies of the Elemental Planes, each genasi can tap into the power of one of the elements. Air, earth, fire, and water — these are the four pillars of the Material Plane and the four types of genasi. Some genasi are direct descendants of a genie, while others were born to non-genasi parents who lived near a place suffused by a genie’s magic."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "genasi-fire",
+    "name": "Genasi (Fire)",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Tracing their ancestry to the genies of the Elemental Planes, each genasi can tap into the power of one of the elements. Air, earth, fire, and water — these are the four pillars of the Material Plane and the four types of genasi. Some genasi are direct descendants of a genie, while others were born to non-genasi parents who lived near a place suffused by a genie’s magic."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "genasi-water",
+    "name": "Genasi (Water)",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Tracing their ancestry to the genies of the Elemental Planes, each genasi can tap into the power of one of the elements. Air, earth, fire, and water — these are the four pillars of the Material Plane and the four types of genasi. Some genasi are direct descendants of a genie, while others were born to non-genasi parents who lived near a place suffused by a genie’s magic."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "giff",
+    "name": "Giff",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Giff are tall, broad-shouldered folk with hippo-like features. Some have smooth skin, while others have short bristles on their faces and the tops of their heads. As beings of impressive size and unforgettable appearance, giff are noticed wherever they go."
+      }
+    ],
+    "source": "Spelljammer: Adventures in Space - Astral Adventurer's Guide"
+  },
+  {
+    "id": "githyanki",
+    "name": "Githyanki",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Once members of a people who escaped servitude to mind flayers, githyanki split from their cousins, githzerai, and fled to the Astral Plane. In that timeless, silvery realm, githyanki honed their psionic powers and built a great city called Tu’narath. They have since spread throughout the multiverse, starting in outposts outside the Astral Plane, called creches, where time passes and their children can reach adulthood."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "githzerai",
+    "name": "Githzerai",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Githzerai migrated to the Everchanging Chaos of Limbo after the ancient schism that split their ancestors from their cousins, githyanki. Limbo is a roiling maelstrom of matter and energy, collapsing and reforming without purpose or direction, until a creature exerts deliberate will to stabilize it. Through their potent psionic power, githzerai carved a home for themselves amid the chaos. As the ages passed, githzerai explorers ranged out to other planes and worlds of the multiverse."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "gnome",
+    "name": "Gnome",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "A constant hum of busy activity pervades the warrens and neighborhoods where gnomes form their close-knit communities. Louder sounds punctuate the hum: a crunch of grinding gears here, a minor explosion there, a yelp of surprise or triumph, and especially bursts of laughter. Gnomes take delight in life, enjoying every moment of invention, exploration, investigation, creation, and play."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "goblin",
+    "name": "Goblin",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "A subterranean folk, goblins can be found in every corner of the multiverse, often beside their bugbear and hobgoblin kin. Long before the god Maglubiyet conquered them, early goblins served in the court of the Queen of Air and Darkness, one of the Feywild’s archfey. Goblins thrived in her dangerous domain thanks to a special boon from her—a supernatural knack for finding the weak spots in foes larger than themselves and for getting out of trouble. Goblins brought this fey boon with them to worlds across the Material Plane, even if they don’t remember the fey realm they inhabited before Maglubiyet’s rise. Now many goblins pursue their own destinies, escaping the plots of both archfey and gods."
+      }
+    ],
+    "source": "Adventures with Muk, Extra Life 2019"
+  },
+  {
+    "id": "goliath",
+    "name": "Goliath",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "The first goliaths lived on the highest mountain peaks — far above the tree line, where the air is thin and frigid winds howl. Distantly related to giants and infused with the supernatural essence of their ancestors’ mountainous home, goliaths stand between 7 and 8 feet tall and have a wide array of skin tones resembling different types of stone."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "grung",
+    "name": "Grung",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Grungs are aggressive froglike humanoids found in rain forests and tropical jungles. They are fiercely territorial and see themselves as superior to most other creatures."
+      }
+    ],
+    "source": "One Grung Above, Extra Life 2017"
+  },
+  {
+    "id": "hadozee",
+    "name": "Hadozee",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Hadozees’ progenitors were mammals no bigger than housecats. Hunted by larger natural predators, they took to the trees and evolved wing-like flaps that enabled them to glide from branch to branch."
+      }
+    ],
+    "source": "Spelljammer: Adventures in Space - Astral Adventurer's Guide"
+  },
+  {
+    "id": "half-elf",
+    "name": "Half-Elf",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Walking in two worlds but truly belonging to neither, half-elves combine what some say are the best qualities of their elf and human parents: human curiosity, inventiveness, and ambition tempered by the refined senses, love of nature, and artistic tastes of the elves."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "half-orc",
+    "name": "Half-Orc",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "When alliances between humans and orcs are sealed by marriages, half-orcs are born. Some half-orcs rise to become proud chiefs of orc tribes, their human blood giving them an edge over their full-blooded orc rivals. Some venture into the world to prove their worth among humans and other more civilized races. Many of these become adventurers, achieving greatness for their mighty deeds and notoriety for their barbaric customs and savage fury."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "halfling",
+    "name": "Halfling",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "The comforts of home are the goals of most halflings' lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies. Others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. Halflings work readily with others, and they are loyal to their friends, whether halfling or otherwise. They can display remarkable ferocity when their friends, families, or communities are threatened."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "harengon",
+    "name": "Harengon",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Harengons originated in the Feywild, where they spoke Sylvan and embodied the spirit of freedom and travel. In time, these rabbitfolk hopped into other worlds, bringing the fey realm’s exuberance with them and learning new languages as they went."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "high-elf",
+    "name": "High Elf",
+    "traits": [
+      {
+        "id": "darkvision",
+        "name": "Darkvision",
+        "summary": "Elven eyes carry moonlit clarity, letting you see in dim light and darkness better than humans."
+      },
+      {
+        "id": "keen-senses",
+        "name": "Keen Senses",
+        "summary": "Your perceptive training grants proficiency in Perception."
+      },
+      {
+        "id": "fey-ancestry",
+        "name": "Fey Ancestry",
+        "summary": "Your elven blood resists charm and magical sleep."
+      },
+      {
+        "id": "trance",
+        "name": "Trance",
+        "summary": "You rest through a meditative trance instead of ordinary sleep."
+      },
+      {
+        "id": "elf-weapon-training",
+        "name": "Elf Weapon Training",
+        "summary": "High elven tradition includes longsword, shortsword, shortbow, and longbow training."
+      },
+      {
+        "id": "cantrip",
+        "name": "Cantrip",
+        "summary": "High elves learn a wizard cantrip, reflecting their long arcane tradition."
+      },
+      {
+        "id": "extra-language",
+        "name": "Extra Language",
+        "summary": "High elf culture is scholarly and cosmopolitan, granting one additional language."
+      }
+    ]
+  },
+  {
+    "id": "hill-dwarf",
+    "name": "Hill Dwarf",
+    "traits": [
+      {
+        "id": "darkvision",
+        "name": "Darkvision",
+        "summary": "Accustomed to life below the surface, you can see in dim light and darkness better than most folk."
+      },
+      {
+        "id": "dwarven-resilience",
+        "name": "Dwarven Resilience",
+        "summary": "You have advantage against poison and a stout resistance to poisonous harm."
+      },
+      {
+        "id": "dwarven-combat-training",
+        "name": "Dwarven Combat Training",
+        "summary": "Traditional dwarven warcraft trains you with battleaxes, handaxes, light hammers, and warhammers."
+      },
+      {
+        "id": "tool-proficiency",
+        "name": "Tool Proficiency",
+        "summary": "Clan craft teaches proficiency with artisan's tools tied to smithing, brewing, or masonry."
+      },
+      {
+        "id": "stonecunning",
+        "name": "Stonecunning",
+        "summary": "Your people know stonework instinctively, helping you read the history and structure of worked stone."
+      },
+      {
+        "id": "dwarven-toughness",
+        "name": "Dwarven Toughness",
+        "summary": "Hill dwarves are especially hardy, gaining extra staying power as they level."
+      }
+    ]
+  },
+  {
+    "id": "human",
+    "name": "Human",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that's why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "kender",
+    "name": "Kender",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "During the mythical origins of Krynn, Reorx, god of craft, indulged in an age of unfettered creation. Many peoples sprang from his divine forge, but not all among them remained as the god created them. Altered by unbridled magic, a group of gnomes were transformed and given almost supernatural curiosity and fearlessness. These were the first kender."
+      }
+    ],
+    "source": "Dragonlance: Shadow of the Dragon Queen"
+  },
+  {
+    "id": "kenku",
+    "name": "Kenku",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Feathered folk who resemble ravens, kenku are blessed with keen observation and supernaturally accurate memories. None of them can remember the origin of the first kenku, however, and they often joke that there are as many kenku origin stories as there are kenku. Some of them paint their genesis as a curse, being a flightless bird people doomed to mimic other people’s creations. Other kenku recite cryptic but beautiful poems about their advent being a blessed event in which they were sent into the multiverse to observe and catalog its many wonders."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "khenra",
+    "name": "Khenra",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "The khenra of Amonkhet are tall and lean, with graceful bodies and heads that strongly resemble jackals. Their snouts are long and sharp, and their angular ears rise straight above their heads. Their bodies are covered in dark, sleek hair that ranges from the brown of the desert sands to ebony black. Despite their sharp teeth, they consider biting to be an uncouth and unworthy combat tactic."
+      }
+    ],
+    "source": "Plane Shift - Amonkhet"
+  },
+  {
+    "id": "kor",
+    "name": "Kor",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Deeply reverent of the land and its sacred sites, the nomadic kor live a spare existence defined by their constant travels. Masters of ropes and hooks, they scale sheer cliffs and cross yawning chasms with such skill and agility that they sometimes seem almost to take flight."
+      }
+    ],
+    "source": "Plane Shift - Zendikar"
+  },
+  {
+    "id": "leonin",
+    "name": "Leonin",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "The leonin guard the shining lands of Oreskos, a golden plain where even the gods rarely trespass. Prides of these nomadic, lion-like humanoids rarely interact with other peoples, having all they need in their shimmering homeland and knowing the treachery of strangers. Still, some leonin wonder what lies beyond Oreskos’s border mountains and seek to test themselves in a wider world."
+      }
+    ],
+    "source": "Mythic Odysseys of Theros"
+  },
+  {
+    "id": "lightfoot-halfling",
+    "name": "Lightfoot Halfling",
+    "traits": [
+      {
+        "id": "lucky",
+        "name": "Lucky",
+        "summary": "Halfling luck helps you recover from the worst natural mishaps on a d20."
+      },
+      {
+        "id": "brave",
+        "name": "Brave",
+        "summary": "Your spirit is hard to cow, giving you an edge against fear."
+      },
+      {
+        "id": "halfling-nimbleness",
+        "name": "Halfling Nimbleness",
+        "summary": "You can slip through spaces occupied by larger creatures."
+      },
+      {
+        "id": "naturally-stealthy",
+        "name": "Naturally Stealthy",
+        "summary": "Lightfoot halflings hide easily behind larger companions and cover."
+      }
+    ]
+  },
+  {
+    "id": "lizardfolk",
+    "name": "Lizardfolk",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "The saurian lizardfolk are thought by some sages to be distant cousins of dragonborn and kobolds. Despite their resemblance to those other scaled folk, however, lizardfolk are their own people and have lived on the worlds of the Material Plane since the worlds’ creation. Gifted by the gods with remarkable physical defenses and a mystical connection to the natural world, lizardfolk can survive with just their wits in situations that would be deadly for other folk. Because of that fact, many lizardfolk myths state that their people were placed by the gods in the Material Plane to guard its natural wonders."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "locathah",
+    "name": "Locathah",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "These resilient and proud fish-folk have endured war, slavery, and mistreatment at the hands of other aquatic creatures. They dwell in submerged tribal communities along seacoasts, and hunt both above and below the water."
+      }
+    ],
+    "source": "Locathah Rising, Extra Life 2019"
+  },
+  {
+    "id": "loxodon",
+    "name": "Loxodon",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Loxodons are often oasis of calm in Ravnica. They hum or chant in sonorous tones and move slowly or sit in perfect stillness. As they say, \"There are three things all wise men fear: the sea in storm, a night with no moon, and the anger of a gentle man.\""
+      }
+    ],
+    "source": "Guildmaster's Guide to Ravnica"
+  },
+  {
+    "id": "merfolk",
+    "name": "Merfolk",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Merfolk are an amphibious race, born and at home in the water but comfortable on dry land. Humanoid in form, they have skin of ivory, silver, russet, blue, or deep purple. Long fins extend from the backs of their forearms and calves, and their fingers and toes are webbed. The hairlike growths on their heads are either thick and bristly like the needles of a sea urchin, or long and wavy, resembling fine seaweed. In either case, these growths typically range in color from red to warm brown to black. Male merfolk have similar growths extending down from their cheekbones."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "minotaur",
+    "name": "Minotaur",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Minotaurs are barrel-chested humanoids with heads resembling those of bulls. Blessed with a supernaturally strong sense of direction, minotaurs make great navigators. Some sages believe minotaurs were first created by the Lady of Pain to patrol the magical mazes that she uses to trap her foes."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "mountain-dwarf",
+    "name": "Mountain Dwarf",
+    "traits": [
+      {
+        "id": "darkvision",
+        "name": "Darkvision",
+        "summary": "Accustomed to life below the surface, you can see in dim light and darkness better than most folk."
+      },
+      {
+        "id": "dwarven-resilience",
+        "name": "Dwarven Resilience",
+        "summary": "You have advantage against poison and a stout resistance to poisonous harm."
+      },
+      {
+        "id": "dwarven-combat-training",
+        "name": "Dwarven Combat Training",
+        "summary": "Traditional dwarven warcraft trains you with battleaxes, handaxes, light hammers, and warhammers."
+      },
+      {
+        "id": "tool-proficiency",
+        "name": "Tool Proficiency",
+        "summary": "Clan craft teaches proficiency with artisan's tools tied to smithing, brewing, or masonry."
+      },
+      {
+        "id": "stonecunning",
+        "name": "Stonecunning",
+        "summary": "Your people know stonework instinctively, helping you read the history and structure of worked stone."
+      },
+      {
+        "id": "dwarven-armor-training",
+        "name": "Dwarven Armor Training",
+        "summary": "Mountain dwarves are drilled for battle and can handle light and medium armor from the start."
+      }
+    ]
+  },
+  {
+    "id": "naga",
+    "name": "Naga",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Naga resemble enormous snakes with shoulders, arms, and a torso that resembles a humanoid form. They typically hold their heads and torsos off the ground while moving, but they can increase their speed by lowering their bodies and using their hands for extra propulsion. They adorn their torsos with armor, jewelry, and a vague nod toward the clothing worn by other races. Male naga have broad hoods, wider than their shoulders, while females have narrower hoods and longer faces."
+      }
+    ],
+    "source": "Plane Shift - Amonkhet"
+  },
+  {
+    "id": "orc",
+    "name": "Orc",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Orcs trace their creation to the one-eyed god Gruumsh, an unstoppable warrior and powerful leader. The divine qualities of Gruumsh resonate within orcs, granting them a reflection of his toughness and tenacity that can’t be matched, and the god equipped his children to be able to live above or below ground."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "owlin",
+    "name": "Owlin",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Distant kin of giant owls from the Feywild, owlin come in many shapes and sizes, from petite and fluffy to wide-winged and majestic. Owlin have arms and legs like other Humanoids, as well as wings that extend from their back and shoulders."
+      }
+    ],
+    "source": "Strixhaven: A Curriculum of Chaos"
+  },
+  {
+    "id": "plasmoid",
+    "name": "Plasmoid",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Plasmoids are amorphous beings with no typical shape. In the presence of other folk, they often adopt a similar shape, but there’s little chance of mistaking a plasmoid for anything else. They consume food by osmosis, the way an amoeba does, and excrete waste through tiny pores. They breathe by absorbing oxygen through another set of pores, and their limbs are strong and flexible enough to grasp and manipulate weapons and tools. Although most plasmoids are translucent gray, they can alter their color and translucence by absorbing dyes through their pores."
+      }
+    ],
+    "source": "Spelljammer: Adventures in Space - Astral Adventurer's Guide"
+  },
+  {
+    "id": "rock-gnome",
+    "name": "Rock Gnome",
+    "traits": [
+      {
+        "id": "darkvision",
+        "name": "Darkvision",
+        "summary": "Gnomish eyes are at home in dim spaces and darkness."
+      },
+      {
+        "id": "gnome-cunning",
+        "name": "Gnome Cunning",
+        "summary": "Gnomes have unusual mental resilience against magic that targets mind and senses."
+      },
+      {
+        "id": "artificers-lore",
+        "name": "Artificer's Lore",
+        "summary": "Rock gnomes are unusually knowledgeable about magic items, alchemy, and mechanical devices."
+      },
+      {
+        "id": "tinker",
+        "name": "Tinker",
+        "summary": "A rock gnome can improvise tiny clockwork devices and clever contraptions."
+      }
+    ]
+  },
+  {
+    "id": "satyr",
+    "name": "Satyr",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Originating in the Feywild — a realm of pure emotion-satyrs thrive on the energy of merriment. They resemble elves but have goatlike legs, cloven hooves, and ram or goat horns. The magic of the fey realm has given them an innate ability to perform, to delight, and to resist magical intrusion. While they’re usually found in the Feywild, satyrs do wander to other planes of existence, most often to the Material Plane. There they seek to bring a bit of their home plane’s splendor to other worlds."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "sea-elf",
+    "name": "Sea Elf",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Sea elves fell in love with the wild beauty of the ocean in the earliest days of the multiverse. While other elves traveled from realm to realm, sea elves navigated the currents and explored the waters of many worlds. Today these elves can be found wherever oceans exist, as well as in the Elemental Plane of Water."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "shadar-kai",
+    "name": "Shadar-Kai",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Shadar-kai are the elves of the Shadowfell, originally drawn to that dread realm by the Raven Queen. Over the centuries, some of them have continued to serve her, while others have ventured into the Material Plane to forge their own destinies."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "simic-hybrid",
+    "name": "Simic Hybrid",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "The Simic Combine uses magic to fuse different life forms together. In recent years, they have extended this research to humanoid subjects, magically transferring the traits of various animals into humans, elves, and vedalken. The goal of the so-called Guardian Project is to build a Simic army of superior soldiers, perfectly adapted to a variety of combat situations. These hyper-evolved specimens are called Simic hybrids, though they sometimes call themselves guardians."
+      }
+    ],
+    "source": "Guildmaster's Guide to Ravnica"
+  },
+  {
+    "id": "siren",
+    "name": "Siren",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Sirens are at home along the waters of the Stormwreck Sea. They settle on rocky coasts and remote islands, and even on floating piles of kelp. Sirens are mercurial creatures who can turn in an instant from lonely to repulsed, from desirous to hateful, from welcoming to irritated, from loving to murderous—and then back again. They are fascinated with ships, and enjoy toying with them. One siren might call out to a passing crew for company, only to capriciously draw the ship into an entangling mass of kelp. Another might lure a vessel onto jagged rocks so as to study the wreckage and learn more about the strange contraption. But as the number of Brazen Coalition ships passing through siren-controlled waters has increased over the years, a growing number of sirens have decided to satisfy their curiosity by taking positions on ship crews—including, in at least one case, the position of captain."
+      }
+    ],
+    "source": "Plane Shift - Ixalan"
+  },
+  {
+    "id": "stout-halfling",
+    "name": "Stout Halfling",
+    "traits": [
+      {
+        "id": "lucky",
+        "name": "Lucky",
+        "summary": "Halfling luck helps you recover from the worst natural mishaps on a d20."
+      },
+      {
+        "id": "brave",
+        "name": "Brave",
+        "summary": "Your spirit is hard to cow, giving you an edge against fear."
+      },
+      {
+        "id": "halfling-nimbleness",
+        "name": "Halfling Nimbleness",
+        "summary": "You can slip through spaces occupied by larger creatures."
+      },
+      {
+        "id": "stout-resilience",
+        "name": "Stout Resilience",
+        "summary": "Stout halflings share dwarven hardiness and resist poison well."
+      }
+    ]
+  },
+  {
+    "id": "tabaxi",
+    "name": "Tabaxi",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Created by the Cat Lord—a divine being of the Upper Planes—to blend the qualities of humanoids and cats, tabaxi are a varied people in both attitude and appearance. In some lands, tabaxi live like the cats they resemble, naturally curious and at home in playful environments. In other places, tabaxi live as other folk do, not exhibiting the feline behavior the Cat Lord intended."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "thri-kreen",
+    "name": "Thri-kreen",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Thri-kreen have insectile features and two pairs of arms. Their bodies are encased in protective chitin. They can alter the coloration of this carapace to blend in with their natural surroundings."
+      }
+    ],
+    "source": "Spelljammer: Adventures in Space - Astral Adventurer's Guide"
+  },
+  {
+    "id": "tiefling",
+    "name": "Tiefling",
+    "traits": [
+      {
+        "id": "darkvision",
+        "name": "Darkvision",
+        "summary": "Infernal blood lets you see through dim light and darkness with ease."
+      },
+      {
+        "id": "hellish-resistance",
+        "name": "Hellish Resistance",
+        "summary": "Tieflings resist fire through fiendish heritage."
+      },
+      {
+        "id": "infernal-legacy",
+        "name": "Infernal Legacy",
+        "summary": "Tieflings gain innate magic that grows stronger with experience."
+      }
+    ]
+  },
+  {
+    "id": "tortle",
+    "name": "Tortle",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Tortles have a saying: “We wear our homes on our backs.” These turtle folk live on many worlds, most often journeying up and down coasts, along waterways, and across the sea. Tortles don’t have a unified story of how they were created, but they all have a sense of being mystically connected to the natural world. Carrying their shelter on their backs gives tortles a special feeling of security wherever they go, for even if they visit a far, unknown country, they have a place to lay their heads."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "triton",
+    "name": "Triton",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Originally from the Elemental Plane of Water, many tritons entered the Material Plane centuries ago in response to the growing threat of evil elementals. Those tritons spread across the worlds’ oceans, protecting the surface from terrors in the deep. Over time, triton have extended their stewardship over the sea floor to the ocean’s surface."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "vampire",
+    "name": "Vampire",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Vampires are associated with necromancy. Their existence is predicated on draining the life from others to fuel their own existence, and on putting their own lives ahead of all other concerns. Philosophically, they do not constrain themselves with artificial rules of morality, but believe that the strong can and should take what they need from the weak."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "vedalken",
+    "name": "Vedalken",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Vedalken are tall and slender, standing almost a head taller than humans but weighing about the same. Their hairless skin comes in a range of shades of blue. Their eyes are darker shades of blue or violet. They lack external ears, their noses are broad and flat, and they are partially amphibious."
+      }
+    ],
+    "source": ""
+  },
+  {
+    "id": "verdan",
+    "name": "Verdan",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Verdan owe their existence to chaos. Descendants of goblins and hobgoblins, transformed by the shadow of That-Which-Endures. They are THE newest race of Faerûn."
+      }
+    ],
+    "source": "Acquisitions Inc."
+  },
+  {
+    "id": "warforged",
+    "name": "Warforged",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "The warforged were built to fight in the Last War. The first warforged were mindless automatons, but House Cannith devoted vast resources to improving these steel soldiers. An unexpected breakthrough produced fully sentient soldiers, blending organic and inorganic materials. Warforged are made from wood and metal, but they can feel pain and emotion. Built as weapons, they must now find a purpose beyond the war. A warforged can be a steadfast ally, a cold-hearted killing machine, or a visionary in search of purpose and meaning."
+      }
+    ],
+    "source": "Wayfinder's Guide to Eberron"
+  },
+  {
+    "id": "wood-elf",
+    "name": "Wood Elf",
+    "traits": [
+      {
+        "id": "darkvision",
+        "name": "Darkvision",
+        "summary": "Elven eyes carry moonlit clarity, letting you see in dim light and darkness better than humans."
+      },
+      {
+        "id": "keen-senses",
+        "name": "Keen Senses",
+        "summary": "Your perceptive training grants proficiency in Perception."
+      },
+      {
+        "id": "fey-ancestry",
+        "name": "Fey Ancestry",
+        "summary": "Your elven blood resists charm and magical sleep."
+      },
+      {
+        "id": "trance",
+        "name": "Trance",
+        "summary": "You rest through a meditative trance instead of ordinary sleep."
+      },
+      {
+        "id": "elf-weapon-training",
+        "name": "Elf Weapon Training",
+        "summary": "Wood elves inherit the classic elven training with swords and bows."
+      },
+      {
+        "id": "fleet-of-foot",
+        "name": "Fleet of Foot",
+        "summary": "Wood elves move with unusual swiftness compared with other elves."
+      },
+      {
+        "id": "mask-of-the-wild",
+        "name": "Mask of the Wild",
+        "summary": "Natural foliage, weather, and shifting terrain make it easier for you to hide."
+      }
+    ]
+  },
+  {
+    "id": "yuan-ti",
+    "name": "Yuan-Ti",
+    "traits": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "summary": "Yuan-ti were originally humans who transformed themselves into serpent folk through ancient rituals. Most yuan-ti were corrupted into monsters by those rites, but some yuan-ti instead became a new people who mix characteristics of humans and snakes."
+      }
+    ],
+    "source": ""
+  }
+]

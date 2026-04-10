@@ -1,0 +1,60 @@
+{
+  "status": "scanned-pdf",
+  "sourcePath": "C:\\Users\\qRnt\\Downloads\\540812744-DND-Monster-Manual-5e.pdf",
+  "pageCount": 406,
+  "nonemptyTextPages": 0,
+  "sampledPages": [
+    1,
+    50,
+    100,
+    150,
+    200,
+    250,
+    300,
+    350
+  ],
+  "samplePreviews": [
+    {
+      "page": 1,
+      "preview": "",
+      "characters": 0
+    },
+    {
+      "page": 50,
+      "preview": "",
+      "characters": 0
+    },
+    {
+      "page": 100,
+      "preview": "",
+      "characters": 0
+    },
+    {
+      "page": 150,
+      "preview": "",
+      "characters": 0
+    },
+    {
+      "page": 200,
+      "preview": "",
+      "characters": 0
+    },
+    {
+      "page": 250,
+      "preview": "",
+      "characters": 0
+    },
+    {
+      "page": 300,
+      "preview": "",
+      "characters": 0
+    },
+    {
+      "page": 350,
+      "preview": "",
+      "characters": 0
+    }
+  ],
+  "note": "This PDF appears to have no extractable text layer. OCR is required before full monster parsing.",
+  "durationSeconds": 1.7
+}

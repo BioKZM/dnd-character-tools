@@ -1,0 +1,15 @@
+{
+  "id": "autognome-history",
+  "name": "Autognome History",
+  "summary": "1Your creator gave you autonomy and urged you to follow your dreams.",
+  "bonuses": [
+    "d8Story",
+    "1Your creator gave you autonomy and urged you to follow your dreams.",
+    "2Your creator died, leaving you to fend for yourself.",
+    "3A glitch caused you to forget your original programming. You don’t remember who made you or where you came from.",
+    "4You didn’t like how you were being treated by your creator, so you ran away from home.",
+    "5Your creator built you to complete a special mission."
+  ],
+  "traits": [],
+  "stats": []
+}
