@@ -11,6 +11,7 @@ type BuiltAction = {
   notes: string;
   description: string;
   source: string;
+  classes?: string[];
 };
 
 type BuiltFeature = {
@@ -21,6 +22,10 @@ type BuiltFeature = {
   source: string;
 };
 
+function uniqueById<T extends { id: string }>(items: T[]) {
+  return items.filter((item, index, collection) => collection.findIndex((entry) => entry.id === item.id) === index);
+}
+
 function spellCategory(castingTime: string): BuiltAction["category"] {
   const normalized = castingTime.toLowerCase();
   if (normalized.includes("bonus action")) {
@@ -30,6 +35,69 @@ function spellCategory(castingTime: string): BuiltAction["category"] {
     return "Reaction";
   }
   return "Action";
+}
+
+function textCategory(summary: string): BuiltAction["category"] {
+  const normalized = summary.toLowerCase();
+  if (normalized.includes("bonus action")) {
+    return "Bonus Action";
+  }
+  if (normalized.includes("reaction")) {
+    return "Reaction";
+  }
+  if (normalized.includes("attack")) {
+    return "Attack";
+  }
+  if (normalized.includes("as an action") || normalized.includes("use your action")) {
+    return "Action";
+  }
+  return "Other";
+}
+
+function parseHitFromText(summary: string) {
+  const normalized = summary.toLowerCase();
+  const saveMatch = summary.match(/(Strength|Dexterity|Constitution|Intelligence|Wisdom|Charisma) saving throw/i);
+  if (saveMatch) {
+    return `${saveMatch[1].slice(0, 3).toUpperCase()} save`;
+  }
+  if (normalized.includes("spell attack")) {
+    return "Spell attack";
+  }
+  if (normalized.includes("attack roll")) {
+    return "Attack roll";
+  }
+  return "-";
+}
+
+function parseDamageFromText(summary: string) {
+  const typed = summary.match(/(\d+d\d+(?:\s*\+\s*\w+)?)\s+([A-Za-z]+)\s+damage/i);
+  if (typed) {
+    return `${typed[1]} ${typed[2]}`;
+  }
+
+  const dice = summary.match(/\b(\d+d\d+(?:\s*\+\s*\w+)?)\b/i);
+  return dice ? dice[1] : "-";
+}
+
+function parseRangeFromText(summary: string) {
+  const match = summary.match(/(\d+\s*ft\.?(?:\s*\/\s*\d+\s*ft\.?)?)/i);
+  return match?.[1] ?? "Self";
+}
+
+function buildFeatureActions(features: BuiltFeature[]): BuiltAction[] {
+  return features
+    .filter((feature) => feature.kind !== "Background")
+    .map((feature) => ({
+      id: `feature-action-${feature.id}`,
+      name: feature.name,
+      category: textCategory(feature.summary),
+      range: parseRangeFromText(feature.summary),
+      hit: parseHitFromText(feature.summary),
+      damage: parseDamageFromText(feature.summary),
+      notes: `${feature.kind} | ${feature.source}`,
+      description: feature.summary,
+      source: feature.source,
+    }));
 }
 
 function estimatedAttackBonus(draft: CharacterDraft) {
@@ -45,7 +113,13 @@ function estimatedDamage(spellLevel: number) {
   if (spellLevel === 1) {
     return "1st-level effect";
   }
-  return `${spellLevel}nd-level effect`;
+  if (spellLevel === 2) {
+    return "2nd-level effect";
+  }
+  if (spellLevel === 3) {
+    return "3rd-level effect";
+  }
+  return `${spellLevel}th-level effect`;
 }
 
 function meleeAttackModifier(draft: CharacterDraft) {
@@ -179,6 +253,28 @@ function coreCombatActions(): BuiltAction[] {
       description: "Grant an ally advantage on a task or attack when you meaningfully assist them.",
       source: "Core Rules",
     },
+    {
+      id: "hide",
+      name: "Hide",
+      category: "Action",
+      range: "Self",
+      hit: "-",
+      damage: "-",
+      notes: "Stealth",
+      description: "Attempt to become unseen while you have the right cover, darkness, or distraction.",
+      source: "Core Rules",
+    },
+    {
+      id: "ready",
+      name: "Ready",
+      category: "Action",
+      range: "Self",
+      hit: "-",
+      damage: "-",
+      notes: "Trigger",
+      description: "Prepare a trigger and response to use later in the round when the trigger happens.",
+      source: "Core Rules",
+    },
   ];
 }
 
@@ -228,28 +324,19 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft)
     source: "Feat",
   }));
 
-  const builtActions: BuiltAction[] = [
-    ...inventoryWeaponActions(draft),
-    ...coreCombatActions(),
-    ...learnedSpells.map((spell) => ({
-      id: spell.id,
-      name: spell.name,
-      category: spellCategory(spell.castingTime),
-      range: spell.range,
-      hit: spell.level === 0 ? estimatedAttackBonus(draft) : "Save / attack",
-      damage: estimatedDamage(spell.level),
-      notes: `${spell.school} | ${spell.duration}${spell.classes?.length ? ` | ${spell.classes.join(", ")}` : ""}`,
-      description: spell.summary,
-      source: spell.source ? `${spell.source} | Spell level ${spell.level}` : `Spell level ${spell.level}`,
-    })),
-  ].filter(
-    (action, index, actions) => actions.findIndex((item) => item.id === action.id) === index,
-  );
+  const manualFeatures = (draft.features ?? []).map((feature) => ({
+    id: `draft-feature-${feature.id}`,
+    name: feature.name,
+    kind: feature.kind === "Background" ? ("Background" as const) : ("Feature" as const),
+    summary: feature.summary,
+    source: "Character Draft",
+  }));
 
-  const builtFeatures: BuiltFeature[] = [
+  const builtFeatures = uniqueById<BuiltFeature>([
     ...speciesTraits,
     ...classFeatures,
     ...featFeatures,
+    ...manualFeatures,
     ...(chosenBackground
       ? [
           {
@@ -261,7 +348,22 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft)
           },
         ]
       : []),
-  ];
+  ]);
+
+  const builtActions = uniqueById<BuiltAction>([
+    ...learnedSpells.map((spell) => ({
+      id: spell.id,
+      name: spell.name,
+      category: spellCategory(spell.castingTime),
+      range: spell.range,
+      hit: parseHitFromText(spell.summary) === "-" && spell.level === 0 ? estimatedAttackBonus(draft) : parseHitFromText(spell.summary),
+      damage: parseDamageFromText(spell.summary) !== "-" ? parseDamageFromText(spell.summary) : estimatedDamage(spell.level),
+      notes: `${spell.school} | ${spell.duration}${spell.classes?.length ? ` | ${spell.classes.join(", ")}` : ""}`,
+      description: spell.summary,
+      source: spell.source ? `${spell.source} | Spell level ${spell.level}` : `Spell level ${spell.level}`,
+      classes: spell.classes ?? [],
+    })),
+  ]);
 
   return {
     className: chosenClass?.name ?? draft.classLine,

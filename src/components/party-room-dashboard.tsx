@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { CreatorWorkspace } from "@/components/creator-workspace";
 import { ClassPortrait } from "@/components/ui/class-portrait";
 import { AppIcon } from "@/components/ui/app-icon";
@@ -23,15 +23,10 @@ type LocalActivity = {
   createdAt: string;
 };
 
-type DetailState = {
-  title: string;
-  body: string;
-  meta?: string;
-};
-
 type InfoTab = "actions" | "inventory" | "features" | "background" | "notes";
 type CreatorStep = 0 | 1 | 2;
 type ActivityFilter = "all" | "rolls" | "system";
+type ActionFilter = "all" | "Attack" | "Action" | "Bonus Action" | "Reaction" | "Other";
 
 const abilityLabels: Record<AbilityId, string> = {
   STR: "Strength",
@@ -143,12 +138,102 @@ function skillLabel(skillId: string) {
     .join(" ");
 }
 
-function renderInlineHelp(label: string, content: string) {
+function InlineHelp({
+  label,
+  content,
+  variant = "icon",
+  tooltipClassName = "sheet-inline-tooltip",
+}: {
+  label: string;
+  content: ReactNode;
+  variant?: "icon" | "keyword";
+  tooltipClassName?: string;
+}) {
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [open, setOpen] = useState(false);
+  const [arming, setArming] = useState(false);
+
+  const clearHoverTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  const handleEnter = () => {
+    clearHoverTimer();
+    setArming(true);
+    timerRef.current = setTimeout(() => {
+      setOpen(true);
+      setArming(false);
+    }, 1000);
+  };
+
+  const handleLeave = () => {
+    clearHoverTimer();
+    setArming(false);
+    setOpen(false);
+  };
+
+  useEffect(() => () => clearHoverTimer(), []);
+
   return (
-    <span className="inline-help" aria-label={`${label} info`} tabIndex={0}>
-      ?
-      <span className="inline-help-tooltip sheet-inline-tooltip">{content}</span>
+    <span
+      className={`inline-help${variant === "keyword" ? " keyword-help" : ""}${arming ? " arming" : ""}${open ? " open" : ""}`}
+      aria-label={`${label} info`}
+      tabIndex={0}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onFocus={() => setOpen(true)}
+      onBlur={() => setOpen(false)}
+    >
+      <span className={variant === "keyword" ? "keyword-help-trigger" : "inline-help-trigger"}>{variant === "keyword" ? label : "?"}</span>
+      <span className={`inline-help-tooltip ${tooltipClassName}`}>{content}</span>
     </span>
+  );
+}
+
+function renderInlineHelp(label: string, content: string) {
+  return <InlineHelp label={label} content={content} />;
+}
+
+function renderKeywordHelp(label: string, content: string) {
+  return <InlineHelp label={label} content={content} variant="keyword" />;
+}
+
+function classIdFromName(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function actionTooltipContent(action: (ReturnType<typeof buildSheetContent>)["builtActions"][number]) {
+  return (
+    <div className="spell-inline-tooltip action-inline-tooltip">
+      <div className="spell-tooltip-head">
+        <strong>{action.name}</strong>
+        <div className="spell-tooltip-meta">
+          <span>{action.category}</span>
+          <span>Range: {action.range}</span>
+          <span>Hit / DC: {action.hit}</span>
+          <span>Damage: {action.damage}</span>
+        </div>
+      </div>
+      <span className="spell-tooltip-copy">{action.description}</span>
+      {action.notes ? (
+        <div className="spell-tooltip-meta spell-tooltip-meta-secondary">
+          <span>{action.notes}</span>
+        </div>
+      ) : null}
+      {action.classes?.length ? (
+        <div className="action-tooltip-class-strip">
+          {action.classes.map((className) => (
+            <span className="action-tooltip-class-chip" key={`${action.id}-${className}`}>
+              <ClassPortrait classId={classIdFromName(className)} alt={className} className="action-tooltip-portrait" />
+              <span>{className}</span>
+            </span>
+          ))}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -581,13 +666,8 @@ export function PartyRoomDashboard({
   const [isActivityOpen, setIsActivityOpen] = useState(false);
   const [activityFilter, setActivityFilter] = useState<ActivityFilter>("all");
   const [activeTab, setActiveTab] = useState<InfoTab>("actions");
+  const [actionFilter, setActionFilter] = useState<ActionFilter>("all");
   const [creatorStep, setCreatorStep] = useState<CreatorStep>(0);
-  const [isDetailOpen, setIsDetailOpen] = useState(false);
-  const [detail, setDetail] = useState<DetailState>({
-    title: "Action Details",
-    body: "Select a sense, skill, action, feature, or condition to see its explanation here.",
-    meta: "This panel is the right-hand explanation space from the reference sheet.",
-  });
   const jsonImportRef = useRef<HTMLInputElement | null>(null);
   const pdfImportRef = useRef<HTMLInputElement | null>(null);
   const filteredActivityLog = activityLog.filter((event) =>
@@ -609,7 +689,10 @@ export function PartyRoomDashboard({
     );
   }, [draft, currentHp, tempHp]);
 
-  const filteredActions = activeTab === "actions" ? sheetContent.builtActions : [];
+  const filteredActions =
+    activeTab === "actions"
+      ? sheetContent.builtActions.filter((action) => actionFilter === "all" || action.category === actionFilter)
+      : [];
   const displayedCurrentHp = Math.min(currentHp, draft.maxHp);
   const currentCuratedClass =
     initialClassCuratedCollection.entries.find((entry) => entry.id === draft.classId) ?? null;
@@ -814,11 +897,6 @@ export function PartyRoomDashboard({
         [spellLevel]: current.mysticArcanumSelections?.[spellLevel] === spellId ? undefined : spellId,
       },
     }));
-  };
-
-  const showDetail = (next: DetailState) => {
-    setDetail(next);
-    setIsDetailOpen(true);
   };
 
   const toggleSelection = (key: "spellIds" | "featIds", value: string) => {
@@ -1168,10 +1246,9 @@ export function PartyRoomDashboard({
 
             <div className="stat-rack stat-rack-secondary">
               <article className="badge-card badge-card-secondary">
-                <span className="stat-label inline-heading">
-                  <span>Proficiency</span>
-                  {renderInlineHelp(
-                    "Proficiency bonus",
+                <span className="stat-label">
+                  {renderKeywordHelp(
+                    "Proficiency",
                     "Proficiency bonus is added to trained skills, saving throws, attacks, and other checks your character is proficient with.",
                   )}
                 </span>
@@ -1179,10 +1256,9 @@ export function PartyRoomDashboard({
               </article>
 
               <article className="badge-card badge-card-secondary">
-                <span className="stat-label inline-heading">
-                  <span>Walking</span>
-                  {renderInlineHelp(
-                    "Walking speed",
+                <span className="stat-label">
+                  {renderKeywordHelp(
+                    "Walking",
                     "Walking speed shows how far your character can move on foot during a turn under normal conditions.",
                   )}
                 </span>
@@ -1190,9 +1266,8 @@ export function PartyRoomDashboard({
               </article>
 
               <article className="badge-card badge-card-secondary">
-                <span className="stat-label inline-heading">
-                  <span>Initiative</span>
-                  {renderInlineHelp(
+                <span className="stat-label">
+                  {renderKeywordHelp(
                     "Initiative",
                     "Initiative determines your place in combat order when an encounter begins.",
                   )}
@@ -1201,10 +1276,9 @@ export function PartyRoomDashboard({
               </article>
 
               <article className="badge-card badge-card-secondary">
-                <span className="stat-label inline-heading">
-                  <span>Armor Class</span>
-                  {renderInlineHelp(
-                    "Armor Class",
+                <span className="stat-label">
+                  {renderKeywordHelp(
+                    "AC",
                     "Armor Class is the number an attack roll must meet or exceed to hit your character.",
                   )}
                 </span>
@@ -1252,9 +1326,8 @@ export function PartyRoomDashboard({
           <div className="sheet-column left-column">
             <article className="sheet-card">
               <div className="card-heading">
-                <h2 className="inline-heading">
-                  <span>Saving Throws</span>
-                  {renderInlineHelp(
+                <h2>
+                  {renderKeywordHelp(
                     "Saving Throws",
                     "Saving throws represent your character resisting harmful effects like spells, traps, poison, fear, or other forced threats.",
                   )}
@@ -1267,15 +1340,8 @@ export function PartyRoomDashboard({
                   <button
                     className="save-row interactive"
                     key={save.ability}
-                    onClick={() => {
-                      showDetail({
-                        title: `${save.ability} Saving Throw`,
-                        body: save.breakdown,
-                        meta: save.proficient ? "Proficient save" : "No proficiency bonus",
-                      });
-                      void broadcastCheck(`${save.ability} save`, save.bonus);
-                    }}
-                    >
+                    onClick={() => void broadcastCheck(`${save.ability} save`, save.bonus)}
+                  >
                     <span className="save-row-main">
                       <span className="save-prof-mark">{save.proficient ? "★" : "○"}</span>
                       <span>{save.ability}</span>
@@ -1293,23 +1359,10 @@ export function PartyRoomDashboard({
               </div>
               <div className="sense-list">
                 {draft.senses.map((sense) => (
-                  <button
-                    className="sense-row interactive"
-                    key={sense.id}
-                    onClick={() =>
-                      showDetail({
-                        title: sense.label,
-                        body: sense.description,
-                        meta: `Current value: ${sense.value}`,
-                      })
-                    }
-                  >
+                  <div className="sense-row" key={sense.id}>
                     <strong>{sense.value}</strong>
-                    <span className="inline-heading">
-                      <span>{sense.label}</span>
-                      {renderInlineHelp(sense.label, `${sense.description} Current value: ${sense.value}.`)}
-                    </span>
-                  </button>
+                    <span>{renderKeywordHelp(sense.label, `${sense.description} Current value: ${sense.value}.`)}</span>
+                  </div>
                 ))}
               </div>
             </article>
@@ -1321,31 +1374,19 @@ export function PartyRoomDashboard({
               </div>
               <div className="training-block">
                 <div>
-                  <span className="mini-heading inline-heading">
-                    <span>Armor</span>
-                    {renderInlineHelp("Armor proficiencies", proficiencyTooltip("Armor", draft.proficiencies.armor))}
-                  </span>
+                  <span className="mini-heading">{renderKeywordHelp("Armor", proficiencyTooltip("Armor", draft.proficiencies.armor))}</span>
                   <p>{draft.proficiencies.armor.join(", ")}</p>
                 </div>
                 <div>
-                  <span className="mini-heading inline-heading">
-                    <span>Weapons</span>
-                    {renderInlineHelp("Weapon proficiencies", proficiencyTooltip("Weapons", draft.proficiencies.weapons))}
-                  </span>
+                  <span className="mini-heading">{renderKeywordHelp("Weapons", proficiencyTooltip("Weapons", draft.proficiencies.weapons))}</span>
                   <p>{draft.proficiencies.weapons.join(", ")}</p>
                 </div>
                 <div>
-                  <span className="mini-heading inline-heading">
-                    <span>Tools</span>
-                    {renderInlineHelp("Tool proficiencies", proficiencyTooltip("Tools", draft.proficiencies.tools))}
-                  </span>
+                  <span className="mini-heading">{renderKeywordHelp("Tools", proficiencyTooltip("Tools", draft.proficiencies.tools))}</span>
                   <p>{draft.proficiencies.tools.join(", ")}</p>
                 </div>
                 <div>
-                  <span className="mini-heading inline-heading">
-                    <span>Languages</span>
-                    {renderInlineHelp("Languages", proficiencyTooltip("Languages", draft.proficiencies.languages))}
-                  </span>
+                  <span className="mini-heading">{renderKeywordHelp("Languages", proficiencyTooltip("Languages", draft.proficiencies.languages))}</span>
                   <p>{draft.proficiencies.languages.join(", ")}</p>
                 </div>
               </div>
@@ -1367,23 +1408,13 @@ export function PartyRoomDashboard({
               <div className="skill-table">
                 {draft.skills.map((skill) => (
                   <div className="skill-row" key={skill.id}>
-                    <button
-                      className="skill-meta interactive"
-                      onClick={() =>
-                        showDetail({
-                          title: skill.label,
-                          body: skill.description,
-                          meta: `${skill.ability} | ${skill.breakdown}`,
-                        })
-                      }
-                    >
+                    <div className="skill-meta">
                       <span className="skill-dot">{skill.proficient ? "★" : "○"}</span>
                       <span className="skill-ability">{skill.ability}</span>
                       <strong className="skill-name">
-                        <span>{skill.label}</span>
-                        {renderInlineHelp(skill.label, skill.description || skillDescriptions[skill.id] || skill.breakdown)}
+                        {renderKeywordHelp(skill.label, skill.description || skillDescriptions[skill.id] || skill.breakdown)}
                       </strong>
-                    </button>
+                    </div>
                     <button
                       className="bonus-pill"
                       onClick={() => void broadcastCheck(skill.label, skill.bonus)}
@@ -1401,32 +1432,20 @@ export function PartyRoomDashboard({
                 <span>Resistances and current effects</span>
               </div>
               <div className="defense-grid">
-                <button
-                  className="detail-card interactive"
-                  onClick={() =>
-                    showDetail({
-                      title: "Defenses",
-                      body: draft.defenses.join(", "),
-                      meta: "Resistances, immunities, and passive protections.",
-                    })
-                  }
-                >
-                  <span className="mini-heading">Defenses</span>
+                <div className="detail-card">
+                  <span className="mini-heading inline-heading">
+                    <span>Defenses</span>
+                    {renderInlineHelp("Defenses", "Resistances, immunities, and passive protections currently affecting the character.")}
+                  </span>
                   <p>{draft.defenses.join(", ")}</p>
-                </button>
-                <button
-                  className="detail-card interactive"
-                  onClick={() =>
-                    showDetail({
-                      title: "Conditions",
-                      body: draft.conditions.join(", "),
-                      meta: "Current combat state and ongoing effects.",
-                    })
-                  }
-                >
-                  <span className="mini-heading">Conditions</span>
+                </div>
+                <div className="detail-card">
+                  <span className="mini-heading inline-heading">
+                    <span>Conditions</span>
+                    {renderInlineHelp("Conditions", "Current combat states and ongoing effects such as concentration, prone, or restrained.")}
+                  </span>
                   <p>{draft.conditions.join(", ")}</p>
-                </button>
+                </div>
               </div>
             </article>
           </div>
@@ -1446,36 +1465,62 @@ export function PartyRoomDashboard({
               </div>
 
               {activeTab === "actions" ? (
-                <div className="tab-body">
+                <div className="tab-body action-tab-body">
                   <div className="action-header">
                     <span>Actions</span>
-                    <span>{sheetContent.learnedSpells.length} spells prepared</span>
+                    <span>{`${sheetContent.builtActions.length} total entries`}</span>
                   </div>
-                  <div className="action-table">
-                    {filteredActions.map((action) => (
+                  <div className="action-filter-strip">
+                    {(["all", "Attack", "Action", "Bonus Action", "Reaction", "Other"] as ActionFilter[]).map((filter) => (
                       <button
-                        className="action-row interactive"
-                        key={action.id}
-                        onClick={() =>
-                          showDetail({
-                            title: action.name,
-                            body: action.description,
-                            meta: `${action.category} | Range ${action.range} | Hit ${action.hit} | Damage ${action.damage}`,
-                          })
-                        }
+                        key={filter}
+                        type="button"
+                        className={actionFilter === filter ? "tab-button active" : "tab-button"}
+                        onClick={() => setActionFilter(filter)}
                       >
-                        <div>
-                          <strong>{action.name}</strong>
-                          <span>
-                            {action.category} | {action.source}
-                          </span>
-                        </div>
-                        <span>{action.range}</span>
-                        <span>{action.hit}</span>
-                        <span>{action.damage}</span>
-                        <span>{action.notes}</span>
+                        {filter === "all" ? "All" : filter}
                       </button>
                     ))}
+                  </div>
+                  <div className="action-card-list">
+                    {filteredActions.length ? filteredActions.map((action) => (
+                      <article className="action-card" key={action.id}>
+                        <div className="action-card-head">
+                          <div className="action-card-title">
+                            <strong>
+                              <InlineHelp
+                                label={action.name}
+                                variant="keyword"
+                                tooltipClassName="sheet-inline-tooltip action-inline-tooltip-shell"
+                                content={actionTooltipContent(action)}
+                              />
+                            </strong>
+                            <span>{action.source}</span>
+                          </div>
+                          <span className="action-category-pill">{action.category}</span>
+                        </div>
+                        <div className="action-card-metrics">
+                          <div className="action-metric">
+                            <span className="action-label">Range</span>
+                            <strong>{action.range}</strong>
+                          </div>
+                          <div className="action-metric">
+                            <span className="action-label">Hit / DC</span>
+                            <strong>{action.hit}</strong>
+                          </div>
+                          <div className="action-metric">
+                            <span className="action-label">Damage</span>
+                            <strong>{action.damage}</strong>
+                          </div>
+                        </div>
+                        <p className="action-card-notes">{action.notes}</p>
+                      </article>
+                    )) : (
+                      <div className="list-row">
+                        <strong>No actions in this filter</strong>
+                        <span>Change the filter or add more spells, feats, features, or inventory items.</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               ) : null}
@@ -1483,18 +1528,15 @@ export function PartyRoomDashboard({
               {activeTab === "inventory" ? (
                 <div className="tab-body simple-list">
                   {draft.inventory.map((item) => (
-                    <button
-                      className="list-row interactive"
-                      key={item}
-                      onClick={() =>
-                        showDetail({
-                          title: item,
-                          body: `${item} is currently equipped or carried by the character.`,
-                        })
-                      }
-                    >
-                      {item}
-                    </button>
+                    <div className="list-row" key={item}>
+                      <strong>
+                        <InlineHelp
+                          label={item}
+                          variant="keyword"
+                          content={`${item} is currently equipped or carried by the character.`}
+                        />
+                      </strong>
+                    </div>
                   ))}
                 </div>
               ) : null}
@@ -1502,22 +1544,18 @@ export function PartyRoomDashboard({
               {activeTab === "features" ? (
                 <div className="tab-body simple-list">
                   {sheetContent.builtFeatures.map((feature) => (
-                    <button
-                      className="list-row interactive"
-                      key={feature.id}
-                      onClick={() =>
-                        showDetail({
-                          title: feature.name,
-                          body: feature.summary,
-                          meta: `${feature.kind} | ${feature.source}`,
-                        })
-                      }
-                    >
-                      <strong>{feature.name}</strong>
+                    <div className="list-row" key={feature.id}>
+                      <strong>
+                        <InlineHelp
+                          label={feature.name}
+                          variant="keyword"
+                          content={`${feature.summary} ${feature.kind} | ${feature.source}`}
+                        />
+                      </strong>
                       <span>
                         {feature.kind} | {feature.source}
                       </span>
-                    </button>
+                    </div>
                   ))}
                 </div>
               ) : null}
@@ -1563,31 +1601,6 @@ export function PartyRoomDashboard({
 
           </div>
         </section>
-        <div className={isDetailOpen ? "context-drawer open" : "context-drawer"}>
-          <button
-            type="button"
-            className="context-launcher"
-            onClick={() => setIsDetailOpen((current) => !current)}
-          >
-            <span className="activity-launcher-copy">
-              <strong>Context Panel</strong>
-              <span>{detail.title}</span>
-            </span>
-            <span className="activity-launcher-icon">
-              <AppIcon name="book" className="summary-icon" />
-            </span>
-          </button>
-          {isDetailOpen ? (
-            <article className="sheet-card context-panel">
-              <div className="card-heading">
-                <h2>{detail.title}</h2>
-                <span>Context panel</span>
-              </div>
-              <p>{detail.body}</p>
-              {detail.meta ? <div className="detail-meta">{detail.meta}</div> : null}
-            </article>
-          ) : null}
-        </div>
         <div className={isActivityOpen ? "activity-drawer open" : "activity-drawer"}>
           <button
             type="button"

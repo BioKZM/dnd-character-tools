@@ -14,7 +14,8 @@ type IconName =
   | "skill"
   | "shield"
   | "sword"
-  | "search";
+  | "search"
+  | "dice";
 
 const iconMap: Record<IconName, string> = {
   wand: "M5 19 L19 5 M11 5 L13 7 M17 11 L19 13 M5 11 L7 13 M11 17 L13 19",
@@ -31,6 +32,7 @@ const iconMap: Record<IconName, string> = {
   shield: "M12 4 L18 6.5 V11 C18 14.8 15.5 17.9 12 19 C8.5 17.9 6 14.8 6 11 V6.5 Z",
   sword: "M14 5 L19 10 L17 12 L15 10 L9 16 L7 16 L7 14 L13 8 L11 6 Z M6 18 H10",
   search: "M11 6 A5 5 0 1 1 10.99 6 M15.2 15.2 L19 19",
+  dice: "M8 5 H16 L19 8 V16 L16 19 H8 L5 16 V8 Z M9 9 H9.01 M15 9 H15.01 M9 15 H9.01 M15 15 H15.01 M12 12 H12.01",
 };
 
 export function AppIcon({

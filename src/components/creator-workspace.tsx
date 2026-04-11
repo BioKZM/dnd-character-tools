@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { CharacterDraft, AbilityId } from "@/lib/character/demo-sheet";
 import type { ClassCuratedCollection } from "@/lib/content/class-curated-schema";
 import type { WarlockOptionCollection } from "@/lib/content/class-options-schema";
@@ -197,6 +197,63 @@ function classMatchesSpell(spell: ContentBundle["spells"][number], className: st
   return spell.classes?.includes(className) ?? false;
 }
 
+function HoverTooltip({
+  label,
+  content,
+  variant = "keyword",
+  tooltipClassName = "spell-inline-tooltip",
+}: {
+  label: string;
+  content: ReactNode;
+  variant?: "icon" | "keyword";
+  tooltipClassName?: string;
+}) {
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [open, setOpen] = useState(false);
+  const [arming, setArming] = useState(false);
+
+  const clearHoverTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  const handleEnter = () => {
+    clearHoverTimer();
+    setArming(true);
+    timerRef.current = setTimeout(() => {
+      setOpen(true);
+      setArming(false);
+    }, 1000);
+  };
+
+  const handleLeave = () => {
+    clearHoverTimer();
+    setArming(false);
+    setOpen(false);
+  };
+
+  useEffect(() => () => clearHoverTimer(), []);
+
+  return (
+    <span
+      className={`inline-help${variant === "keyword" ? " keyword-help" : ""}${arming ? " arming" : ""}${open ? " open" : ""}`}
+      aria-label={`${label} info`}
+      tabIndex={0}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onFocus={() => setOpen(true)}
+      onBlur={() => setOpen(false)}
+    >
+      <span className={variant === "keyword" ? "keyword-help-trigger" : "inline-help-trigger"}>
+        {variant === "keyword" ? label : "?"}
+      </span>
+      <span className={`inline-help-tooltip ${tooltipClassName}`}>{content}</span>
+    </span>
+  );
+}
+
 function cleanImportedText(value: string) {
   return value
     .replace(/â€™/g, "'")
@@ -209,6 +266,16 @@ function cleanImportedText(value: string) {
 
 function isPreviewStatLabel(label: string) {
   return ["Ability Score Increase", "Size", "Speed", "Languages"].includes(label);
+}
+
+function isDerivedPreviewBonus(value: string) {
+  const cleaned = cleanImportedText(value);
+  return (
+    cleaned.startsWith("Ability Score Increase") ||
+    cleaned.startsWith("Size") ||
+    cleaned.startsWith("Speed") ||
+    cleaned.startsWith("Languages")
+  );
 }
 
 function iconForLineageStat(label: string) {
@@ -296,6 +363,19 @@ function pointBuyCost(score: number) {
     default:
       return 0;
   }
+}
+
+function pointBuyStepCost(currentScore: number, nextScore: number) {
+  return pointBuyCost(nextScore) - pointBuyCost(currentScore);
+}
+
+function abilityModifier(score: number) {
+  return Math.floor((score - 10) / 2);
+}
+
+function numericSpellLevelLabel(value: string) {
+  const numeric = Number.parseInt(value.replace(/\D/g, ""), 10);
+  return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
 }
 
 function translateToTurkish(value: string) {
@@ -404,6 +484,20 @@ function spellMetaLines(spell: ContentBundle["spells"][number]) {
     `Duration: ${spell.duration}`,
     spell.source ? `Source: ${spell.source}` : null,
   ].filter(Boolean) as string[];
+}
+
+function damageChipFromText(text: string) {
+  const typedDamage = text.match(/(\d+d\d+(?:\s*\+\s*\w+)?)\s+([A-Za-z]+)\s+damage/i);
+  if (typedDamage) {
+    return `${typedDamage[1]} ${typedDamage[2]}`;
+  }
+
+  const diceOnly = text.match(/\b(\d+d\d+(?:\s*\+\s*\w+)?)\b/i);
+  return diceOnly ? diceOnly[1] : null;
+}
+
+function spellDamageChip(spell: ContentBundle["spells"][number]) {
+  return damageChipFromText(`${spell.summary} ${spell.name}`);
 }
 
 const defaultWarlockPactBoons = [
@@ -668,9 +762,9 @@ function browserTitle(browser: CreatorBrowser) {
     case "abilities":
       return "Identity";
     case "lineage":
-      return "Irk";
+      return "Race";
     case "subrace":
-      return "Alt Irk";
+      return "Subrace";
     case "class":
       return "Classes";
     case "background":
@@ -703,9 +797,9 @@ function browserSubtitle(browser: CreatorBrowser) {
     case "abilities":
       return "Point buy ve level ayarını burada tamamla.";
     case "lineage":
-      return "Ana lineage seçimini burada yap ve ortak bonusları incele.";
+      return "Choose the core race and review its shared traits here.";
     case "subrace":
-      return "Seçtiğin ana ırka ait alt seçenekleri ve özel bonusları burada seç.";
+      return "Choose the matching subrace path and review its specific bonuses here.";
     case "class":
       return "Ana savaş ritmini, kaynak kullanımını ve build omurgasını burada seçiyorsun.";
     case "background":
@@ -853,7 +947,7 @@ export function CreatorWorkspace({
   );
   const subraceNonStatBonuses = currentSubraceEntry
     ? subraceBonuses(currentSubraceEntry, currentSpeciesRules?.notes).filter(
-        (bonus) => !isPreviewStatLabel(bonus.split(".")[0] ?? ""),
+        (bonus) => !isDerivedPreviewBonus(bonus),
       )
     : [];
   const flexibleAbilityBonusSource = currentSubraceEntry?.flexibleAbilityScoreIncrease
@@ -869,22 +963,32 @@ export function CreatorWorkspace({
       ? []
       : subraceAbilityScoreIncreases.flatMap((stat) => parseAbilityScoreIncrease(stat.value))),
   ];
-  const flexiblePreviewBonuses = [
-    draft.flexibleAbilityBonuses.plusTwo
-      ? { ability: draft.flexibleAbilityBonuses.plusTwo, amount: 2 }
-      : null,
-    draft.flexibleAbilityBonuses.plusOne
-      ? { ability: draft.flexibleAbilityBonuses.plusOne, amount: 1 }
-      : null,
-  ].filter((entry): entry is { ability: AbilityId; amount: number } => Boolean(entry));
+  const flexiblePreviewBonuses = flexibleAbilityBonusSource
+    ? [
+        draft.flexibleAbilityBonuses.plusTwo
+          ? { ability: draft.flexibleAbilityBonuses.plusTwo, amount: 2 }
+          : null,
+        draft.flexibleAbilityBonuses.plusOne
+          ? { ability: draft.flexibleAbilityBonuses.plusOne, amount: 1 }
+          : null,
+      ].filter((entry): entry is { ability: AbilityId; amount: number } => Boolean(entry))
+    : [];
   const previewAbilities = draft.abilities.map((ability) => {
-    const bonus = [...previewAbilityBonuses, ...flexiblePreviewBonuses]
+    const racialBonus = previewAbilityBonuses
       .filter((entry) => entry.ability === ability.id)
       .reduce((total, entry) => total + entry.amount, 0);
+    const flexibleBonus = flexiblePreviewBonuses
+      .filter((entry) => entry.ability === ability.id)
+      .reduce((total, entry) => total + entry.amount, 0);
+    const bonus = racialBonus + flexibleBonus;
+    const previewScore = ability.score + bonus;
 
     return {
       ...ability,
-      previewScore: ability.score + bonus,
+      previewScore,
+      previewModifier: abilityModifier(previewScore),
+      racialBonus,
+      flexibleBonus,
     };
   });
   const pointBuySpent = draft.abilities.reduce((total, ability) => total + pointBuyCost(ability.score), 0);
@@ -928,6 +1032,14 @@ export function CreatorWorkspace({
   const classTableHeaderRow = classTableRows[1] ?? [];
   const currentLevelSpellcastingRow =
     classTableRows.find((row) => row[0] === levelOrdinal(draft.level)) ?? null;
+  const readCurrentSpellTableCell = (header: string) => {
+    const index = classTableHeaderRow.findIndex((cell) => cell === header);
+    return index >= 0 ? currentLevelSpellcastingRow?.[index] ?? "" : "";
+  };
+  const currentWarlockSpellsKnown = readCurrentSpellTableCell("Spells Known");
+  const currentWarlockSpellSlots = readCurrentSpellTableCell("Spell Slots");
+  const currentWarlockSlotLevel = readCurrentSpellTableCell("Slot Level");
+  const currentWarlockSlotLevelNumber = numericSpellLevelLabel(currentWarlockSlotLevel);
   const warlockInvocationLimit =
     currentCuratedClass?.id === "warlock"
       ? Number.parseInt(
@@ -952,12 +1064,17 @@ export function CreatorWorkspace({
     .map((level) => {
       const pool = availableSpells.filter((spell) => spell.level === level);
       const selectedCount = pool.filter((spell) => draft.spellIds.includes(spell.id)).length;
-      const slotInfo =
-        spellAccessRows.find((entry) => entry.header === `${level}st`)?.value ??
-        spellAccessRows.find((entry) => entry.header === `${level}nd`)?.value ??
-        spellAccessRows.find((entry) => entry.header === `${level}rd`)?.value ??
-        spellAccessRows.find((entry) => entry.header === `${level}th`)?.value ??
-        (level === 0 ? spellAccessRows.find((entry) => entry.header === "Cantrips Known")?.value : "");
+      const slotInfo = currentClass.id === "warlock"
+        ? (level === 0
+            ? readCurrentSpellTableCell("Cantrips Known")
+            : [currentWarlockSpellsKnown && `Known ${currentWarlockSpellsKnown}`, currentWarlockSpellSlots && `${currentWarlockSpellSlots} slots`, currentWarlockSlotLevel].filter(Boolean).join(" • "))
+        : (
+          spellAccessRows.find((entry) => entry.header === `${level}st`)?.value ??
+          spellAccessRows.find((entry) => entry.header === `${level}nd`)?.value ??
+          spellAccessRows.find((entry) => entry.header === `${level}rd`)?.value ??
+          spellAccessRows.find((entry) => entry.header === `${level}th`)?.value ??
+          (level === 0 ? spellAccessRows.find((entry) => entry.header === "Cantrips Known")?.value : "")
+        );
 
       return {
         level,
@@ -966,6 +1083,10 @@ export function CreatorWorkspace({
         slotInfo: slotInfo || "-",
       };
     });
+  const warlockCantripPool = availableSpells.filter((spell) => spell.level === 0);
+  const warlockLeveledPool = availableSpells.filter((spell) => spell.level > 0);
+  const warlockSelectedCantrips = warlockCantripPool.filter((spell) => draft.spellIds.includes(spell.id)).length;
+  const warlockSelectedLeveledSpells = warlockLeveledPool.filter((spell) => draft.spellIds.includes(spell.id)).length;
   const spellCandidatePool = useMemo(() => {
     const classPool = [
       currentClass.name,
@@ -1049,13 +1170,30 @@ export function CreatorWorkspace({
     visibleWarlockInvocations.some((option) => option.id === invocationId),
   ).length;
   const skillSpellOverviewRows = [
-    ...spellAvailabilityByLevel.map((entry) => ({
-      id: `spell-tier-${entry.level}`,
-      label: entry.level === 0 ? "Cantrip" : `Level ${entry.level}`,
-      available: entry.availableCount,
-      selected: entry.selectedCount,
-      rule: entry.slotInfo,
-    })),
+    ...(currentClass.id === "warlock"
+      ? [
+          {
+            id: "warlock-cantrips",
+            label: "Cantrips",
+            available: warlockCantripPool.length,
+            selected: warlockSelectedCantrips,
+            rule: readCurrentSpellTableCell("Cantrips Known") || "-",
+          },
+          {
+            id: "warlock-spells-known",
+            label: "Spells Known",
+            available: warlockLeveledPool.length,
+            selected: warlockSelectedLeveledSpells,
+            rule: [currentWarlockSpellsKnown && `Known ${currentWarlockSpellsKnown}`, currentWarlockSpellSlots && `${currentWarlockSpellSlots} slots`, currentWarlockSlotLevel && `Slot ${currentWarlockSlotLevel}`].filter(Boolean).join(" • ") || "-",
+          },
+        ]
+      : spellAvailabilityByLevel.map((entry) => ({
+          id: `spell-tier-${entry.level}`,
+          label: entry.level === 0 ? "Cantrip" : `Level ${entry.level}`,
+          available: entry.availableCount,
+          selected: entry.selectedCount,
+          rule: entry.slotInfo,
+        }))),
     ...(currentClass.id === "warlock"
       ? [
           {
@@ -1082,8 +1220,8 @@ export function CreatorWorkspace({
   }, [lineageGroups, lineagePage]);
   const creatorMenu: { id: CreatorBrowser; label: string; step: CreatorStep }[] = [
     { id: "identity", label: "Identity", step: 0 },
-    { id: "lineage", label: "Irk", step: 0 },
-    { id: "subrace", label: "Alt Irk", step: 0 },
+    { id: "lineage", label: "Race", step: 0 },
+    { id: "subrace", label: "Subrace", step: 0 },
     { id: "class", label: "Class", step: 1 },
     { id: "subclass", label: "Subclass", step: 1 },
     { id: "background", label: "Background", step: 1 },
@@ -1398,7 +1536,7 @@ export function CreatorWorkspace({
             <div className="creator-stack">
               <div className="creator-panel creator-panel-wide">
                 <div className="identity-browser-head">
-                  <span className="mini-heading creator-section-label">Irk Seçimi</span>
+                  <span className="mini-heading creator-section-label">Race Selection</span>
                   <div className="lineage-grid-controls">
                     <button
                       type="button"
@@ -1441,7 +1579,7 @@ export function CreatorWorkspace({
               <div className="identity-detail-grid">
                 <article className="creator-panel identity-detail-panel">
                   <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label">Ana ırk bonusları</span>
+                    <span className="mini-heading creator-section-label">Core Race Traits</span>
                     <h4>{currentLineageGroup.name}</h4>
                   </div>
                   <p className="identity-detail-copy">{currentLineageGroup.summary}</p>
@@ -1494,7 +1632,7 @@ export function CreatorWorkspace({
             <div className="creator-stack">
               <div className="creator-panel creator-panel-wide">
                 <div className="identity-browser-head">
-                  <span className="mini-heading creator-section-label">Alt Irk Seçimi</span>
+                  <span className="mini-heading creator-section-label">Subrace Selection</span>
                 </div>
                 {availableSubraces.length ? (
                   <div className="identity-choice-list subrace-choice-list">
@@ -1516,7 +1654,7 @@ export function CreatorWorkspace({
                   </div>
                 ) : (
                   <div className="list-row">
-                    <strong>Subrace bulunamadı</strong>
+                    <strong>No subrace found</strong>
                     <span>{subraceEmptyPrompt(currentLineageGroup.name)}</span>
                   </div>
                 )}
@@ -1525,7 +1663,7 @@ export function CreatorWorkspace({
               <div className="identity-detail-grid">
                 <article className="creator-panel identity-detail-panel">
                   <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label">Seçili Alt Irk</span>
+                    <span className="mini-heading creator-section-label">Selected Subrace</span>
                     <h4>{currentSubraceEntry?.name ?? currentLineageGroup.name}</h4>
                   </div>
                   <p className="identity-detail-copy">
@@ -1597,7 +1735,6 @@ export function CreatorWorkspace({
                   <div className="creator-stack">
                     <div className="class-grid">
                       {content.classes.map((item) => {
-                        const curatedEntry = curatedClassMap.get(item.id);
                         return (
                           <button
                             type="button"
@@ -1617,7 +1754,7 @@ export function CreatorWorkspace({
                               <ClassPortrait classId={item.id} alt={item.name} className="class-grid-portrait" />
                             </span>
                             <strong>{item.name}</strong>
-                            <span>{curatedEntry ? "Curated data ready" : `d${item.hitDie}`}</span>
+                            <span>{`d${item.hitDie}`}</span>
                           </button>
                         );
                       })}
@@ -1934,6 +2071,7 @@ export function CreatorWorkspace({
                               <div className="skill-spell-card-meta">
                                 <span>{abilityLabels[skillAbilities[skillId] ?? "INT"]}</span>
                                 <span>{`Choose ${currentClassRules?.skillChoiceCount ?? 2}`}</span>
+                                {skillEntry?.proficient ? <span>{`Prof +${draft.proficiencyBonus}`}</span> : null}
                                 {skillEntry?.breakdown ? <span>{skillEntry.breakdown}</span> : null}
                               </div>
                             </label>
@@ -2016,9 +2154,9 @@ export function CreatorWorkspace({
                                       <div className="patron-spell-list">
                                         {patronSpellEntries.map((entry) => (
                                           <div className="patron-spell-row" key={`${currentCuratedSubclass.id}-${entry.unlockLevel}-${entry.name}`}>
-                                            <strong>{entry.name}</strong>
-                                            <span className="inline-help" aria-label={`${entry.name} info`} tabIndex={0}>?
-                                              <span className="inline-help-tooltip spell-inline-tooltip">
+                                            <strong>
+                                              <HoverTooltip label={entry.name} content={
+                                                <>
                                                 <span className="spell-tooltip-head">
                                                   <span className="spell-tooltip-class">
                                                     <ClassPortrait classId={currentClass.id} alt={currentClass.name} className="spell-tooltip-portrait" />
@@ -2033,8 +2171,9 @@ export function CreatorWorkspace({
                                                   <span>Pact Magic</span>
                                                 </span>
                                                 <span className="spell-tooltip-copy">{entry.spell?.summary ?? `${entry.name} is granted by your patron and added automatically to your warlock spell list.`}</span>
-                                              </span>
-                                            </span>
+                                                </>
+                                            } />
+                                            </strong>
                                           </div>
                                         ))}
                                       </div>
@@ -2065,9 +2204,9 @@ export function CreatorWorkspace({
                                           <input type="checkbox" className="visually-hidden" checked={draft.spellIds.includes(spell.id)} disabled={!isUnlocked} onChange={() => toggleSelection("spellIds", spell.id)} />
                                           <div className="spell-list-top">
                                             <div className="spell-list-name">
-                                              <strong>{spell.name}</strong>
-                                              <span className="inline-help" aria-label={`${spell.name} info`} tabIndex={0}>?
-                                                <span className="inline-help-tooltip spell-inline-tooltip">
+                                              <strong>
+                                                <HoverTooltip label={spell.name} content={
+                                                  <>
                                                   <span className="spell-tooltip-head">
                                                     <span className="spell-tooltip-class">
                                                       <ClassPortrait classId={currentClass.id} alt={currentClass.name} className="spell-tooltip-portrait" />
@@ -2080,6 +2219,9 @@ export function CreatorWorkspace({
                                                     <span>{`Level ${spell.level}`}</span>
                                                     <span>{spell.school}</span>
                                                     <span>{spell.castingTime}</span>
+                                                    {currentClass.id === "warlock" && spell.level > 0 && currentWarlockSlotLevelNumber && spell.level < currentWarlockSlotLevelNumber ? (
+                                                      <span>{`Casts at ${currentWarlockSlotLevel}`}</span>
+                                                    ) : null}
                                                   </span>
                                                   <span className="spell-tooltip-copy">{spell.summary}</span>
                                                   <span className="spell-tooltip-meta spell-tooltip-meta-secondary">
@@ -2087,13 +2229,23 @@ export function CreatorWorkspace({
                                                       <span key={`${spell.id}-tooltip-${line}`}>{line}</span>
                                                     ))}
                                                   </span>
-                                                </span>
-                                              </span>
+                                                  </>
+                                                } />
+                                              </strong>
                                             </div>
                                           </div>
                                           <div className="spell-list-primary">
                                             <span>{`Level ${spell.level}`}</span>
                                             <span>{spell.school}</span>
+                                            {currentClass.id === "warlock" && spell.level > 0 && currentWarlockSlotLevelNumber && spell.level < currentWarlockSlotLevelNumber ? (
+                                              <span>{`Scales to ${currentWarlockSlotLevel}`}</span>
+                                            ) : null}
+                                            {spellDamageChip(spell) ? (
+                                              <span className="damage-chip">
+                                                <AppIcon name="dice" className="damage-chip-icon" />
+                                                {spellDamageChip(spell)}
+                                              </span>
+                                            ) : null}
                                           </div>
                                         </label>
                                       );
@@ -2137,9 +2289,9 @@ export function CreatorWorkspace({
                                             <input type="checkbox" className="visually-hidden" checked={draft.selectedPactCantripIds.includes(spell.id)} disabled={!draft.selectedPactCantripIds.includes(spell.id) && draft.selectedPactCantripIds.length >= 3} onChange={() => togglePactCantripSelection(spell.id)} />
                                             <div className="spell-list-top">
                                               <div className="spell-list-name">
-                                                <strong>{spell.name}</strong>
-                                                <span className="inline-help" aria-label={`${spell.name} info`} tabIndex={0}>?
-                                                  <span className="inline-help-tooltip spell-inline-tooltip">
+                                                <strong>
+                                                  <HoverTooltip label={spell.name} content={
+                                                    <>
                                                     <span className="spell-tooltip-head">
                                                       <span className="spell-tooltip-class">
                                                         <ClassPortrait classId={currentClass.id} alt={currentClass.name} className="spell-tooltip-portrait" />
@@ -2154,13 +2306,20 @@ export function CreatorWorkspace({
                                                       <span>Pact of the Tome</span>
                                                     </span>
                                                     <span className="spell-tooltip-copy">{spell.summary}</span>
-                                                  </span>
-                                                </span>
+                                                    </>
+                                                } />
+                                                </strong>
                                               </div>
                                             </div>
                                             <div className="spell-list-primary">
                                               <span>Cantrip</span>
                                               <span>Book</span>
+                                              {spellDamageChip(spell) ? (
+                                                <span className="damage-chip">
+                                                  <AppIcon name="dice" className="damage-chip-icon" />
+                                                  {spellDamageChip(spell)}
+                                                </span>
+                                              ) : null}
                                             </div>
                                           </label>
                                         ))}
@@ -2190,9 +2349,9 @@ export function CreatorWorkspace({
                                             <input type="checkbox" className="visually-hidden" checked={draft.selectedInvocationIds.includes(option.id)} disabled={!isUnlocked} onChange={() => toggleInvocationSelection(option.id)} />
                                             <div className="spell-list-top">
                                               <div className="spell-list-name">
-                                                <strong>{option.name}</strong>
-                                                <span className="inline-help" aria-label={`${option.name} info`} tabIndex={0}>?
-                                                  <span className="inline-help-tooltip spell-inline-tooltip">
+                                                <strong>
+                                                  <HoverTooltip label={option.name} content={
+                                                    <>
                                                     <span className="spell-tooltip-head">
                                                       <span className="spell-tooltip-class">
                                                         <ClassPortrait classId={currentClass.id} alt={currentClass.name} className="spell-tooltip-portrait" />
@@ -2206,10 +2365,19 @@ export function CreatorWorkspace({
                                                       {parsed.prerequisite ? <span>{`Prerequisite: ${parsed.prerequisite}`}</span> : null}
                                                     </span>
                                                     <span className="spell-tooltip-copy">{parsed.description}</span>
-                                                  </span>
-                                                </span>
+                                                    </>
+                                                } />
+                                                </strong>
                                               </div>
                                             </div>
+                                            {damageChipFromText(parsed.description) ? (
+                                              <div className="spell-list-primary">
+                                                <span className="damage-chip">
+                                                  <AppIcon name="dice" className="damage-chip-icon" />
+                                                  {damageChipFromText(parsed.description)}
+                                                </span>
+                                              </div>
+                                            ) : null}
                                           </label>
                                         );
                                       })}
@@ -2287,9 +2455,9 @@ export function CreatorWorkspace({
                                     <input type="checkbox" className="visually-hidden" checked={draft.spellIds.includes(spell.id)} disabled={!isUnlocked} onChange={() => toggleSelection("spellIds", spell.id)} />
                                     <div className="spell-list-top">
                                       <div className="spell-list-name">
-                                        <strong>{spell.name}</strong>
-                                        <span className="inline-help" aria-label={`${spell.name} info`} tabIndex={0}>?
-                                          <span className="inline-help-tooltip spell-inline-tooltip">
+                                        <strong>
+                                          <HoverTooltip label={spell.name} content={
+                                            <>
                                             <span className="spell-tooltip-head">
                                               <span className="spell-tooltip-class">
                                                 <ClassPortrait classId={currentClass.id} alt={currentClass.name} className="spell-tooltip-portrait" />
@@ -2302,6 +2470,9 @@ export function CreatorWorkspace({
                                               <span>{`Level ${spell.level}`}</span>
                                               <span>{spell.school}</span>
                                               <span>{spell.castingTime}</span>
+                                              {currentClass.id === "warlock" && spell.level > 0 && currentWarlockSlotLevelNumber && spell.level < currentWarlockSlotLevelNumber ? (
+                                                <span>{`Casts at ${currentWarlockSlotLevel}`}</span>
+                                              ) : null}
                                             </span>
                                             <span className="spell-tooltip-copy">{spell.summary}</span>
                                             <span className="spell-tooltip-meta spell-tooltip-meta-secondary">
@@ -2309,13 +2480,23 @@ export function CreatorWorkspace({
                                                 <span key={`${spell.id}-tooltip-${line}`}>{line}</span>
                                               ))}
                                             </span>
-                                          </span>
-                                        </span>
+                                            </>
+                                        } />
+                                        </strong>
                                       </div>
                                     </div>
                                     <div className="spell-list-primary">
                                       <span>{`Level ${spell.level}`}</span>
                                       <span>{spell.school}</span>
+                                      {currentClass.id === "warlock" && spell.level > 0 && currentWarlockSlotLevelNumber && spell.level < currentWarlockSlotLevelNumber ? (
+                                        <span>{`Scales to ${currentWarlockSlotLevel}`}</span>
+                                      ) : null}
+                                      {spellDamageChip(spell) ? (
+                                        <span className="damage-chip">
+                                          <AppIcon name="dice" className="damage-chip-icon" />
+                                          {spellDamageChip(spell)}
+                                        </span>
+                                      ) : null}
                                     </div>
                                   </label>
                                 );
@@ -2336,73 +2517,80 @@ export function CreatorWorkspace({
               <div className="creator-panel creator-panel-wide">
                 <div className="ability-pointbuy-topline">
                   <span className="mini-heading">Ability Scores</span>
-                  <span>{`27 points | Remaining ${pointBuyRemaining}`}</span>
+                  <div className="ability-topline-meta">
+                    <span>{`27 points | Remaining ${pointBuyRemaining}`}</span>
+                  </div>
                 </div>
                 {flexibleAbilityBonusSource ? (
-                  <div className="flexible-bonus-panel">
+                  <div className="flexible-bonus-panel compact">
                     <div className="list-row">
                       <strong>Flexible Ability Score Increase</strong>
-                      <span>{`${flexibleAbilityBonusSource} lets you assign +2 and +1 to different abilities.`}</span>
-                    </div>
-                    <div className="flexible-bonus-grid">
-                      <label className="compact-field">
-                        <span>+2 Bonus</span>
-                        <select
-                          value={draft.flexibleAbilityBonuses.plusTwo ?? ""}
-                          onChange={(event) => updateFlexibleAbilityBonus("plusTwo", event.target.value as AbilityId | "")}
-                        >
-                          <option value="">Select ability</option>
-                          {draft.abilities.map((ability) => (
-                            <option
-                              key={`plus-two-${ability.id}`}
-                              value={ability.id}
-                              disabled={draft.flexibleAbilityBonuses.plusOne === ability.id}
-                            >
-                              {ability.id}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="compact-field">
-                        <span>+1 Bonus</span>
-                        <select
-                          value={draft.flexibleAbilityBonuses.plusOne ?? ""}
-                          onChange={(event) => updateFlexibleAbilityBonus("plusOne", event.target.value as AbilityId | "")}
-                        >
-                          <option value="">Select ability</option>
-                          {draft.abilities.map((ability) => (
-                            <option
-                              key={`plus-one-${ability.id}`}
-                              value={ability.id}
-                              disabled={draft.flexibleAbilityBonuses.plusTwo === ability.id}
-                            >
-                              {ability.id}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
+                      <span>{`${flexibleAbilityBonusSource} lets you assign one +2 and one +1 to different abilities.`}</span>
                     </div>
                   </div>
                 ) : null}
                 <div className="ability-pointbuy-grid">
                   {previewAbilities.map((ability) => {
                     const canDecrease = ability.score > 6;
-                    const nextCost = pointBuyCost(ability.score + 1) - pointBuyCost(ability.score);
+                    const nextCost = pointBuyStepCost(ability.score, ability.score + 1);
                     const canIncrease = ability.score < 15 && pointBuyRemaining >= nextCost;
 
                     return (
                       <article className="ability-pointbuy-card" key={ability.id}>
                         <div className="ability-pointbuy-head">
-                          <span>{ability.id}</span>
+                          <div className="ability-pointbuy-head-main">
+                            <span>{ability.id}</span>
+                            {flexibleAbilityBonusSource ? (
+                              <div className="ability-flex-picks">
+                                <button
+                                  type="button"
+                                  className={draft.flexibleAbilityBonuses.plusTwo === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
+                                  aria-pressed={draft.flexibleAbilityBonuses.plusTwo === ability.id}
+                                  onClick={() =>
+                                    updateFlexibleAbilityBonus(
+                                      "plusTwo",
+                                      draft.flexibleAbilityBonuses.plusTwo === ability.id ? "" : ability.id,
+                                    )
+                                  }
+                                  disabled={draft.flexibleAbilityBonuses.plusOne === ability.id}
+                                >
+                                  +2
+                                </button>
+                                <button
+                                  type="button"
+                                  className={draft.flexibleAbilityBonuses.plusOne === ability.id ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
+                                  aria-pressed={draft.flexibleAbilityBonuses.plusOne === ability.id}
+                                  onClick={() =>
+                                    updateFlexibleAbilityBonus(
+                                      "plusOne",
+                                      draft.flexibleAbilityBonuses.plusOne === ability.id ? "" : ability.id,
+                                    )
+                                  }
+                                  disabled={draft.flexibleAbilityBonuses.plusTwo === ability.id}
+                                >
+                                  +1
+                                </button>
+                              </div>
+                            ) : null}
+                          </div>
                           <strong>{ability.label}</strong>
                         </div>
                         <div className="ability-pointbuy-values">
                           <div className="ability-pointbuy-base">
-                            <strong>{ability.score}</strong>
-                          </div>
-                          <div className="ability-pointbuy-total">
                             <strong>{ability.previewScore}</strong>
                           </div>
+                          <div className="ability-pointbuy-total">
+                            <strong>{ability.previewModifier >= 0 ? `+${ability.previewModifier}` : ability.previewModifier}</strong>
+                          </div>
+                        </div>
+                        <div className="ability-pointbuy-meta">
+                          <span>{`Base score ${ability.score}`}</span>
+                          {ability.racialBonus > 0 ? (
+                            <span className="ability-bonus-badge">{`Racial Bonus +${ability.racialBonus}`}</span>
+                          ) : null}
+                          {ability.flexibleBonus > 0 ? (
+                            <span className="ability-bonus-badge secondary">{`Flexible Bonus +${ability.flexibleBonus}`}</span>
+                          ) : null}
                         </div>
                         <div className="ability-pointbuy-controls">
                           <button type="button" className="sheet-button secondary" disabled={!canDecrease} onClick={() => updateAbility(ability.id, Math.max(6, ability.score - 1))}>-</button>

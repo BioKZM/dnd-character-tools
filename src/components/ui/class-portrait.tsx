@@ -41,5 +41,14 @@ export function ClassPortrait({
 }) {
   const src = portraitMap[classId] ?? wizardImage;
 
-  return <Image src={src} alt={alt} className={className} sizes="96px" />;
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      className={className}
+      sizes="(max-width: 768px) 72px, 96px"
+      quality={60}
+      loading="lazy"
+    />
+  );
 }
