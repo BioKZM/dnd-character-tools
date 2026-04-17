@@ -46,9 +46,11 @@ export function ClassPortrait({
       src={src}
       alt={alt}
       className={className}
-      sizes="(max-width: 768px) 72px, 96px"
-      quality={60}
+      sizes="64px"
+      quality={35}
+      placeholder="blur"
       loading="lazy"
+      decoding="async"
     />
   );
 }

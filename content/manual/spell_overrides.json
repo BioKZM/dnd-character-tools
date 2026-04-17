@@ -1,0 +1,106 @@
+{
+  "absorb-elements": {
+    "chips": [
+      "Reaction",
+      "Resistance",
+      "Bonus Damage"
+    ],
+    "effects": [
+      {
+        "type": "bonus_damage",
+        "value": "1d6",
+        "damageType": "triggering",
+        "trigger": "on_hit"
+      },
+      {
+        "type": "condition",
+        "value": "resistance",
+        "damageType": "triggering",
+        "trigger": "while_active"
+      }
+    ],
+    "scaling": [
+      {
+        "mode": "slot_level",
+        "target": "bonus_damage",
+        "value": "+1d6",
+        "note": "for each slot above 1"
+      }
+    ]
+  },
+  "armor-of-agathys": {
+    "chips": [
+      "Temp HP",
+      "Retaliation",
+      "Cold"
+    ],
+    "effects": [
+      {
+        "type": "temp_hp",
+        "value": "5",
+        "target": "self",
+        "trigger": "on_cast"
+      },
+      {
+        "type": "retaliatory_damage",
+        "value": "5",
+        "damageType": "cold",
+        "target": "enemy",
+        "trigger": "on_melee_hit_while_temp_hp"
+      }
+    ],
+    "scaling": [
+      {
+        "mode": "slot_level",
+        "target": "temp_hp",
+        "value": "+5",
+        "note": "for each slot above 1"
+      },
+      {
+        "mode": "slot_level",
+        "target": "retaliatory_damage",
+        "value": "+5",
+        "damageType": "cold",
+        "note": "for each slot above 1"
+      }
+    ]
+  },
+  "booming-blade": {
+    "chips": [
+      "Attack Roll",
+      "Thunder",
+      "Move Trigger"
+    ],
+    "effects": [
+      {
+        "type": "weapon_attack_mod",
+        "value": "weapon attack",
+        "target": "enemy",
+        "trigger": "on_cast"
+      },
+      {
+        "type": "move_trigger_damage",
+        "value": "1d8",
+        "damageType": "thunder",
+        "target": "enemy",
+        "trigger": "on_move"
+      }
+    ],
+    "scaling": [
+      {
+        "mode": "character_level",
+        "target": "bonus_damage",
+        "value": "1d8 thunder",
+        "level": 5,
+        "note": "on hit"
+      },
+      {
+        "mode": "character_level",
+        "target": "move_trigger_damage",
+        "value": "2d8 thunder",
+        "level": 5,
+        "note": "on move"
+      }
+    ]
+  }
+}

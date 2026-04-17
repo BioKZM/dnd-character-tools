@@ -1,0 +1,4 @@
+id,name,damage_dice,damage_type,mode,scaling_target,scaling_value,scaling_note,level_5,level_11,level_17
+animal-friendship,Animal Friendship,none,none,slot_level,additional beast,1,for each slot above 1,none,none,none
+armor-of-agathys,Armor of Agathys,none,cold,slot_level,temporary hp & cold damage,5,for each slot above 2,none,none,none
+,,,,,,,,,,

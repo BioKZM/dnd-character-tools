@@ -49,6 +49,30 @@ export type FeatureItem = {
   summary: string;
 };
 
+export type RangerFavoredEnemyChoice = {
+  enemyType: string;
+  language: string;
+  humanoidRaces: string;
+};
+
+export type RangerChoices = {
+  favoredEnemyMode: "enemy" | "foe";
+  favoredEnemies: RangerFavoredEnemyChoice[];
+  favoredTerrainMode: "terrain" | "deft";
+  favoredTerrains: string[];
+  cannySkillId: string | null;
+  deftLanguages: string[];
+  fightingStyleId: string | null;
+  awarenessMode: "primeval" | "primal";
+  hideMode: "plain-sight" | "natures-veil";
+  beastMasterMode: "companion" | "primal";
+  primalCompanionFormId: string | null;
+};
+
+export type FighterChoices = {
+  fightingStyleId: string | null;
+};
+
 export type CharacterDraft = {
   name: string;
   ancestry: string;
@@ -62,6 +86,8 @@ export type CharacterDraft = {
   selectedPactCantripIds: string[];
   selectedInvocationIds: string[];
   mysticArcanumSelections: Partial<Record<6 | 7 | 8 | 9, string>>;
+  rangerChoices: RangerChoices;
+  fighterChoices: FighterChoices;
   selectedSkillIds: string[];
   spellIds: string[];
   featIds: string[];
@@ -110,6 +136,28 @@ export const demoCharacter: CharacterDraft = {
   selectedPactCantripIds: [],
   selectedInvocationIds: [],
   mysticArcanumSelections: {},
+  rangerChoices: {
+    favoredEnemyMode: "enemy",
+    favoredEnemies: [
+      {
+        enemyType: "beasts",
+        language: "Sylvan",
+        humanoidRaces: "",
+      },
+    ],
+    favoredTerrainMode: "terrain",
+    favoredTerrains: ["forest"],
+    cannySkillId: "survival",
+    deftLanguages: ["Sylvan", "Elvish"],
+    fightingStyleId: "archery",
+    awarenessMode: "primeval",
+    hideMode: "plain-sight",
+    beastMasterMode: "companion",
+    primalCompanionFormId: "beast-of-the-land",
+  },
+  fighterChoices: {
+    fightingStyleId: "archery",
+  },
   selectedSkillIds: ["arcana", "investigation"],
   spellIds: ["magic-missile", "shield", "misty-step"],
   featIds: ["war-caster", "fey-touched"],
@@ -244,49 +292,7 @@ export const demoCharacter: CharacterDraft = {
       description: "Move quietly, conceal yourself, and avoid notice.",
     },
   ] satisfies Skill[],
-  actions: [
-    {
-      id: "fire-bolt",
-      name: "Fire Bolt",
-      category: "Attack",
-      range: "120 ft.",
-      hit: "+5",
-      damage: "1d10 fire",
-      notes: "Cantrip",
-      description:
-        "Ranged spell attack that ignites flammable unattended objects on a hit.",
-    },
-    {
-      id: "ray-of-frost",
-      name: "Ray of Frost",
-      category: "Attack",
-      range: "60 ft.",
-      hit: "+5",
-      damage: "1d8 cold",
-      notes: "Reduces speed by 10 ft.",
-      description: "Chilling ray that slows the target until the start of your next turn.",
-    },
-    {
-      id: "misty-step",
-      name: "Misty Step",
-      category: "Bonus Action",
-      range: "Self",
-      hit: "-",
-      damage: "-",
-      notes: "2nd-level spell",
-      description: "Teleport up to 30 feet to a visible unoccupied space.",
-    },
-    {
-      id: "shield",
-      name: "Shield",
-      category: "Reaction",
-      range: "Self",
-      hit: "-",
-      damage: "-",
-      notes: "+5 AC until next turn",
-      description: "Arcane barrier that can turn a hit into a miss and stops magic missile.",
-    },
-  ] satisfies ActionItem[],
+  actions: [] satisfies ActionItem[],
   inventory: [
     "Spellbook",
     "Arcane Focus",
@@ -294,26 +300,7 @@ export const demoCharacter: CharacterDraft = {
     "2x Healing Potion",
     "Scholar's Journal",
   ],
-  features: [
-    {
-      id: "darkvision",
-      name: "Darkvision",
-      kind: "Trait",
-      summary: "You can see in dim light within 60 feet as if it were bright light.",
-    },
-    {
-      id: "arcane-recovery",
-      name: "Arcane Recovery",
-      kind: "Feature",
-      summary: "Recover spent spell slots during a short rest once per day.",
-    },
-    {
-      id: "researcher",
-      name: "Researcher",
-      kind: "Background",
-      summary: "You usually know where and from whom to obtain obscure knowledge.",
-    },
-  ] satisfies FeatureItem[],
+  features: [] satisfies FeatureItem[],
   background:
     "Elira grew up around old observatories and ruined archives, collecting magical notes others overlooked.",
   notes: [

@@ -5,17 +5,20 @@ import { CreatorWorkspace } from "@/components/creator-workspace";
 import { ClassPortrait } from "@/components/ui/class-portrait";
 import { AppIcon } from "@/components/ui/app-icon";
 import { buildSheetContent } from "@/lib/character/build-sheet";
-import { demoCharacter, type CharacterDraft, type AbilityId } from "@/lib/character/demo-sheet";
+import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
+import { demoCharacter, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
 import {
   parseWarlockInvocationSummary,
   warlockInvocationMeetsPrerequisite,
 } from "@/lib/character/warlock-invocations";
+import type { ClassDocCollection } from "@/lib/content/class-docs";
 import type { ClassCuratedCollection, ResolvedClassCuratedEntry } from "@/lib/content/class-curated-schema";
 import type { WarlockOptionCollection } from "@/lib/content/class-options-schema";
 import type { CreatorOptions } from "@/lib/content/creator-options";
 import type { LineageCollection } from "@/lib/content/lineage-schema";
 import type { ContentBundle } from "@/lib/content/schema";
 import type { RawBookManifest } from "@/lib/content/raw-books";
+import type { SpellReferenceCollection } from "@/lib/content/spell-reference";
 type LocalActivity = {
   id: string;
   actorName: string;
@@ -23,7 +26,7 @@ type LocalActivity = {
   createdAt: string;
 };
 
-type InfoTab = "actions" | "inventory" | "features" | "background" | "notes";
+type InfoTab = "actions" | "inventory" | "features" | "background";
 type CreatorStep = 0 | 1 | 2;
 type ActivityFilter = "all" | "rolls" | "system";
 type ActionFilter = "all" | "Attack" | "Action" | "Bonus Action" | "Reaction" | "Other";
@@ -149,46 +152,49 @@ function InlineHelp({
   variant?: "icon" | "keyword";
   tooltipClassName?: string;
 }) {
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [open, setOpen] = useState(false);
-  const [arming, setArming] = useState(false);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const clearHoverTimer = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
+  const clearCloseTimeout = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
     }
   };
 
   const handleEnter = () => {
-    clearHoverTimer();
-    setArming(true);
-    timerRef.current = setTimeout(() => {
-      setOpen(true);
-      setArming(false);
-    }, 1000);
+    clearCloseTimeout();
+    setOpen(true);
   };
 
   const handleLeave = () => {
-    clearHoverTimer();
-    setArming(false);
-    setOpen(false);
+    clearCloseTimeout();
+    closeTimeoutRef.current = setTimeout(() => {
+      setOpen(false);
+      closeTimeoutRef.current = null;
+    }, 220);
   };
 
-  useEffect(() => () => clearHoverTimer(), []);
+  useEffect(() => () => clearCloseTimeout(), []);
 
   return (
     <span
-      className={`inline-help${variant === "keyword" ? " keyword-help" : ""}${arming ? " arming" : ""}${open ? " open" : ""}`}
+      className={`inline-help${variant === "keyword" ? " keyword-help" : ""}${open ? " open" : ""}`}
       aria-label={`${label} info`}
       tabIndex={0}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      onFocus={() => setOpen(true)}
-      onBlur={() => setOpen(false)}
+      onFocus={handleEnter}
+      onBlur={handleLeave}
     >
       <span className={variant === "keyword" ? "keyword-help-trigger" : "inline-help-trigger"}>{variant === "keyword" ? label : "?"}</span>
-      <span className={`inline-help-tooltip ${tooltipClassName}`}>{content}</span>
+      <div
+        className={`inline-help-tooltip ${tooltipClassName}`}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+      >
+        {content}
+      </div>
     </span>
   );
 }
@@ -205,22 +211,74 @@ function classIdFromName(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+function spellChipTone(label: string) {
+  const normalized = label.toLowerCase();
+  if (normalized === "cantrip" || normalized.startsWith("level ")) return "accent";
+  if (["abjuration", "conjuration", "divination", "enchantment", "evocation", "illusion", "necromancy", "transmutation"].includes(normalized)) return "neutral";
+  if (normalized.includes("damage") || normalized.includes("offensive")) return "danger";
+  if (normalized.startsWith("save")) return "accent";
+  if (normalized.includes("defensive") || normalized.includes("healing")) return "support";
+  if (normalized.includes("reaction") || normalized.includes("concentration")) return "accent";
+  if (normalized.includes("heal block") || normalized.includes("crowd control") || normalized.includes("area")) return "utility";
+  if (normalized.includes("summon") || normalized.includes("utility") || normalized.includes("sustained")) return "neutral";
+  return "neutral";
+}
+
+function spellChipIcon(label: string) {
+  const normalized = label.toLowerCase();
+  if (normalized === "cantrip" || normalized.startsWith("level ")) return "spark";
+  if (["abjuration", "conjuration", "divination", "enchantment", "evocation", "illusion", "necromancy", "transmutation"].includes(normalized)) return "book";
+  if (normalized.includes("damage") || normalized.includes("offensive")) return "dice";
+  if (normalized.startsWith("save")) return "spark";
+  if (normalized.includes("defensive") || normalized.includes("heal block")) return "shield";
+  if (normalized.includes("healing")) return "spark";
+  if (normalized.includes("reaction")) return "skill";
+  if (normalized.includes("crowd control") || normalized.includes("utility") || normalized.includes("concentration") || normalized.includes("area")) return "book";
+  if (normalized.includes("summon")) return "wand";
+  if (normalized.includes("sustained")) return "spark";
+  return "spark";
+}
+
 function actionTooltipContent(action: (ReturnType<typeof buildSheetContent>)["builtActions"][number]) {
+  const metaChips = [
+    action.category,
+    action.range && action.range !== "-" ? `Range ${action.range}` : null,
+    action.hit && action.hit !== "-" ? `Hit / DC ${action.hit}` : null,
+    action.damage && action.damage !== "-" ? action.damage : null,
+  ].filter((entry): entry is string => Boolean(entry));
+
+  const noteChips = action.notes
+    ? action.notes
+        .split("|")
+        .map((entry) => entry.trim())
+        .filter(Boolean)
+    : [];
+
   return (
-    <div className="spell-inline-tooltip action-inline-tooltip">
-      <div className="spell-tooltip-head">
+    <div className="action-inline-tooltip">
+      <div className="action-tooltip-head">
         <strong>{action.name}</strong>
-        <div className="spell-tooltip-meta">
-          <span>{action.category}</span>
-          <span>Range: {action.range}</span>
-          <span>Hit / DC: {action.hit}</span>
-          <span>Damage: {action.damage}</span>
-        </div>
+        <span className="action-tooltip-source">{action.source}</span>
       </div>
-      <span className="spell-tooltip-copy">{action.description}</span>
-      {action.notes ? (
-        <div className="spell-tooltip-meta spell-tooltip-meta-secondary">
-          <span>{action.notes}</span>
+      {metaChips.length ? (
+        <div className="action-tooltip-chip-row">
+          {metaChips.map((item) => (
+            <span key={`${action.id}-meta-${item}`} className={`spell-tooltip-chip tone-${spellChipTone(item)}`}>
+              <AppIcon name={spellChipIcon(item)} className="spell-tooltip-chip-icon" />
+              {item}
+            </span>
+          ))}
+        </div>
+      ) : null}
+      <p className="action-tooltip-copy">{action.description}</p>
+      {noteChips.length ? (
+        <div className="action-tooltip-chip-row secondary">
+          {noteChips.map((item) => (
+            <span key={`${action.id}-note-${item}`} className={`spell-tooltip-chip tone-${spellChipTone(item)}`}>
+              <AppIcon name={spellChipIcon(item)} className="spell-tooltip-chip-icon" />
+              {item}
+            </span>
+          ))}
         </div>
       ) : null}
       {action.classes?.length ? (
@@ -235,6 +293,10 @@ function actionTooltipContent(action: (ReturnType<typeof buildSheetContent>)["bu
       ) : null}
     </div>
   );
+}
+
+function actionHintChips(action: (ReturnType<typeof buildSheetContent>)["builtActions"][number]) {
+  return [];
 }
 
 const skillNameToId = Object.fromEntries(
@@ -273,7 +335,130 @@ function raceFeatMatchesSpecies(prerequisite: string | undefined, speciesName: s
 }
 
 function classMatchesSpell(spell: ContentBundle["spells"][number], className: string) {
-  return spell.classes?.includes(className) ?? false;
+  const normalizedTarget = className.toLowerCase().trim();
+  return (
+    spell.classes?.some((entry) => {
+      const normalizedEntry = entry.toLowerCase().trim();
+      return (
+        normalizedEntry === normalizedTarget ||
+        normalizedEntry.replace(/\s*\([^)]*\)\s*/g, "").trim() === normalizedTarget
+      );
+    }) ?? false
+  );
+}
+
+function docSubclassMatchSlug(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\b(conclave|archetype|college|domain|circle|oath|tradition|path|spells)\b/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function normalizedDocCell(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function eldritchKnightFlexiblePickAllowance(level: number) {
+  let allowance = level >= 3 ? 1 : 0;
+  if (level >= 8) allowance += 1;
+  if (level >= 14) allowance += 1;
+  if (level >= 20) allowance += 1;
+  return allowance;
+}
+
+function deriveEldritchKnightSpellRules(
+  classDocs: ClassDocCollection,
+  selectedSubclassOptions: string[],
+  level: number,
+) {
+  if (!selectedSubclassOptions.includes("eldritch-knight")) {
+    return null;
+  }
+
+  const fighterDocs = classDocs.fighter;
+  const eldritchKnightDoc =
+    fighterDocs?.subclasses.find((entry) => {
+      const slugs = [entry.id, docSubclassMatchSlug(entry.name)];
+      return slugs.includes("eldritch-knight");
+    }) ?? null;
+
+  const spellcastingSection =
+    eldritchKnightDoc?.sections.find((section) => docSubclassMatchSlug(section.name) === "spellcasting") ?? null;
+  const spellcastingTable =
+    spellcastingSection?.tables.find((table) =>
+      ["Fighter Level", "Cantrips Known", "Spells Known"].every((header) =>
+        table.headers.some((cell) => normalizedDocCell(cell) === normalizedDocCell(header)),
+      ),
+    ) ??
+    eldritchKnightDoc?.sections
+      .flatMap((section) => section.tables)
+      .find((table) =>
+        ["Fighter Level", "Cantrips Known", "Spells Known"].every((header) =>
+          table.headers.some((cell) => normalizedDocCell(cell) === normalizedDocCell(header)),
+        ),
+      ) ??
+    null;
+
+  if (!spellcastingTable) {
+    const fallbackRow = getEldritchKnightProgression(level);
+    if (!fallbackRow) {
+      return null;
+    }
+
+    const perLevelLimits: Record<number, number> = {};
+    for (const spellLevel of [1, 2, 3, 4] as const) {
+      if (fallbackRow.slots[spellLevel] > 0) {
+        perLevelLimits[spellLevel] = fallbackRow.spellsKnown;
+      }
+    }
+
+    return {
+      maxSpellLevel: ([4, 3, 2, 1] as const).find((spellLevel) => fallbackRow.slots[spellLevel] > 0) ?? 0,
+      cantripLimit: fallbackRow.cantripsKnown,
+      totalKnownLimit: fallbackRow.spellsKnown,
+      perLevelLimits,
+      flexibleSchoolAllowance: eldritchKnightFlexiblePickAllowance(level),
+    };
+  }
+
+  const levelRow = spellcastingTable.rows.find((row) => normalizedDocCell(row[0] ?? "") === normalizedDocCell(levelOrdinal(level)));
+  if (!levelRow) {
+    return null;
+  }
+
+  const readCell = (header: string) => {
+    const index = spellcastingTable.headers.findIndex((cell) => normalizedDocCell(cell) === normalizedDocCell(header));
+    return index >= 0 ? levelRow[index] ?? "" : "";
+  };
+  const numericValue = (value: string) => {
+    const parsed = Number.parseInt(value.replace(/\D/g, ""), 10);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+
+  const cantripLimit = numericValue(readCell("Cantrips Known")) || 0;
+  const totalKnownLimit = numericValue(readCell("Spells Known")) || 0;
+  const maxSpellLevel = [1, 2, 3, 4].reduce((highest, spellLevel) => {
+    const slotValue = readCell(levelOrdinal(spellLevel));
+    return numericValue(slotValue) > 0 ? spellLevel : highest;
+  }, 0);
+  const perLevelLimits: Record<number, number> = {};
+
+  for (let spellLevel = 1; spellLevel <= maxSpellLevel; spellLevel += 1) {
+    perLevelLimits[spellLevel] = totalKnownLimit;
+  }
+
+  return {
+    maxSpellLevel,
+    cantripLimit,
+    totalKnownLimit,
+    perLevelLimits,
+    flexibleSchoolAllowance: eldritchKnightFlexiblePickAllowance(level),
+  };
 }
 
 function maxSpellLevelForClass(classId: string, level: number) {
@@ -453,6 +638,53 @@ function availableMysticArcanumLevels(level: number) {
   }) as Array<6 | 7 | 8 | 9>;
 }
 
+function rangerFavoredEnemyChoiceCount(level: number) {
+  if (level >= 14) {
+    return 3;
+  }
+  if (level >= 6) {
+    return 2;
+  }
+  return 1;
+}
+
+function normalizeRangerChoices(
+  rangerChoices: RangerChoices | undefined,
+  level: number,
+) {
+  const choiceCount = rangerFavoredEnemyChoiceCount(level);
+  const terrainChoiceCount = level >= 10 ? 3 : level >= 6 ? 2 : 1;
+  const baseChoices = rangerChoices?.favoredEnemies ?? [];
+  const favoredEnemies = Array.from({ length: choiceCount }, (_, index) => {
+    const existing = baseChoices[index];
+    return {
+      enemyType: existing?.enemyType ?? "aberrations",
+      language: existing?.language ?? "Common",
+      humanoidRaces: existing?.humanoidRaces ?? "",
+    };
+  });
+
+  return {
+    favoredEnemyMode: rangerChoices?.favoredEnemyMode === "foe" ? ("foe" as const) : ("enemy" as const),
+    favoredEnemies,
+    favoredTerrainMode: rangerChoices?.favoredTerrainMode === "deft" ? ("deft" as const) : ("terrain" as const),
+    favoredTerrains: Array.from({ length: terrainChoiceCount }, (_, index) => rangerChoices?.favoredTerrains?.[index] ?? "forest"),
+    cannySkillId: rangerChoices?.cannySkillId ?? "survival",
+    deftLanguages: Array.from({ length: 2 }, (_, index) => rangerChoices?.deftLanguages?.[index] ?? (index === 0 ? "Sylvan" : "Elvish")),
+    fightingStyleId: rangerChoices?.fightingStyleId ?? "archery",
+    awarenessMode: rangerChoices?.awarenessMode === "primal" ? ("primal" as const) : ("primeval" as const),
+    hideMode: rangerChoices?.hideMode === "natures-veil" ? ("natures-veil" as const) : ("plain-sight" as const),
+    beastMasterMode: rangerChoices?.beastMasterMode === "primal" ? ("primal" as const) : ("companion" as const),
+    primalCompanionFormId: rangerChoices?.primalCompanionFormId ?? "beast-of-the-land",
+  };
+}
+
+function normalizeFighterChoices(fighterChoices: FighterChoices | undefined) {
+  return {
+    fightingStyleId: fighterChoices?.fightingStyleId ?? "archery",
+  } satisfies FighterChoices;
+}
+
 function buildDraftFromSelection(
   content: ContentBundle,
   creatorOptions: CreatorOptions,
@@ -498,6 +730,18 @@ function buildDraftFromSelection(
       .filter((spell) => spell.level === 0)
       .map((spell) => spell.id),
   );
+  const normalizedRangerChoices = normalizeRangerChoices(previous.rangerChoices, previous.level);
+  const normalizedFighterChoices = normalizeFighterChoices(previous.fighterChoices);
+  const rangerFavoredEnemyLanguages =
+    chosenClass.id === "ranger" && normalizedRangerChoices.favoredEnemyMode === "enemy"
+      ? normalizedRangerChoices.favoredEnemies
+          .map((entry) => entry.language.trim())
+          .filter(Boolean)
+      : [];
+  const rangerDeftExplorerLanguages =
+    chosenClass.id === "ranger" && normalizedRangerChoices.favoredTerrainMode === "deft"
+      ? normalizedRangerChoices.deftLanguages.map((entry) => entry.trim()).filter(Boolean)
+      : [];
 
   const proficiencyBonus = proficiencyBonusForLevel(previous.level);
   const scoreFor = (abilityId: AbilityId) =>
@@ -544,6 +788,33 @@ function buildDraftFromSelection(
             ),
           ) as Partial<Record<6 | 7 | 8 | 9, string>>
         : {},
+    rangerChoices: chosenClass.id === "ranger"
+      ? normalizedRangerChoices
+        : {
+          favoredEnemyMode: "enemy",
+          favoredEnemies: [
+            {
+              enemyType: "aberrations",
+              language: "Common",
+              humanoidRaces: "",
+            },
+          ],
+          favoredTerrainMode: "terrain",
+          favoredTerrains: ["forest"],
+          cannySkillId: "survival",
+          deftLanguages: ["Sylvan", "Elvish"],
+          fightingStyleId: "archery",
+          awarenessMode: "primeval",
+          hideMode: "plain-sight",
+          beastMasterMode: "companion",
+          primalCompanionFormId: "beast-of-the-land",
+        },
+    fighterChoices:
+      chosenClass.id === "fighter"
+        ? normalizedFighterChoices
+        : {
+            fightingStyleId: "archery",
+          },
     spellIds: previous.spellIds.filter((spellId) => allowedSpellIds.includes(spellId)),
     featIds: previous.featIds.filter((featId) => allowedFeatIds.includes(featId)),
     proficiencyBonus,
@@ -565,6 +836,8 @@ function buildDraftFromSelection(
         ...(speciesRules?.languages ?? []),
         ...(backgroundRules?.languages ?? []),
         ...backgroundLanguages,
+        ...rangerFavoredEnemyLanguages,
+        ...rangerDeftExplorerLanguages,
       ]),
     },
     flexibleAbilityBonuses: {
@@ -595,13 +868,22 @@ function buildDraftFromSelection(
         previous.selectedSkillIds.includes(skillId) ||
         existing?.proficient ||
         false;
+      const expertise =
+        chosenClass.id === "ranger" &&
+        normalizedRangerChoices.favoredTerrainMode === "deft" &&
+        normalizedRangerChoices.cannySkillId === skillId &&
+        proficient;
       return {
         id: skillId,
         label: existing?.label ?? skillLabel(skillId),
         ability,
         proficient,
-        bonus: modifier + (proficient ? proficiencyBonus : 0),
-        breakdown: proficient ? `${ability} modifier + proficiency.` : `${ability} modifier.`,
+        bonus: modifier + (proficient ? proficiencyBonus : 0) + (expertise ? proficiencyBonus : 0),
+        breakdown: expertise
+          ? `${ability} modifier + expertise.`
+          : proficient
+            ? `${ability} modifier + proficiency.`
+            : `${ability} modifier.`,
         description: skillDescriptions[skillId] ?? existing?.description ?? "",
       };
     }),
@@ -637,6 +919,8 @@ export function PartyRoomDashboard({
   initialLineageCollection,
   initialClassCuratedCollection,
   initialWarlockOptions,
+  initialClassDocs,
+  initialSpellReferenceCollection,
   mode = "creator",
 }: {
   initialBookManifest: RawBookManifest | null;
@@ -645,6 +929,8 @@ export function PartyRoomDashboard({
   initialLineageCollection: LineageCollection;
   initialClassCuratedCollection: ClassCuratedCollection;
   initialWarlockOptions: WarlockOptionCollection;
+  initialClassDocs: ClassDocCollection;
+  initialSpellReferenceCollection: SpellReferenceCollection;
   mode?: "creator" | "sheet";
 }) {
   const isHydrated = useSyncExternalStore(
@@ -658,7 +944,10 @@ export function PartyRoomDashboard({
     }
     return loadInitialDraft(initialContent, initialCreatorOptions);
   });
-  const sheetContent = useMemo(() => buildSheetContent(initialContent, draft), [initialContent, draft]);
+  const sheetContent = useMemo(
+    () => buildSheetContent(initialContent, draft, initialClassDocs, initialClassCuratedCollection),
+    [initialContent, draft, initialClassDocs, initialClassCuratedCollection],
+  );
   const [bookManifest] = useState<RawBookManifest | null>(initialBookManifest);
   const [currentHp, setCurrentHp] = useState(() => draft.currentHp);
   const [tempHp, setTempHp] = useState(() => draft.tempHp);
@@ -704,8 +993,25 @@ export function PartyRoomDashboard({
   const currentBackground =
     initialContent.backgrounds.find((item) => item.id === draft.backgroundId) ?? initialContent.backgrounds[0];
   const multiclassChoices = initialContent.classes.filter((item) => item.id !== draft.classId);
-  const spellSelectionRules = deriveSpellSelectionRules(currentCuratedClass, draft.level);
+  const effectiveSelectedSubclassOptions =
+    draft.selectedSubclassOptions.length
+      ? draft.selectedSubclassOptions
+      : currentCuratedClass?.subclasses?.[0]?.id
+        ? [currentCuratedClass.subclasses[0].id]
+        : [];
+  const isEffectiveEldritchKnight = effectiveSelectedSubclassOptions.includes("eldritch-knight");
+  const eldritchKnightSpellRules = deriveEldritchKnightSpellRules(initialClassDocs, effectiveSelectedSubclassOptions, draft.level);
+  const spellSelectionRules = eldritchKnightSpellRules ?? deriveSpellSelectionRules(currentCuratedClass, draft.level);
   const maxSpellLevel = spellSelectionRules.maxSpellLevel;
+  const eldritchKnightSelectedOffSchoolCount = draft.spellIds.filter((spellId) => {
+    const spell = initialContent.spells.find((entry) => entry.id === spellId);
+    return Boolean(
+      spell &&
+      spell.level > 0 &&
+      classMatchesSpell(spell, "Wizard") &&
+      !["abjuration", "evocation"].includes(spell.school.toLowerCase()),
+    );
+  }).length;
   const availableSubclassOptions = unique(
     initialContent.spells
       .flatMap((spell) => spell.subclassOptions ?? [])
@@ -717,16 +1023,31 @@ export function PartyRoomDashboard({
       .filter((value): value is string => Boolean(value))];
 
     const byClass = classPool.some((className) => classMatchesSpell(spell, className));
+    const byEldritchKnight =
+      draft.classId === "fighter" &&
+      isEffectiveEldritchKnight &&
+      classMatchesSpell(spell, "Wizard");
     const bySubclass = (spell.subclassOptions ?? []).some((option) =>
       draft.selectedSubclassOptions.includes(option),
     );
 
-    if (!(byClass || bySubclass)) {
+    if (!(byClass || bySubclass || byEldritchKnight)) {
       return false;
     }
 
     if (spell.level === 0) {
       return spellSelectionRules.cantripLimit > 0;
+    }
+
+    if (
+      draft.classId === "fighter" &&
+      isEffectiveEldritchKnight &&
+      byEldritchKnight &&
+      !draft.spellIds.includes(spell.id) &&
+      !["abjuration", "evocation"].includes(spell.school.toLowerCase()) &&
+      eldritchKnightSelectedOffSchoolCount >= (eldritchKnightSpellRules?.flexibleSchoolAllowance ?? 0)
+    ) {
+      return false;
     }
 
     return (spellSelectionRules.perLevelLimits[spell.level] ?? 0) > 0 && spell.level <= maxSpellLevel;
@@ -899,6 +1220,121 @@ export function PartyRoomDashboard({
     }));
   };
 
+  const setRangerFavoredEnemyMode = (mode: "enemy" | "foe") => {
+    updateDraft((current) => ({
+      ...current,
+      rangerChoices: {
+        ...normalizeRangerChoices(current.rangerChoices, current.level),
+        favoredEnemyMode: mode,
+      },
+    }));
+  };
+
+  const updateRangerFavoredEnemyChoice = (
+    index: number,
+    field: "enemyType" | "language" | "humanoidRaces",
+    value: string,
+  ) => {
+    updateDraft((current) => {
+      const rangerChoices = normalizeRangerChoices(current.rangerChoices, current.level);
+      return {
+        ...current,
+        rangerChoices: {
+          ...rangerChoices,
+          favoredEnemies: rangerChoices.favoredEnemies.map((entry, entryIndex) =>
+            entryIndex === index ? { ...entry, [field]: value } : entry,
+          ),
+        },
+      };
+    });
+  };
+
+  const setRangerFavoredTerrainMode = (mode: "terrain" | "deft") => {
+    updateDraft((current) => ({
+      ...current,
+      rangerChoices: {
+        ...normalizeRangerChoices(current.rangerChoices, current.level),
+        favoredTerrainMode: mode,
+      },
+    }));
+  };
+
+  const updateRangerFavoredTerrain = (index: number, value: string) => {
+    updateDraft((current) => {
+      const rangerChoices = normalizeRangerChoices(current.rangerChoices, current.level);
+      return {
+        ...current,
+        rangerChoices: {
+          ...rangerChoices,
+          favoredTerrains: rangerChoices.favoredTerrains.map((entry, entryIndex) => (entryIndex === index ? value : entry)),
+        },
+      };
+    });
+  };
+
+  const setRangerCannySkill = (skillId: string) => {
+    updateDraft((current) => ({
+      ...current,
+      rangerChoices: {
+        ...normalizeRangerChoices(current.rangerChoices, current.level),
+        cannySkillId: skillId,
+      },
+    }));
+  };
+
+  const updateRangerDeftLanguage = (index: number, value: string) => {
+    updateDraft((current) => {
+      const rangerChoices = normalizeRangerChoices(current.rangerChoices, current.level);
+      return {
+        ...current,
+        rangerChoices: {
+          ...rangerChoices,
+          deftLanguages: rangerChoices.deftLanguages.map((entry, entryIndex) => (entryIndex === index ? value : entry)),
+        },
+      };
+    });
+  };
+
+  const setRangerFightingStyle = (styleId: string) => {
+    updateDraft((current) => ({
+      ...current,
+      rangerChoices: {
+        ...normalizeRangerChoices(current.rangerChoices, current.level),
+        fightingStyleId: styleId,
+      },
+    }));
+  };
+
+  const setFighterFightingStyle = (styleId: string) => {
+    updateDraft((current) => ({
+      ...current,
+      fighterChoices: {
+        ...normalizeFighterChoices(current.fighterChoices),
+        fightingStyleId: styleId,
+      },
+    }));
+  };
+
+  const setRangerAwarenessMode = (mode: "primeval" | "primal") => {
+    updateDraft((current) => ({
+      ...current,
+      rangerChoices: {
+        ...normalizeRangerChoices(current.rangerChoices, current.level),
+        awarenessMode: mode,
+      },
+    }));
+  };
+
+  const setRangerHideMode = (mode: "plain-sight" | "natures-veil") => {
+    updateDraft((current) => ({
+      ...current,
+      rangerChoices: {
+        ...normalizeRangerChoices(current.rangerChoices, current.level),
+        hideMode: mode,
+      },
+    }));
+  };
+
   const toggleSelection = (key: "spellIds" | "featIds", value: string) => {
     updateDraft((current) => {
       const values = current[key];
@@ -914,6 +1350,25 @@ export function PartyRoomDashboard({
         const targetSpell = initialContent.spells.find((spell) => spell.id === value);
         if (!targetSpell) {
           return current;
+        }
+
+        if (
+          current.classId === "fighter" &&
+          (current.selectedSubclassOptions.length ? current.selectedSubclassOptions : effectiveSelectedSubclassOptions).includes("eldritch-knight") &&
+          classMatchesSpell(targetSpell, "Wizard") &&
+          targetSpell.level > 0 &&
+          !["abjuration", "evocation"].includes(targetSpell.school.toLowerCase())
+        ) {
+          const selectedFlexSpells = selectedSpells.filter(
+            (spell) =>
+              spell.level > 0 &&
+              classMatchesSpell(spell, "Wizard") &&
+              !["abjuration", "evocation"].includes(spell.school.toLowerCase()),
+          ).length;
+
+          if (selectedFlexSpells >= (eldritchKnightSpellRules?.flexibleSchoolAllowance ?? 0)) {
+            return current;
+          }
         }
 
         if (targetSpell.level === 0) {
@@ -1154,6 +1609,8 @@ export function PartyRoomDashboard({
               lineageCollection={initialLineageCollection}
               classCuratedCollection={initialClassCuratedCollection}
               warlockOptions={initialWarlockOptions}
+              classDocs={initialClassDocs}
+              spellReferenceCollection={initialSpellReferenceCollection}
               currentClassRules={currentClassRules}
               classOptions={initialCreatorOptions.classOptions}
               multiclassChoices={multiclassChoices}
@@ -1161,6 +1618,8 @@ export function PartyRoomDashboard({
               availableSpells={availableSpells}
               availableFeats={availableFeats}
               maxSpellLevel={maxSpellLevel}
+              spellSelectionRules={spellSelectionRules}
+              eldritchKnightFlexibleSchoolAllowance={eldritchKnightSpellRules?.flexibleSchoolAllowance ?? 0}
               backgroundSkillIds={backgroundSkillIds}
               updateDraft={updateDraft}
               updateAbility={updateAbility}
@@ -1172,6 +1631,16 @@ export function PartyRoomDashboard({
               setPactBoon={setPactBoon}
               togglePactCantripSelection={togglePactCantripSelection}
               setMysticArcanumSpell={setMysticArcanumSpell}
+              setRangerFavoredEnemyMode={setRangerFavoredEnemyMode}
+              updateRangerFavoredEnemyChoice={updateRangerFavoredEnemyChoice}
+              setRangerFavoredTerrainMode={setRangerFavoredTerrainMode}
+              updateRangerFavoredTerrain={updateRangerFavoredTerrain}
+              setRangerCannySkill={setRangerCannySkill}
+              updateRangerDeftLanguage={updateRangerDeftLanguage}
+              setRangerFightingStyle={setRangerFightingStyle}
+              setFighterFightingStyle={setFighterFightingStyle}
+              setRangerAwarenessMode={setRangerAwarenessMode}
+              setRangerHideMode={setRangerHideMode}
             />
           </section>
         ) : null}
@@ -1453,7 +1922,7 @@ export function PartyRoomDashboard({
           <div className="sheet-column right-column">
             <article className="sheet-card tabs-card pdf-page-break-before-soft">
               <div className="tab-strip">
-                {(["actions", "inventory", "features", "background", "notes"] as InfoTab[]).map((tab) => (
+                {(["actions", "inventory", "features", "background"] as InfoTab[]).map((tab) => (
                   <button
                     className={tab === activeTab ? "tab-button active" : "tab-button"}
                     key={tab}
@@ -1484,41 +1953,31 @@ export function PartyRoomDashboard({
                   </div>
                   <div className="action-card-list">
                     {filteredActions.length ? filteredActions.map((action) => (
-                      <article className="action-card" key={action.id}>
-                        <div className="action-card-head">
-                          <div className="action-card-title">
-                            <strong>
-                              <InlineHelp
-                                label={action.name}
-                                variant="keyword"
-                                tooltipClassName="sheet-inline-tooltip action-inline-tooltip-shell"
-                                content={actionTooltipContent(action)}
-                              />
-                            </strong>
-                            <span>{action.source}</span>
-                          </div>
-                          <span className="action-category-pill">{action.category}</span>
+                      <article className="spell-selection-row action-selection-row" key={action.id}>
+                        <div className="spell-selection-main">
+                          <strong className="spell-selection-title">
+                            <InlineHelp
+                              label={action.name}
+                              variant="keyword"
+                              tooltipClassName="sheet-inline-tooltip action-inline-tooltip-shell"
+                              content={actionTooltipContent(action)}
+                            />
+                          </strong>
+                          <span className="action-selection-source">{action.source}</span>
                         </div>
-                        <div className="action-card-metrics">
-                          <div className="action-metric">
-                            <span className="action-label">Range</span>
-                            <strong>{action.range}</strong>
-                          </div>
-                          <div className="action-metric">
-                            <span className="action-label">Hit / DC</span>
-                            <strong>{action.hit}</strong>
-                          </div>
-                          <div className="action-metric">
-                            <span className="action-label">Damage</span>
-                            <strong>{action.damage}</strong>
-                          </div>
+                        <div className="spell-selection-tags important">
+                          {actionHintChips(action).map((item) => (
+                            <span key={`${action.id}-${item}`} className={`spell-tooltip-chip tone-${spellChipTone(item)}`}>
+                              <AppIcon name={spellChipIcon(item)} className="spell-tooltip-chip-icon" />
+                              {item}
+                            </span>
+                          ))}
                         </div>
-                        <p className="action-card-notes">{action.notes}</p>
                       </article>
                     )) : (
                       <div className="list-row">
                         <strong>No actions in this filter</strong>
-                        <span>Change the filter or add more spells, feats, features, or inventory items.</span>
+                        <span>Change the filter or add more spells, action-ready features, or inventory items.</span>
                       </div>
                     )}
                   </div>
@@ -1542,20 +2001,22 @@ export function PartyRoomDashboard({
               ) : null}
 
               {activeTab === "features" ? (
-                <div className="tab-body simple-list">
+                <div className="tab-body feature-grid">
                   {sheetContent.builtFeatures.map((feature) => (
-                    <div className="list-row" key={feature.id}>
-                      <strong>
-                        <InlineHelp
-                          label={feature.name}
-                          variant="keyword"
-                          content={`${feature.summary} ${feature.kind} | ${feature.source}`}
-                        />
-                      </strong>
-                      <span>
-                        {feature.kind} | {feature.source}
-                      </span>
-                    </div>
+                    <article className="feature-sheet-card" key={feature.id}>
+                      <div className="feature-sheet-card-head">
+                        <strong>
+                          <InlineHelp
+                            label={feature.name}
+                            variant="keyword"
+                            content={`${feature.summary} ${feature.kind} | ${feature.source}`}
+                          />
+                        </strong>
+                        <span className="feature-kind-pill">{feature.kind}</span>
+                      </div>
+                      <p>{feature.summary}</p>
+                      <span className="feature-sheet-card-meta">{feature.source}</span>
+                    </article>
                   ))}
                 </div>
               ) : null}
@@ -1566,35 +2027,25 @@ export function PartyRoomDashboard({
                     <strong>{sheetContent.backgroundName}</strong>
                     <span>{sheetContent.backgroundSummary}</span>
                   </div>
-                  {currentBackground.skillProficiencies ? (
+                  {sheetContent.backgroundSkillProficiencies ? (
                     <div className="list-row">
                       <strong>Skill Proficiencies</strong>
-                      <span>{currentBackground.skillProficiencies}</span>
+                      <span>{sheetContent.backgroundSkillProficiencies}</span>
                     </div>
                   ) : null}
-                  {currentBackground.toolProficiencies ? (
+                  {sheetContent.backgroundToolProficiencies ? (
                     <div className="list-row">
                       <strong>Tool Proficiencies</strong>
-                      <span>{currentBackground.toolProficiencies}</span>
+                      <span>{sheetContent.backgroundToolProficiencies}</span>
                     </div>
                   ) : null}
-                  {currentBackground.languages ? (
+                  {sheetContent.backgroundLanguages ? (
                     <div className="list-row">
                       <strong>Languages</strong>
-                      <span>{currentBackground.languages}</span>
+                      <span>{sheetContent.backgroundLanguages}</span>
                     </div>
                   ) : null}
                   <p>{draft.background}</p>
-                </div>
-              ) : null}
-
-              {activeTab === "notes" ? (
-                <div className="tab-body simple-list">
-                  {draft.notes.map((note) => (
-                    <div className="list-row" key={note}>
-                      {note}
-                    </div>
-                  ))}
                 </div>
               ) : null}
             </article>

@@ -1,0 +1,24 @@
+id,name,damage_dice,damage_type,save_ability,level_5,level_11,level_17
+acid-splash,Acid Splash,1d6,acid,DEX,2d6,3d6,4d6
+booming-blade,Booming Blade,1d8,thunder,none,1d8,1d8,1d8
+chill-touch,Chill Touch,1d8,necrotic,none,2d8,3d8,4d8
+create-bonfire,Create Bonfire,1d8,fire,DEX,2d8,3d8,4d8
+fire-bolt,Fire Bolt,1d10,fire,none,2d10,3d10,4d10
+frostbite,Frostbite,1d6,cold,CON,2d6,3d6,4d6
+infestation,Infestation,1d6,poison,CON,2d6,3d6,4d6
+lightning-lure,Lightning Lure,1d8,lightning,STR,2d8,3d8,4d8
+magic-stone,Magic Stone,1d6 + SM(Spellcasting Modifier),bludgeoning,none,1d6 + SM,1d6 + SM ,1d6 + SM
+mind-sliver,Mind Sliver,1d6,psychic,INT,2d6,3d6,4d6
+poison-spray,Poison Spray,1d12,poison,CON,2d12,3d12,4d12
+primal-savagery,Primal Savagery,1d10,acid,none,2d10,3d10,4d10
+produce-flame,Produce Flame,1d8,fire,none,2d8,3d8,4d8
+ray-of-frost,Ray of Frost,1d8,cold,none,2d8,3d8,4d8
+sacred-flame,Sacred Flame,1d8,radiant,DEX,2d8,3d8,4d8
+sapping-sting,Sapping Sting,1d4,necrotic,CON,2d4,3d4,4d4
+shocking-grasp,Shocking Grasp,1d8,lightning,none,2d8,3d8,4d8
+sword-burst,Sword Burst,1d6,force,DEX,2d6,3d6,4d6
+thorn-whip,Thorn Whip,1d6,piercing,none,2d6,3d6,4d6
+thunderclap,Thunderclap,1d6,thunder,CON,2d6,3d6,4d6
+toll-the-dead,Toll the Dead,1d8-1d12,necrotic,WIS,2d8-2d12,3d8-3d12,4d8-4d12
+vicious-mockery,Vicious Mockery,1d4,psychic,WIS,2d4,3d4,4d4
+word-of-radiance,Word of Radiance,1d6,radiant,CON,2d6,3d6,4d6
