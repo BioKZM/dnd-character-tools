@@ -299,46 +299,49 @@ export function mergeSpellReferencesIntoContent(
 ): ContentBundle {
   const normalizedSpellMap = new Map(content.spells.map((spell) => [spell.id, spell] as const));
   const mergedSpellIds = unique([...normalizedSpellMap.keys(), ...Object.keys(references)]);
+  const mergedSpells: ContentBundle["spells"] = mergedSpellIds
+    .map((spellId) => {
+      const normalizedSpell = normalizedSpellMap.get(spellId);
+      const reference =
+        references[spellId] ??
+        (normalizedSpell
+          ? references[
+              normalizedSpell.name
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-|-$/g, "")
+            ]
+          : undefined);
+
+      if (!normalizedSpell && !reference) {
+        return null;
+      }
+
+      const classes = reference?.spellLists?.length
+        ? unique(reference.spellLists.map((item) => item.replace(/\s*\(.*?\)\s*/g, "").trim()).filter(Boolean))
+        : normalizedSpell?.classes;
+
+      const mergedSpell: ContentBundle["spells"][number] = {
+        id: reference?.id ?? normalizedSpell?.id ?? spellId,
+        name: reference?.name ?? normalizedSpell?.name ?? spellId,
+        level: normalizedSpell?.level ?? parseSpellLevelFromSubtitle(reference?.subtitle),
+        school: normalizedSpell?.school ?? parseSpellSchoolFromSubtitle(reference?.subtitle),
+        castingTime: reference?.castingTime ?? normalizedSpell?.castingTime ?? "",
+        range: reference?.range ?? normalizedSpell?.range ?? "",
+        duration: reference?.duration ?? normalizedSpell?.duration ?? "",
+        summary: reference?.summary?.length ? reference.summary.join("\n\n") : normalizedSpell?.summary ?? "",
+        source: reference?.source ?? normalizedSpell?.source,
+        classes,
+        subclassOptions: normalizedSpell?.subclassOptions ?? [],
+      };
+
+      return mergedSpell;
+    })
+    .filter((spell): spell is NonNullable<typeof spell> => Boolean(spell))
+    .sort((left, right) => (left.level === right.level ? left.name.localeCompare(right.name) : left.level - right.level));
 
   return {
     ...content,
-    spells: mergedSpellIds
-      .map((spellId) => {
-        const normalizedSpell = normalizedSpellMap.get(spellId);
-        const reference =
-          references[spellId] ??
-          (normalizedSpell
-            ? references[
-                normalizedSpell.name
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]+/g, "-")
-                  .replace(/^-|-$/g, "")
-              ]
-            : undefined);
-
-        if (!normalizedSpell && !reference) {
-          return null;
-        }
-
-        const classes = reference?.spellLists?.length
-          ? unique(reference.spellLists.map((item) => item.replace(/\s*\(.*?\)\s*/g, "").trim()).filter(Boolean))
-          : normalizedSpell?.classes;
-
-        return {
-          id: reference?.id ?? normalizedSpell?.id ?? spellId,
-          name: reference?.name ?? normalizedSpell?.name ?? spellId,
-          level: normalizedSpell?.level ?? parseSpellLevelFromSubtitle(reference?.subtitle),
-          school: normalizedSpell?.school ?? parseSpellSchoolFromSubtitle(reference?.subtitle),
-          castingTime: reference?.castingTime ?? normalizedSpell?.castingTime ?? "",
-          range: reference?.range ?? normalizedSpell?.range ?? "",
-          duration: reference?.duration ?? normalizedSpell?.duration ?? "",
-          summary: reference?.summary?.length ? reference.summary.join("\n\n") : normalizedSpell?.summary ?? "",
-          source: reference?.source ?? normalizedSpell?.source,
-          classes,
-          subclassOptions: normalizedSpell?.subclassOptions ?? [],
-        };
-      })
-      .filter((spell): spell is ContentBundle["spells"][number] => Boolean(spell))
-      .sort((left, right) => (left.level === right.level ? left.name.localeCompare(right.name) : left.level - right.level)),
+    spells: mergedSpells,
   };
 }

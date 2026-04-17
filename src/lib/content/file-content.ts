@@ -43,7 +43,7 @@ function mergeSpeciesWithLineages(species: ContentBundle["species"]): ContentBun
         id: lineage.id,
         name: lineage.name,
         traits: lineageTraitsAsSpeciesTraits(lineage.coreTraits, lineage.stats),
-        source: lineage.source,
+        source: lineage.sourceLabel,
       });
     }
 
@@ -56,7 +56,7 @@ function mergeSpeciesWithLineages(species: ContentBundle["species"]): ContentBun
         id: subrace.id,
         name: subrace.name,
         traits: lineageTraitsAsSpeciesTraits(subrace.traits, subrace.stats, subrace.bonuses),
-        source: lineage.source,
+        source: subrace.source ?? lineage.sourceLabel,
       });
     }
   }
