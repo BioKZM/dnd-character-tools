@@ -1151,7 +1151,7 @@ export function PartyRoomDashboard({
     updateDraft((current) => ({
       ...current,
       abilities: current.abilities.map((ability) =>
-        ability.id === abilityId ? { ...ability, score: Math.max(6, Math.min(15, score)) } : ability,
+        ability.id === abilityId ? { ...ability, score } : ability,
       ),
     }));
   };
