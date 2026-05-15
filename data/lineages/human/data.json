@@ -1,0 +1,155 @@
+{
+  "id": "human",
+  "name": "Human",
+  "category": "standard",
+  "summary": "Humans are the most adaptable and ambitious people among the common races, with a taste for variety and boundless opportunity.",
+  "source": {
+    "book": "Player's Handbook"
+  },
+  "facts": {
+    "age": {
+      "summary": "Humans reach adulthood in their late teens and live less than a century."
+    },
+    "alignment": {
+      "summary": "Humans tend toward no particular alignment. The best and the worst are found among them."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": ["Common"],
+      "description": "You can speak, read, and write Common and one extra language of your choice."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": 1
+      },
+      {
+        "type": "fixed",
+        "ability": "DEX",
+        "amount": 1
+      },
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 1
+      },
+      {
+        "type": "fixed",
+        "ability": "INT",
+        "amount": 1
+      },
+      {
+        "type": "fixed",
+        "ability": "WIS",
+        "amount": 1
+      },
+      {
+        "type": "fixed",
+        "ability": "CHA",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "extra-language",
+      "name": "Extra Language",
+      "category": "proficiency",
+      "summary": "You can speak, read, and write one extra language of your choice.",
+      "choiceGroupIds": ["human-extra-language"]
+    }
+  ],
+  "choiceGroups": [
+    {
+      "id": "human-extra-language",
+      "name": "Human Extra Language",
+      "type": "single-select",
+      "minSelections": 1,
+      "maxSelections": 1,
+      "options": [
+        {
+          "id": "extra-language-choice",
+          "label": "Choose one extra language",
+          "grants": []
+        }
+      ]
+    }
+  ],
+  "sublineages": [
+    {
+      "id": "variant-human",
+      "name": "Variant Human",
+      "summary": "If your campaign uses the optional feat rules from the Player's Handbook, your DM might allow these variant traits, which replace the human's standard Ability Score Increase trait.",
+      "source": {
+        "book": "Player's Handbook"
+      },
+      "facts": {
+        "languages": {
+          "values": []
+        },
+        "abilityScoreBonuses": [
+          {
+            "type": "choice",
+            "count": 2,
+            "amount": 1,
+            "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "variant-human-skill",
+          "name": "Skill Choice",
+          "category": "proficiency",
+          "summary": "You gain proficiency in one skill of your choice.",
+          "choiceGroupIds": ["variant-human-skill-choice"]
+        },
+        {
+          "id": "variant-human-feat",
+          "name": "Feat Choice",
+          "category": "trait",
+          "summary": "You gain one feat of your choice.",
+          "choiceGroupIds": ["variant-human-feat-choice"]
+        }
+      ],
+      "choiceGroups": [
+        {
+          "id": "variant-human-skill-choice",
+          "name": "Variant Human Skill",
+          "type": "single-select",
+          "minSelections": 1,
+          "maxSelections": 1,
+          "options": [
+            {
+              "id": "variant-human-skill-choice-option",
+              "label": "Choose one skill proficiency",
+              "grants": []
+            }
+          ]
+        },
+        {
+          "id": "variant-human-feat-choice",
+          "name": "Variant Human Feat",
+          "type": "single-select",
+          "minSelections": 1,
+          "maxSelections": 1,
+          "options": [
+            {
+              "id": "variant-human-feat-choice-option",
+              "label": "Choose one feat",
+              "grants": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

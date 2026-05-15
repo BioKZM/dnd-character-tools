@@ -1,0 +1,185 @@
+{
+  "id": "battle-master-maneuvers",
+  "name": "Battle Master Maneuver",
+  "sourceUrl": "https://dnd5e.wikidot.com/fighter:battle-master",
+  "summary": "Choose one maneuver to learn for Superior Technique.",
+  "options": [
+    {
+      "id": "commanders-strike",
+      "name": "Commander's Strike",
+      "shortLabel": "Let an ally strike with their reaction",
+      "keyFacts": [
+        "Uses a bonus action.",
+        "An ally uses their reaction to attack.",
+        "Adds your superiority die to the ally's damage."
+      ],
+      "summary": "When you take the Attack action on your turn, you can forgo one of your attacks and use a bonus action to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its reaction to make one weapon attack, adding the superiority die to the attack's damage roll."
+    },
+    {
+      "id": "disarming-attack",
+      "name": "Disarming Attack",
+      "shortLabel": "Force a weapon or item drop",
+      "keyFacts": [
+        "Triggers on a weapon hit.",
+        "Adds superiority die to damage.",
+        "Target makes a Strength save or drops an item."
+      ],
+      "summary": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a Strength saving throw. On a failed save, it drops the object you choose. The object lands at its feet."
+    },
+    {
+      "id": "distracting-strike",
+      "name": "Distracting Strike",
+      "shortLabel": "Set up the next ally attack",
+      "keyFacts": [
+        "Triggers on a weapon hit.",
+        "Adds superiority die to damage.",
+        "Next attack from another creature has advantage."
+      ],
+      "summary": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has advantage if the attack is made before the start of your next turn."
+    },
+    {
+      "id": "evasive-footwork",
+      "name": "Evasive Footwork",
+      "shortLabel": "Boost AC while moving",
+      "keyFacts": [
+        "Uses movement.",
+        "Spend a superiority die when you move.",
+        "Add the roll to AC until you stop moving."
+      ],
+      "summary": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
+    },
+    {
+      "id": "feinting-attack",
+      "name": "Feinting Attack",
+      "shortLabel": "Bonus action feint for advantage",
+      "keyFacts": [
+        "Uses a bonus action.",
+        "Gives advantage on your next attack this turn.",
+        "Adds superiority die to damage on hit."
+      ],
+      "summary": "You can expend one superiority die and use a bonus action on your turn to feint, choosing one creature within 5 feet of you as your target. You have advantage on your next attack roll against that creature this turn. If that attack hits, add the superiority die to the attack's damage roll."
+    },
+    {
+      "id": "goading-attack",
+      "name": "Goading Attack",
+      "shortLabel": "Pressure a target into attacking you",
+      "keyFacts": [
+        "Triggers on a weapon hit.",
+        "Adds superiority die to damage.",
+        "Wisdom save or disadvantage against targets other than you."
+      ],
+      "summary": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a Wisdom saving throw. On a failed save, the target has disadvantage on all attack rolls against targets other than you until the end of your next turn."
+    },
+    {
+      "id": "lunging-attack",
+      "name": "Lunging Attack",
+      "shortLabel": "Extend melee reach by 5 feet",
+      "keyFacts": [
+        "Use before a melee attack.",
+        "Reach increases by 5 feet.",
+        "Adds superiority die to damage on hit."
+      ],
+      "summary": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
+    },
+    {
+      "id": "maneuvering-attack",
+      "name": "Maneuvering Attack",
+      "shortLabel": "Move an ally without opportunity attacks",
+      "keyFacts": [
+        "Triggers on a weapon hit.",
+        "Adds superiority die to damage.",
+        "An ally can move using their reaction without provoking from the target."
+      ],
+      "summary": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its reaction to move up to half its speed without provoking opportunity attacks from the target of your attack."
+    },
+    {
+      "id": "menacing-attack",
+      "name": "Menacing Attack",
+      "shortLabel": "Frighten a target on hit",
+      "keyFacts": [
+        "Triggers on a weapon hit.",
+        "Adds superiority die to damage.",
+        "Wisdom save or frightened until the end of your next turn."
+      ],
+      "summary": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a Wisdom saving throw. On a failed save, it is frightened of you until the end of your next turn."
+    },
+    {
+      "id": "parry",
+      "name": "Parry",
+      "shortLabel": "Reaction damage reduction in melee",
+      "keyFacts": [
+        "Uses your reaction.",
+        "Requires a melee weapon.",
+        "Reduce damage by superiority die + Dexterity modifier."
+      ],
+      "summary": "When another creature damages you with a melee attack, you can use your reaction and expend one superiority die to reduce the damage by the number you roll on your superiority die + your Dexterity modifier."
+    },
+    {
+      "id": "precision-attack",
+      "name": "Precision Attack",
+      "shortLabel": "Add superiority die to an attack roll",
+      "keyFacts": [
+        "Use before or after the attack roll.",
+        "Must decide before any effects of the attack apply.",
+        "Adds superiority die to the roll."
+      ],
+      "summary": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
+    },
+    {
+      "id": "pushing-attack",
+      "name": "Pushing Attack",
+      "shortLabel": "Drive a Large-or-smaller target back",
+      "keyFacts": [
+        "Triggers on a weapon hit.",
+        "Adds superiority die to damage.",
+        "Strength save or push 15 feet."
+      ],
+      "summary": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a Strength saving throw. On a failed save, you push the target up to 15 feet away from you."
+    },
+    {
+      "id": "rally",
+      "name": "Rally",
+      "shortLabel": "Grant temporary hit points to an ally",
+      "keyFacts": [
+        "Uses a bonus action.",
+        "Choose a creature who can see or hear you.",
+        "Grants temporary hit points equal to superiority die + Charisma modifier."
+      ],
+      "summary": "On your turn, you can use a bonus action and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + your Charisma modifier."
+    },
+    {
+      "id": "riposte",
+      "name": "Riposte",
+      "shortLabel": "Reaction attack after a miss",
+      "keyFacts": [
+        "Uses your reaction.",
+        "Triggers when a creature misses you with a melee attack.",
+        "Adds superiority die to damage on hit."
+      ],
+      "summary": "When a creature misses you with a melee attack, you can use your reaction and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
+    },
+    {
+      "id": "sweeping-attack",
+      "name": "Sweeping Attack",
+      "shortLabel": "Clip a second nearby target",
+      "keyFacts": [
+        "Triggers on a melee weapon hit.",
+        "Choose a second target within 5 feet of the original target and within your reach.",
+        "Second target takes superiority die damage if the original roll would hit it."
+      ],
+      "summary": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
+    },
+    {
+      "id": "trip-attack",
+      "name": "Trip Attack",
+      "shortLabel": "Knock a target prone on hit",
+      "keyFacts": [
+        "Triggers on a weapon hit.",
+        "Adds superiority die to damage.",
+        "Large-or-smaller target makes Strength save or falls prone."
+      ],
+      "summary": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a Strength saving throw. On a failed save, you knock the target prone."
+    }
+  ],
+  "notes": []
+}

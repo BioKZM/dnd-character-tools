@@ -1,0 +1,53 @@
+{
+  "id": "pact-boon",
+  "name": "Pact Boon",
+  "sourceUrl": "https://dnd5e.wikidot.com/warlock",
+  "optionCount": 4,
+  "options": [
+    {
+      "id": "pact-of-the-blade",
+      "name": "Pact of the Blade",
+      "summary": "You can use your action to create a magical pact weapon in your empty hand. You choose the melee weapon's form each time you create it, and you are proficient with it while you wield it.",
+      "shortLabel": "Create or bind a magical pact weapon.",
+      "keyFacts": [
+        "The weapon counts as magical for overcoming resistance and immunity to nonmagical attacks and damage.",
+        "The weapon disappears if it is more than 5 feet away from you for 1 minute, if you use this feature again, if you dismiss it, or if you die.",
+        "You can transform one magic weapon into your pact weapon with a 1-hour ritual, and it appears whenever you create your pact weapon."
+      ]
+    },
+    {
+      "id": "pact-of-the-chain",
+      "name": "Pact of the Chain",
+      "summary": "You learn the find familiar spell and can cast it as a ritual. It does not count against your number of spells known.",
+      "shortLabel": "Gain an empowered familiar through find familiar.",
+      "keyFacts": [
+        "When you cast find familiar, you can choose an imp, pseudodragon, quasit, or sprite as a special form.",
+        "When you take the Attack action, you can forgo one of your own attacks to let your familiar make one attack with its reaction."
+      ]
+    },
+    {
+      "id": "pact-of-the-tome",
+      "name": "Pact of the Tome",
+      "summary": "Your patron gives you a Book of Shadows. Choose three cantrips from any class's spell list; while the book is on your person, you can cast those cantrips at will.",
+      "shortLabel": "Gain a Book of Shadows and three cantrips.",
+      "keyFacts": [
+        "The cantrips do not count against your number of cantrips known.",
+        "If a chosen cantrip is not on the warlock spell list, it is still a warlock spell for you.",
+        "If you lose the book, you can perform a 1-hour ceremony during a short or long rest to receive a replacement."
+      ]
+    },
+    {
+      "id": "pact-of-the-talisman",
+      "name": "Pact of the Talisman",
+      "summary": "Your patron gives you a talisman that can aid the wearer when the need is great. When the wearer fails an ability check, they can add a d4 to the roll.",
+      "shortLabel": "Gain a talisman that improves failed ability checks.",
+      "keyFacts": [
+        "The d4 can turn the failed ability check into a success.",
+        "The talisman can be used a number of times equal to your proficiency bonus, and all expended uses return when you finish a long rest.",
+        "If you lose the talisman, you can perform a 1-hour ceremony during a short or long rest to receive a replacement."
+      ]
+    }
+    
+  ],
+  "summary": "At 3rd level, your otherworldly patron bestows a gift upon you for your loyal service. Choose one Pact Boon option."
+}

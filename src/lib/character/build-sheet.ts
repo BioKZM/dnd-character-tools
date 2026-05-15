@@ -2,6 +2,13 @@ import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import type { ContentBundle } from "@/lib/content/schema";
 import type { ClassDocCollection, ClassDocSpellGrant, ClassDocTable } from "@/lib/content/class-docs";
 import type { ClassCuratedCollection } from "@/lib/content/class-curated-schema";
+import type {
+  LineageCatalog,
+  LineageChoiceGroup,
+  LineageGrant,
+  LineageEntry as StructuredLineageEntry,
+  Sublineage as StructuredSublineage,
+} from "@/lib/data/lineages/schema";
 
 type BuiltAction = {
   id: string;
@@ -27,6 +34,24 @@ type BuiltFeature = {
 type SpellActionSource = {
   spellId: string;
   sourceLabel: string;
+};
+
+type DerivedStatTone = "neutral" | "boosted";
+
+type DerivedStatDisplay = {
+  id: string;
+  label: string;
+  displayValue: string;
+  baseValue: number;
+  currentValue: number;
+  bonusValue: number;
+  tone: DerivedStatTone;
+  breakdown: string[];
+};
+
+type SelectedLineageGrantEntry = {
+  sourceLabel: string;
+  grant: LineageGrant;
 };
 
 function uniqueById<T extends { id: string }>(items: T[]) {
@@ -170,6 +195,301 @@ function spellMatchesName(spellName: string, targetName: string) {
   return spellName.trim().toLowerCase() === targetName.trim().toLowerCase();
 }
 
+function parseFeetValue(value: string) {
+  const match = value.match(/(\d+)/);
+  return match ? Number(match[1]) : 0;
+}
+
+function formatFeet(value: number) {
+  return `${value} ft.`;
+}
+
+function languageNamesFromIds(content: ContentBundle, languageIds: string[]) {
+  return languageIds.map((languageId) => content.languages.find((language) => language.id === languageId)?.name ?? languageId);
+}
+
+function backgroundLanguageChoiceLabel(choice: ContentBundle["backgrounds"][number]["languages"]["choices"][number]) {
+  if (Array.isArray(choice.options)) {
+    return `${choice.label}: ${choice.options.join(", ")}`;
+  }
+
+  const optionLabel = choice.options === "any" ? "any language" : `${choice.options} language`;
+  return `${choice.label} (${choice.count} ${optionLabel}${choice.count === 1 ? "" : "s"})`;
+}
+
+function backgroundLanguageSummary(content: ContentBundle, background: ContentBundle["backgrounds"][number]) {
+  return [
+    ...languageNamesFromIds(content, background.languages.fixed),
+    ...background.languages.choices.map(backgroundLanguageChoiceLabel),
+  ];
+}
+
+function toolNameFromValue(content: ContentBundle, value: string) {
+  return content.tools.find((tool) => tool.id === value)?.name ?? value;
+}
+
+function toolIdFromValue(content: ContentBundle, value: string) {
+  const normalizedValue = value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+  return (
+    content.tools.find(
+      (tool) =>
+        tool.id === value ||
+        tool.name.toLowerCase() === value.toLowerCase() ||
+        tool.name.toLowerCase().replace(/[^a-z0-9]+/g, "") === normalizedValue,
+    )?.id ?? value
+  );
+}
+
+function toolChoiceOptions(content: ContentBundle, options: ContentBundle["backgrounds"][number]["toolProficiencies"]["choices"][number]["options"]) {
+  if (options === "any") {
+    return content.tools.map((tool) => tool.id);
+  }
+
+  if (typeof options === "string") {
+    const categoryTools = content.tools.filter((tool) => tool.category === options).map((tool) => tool.id);
+    return categoryTools.length ? categoryTools : [options];
+  }
+
+  return options.flatMap((option) => {
+    const categoryTools = content.tools.filter((tool) => tool.category === option).map((tool) => tool.id);
+    return categoryTools.length ? categoryTools : [toolIdFromValue(content, option)];
+  });
+}
+
+function backgroundToolChoiceLabel(content: ContentBundle, choice: ContentBundle["backgrounds"][number]["toolProficiencies"]["choices"][number]) {
+  const optionLabels: Record<string, string> = {
+    any: "any tool",
+    "artisan-tools": "artisan tool",
+    "gaming-sets": "gaming set",
+    "musical-instruments": "musical instrument",
+    vehicles: "vehicle",
+  };
+
+  if (Array.isArray(choice.options)) {
+    return `${choice.label}: ${toolChoiceOptions(content, choice.options).map((option) => toolNameFromValue(content, option)).join(", ")}`;
+  }
+
+  const optionLabel = optionLabels[choice.options] ?? choice.options;
+  return `${choice.label} (${choice.count} ${optionLabel}${choice.count === 1 ? "" : "s"})`;
+}
+
+function backgroundToolSummary(content: ContentBundle, background: ContentBundle["backgrounds"][number], selections: Record<string, string[]> = {}) {
+  return [
+    ...background.toolProficiencies.fixed,
+    ...background.toolProficiencies.choices.map((choice) => {
+      const selected = (selections[choice.id] ?? []).map((value) => toolNameFromValue(content, value));
+      return selected.length ? selected.join(", ") : backgroundToolChoiceLabel(content, choice);
+    }),
+  ];
+}
+
+function derivedStatTone(baseValue: number, currentValue: number): DerivedStatTone {
+  return currentValue > baseValue ? "boosted" : "neutral";
+}
+
+function normalizeEquipmentName(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function inventoryHasArmorName(inventory: string[], armor: ContentBundle["armors"][number]) {
+  const inventoryNames = new Set(inventory.map(normalizeEquipmentName));
+  return [armor.name, ...armor.aliases].some((name) => inventoryNames.has(normalizeEquipmentName(name)));
+}
+
+function armorAcValue(armor: ContentBundle["armors"][number], dexterityModifier: number) {
+  const baseAc = armor.baseAc ?? 10;
+  if (!armor.dexBonus) {
+    return baseAc;
+  }
+
+  const dexBonus = typeof armor.maxDexBonus === "number"
+    ? Math.min(dexterityModifier, armor.maxDexBonus)
+    : dexterityModifier;
+  return baseAc + dexBonus;
+}
+
+function armorAcFormula(armor: ContentBundle["armors"][number]) {
+  if (armor.category === "shield") {
+    return `+${armor.acBonus ?? 0}`;
+  }
+
+  if (!armor.dexBonus) {
+    return `${armor.baseAc ?? 10}`;
+  }
+
+  return typeof armor.maxDexBonus === "number"
+    ? `${armor.baseAc ?? 10} + DEX modifier (max ${armor.maxDexBonus})`
+    : `${armor.baseAc ?? 10} + DEX modifier`;
+}
+
+function calculatedArmorClass(content: ContentBundle, draft: CharacterDraft) {
+  const dexterityModifier = draft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
+  const baselineArmorClass = 10 + dexterityModifier;
+  const shieldEntries = content.armors.filter((armor) => armor.category === "shield" && inventoryHasArmorName(draft.inventory, armor));
+  const shieldBonus = shieldEntries.reduce((total, armor) => total + (armor.acBonus ?? 0), 0);
+  const wearableArmors = content.armors.filter((armor) => armor.category !== "shield" && inventoryHasArmorName(draft.inventory, armor));
+  const armorCandidates = [
+    {
+      label: "Unarmored",
+      value: baselineArmorClass,
+      breakdown: `Unarmored baseline: 10 + DEX ${dexterityModifier >= 0 ? `+${dexterityModifier}` : dexterityModifier} = ${baselineArmorClass}`,
+    },
+    ...wearableArmors.map((armor) => ({
+      label: armor.name,
+      value: armorAcValue(armor, dexterityModifier),
+      breakdown: `${armor.name}: ${armorAcFormula(armor)} = ${armorAcValue(armor, dexterityModifier)}`,
+      armor,
+    })),
+  ];
+  const best = armorCandidates.reduce((currentBest, candidate) => candidate.value > currentBest.value ? candidate : currentBest, armorCandidates[0]);
+  const currentValue = best.value + shieldBonus;
+  const breakdown = [best.breakdown];
+
+  shieldEntries.forEach((shield) => {
+    breakdown.push(`${shield.name}: +${shield.acBonus ?? 0}`);
+  });
+
+  if ("armor" in best && best.armor) {
+    if (best.armor.strengthRequirement) {
+      breakdown.push(`${best.armor.name} strength requirement: STR ${best.armor.strengthRequirement}`);
+    }
+    if (best.armor.stealthDisadvantage) {
+      breakdown.push(`${best.armor.name} imposes disadvantage on Stealth checks.`);
+    }
+  }
+
+  return {
+    baselineArmorClass,
+    currentValue,
+    breakdown,
+  };
+}
+
+function findStructuredLineageForDraft(
+  lineageDataCatalog: LineageCatalog | undefined,
+  draft: CharacterDraft,
+): { lineage: StructuredLineageEntry | null; sublineage: StructuredSublineage | null } {
+  if (!lineageDataCatalog) {
+    return { lineage: null, sublineage: null };
+  }
+
+  const lineage =
+    lineageDataCatalog.entries.find((entry) => entry.id === draft.speciesId) ??
+    lineageDataCatalog.entries.find((entry) => entry.sublineages.some((sublineage) => sublineage.id === draft.speciesId)) ??
+    null;
+  const sublineage = lineage?.sublineages.find((entry) => entry.id === draft.speciesId) ?? null;
+  return { lineage, sublineage };
+}
+
+function selectedLineageGrantEntries(
+  draft: CharacterDraft,
+  lineage: StructuredLineageEntry | null,
+  sublineage: StructuredSublineage | null,
+): SelectedLineageGrantEntry[] {
+  const groups: LineageChoiceGroup[] = [...(lineage?.choiceGroups ?? []), ...(sublineage?.choiceGroups ?? [])];
+
+  return groups.flatMap((group) => {
+    const selectedIds = draft.lineageChoices[group.id] ?? [];
+    return group.options
+      .filter((option) => selectedIds.includes(option.id))
+      .flatMap((option) => option.grants.map((grant) => ({ sourceLabel: option.label, grant })));
+  });
+}
+
+function deriveMovementStats(
+  draft: CharacterDraft,
+  lineageDataCatalog: LineageCatalog | undefined,
+): { walkingSpeed: DerivedStatDisplay; extraMovementModes: DerivedStatDisplay[] } {
+  const { lineage, sublineage } = findStructuredLineageForDraft(lineageDataCatalog, draft);
+  const selectedGrantEntries = selectedLineageGrantEntries(draft, lineage, sublineage);
+
+  const lineageBaseWalk = lineage?.facts.speed?.walk ?? parseFeetValue(draft.speed);
+  let currentWalk = sublineage?.facts.speed?.walk ?? lineageBaseWalk;
+  const walkBreakdown = [`Base lineage speed: ${formatFeet(lineageBaseWalk)}`];
+
+  if (sublineage?.facts.speed?.walk && sublineage.facts.speed.walk !== lineageBaseWalk) {
+    const delta = sublineage.facts.speed.walk - lineageBaseWalk;
+    walkBreakdown.push(`${sublineage.name}: ${delta >= 0 ? "+" : ""}${delta} ft.`);
+  }
+
+  const extraMovementModes = new Map<string, { currentValue: number; breakdown: string[] }>();
+
+  selectedGrantEntries.forEach(({ sourceLabel, grant }) => {
+    if (grant.type !== "movement") {
+      return;
+    }
+
+    if (grant.mode === "walk") {
+      if (grant.operation === "set") {
+        const delta = grant.value - currentWalk;
+        currentWalk = grant.value;
+        walkBreakdown.push(`${sourceLabel}: ${delta >= 0 ? "+" : ""}${delta} ft. (set to ${formatFeet(grant.value)})`);
+        return;
+      }
+
+      currentWalk += grant.value;
+      walkBreakdown.push(`${sourceLabel}: +${grant.value} ft.`);
+      return;
+    }
+
+    const existing = extraMovementModes.get(grant.mode) ?? {
+      currentValue: 0,
+      breakdown: [`Base ${grant.mode} speed: 0 ft.`],
+    };
+
+    if (grant.operation === "set") {
+      const delta = grant.value - existing.currentValue;
+      existing.currentValue = grant.value;
+      existing.breakdown.push(`${sourceLabel}: ${delta >= 0 ? "+" : ""}${delta} ft. (set to ${formatFeet(grant.value)})`);
+    } else {
+      existing.currentValue += grant.value;
+      existing.breakdown.push(`${sourceLabel}: +${grant.value} ft.`);
+    }
+
+    extraMovementModes.set(grant.mode, existing);
+  });
+
+  const walkingSpeed: DerivedStatDisplay = {
+    id: "walking-speed",
+    label: "Walking Speed",
+    displayValue: formatFeet(currentWalk),
+    baseValue: lineageBaseWalk,
+    currentValue: currentWalk,
+    bonusValue: currentWalk - lineageBaseWalk,
+    tone: derivedStatTone(lineageBaseWalk, currentWalk),
+    breakdown: walkBreakdown,
+  };
+
+  return {
+    walkingSpeed,
+    extraMovementModes: Array.from(extraMovementModes.entries()).map(([mode, entry]) => ({
+      id: `${mode}-speed`,
+      label: `${mode.charAt(0).toUpperCase() + mode.slice(1)} Speed`,
+      displayValue: formatFeet(entry.currentValue),
+      baseValue: 0,
+      currentValue: entry.currentValue,
+      bonusValue: entry.currentValue,
+      tone: derivedStatTone(0, entry.currentValue),
+      breakdown: entry.breakdown,
+    })),
+  };
+}
+
+function deriveArmorClassStat(content: ContentBundle, draft: CharacterDraft): DerivedStatDisplay {
+  const calculated = calculatedArmorClass(content, draft);
+
+  return {
+    id: "armor-class",
+    label: "Armor Class",
+    displayValue: `${calculated.currentValue}`,
+    baseValue: calculated.baselineArmorClass,
+    currentValue: calculated.currentValue,
+    bonusValue: calculated.currentValue - calculated.baselineArmorClass,
+    tone: derivedStatTone(calculated.baselineArmorClass, calculated.currentValue),
+    breakdown: calculated.breakdown,
+  };
+}
+
 function autoAddedSpellSources(
   content: ContentBundle,
   draft: CharacterDraft,
@@ -281,6 +601,10 @@ function estimatedAttackBonus(draft: CharacterDraft) {
   return total >= 0 ? `+${total}` : `${total}`;
 }
 
+function formatSigned(value: number) {
+  return value >= 0 ? `+${value}` : `${value}`;
+}
+
 function meleeAttackModifier(draft: CharacterDraft) {
   const strength = draft.abilities.find((ability) => ability.id === "STR")?.modifier ?? 0;
   const total = draft.proficiencyBonus + strength;
@@ -298,14 +622,47 @@ function abilityDamage(modifier: number, fallback = 1) {
   return value > 0 ? `${value}` : `${fallback}`;
 }
 
-function inventoryWeaponActions(draft: CharacterDraft): BuiltAction[] {
+function inventoryHasWeaponName(inventory: string[], weapon: ContentBundle["weapons"][number]) {
+  const inventoryNames = new Set(inventory.map(normalizeEquipmentName));
+  return [weapon.name, ...weapon.aliases].some((name) => inventoryNames.has(normalizeEquipmentName(name)));
+}
+
+function weaponAbilityModifier(draft: CharacterDraft, weapon: ContentBundle["weapons"][number]) {
   const strength = draft.abilities.find((ability) => ability.id === "STR")?.modifier ?? 0;
   const dexterity = draft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
-  const inventory = draft.inventory.map((item) => item.toLowerCase());
-  const hasQuarterstaff = inventory.some((item) => item.includes("quarterstaff"));
-  const hasDagger = inventory.some((item) => item.includes("dagger"));
-  const hasLightCrossbow = inventory.some((item) => item.includes("light crossbow"));
+  if (weapon.properties.includes("finesse")) {
+    return Math.max(strength, dexterity);
+  }
+  return weapon.attackType === "ranged" ? dexterity : strength;
+}
 
+function weaponRange(weapon: ContentBundle["weapons"][number]) {
+  if (weapon.range) {
+    return weapon.range;
+  }
+
+  if (weapon.properties.includes("reach")) {
+    return "10 ft.";
+  }
+
+  return weapon.attackType === "melee" ? "5 ft." : "-";
+}
+
+function weaponDamage(draft: CharacterDraft, weapon: ContentBundle["weapons"][number]) {
+  if (!weapon.damage || !weapon.damageType) {
+    return "-";
+  }
+
+  if (weapon.damage === "1") {
+    return `1 ${weapon.damageType}`;
+  }
+
+  return `${weapon.damage}${formatSigned(weaponAbilityModifier(draft, weapon))} ${weapon.damageType}`;
+}
+
+function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft): BuiltAction[] {
+  const strength = draft.abilities.find((ability) => ability.id === "STR")?.modifier ?? 0;
+  const weapons = content.weapons.filter((weapon) => weapon.attackType !== "ammunition" && inventoryHasWeaponName(draft.inventory, weapon));
   return [
     {
       id: "unarmed-strike",
@@ -318,51 +675,17 @@ function inventoryWeaponActions(draft: CharacterDraft): BuiltAction[] {
       description: "A basic melee attack using fists, kicks, or body weight.",
       source: "Core Rules",
     },
-    ...(hasQuarterstaff
-      ? [
-          {
-            id: "quarterstaff",
-            name: "Quarterstaff",
-            category: "Attack" as const,
-            range: "5 ft.",
-            hit: meleeAttackModifier(draft),
-            damage: `1d6+${abilityDamage(strength)} bludgeoning`,
-            notes: "Versatile",
-            description: "A simple melee weapon attack with a quarterstaff.",
-            source: "Inventory",
-          },
-        ]
-      : []),
-    ...(hasDagger
-      ? [
-          {
-            id: "dagger",
-            name: "Dagger",
-            category: "Attack" as const,
-            range: "20/60 ft.",
-            hit: finesseAttackModifier(draft),
-            damage: `1d4+${abilityDamage(Math.max(strength, dexterity))} piercing`,
-            notes: "Finesse, Light, Thrown",
-            description: "A light melee or thrown weapon attack with a dagger.",
-            source: "Inventory",
-          },
-        ]
-      : []),
-    ...(hasLightCrossbow
-      ? [
-          {
-            id: "light-crossbow",
-            name: "Light Crossbow",
-            category: "Attack" as const,
-            range: "80/320 ft.",
-            hit: finesseAttackModifier(draft),
-            damage: `1d8+${abilityDamage(dexterity)} piercing`,
-            notes: "Ammunition, Loading, Two-Handed",
-            description: "A ranged weapon attack using a light crossbow.",
-            source: "Inventory",
-          },
-        ]
-      : []),
+    ...weapons.map((weapon) => ({
+      id: `weapon-${weapon.id}`,
+      name: weapon.name,
+      category: "Attack" as const,
+      range: weaponRange(weapon),
+      hit: formatSigned(draft.proficiencyBonus + weaponAbilityModifier(draft, weapon)),
+      damage: weaponDamage(draft, weapon),
+      notes: weapon.properties.length ? weapon.properties.map((property) => property.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join("-")).join(", ") : "-",
+      description: weapon.specialDescription ?? `${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType} weapon attack.`,
+      source: "Inventory",
+    })),
   ];
 }
 
@@ -585,7 +908,13 @@ function fighterChoiceFeatures(draft: CharacterDraft): BuiltFeature[] {
       id: "fighter-fighting-style-selection",
       name: "Fighting Style Choice",
       kind: "Feature",
-      summary: fightingStyleSummary(draft.fighterChoices.fightingStyleId) ?? "Selected fighting style.",
+      summary:
+        draft.fighterChoices.fightingStyleId === "superior-technique" && draft.fighterChoices.superiorTechniqueManeuverId
+          ? `${fightingStyleSummary(draft.fighterChoices.fightingStyleId) ?? "Selected fighting style."} Selected maneuver: ${draft.fighterChoices.superiorTechniqueManeuverId
+              .split("-")
+              .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+              .join(" ")}.`
+          : fightingStyleSummary(draft.fighterChoices.fightingStyleId) ?? "Selected fighting style.",
       source: "Character Draft",
     },
   ];
@@ -660,6 +989,7 @@ export function buildSheetContent(
   draft: CharacterDraft,
   classDocs?: ClassDocCollection,
   classCuratedCollection?: ClassCuratedCollection,
+  lineageDataCatalog?: LineageCatalog,
 ) {
   const chosenClass = content.classes.find((item) => item.id === draft.classId);
   const chosenSpecies = content.species.find((item) => item.id === draft.speciesId);
@@ -755,6 +1085,7 @@ export function buildSheetContent(
   ]));
 
   const builtActions = uniqueById<BuiltAction>([
+    ...inventoryWeaponActions(content, draft),
     ...learnedSpells.map(({ spell, sourceLabel }) => ({
       id: `${spell.id}-${sourceLabel}`,
       name: spell.name,
@@ -777,16 +1108,24 @@ export function buildSheetContent(
     ]),
   ]);
 
+  const movementStats = deriveMovementStats(draft, lineageDataCatalog);
+  const armorClassStat = deriveArmorClassStat(content, draft);
+
   return {
     className: chosenClass?.name ?? draft.classLine,
     speciesName: chosenSpecies?.name ?? draft.ancestry,
     backgroundName: chosenBackground?.name ?? "Unknown Background",
     backgroundSummary: chosenBackground?.summary ?? draft.background,
-    backgroundSkillProficiencies: chosenBackground?.skillProficiencies ?? "",
-    backgroundToolProficiencies: chosenBackground?.toolProficiencies ?? "",
-    backgroundLanguages: chosenBackground?.languages ?? "",
+    backgroundSkillProficiencies: chosenBackground?.skillProficiencies.join(", ") ?? "",
+    backgroundToolProficiencies: chosenBackground ? backgroundToolSummary(content, chosenBackground, draft.backgroundToolChoiceIds ?? {}).join(", ") : "",
+    backgroundLanguages: chosenBackground ? backgroundLanguageSummary(content, chosenBackground).join(", ") : "",
     learnedSpells: uniqueById(learnedSpells.map((entry) => entry.spell)),
     builtActions,
     builtFeatures,
+    derivedStats: {
+      walkingSpeed: movementStats.walkingSpeed,
+      extraMovementModes: movementStats.extraMovementModes,
+      armorClass: armorClassStat,
+    },
   };
 }

@@ -1,0 +1,120 @@
+{
+  "id": "fighting-style",
+  "name": "Fighting Style",
+  "sourceUrl": "https://dnd5e.wikidot.com/fighter",
+  "summary": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
+  "options": [
+    {
+      "id": "archery",
+      "name": "Archery",
+      "shortLabel": "+2 ranged attack rolls",
+      "keyFacts": [
+        "Works with ranged weapons.",
+        "Improves attack rolls, not damage."
+      ],
+      "summary": "You gain a +2 bonus to attack rolls you make with ranged weapons."
+    },
+    {
+      "id": "blind-fighting",
+      "name": "Blind Fighting",
+      "shortLabel": "10 ft blindsight",
+      "keyFacts": [
+        "Grants blindsight out to 10 feet.",
+        "Still requires the target not to be successfully hidden."
+      ],
+      "summary": "You gain blindsight out to 10 feet and can perceive creatures in darkness or invisibility within that range unless they hide successfully."
+    },
+    {
+      "id": "defense",
+      "name": "Defense",
+      "shortLabel": "+1 AC while armored",
+      "keyFacts": [
+        "Only works while wearing armor.",
+        "Applies a flat +1 AC bonus."
+      ],
+      "summary": "While you are wearing armor, you gain a +1 bonus to AC."
+    },
+    {
+      "id": "dueling",
+      "name": "Dueling",
+      "shortLabel": "+2 one-handed weapon damage",
+      "keyFacts": [
+        "Requires a melee weapon in one hand.",
+        "Requires no other weapons."
+      ],
+      "summary": "When you wield a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
+    },
+    {
+      "id": "great-weapon-fighting",
+      "name": "Great Weapon Fighting",
+      "shortLabel": "Reroll 1s and 2s on heavy swings",
+      "keyFacts": [
+        "Applies to two-handed or versatile melee weapon damage dice.",
+        "You must use the new roll."
+      ],
+      "summary": "When you roll a 1 or 2 on a damage die for a two-handed or versatile melee weapon attack, you can reroll the die and must use the new roll."
+    },
+    {
+      "id": "interception",
+      "name": "Interception",
+      "shortLabel": "Reaction damage reduction",
+      "keyFacts": [
+        "Uses your reaction.",
+        "Reduces damage by 1d10 + proficiency bonus."
+      ],
+      "summary": "When a creature you can see hits a nearby target, you can use your reaction to reduce the damage by 1d10 + your proficiency bonus."
+    },
+    {
+      "id": "protection",
+      "name": "Protection",
+      "shortLabel": "Reaction: disadvantage on an attack",
+      "keyFacts": [
+        "Uses your reaction.",
+        "Requires wielding a shield."
+      ],
+      "summary": "When a creature you can see attacks a nearby ally, you can use your reaction to impose disadvantage on the attack roll while wielding a shield."
+    },
+    {
+      "id": "superior-technique",
+      "name": "Superior Technique",
+      "shortLabel": "1 maneuver and 1d6 superiority die",
+      "keyFacts": [
+        "Learn one Battle Master maneuver.",
+        "Gain one d6 superiority die.",
+        "Refreshes on a short or long rest."
+      ],
+      "summary": "You learn one Battle Master maneuver and gain one d6 superiority die that refreshes on a short or long rest."
+    },
+    {
+      "id": "thrown-weapon-fighting",
+      "name": "Thrown Weapon Fighting",
+      "shortLabel": "Draw freely and deal +2 damage",
+      "keyFacts": [
+        "You can draw a thrown weapon as part of the attack.",
+        "Thrown weapon hits gain +2 damage."
+      ],
+      "summary": "You can draw a thrown weapon as part of the attack, and thrown weapon hits gain +2 damage."
+    },
+    {
+      "id": "two-weapon-fighting",
+      "name": "Two-Weapon Fighting",
+      "shortLabel": "Add ability mod to off-hand damage",
+      "keyFacts": [
+        "Applies while fighting with two weapons.",
+        "Lets the second attack add your ability modifier to damage."
+      ],
+      "summary": "You can add your ability modifier to the damage of the second attack when fighting with two weapons."
+    },
+    {
+      "id": "unarmed-fighting",
+      "name": "Unarmed Fighting",
+      "shortLabel": "Improved unarmed damage and grapple pressure",
+      "keyFacts": [
+        "Improves unarmed strike damage.",
+        "Grappled creatures take 1d4 damage at the start of your turn."
+      ],
+      "summary": "Your unarmed strikes deal improved damage, and creatures grappled by you take 1d4 damage at the start of your turn."
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,68 @@
+{
+  "id": "horizon-walker",
+  "name": "Horizon Walker",
+  "source": "Xanathar's Guide to Everything",
+  "sourceUrl": "https://dnd5e.wikidot.com/ranger:horizon-walker",
+  "summary": "Horizon walkers guard the world against threats that originate from other planes or that seek to ravage the mortal realm with otherworldly magic. They seek out planar portals and keep watch over them, venturing to the Inner Planes and the Outer Planes as needed to pursue their foes.",
+  "features": [
+    {
+      "id": "horizon-walker-magic",
+      "name": "Horizon Walker Magic",
+      "unlockLevel": 3,
+      "summary": "You learn additional spells at certain ranger levels, and they count as ranger spells for you without counting against the number of ranger spells you know."
+    },
+    {
+      "id": "detect-portal",
+      "name": "Detect Portal",
+      "unlockLevel": 3,
+      "summary": "As an action, you detect the distance and direction to the closest planar portal within 1 mile of you. Once used, you regain it after a short or long rest."
+    },
+    {
+      "id": "planar-warrior",
+      "name": "Planar Warrior",
+      "unlockLevel": 3,
+      "summary": "As a bonus action, choose one creature you can see within 30 feet. The next time you hit it this turn, the attack deals force damage and an extra 1d8 force damage, increasing to 2d8 at 11th level."
+    },
+    {
+      "id": "ethereal-step",
+      "name": "Ethereal Step",
+      "unlockLevel": 7,
+      "summary": "As a bonus action, you can cast etherealness on yourself without a spell slot, but it ends at the end of the current turn. Once used, you regain it after a short or long rest."
+    },
+    {
+      "id": "distant-strike",
+      "name": "Distant Strike",
+      "unlockLevel": 11,
+      "summary": "When you use the Attack action, you can teleport up to 10 feet before each attack. If you attack at least two different creatures with the action, you can make one additional attack against a third creature."
+    },
+    {
+      "id": "spectral-defense",
+      "name": "Spectral Defense",
+      "unlockLevel": 15,
+      "summary": "When you take damage from an attack, you can use your reaction to give yourself resistance to all of that attack's damage on this turn."
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": ["Protection from Evil and Good"]
+    },
+    {
+      "unlockLevel": 5,
+      "spells": ["Misty Step"]
+    },
+    {
+      "unlockLevel": 9,
+      "spells": ["Haste"]
+    },
+    {
+      "unlockLevel": 13,
+      "spells": ["Banishment"]
+    },
+    {
+      "unlockLevel": 17,
+      "spells": ["Teleportation Circle"]
+    }
+  ],
+  "notes": []
+}

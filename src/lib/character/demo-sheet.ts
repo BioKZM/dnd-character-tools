@@ -71,7 +71,23 @@ export type RangerChoices = {
 
 export type FighterChoices = {
   fightingStyleId: string | null;
+  superiorTechniqueManeuverId: string | null;
+  equipmentChoiceIds: Record<string, string | null>;
+  abilityScoreImprovements: Partial<
+    Record<
+      number,
+      {
+        mode: "plus-two" | "split" | "feat" | null;
+        plusTwoAbilityId: AbilityId | null;
+        plusOneAbilityIds: AbilityId[];
+        featId: string | null;
+      }
+    >
+  >;
 };
+
+export type LineageChoiceSelections = Record<string, string[]>;
+export type BackgroundToolChoiceSelections = Record<string, string[]>;
 
 export type CharacterDraft = {
   name: string;
@@ -88,6 +104,8 @@ export type CharacterDraft = {
   mysticArcanumSelections: Partial<Record<6 | 7 | 8 | 9, string>>;
   rangerChoices: RangerChoices;
   fighterChoices: FighterChoices;
+  lineageChoices: LineageChoiceSelections;
+  backgroundToolChoiceIds: BackgroundToolChoiceSelections;
   selectedSkillIds: string[];
   spellIds: string[];
   featIds: string[];
@@ -156,8 +174,13 @@ export const demoCharacter: CharacterDraft = {
     primalCompanionFormId: "beast-of-the-land",
   },
   fighterChoices: {
-    fightingStyleId: "archery",
+    fightingStyleId: null,
+    superiorTechniqueManeuverId: null,
+    equipmentChoiceIds: {},
+    abilityScoreImprovements: {},
   },
+  lineageChoices: {},
+  backgroundToolChoiceIds: {},
   selectedSkillIds: ["arcana", "investigation"],
   spellIds: ["magic-missile", "shield", "misty-step"],
   featIds: ["war-caster", "fey-touched"],

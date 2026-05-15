@@ -1,110 +1,93 @@
-import fs from "node:fs";
-import path from "node:path";
+import { readLineageDataCatalog } from "@/lib/data/lineages/content";
+import type { LineageAbilityBonusRule, LineageEntry as StructuredLineageEntry, LineageFeature as StructuredLineageFeature, Sublineage as StructuredSublineage } from "@/lib/data/lineages/schema";
 import {
   lineageCollectionSchema,
-  lineageEntrySchema,
-  subraceSchema,
   type LineageCollection,
-  type LineageEntry,
   type ResolvedLineageEntry,
   type SubraceEntry,
 } from "@/lib/content/lineage-schema";
 
-const LINEAGE_ROOTS = [
-  path.join(process.cwd(), "content", "lineages-curated"),
-  path.join(process.cwd(), "content", "lineages"),
-];
-
-function normalizeLineageText(value: string) {
-  return value.replace(/\s+/g, " ").trim().toLowerCase();
-}
-
-function isJunkLineageFragment(value: string) {
-  const normalized = normalizeLineageText(value);
-  return (
-    !normalized ||
-    normalized === "menu" ||
-    normalized === "user-guide" ||
-    normalized === "create-a-page" ||
-    normalized === "unearthed-arcana" ||
-    normalized.includes("window['nitroads']") ||
-    normalized.includes("you should be logged in to clone a site") ||
-    normalized.includes("createad(") ||
-    normalized.includes("becoming a hag") ||
-    normalized.includes("origins") ||
-    normalized.includes("traits") ||
-    normalized.includes("history") ||
-    normalized.includes("hungers") ||
-    normalized.includes("memories") ||
-    normalized.includes("heir-of-hags") ||
-    normalized.endsWith("-features") ||
-    normalized.endsWith("-history")
-  );
-}
-
-function sanitizeTraitList(traits: ResolvedLineageEntry["coreTraits"] | SubraceEntry["traits"]) {
-  return traits.filter(
-    (trait) =>
-      !isJunkLineageFragment(trait.id) &&
-      !isJunkLineageFragment(trait.name) &&
-      !isJunkLineageFragment(trait.summary),
-  );
-}
-
-function resolveLineagePath(relativePath: string) {
-  for (const root of LINEAGE_ROOTS) {
-    const absolutePath = path.join(root, relativePath);
-    if (fs.existsSync(absolutePath)) {
-      return absolutePath;
-    }
+function abilityBonusSummary(rule: LineageAbilityBonusRule) {
+  if (rule.type === "fixed") {
+    return `${rule.ability} +${rule.amount}`;
   }
 
-  return path.join(LINEAGE_ROOTS[0], relativePath);
+  const scope = rule.restrictedTo?.length ? ` (${rule.restrictedTo.join(", ")})` : "";
+  return `Choose ${rule.count} ability score${rule.count > 1 ? "s" : ""} to gain +${rule.amount}${scope}`;
 }
 
-function readLineageJsonFile<T>(relativePath: string): T {
-  const absolutePath = resolveLineagePath(relativePath);
-  return JSON.parse(fs.readFileSync(absolutePath, "utf-8")) as T;
+function structuredStats(entry: StructuredLineageEntry | StructuredSublineage) {
+  const stats = [];
+
+  if (entry.facts.age?.summary) {
+    stats.push({ label: "Age", value: entry.facts.age.summary });
+  }
+  if (entry.facts.alignment?.summary) {
+    stats.push({ label: "Alignment", value: entry.facts.alignment.summary });
+  }
+  if (entry.facts.size?.category) {
+    stats.push({
+      label: "Size",
+      value: entry.facts.size.description ? `${entry.facts.size.category}. ${entry.facts.size.description}` : entry.facts.size.category,
+    });
+  }
+  if (entry.facts.speed?.walk) {
+    stats.push({
+      label: "Speed",
+      value: entry.facts.speed.description ? `${entry.facts.speed.walk} ft. ${entry.facts.speed.description}` : `${entry.facts.speed.walk} ft.`,
+    });
+  }
+  if (entry.facts.languages?.values.length) {
+    stats.push({
+      label: "Languages",
+      value: entry.facts.languages.description
+        ? `${entry.facts.languages.values.join(", ")}. ${entry.facts.languages.description}`
+        : entry.facts.languages.values.join(", "),
+    });
+  }
+
+  return stats;
 }
 
-function readSubrace(lineageId: string, subraceId: string) {
-  const subrace = subraceSchema.parse(readLineageJsonFile<SubraceEntry>(path.join(lineageId, subraceId, "data.json")));
+function structuredTrait(feature: StructuredLineageFeature) {
   return {
-    ...subrace,
-    traits: sanitizeTraitList(subrace.traits),
+    id: feature.id,
+    name: feature.name,
+    summary: feature.summary,
   };
 }
 
-function readLineage(lineageId: string): ResolvedLineageEntry {
-  const entry = lineageEntrySchema.parse(readLineageJsonFile<LineageEntry>(path.join(lineageId, "data.json")));
-
+function structuredSubrace(entry: StructuredSublineage): SubraceEntry {
   return {
-    ...entry,
-    coreTraits: sanitizeTraitList(entry.coreTraits),
-    subraces: entry.subraces
-      .filter((subraceId) => !isJunkLineageFragment(subraceId))
-      .map((subraceId) => readSubrace(lineageId, subraceId)),
+    id: entry.id,
+    name: entry.name,
+    summary: entry.summary,
+    bonuses: entry.facts.abilityScoreBonuses.map(abilityBonusSummary),
+    traits: entry.features.map(structuredTrait),
+    stats: structuredStats(entry),
+    flexibleAbilityScoreIncrease: entry.facts.abilityScoreBonuses.some((rule) => rule.type === "choice"),
+    source: entry.source.book,
+  };
+}
+
+function structuredLineage(entry: StructuredLineageEntry): ResolvedLineageEntry {
+  return {
+    id: entry.id,
+    name: entry.name,
+    sourceUrl: entry.source.url ?? "https://example.com",
+    sourceLabel: entry.source.book,
+    summary: entry.summary,
+    stats: structuredStats(entry),
+    coreBonuses: entry.facts.abilityScoreBonuses.map(abilityBonusSummary),
+    coreTraits: entry.features.map(structuredTrait),
+    flexibleAbilityScoreIncrease: entry.facts.abilityScoreBonuses.some((rule) => rule.type === "choice"),
+    subraces: entry.sublineages.map(structuredSubrace),
+    notes: [],
   };
 }
 
 export function readLineageCollection(): LineageCollection {
-  const lineageIds = Array.from(
-    new Set(
-      LINEAGE_ROOTS.flatMap((root) => {
-        if (!fs.existsSync(root)) {
-          return [];
-        }
-
-        return fs
-          .readdirSync(root, { withFileTypes: true })
-          .filter((entry) => entry.isDirectory())
-          .filter((entry) => fs.existsSync(path.join(root, entry.name, "data.json")))
-          .map((entry) => entry.name);
-      }),
-    ),
-  );
-
   return lineageCollectionSchema.parse({
-    entries: lineageIds.map((lineageId) => readLineage(lineageId)),
+    entries: readLineageDataCatalog().entries.map(structuredLineage),
   });
 }

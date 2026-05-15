@@ -1,0 +1,155 @@
+[
+  {
+    "id": "padded",
+    "name": "Padded",
+    "category": "light",
+    "baseAc": 11,
+    "dexBonus": true,
+    "stealthDisadvantage": true,
+    "weight": "8 lb.",
+    "cost": "5 gp",
+    "aliases": ["Padded Armor"]
+  },
+  {
+    "id": "leather",
+    "name": "Leather",
+    "category": "light",
+    "baseAc": 11,
+    "dexBonus": true,
+    "stealthDisadvantage": false,
+    "weight": "10 lb.",
+    "cost": "10 gp",
+    "aliases": ["Leather Armor"]
+  },
+  {
+    "id": "studded-leather",
+    "name": "Studded Leather",
+    "category": "light",
+    "baseAc": 12,
+    "dexBonus": true,
+    "stealthDisadvantage": false,
+    "weight": "13 lb.",
+    "cost": "45 gp",
+    "aliases": ["Studded Leather Armor"]
+  },
+  {
+    "id": "hide",
+    "name": "Hide",
+    "category": "medium",
+    "baseAc": 12,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "stealthDisadvantage": false,
+    "weight": "12 lb.",
+    "cost": "10 gp",
+    "aliases": ["Hide Armor"]
+  },
+  {
+    "id": "chain-shirt",
+    "name": "Chain Shirt",
+    "category": "medium",
+    "baseAc": 13,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "stealthDisadvantage": false,
+    "weight": "20 lb.",
+    "cost": "50 gp"
+  },
+  {
+    "id": "scale-mail",
+    "name": "Scale Mail",
+    "category": "medium",
+    "baseAc": 14,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "stealthDisadvantage": true,
+    "weight": "45 lb.",
+    "cost": "50 gp"
+  },
+  {
+    "id": "spiked-armor",
+    "name": "Spiked Armor",
+    "category": "medium",
+    "baseAc": 14,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "stealthDisadvantage": true,
+    "weight": "45 lb.",
+    "cost": "75 gp"
+  },
+  {
+    "id": "breastplate",
+    "name": "Breastplate",
+    "category": "medium",
+    "baseAc": 14,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "stealthDisadvantage": false,
+    "weight": "20 lb.",
+    "cost": "400 gp"
+  },
+  {
+    "id": "half-plate",
+    "name": "Half Plate",
+    "category": "medium",
+    "baseAc": 15,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "stealthDisadvantage": true,
+    "weight": "40 lb.",
+    "cost": "750 gp"
+  },
+  {
+    "id": "ring-mail",
+    "name": "Ring Mail",
+    "category": "heavy",
+    "baseAc": 14,
+    "dexBonus": false,
+    "stealthDisadvantage": true,
+    "weight": "40 lb.",
+    "cost": "30 gp"
+  },
+  {
+    "id": "chain-mail",
+    "name": "Chain Mail",
+    "category": "heavy",
+    "baseAc": 16,
+    "dexBonus": false,
+    "strengthRequirement": 13,
+    "stealthDisadvantage": true,
+    "weight": "55 lb.",
+    "cost": "75 gp"
+  },
+  {
+    "id": "splint",
+    "name": "Splint",
+    "category": "heavy",
+    "baseAc": 17,
+    "dexBonus": false,
+    "strengthRequirement": 15,
+    "stealthDisadvantage": true,
+    "weight": "60 lb.",
+    "cost": "200 gp"
+  },
+  {
+    "id": "plate",
+    "name": "Plate",
+    "category": "heavy",
+    "baseAc": 18,
+    "dexBonus": false,
+    "strengthRequirement": 15,
+    "stealthDisadvantage": true,
+    "weight": "65 lb.",
+    "cost": "1,500 gp"
+  },
+  {
+    "id": "shield",
+    "name": "Shield",
+    "category": "shield",
+    "acBonus": 2,
+    "dexBonus": false,
+    "stealthDisadvantage": false,
+    "weight": "6 lb.",
+    "cost": "10 gp"
+  }
+]

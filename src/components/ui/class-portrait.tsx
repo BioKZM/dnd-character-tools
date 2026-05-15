@@ -47,8 +47,8 @@ export function ClassPortrait({
       alt={alt}
       className={className}
       sizes="64px"
-      quality={35}
-      placeholder="blur"
+      quality={28}
+      placeholder="empty"
       loading="lazy"
       decoding="async"
     />

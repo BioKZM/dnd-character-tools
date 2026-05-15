@@ -1,0 +1,241 @@
+{
+  "id": "eldritch-knight",
+  "name": "Eldritch Knight",
+  "source": "Player's Handbook",
+  "sourceUrl": "https://dnd5e.wikidot.com/fighter:eldritch-knight",
+  "summary": "The archetypal Eldritch Knight combines the martial mastery common to all fighters with a careful study of magic. Eldritch Knights use magical techniques similar to those practiced by wizards. They focus their study on two of the eight schools of magic: abjuration and evocation. Abjuration spells grant an Eldritch Knight additional protection in battle, and evocation spells deal damage to many foes at once, extending the fighter's reach in combat. These knights learn a comparatively small number of spells, committing them to memory instead of keeping them in a spellbook.",
+  "journeyStages": [
+    {
+      "id": "spellcasting",
+      "label": "Spellcasting",
+      "browser": "spells",
+      "minLevel": 3,
+      "requiresSubclassId": "eldritch-knight",
+      "summary": "Choose cantrips and wizard spells for your arcane knight path."
+    }
+  ],
+  "spellcasting": {
+    "progressionBands": [
+      {
+        "fromLevel": 3,
+        "toLevel": 3,
+        "cantripsKnown": 2,
+        "spellsKnown": 3,
+        "spellSlots": {
+          "1": 2
+        }
+      },
+      {
+        "fromLevel": 4,
+        "toLevel": 6,
+        "cantripsKnown": 2,
+        "spellsKnown": 4,
+        "spellSlots": {
+          "1": 3
+        }
+      },
+      {
+        "fromLevel": 7,
+        "toLevel": 7,
+        "cantripsKnown": 2,
+        "spellsKnown": 5,
+        "spellSlots": {
+          "1": 4,
+          "2": 2
+        }
+      },
+      {
+        "fromLevel": 8,
+        "toLevel": 9,
+        "cantripsKnown": 2,
+        "spellsKnown": 6,
+        "spellSlots": {
+          "1": 4,
+          "2": 2
+        }
+      },
+      {
+        "fromLevel": 10,
+        "toLevel": 10,
+        "cantripsKnown": 3,
+        "spellsKnown": 7,
+        "spellSlots": {
+          "1": 4,
+          "2": 3
+        }
+      },
+      {
+        "fromLevel": 11,
+        "toLevel": 12,
+        "cantripsKnown": 3,
+        "spellsKnown": 8,
+        "spellSlots": {
+          "1": 4,
+          "2": 3
+        }
+      },
+      {
+        "fromLevel": 13,
+        "toLevel": 13,
+        "cantripsKnown": 3,
+        "spellsKnown": 9,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 2
+        }
+      },
+      {
+        "fromLevel": 14,
+        "toLevel": 15,
+        "cantripsKnown": 3,
+        "spellsKnown": 10,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 2
+        }
+      },
+      {
+        "fromLevel": 16,
+        "toLevel": 18,
+        "cantripsKnown": 3,
+        "spellsKnown": 11,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 3
+        }
+      },
+      {
+        "fromLevel": 19,
+        "toLevel": 19,
+        "cantripsKnown": 3,
+        "spellsKnown": 12,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 3,
+          "4": 1
+        }
+      },
+      {
+        "fromLevel": 20,
+        "toLevel": 20,
+        "cantripsKnown": 3,
+        "spellsKnown": 13,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 3,
+          "4": 1
+        }
+      }
+    ],
+    "ability": "Intelligence",
+    "saveDcFormula": "8 + proficiency bonus + Intelligence modifier",
+    "attackModifierFormula": "proficiency bonus + Intelligence modifier",
+    "schoolFocus": [
+      "Abjuration",
+      "Evocation"
+    ],
+    "unrestrictedSpellLevels": [
+      3,
+      8,
+      14,
+      20
+    ],
+    "cantripsKnownByLevel": {
+      "3": 2,
+      "10": 3
+    },
+    "spellsKnownByLevel": {
+      "3": 3,
+      "4": 4,
+      "7": 5,
+      "8": 6,
+      "10": 7,
+      "11": 8,
+      "13": 9,
+      "14": 10,
+      "16": 11,
+      "19": 12,
+      "20": 13
+    },
+    "notes": [
+      "The first two learned 1st-level spells at level 3 must come from the abjuration or evocation schools.",
+      "Whenever you gain a fighter level, you can replace one known wizard spell with another eligible wizard spell.",
+      "Levels 3, 8, 14, and 20 allow one learned spell from any school of magic."
+    ]
+  },
+  "features": [
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "keyFacts": [
+        "Spellcasting ability: Intelligence.",
+        "Starts with 2 cantrips and 3 known spells at 3rd level.",
+        "Default schools are Abjuration and Evocation.",
+        "Any-school picks unlock at 3rd, 8th, 14th, and 20th level."
+      ],
+      "unlockLevel": 3,
+      "summary": "##Spellcasting##\nWhen you reach 3rd level, you augment your martial prowess with the ability to cast spells.\n\n#Cantrips#\nYou learn two cantrips of your choice from the wizard spell list. You learn an additional wizard cantrip of your choice at 10th level.\n\n#Spell Slots#\nThe Eldritch Knight Spellcasting table shows how many spell slots you have to cast your wizard spells of 1st level and higher. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.\n\nFor example, if you know the 1st-level spell Shield and have a 1st-level and a 2nd-level spell slot available, you can cast Shield using either slot.\n\n#Spells Known of 1st Level and Higher#\nYou know three 1st-level wizard spells of your choice, two of which you must choose from the abjuration and evocation spells on the wizard spell list.\n\nThe Spells Known column of the Eldritch Knight Spellcasting table shows when you learn more wizard spells of 1st level or higher. Each of these spells must be an abjuration or evocation spell of your choice, and must be of a level for which you have spell slots. For instance, when you reach 7th level in this class, you can learn one new spell of 1st or 2nd level.\n\nThe spells you learn at 8th, 14th, and 20th level can come from any school of magic.\n\nWhenever you gain a level in this class, you can replace one of the wizard spells you know with another spell of your choice from the wizard spell list. The new spell must be of a level for which you have spell slots, and it must be an abjuration or evocation spell, unless you're replacing the spell you gained at 3rd, 8th, 14th, or 20th level from any school of magic."
+    },
+    {
+      "id": "weapon-bond",
+      "name": "Weapon Bond",
+      "keyFacts": [
+        "Creates a bond with up to two weapons.",
+        "You can't be disarmed unless incapacitated.",
+        "You can summon a bonded weapon as a bonus action."
+      ],
+      "unlockLevel": 3,
+      "summary": "At 3rd level, you learn a ritual that creates a magical bond between yourself and one weapon. You perform the ritual over the course of 1 hour, which can be done during a short rest. The weapon must be within your reach throughout the ritual, at the conclusion of which you touch the weapon and forge the bond.\n\nOnce you have bonded a weapon to yourself, you can't be disarmed of that weapon unless you are incapacitated. If it is on the same plane of existence, you can summon that weapon as a bonus action on your turn, causing it to teleport instantly to your hand.\n\nYou can have up to two bonded weapons, but can summon only one at a time with your bonus action. If you attempt to bond with a third weapon, you must break the bond with one of the other two."
+    },
+    {
+      "id": "war-magic",
+      "name": "War Magic",
+      "keyFacts": [
+        "Trigger: cast a cantrip with your action.",
+        "Effect: make one weapon attack as a bonus action."
+      ],
+      "unlockLevel": 7,
+      "summary": "Beginning at 7th level, when you use your action to cast a cantrip, you can make one weapon attack as a bonus action."
+    },
+    {
+      "id": "eldritch-strike",
+      "name": "Eldritch Strike",
+      "keyFacts": [
+        "Trigger: hit with a weapon attack.",
+        "Effect: target has disadvantage on its next saving throw against your spell.",
+        "Duration: before the end of your next turn."
+      ],
+      "unlockLevel": 10,
+      "summary": "At 10th level, you learn how to make your weapon strikes undercut a creature's resistance to your spells. When you hit a creature with a weapon attack, that creature has disadvantage on the next saving throw it makes against a spell you cast before the end of your next turn."
+    },
+    {
+      "id": "arcane-charge",
+      "name": "Arcane Charge",
+      "keyFacts": [
+        "Trigger: use Action Surge.",
+        "Effect: teleport up to 30 feet.",
+        "You can teleport before or after the additional action."
+      ],
+      "unlockLevel": 15,
+      "summary": "At 15th level, you gain the ability to teleport up to 30 feet to an unoccupied space you can see when you use your Action Surge. You can teleport before or after the additional action."
+    },
+    {
+      "id": "improved-war-magic",
+      "name": "Improved War Magic",
+      "keyFacts": [
+        "Trigger: cast a spell with your action.",
+        "Effect: make one weapon attack as a bonus action."
+      ],
+      "unlockLevel": 18,
+      "summary": "Starting at 18th level, when you use your action to cast a spell, you can make one weapon attack as a bonus action."
+    }
+  ],
+  "notes": [
+    "details collected from subclass page"
+  ]
+}

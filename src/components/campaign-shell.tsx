@@ -13,14 +13,17 @@ export function CampaignShell({
   description: string;
   children: ReactNode;
 }) {
+  const resolvedTitle = title || "Codex of Echoes";
+  const resolvedEyebrow = eyebrow || "";
+  const resolvedDescription = description || "";
   return (
     <main className="sheet-shell campaign-shell">
       <div className="sheet-page campaign-page">
         <section className="campaign-topbar">
-          <div className="campaign-brand">
-            <span className="eyebrow">{eyebrow}</span>
-            <h1>{title}</h1>
-            <p>{description}</p>
+          <div className="campaign-brand minimal">
+            {resolvedEyebrow ? <span className="eyebrow">{resolvedEyebrow}</span> : null}
+            <h1>{resolvedTitle}</h1>
+            {resolvedDescription ? <p>{resolvedDescription}</p> : null}
           </div>
 
           <nav className="campaign-nav">

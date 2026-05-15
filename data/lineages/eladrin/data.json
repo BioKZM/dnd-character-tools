@@ -1,0 +1,96 @@
+{
+  "id": "eladrin",
+  "name": "Eladrin",
+  "category": "exotic",
+  "summary": "Eladrin are elves of the Feywild, a realm of perilous beauty and boundless magic. Each eladrin resonates with emotions captured in the Feywild in the form of seasons, and that magic shapes their mood, appearance, and fey step.",
+  "source": {
+    "book": "Mordenkainen Presents: Monsters of the Multiverse"
+  },
+  "facts": {
+    "age": {
+      "summary": "Eladrin mature at about the same rate as other elves and can live for many centuries."
+    },
+    "alignment": {
+      "summary": "Eladrin are strongly influenced by emotion and personal expression, tending toward chaotic alignments."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Eladrin have the same graceful, slender frames common to many elves."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": ["Common", "Elvish"],
+      "description": "You can speak, read, and write Common and Elvish."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "choice",
+        "count": 1,
+        "amount": 2,
+        "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+      },
+      {
+        "type": "choice",
+        "count": 1,
+        "amount": 1,
+        "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light.",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ]
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "category": "trait",
+      "summary": "You have advantage on saving throws you make to avoid or end the charmed condition on yourself.",
+      "grants": [
+        {
+          "type": "save_advantage",
+          "against": "charmed"
+        }
+      ]
+    },
+    {
+      "id": "fey-step",
+      "name": "Fey Step",
+      "category": "trait",
+      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Your season also adds a special rider effect to this teleport."
+    },
+    {
+      "id": "keen-senses",
+      "name": "Keen Senses",
+      "category": "proficiency",
+      "summary": "You have proficiency in the Perception skill.",
+      "grants": [
+        {
+          "type": "skill_proficiency",
+          "values": ["perception"]
+        }
+      ]
+    },
+    {
+      "id": "trance",
+      "name": "Trance",
+      "category": "passive",
+      "summary": "You don't need to sleep, and magic can't put you to sleep. You can finish a long rest in 4 hours if you spend those hours in a meditative trance."
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

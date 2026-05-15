@@ -1,0 +1,98 @@
+{
+  "id": "tabaxi",
+  "name": "Tabaxi",
+  "category": "exotic",
+  "summary": "Created by the Cat Lord to blend the qualities of humanoids and cats, tabaxi are a varied people in both attitude and appearance. They are naturally curious wanderers, driven by stories, discovery, and motion.",
+  "source": {
+    "book": "Mordenkainen Presents: Monsters of the Multiverse"
+  },
+  "facts": {
+    "age": {
+      "summary": "Tabaxi reach adulthood around the same time humans do and usually live less than a century."
+    },
+    "alignment": {
+      "summary": "Tabaxi tend toward chaotic alignments, guided by curiosity and personal freedom."
+    },
+    "size": {
+      "category": "Medium or Small",
+      "description": "You choose whether your tabaxi is Medium or Small when you select this lineage."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "You also have a climbing speed equal to your walking speed."
+    },
+    "languages": {
+      "values": ["Common"],
+      "description": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "choice",
+        "count": 1,
+        "amount": 2,
+        "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+      },
+      {
+        "type": "choice",
+        "count": 1,
+        "amount": 1,
+        "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light.",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ]
+    },
+    {
+      "id": "cat-s-claws",
+      "name": "Cat's Claws",
+      "category": "trait",
+      "summary": "You can use your claws to make unarmed strikes, dealing 1d6 + your Strength modifier slashing damage on a hit."
+    },
+    {
+      "id": "cat-s-talent",
+      "name": "Cat's Talent",
+      "category": "proficiency",
+      "summary": "You have proficiency in the Perception and Stealth skills.",
+      "grants": [
+        {
+          "type": "skill_proficiency",
+          "values": ["perception", "stealth"]
+        }
+      ]
+    },
+    {
+      "id": "feline-agility",
+      "name": "Feline Agility",
+      "category": "trait",
+      "summary": "When you move on your turn in combat, you can double your speed until the end of the turn. Once you use this trait, you can't use it again until you move 0 feet on one of your turns."
+    },
+    {
+      "id": "climbing-speed",
+      "name": "Climbing Speed",
+      "category": "passive",
+      "summary": "You have a climbing speed equal to your walking speed.",
+      "grants": [
+        {
+          "type": "movement",
+          "mode": "climb",
+          "operation": "set",
+          "value": 30
+        }
+      ]
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

@@ -1,0 +1,108 @@
+[
+  {
+    "id": "common",
+    "name": "Common",
+    "category": "standard"
+  },
+  {
+    "id": "dwarvish",
+    "name": "Dwarvish",
+    "category": "standard"
+  },
+  {
+    "id": "elvish",
+    "name": "Elvish",
+    "category": "standard"
+  },
+  {
+    "id": "giant",
+    "name": "Giant",
+    "category": "standard"
+  },
+  {
+    "id": "gnomish",
+    "name": "Gnomish",
+    "category": "standard"
+  },
+  {
+    "id": "goblin",
+    "name": "Goblin",
+    "category": "standard"
+  },
+  {
+    "id": "halfling",
+    "name": "Halfling",
+    "category": "standard"
+  },
+  {
+    "id": "orc",
+    "name": "Orc",
+    "category": "standard"
+  },
+  {
+    "id": "abyssal",
+    "name": "Abyssal",
+    "category": "exotic"
+  },
+  {
+    "id": "celestial",
+    "name": "Celestial",
+    "category": "exotic"
+  },
+  {
+    "id": "deep-speech",
+    "name": "Deep Speech",
+    "category": "exotic"
+  },
+  {
+    "id": "draconic",
+    "name": "Draconic",
+    "category": "exotic"
+  },
+  {
+    "id": "infernal",
+    "name": "Infernal",
+    "category": "exotic"
+  },
+  {
+    "id": "primordial",
+    "name": "Primordial",
+    "category": "exotic",
+    "variants": ["Aquan", "Auran", "Ignan", "Terran"]
+  },
+  {
+    "id": "sylvan",
+    "name": "Sylvan",
+    "category": "exotic"
+  },
+  {
+    "id": "undercommon",
+    "name": "Undercommon",
+    "category": "exotic"
+  },
+  {
+    "id": "kraul",
+    "name": "Kraul",
+    "category": "setting"
+  },
+  {
+    "id": "loxodon",
+    "name": "Loxodon",
+    "category": "setting"
+  },
+  {
+    "id": "minotaur",
+    "name": "Minotaur",
+    "category": "setting"
+  },
+  {
+    "id": "netherese",
+    "name": "Netherese",
+    "category": "setting"
+  },
+  {
+    "id": "vedalken",
+    "name": "Vedalken",
+    "category": "setting"
+  }
+]

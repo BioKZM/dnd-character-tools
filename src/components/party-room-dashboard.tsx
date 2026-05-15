@@ -7,13 +7,14 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { buildSheetContent } from "@/lib/character/build-sheet";
 import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
 import { demoCharacter, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
+import type { LineageCatalog } from "@/lib/data/lineages/schema";
 import {
   parseWarlockInvocationSummary,
   warlockInvocationMeetsPrerequisite,
 } from "@/lib/character/warlock-invocations";
 import type { ClassDocCollection } from "@/lib/content/class-docs";
 import type { ClassCuratedCollection, ResolvedClassCuratedEntry } from "@/lib/content/class-curated-schema";
-import type { WarlockOptionCollection } from "@/lib/content/class-options-schema";
+import type { ClassOptionCollection } from "@/lib/content/class-options-schema";
 import type { CreatorOptions } from "@/lib/content/creator-options";
 import type { LineageCollection } from "@/lib/content/lineage-schema";
 import type { ContentBundle } from "@/lib/content/schema";
@@ -143,11 +144,13 @@ function skillLabel(skillId: string) {
 
 function InlineHelp({
   label,
+  ariaLabel,
   content,
   variant = "icon",
   tooltipClassName = "sheet-inline-tooltip",
 }: {
-  label: string;
+  label: ReactNode;
+  ariaLabel?: string;
   content: ReactNode;
   variant?: "icon" | "keyword";
   tooltipClassName?: string;
@@ -180,7 +183,7 @@ function InlineHelp({
   return (
     <span
       className={`inline-help${variant === "keyword" ? " keyword-help" : ""}${open ? " open" : ""}`}
-      aria-label={`${label} info`}
+      aria-label={`${ariaLabel ?? (typeof label === "string" ? label : "Help")} info`}
       tabIndex={0}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
@@ -205,6 +208,21 @@ function renderInlineHelp(label: string, content: string) {
 
 function renderKeywordHelp(label: string, content: string) {
   return <InlineHelp label={label} content={content} variant="keyword" />;
+}
+
+function statValueClassName(tone: "neutral" | "boosted") {
+  return tone === "boosted" ? "sheet-derived-value boosted" : "sheet-derived-value";
+}
+
+function statTooltipContent(stat: ReturnType<typeof buildSheetContent>["derivedStats"]["walkingSpeed"]) {
+  return (
+    <div className="stat-breakdown-tooltip">
+      <strong>{stat.label}</strong>
+      {stat.breakdown.map((entry, index) => (
+        <div key={`${stat.id}-breakdown-${index}`}>{entry}</div>
+      ))}
+    </div>
+  );
 }
 
 function classIdFromName(name: string) {
@@ -303,9 +321,13 @@ const skillNameToId = Object.fromEntries(
   Object.keys(skillAbilities).map((skillId) => [skillLabel(skillId).toLowerCase(), skillId]),
 ) as Record<string, string>;
 
-function parseCommaList(value?: string) {
-  if (!value) {
+function parseCommaList(value?: string | string[]) {
+  if (!value || (Array.isArray(value) && !value.length)) {
     return [];
+  }
+
+  if (Array.isArray(value)) {
+    return unique(value.map((item) => item.trim()).filter(Boolean));
   }
 
   return unique(
@@ -316,8 +338,129 @@ function parseCommaList(value?: string) {
   );
 }
 
-function parseBackgroundSkills(value?: string) {
-  return parseCommaList(value)
+function languageNamesFromIds(content: ContentBundle, languageIds: string[]) {
+  return languageIds.map((languageId) => content.languages.find((language) => language.id === languageId)?.name ?? languageId);
+}
+
+function backgroundLanguageChoiceLabel(choice: ContentBundle["backgrounds"][number]["languages"]["choices"][number]) {
+  if (Array.isArray(choice.options)) {
+    return `${choice.label}: ${choice.options.join(", ")}`;
+  }
+
+  const optionLabel = choice.options === "any" ? "any language" : `${choice.options} language`;
+  return `${choice.label} (${choice.count} ${optionLabel}${choice.count === 1 ? "" : "s"})`;
+}
+
+function backgroundLanguageSummary(content: ContentBundle, background: ContentBundle["backgrounds"][number]) {
+  return [
+    ...languageNamesFromIds(content, background.languages.fixed),
+    ...background.languages.choices.map(backgroundLanguageChoiceLabel),
+  ];
+}
+
+const toolCategoryLabels: Record<string, string> = {
+  any: "any tool",
+  "artisan-tools": "artisan tool",
+  "gaming-sets": "gaming set",
+  "musical-instruments": "musical instrument",
+  vehicles: "vehicle",
+};
+
+function toolNameFromValue(content: ContentBundle, value: string) {
+  return content.tools.find((tool) => tool.id === value)?.name ?? value;
+}
+
+function toolIdFromValue(content: ContentBundle, value: string) {
+  const normalizedValue = value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+  return (
+    content.tools.find(
+      (tool) =>
+        tool.id === value ||
+        tool.name.toLowerCase() === value.toLowerCase() ||
+        tool.name.toLowerCase().replace(/[^a-z0-9]+/g, "") === normalizedValue,
+    )?.id ?? value
+  );
+}
+
+function toolChoiceOptions(content: ContentBundle, options: ContentBundle["backgrounds"][number]["toolProficiencies"]["choices"][number]["options"]) {
+  if (options === "any") {
+    return content.tools.map((tool) => tool.id);
+  }
+
+  if (typeof options === "string") {
+    const categoryTools = content.tools.filter((tool) => tool.category === options).map((tool) => tool.id);
+    return categoryTools.length ? categoryTools : [options];
+  }
+
+  return options.flatMap((option) => {
+    const categoryTools = content.tools.filter((tool) => tool.category === option).map((tool) => tool.id);
+    return categoryTools.length ? categoryTools : [toolIdFromValue(content, option)];
+  });
+}
+
+function backgroundToolChoiceLabel(content: ContentBundle, choice: ContentBundle["backgrounds"][number]["toolProficiencies"]["choices"][number]) {
+  const optionLabels: Record<string, string> = {
+    any: "any tool",
+    "artisan-tools": "artisan tool",
+    "gaming-sets": "gaming set",
+    "musical-instruments": "musical instrument",
+    vehicles: "vehicle",
+  };
+
+  if (Array.isArray(choice.options)) {
+    return `${choice.label}: ${toolChoiceOptions(content, choice.options).map((option) => toolNameFromValue(content, option)).join(", ")}`;
+  }
+
+  const optionLabel = optionLabels[choice.options] ?? choice.options;
+  return `${choice.label} (${choice.count} ${optionLabel}${choice.count === 1 ? "" : "s"})`;
+}
+
+function backgroundToolSummary(content: ContentBundle, background: ContentBundle["backgrounds"][number], selections: Record<string, string[]> = {}) {
+  return [
+    ...background.toolProficiencies.fixed,
+    ...background.toolProficiencies.choices.map((choice) => {
+      const selected = (selections[choice.id] ?? []).map((value) => toolNameFromValue(content, value));
+      return selected.length ? selected.join(", ") : backgroundToolChoiceLabel(content, choice);
+    }),
+  ];
+}
+
+function normalizeEquipmentName(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function inventoryHasArmorName(inventory: string[], armor: ContentBundle["armors"][number]) {
+  const inventoryNames = new Set(inventory.map(normalizeEquipmentName));
+  return [armor.name, ...armor.aliases].some((name) => inventoryNames.has(normalizeEquipmentName(name)));
+}
+
+function armorAcValue(armor: ContentBundle["armors"][number], dexterityModifier: number) {
+  const baseAc = armor.baseAc ?? 10;
+  if (!armor.dexBonus) {
+    return baseAc;
+  }
+
+  const dexBonus = typeof armor.maxDexBonus === "number"
+    ? Math.min(dexterityModifier, armor.maxDexBonus)
+    : dexterityModifier;
+  return baseAc + dexBonus;
+}
+
+function calculatedArmorClass(content: ContentBundle, inventory: string[], dexterityModifier: number) {
+  const shieldBonus = content.armors
+    .filter((armor) => armor.category === "shield" && inventoryHasArmorName(inventory, armor))
+    .reduce((total, armor) => total + (armor.acBonus ?? 0), 0);
+  const wearableArmors = content.armors.filter((armor) => armor.category !== "shield" && inventoryHasArmorName(inventory, armor));
+  const bestArmorAc = wearableArmors.reduce((best, armor) => Math.max(best, armorAcValue(armor, dexterityModifier)), 10 + dexterityModifier);
+  return bestArmorAc + shieldBonus;
+}
+
+function parseBackgroundSkills(value?: string | string[]) {
+  const entries = Array.isArray(value)
+    ? value.flatMap((item) => item.split(/[;,/]/).map((entry) => entry.trim()).filter(Boolean))
+    : parseCommaList(value);
+
+  return entries
     .map((item) => skillNameToId[item.toLowerCase()])
     .filter(Boolean);
 }
@@ -371,8 +514,22 @@ function eldritchKnightFlexiblePickAllowance(level: number) {
   return allowance;
 }
 
+function lookupProgressionValueByLevel(
+  progression: Record<string, number> | undefined,
+  level: number,
+) {
+  if (!progression) {
+    return 0;
+  }
+
+  return Object.entries(progression)
+    .map(([entryLevel, value]) => ({ level: Number(entryLevel), value }))
+    .filter((entry) => Number.isFinite(entry.level) && entry.level <= level)
+    .sort((left, right) => right.level - left.level)[0]?.value ?? 0;
+}
+
 function deriveEldritchKnightSpellRules(
-  classDocs: ClassDocCollection,
+  curatedClass: ResolvedClassCuratedEntry | null,
   selectedSubclassOptions: string[],
   level: number,
 ) {
@@ -380,72 +537,20 @@ function deriveEldritchKnightSpellRules(
     return null;
   }
 
-  const fighterDocs = classDocs.fighter;
-  const eldritchKnightDoc =
-    fighterDocs?.subclasses.find((entry) => {
-      const slugs = [entry.id, docSubclassMatchSlug(entry.name)];
-      return slugs.includes("eldritch-knight");
-    }) ?? null;
-
-  const spellcastingSection =
-    eldritchKnightDoc?.sections.find((section) => docSubclassMatchSlug(section.name) === "spellcasting") ?? null;
-  const spellcastingTable =
-    spellcastingSection?.tables.find((table) =>
-      ["Fighter Level", "Cantrips Known", "Spells Known"].every((header) =>
-        table.headers.some((cell) => normalizedDocCell(cell) === normalizedDocCell(header)),
-      ),
-    ) ??
-    eldritchKnightDoc?.sections
-      .flatMap((section) => section.tables)
-      .find((table) =>
-        ["Fighter Level", "Cantrips Known", "Spells Known"].every((header) =>
-          table.headers.some((cell) => normalizedDocCell(cell) === normalizedDocCell(header)),
-        ),
-      ) ??
-    null;
-
-  if (!spellcastingTable) {
-    const fallbackRow = getEldritchKnightProgression(level);
-    if (!fallbackRow) {
-      return null;
-    }
-
-    const perLevelLimits: Record<number, number> = {};
-    for (const spellLevel of [1, 2, 3, 4] as const) {
-      if (fallbackRow.slots[spellLevel] > 0) {
-        perLevelLimits[spellLevel] = fallbackRow.spellsKnown;
-      }
-    }
-
-    return {
-      maxSpellLevel: ([4, 3, 2, 1] as const).find((spellLevel) => fallbackRow.slots[spellLevel] > 0) ?? 0,
-      cantripLimit: fallbackRow.cantripsKnown,
-      totalKnownLimit: fallbackRow.spellsKnown,
-      perLevelLimits,
-      flexibleSchoolAllowance: eldritchKnightFlexiblePickAllowance(level),
-    };
-  }
-
-  const levelRow = spellcastingTable.rows.find((row) => normalizedDocCell(row[0] ?? "") === normalizedDocCell(levelOrdinal(level)));
-  if (!levelRow) {
+  const eldritchKnightSubclass =
+    curatedClass?.subclasses.find((entry) => entry.id === "eldritch-knight") ?? null;
+  const fallbackRow = getEldritchKnightProgression(level);
+  if (!fallbackRow) {
     return null;
   }
 
-  const readCell = (header: string) => {
-    const index = spellcastingTable.headers.findIndex((cell) => normalizedDocCell(cell) === normalizedDocCell(header));
-    return index >= 0 ? levelRow[index] ?? "" : "";
-  };
-  const numericValue = (value: string) => {
-    const parsed = Number.parseInt(value.replace(/\D/g, ""), 10);
-    return Number.isFinite(parsed) ? parsed : 0;
-  };
-
-  const cantripLimit = numericValue(readCell("Cantrips Known")) || 0;
-  const totalKnownLimit = numericValue(readCell("Spells Known")) || 0;
-  const maxSpellLevel = [1, 2, 3, 4].reduce((highest, spellLevel) => {
-    const slotValue = readCell(levelOrdinal(spellLevel));
-    return numericValue(slotValue) > 0 ? spellLevel : highest;
-  }, 0);
+  const cantripLimit =
+    lookupProgressionValueByLevel(eldritchKnightSubclass?.spellcasting?.cantripsKnownByLevel, level) ||
+    fallbackRow.cantripsKnown;
+  const totalKnownLimit =
+    lookupProgressionValueByLevel(eldritchKnightSubclass?.spellcasting?.spellsKnownByLevel, level) ||
+    fallbackRow.spellsKnown;
+  const maxSpellLevel = ([4, 3, 2, 1] as const).find((spellLevel) => fallbackRow.slots[spellLevel] > 0) ?? 0;
   const perLevelLimits: Record<number, number> = {};
 
   for (let spellLevel = 1; spellLevel <= maxSpellLevel; spellLevel += 1) {
@@ -457,7 +562,9 @@ function deriveEldritchKnightSpellRules(
     cantripLimit,
     totalKnownLimit,
     perLevelLimits,
-    flexibleSchoolAllowance: eldritchKnightFlexiblePickAllowance(level),
+    flexibleSchoolAllowance:
+      eldritchKnightSubclass?.spellcasting?.unrestrictedSpellLevels.filter((unlockLevel) => level >= unlockLevel).length ??
+      eldritchKnightFlexiblePickAllowance(level),
   };
 }
 
@@ -681,7 +788,10 @@ function normalizeRangerChoices(
 
 function normalizeFighterChoices(fighterChoices: FighterChoices | undefined) {
   return {
-    fightingStyleId: fighterChoices?.fightingStyleId ?? "archery",
+    fightingStyleId: fighterChoices?.fightingStyleId ?? null,
+    superiorTechniqueManeuverId: fighterChoices?.superiorTechniqueManeuverId ?? null,
+    equipmentChoiceIds: fighterChoices?.equipmentChoiceIds ?? {},
+    abilityScoreImprovements: fighterChoices?.abilityScoreImprovements ?? {},
   } satisfies FighterChoices;
 }
 
@@ -699,8 +809,22 @@ function buildDraftFromSelection(
   const speciesRules = creatorOptions.speciesOptions[chosenSpecies.id];
   const backgroundRules = creatorOptions.backgroundOptions[chosenBackground.id];
   const backgroundSkills = parseBackgroundSkills(chosenBackground.skillProficiencies);
-  const backgroundTools = parseCommaList(chosenBackground.toolProficiencies);
-  const backgroundLanguages = parseCommaList(chosenBackground.languages);
+  const backgroundToolChoiceIds = Object.fromEntries(
+    chosenBackground.toolProficiencies.choices.map((choice) => {
+      const allowedOptions = new Set(toolChoiceOptions(content, choice.options));
+      const selected = (previous.backgroundToolChoiceIds?.[choice.id] ?? [])
+        .filter((optionId) => allowedOptions.has(optionId))
+        .slice(0, choice.count);
+      return [choice.id, selected];
+    }),
+  ) as Record<string, string[]>;
+  const backgroundTools = [
+    ...chosenBackground.toolProficiencies.fixed,
+    ...Object.values(backgroundToolChoiceIds).flat().map((value) => toolNameFromValue(content, value)),
+  ];
+  const backgroundLanguages = languageNamesFromIds(content, chosenBackground.languages.fixed);
+  const backgroundEquipment = chosenBackground.equipment ?? [];
+  const allBackgroundEquipment = content.backgrounds.flatMap((item) => item.equipment ?? []);
   const classPool = [
     chosenClass.name,
     ...previous.multiclassIds
@@ -710,10 +834,14 @@ function buildDraftFromSelection(
   const allowedSpellIds = content.spells
     .filter((spell) => {
       const byClass = classPool.some((className) => classMatchesSpell(spell, className));
+      const byEldritchKnight =
+        chosenClass.id === "fighter" &&
+        previous.selectedSubclassOptions.includes("eldritch-knight") &&
+        classMatchesSpell(spell, "Wizard");
       const bySubclass = (spell.subclassOptions ?? []).some((option) =>
         previous.selectedSubclassOptions.includes(option),
       );
-      return byClass || bySubclass;
+      return byClass || bySubclass || byEldritchKnight;
     })
     .map((spell) => spell.id);
   const allowedFeatIds = content.feats
@@ -763,6 +891,11 @@ function buildDraftFromSelection(
       (previous.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON),
     1,
   );
+  const inventory = unique([
+    ...previous.inventory.filter((item) => !allBackgroundEquipment.includes(item)),
+    ...backgroundEquipment,
+  ]);
+  const armorClass = calculatedArmorClass(content, inventory, modifiers.DEX);
 
   return {
     ...previous,
@@ -814,12 +947,18 @@ function buildDraftFromSelection(
         ? normalizedFighterChoices
         : {
             fightingStyleId: "archery",
+            superiorTechniqueManeuverId: null,
+            equipmentChoiceIds: normalizedFighterChoices.equipmentChoiceIds,
+            abilityScoreImprovements: {},
           },
+    lineageChoices: previous.lineageChoices ?? {},
+    backgroundToolChoiceIds,
     spellIds: previous.spellIds.filter((spellId) => allowedSpellIds.includes(spellId)),
     featIds: previous.featIds.filter((featId) => allowedFeatIds.includes(featId)),
+    inventory,
     proficiencyBonus,
     initiative: modifiers.DEX,
-    armorClass: 12 + modifiers.DEX,
+    armorClass,
     maxHp,
     currentHp: Math.min(previous.currentHp, maxHp),
     proficiencies: {
@@ -866,7 +1005,6 @@ function buildDraftFromSelection(
         backgroundRules?.skillProficiencies.includes(skillId) ||
         backgroundSkills.includes(skillId) ||
         previous.selectedSkillIds.includes(skillId) ||
-        existing?.proficient ||
         false;
       const expertise =
         chosenClass.id === "ranger" &&
@@ -917,8 +1055,9 @@ export function PartyRoomDashboard({
   initialContent,
   initialCreatorOptions,
   initialLineageCollection,
+  initialLineageDataCatalog,
   initialClassCuratedCollection,
-  initialWarlockOptions,
+  initialClassOptionCollection,
   initialClassDocs,
   initialSpellReferenceCollection,
   mode = "creator",
@@ -927,8 +1066,9 @@ export function PartyRoomDashboard({
   initialContent: ContentBundle;
   initialCreatorOptions: CreatorOptions;
   initialLineageCollection: LineageCollection;
+  initialLineageDataCatalog: LineageCatalog;
   initialClassCuratedCollection: ClassCuratedCollection;
-  initialWarlockOptions: WarlockOptionCollection;
+  initialClassOptionCollection: ClassOptionCollection;
   initialClassDocs: ClassDocCollection;
   initialSpellReferenceCollection: SpellReferenceCollection;
   mode?: "creator" | "sheet";
@@ -945,8 +1085,8 @@ export function PartyRoomDashboard({
     return loadInitialDraft(initialContent, initialCreatorOptions);
   });
   const sheetContent = useMemo(
-    () => buildSheetContent(initialContent, draft, initialClassDocs, initialClassCuratedCollection),
-    [initialContent, draft, initialClassDocs, initialClassCuratedCollection],
+    () => buildSheetContent(initialContent, draft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog),
+    [initialContent, draft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog],
   );
   const [bookManifest] = useState<RawBookManifest | null>(initialBookManifest);
   const [currentHp, setCurrentHp] = useState(() => draft.currentHp);
@@ -1000,7 +1140,7 @@ export function PartyRoomDashboard({
         ? [currentCuratedClass.subclasses[0].id]
         : [];
   const isEffectiveEldritchKnight = effectiveSelectedSubclassOptions.includes("eldritch-knight");
-  const eldritchKnightSpellRules = deriveEldritchKnightSpellRules(initialClassDocs, effectiveSelectedSubclassOptions, draft.level);
+  const eldritchKnightSpellRules = deriveEldritchKnightSpellRules(currentCuratedClass, effectiveSelectedSubclassOptions, draft.level);
   const spellSelectionRules = eldritchKnightSpellRules ?? deriveSpellSelectionRules(currentCuratedClass, draft.level);
   const maxSpellLevel = spellSelectionRules.maxSpellLevel;
   const eldritchKnightSelectedOffSchoolCount = draft.spellIds.filter((spellId) => {
@@ -1100,12 +1240,12 @@ export function PartyRoomDashboard({
     }
   }, [availableSpells, draft.spellIds, spellSelectionRules]);
   useEffect(() => {
-    if (draft.classId !== "warlock" || !initialWarlockOptions.eldritchInvocations?.options.length) {
+    if (draft.classId !== "warlock" || !initialClassOptionCollection.warlock.eldritchInvocations?.options.length) {
       return;
     }
 
     const eligibleInvocationIds = new Set(
-      initialWarlockOptions.eldritchInvocations.options
+      initialClassOptionCollection.warlock.eldritchInvocations.options
         .filter((option) =>
           warlockInvocationMeetsPrerequisite(parseWarlockInvocationSummary(option.summary).prerequisite, {
             level: draft.level,
@@ -1130,11 +1270,11 @@ export function PartyRoomDashboard({
     draft.classId,
     draft.level,
     draft.pactBoonId,
-    draft.selectedInvocationIds,
-    draft.spellIds,
-    initialWarlockOptions.eldritchInvocations?.options,
-    warlockInvocationLimit,
-  ]);
+      draft.selectedInvocationIds,
+      draft.spellIds,
+      initialClassOptionCollection.warlock.eldritchInvocations?.options,
+      warlockInvocationLimit,
+    ]);
   const availableFeats = initialContent.feats.filter((feat) => {
     if (!feat.isRacialFeat) {
       return true;
@@ -1310,7 +1450,11 @@ export function PartyRoomDashboard({
       ...current,
       fighterChoices: {
         ...normalizeFighterChoices(current.fighterChoices),
-        fightingStyleId: styleId,
+        fightingStyleId: styleId || null,
+        superiorTechniqueManeuverId:
+          styleId === "superior-technique"
+            ? normalizeFighterChoices(current.fighterChoices).superiorTechniqueManeuverId
+            : null,
       },
     }));
   };
@@ -1420,6 +1564,11 @@ export function PartyRoomDashboard({
   const toggleSkillSelection = (value: string) => {
     updateDraft((current) => {
       const selected = current.selectedSkillIds;
+      const skillEntry = current.skills.find((skill) => skill.id === value);
+      if (skillEntry?.proficient && !selected.includes(value)) {
+        return current;
+      }
+
       if (selected.includes(value)) {
         return {
           ...current,
@@ -1607,12 +1756,13 @@ export function PartyRoomDashboard({
               currentSpeciesRules={currentSpeciesRules}
               currentBackground={currentBackground}
               lineageCollection={initialLineageCollection}
-              classCuratedCollection={initialClassCuratedCollection}
-              warlockOptions={initialWarlockOptions}
-              classDocs={initialClassDocs}
-              spellReferenceCollection={initialSpellReferenceCollection}
-              currentClassRules={currentClassRules}
-              classOptions={initialCreatorOptions.classOptions}
+                lineageDataCatalog={initialLineageDataCatalog}
+                classCuratedCollection={initialClassCuratedCollection}
+                classOptionCollection={initialClassOptionCollection}
+                classDocs={initialClassDocs}
+                spellReferenceCollection={initialSpellReferenceCollection}
+                currentClassRules={currentClassRules}
+                classOptions={initialCreatorOptions.classOptions}
               multiclassChoices={multiclassChoices}
               availableSubclassOptions={availableSubclassOptions}
               availableSpells={availableSpells}
@@ -1731,7 +1881,13 @@ export function PartyRoomDashboard({
                     "Walking speed shows how far your character can move on foot during a turn under normal conditions.",
                   )}
                 </span>
-                <strong>{draft.speed}</strong>
+                <InlineHelp
+                  label={<strong className={statValueClassName(sheetContent.derivedStats.walkingSpeed.tone)}>{sheetContent.derivedStats.walkingSpeed.displayValue}</strong>}
+                  ariaLabel="Walking speed breakdown"
+                  content={statTooltipContent(sheetContent.derivedStats.walkingSpeed)}
+                  variant="keyword"
+                  tooltipClassName="sheet-inline-tooltip"
+                />
               </article>
 
               <article className="badge-card badge-card-secondary">
@@ -1751,7 +1907,13 @@ export function PartyRoomDashboard({
                     "Armor Class is the number an attack roll must meet or exceed to hit your character.",
                   )}
                 </span>
-                <strong>{draft.armorClass}</strong>
+                <InlineHelp
+                  label={<strong className={statValueClassName(sheetContent.derivedStats.armorClass.tone)}>{sheetContent.derivedStats.armorClass.displayValue}</strong>}
+                  ariaLabel="Armor Class breakdown"
+                  content={statTooltipContent(sheetContent.derivedStats.armorClass)}
+                  variant="keyword"
+                  tooltipClassName="sheet-inline-tooltip"
+                />
               </article>
 
               <article className="badge-card badge-card-secondary">
@@ -2144,11 +2306,11 @@ export function PartyRoomDashboard({
                 </article>
                 <article className="badge-card">
                   <span className="stat-label">Walking</span>
-                  <strong>{draft.speed}</strong>
+                  <strong className={statValueClassName(sheetContent.derivedStats.walkingSpeed.tone)}>{sheetContent.derivedStats.walkingSpeed.displayValue}</strong>
                 </article>
                 <article className="badge-card">
                   <span className="stat-label">Armor Class</span>
-                  <strong>{draft.armorClass}</strong>
+                  <strong className={statValueClassName(sheetContent.derivedStats.armorClass.tone)}>{sheetContent.derivedStats.armorClass.displayValue}</strong>
                 </article>
               </div>
             </section>

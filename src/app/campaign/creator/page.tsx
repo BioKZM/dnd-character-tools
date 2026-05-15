@@ -2,9 +2,10 @@ import { CampaignShell } from "@/components/campaign-shell";
 import { PartyRoomDashboard } from "@/components/party-room-dashboard";
 import { readClassCuratedCollection } from "@/lib/content/class-curated-content";
 import { readClassDocCollection } from "@/lib/content/class-docs";
-import { readWarlockOptionCollection } from "@/lib/content/class-options-content";
+import { readClassOptionCollection } from "@/lib/content/class-options-content";
 import { readCreatorOptions, readNormalizedContent } from "@/lib/content/file-content";
 import { readLineageCollection } from "@/lib/content/lineage-content";
+import { readLineageDataCatalog } from "@/lib/data/lineages/content";
 import { readRawBookManifest } from "@/lib/content/raw-books";
 import { mergeSpellReferencesIntoContent, readSpellReferenceCollection } from "@/lib/content/spell-reference";
 
@@ -14,17 +15,18 @@ export default function CampaignCreatorPage() {
 
   return (
     <CampaignShell
-      eyebrow="Character Workspace"
-      title="Creator"
-      description="Build and revise character data with a cleaner, structured workspace."
+      eyebrow=""
+      title=""
+      description=""
     >
       <PartyRoomDashboard
         initialBookManifest={readRawBookManifest()}
         initialContent={content}
         initialCreatorOptions={readCreatorOptions()}
         initialLineageCollection={readLineageCollection()}
+        initialLineageDataCatalog={readLineageDataCatalog()}
         initialClassCuratedCollection={readClassCuratedCollection()}
-        initialWarlockOptions={readWarlockOptionCollection()}
+        initialClassOptionCollection={readClassOptionCollection()}
         initialClassDocs={readClassDocCollection()}
         initialSpellReferenceCollection={spellReferences}
         mode="creator"

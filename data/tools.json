@@ -1,0 +1,261 @@
+[
+  {
+    "id": "alchemists-supplies",
+    "name": "Alchemist's Supplies",
+    "category": "artisan-tools",
+    "cost": "50 gp",
+    "weight": "8 lb."
+  },
+  {
+    "id": "brewers-supplies",
+    "name": "Brewer's Supplies",
+    "category": "artisan-tools",
+    "cost": "20 gp",
+    "weight": "9 lb."
+  },
+  {
+    "id": "calligraphers-supplies",
+    "name": "Calligrapher's Supplies",
+    "category": "artisan-tools",
+    "cost": "10 gp",
+    "weight": "5 lb."
+  },
+  {
+    "id": "carpenters-tools",
+    "name": "Carpenter's Tools",
+    "category": "artisan-tools",
+    "cost": "8 gp",
+    "weight": "6 lb."
+  },
+  {
+    "id": "cartographers-tools",
+    "name": "Cartographer's Tools",
+    "category": "artisan-tools",
+    "cost": "15 gp",
+    "weight": "6 lb."
+  },
+  {
+    "id": "cobblers-tools",
+    "name": "Cobbler's Tools",
+    "category": "artisan-tools",
+    "cost": "5 gp",
+    "weight": "5 lb."
+  },
+  {
+    "id": "cooks-utensils",
+    "name": "Cook's Utensils",
+    "category": "artisan-tools",
+    "cost": "1 gp",
+    "weight": "8 lb."
+  },
+  {
+    "id": "glassblowers-tools",
+    "name": "Glassblower's Tools",
+    "category": "artisan-tools",
+    "cost": "30 gp",
+    "weight": "5 lb."
+  },
+  {
+    "id": "jewelers-tools",
+    "name": "Jeweler's Tools",
+    "category": "artisan-tools",
+    "cost": "25 gp",
+    "weight": "2 lb."
+  },
+  {
+    "id": "leatherworkers-tools",
+    "name": "Leatherworker's Tools",
+    "category": "artisan-tools",
+    "cost": "5 gp",
+    "weight": "5 lb."
+  },
+  {
+    "id": "masons-tools",
+    "name": "Mason's Tools",
+    "category": "artisan-tools",
+    "cost": "10 gp",
+    "weight": "8 lb."
+  },
+  {
+    "id": "painters-supplies",
+    "name": "Painter's Supplies",
+    "category": "artisan-tools",
+    "cost": "10 gp",
+    "weight": "5 lb."
+  },
+  {
+    "id": "potters-tools",
+    "name": "Potter's Tools",
+    "category": "artisan-tools",
+    "cost": "10 gp",
+    "weight": "3 lb."
+  },
+  {
+    "id": "smiths-tools",
+    "name": "Smith's Tools",
+    "category": "artisan-tools",
+    "cost": "20 gp",
+    "weight": "8 lb."
+  },
+  {
+    "id": "tinkers-tools",
+    "name": "Tinker's Tools",
+    "category": "artisan-tools",
+    "cost": "50 gp",
+    "weight": "10 lb."
+  },
+  {
+    "id": "weavers-tools",
+    "name": "Weaver's Tools",
+    "category": "artisan-tools",
+    "cost": "1 gp",
+    "weight": "5 lb."
+  },
+  {
+    "id": "woodcarvers-tools",
+    "name": "Woodcarver's Tools",
+    "category": "artisan-tools",
+    "cost": "1 gp",
+    "weight": "5 lb."
+  },
+  {
+    "id": "dice-set",
+    "name": "Dice Set",
+    "category": "gaming-sets",
+    "cost": "1 sp",
+    "weight": "-"
+  },
+  {
+    "id": "dragonchess-set",
+    "name": "Dragonchess Set",
+    "category": "gaming-sets",
+    "cost": "1 gp",
+    "weight": "1/2 lb."
+  },
+  {
+    "id": "playing-card-set",
+    "name": "Playing Card Set",
+    "category": "gaming-sets",
+    "cost": "5 sp",
+    "weight": "-"
+  },
+  {
+    "id": "three-dragon-ante-set",
+    "name": "Three-Dragon Ante Set",
+    "category": "gaming-sets",
+    "cost": "1 gp",
+    "weight": "-"
+  },
+  {
+    "id": "bagpipes",
+    "name": "Bagpipes",
+    "category": "musical-instruments",
+    "cost": "30 gp",
+    "weight": "6 lb."
+  },
+  {
+    "id": "drum",
+    "name": "Drum",
+    "category": "musical-instruments",
+    "cost": "6 gp",
+    "weight": "3 lb."
+  },
+  {
+    "id": "dulcimer",
+    "name": "Dulcimer",
+    "category": "musical-instruments",
+    "cost": "25 gp",
+    "weight": "10 lb."
+  },
+  {
+    "id": "flute",
+    "name": "Flute",
+    "category": "musical-instruments",
+    "cost": "2 gp",
+    "weight": "1 lb."
+  },
+  {
+    "id": "lute",
+    "name": "Lute",
+    "category": "musical-instruments",
+    "cost": "35 gp",
+    "weight": "2 lb."
+  },
+  {
+    "id": "lyre",
+    "name": "Lyre",
+    "category": "musical-instruments",
+    "cost": "30 gp",
+    "weight": "2 lb."
+  },
+  {
+    "id": "horn",
+    "name": "Horn",
+    "category": "musical-instruments",
+    "cost": "3 gp",
+    "weight": "2 lb."
+  },
+  {
+    "id": "pan-flute",
+    "name": "Pan Flute",
+    "category": "musical-instruments",
+    "cost": "12 gp",
+    "weight": "2 lb."
+  },
+  {
+    "id": "shawm",
+    "name": "Shawm",
+    "category": "musical-instruments",
+    "cost": "2 gp",
+    "weight": "1 lb."
+  },
+  {
+    "id": "viol",
+    "name": "Viol",
+    "category": "musical-instruments",
+    "cost": "30 gp",
+    "weight": "1 lb."
+  },
+  {
+    "id": "disguise-kit",
+    "name": "Disguise Kit",
+    "category": "kits",
+    "cost": "25 gp",
+    "weight": "3 lb."
+  },
+  {
+    "id": "forgery-kit",
+    "name": "Forgery Kit",
+    "category": "kits",
+    "cost": "15 gp",
+    "weight": "5 lb."
+  },
+  {
+    "id": "herbalism-kit",
+    "name": "Herbalism Kit",
+    "category": "kits",
+    "cost": "5 gp",
+    "weight": "3 lb."
+  },
+  {
+    "id": "navigators-tools",
+    "name": "Navigator's Tools",
+    "category": "kits",
+    "cost": "25 gp",
+    "weight": "2 lb."
+  },
+  {
+    "id": "poisoners-kit",
+    "name": "Poisoner's Kit",
+    "category": "kits",
+    "cost": "50 gp",
+    "weight": "2 lb."
+  },
+  {
+    "id": "thieves-tools",
+    "name": "Thieves' Tools",
+    "category": "kits",
+    "cost": "25 gp",
+    "weight": "1 lb."
+  }
+]

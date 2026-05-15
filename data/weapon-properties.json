@@ -1,0 +1,57 @@
+[
+  {
+    "id": "ammunition",
+    "name": "Ammunition",
+    "description": "You can use a weapon that has the ammunition property to make a ranged attack only if you have ammunition to fire from the weapon. Each attack expends one piece of ammunition. Drawing ammunition is part of the attack. Loading a one-handed weapon requires a free hand. After a battle, you can recover half your expended ammunition by taking a minute to search the battlefield. If you use an ammunition weapon to make a melee attack, you treat it as an improvised weapon."
+  },
+  {
+    "id": "finesse",
+    "name": "Finesse",
+    "description": "When making an attack with a finesse weapon, you use your choice of your Strength or Dexterity modifier for the attack and damage rolls. You must use the same modifier for both rolls."
+  },
+  {
+    "id": "heavy",
+    "name": "Heavy",
+    "description": "Creatures that are Small or Tiny have disadvantage on attack rolls with heavy weapons."
+  },
+  {
+    "id": "light",
+    "name": "Light",
+    "description": "A light weapon is small and easy to handle, making it ideal for use when fighting with two weapons."
+  },
+  {
+    "id": "loading",
+    "name": "Loading",
+    "description": "Because of the time required to load this weapon, you can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it, regardless of the number of attacks you can normally make."
+  },
+  {
+    "id": "range",
+    "name": "Range",
+    "description": "A weapon that can be used to make a ranged attack has a range shown in parentheses after the ammunition or thrown property. The first number is normal range in feet, and the second is long range. When attacking beyond normal range, you have disadvantage on the attack roll. You can't attack beyond long range."
+  },
+  {
+    "id": "reach",
+    "name": "Reach",
+    "description": "This weapon adds 5 feet to your reach when you attack with it and for opportunity attacks with it."
+  },
+  {
+    "id": "special",
+    "name": "Special",
+    "description": "A weapon with the special property has unusual rules governing its use, explained in the weapon's description."
+  },
+  {
+    "id": "thrown",
+    "name": "Thrown",
+    "description": "If a weapon has the thrown property, you can throw it to make a ranged attack. If it is a melee weapon, you use the same ability modifier for the attack and damage rolls that you would use for a melee attack with the weapon."
+  },
+  {
+    "id": "two-handed",
+    "name": "Two-Handed",
+    "description": "This weapon requires two hands to use. This is relevant only when you attack with the weapon, not when you simply hold it."
+  },
+  {
+    "id": "versatile",
+    "name": "Versatile",
+    "description": "This weapon can be used with one or two hands. A damage value in parentheses appears with the property, indicating the damage when used with two hands."
+  }
+]
