@@ -849,6 +849,30 @@ function normalizeFighterChoices(fighterChoices: FighterChoices | undefined) {
   } satisfies FighterChoices;
 }
 
+function fighterAsiLevelChoices(
+  improvements: CharacterDraft["fighterChoices"]["abilityScoreImprovements"] | undefined,
+) {
+  const bonuses = new Map<AbilityId, number>();
+
+  Object.values(improvements ?? {}).forEach((choice) => {
+    if (!choice) {
+      return;
+    }
+
+    if (choice.mode === "plus-two" && choice.plusTwoAbilityId) {
+      bonuses.set(choice.plusTwoAbilityId, (bonuses.get(choice.plusTwoAbilityId) ?? 0) + 2);
+    }
+
+    if (choice.mode === "split") {
+      choice.plusOneAbilityIds.forEach((abilityId) => {
+        bonuses.set(abilityId, (bonuses.get(abilityId) ?? 0) + 1);
+      });
+    }
+  });
+
+  return bonuses;
+}
+
 function isDynamicLineageSkillChoiceGroup(groupId: string) {
   return groupId === "variant-human-skill-choice" || groupId === "half-elf-skill-choice";
 }
@@ -880,6 +904,206 @@ function lineageSkillProficiencyIds(lineageDataCatalog: LineageCatalog | undefin
       .flatMap((grant) => grant.values)
       .concat(selectedChoiceSkillIds),
   );
+}
+
+function resolvedLineageData(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
+  const lineage =
+    lineageDataCatalog?.entries.find((entry) => entry.id === draft.speciesId) ??
+    lineageDataCatalog?.entries.find((entry) => entry.sublineages.some((sublineage) => sublineage.id === draft.speciesId)) ??
+    null;
+  const sublineage = lineage?.sublineages.find((entry) => entry.id === draft.speciesId) ?? null;
+
+  return { lineage, sublineage };
+}
+
+function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
+  const bonuses = new Map<AbilityId, number>();
+  const addBonus = (ability: AbilityId, amount: number) => {
+    bonuses.set(ability, (bonuses.get(ability) ?? 0) + amount);
+  };
+  const { lineage, sublineage } = resolvedLineageData(lineageDataCatalog, draft);
+  const shouldUseLineageFixedBonuses = !(lineage?.id === "human" && sublineage?.id === "variant-human");
+
+  if (shouldUseLineageFixedBonuses) {
+    lineage?.facts.abilityScoreBonuses.forEach((bonus) => {
+      if (bonus.type === "fixed") {
+        addBonus(bonus.ability, bonus.amount);
+      }
+    });
+  }
+
+  sublineage?.facts.abilityScoreBonuses.forEach((bonus) => {
+    if (bonus.type === "fixed") {
+      addBonus(bonus.ability, bonus.amount);
+    }
+  });
+
+  [...(lineage?.features ?? []), ...(sublineage?.features ?? [])]
+    .flatMap((feature) => feature.grants)
+    .forEach((grant) => {
+      if (grant.type === "ability_bonus") {
+        addBonus(grant.ability, grant.amount);
+      }
+    });
+
+  [...(lineage?.choiceGroups ?? []), ...(sublineage?.choiceGroups ?? [])].forEach((group) => {
+    const selectedIds = draft.lineageChoices?.[group.id] ?? [];
+
+    if (group.type === "ability-choice") {
+      selectedIds.forEach((abilityId) => {
+        if (abilityId in abilityLabels) {
+          addBonus(abilityId as AbilityId, 1);
+        }
+      });
+    }
+
+    group.options
+      .filter((option) => selectedIds.includes(option.id))
+      .flatMap((option) => option.grants)
+      .forEach((grant) => {
+        if (grant.type === "ability_bonus") {
+          addBonus(grant.ability, grant.amount);
+        }
+      });
+  });
+
+  const supportsFlexibleBonuses =
+    lineage?.facts.abilityScoreBonuses.some((bonus) => bonus.type === "choice") ||
+    sublineage?.facts.abilityScoreBonuses.some((bonus) => bonus.type === "choice");
+
+  if (supportsFlexibleBonuses && draft.flexibleAbilityBonuses?.plusTwo) {
+    addBonus(draft.flexibleAbilityBonuses.plusTwo, 2);
+  }
+  if (supportsFlexibleBonuses && draft.flexibleAbilityBonuses?.plusOne) {
+    addBonus(draft.flexibleAbilityBonuses.plusOne, 1);
+  }
+
+  fighterAsiLevelChoices(draft.fighterChoices?.abilityScoreImprovements).forEach((amount, ability) => {
+    addBonus(ability, amount);
+  });
+
+  return bonuses;
+}
+
+function finalAbilitiesForDraft(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
+  const bonuses = finalAbilityBonuses(lineageDataCatalog, draft);
+  const abilities = draft.abilities.map((ability) => {
+    const score = ability.score + (bonuses.get(ability.id) ?? 0);
+    return {
+      ...ability,
+      label: abilityLabels[ability.id],
+      score,
+      modifier: abilityModifier(score),
+    };
+  });
+  const modifierFor = (abilityId: AbilityId) =>
+    abilities.find((ability) => ability.id === abilityId)?.modifier ?? abilityModifier(8);
+
+  return {
+    abilities,
+    modifiers: {
+      STR: modifierFor("STR"),
+      DEX: modifierFor("DEX"),
+      CON: modifierFor("CON"),
+      INT: modifierFor("INT"),
+      WIS: modifierFor("WIS"),
+      CHA: modifierFor("CHA"),
+    } satisfies Record<AbilityId, number>,
+  };
+}
+
+function derivedSensesFromSkills(skills: CharacterDraft["skills"]) {
+  const passiveSkill = (
+    id: "perception" | "investigation" | "insight",
+    label: string,
+    description: string,
+  ) => ({
+    id,
+    label,
+    value: 10 + (skills.find((skill) => skill.id === id)?.bonus ?? 0),
+    description,
+  });
+
+  return [
+    passiveSkill("perception", "Passive Perception", "Used to notice creatures, traps, or hidden details without actively searching."),
+    passiveSkill("investigation", "Passive Investigation", "Reflects how quickly the character spots patterns, clues, and inconsistencies."),
+    passiveSkill("insight", "Passive Insight", "Shows how easily the character reads lies, motives, and emotional shifts."),
+  ];
+}
+
+function buildSheetDraftFromSelection(
+  content: ContentBundle,
+  creatorOptions: CreatorOptions,
+  draft: CharacterDraft,
+  lineageDataCatalog?: LineageCatalog,
+): CharacterDraft {
+  const chosenClass = content.classes.find((item) => item.id === draft.classId) ?? content.classes[0];
+  const chosenBackground =
+    content.backgrounds.find((item) => item.id === draft.backgroundId) ?? content.backgrounds[0];
+  const backgroundRules = creatorOptions.backgroundOptions[chosenBackground.id];
+  const backgroundSkills = parseBackgroundSkills(chosenBackground.skillProficiencies);
+  const customBackground = normalizeCustomBackground(content, draft);
+  const activeBackgroundSkillIds = isCustomBackground(chosenBackground.id) ? customBackground.skillIds : backgroundSkills;
+  const lineageSkillProficiencies = lineageSkillProficiencyIds(lineageDataCatalog, draft);
+  const normalizedRangerChoices = normalizeRangerChoices(draft.rangerChoices, draft.level);
+  const proficiencyBonus = proficiencyBonusForLevel(draft.level);
+  const { abilities, modifiers } = finalAbilitiesForDraft(lineageDataCatalog, draft);
+  const maxHp = Math.max(
+    chosenClass.hitDie +
+      modifiers.CON +
+      (draft.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON),
+    1,
+  );
+  const skills = defaultSkillOrder.map((skillId) => {
+    const existing = draft.skills.find((skill) => skill.id === skillId);
+    const ability = skillAbilities[skillId] ?? existing?.ability ?? "INT";
+    const modifier = modifiers[ability];
+    const proficient =
+      backgroundRules?.skillProficiencies.includes(skillId) ||
+      activeBackgroundSkillIds.includes(skillId) ||
+      lineageSkillProficiencies.includes(skillId) ||
+      draft.selectedSkillIds.includes(skillId) ||
+      false;
+    const expertise =
+      chosenClass.id === "ranger" &&
+      normalizedRangerChoices.favoredTerrainMode === "deft" &&
+      normalizedRangerChoices.cannySkillId === skillId &&
+      proficient;
+
+    return {
+      id: skillId,
+      label: existing?.label ?? skillLabel(skillId),
+      ability,
+      proficient,
+      bonus: modifier + (proficient ? proficiencyBonus : 0) + (expertise ? proficiencyBonus : 0),
+      breakdown: expertise
+        ? `${ability} modifier + expertise.`
+        : proficient
+          ? `${ability} modifier + proficiency.`
+          : `${ability} modifier.`,
+      description: skillDescriptions[skillId] ?? existing?.description ?? "",
+    };
+  });
+
+  return {
+    ...draft,
+    abilities,
+    proficiencyBonus,
+    initiative: modifiers.DEX,
+    armorClass: calculatedArmorClass(content, draft.inventory, modifiers.DEX),
+    maxHp,
+    currentHp: Math.min(draft.currentHp, maxHp),
+    savingThrows: (["STR", "DEX", "CON", "INT", "WIS", "CHA"] as AbilityId[]).map((ability) => ({
+      ability,
+      bonus: modifiers[ability] + (chosenClass.savingThrows.includes(ability) ? proficiencyBonus : 0),
+      proficient: chosenClass.savingThrows.includes(ability),
+      breakdown: chosenClass.savingThrows.includes(ability)
+        ? `${abilityLabels[ability]} modifier + class save proficiency.`
+        : `${abilityLabels[ability]} modifier only.`,
+    })),
+    skills,
+    senses: derivedSensesFromSkills(skills),
+  };
 }
 
 function buildDraftFromSelection(
@@ -1191,9 +1415,13 @@ export function PartyRoomDashboard({
     }
     return loadInitialDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog);
   });
+  const sheetDraft = useMemo(
+    () => buildSheetDraftFromSelection(initialContent, initialCreatorOptions, draft, initialLineageDataCatalog),
+    [initialContent, initialCreatorOptions, draft, initialLineageDataCatalog],
+  );
   const sheetContent = useMemo(
-    () => buildSheetContent(initialContent, draft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog),
-    [initialContent, draft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog],
+    () => buildSheetContent(initialContent, sheetDraft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog),
+    [initialContent, sheetDraft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog],
   );
   const [bookManifest] = useState<RawBookManifest | null>(initialBookManifest);
   const [currentHp, setCurrentHp] = useState(() => draft.currentHp);
@@ -1229,7 +1457,7 @@ export function PartyRoomDashboard({
     activeTab === "actions"
       ? sheetContent.builtActions.filter((action) => actionFilter === "all" || action.category === actionFilter)
       : [];
-  const displayedCurrentHp = Math.min(currentHp, draft.maxHp);
+  const displayedCurrentHp = Math.min(currentHp, sheetDraft.maxHp);
   const currentCuratedClass =
     initialClassCuratedCollection.entries.find((entry) => entry.id === draft.classId) ?? null;
   const currentClassRules = initialCreatorOptions.classOptions[draft.classId];
@@ -1832,7 +2060,7 @@ export function PartyRoomDashboard({
   };
 
   const applyHealing = (amount: number) => {
-    setCurrentHp((value) => Math.min(value + amount, draft.maxHp));
+    setCurrentHp((value) => Math.min(value + amount, sheetDraft.maxHp));
   };
 
   if (!isHydrated) {
@@ -1950,7 +2178,7 @@ export function PartyRoomDashboard({
         <section className="top-rack">
           <div className="top-rack-stack">
             <div className="stat-rack stat-rack-primary">
-              {draft.abilities.map((ability) => (
+              {sheetDraft.abilities.map((ability) => (
                 <article className="stat-card" key={ability.id}>
                   <div className="stat-card-top">
                     <span className="stat-label">{ability.label}</span>
@@ -1980,7 +2208,7 @@ export function PartyRoomDashboard({
                     "Proficiency bonus is added to trained skills, saving throws, attacks, and other checks your character is proficient with.",
                   )}
                 </span>
-                <strong>{formatSigned(draft.proficiencyBonus)}</strong>
+                <strong>{formatSigned(sheetDraft.proficiencyBonus)}</strong>
               </article>
 
               <article className="badge-card badge-card-secondary">
@@ -2006,7 +2234,7 @@ export function PartyRoomDashboard({
                     "Initiative determines your place in combat order when an encounter begins.",
                   )}
                 </span>
-                <strong>{formatSigned(draft.initiative)}</strong>
+                <strong>{formatSigned(sheetDraft.initiative)}</strong>
               </article>
 
               <article className="badge-card badge-card-secondary">
@@ -2052,7 +2280,7 @@ export function PartyRoomDashboard({
               </div>
               <div>
                 <span>Max</span>
-                <strong>{draft.maxHp}</strong>
+                <strong>{sheetDraft.maxHp}</strong>
               </div>
               <div>
                 <span>Temp</span>
@@ -2076,7 +2304,7 @@ export function PartyRoomDashboard({
               </div>
               <div className="sheet-subcaption">Saving Throw Modifiers</div>
               <div className="save-grid">
-                {draft.savingThrows.map((save) => (
+                {sheetDraft.savingThrows.map((save) => (
                   <button
                     className="save-row interactive"
                     key={save.ability}
@@ -2098,7 +2326,7 @@ export function PartyRoomDashboard({
                 <span>Click for explanation</span>
               </div>
               <div className="sense-list">
-                {draft.senses.map((sense) => (
+                {sheetDraft.senses.map((sense) => (
                   <div className="sense-row" key={sense.id}>
                     <strong>{sense.value}</strong>
                     <span>{renderKeywordHelp(sense.label, `${sense.description} Current value: ${sense.value}.`)}</span>
@@ -2114,20 +2342,20 @@ export function PartyRoomDashboard({
               </div>
               <div className="training-block">
                 <div>
-                  <span className="mini-heading">{renderKeywordHelp("Armor", proficiencyTooltip("Armor", draft.proficiencies.armor))}</span>
-                  <p>{draft.proficiencies.armor.join(", ")}</p>
+                  <span className="mini-heading">{renderKeywordHelp("Armor", proficiencyTooltip("Armor", sheetDraft.proficiencies.armor))}</span>
+                  <p>{sheetDraft.proficiencies.armor.join(", ")}</p>
                 </div>
                 <div>
-                  <span className="mini-heading">{renderKeywordHelp("Weapons", proficiencyTooltip("Weapons", draft.proficiencies.weapons))}</span>
-                  <p>{draft.proficiencies.weapons.join(", ")}</p>
+                  <span className="mini-heading">{renderKeywordHelp("Weapons", proficiencyTooltip("Weapons", sheetDraft.proficiencies.weapons))}</span>
+                  <p>{sheetDraft.proficiencies.weapons.join(", ")}</p>
                 </div>
                 <div>
-                  <span className="mini-heading">{renderKeywordHelp("Tools", proficiencyTooltip("Tools", draft.proficiencies.tools))}</span>
-                  <p>{draft.proficiencies.tools.join(", ")}</p>
+                  <span className="mini-heading">{renderKeywordHelp("Tools", proficiencyTooltip("Tools", sheetDraft.proficiencies.tools))}</span>
+                  <p>{sheetDraft.proficiencies.tools.join(", ")}</p>
                 </div>
                 <div>
-                  <span className="mini-heading">{renderKeywordHelp("Languages", proficiencyTooltip("Languages", draft.proficiencies.languages))}</span>
-                  <p>{draft.proficiencies.languages.join(", ")}</p>
+                  <span className="mini-heading">{renderKeywordHelp("Languages", proficiencyTooltip("Languages", sheetDraft.proficiencies.languages))}</span>
+                  <p>{sheetDraft.proficiencies.languages.join(", ")}</p>
                 </div>
               </div>
             </article>
@@ -2146,7 +2374,7 @@ export function PartyRoomDashboard({
                 <span>Bonus</span>
               </div>
               <div className="skill-table">
-                {draft.skills.map((skill) => (
+                {sheetDraft.skills.map((skill) => (
                   <div className="skill-row" key={skill.id}>
                     <div className="skill-meta">
                       <span className="skill-dot">{skill.proficient ? "★" : "○"}</span>
@@ -2402,7 +2630,7 @@ export function PartyRoomDashboard({
 
             <section className="top-rack print-top-rack">
               <div className="stat-rack">
-                {draft.abilities.map((ability) => (
+                {sheetDraft.abilities.map((ability) => (
                   <article className="stat-card" key={`print-${ability.id}`}>
                     <span className="stat-label">{ability.label}</span>
                     <div className="stat-roll">{formatSigned(ability.modifier)}</div>
@@ -2411,7 +2639,7 @@ export function PartyRoomDashboard({
                 ))}
                 <article className="badge-card">
                   <span className="stat-label">Proficiency</span>
-                  <strong>{formatSigned(draft.proficiencyBonus)}</strong>
+                  <strong>{formatSigned(sheetDraft.proficiencyBonus)}</strong>
                 </article>
                 <article className="badge-card">
                   <span className="stat-label">Walking</span>
@@ -2428,7 +2656,7 @@ export function PartyRoomDashboard({
               <article className="sheet-card">
                 <div className="card-heading"><h2>Saving Throws</h2></div>
                 <div className="save-grid">
-                  {draft.savingThrows.map((save) => (
+                  {sheetDraft.savingThrows.map((save) => (
                     <div className="save-row" key={`print-save-${save.ability}`}>
                       <span>{save.ability}</span>
                       <strong>{formatSigned(save.bonus)}</strong>
@@ -2440,10 +2668,10 @@ export function PartyRoomDashboard({
               <article className="sheet-card">
                 <div className="card-heading"><h2>Proficiencies & Training</h2></div>
                 <div className="training-block">
-                  <div><span className="mini-heading">Armor</span><p>{draft.proficiencies.armor.join(", ")}</p></div>
-                  <div><span className="mini-heading">Weapons</span><p>{draft.proficiencies.weapons.join(", ")}</p></div>
-                  <div><span className="mini-heading">Tools</span><p>{draft.proficiencies.tools.join(", ")}</p></div>
-                  <div><span className="mini-heading">Languages</span><p>{draft.proficiencies.languages.join(", ")}</p></div>
+                  <div><span className="mini-heading">Armor</span><p>{sheetDraft.proficiencies.armor.join(", ")}</p></div>
+                  <div><span className="mini-heading">Weapons</span><p>{sheetDraft.proficiencies.weapons.join(", ")}</p></div>
+                  <div><span className="mini-heading">Tools</span><p>{sheetDraft.proficiencies.tools.join(", ")}</p></div>
+                  <div><span className="mini-heading">Languages</span><p>{sheetDraft.proficiencies.languages.join(", ")}</p></div>
                 </div>
               </article>
 
@@ -2468,7 +2696,7 @@ export function PartyRoomDashboard({
               <article className="sheet-card">
                 <div className="card-heading"><h2>Skills</h2></div>
                 <div className="simple-list">
-                  {draft.skills.map((skill) => (
+                  {sheetDraft.skills.map((skill) => (
                     <div className="list-row" key={`print-skill-${skill.id}`}>
                       <strong>{skill.label}</strong>
                       <span>{`${skill.ability} | ${formatSigned(skill.bonus)} | ${skill.breakdown}`}</span>
