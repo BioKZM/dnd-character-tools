@@ -182,6 +182,16 @@ export const featSchema = z.object({
   source: z.string().optional(),
   prerequisite: z.string().optional(),
   isRacialFeat: z.boolean().optional(),
+  detailParagraphs: z.array(z.string()).default([]),
+  detailTables: z
+    .array(
+      z.object({
+        title: z.string(),
+        columns: z.array(z.string()).default([]),
+        rows: z.array(z.array(z.string())),
+      }),
+    )
+    .default([]),
 });
 
 export const sourceBookSchema = z.object({

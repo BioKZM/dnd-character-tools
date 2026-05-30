@@ -20,7 +20,7 @@ import {
   warlockInvocationMeetsPrerequisite,
 } from "@/lib/character/warlock-invocations";
 
-type CreatorStep = 0 | 1 | 2;
+type CreatorStep = 0 | 1 | 2 | 3;
 type CreatorBrowser =
   | "identity"
   | "lineage"
@@ -34,6 +34,9 @@ type CreatorBrowser =
   | "fighter-asi"
   | "warlock-pact"
   | "background"
+  | "custom-background-tools"
+  | "custom-background-languages"
+  | "custom-background-equipment"
   | "inventory"
   | "abilities"
   | "level"
@@ -437,8 +440,6 @@ const fallbackFighterStartingEquipment: ClassStartingEquipmentGroup[] = [
   },
 ];
 
-const fighterAsiLevels = [4, 6, 8, 12, 14, 16, 19] as const;
-
 function fighterAsiLevelChoices(
   improvements: CharacterDraft["fighterChoices"]["abilityScoreImprovements"] | undefined,
   excludeLevel?: number,
@@ -739,6 +740,57 @@ function equipmentTooltipContent(content: ContentBundle, label: string, items: s
   );
 }
 
+function toolTooltipContent(tool: ContentBundle["tools"][number] | undefined, label: string, category: string) {
+  const contents: Record<string, string> = {
+    "alchemists-supplies": "glass beakers, mixing rods, chemicals, and small burners",
+    "brewers-supplies": "jugs, hops, siphons, tubing, and flavoring ingredients",
+    "calligraphers-supplies": "ink, quills, parchment, and careful lettering tools",
+    "carpenters-tools": "saw, hammer, nails, hatchet, square, and measuring tools",
+    "cartographers-tools": "quills, parchment, compasses, calipers, and rulers",
+    "cobblers-tools": "awl, knife, hammer, thread, leather scraps, and shoe forms",
+    "cooks-utensils": "pots, knives, ladles, cleavers, and cooking implements",
+    "glassblowers-tools": "blowpipe, shaping blocks, tweezers, and glassworking tools",
+    "jewelers-tools": "small saws, files, pliers, polishing tools, and a loupe",
+    "leatherworkers-tools": "knife, mallet, edger, punch, thread, and leather scraps",
+    "masons-tools": "trowel, hammer, chisels, brushes, and measuring square",
+    "painters-supplies": "easel, canvas, brushes, charcoal, palette, and paints",
+    "potters-tools": "potter's needles, ribs, scrapers, knives, and calipers",
+    "smiths-tools": "hammers, tongs, charcoal, rags, and sharpening tools",
+    "tinkers-tools": "small hand tools, thread, needles, glue, cloth, and metal scraps",
+    "weavers-tools": "thread, needles, cloth scraps, and weaving implements",
+    "woodcarvers-tools": "knives, gouges, small saws, and carving tools",
+    "dice-set": "dice used for games of chance",
+    "dragonchess-set": "dragonchess board and pieces",
+    "playing-card-set": "marked or ordinary cards for card games",
+    "three-dragon-ante-set": "cards for Three-Dragon Ante",
+    "disguise-kit": "cosmetics, hair dye, small props, and costume pieces",
+    "forgery-kit": "inks, papers, pens, seals, sealing wax, and scraping tools",
+    "herbalism-kit": "pouches, clippers, mortar and pestle, jars, and herbal supplies",
+    "navigators-tools": "charts, compass, calipers, rulers, and navigation instruments",
+    "poisoners-kit": "vials, chemicals, stirring tools, and poison preparation gear",
+    "thieves-tools": "lock picks, files, small mirror, scissors, and pliers",
+  };
+
+  return (
+    <span className="spell-tooltip-block">
+      <span className="spell-tooltip-head">
+        <strong>{tool?.name ?? label}</strong>
+        <span>{category}</span>
+      </span>
+      <span className="spell-tooltip-meta">
+        {tool?.cost ? <span>{tool.cost}</span> : null}
+        {tool?.weight ? <span>{tool.weight}</span> : null}
+      </span>
+      {tool?.id && contents[tool.id] ? (
+        <span className="spell-tooltip-copy">{`Includes: ${contents[tool.id]}.`}</span>
+      ) : null}
+      <span className="spell-tooltip-copy">
+        {`Tool proficiency lets you add your proficiency bonus when a check uses ${tool?.name ?? label}.`}
+      </span>
+    </span>
+  );
+}
+
 function classMatchesSpell(spell: ContentBundle["spells"][number], className: string) {
   const normalizedTarget = className.toLowerCase().trim();
   return (
@@ -772,7 +824,7 @@ function HoverTooltip({
   tooltipClassName?: string;
 }) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = typeof document !== "undefined";
   const [tooltipStyle, setTooltipStyle] = useState<{ top: number; left: number; maxWidth?: number } | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const triggerRef = useRef<HTMLSpanElement | null>(null);
@@ -797,10 +849,6 @@ function HoverTooltip({
       closeTimeoutRef.current = null;
     }, 220);
   };
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!open || typeof window === "undefined") {
@@ -1327,6 +1375,10 @@ function abilityModifier(score: number) {
   return Math.floor((score - 10) / 2);
 }
 
+function signedNumber(value: number) {
+  return value >= 0 ? `+${value}` : `${value}`;
+}
+
 function numericSpellLevelLabel(value: string) {
   const numeric = Number.parseInt(value.replace(/\D/g, ""), 10);
   return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
@@ -1578,6 +1630,112 @@ function backgroundToolSummary(content: ContentBundle, item: ContentBundle["back
       return selected.length ? selected.join(", ") : backgroundToolChoiceLabel(content, choice);
     }),
   ];
+}
+
+function isCustomBackground(backgroundId: string) {
+  return backgroundId === "custom-background";
+}
+
+function backgroundFeatureOptions(content: ContentBundle) {
+  return content.backgrounds.filter((background) => !isCustomBackground(background.id));
+}
+
+function customBackgroundProficiencyOptions(content: ContentBundle) {
+  return [
+    ...content.tools.map((tool) => ({
+      id: `tool:${tool.id}`,
+      label: tool.name,
+      kind: "Tool" as const,
+      meta: tool.category,
+    })),
+    ...content.languages.map((language) => ({
+      id: `language:${language.id}`,
+      label: language.name,
+      kind: "Language" as const,
+      meta: language.category,
+    })),
+  ];
+}
+
+function customBackgroundProficiencyLabel(content: ContentBundle, value: string) {
+  const [kind, id] = value.split(":");
+  if (kind === "tool") {
+    return content.tools.find((tool) => tool.id === id)?.name ?? id;
+  }
+  if (kind === "language") {
+    return content.languages.find((language) => language.id === id)?.name ?? id;
+  }
+  return value;
+}
+
+function featPrimaryDetail(feat: ContentBundle["feats"][number]) {
+  return feat.detailParagraphs?.find((paragraph) => !paragraph.startsWith("Option:")) ?? feat.summary;
+}
+
+function featTableArtifactKeys(feat: ContentBundle["feats"][number]) {
+  return new Set(
+    (feat.detailTables ?? []).flatMap((table) => [
+      table.title,
+      table.columns.join(""),
+      ...table.rows.map((row) => row.join("")),
+    ]).map((value) => cleanImportedText(value).toLowerCase().replace(/[^a-z0-9]+/g, "")),
+  );
+}
+
+function featBenefitParagraphs(feat: ContentBundle["feats"][number]) {
+  const sourceSummary = cleanImportedText(feat.summary);
+  const tableArtifacts = featTableArtifactKeys(feat);
+  const details = (feat.detailParagraphs ?? [])
+    .map(cleanImportedText)
+    .map((paragraph) => {
+      const tableTitle = (feat.detailTables ?? []).find((table) => paragraph.endsWith(` ${table.title}`))?.title;
+      return tableTitle ? paragraph.slice(0, -tableTitle.length).trim() : paragraph;
+    })
+    .filter(Boolean)
+    .filter((paragraph) => paragraph !== sourceSummary)
+    .filter((paragraph) => !tableArtifacts.has(paragraph.toLowerCase().replace(/[^a-z0-9]+/g, "")))
+    .filter((paragraph) => !paragraph.startsWith("Option: Greater"));
+
+  return details.length ? details : [sourceSummary].filter(Boolean);
+}
+
+function featSearchText(feat: ContentBundle["feats"][number]) {
+  return [
+    feat.name,
+    feat.source,
+    feat.prerequisite,
+    feat.summary,
+    ...(feat.detailParagraphs ?? []),
+  ].filter(Boolean).join(" ").toLowerCase();
+}
+
+function featTags(feat: ContentBundle["feats"][number]) {
+  const text = featSearchText(feat);
+  const tags = [
+    feat.prerequisite ? "Prerequisite" : null,
+    text.includes("increase your") || text.includes("ability score increase") ? "ASI +1" : null,
+    text.includes("spell") || text.includes("cantrip") ? "Magic" : null,
+    text.includes("reaction") ? "Reaction" : null,
+    text.includes("bonus action") ? "Bonus Action" : null,
+    text.includes("proficiency") ? "Proficiency" : null,
+    text.includes("long rest") || text.includes("short rest") ? "Rest Recharge" : null,
+  ].filter((tag): tag is string => Boolean(tag));
+
+  return [...new Set(tags)].slice(0, 4);
+}
+
+function featSourceShort(source: string | undefined) {
+  if (!source) {
+    return "Unknown Source";
+  }
+
+  return source
+    .replace("Player's Handbook", "PHB")
+    .replace("Tasha's Cauldron of Everything", "Tasha")
+    .replace("Bigby Presents - Glory of the Giants", "Bigby")
+    .replace("Fizban's Treasury of Dragons", "Fizban")
+    .replace("Planescape - Adventures in the Multiverse", "Planescape")
+    .replace("Dragonlance: Shadow of the Dragon Queen", "Dragonlance");
 }
 
 function backgroundMetaDescription(content: ContentBundle, item: ContentBundle["backgrounds"][number]) {
@@ -2136,6 +2294,8 @@ function defaultBrowserForStep(step: CreatorStep): CreatorBrowser {
       return "class";
     case 2:
       return "abilities";
+    case 3:
+      return "custom-background-tools";
     default:
       return null;
   }
@@ -2418,6 +2578,9 @@ function summaryIcon(target: CreatorBrowser) {
     case "fighter-asi":
       return "spark";
     case "background":
+    case "custom-background-tools":
+    case "custom-background-languages":
+    case "custom-background-equipment":
       return "background";
     case "abilities":
       return "spark";
@@ -2450,6 +2613,8 @@ function stepDescription(step: CreatorStep) {
       return "Sonra Class yönünü seç, Level ilerlemesini belirle ve uygun olduğunda Subclass yolunu aç.";
     case 2:
       return "Son aşamada Ability Scores dağılımını ve temel combat değerlerini son haline getir.";
+    case 3:
+      return "Tool, language ve equipment kararlarını ayrı bir çalışma alanında toparla.";
     default:
       return "";
   }
@@ -2481,6 +2646,12 @@ function browserTitle(browser: CreatorBrowser) {
       return "Ability Score Improvement";
     case "background":
       return "Backgrounds";
+    case "custom-background-tools":
+      return "Tools";
+    case "custom-background-languages":
+      return "Languages";
+    case "custom-background-equipment":
+      return "Background Equipment";
     case "inventory":
       return "Equipment";
     case "abilities":
@@ -2529,9 +2700,15 @@ function browserSubtitle(browser: CreatorBrowser) {
     case "fighter-fighting-style":
       return "Fighter için Fighting Style seçimini burada yönet.";
     case "fighter-asi":
-      return "Fighter seviyelerinden gelen Ability Score Improvement seçimlerini burada yönet.";
+      return "Class seviyelerinden gelen Ability Score Improvement seçimlerini burada yönet.";
     case "background":
       return "Macera öncesi hayatını ve hangi alışkanlıklarla geldiğini tanımla.";
+    case "custom-background-tools":
+      return "Custom Background için tool proficiency seçeneklerini burada yönet.";
+    case "custom-background-languages":
+      return "Custom Background için language seçeneklerini burada yönet.";
+    case "custom-background-equipment":
+      return "Bir background equipment paketi kullan ya da gear için coin harca.";
     case "inventory":
       return "Class başlangıç ekipmanını seç ve taşıdığın eşyaları burada yönet.";
     case "abilities":
@@ -2780,6 +2957,8 @@ export function CreatorWorkspace({
   const [activeSpellFilter, setActiveSpellFilter] = useState<number | "all">("all");
   const [spellListPage, setSpellListPage] = useState(0);
   const [spellSearchQuery, setSpellSearchQuery] = useState("");
+  const [featSearchQuery, setFeatSearchQuery] = useState("");
+  const [selectedFeatId, setSelectedFeatId] = useState<string | null>(null);
   const [fighterJourneyDirection, setFighterJourneyDirection] = useState(1);
   const [fighterProgressionOpen, setFighterProgressionOpen] = useState(false);
   const [fighterSpellLevelFilter, setFighterSpellLevelFilter] = useState<number | "all" | "cantrip">("all");
@@ -2825,7 +3004,7 @@ export function CreatorWorkspace({
     [currentStructuredSublineageChoiceGroups],
   );
   const resolvedLineageChoiceGroup = (group: LineageChoiceGroup): LineageChoiceGroup => {
-    if (group.id === "half-elf-skill-choice") {
+    if (group.id === "half-elf-skill-choice" || group.id === "variant-human-skill-choice") {
       return {
         ...group,
         options: Object.keys(skillAbilities).map((skillId) => ({
@@ -2833,7 +3012,7 @@ export function CreatorWorkspace({
           label: skillLabel(skillId),
           summary: skillDescription(skillId, draft.skills.find((entry) => entry.id === skillId)?.description),
           details: [],
-          grants: [],
+          grants: [{ type: "skill_proficiency", values: [skillId] }],
           childChoiceGroupIds: [],
         })),
       };
@@ -3013,6 +3192,29 @@ export function CreatorWorkspace({
     content.backgrounds.find((item) => item.id === draft.backgroundId) ??
     currentBackground ??
     content.backgrounds[0];
+  const customBackgroundActive = Boolean(selectedBackground && isCustomBackground(selectedBackground.id));
+  const customBackgroundFeatureOptions = useMemo(() => backgroundFeatureOptions(content), [content]);
+  const customBackgroundProficiencyChoices = useMemo(() => customBackgroundProficiencyOptions(content), [content]);
+  const selectedCustomFeatureBackground =
+    customBackgroundFeatureOptions.find((item) => item.id === draft.customBackground?.featureBackgroundId) ??
+    customBackgroundFeatureOptions[0] ??
+    null;
+  const selectedCustomProficiencyLabels = (draft.customBackground?.proficiencyIds ?? []).map((entry) =>
+    customBackgroundProficiencyLabel(content, entry),
+  );
+  const normalFeats = useMemo(
+    () => content.feats.filter((feat) => !feat.isRacialFeat),
+    [content.feats],
+  );
+  const visibleNormalFeats = useMemo(() => {
+    const query = featSearchQuery.trim().toLowerCase();
+    return normalFeats.filter((feat) => (query ? featSearchText(feat).includes(query) : true));
+  }, [featSearchQuery, normalFeats]);
+  const selectedFeat =
+    normalFeats.find((feat) => feat.id === selectedFeatId) ??
+    normalFeats.find((feat) => draft.featIds.includes(feat.id)) ??
+    normalFeats[0] ??
+    null;
   const hasSelectedBackgroundToolData = Boolean(
     selectedBackground?.toolProficiencies.fixed.length || selectedBackground?.toolProficiencies.choices.length,
   );
@@ -3860,12 +4062,10 @@ export function CreatorWorkspace({
   const fighterBattleMasterManeuverOptions = fighterBattleMasterManeuverGroup?.options ?? [];
   const selectedSuperiorTechniqueManeuver =
     fighterBattleMasterManeuverOptions.find((option) => option.id === draft.fighterChoices?.superiorTechniqueManeuverId) ?? null;
-  const fighterAsiFeature =
-    currentClass.id === "fighter"
-      ? currentCuratedClass?.classFeatures.find((feature) => feature.id === "ability-score-improvement") ?? null
-      : null;
+  const fighterAsiFeature = currentCuratedClass?.classFeatures.find((feature) => feature.id === "ability-score-improvement") ?? null;
+  const fighterAsiLevels = fighterAsiFeature?.milestones.map((milestone) => milestone.level) ?? [];
   const unlockedFighterAsiLevels = fighterAsiLevels.filter((level) => draft.level >= level);
-  const skillChoiceOptions = currentClassRules?.skillChoices ?? [];
+  const skillChoiceOptions = currentClass.id === "bard" ? Object.keys(skillAbilities) : currentClassRules?.skillChoices ?? [];
   const skillChoiceCount = currentClassRules?.skillChoiceCount ?? 0;
   const selectedClassSkillCount = draft.selectedSkillIds.filter((skillId) => skillChoiceOptions.includes(skillId)).length;
   const remainingClassSkillChoices = Math.max(0, skillChoiceCount - selectedClassSkillCount);
@@ -4101,18 +4301,18 @@ export function CreatorWorkspace({
     { id: 0 as CreatorStep, label: "Origin" },
     { id: 1 as CreatorStep, label: "Class" },
     { id: 2 as CreatorStep, label: "Ability Scores" },
+    { id: 3 as CreatorStep, label: "Tools & Gear" },
   ];
   const creatorMenuDescriptions: Record<CreatorStep, string> = {
     0: "Identity, race, subrace, and background setup.",
     1: "Class path, equipment, subclass, and spellcasting choices.",
     2: "Ability scores and skill proficiency setup.",
+    3: "Tools, languages, and equipment packages.",
   };
   const fighterJourneyBrowsers: CreatorBrowser[] = [
     "class",
     "class-features",
-    "inventory",
     "fighter-fighting-style",
-    "fighter-asi",
     "warlock-pact",
     "subclass",
     "subclass-features",
@@ -4145,10 +4345,11 @@ export function CreatorWorkspace({
         summary: "Review feature cards, milestones, and upgrades.",
       },
       {
-        id: "equipment",
-        label: "Equipment",
-        browser: "inventory",
-        summary: "Choose starting equipment and review background tools.",
+        id: "subclass",
+        label: "Subclass",
+        browser: "subclass",
+        minLevel: 3,
+        summary: `Choose your ${currentCuratedClass?.subclassHeading ?? "subclass"}.`,
       },
       ...(currentClass.id === "fighter" || currentClass.id === "ranger"
         ? [
@@ -4160,23 +4361,6 @@ export function CreatorWorkspace({
             } satisfies ClassJourneyStage,
           ]
         : []),
-      ...(currentClass.id === "fighter"
-        ? [
-            {
-              id: "asi",
-              label: "ASI",
-              browser: "fighter-asi",
-              summary: "Choose Ability Score Improvements or a feat when unlocked.",
-            } satisfies ClassJourneyStage,
-          ]
-        : []),
-      {
-        id: "subclass",
-        label: "Subclass",
-        browser: "subclass",
-        minLevel: 3,
-        summary: `Choose your ${currentCuratedClass?.subclassHeading ?? "subclass"}.`,
-      },
       {
         id: "spells",
         label: currentClass.id === "warlock" ? "Spells" : "Spellcasting",
@@ -4185,21 +4369,9 @@ export function CreatorWorkspace({
       },
     ];
     const baseStages = currentCuratedClass?.journeyStages.length ? currentCuratedClass.journeyStages : fallbackStages;
-    const normalizedBaseStages =
-      !baseStages.some((stage) => stage.browser === "inventory")
-        ? [
-            ...baseStages.slice(0, Math.max(2, baseStages.findIndex((stage) => stage.browser === "fighter-fighting-style"))),
-            {
-              id: "equipment",
-              label: "Equipment",
-              browser: "inventory",
-              summary: "Choose starting armor, weapons, packs, and review your inventory.",
-            } satisfies ClassJourneyStage,
-            ...baseStages.slice(Math.max(2, baseStages.findIndex((stage) => stage.browser === "fighter-fighting-style"))),
-          ]
-        : baseStages;
+    const normalizedBaseStages = baseStages.filter((stage) => stage.browser !== "inventory");
     const subclassStages = selectedJourneySubclass?.journeyStages ?? [];
-    const stageOrder = ["class", "class-features", "inventory", "fighter-fighting-style", "fighter-asi", "subclass", "subclass-features", "subclass-choices", "warlock-pact", "spells"];
+    const stageOrder = ["class", "class-features", "fighter-fighting-style", "fighter-asi", "subclass", "subclass-features", "subclass-choices", "warlock-pact", "spells"];
     return [...normalizedBaseStages, ...subclassStages]
       .filter((stage) => (stage.minLevel ? draft.level >= stage.minLevel : true))
       .filter((stage) => (stage.requiresSubclassId ? fighterJourneySubclassId === stage.requiresSubclassId : true))
@@ -4213,7 +4385,7 @@ export function CreatorWorkspace({
         const rightIndex = stageOrder.indexOf(right.browser ?? "");
         return (leftIndex === -1 ? 999 : leftIndex) - (rightIndex === -1 ? 999 : rightIndex);
       });
-  }, [currentClass.id, currentCuratedClass?.journeyStages, currentCuratedClass?.subclassHeading, selectedJourneySubclass?.journeyStages, draft.level, fighterJourneySubclassId]);
+  }, [currentClass.id, currentCuratedClass?.journeyStages, currentCuratedClass?.subclassHeading, selectedJourneySubclass?.journeyStages, draft.level, fighterJourneySubclassId, fighterAsiFeature]);
   const shouldShowSubraceNav =
     currentStructuredLineage?.id === "human" ||
     Boolean(currentStructuredLineage?.sublineages.length || availableSubraces.length);
@@ -4235,7 +4407,6 @@ export function CreatorWorkspace({
         { type: "divider", id: "class-core", label: "Class" },
         { type: "item", id: "class", label: "Class Overview", step: 1 },
         { type: "item", id: "class-features", label: "Class Features", step: 1 },
-        { type: "item", id: "inventory", label: "Equipment", step: 1 },
         ...(currentClass.id === "fighter" || currentClass.id === "ranger"
           ? [
               { type: "item", id: "fighter-fighting-style", label: currentClass.id === "ranger" ? "Fighting Style" : fighterFightingStyleGroup?.name ?? "Fighting Style", step: 1 } as const,
@@ -4258,15 +4429,26 @@ export function CreatorWorkspace({
     () => [
       { type: "divider", id: "ability-core", label: "Ability Scores" },
       { type: "item", id: "abilities", label: "Ability Scores", step: 2 },
-      ...(currentClass.id === "fighter"
+      ...(fighterAsiFeature
         ? [{ type: "item", id: "fighter-asi", label: "ASI", step: 2 } as const]
         : []),
+      { type: "item", id: "feats", label: "Feats", step: 2 },
       { type: "divider", id: "ability-skills", label: "Skill Setup" },
       { type: "item", id: "skills", label: "Skills", step: 2 },
     ],
-    [currentClass.id],
+    [fighterAsiFeature],
   );
-  const activeSidebarItems = creatorStep === 0 ? classSubmenuItems : creatorStep === 1 ? subclassSubmenuItems : abilitySubmenuItems;
+  const gearSubmenuItems = useMemo<SidebarNavEntry[]>(
+    () => [
+      { type: "divider", id: "gear-proficiencies", label: "Proficiencies" },
+      { type: "item", id: "custom-background-tools", label: "Tools", step: 3 },
+      { type: "item", id: "custom-background-languages", label: "Languages", step: 3 },
+      { type: "divider", id: "gear-equipment", label: "Equipment" },
+      { type: "item", id: "custom-background-equipment", label: "Equipment", step: 3 },
+    ],
+    [],
+  );
+  const activeSidebarItems = creatorStep === 0 ? classSubmenuItems : creatorStep === 1 ? subclassSubmenuItems : creatorStep === 2 ? abilitySubmenuItems : gearSubmenuItems;
   const activeContextGroups = useMemo(() => {
     const groups: Array<{ id: string; label: string; items: Array<Extract<SidebarNavEntry, { type: "item" }>> }> = [];
     let currentGroup: { id: string; label: string; items: Array<Extract<SidebarNavEntry, { type: "item" }>> } | null = null;
@@ -4294,12 +4476,13 @@ export function CreatorWorkspace({
     const currentSubmenuItem = findSidebarNavItem(classSubmenuItems, creatorBrowser);
     const currentSubclassSubmenuItem = findSidebarNavItem(subclassSubmenuItems, creatorBrowser);
     const currentAbilitySubmenuItem = findSidebarNavItem(abilitySubmenuItems, creatorBrowser);
-    if (currentMenuItem || currentSubmenuItem?.step === creatorStep || currentSubclassSubmenuItem?.step === creatorStep || currentAbilitySubmenuItem?.step === creatorStep) {
+    const currentGearSubmenuItem = findSidebarNavItem(gearSubmenuItems, creatorBrowser);
+    if (currentMenuItem || currentSubmenuItem?.step === creatorStep || currentSubclassSubmenuItem?.step === creatorStep || currentAbilitySubmenuItem?.step === creatorStep || currentGearSubmenuItem?.step === creatorStep) {
       return;
     }
 
     setCreatorBrowser(defaultBrowserForStep(creatorStep));
-  }, [abilitySubmenuItems, classSubmenuItems, subclassSubmenuItems, creatorBrowser, creatorStep]);
+  }, [abilitySubmenuItems, classSubmenuItems, gearSubmenuItems, subclassSubmenuItems, creatorBrowser, creatorStep]);
 
   useEffect(() => {
     setSpellListPage(0);
@@ -4342,6 +4525,12 @@ export function CreatorWorkspace({
   }, [backgroundPageCount]);
 
   useEffect(() => {
+    if (!selectedFeatId && selectedFeat) {
+      setSelectedFeatId(selectedFeat.id);
+    }
+  }, [selectedFeat, selectedFeatId]);
+
+  useEffect(() => {
     const selectedIndex = content.backgrounds.findIndex((item) => item.id === draft.backgroundId);
     if (selectedIndex >= 0) {
       setBackgroundPage(Math.floor(selectedIndex / backgroundPageSize));
@@ -4375,10 +4564,10 @@ export function CreatorWorkspace({
       setCreatorBrowser("class");
     }
 
-    if (creatorBrowser === "fighter-asi" && currentClass.id !== "fighter") {
+    if (creatorBrowser === "fighter-asi" && !fighterAsiFeature) {
       setCreatorBrowser("class");
     }
-  }, [creatorBrowser, currentClass.id]);
+  }, [creatorBrowser, currentClass.id, fighterAsiFeature]);
 
   useEffect(() => {
     if (!fighterJourneyActive) {
@@ -4404,7 +4593,8 @@ export function CreatorWorkspace({
     if (creatorBrowser === "subrace" && !shouldShowSubraceNav) {
       setCreatorBrowser("lineage");
     }
-  }, [creatorBrowser, shouldShowSubraceNav, structuredLineageChoicesAvailable]);
+
+  }, [creatorBrowser, customBackgroundActive, shouldShowSubraceNav, structuredLineageChoicesAvailable]);
 
   useEffect(() => {
     if (activeSpellFilter !== "all" && !spellLevelPages.includes(activeSpellFilter)) {
@@ -4590,15 +4780,96 @@ export function CreatorWorkspace({
 
     updateDraft((current) => {
       const baseInventory = current.inventory.filter((item) => !allBackgroundEquipment.includes(item));
+      const customFeatureBackgroundId =
+        current.customBackground?.featureBackgroundId ??
+        customBackgroundFeatureOptions[0]?.id ??
+        null;
+      const customEquipmentBackgroundId =
+        current.customBackground?.equipmentBackgroundId ??
+        customFeatureBackgroundId;
+      const customEquipment = nextBackground && isCustomBackground(nextBackground.id)
+        ? current.customBackground?.equipmentMode === "coin"
+          ? []
+          : content.backgrounds.find((item) => item.id === customEquipmentBackgroundId)?.equipment ?? []
+        : nextEquipment;
 
       return {
         ...current,
         backgroundId,
         backgroundToolChoiceIds: {},
+        customBackground: {
+          featureBackgroundId: customFeatureBackgroundId,
+          skillIds: current.customBackground?.skillIds ?? [],
+          proficiencyIds: current.customBackground?.proficiencyIds ?? [],
+          equipmentMode: current.customBackground?.equipmentMode ?? "package",
+          equipmentBackgroundId: customEquipmentBackgroundId,
+        },
         inventory: [
           ...baseInventory,
-          ...nextEquipment.filter((item) => !baseInventory.includes(item)),
+          ...customEquipment.filter((item) => !baseInventory.includes(item)),
         ],
+      };
+    });
+  };
+
+  const updateCustomBackgroundFeature = (backgroundId: string) => {
+    updateDraft((current) => ({
+      ...current,
+      customBackground: {
+        ...(current.customBackground ?? {
+          featureBackgroundId: null,
+          skillIds: [],
+          proficiencyIds: [],
+          equipmentMode: "package" as const,
+          equipmentBackgroundId: null,
+        }),
+        featureBackgroundId: backgroundId,
+      },
+    }));
+  };
+
+  const toggleCustomBackgroundSkill = (skillId: string) => {
+    updateDraft((current) => {
+      const currentSkills = current.customBackground?.skillIds ?? [];
+      const nextSkills = currentSkills.includes(skillId)
+        ? currentSkills.filter((entry) => entry !== skillId)
+        : [...currentSkills, skillId].slice(-2);
+
+      return {
+        ...current,
+        customBackground: {
+          ...(current.customBackground ?? {
+            featureBackgroundId: customBackgroundFeatureOptions[0]?.id ?? null,
+            skillIds: [],
+            proficiencyIds: [],
+            equipmentMode: "package" as const,
+            equipmentBackgroundId: customBackgroundFeatureOptions[0]?.id ?? null,
+          }),
+          skillIds: nextSkills,
+        },
+      };
+    });
+  };
+
+  const toggleCustomBackgroundProficiency = (proficiencyId: string) => {
+    updateDraft((current) => {
+      const currentProficiencies = current.customBackground?.proficiencyIds ?? [];
+      const nextProficiencies = currentProficiencies.includes(proficiencyId)
+        ? currentProficiencies.filter((entry) => entry !== proficiencyId)
+        : [...currentProficiencies, proficiencyId].slice(-2);
+
+      return {
+        ...current,
+        customBackground: {
+          ...(current.customBackground ?? {
+            featureBackgroundId: customBackgroundFeatureOptions[0]?.id ?? null,
+            skillIds: [],
+            proficiencyIds: [],
+            equipmentMode: "package" as const,
+            equipmentBackgroundId: customBackgroundFeatureOptions[0]?.id ?? null,
+          }),
+          proficiencyIds: nextProficiencies,
+        },
       };
     });
   };
@@ -4610,14 +4881,22 @@ export function CreatorWorkspace({
 
     return (
       <>
-        {selectedBackground.toolProficiencies.fixed.map((toolName) => (
-          <article key={`${keyPrefix}-fixed-${toolName}`} className="fighter-feature-card compact unlocked">
-            <div className="fighter-feature-card-head">
-              <strong>{toolName}</strong>
+        {selectedBackground.toolProficiencies.fixed.map((toolName) => {
+          const toolId = toolIdFromValue(content, toolName);
+          const tool = content.tools.find((entry) => entry.id === toolId);
+          return (
+            <article key={`${keyPrefix}-fixed-${toolName}`} className="fighter-feature-card compact unlocked tool-choice-card">
+              <span className="fighter-journey-card-label">{tool?.category ?? "tool"}</span>
+              <strong>
+                <HoverTooltip
+                  label={tool?.name ?? toolName}
+                  content={toolTooltipContent(tool, toolName, tool?.category ?? "tool")}
+                />
+              </strong>
               <span className="fighter-feature-check" aria-hidden="true">✓</span>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
         {selectedBackground.toolProficiencies.choices.map((choice) => {
           const selectedValues = draft.backgroundToolChoiceIds?.[choice.id] ?? [];
           return (
@@ -4635,11 +4914,13 @@ export function CreatorWorkspace({
                       className={isSelected ? "fighter-journey-card active tool-choice-card" : "fighter-journey-card tool-choice-card"}
                       onClick={() => setBackgroundToolChoice(choice.id, optionId, choice.count)}
                     >
-                      <span className="fighter-journey-card-label">{isSelected ? "Selected" : "Choose"}</span>
-                      <strong>{label}</strong>
-                      {tool?.cost || tool?.weight ? (
-                        <span>{[tool.cost, tool.weight].filter(Boolean).join(" · ")}</span>
-                      ) : null}
+                      <span className="fighter-journey-card-label">{tool?.category ?? optionId}</span>
+                      <strong>
+                        <HoverTooltip
+                          label={label}
+                          content={toolTooltipContent(tool, label, tool?.category ?? optionId)}
+                        />
+                      </strong>
                     </button>
                   );
                 })}
@@ -5254,12 +5535,39 @@ export function CreatorWorkspace({
     id: ability.id,
     value: ability.previewScore,
   }));
+  const dexterityModifier = draft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
+  const constitutionModifier = draft.abilities.find((ability) => ability.id === "CON")?.modifier ?? 0;
+  const averageHitDieValue = Math.floor(currentClass.hitDie / 2) + 1;
+  const unarmoredArmorClass = 10 + dexterityModifier;
   const previewPanelStats = [
-    { label: "Armor Class", value: String(draft.armorClass) },
-    { label: "Initiative", value: `${draft.initiative >= 0 ? "+" : ""}${draft.initiative}` },
-    { label: "Speed", value: draft.speed },
-    { label: "Hit Points", value: String(draft.maxHp) },
-  ] as const;
+    {
+      label: "Armor Class",
+      value: String(draft.armorClass),
+      breakdown: [
+        `Unarmored baseline: 10 + DEX ${signedNumber(dexterityModifier)} = ${unarmoredArmorClass}.`,
+        `Current best from armor/shield inventory: ${draft.armorClass}.`,
+      ],
+    },
+    {
+      label: "Initiative",
+      value: signedNumber(draft.initiative),
+      breakdown: [`Initiative equals DEX modifier: ${signedNumber(dexterityModifier)}.`],
+    },
+    {
+      label: "Speed",
+      value: draft.speed,
+      breakdown: [`Base movement from lineage and selected options: ${draft.speed}.`],
+    },
+    {
+      label: "Hit Points",
+      value: String(draft.maxHp),
+      breakdown: [
+        `Level 1: ${currentClass.hitDie} + CON ${signedNumber(constitutionModifier)}.`,
+        `Later levels: ${Math.max(0, draft.level - 1)} × (${averageHitDieValue} + CON ${signedNumber(constitutionModifier)}).`,
+        `Current maximum: ${draft.maxHp}.`,
+      ],
+    },
+  ];
   const previewPanelArcaneStats = [
     { label: "Spell Save DC", value: String(8 + draft.proficiencyBonus + intelligenceModifier) },
     {
@@ -5267,20 +5575,36 @@ export function CreatorWorkspace({
       value: `${draft.proficiencyBonus + intelligenceModifier >= 0 ? "+" : ""}${draft.proficiencyBonus + intelligenceModifier}`,
     },
   ] as const;
+  const previewSkillEntries = draft.skills
+    .filter((skill) => skill.proficient || draft.selectedSkillIds.includes(skill.id) || backgroundSkillIds.includes(skill.id))
+    .map((skill) => ({
+      label: skill.label,
+      breakdown: skill.breakdown,
+    }));
   const previewPanelProficiencies = [
     { label: "Weapons", value: compactPreviewValue(draft.proficiencies.weapons.join(", ") || "None", 2) },
     { label: "Armor", value: compactPreviewValue(draft.proficiencies.armor.join(", ") || "None", 2) },
     {
       label: "Skills",
-      value: compactPreviewValue(
-        draft.skills
-          .filter((skill) => skill.proficient || draft.selectedSkillIds.includes(skill.id) || backgroundSkillIds.includes(skill.id))
-          .map((skill) => skill.label)
-          .join(", ") || "None",
-        3,
-      ),
+      value: compactPreviewValue(previewSkillEntries.map((skill) => skill.label).join(", ") || "None", 3),
+      tooltip: previewSkillEntries.length ? (
+        <span className="spell-tooltip-block">
+          <span className="spell-tooltip-head">
+            <strong>Skill Proficiencies</strong>
+            <span>Live draft data</span>
+          </span>
+          <span className="spell-tooltip-line-list">
+            {previewSkillEntries.map((skill) => (
+              <span key={`preview-skill-${skill.label}`} className="spell-tooltip-line-item">
+                <span className="spell-tooltip-line-dot" aria-hidden="true" />
+                <span>{`${skill.label}: ${skill.breakdown}`}</span>
+              </span>
+            ))}
+          </span>
+        </span>
+      ) : null,
     },
-  ] as const;
+  ];
   return (
     <div className="creator-layout">
       <div className="creator-ambient creator-ambient-left" aria-hidden="true" />
@@ -5310,7 +5634,13 @@ export function CreatorWorkspace({
                   <span className="creator-stage-rail-icon" aria-hidden="true">
                     <AppIcon
                       name={
-                        item.id === 0 ? summaryIcon("lineage") : item.id === 1 ? summaryIcon("class") : summaryIcon("abilities")
+                        item.id === 0
+                          ? summaryIcon("lineage")
+                          : item.id === 1
+                            ? summaryIcon("class")
+                            : item.id === 2
+                              ? summaryIcon("abilities")
+                              : summaryIcon("custom-background-tools")
                       }
                       className="summary-icon"
                     />
@@ -5378,7 +5708,7 @@ export function CreatorWorkspace({
                       "creator-panel",
                       "creator-panel-wide",
                       "fighter-journey-panel",
-                      fighterJourneyScene === "fighter-features" || fighterJourneyScene === "fighter-equipment" || fighterJourneyScene === "fighter-style" || fighterJourneyScene === "fighter-asi" || fighterJourneyScene === "fighter-class" || fighterJourneyScene === "fighter-eldritch" || fighterJourneyScene === "warlock-pact" || fighterJourneyScene === "warlock-spells"
+                      fighterJourneyScene === "fighter-features" || fighterJourneyScene === "fighter-style" || fighterJourneyScene === "fighter-asi" || fighterJourneyScene === "fighter-class" || fighterJourneyScene === "fighter-eldritch" || fighterJourneyScene === "warlock-pact" || fighterJourneyScene === "warlock-spells"
                         ? "creator-stage-panel-flat fighter-journey-panel-plain"
                         : "",
                       fighterJourneySubclassId === "eldritch-knight" ? "is-arcane" : "",
@@ -5801,41 +6131,6 @@ export function CreatorWorkspace({
                     </div>
                   ) : null}
 
-                  {fighterJourneyScene === "fighter-equipment" ? (
-                    <div className="fighter-journey-scene">
-                      <div className="fighter-journey-scene-head compact">
-                        <h3>Equipment</h3>
-                        <p>Choose the fighter kit you start with. Background tool proficiencies are listed separately below.</p>
-                      </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                      <article className="fighter-equipment-section">
-                        <div className="equipment-choice-stack">
-                          {classStartingEquipment.length ? classStartingEquipment.map((group) => renderEquipmentChoiceGroup(group, "journey")) : (
-                            <div className="list-row">
-                              <strong>No class equipment choices</strong>
-                              <span>This class does not have curated starting equipment yet.</span>
-                            </div>
-                          )}
-                        </div>
-                      </article>
-                      <article className="fighter-equipment-section">
-                        <div className="fighter-equipment-source-row">
-                          <span className="fighter-equipment-source-label">Background</span>
-                          {hasSelectedBackgroundToolData ? (
-                            <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                              {renderBackgroundToolCards("background-tool")}
-                            </div>
-                          ) : (
-                            <div className="list-row">
-                              <strong>No background tools</strong>
-                              <span>This background does not grant tool proficiencies.</span>
-                            </div>
-                          )}
-                        </div>
-                      </article>
-                    </div>
-                  ) : null}
-
                   {fighterJourneyScene === "fighter-style" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
@@ -6135,7 +6430,7 @@ export function CreatorWorkspace({
                         }) : (
                           <div className="list-row">
                             <strong>No ASI unlocked yet</strong>
-                            <span>Fighters gain their first Ability Score Improvement at 4th level.</span>
+                            <span>This class gains its first Ability Score Improvement at 4th level.</span>
                           </div>
                         )}
                       </div>
@@ -7341,7 +7636,7 @@ export function CreatorWorkspace({
                     ) : (
                       <>
                         <p className="origin-summary-copy">
-                          Standard Human keeps the base Human traits and skips Variant Human's optional skill and feat package.
+                          Standard Human keeps the base Human traits and skips Variant Human&apos;s optional skill and feat package.
                         </p>
                         <div className="class-overview-highlights origin-overview-highlights">
                           {currentStructuredLineage.facts.abilityScoreBonuses.map((bonus, index) => (
@@ -7545,11 +7840,11 @@ export function CreatorWorkspace({
             </div>
           ) : null}
 
-          {!fighterJourneyActive && (creatorStep === 1 || (creatorStep === 0 && (creatorBrowser === "background" || creatorBrowser === "inventory")) || (creatorStep === 2 && (creatorBrowser === "skills" || creatorBrowser === "fighter-asi"))) ? (
+          {!fighterJourneyActive && (creatorStep === 1 || (creatorStep === 0 && creatorBrowser === "background") || (creatorStep === 2 && (creatorBrowser === "skills" || creatorBrowser === "fighter-asi" || creatorBrowser === "feats")) || (creatorStep === 3 && (creatorBrowser === "custom-background-tools" || creatorBrowser === "custom-background-languages" || creatorBrowser === "custom-background-equipment"))) ? (
             <div className="creator-stack">
                 <div
                   className={
-                    creatorBrowser === "class" || creatorBrowser === "class-features" || creatorBrowser === "subclass-features" || creatorBrowser === "ranger-choices" || creatorBrowser === "fighter-fighting-style" || creatorBrowser === "fighter-asi" || creatorBrowser === "background" || creatorBrowser === "skill-spells" || creatorBrowser === "skills" || creatorBrowser === "spells"
+                    creatorBrowser === "class" || creatorBrowser === "class-features" || creatorBrowser === "subclass-features" || creatorBrowser === "ranger-choices" || creatorBrowser === "fighter-fighting-style" || creatorBrowser === "fighter-asi" || creatorBrowser === "background" || creatorBrowser === "custom-background-tools" || creatorBrowser === "custom-background-languages" || creatorBrowser === "custom-background-equipment" || creatorBrowser === "skill-spells" || creatorBrowser === "skills" || creatorBrowser === "feats" || creatorBrowser === "spells"
                       ? "creator-panel creator-panel-wide creator-stage-panel creator-stage-panel-flat"
                       : "creator-panel creator-panel-wide creator-stage-panel"
                   }
@@ -8072,7 +8367,7 @@ export function CreatorWorkspace({
                               className={isRangerNaturesVeilMode ? "class-feature-card active" : "class-feature-card"}
                               onClick={() => setRangerHideMode("natures-veil")}
                             >
-                              <strong>Nature's Veil</strong>
+                              <strong>Nature&apos;s Veil</strong>
                             </button>
                           </div>
                           <RangerDocBlocksView blocks={isRangerNaturesVeilMode ? (rangerNaturesVeilSection?.blocks ?? []) : (rangerHideInPlainSightSection?.blocks ?? [])} />
@@ -8393,7 +8688,7 @@ export function CreatorWorkspace({
                                   }))
                                 }
                               >
-                                <strong>Ranger's Companion</strong>
+                                <strong>Ranger&apos;s Companion</strong>
                               </button>
                               <button
                                 type="button"
@@ -8525,15 +8820,15 @@ export function CreatorWorkspace({
 
                 {creatorBrowser === "fighter-fighting-style" ? (
                 <section className="creator-section-block">
-                    {currentClass.id !== "fighter" ? (
+                    {currentClass.id !== "fighter" && currentClass.id !== "ranger" ? (
                       <div className="list-row">
-                        <strong>No fighter choice panel</strong>
-                        <span>This submenu only appears for Fighter characters.</span>
+                        <strong>No fighting style panel</strong>
+                        <span>This submenu only appears for classes with Fighting Style choices.</span>
                       </div>
                     ) : (
                       <article className="creator-panel identity-detail-panel creator-subpanel-flat class-overview-panel ranger-choice-shell">
                         <div className="identity-detail-head">
-                          <span className="mini-heading creator-section-label class-section-label">Fighter Feature Choices</span>
+                          <span className="mini-heading creator-section-label class-section-label">Class Feature Choices</span>
                           <h4>Fighting Style</h4>
                         </div>
 
@@ -8664,188 +8959,173 @@ export function CreatorWorkspace({
 
                 {creatorBrowser === "fighter-asi" ? (
                 <section className="creator-section-block">
-                    {currentClass.id !== "fighter" ? (
+                    {!fighterAsiFeature ? (
                       <div className="list-row">
-                        <strong>No fighter choice panel</strong>
-                        <span>This submenu only appears for Fighter characters.</span>
+                        <strong>No ASI choice panel</strong>
+                        <span>This class does not expose Ability Score Improvement choices.</span>
                       </div>
                     ) : (
-                      <article className="creator-panel identity-detail-panel creator-subpanel-flat class-overview-panel ranger-choice-shell">
+                      <>
                         <div className="identity-detail-head">
-                          <span className="mini-heading creator-section-label class-section-label">Fighter Feature Choices</span>
-                          <h4>{`${fighterAsiFeature?.name ?? "Ability Score Improvement"} Choice`}</h4>
+                          <span className="mini-heading creator-section-label class-section-label">Ability Scores</span>
+                          <h4>{`${fighterAsiFeature.name} Choices`}</h4>
                         </div>
+                        {fighterAsiFeature.summary ? (
+                          <p className="fighter-choice-intro">{fighterAsiFeature.summary}</p>
+                        ) : null}
+                        <div className="fighter-asi-stack">
+                          {unlockedFighterAsiLevels.length ? unlockedFighterAsiLevels.map((level) => {
+                            const choice = fighterAsiChoices[level];
+                            const selectedMode = choice?.mode ?? null;
+                            const plusTwoAbilityId = choice?.plusTwoAbilityId ?? null;
+                            const plusOneAbilityIds = choice?.plusOneAbilityIds ?? [];
+                            const selectedFeatId = choice?.featId ?? "";
 
-                        <div className="ranger-choice-stack">
-                          <article className="identity-trait-item class-feature-detail creator-subpanel-flat ranger-choice-panel">
-                            <strong>{fighterAsiFeature?.name ?? "Ability Score Improvement"}</strong>
-                            {fighterAsiFeature?.summary ? (
-                              <p className="fighter-choice-intro">{fighterAsiFeature.summary}</p>
-                            ) : null}
-                            <div className="fighter-asi-stack">
-                              {unlockedFighterAsiLevels.length ? unlockedFighterAsiLevels.map((level) => {
-                                const choice = fighterAsiChoices[level];
-                                const selectedMode = choice?.mode ?? null;
-                                const isSplit = selectedMode === "split";
-                                const plusTwoAbilityId = choice?.plusTwoAbilityId ?? null;
-                                const plusOneAbilityIds = choice?.plusOneAbilityIds ?? [];
-                                const selectedFeatId = choice?.featId ?? "";
-
-                                return (
-                                  <article key={`fighter-asi-${level}`} className="fighter-asi-card">
-                                    <div className="fighter-asi-card-head">
-                                      <div>
-                                        <span className="mini-heading">Level {level}</span>
-                                        <strong>{fighterAsiFeature?.milestones.find((milestone) => milestone.level === level)?.label ?? "+2 or +1 / +1"}</strong>
-                                      </div>
-                                      <button
-                                        type="button"
-                                        className="fighter-choice-clear"
-                                        onClick={() => clearFighterAsiChoice(level)}
-                                      >
-                                        Clear
-                                      </button>
-                                    </div>
-                                    <div className="fighter-asi-mode-row">
-                                      <button
-                                        type="button"
-                                        className={selectedMode === "plus-two" ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                        onClick={() =>
-                                          updateFighterAsiChoice(level, () => ({
-                                            mode: "plus-two",
-                                            plusTwoAbilityId: null,
-                                            plusOneAbilityIds: [],
-                                            featId: null,
-                                          }))
-                                        }
-                                      >
-                                        +2 to one ability
-                                      </button>
-                                      <button
-                                        type="button"
-                                        className={selectedMode === "split" ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                        onClick={() =>
-                                          updateFighterAsiChoice(level, () => ({
-                                            mode: "split",
-                                            plusTwoAbilityId: null,
-                                            plusOneAbilityIds: [],
-                                            featId: null,
-                                          }))
-                                        }
-                                      >
-                                        +1 / +1 split
-                                      </button>
-                                      <button
-                                        type="button"
-                                        className={selectedMode === "feat" ? "ability-flex-pick active" : "ability-flex-pick"}
-                                        onClick={() =>
-                                          updateFighterAsiChoice(level, () => ({
-                                            mode: "feat",
-                                            plusTwoAbilityId: null,
-                                            plusOneAbilityIds: [],
-                                            featId: selectedFeatId || null,
-                                          }))
-                                        }
-                                      >
-                                        Feat
-                                      </button>
-                                    </div>
-                                    {selectedMode === "feat" ? (
-                                      <div className="equipment-picker-card fighter-asi-feat-picker">
-                                        <strong>Choose a feat</strong>
-                                        <select
-                                          className="equipment-picker-select"
-                                          value={selectedFeatId}
-                                          onChange={(event) => setFighterAsiFeatChoice(level, event.target.value)}
-                                        >
-                                          <option value="" disabled>
-                                            Choose feat
-                                          </option>
-                                          {content.feats.map((feat) => (
-                                            <option key={`fighter-asi-feat-${level}-${feat.id}`} value={feat.id}>
-                                              {feat.name}
-                                            </option>
-                                          ))}
-                                        </select>
-                                        {selectedFeatId ? (
-                                          <span>{content.feats.find((feat) => feat.id === selectedFeatId)?.summary ?? "Feat selected."}</span>
-                                        ) : (
-                                          <span>Pick one feat instead of ability score bonuses.</span>
-                                        )}
-                                      </div>
-                                    ) : (
-                                    <div className="ability-flex-assignment-grid fighter-asi-grid">
-                                      {draft.abilities.map((ability) => {
-                                        const projectedScore = fighterAsiProjectedScore(ability.id, level);
-                                        const canTakePlusTwo = projectedScore <= 18;
-                                        const canTakePlusOne =
-                                          projectedScore <= 19 ||
-                                          plusOneAbilityIds.includes(ability.id);
-                                        const splitLocked =
-                                          !plusOneAbilityIds.includes(ability.id) &&
-                                          plusOneAbilityIds.length >= 2;
-
-                                        return (
-                                          <div className="ability-flex-assignment-row fighter-asi-row" key={`fighter-asi-${level}-${ability.id}`}>
-                                            <strong className={abilityAccentClass(ability.id)}>{ability.id}</strong>
-                                            <div className="fighter-asi-row-meta">
-                                              <span>{ability.label}</span>
-                                              <span>{`Current ${previewAbilities.find((entry) => entry.id === ability.id)?.previewScore ?? ability.score}`}</span>
-                                            </div>
-                                            <div className="ability-flex-picks prominent">
-                                              <button
-                                                type="button"
-                                                className={plusTwoAbilityId === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                                disabled={selectedMode !== "plus-two" || !canTakePlusTwo}
-                                                onClick={() =>
-                                                  updateFighterAsiChoice(level, (current) => ({
-                                                    mode: "plus-two",
-                                                    plusTwoAbilityId: current?.plusTwoAbilityId === ability.id ? null : ability.id,
-                                                    plusOneAbilityIds: [],
-                                                    featId: null,
-                                                  }))
-                                                }
-                                              >
-                                                +2
-                                              </button>
-                                              <button
-                                                type="button"
-                                                className={plusOneAbilityIds.includes(ability.id) ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                                disabled={selectedMode !== "split" || !canTakePlusOne || splitLocked}
-                                                onClick={() =>
-                                                  updateFighterAsiChoice(level, (current) => {
-                                                    const currentIds = current?.plusOneAbilityIds ?? [];
-                                                    return {
-                                                      mode: "split",
-                                                      plusTwoAbilityId: null,
-                                                      plusOneAbilityIds: currentIds.includes(ability.id)
-                                                        ? currentIds.filter((entry) => entry !== ability.id)
-                                                        : [...currentIds, ability.id].slice(0, 2),
-                                                      featId: null,
-                                                    };
-                                                  })
-                                                }
-                                              >
-                                                +1
-                                              </button>
-                                            </div>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                    )}
-                                  </article>
-                                );
-                              }) : (
-                                <div className="list-row">
-                                  <strong>No ASI unlocked yet</strong>
-                                  <span>Fighters gain their first Ability Score Improvement at 4th level.</span>
+                            return (
+                              <article key={`fighter-asi-${level}`} className="fighter-asi-card">
+                                <div className="fighter-asi-card-head">
+                                  <div>
+                                    <span className="mini-heading">Level {level}</span>
+                                    <strong>{fighterAsiFeature.milestones.find((milestone) => milestone.level === level)?.label ?? "+2 or +1 / +1"}</strong>
+                                  </div>
+                                  <button type="button" className="fighter-choice-clear" onClick={() => clearFighterAsiChoice(level)}>
+                                    Clear
+                                  </button>
                                 </div>
-                              )}
+                                <div className="fighter-asi-mode-row">
+                                  <button
+                                    type="button"
+                                    className={selectedMode === "plus-two" ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
+                                    onClick={() =>
+                                      updateFighterAsiChoice(level, () => ({
+                                        mode: "plus-two",
+                                        plusTwoAbilityId: null,
+                                        plusOneAbilityIds: [],
+                                        featId: null,
+                                      }))
+                                    }
+                                  >
+                                    +2 to one ability
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className={selectedMode === "split" ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
+                                    onClick={() =>
+                                      updateFighterAsiChoice(level, () => ({
+                                        mode: "split",
+                                        plusTwoAbilityId: null,
+                                        plusOneAbilityIds: [],
+                                        featId: null,
+                                      }))
+                                    }
+                                  >
+                                    +1 / +1 split
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className={selectedMode === "feat" ? "ability-flex-pick active" : "ability-flex-pick"}
+                                    onClick={() =>
+                                      updateFighterAsiChoice(level, () => ({
+                                        mode: "feat",
+                                        plusTwoAbilityId: null,
+                                        plusOneAbilityIds: [],
+                                        featId: selectedFeatId || null,
+                                      }))
+                                    }
+                                  >
+                                    Feat
+                                  </button>
+                                </div>
+                                {selectedMode === "feat" ? (
+                                  <div className="equipment-picker-card fighter-asi-feat-picker">
+                                    <strong>Choose a feat</strong>
+                                    <select
+                                      className="equipment-picker-select"
+                                      value={selectedFeatId}
+                                      onChange={(event) => setFighterAsiFeatChoice(level, event.target.value)}
+                                    >
+                                      <option value="" disabled>
+                                        Choose feat
+                                      </option>
+                                      {content.feats.map((feat) => (
+                                        <option key={`fighter-asi-feat-${level}-${feat.id}`} value={feat.id}>
+                                          {feat.name}
+                                        </option>
+                                      ))}
+                                    </select>
+                                    {selectedFeatId ? (
+                                      <span>{content.feats.find((feat) => feat.id === selectedFeatId)?.summary ?? "Feat selected."}</span>
+                                    ) : (
+                                      <span>Pick one feat instead of ability score bonuses.</span>
+                                    )}
+                                  </div>
+                                ) : (
+                                  <div className="ability-flex-assignment-grid fighter-asi-grid">
+                                    {draft.abilities.map((ability) => {
+                                      const projectedScore = fighterAsiProjectedScore(ability.id, level);
+                                      const canTakePlusTwo = projectedScore <= 18;
+                                      const canTakePlusOne = projectedScore <= 19 || plusOneAbilityIds.includes(ability.id);
+                                      const splitLocked = !plusOneAbilityIds.includes(ability.id) && plusOneAbilityIds.length >= 2;
+
+                                      return (
+                                        <div className="ability-flex-assignment-row fighter-asi-row" key={`fighter-asi-${level}-${ability.id}`}>
+                                          <strong className={abilityAccentClass(ability.id)}>{ability.id}</strong>
+                                          <div className="fighter-asi-row-meta">
+                                            <span>{ability.label}</span>
+                                            <span>{`Current ${previewAbilities.find((entry) => entry.id === ability.id)?.previewScore ?? ability.score}`}</span>
+                                          </div>
+                                          <div className="ability-flex-picks prominent">
+                                            <button
+                                              type="button"
+                                              className={plusTwoAbilityId === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
+                                              disabled={selectedMode !== "plus-two" || !canTakePlusTwo}
+                                              onClick={() =>
+                                                updateFighterAsiChoice(level, (current) => ({
+                                                  mode: "plus-two",
+                                                  plusTwoAbilityId: current?.plusTwoAbilityId === ability.id ? null : ability.id,
+                                                  plusOneAbilityIds: [],
+                                                  featId: null,
+                                                }))
+                                              }
+                                            >
+                                              +2
+                                            </button>
+                                            <button
+                                              type="button"
+                                              className={plusOneAbilityIds.includes(ability.id) ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
+                                              disabled={selectedMode !== "split" || !canTakePlusOne || splitLocked}
+                                              onClick={() =>
+                                                updateFighterAsiChoice(level, (current) => {
+                                                  const currentIds = current?.plusOneAbilityIds ?? [];
+                                                  return {
+                                                    mode: "split",
+                                                    plusTwoAbilityId: null,
+                                                    plusOneAbilityIds: currentIds.includes(ability.id)
+                                                      ? currentIds.filter((entry) => entry !== ability.id)
+                                                      : [...currentIds, ability.id].slice(0, 2),
+                                                    featId: null,
+                                                  };
+                                                })
+                                              }
+                                            >
+                                              +1
+                                            </button>
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+                              </article>
+                            );
+                          }) : (
+                            <div className="list-row">
+                              <strong>No ASI unlocked yet</strong>
+                              <span>This class gains its first Ability Score Improvement at 4th level.</span>
                             </div>
-                          </article>
+                          )}
                         </div>
-                      </article>
+                      </>
                     )}
                 </section>
                 ) : null}
@@ -8935,37 +9215,298 @@ export function CreatorWorkspace({
                         <strong>Source:</strong> {selectedBackground.source}
                       </p>
                     ) : null}
+                    {customBackgroundActive ? (
+                      <div className="equipment-picker-card background-custom-feature-card">
+                        <strong>Background feature source</strong>
+                        <select
+                          className="equipment-picker-select"
+                          value={draft.customBackground?.featureBackgroundId ?? selectedCustomFeatureBackground?.id ?? ""}
+                          onChange={(event) => updateCustomBackgroundFeature(event.target.value)}
+                        >
+                          {customBackgroundFeatureOptions.map((background) => (
+                            <option key={`custom-feature-${background.id}`} value={background.id}>
+                              {background.name}
+                            </option>
+                          ))}
+                        </select>
+                        {selectedCustomFeatureBackground ? (
+                          <span>{backgroundDescription(selectedCustomFeatureBackground)}</span>
+                        ) : null}
+                      </div>
+                    ) : null}
                   </article>
                 </section>
                 ) : null}
 
-                {creatorStep === 1 && creatorBrowser === "inventory" ? (
+                {creatorBrowser === "custom-background-tools" ? (
                 <section className="creator-section-block">
-                  {currentClass.id === "fighter" ? (
-                    <>
-                      <article className="fighter-equipment-section">
-                        <div className="equipment-choice-stack">
-                          {fighterStartingEquipment.map((group) => renderEquipmentChoiceGroup(group, "general"))}
+                  <div className="identity-detail-head">
+                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
+                    <h4>Tools</h4>
+                  </div>
+                  <div className="creator-inline-list">
+                    <div className="list-row">
+                      <strong>{customBackgroundActive ? `${draft.customBackground?.proficiencyIds.length ?? 0} / 2 selected` : "Background tools"}</strong>
+                      <span>{customBackgroundActive ? selectedCustomProficiencyLabels.join(", ") || "Choose tools or languages in any mix of two." : "Granted by your selected background."}</span>
+                    </div>
+                  </div>
+                  {customBackgroundActive ? (
+                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
+                    {customBackgroundProficiencyChoices.filter((option) => option.kind === "Tool").map((option) => {
+                      const selected = draft.customBackground?.proficiencyIds.includes(option.id) ?? false;
+                      const locked = !selected && (draft.customBackground?.proficiencyIds.length ?? 0) >= 2;
+                      return (
+                        <button
+                          key={`custom-background-prof-${option.id}`}
+                          type="button"
+                          className={selected ? "fighter-journey-card active tool-choice-card" : `fighter-journey-card tool-choice-card${locked ? " disabled" : ""}`}
+                          disabled={locked}
+                          onClick={() => toggleCustomBackgroundProficiency(option.id)}
+                        >
+                          <span className="fighter-journey-card-label">{option.meta}</span>
+                          <strong>
+                            <HoverTooltip
+                              label={option.label}
+                              content={toolTooltipContent(content.tools.find((tool) => `tool:${tool.id}` === option.id), option.label, option.meta)}
+                            />
+                          </strong>
+                        </button>
+                      );
+                    })}
+                    </div>
+                  ) : hasSelectedBackgroundToolData ? (
+                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
+                      {renderBackgroundToolCards("background-tool-gear-section")}
+                    </div>
+                  ) : (
+                    <div className="list-row">
+                      <strong>No background tools</strong>
+                      <span>This background does not grant tool proficiencies.</span>
+                    </div>
+                  )}
+                </section>
+                ) : null}
+
+                {creatorBrowser === "custom-background-languages" ? (
+                <section className="creator-section-block">
+                  <div className="identity-detail-head">
+                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
+                    <h4>Languages</h4>
+                  </div>
+                  <div className="creator-inline-list">
+                    <div className="list-row">
+                      <strong>{customBackgroundActive ? `${draft.customBackground?.proficiencyIds.length ?? 0} / 2 selected` : "Background languages"}</strong>
+                      <span>{customBackgroundActive ? selectedCustomProficiencyLabels.join(", ") || "Choose tools or languages in any mix of two." : "Granted by your selected background."}</span>
+                    </div>
+                  </div>
+                  {customBackgroundActive ? (
+                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
+                    {customBackgroundProficiencyChoices.filter((option) => option.kind === "Language").map((option) => {
+                      const selected = draft.customBackground?.proficiencyIds.includes(option.id) ?? false;
+                      const locked = !selected && (draft.customBackground?.proficiencyIds.length ?? 0) >= 2;
+                      return (
+                        <button
+                          key={`custom-background-prof-${option.id}`}
+                          type="button"
+                          className={selected ? "fighter-journey-card active tool-choice-card" : `fighter-journey-card tool-choice-card${locked ? " disabled" : ""}`}
+                          disabled={locked}
+                          onClick={() => toggleCustomBackgroundProficiency(option.id)}
+                        >
+                          <span className="fighter-journey-card-label">{option.meta}</span>
+                          <strong>{option.label}</strong>
+                        </button>
+                      );
+                    })}
+                    </div>
+                  ) : backgroundLanguageSummary(content, selectedBackground).length ? (
+                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
+                      {backgroundLanguageSummary(content, selectedBackground).map((language) => (
+                        <article key={`background-language-${language}`} className="fighter-feature-card compact unlocked">
+                          <div className="fighter-feature-card-head">
+                            <strong>{language}</strong>
+                            <span className="fighter-feature-check" aria-hidden="true">✓</span>
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="list-row">
+                      <strong>No background languages</strong>
+                      <span>This background does not grant languages.</span>
+                    </div>
+                  )}
+                </section>
+                ) : null}
+
+                {creatorBrowser === "custom-background-equipment" ? (
+                <section className="creator-section-block">
+                  <div className="identity-detail-head">
+                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
+                    <h4>Equipment</h4>
+                  </div>
+                  <div className="fighter-journey-scene">
+                    <div className="fighter-journey-scene-head compact">
+                      <h3>Equipment</h3>
+                      <p>Choose the fighter kit you start with.</p>
+                    </div>
+                    <div className="fighter-journey-scene-divider" aria-hidden="true" />
+                    <article className="fighter-equipment-section">
+                      <div className="equipment-choice-stack">
+                        {classStartingEquipment.length ? classStartingEquipment.map((group) => renderEquipmentChoiceGroup(group, "gear")) : (
+                          <div className="list-row">
+                            <strong>No class equipment choices</strong>
+                            <span>This class does not have curated starting equipment yet.</span>
+                          </div>
+                        )}
+                      </div>
+                    </article>
+                  </div>
+                </section>
+                ) : null}
+
+                {creatorBrowser === "feats" ? (
+                <section className="creator-section-block">
+                  <div className="identity-detail-head">
+                    <span className="mini-heading creator-section-label class-section-label">Normal Feats</span>
+                    <h4>Feat Library</h4>
+                  </div>
+                  <div className="feat-browser-toolbar">
+                    <div className="skill-spell-search centered">
+                      <AppIcon name="search" className="skill-spell-search-icon" />
+                      <input
+                        type="search"
+                        value={featSearchQuery}
+                        onChange={(event) => setFeatSearchQuery(event.target.value)}
+                        placeholder="Search feats, sources, prerequisites..."
+                        aria-label="Search feats"
+                      />
+                    </div>
+                    <div className="feat-browser-count">
+                      <strong>{draft.featIds.filter((featId) => normalFeats.some((feat) => feat.id === featId)).length}</strong>
+                      <span>selected</span>
+                    </div>
+                  </div>
+                  <div className="feature-browser-layout feat-browser-layout">
+                    <div className="feature-browser-list feat-browser-list">
+                      {visibleNormalFeats.map((feat) => {
+                        const selected = draft.featIds.includes(feat.id);
+                        const focused = selectedFeat?.id === feat.id;
+                        return (
+                          <button
+                            type="button"
+                            key={`feat-card-${feat.id}`}
+                            className={[
+                              "feature-browser-item",
+                              "feat-browser-item",
+                              focused ? "active" : "",
+                              selected ? "acquired" : "",
+                            ].filter(Boolean).join(" ")}
+                            onClick={() => setSelectedFeatId(feat.id)}
+                          >
+                            <strong>{feat.name}</strong>
+                            <span>{featSourceShort(feat.source)}</span>
+                            <span>{feat.prerequisite ? `Req: ${feat.prerequisite}` : "No prerequisite"}</span>
+                            {selected ? <span className="feature-browser-status" aria-hidden="true">✓</span> : null}
+                          </button>
+                        );
+                      })}
+                      {!visibleNormalFeats.length ? (
+                        <div className="list-row">
+                          <strong>No feats found</strong>
+                          <span>Try a different search term.</span>
+                        </div>
+                      ) : null}
+                    </div>
+                    {selectedFeat ? (
+                      <article className="identity-trait-item class-feature-detail creator-subpanel-flat feature-browser-detail feat-detail-panel">
+                        <div className="feature-detail-stack">
+                          <div className="feature-detail-block feature-detail-block-header">
+                            <div className="feat-detail-title-row">
+                              <div>
+                                <strong>{selectedFeat.name}</strong>
+                                <div className="feature-tag-row">
+                                  <span className="feature-tag-pill">{featSourceShort(selectedFeat.source)}</span>
+                                  {selectedFeat.prerequisite ? <span className="feature-tag-pill">Prerequisite</span> : null}
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                className={draft.featIds.includes(selectedFeat.id) ? "sheet-button secondary active" : "sheet-button secondary"}
+                                onClick={() => toggleSelection("featIds", selectedFeat.id)}
+                              >
+                                {draft.featIds.includes(selectedFeat.id) ? "Selected" : "Select"}
+                              </button>
+                            </div>
+                          </div>
+                          <div className="feature-detail-block">
+                            <span className="feature-detail-label">At a Glance</span>
+                            <div className="lineage-detail-meta-grid spell-rules-grid">
+                              <div className="lineage-detail-meta-item">
+                                <div className="lineage-detail-meta-head">
+                                  <span className="summary-icon-wrap">
+                                    <AppIcon name="book" className="summary-icon" />
+                                  </span>
+                                </div>
+                                <strong>Source</strong>
+                                <span>{selectedFeat.source ?? "Unknown Source"}</span>
+                              </div>
+                              <div className="lineage-detail-meta-item">
+                                <div className="lineage-detail-meta-head">
+                                  <span className="summary-icon-wrap">
+                                    <AppIcon name="shield" className="summary-icon" />
+                                  </span>
+                                </div>
+                                <strong>Requirement</strong>
+                                <span>{selectedFeat.prerequisite || "None"}</span>
+                              </div>
+                            </div>
+                            <div className="feature-key-facts-list">
+                              {featTags(selectedFeat).map((tag) => (
+                                <span key={`${selectedFeat.id}-tag-${tag}`} className="feature-key-fact-pill">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="feature-detail-block">
+                            <span className="feature-detail-label">Rules Text</span>
+                            <div className="class-feature-detail-body feat-rules-body">
+                              {featBenefitParagraphs(selectedFeat).map((paragraph, index) => (
+                                <p key={`${selectedFeat.id}-paragraph-${index}`}>{paragraph}</p>
+                              ))}
+                            </div>
+                          </div>
+                          {selectedFeat.detailTables?.map((table) => (
+                            <div key={`${selectedFeat.id}-table-${table.title}`} className="feature-detail-block">
+                              <span className="feature-detail-label">{table.title}</span>
+                              <div className="feat-detail-table-wrap">
+                                <table className="feat-detail-table">
+                                  {table.columns.length ? (
+                                    <thead>
+                                      <tr>
+                                        {table.columns.map((column) => (
+                                          <th key={`${selectedFeat.id}-${table.title}-${column}`}>{column}</th>
+                                        ))}
+                                      </tr>
+                                    </thead>
+                                  ) : null}
+                                  <tbody>
+                                    {table.rows.map((row, rowIndex) => (
+                                      <tr key={`${selectedFeat.id}-${table.title}-${rowIndex}`}>
+                                        {row.map((cell, cellIndex) => (
+                                          <td key={`${selectedFeat.id}-${table.title}-${rowIndex}-${cellIndex}`}>{cell}</td>
+                                        ))}
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </article>
-                      <div className="creator-inline-divider" aria-hidden="true" />
-                    </>
-                  ) : null}
-                  <article className="fighter-equipment-section">
-                    <div className="fighter-equipment-source-row">
-                      <span className="fighter-equipment-source-label">Background</span>
-                      {hasSelectedBackgroundToolData ? (
-                        <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                          {renderBackgroundToolCards("background-tool-general")}
-                        </div>
-                      ) : (
-                        <div className="list-row">
-                          <strong>No background tools</strong>
-                          <span>This background does not grant tool proficiencies.</span>
-                        </div>
-                      )}
-                    </div>
-                  </article>
+                    ) : null}
+                  </div>
                 </section>
                 ) : null}
 
@@ -8995,6 +9536,32 @@ export function CreatorWorkspace({
                                     {label}
                                   </span>
                                 ))}
+                              </div>
+                            </div>
+                          ) : null}
+                          {customBackgroundActive ? (
+                            <div className="skill-source-card">
+                              <strong>{`Custom Background Skills (${draft.customBackground?.skillIds.length ?? 0} / 2)`}</strong>
+                              <div className="skill-choice-grid custom-background-skill-grid">
+                                {Object.keys(skillAbilities).map((skillId) => {
+                                  const selected = draft.customBackground?.skillIds.includes(skillId) ?? false;
+                                  const locked = !selected && (draft.customBackground?.skillIds.length ?? 0) >= 2;
+                                  return (
+                                    <label className={selected ? "selection-card choice-card skill-spell-card active" : `selection-card choice-card skill-spell-card${locked ? " disabled" : ""}`} key={`custom-background-skill-${skillId}`}>
+                                      <input
+                                        type="checkbox"
+                                        checked={selected}
+                                        disabled={locked}
+                                        onChange={() => toggleCustomBackgroundSkill(skillId)}
+                                      />
+                                      <div className="skill-spell-card-head">
+                                        <strong className="skill-spell-card-title">{skillLabel(skillId)}</strong>
+                                        {selected ? <span className="skill-proficiency-star" aria-hidden="true">★</span> : null}
+                                      </div>
+                                      <p className="skill-spell-card-description">{skillDescription(skillId)}</p>
+                                    </label>
+                                  );
+                                })}
                               </div>
                             </div>
                           ) : null}
@@ -9849,7 +10416,27 @@ export function CreatorWorkspace({
                       <span className="summary-icon-wrap">
                         <AppIcon name={iconForLineageStat(stat.label)} className="summary-icon" />
                       </span>
-                      <strong>{stat.label}</strong>
+                      <strong>
+                        <HoverTooltip
+                          label={stat.label}
+                          content={
+                            <span className="spell-tooltip-block">
+                              <span className="spell-tooltip-head">
+                                <strong>{stat.label}</strong>
+                                <span>{stat.value}</span>
+                              </span>
+                              <span className="spell-tooltip-line-list">
+                                {stat.breakdown.map((line) => (
+                                  <span key={`${stat.label}-${line}`} className="spell-tooltip-line-item">
+                                    <span className="spell-tooltip-line-dot" aria-hidden="true" />
+                                    <span>{line}</span>
+                                  </span>
+                                ))}
+                              </span>
+                            </span>
+                          }
+                        />
+                      </strong>
                     </div>
                     <span>{stat.value}</span>
                   </div>
@@ -9905,7 +10492,13 @@ export function CreatorWorkspace({
                 {previewPanelProficiencies.map((item) => (
                   <div key={item.label} className="list-row">
                     <strong>{item.label}</strong>
-                    <span>{item.value}</span>
+                    <span>
+                      {item.tooltip ? (
+                        <HoverTooltip label={item.value} content={item.tooltip} />
+                      ) : (
+                        item.value
+                      )}
+                    </span>
                   </div>
                 ))}
               </div>

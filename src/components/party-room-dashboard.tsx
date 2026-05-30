@@ -28,7 +28,7 @@ type LocalActivity = {
 };
 
 type InfoTab = "actions" | "inventory" | "features" | "background";
-type CreatorStep = 0 | 1 | 2;
+type CreatorStep = 0 | 1 | 2 | 3;
 type ActivityFilter = "all" | "rolls" | "system";
 type ActionFilter = "all" | "Attack" | "Action" | "Bonus Action" | "Reaction" | "Other";
 
@@ -425,6 +425,60 @@ function backgroundToolSummary(content: ContentBundle, background: ContentBundle
   ];
 }
 
+function isCustomBackground(backgroundId: string) {
+  return backgroundId === "custom-background";
+}
+
+function backgroundFeatureOptions(content: ContentBundle) {
+  return content.backgrounds.filter((background) => !isCustomBackground(background.id));
+}
+
+function customBackgroundProficiencyOptions(content: ContentBundle) {
+  return [
+    ...content.tools.map((tool) => ({ id: `tool:${tool.id}`, label: tool.name, kind: "tool" as const })),
+    ...content.languages.map((language) => ({ id: `language:${language.id}`, label: language.name, kind: "language" as const })),
+  ];
+}
+
+function customBackgroundProficiencyLabel(content: ContentBundle, value: string) {
+  const [kind, id] = value.split(":");
+  if (kind === "tool") {
+    return content.tools.find((tool) => tool.id === id)?.name ?? id;
+  }
+  if (kind === "language") {
+    return content.languages.find((language) => language.id === id)?.name ?? id;
+  }
+  return value;
+}
+
+function normalizeCustomBackground(content: ContentBundle, previous: CharacterDraft) {
+  const featureOptions = backgroundFeatureOptions(content);
+  const fallbackBackgroundId = featureOptions[0]?.id ?? null;
+  const availableProficiencyIds = new Set(customBackgroundProficiencyOptions(content).map((option) => option.id));
+  const skillIds = unique(previous.customBackground?.skillIds ?? [])
+    .filter((skillId) => skillId in skillAbilities)
+    .slice(0, 2);
+  const proficiencyIds = unique(previous.customBackground?.proficiencyIds ?? [])
+    .filter((entry) => availableProficiencyIds.has(entry))
+    .slice(0, 2);
+  const featureBackgroundId =
+    featureOptions.some((background) => background.id === previous.customBackground?.featureBackgroundId)
+      ? previous.customBackground?.featureBackgroundId ?? fallbackBackgroundId
+      : fallbackBackgroundId;
+  const equipmentBackgroundId =
+    featureOptions.some((background) => background.id === previous.customBackground?.equipmentBackgroundId)
+      ? previous.customBackground?.equipmentBackgroundId ?? featureBackgroundId ?? fallbackBackgroundId
+      : featureBackgroundId ?? fallbackBackgroundId;
+
+  return {
+    featureBackgroundId,
+    skillIds,
+    proficiencyIds,
+    equipmentMode: previous.customBackground?.equipmentMode === "coin" ? ("coin" as const) : ("package" as const),
+    equipmentBackgroundId,
+  };
+}
+
 function normalizeEquipmentName(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
@@ -795,10 +849,44 @@ function normalizeFighterChoices(fighterChoices: FighterChoices | undefined) {
   } satisfies FighterChoices;
 }
 
+function isDynamicLineageSkillChoiceGroup(groupId: string) {
+  return groupId === "variant-human-skill-choice" || groupId === "half-elf-skill-choice";
+}
+
+function lineageSkillProficiencyIds(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
+  const lineage =
+    lineageDataCatalog?.entries.find((entry) => entry.id === draft.speciesId) ??
+    lineageDataCatalog?.entries.find((entry) => entry.sublineages.some((sublineage) => sublineage.id === draft.speciesId)) ??
+    null;
+  const sublineage = lineage?.sublineages.find((entry) => entry.id === draft.speciesId) ?? null;
+  const selectedChoiceSkillIds: string[] = [];
+  const selectedChoiceGrants = [...(lineage?.choiceGroups ?? []), ...(sublineage?.choiceGroups ?? [])].flatMap((group) => {
+    const selectedIds = draft.lineageChoices?.[group.id] ?? [];
+
+    if (isDynamicLineageSkillChoiceGroup(group.id)) {
+      selectedChoiceSkillIds.push(...selectedIds.filter((skillId) => skillId in skillAbilities));
+    }
+
+    return group.options
+      .filter((option) => selectedIds.includes(option.id))
+      .flatMap((option) => option.grants);
+  });
+
+  return unique(
+    [...(lineage?.features ?? []), ...(sublineage?.features ?? [])]
+      .flatMap((feature) => feature.grants)
+      .concat(selectedChoiceGrants)
+      .filter((grant) => grant.type === "skill_proficiency")
+      .flatMap((grant) => grant.values)
+      .concat(selectedChoiceSkillIds),
+  );
+}
+
 function buildDraftFromSelection(
   content: ContentBundle,
   creatorOptions: CreatorOptions,
   previous: CharacterDraft,
+  lineageDataCatalog?: LineageCatalog,
 ): CharacterDraft {
   const chosenClass = content.classes.find((item) => item.id === previous.classId) ?? content.classes[0];
   const chosenSpecies =
@@ -809,6 +897,17 @@ function buildDraftFromSelection(
   const speciesRules = creatorOptions.speciesOptions[chosenSpecies.id];
   const backgroundRules = creatorOptions.backgroundOptions[chosenBackground.id];
   const backgroundSkills = parseBackgroundSkills(chosenBackground.skillProficiencies);
+  const customBackground = normalizeCustomBackground(content, previous);
+  const customFeatureBackground = content.backgrounds.find((item) => item.id === customBackground.featureBackgroundId) ?? chosenBackground;
+  const customEquipmentBackground = content.backgrounds.find((item) => item.id === customBackground.equipmentBackgroundId) ?? customFeatureBackground;
+  const activeBackgroundSkillIds = isCustomBackground(chosenBackground.id) ? customBackground.skillIds : backgroundSkills;
+  const customToolNames = customBackground.proficiencyIds
+    .filter((entry) => entry.startsWith("tool:"))
+    .map((entry) => customBackgroundProficiencyLabel(content, entry));
+  const customLanguageNames = customBackground.proficiencyIds
+    .filter((entry) => entry.startsWith("language:"))
+    .map((entry) => customBackgroundProficiencyLabel(content, entry));
+  const lineageSkillProficiencies = lineageSkillProficiencyIds(lineageDataCatalog, previous);
   const backgroundToolChoiceIds = Object.fromEntries(
     chosenBackground.toolProficiencies.choices.map((choice) => {
       const allowedOptions = new Set(toolChoiceOptions(content, choice.options));
@@ -823,7 +922,11 @@ function buildDraftFromSelection(
     ...Object.values(backgroundToolChoiceIds).flat().map((value) => toolNameFromValue(content, value)),
   ];
   const backgroundLanguages = languageNamesFromIds(content, chosenBackground.languages.fixed);
-  const backgroundEquipment = chosenBackground.equipment ?? [];
+  const backgroundEquipment = isCustomBackground(chosenBackground.id)
+    ? customBackground.equipmentMode === "package"
+      ? customEquipmentBackground.equipment ?? []
+      : []
+    : chosenBackground.equipment ?? [];
   const allBackgroundEquipment = content.backgrounds.flatMap((item) => item.equipment ?? []);
   const classPool = [
     chosenClass.name,
@@ -901,7 +1004,7 @@ function buildDraftFromSelection(
     ...previous,
     ancestry: chosenSpecies.name,
     classLine: `${chosenClass.name} ${previous.level}`,
-    background: chosenBackground.summary,
+    background: isCustomBackground(chosenBackground.id) ? customFeatureBackground.summary : chosenBackground.summary,
     multiclassIds: previous.multiclassIds.filter((classId) => classId !== chosenClass.id),
     selectedSubclassOptions: previous.selectedSubclassOptions,
     pactBoonId: chosenClass.id === "warlock" ? previous.pactBoonId ?? null : null,
@@ -949,10 +1052,11 @@ function buildDraftFromSelection(
             fightingStyleId: "archery",
             superiorTechniqueManeuverId: null,
             equipmentChoiceIds: normalizedFighterChoices.equipmentChoiceIds,
-            abilityScoreImprovements: {},
+            abilityScoreImprovements: normalizedFighterChoices.abilityScoreImprovements,
           },
     lineageChoices: previous.lineageChoices ?? {},
     backgroundToolChoiceIds,
+    customBackground,
     spellIds: previous.spellIds.filter((spellId) => allowedSpellIds.includes(spellId)),
     featIds: previous.featIds.filter((featId) => allowedFeatIds.includes(featId)),
     inventory,
@@ -969,12 +1073,14 @@ function buildDraftFromSelection(
         ...(speciesRules?.toolChoices ?? []),
         ...(backgroundRules?.tools ?? []),
         ...backgroundTools,
+        ...(isCustomBackground(chosenBackground.id) ? customToolNames : []),
       ]),
       languages: unique([
         ...(classRules?.languages ?? []),
         ...(speciesRules?.languages ?? []),
         ...(backgroundRules?.languages ?? []),
         ...backgroundLanguages,
+        ...(isCustomBackground(chosenBackground.id) ? customLanguageNames : []),
         ...rangerFavoredEnemyLanguages,
         ...rangerDeftExplorerLanguages,
       ]),
@@ -1003,7 +1109,8 @@ function buildDraftFromSelection(
       const modifier = modifiers[ability];
       const proficient =
         backgroundRules?.skillProficiencies.includes(skillId) ||
-        backgroundSkills.includes(skillId) ||
+        activeBackgroundSkillIds.includes(skillId) ||
+        lineageSkillProficiencies.includes(skillId) ||
         previous.selectedSkillIds.includes(skillId) ||
         false;
       const expertise =
@@ -1028,11 +1135,11 @@ function buildDraftFromSelection(
   };
 }
 
-function loadInitialDraft(content: ContentBundle, creatorOptions: CreatorOptions) {
-  return buildDraftFromSelection(content, creatorOptions, demoCharacter);
+function loadInitialDraft(content: ContentBundle, creatorOptions: CreatorOptions, lineageDataCatalog?: LineageCatalog) {
+  return buildDraftFromSelection(content, creatorOptions, demoCharacter, lineageDataCatalog);
 }
 
-function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions) {
+function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions, lineageDataCatalog?: LineageCatalog) {
   if (typeof window === "undefined") {
     return null;
   }
@@ -1044,7 +1151,7 @@ function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions)
 
   try {
     const parsed = JSON.parse(stored) as CharacterDraft;
-    return buildDraftFromSelection(content, creatorOptions, parsed);
+    return buildDraftFromSelection(content, creatorOptions, parsed, lineageDataCatalog);
   } catch {
     return null;
   }
@@ -1080,9 +1187,9 @@ export function PartyRoomDashboard({
   );
   const [draft, setDraft] = useState<CharacterDraft>(() => {
     if (typeof window !== "undefined") {
-      return readStoredDraft(initialContent, initialCreatorOptions) ?? loadInitialDraft(initialContent, initialCreatorOptions);
+      return readStoredDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog) ?? loadInitialDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog);
     }
-    return loadInitialDraft(initialContent, initialCreatorOptions);
+    return loadInitialDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog);
   });
   const sheetContent = useMemo(
     () => buildSheetContent(initialContent, draft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog),
@@ -1282,9 +1389,11 @@ export function PartyRoomDashboard({
 
     return raceFeatMatchesSpecies(feat.prerequisite, currentSpecies.name);
   });
-  const backgroundSkillIds = parseBackgroundSkills(currentBackground.skillProficiencies);
+  const backgroundSkillIds = isCustomBackground(currentBackground.id)
+    ? draft.customBackground.skillIds
+    : parseBackgroundSkills(currentBackground.skillProficiencies);
   const updateDraft = (updater: (current: CharacterDraft) => CharacterDraft) => {
-    setDraft((current) => buildDraftFromSelection(initialContent, initialCreatorOptions, updater(current)));
+    setDraft((current) => buildDraftFromSelection(initialContent, initialCreatorOptions, updater(current), initialLineageDataCatalog));
   };
 
   const updateAbility = (abilityId: AbilityId, score: number) => {
@@ -1640,7 +1749,7 @@ export function PartyRoomDashboard({
     try {
       const text = await file.text();
       const parsed = JSON.parse(text) as CharacterDraft;
-      setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, parsed));
+      setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, parsed, initialLineageDataCatalog));
       setCurrentHp(parsed.currentHp ?? parsed.maxHp ?? draft.maxHp);
       setTempHp(parsed.tempHp ?? 0);
       setActivityLog((current) => [

@@ -283,6 +283,25 @@ function backgroundToolSummary(content: ContentBundle, background: ContentBundle
   ];
 }
 
+function isCustomBackground(backgroundId: string) {
+  return backgroundId === "custom-background";
+}
+
+function customBackgroundProficiencyLabel(content: ContentBundle, value: string) {
+  const [kind, id] = value.split(":");
+  if (kind === "tool") {
+    return content.tools.find((tool) => tool.id === id)?.name ?? id;
+  }
+  if (kind === "language") {
+    return content.languages.find((language) => language.id === id)?.name ?? id;
+  }
+  return value;
+}
+
+function customBackgroundSource(content: ContentBundle, backgroundId: string | null | undefined) {
+  return content.backgrounds.find((background) => background.id === backgroundId && !isCustomBackground(background.id)) ?? null;
+}
+
 function derivedStatTone(baseValue: number, currentValue: number): DerivedStatTone {
   return currentValue > baseValue ? "boosted" : "neutral";
 }
@@ -996,6 +1015,23 @@ export function buildSheetContent(
   const chosenBackground = content.backgrounds.find(
     (item) => item.id === draft.backgroundId,
   );
+  const customFeatureBackground = chosenBackground && isCustomBackground(chosenBackground.id)
+    ? customBackgroundSource(content, draft.customBackground?.featureBackgroundId)
+    : null;
+  const customEquipmentBackground = chosenBackground && isCustomBackground(chosenBackground.id)
+    ? customBackgroundSource(content, draft.customBackground?.equipmentBackgroundId)
+    : null;
+  const customSkillLabels = (draft.customBackground?.skillIds ?? [])
+    .map((skillId) => skillId
+      .split("-")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" "));
+  const customToolLabels = (draft.customBackground?.proficiencyIds ?? [])
+    .filter((entry) => entry.startsWith("tool:"))
+    .map((entry) => customBackgroundProficiencyLabel(content, entry));
+  const customLanguageLabels = (draft.customBackground?.proficiencyIds ?? [])
+    .filter((entry) => entry.startsWith("language:"))
+    .map((entry) => customBackgroundProficiencyLabel(content, entry));
 
   const learnedSpellSources = uniqueSpellActionSources([
     ...draft.spellIds.map((spellId) => ({ spellId, sourceLabel: "Selected Spell" })),
@@ -1077,7 +1113,9 @@ export function buildSheetContent(
             id: chosenBackground.id,
             name: chosenBackground.name,
             kind: "Background" as const,
-            summary: chosenBackground.summary,
+            summary: customFeatureBackground
+              ? `${customFeatureBackground.name} feature. ${customFeatureBackground.summary}`
+              : chosenBackground.summary,
             source: "Background",
           },
         ]
@@ -1115,10 +1153,23 @@ export function buildSheetContent(
     className: chosenClass?.name ?? draft.classLine,
     speciesName: chosenSpecies?.name ?? draft.ancestry,
     backgroundName: chosenBackground?.name ?? "Unknown Background",
-    backgroundSummary: chosenBackground?.summary ?? draft.background,
-    backgroundSkillProficiencies: chosenBackground?.skillProficiencies.join(", ") ?? "",
-    backgroundToolProficiencies: chosenBackground ? backgroundToolSummary(content, chosenBackground, draft.backgroundToolChoiceIds ?? {}).join(", ") : "",
-    backgroundLanguages: chosenBackground ? backgroundLanguageSummary(content, chosenBackground).join(", ") : "",
+    backgroundSummary: customFeatureBackground
+      ? `${customFeatureBackground.name} feature. ${customFeatureBackground.summary}`
+      : chosenBackground?.summary ?? draft.background,
+    backgroundSkillProficiencies: customFeatureBackground
+      ? customSkillLabels.join(", ")
+      : chosenBackground?.skillProficiencies.join(", ") ?? "",
+    backgroundToolProficiencies: customFeatureBackground
+      ? customToolLabels.join(", ")
+      : chosenBackground ? backgroundToolSummary(content, chosenBackground, draft.backgroundToolChoiceIds ?? {}).join(", ") : "",
+    backgroundLanguages: customFeatureBackground
+      ? customLanguageLabels.join(", ")
+      : chosenBackground ? backgroundLanguageSummary(content, chosenBackground).join(", ") : "",
+    backgroundEquipment: customEquipmentBackground
+      ? draft.customBackground?.equipmentMode === "coin"
+        ? "Spend coin on gear"
+        : customEquipmentBackground.name
+      : "",
     learnedSpells: uniqueById(learnedSpells.map((entry) => entry.spell)),
     builtActions,
     builtFeatures,

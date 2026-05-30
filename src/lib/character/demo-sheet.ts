@@ -89,6 +89,14 @@ export type FighterChoices = {
 export type LineageChoiceSelections = Record<string, string[]>;
 export type BackgroundToolChoiceSelections = Record<string, string[]>;
 
+export type CustomBackgroundChoices = {
+  featureBackgroundId: string | null;
+  skillIds: string[];
+  proficiencyIds: string[];
+  equipmentMode: "package" | "coin";
+  equipmentBackgroundId: string | null;
+};
+
 export type CharacterDraft = {
   name: string;
   ancestry: string;
@@ -106,6 +114,7 @@ export type CharacterDraft = {
   fighterChoices: FighterChoices;
   lineageChoices: LineageChoiceSelections;
   backgroundToolChoiceIds: BackgroundToolChoiceSelections;
+  customBackground: CustomBackgroundChoices;
   selectedSkillIds: string[];
   spellIds: string[];
   featIds: string[];
@@ -181,6 +190,13 @@ export const demoCharacter: CharacterDraft = {
   },
   lineageChoices: {},
   backgroundToolChoiceIds: {},
+  customBackground: {
+    featureBackgroundId: null,
+    skillIds: [],
+    proficiencyIds: [],
+    equipmentMode: "package",
+    equipmentBackgroundId: null,
+  },
   selectedSkillIds: ["arcana", "investigation"],
   spellIds: ["magic-missile", "shield", "misty-step"],
   featIds: ["war-caster", "fey-touched"],
