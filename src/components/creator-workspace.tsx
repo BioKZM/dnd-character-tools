@@ -2301,6 +2301,10 @@ function defaultBrowserForStep(step: CreatorStep): CreatorBrowser {
   }
 }
 
+function isOriginCarouselStep(step: CreatorStep): boolean {
+  return step === 0;
+}
+
 function speciesBenefitSummary(
   item: ContentBundle["species"][number],
   notes?: string,
@@ -4474,7 +4478,7 @@ export function CreatorWorkspace({
   const originPageOrder = ["identity", "lineage", "background"] as const;
   const isOriginPage = (value: CreatorBrowser): value is (typeof originPageOrder)[number] =>
     (originPageOrder as readonly CreatorBrowser[]).includes(value);
-  const originCarouselActive = creatorStep === 0;
+  const originCarouselActive = isOriginCarouselStep(creatorStep);
   const activeOriginPage = isOriginPage(creatorBrowser) ? creatorBrowser : "lineage";
   const activeOriginPageIndex = originPageOrder.indexOf(activeOriginPage);
   const navigateOriginPage = (page: (typeof originPageOrder)[number]) => {
