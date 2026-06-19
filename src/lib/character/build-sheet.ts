@@ -517,6 +517,13 @@ function autoAddedSpellSources(
 ) {
   const results: SpellActionSource[] = [];
   const selectedSubclassId = draft.selectedSubclassOptions[0] ?? null;
+  const currentCuratedClass = draft.classId
+    ? classCuratedCollection?.entries.find((entry) => entry.id === draft.classId) ?? null
+    : null;
+  const currentCuratedSubclass =
+    selectedSubclassId && currentCuratedClass
+      ? currentCuratedClass.subclasses.find((entry) => entry.id === selectedSubclassId) ?? null
+      : null;
   const currentDocClass = draft.classId ? classDocs?.[draft.classId] : undefined;
   const currentDocSubclass =
     selectedSubclassId && currentDocClass
@@ -529,8 +536,6 @@ function autoAddedSpellSources(
       : null;
 
   if (draft.classId === "warlock" && selectedSubclassId && classCuratedCollection) {
-    const currentCuratedClass = classCuratedCollection.entries.find((entry) => entry.id === "warlock") ?? null;
-    const currentCuratedSubclass = currentCuratedClass?.subclasses.find((entry) => entry.id === selectedSubclassId) ?? null;
     const grants = (currentCuratedSubclass?.expandedSpells ?? []).filter((entry) => draft.level >= entry.unlockLevel);
     grants.forEach((grant) => {
       grant.spells.forEach((spellName) => {
@@ -540,6 +545,19 @@ function autoAddedSpellSources(
         }
       });
     });
+  }
+
+  if (draft.classId !== "warlock" && currentCuratedSubclass) {
+    currentCuratedSubclass.expandedSpells
+      .filter((entry) => draft.level >= entry.unlockLevel)
+      .forEach((grant) => {
+        grant.spells.forEach((spellName) => {
+          const spell = content.spells.find((entry) => spellMatchesName(entry.name, spellName));
+          if (spell) {
+            results.push({ spellId: spell.id, sourceLabel: "Auto Added from subclass magic" });
+          }
+        });
+      });
   }
 
   if (draft.classId === "ranger" && currentDocClass) {
@@ -600,7 +618,7 @@ function isActionableFeatureSummary(summary: string) {
 
 function buildFeatureActions(features: BuiltFeature[]): BuiltAction[] {
   return features
-    .filter((feature) => feature.kind === "Feature" && isActionableFeatureSummary(feature.summary))
+    .filter((feature) => feature.kind !== "Background" && isActionableFeatureSummary(feature.summary))
     .map((feature) => ({
       id: `feature-action-${feature.id}`,
       name: feature.name,
@@ -1050,6 +1068,12 @@ export function buildSheetContent(
   const selectedFeats = content.feats.filter((feat) =>
     draft.featIds.includes(feat.id),
   );
+  const selectedSubclassId = draft.selectedSubclassOptions[0] ?? null;
+  const currentCuratedClass = classCuratedCollection?.entries.find((entry) => entry.id === draft.classId) ?? null;
+  const currentCuratedSubclass =
+    selectedSubclassId && currentCuratedClass
+      ? currentCuratedClass.subclasses.find((entry) => entry.id === selectedSubclassId) ?? null
+      : null;
 
   const classFeatures =
     chosenClass?.featuresByLevel
@@ -1065,6 +1089,17 @@ export function buildSheetContent(
             })),
           )
       : [];
+
+  const subclassFeatures =
+    currentCuratedSubclass?.features
+      .filter((feature) => !feature.unlockLevel || feature.unlockLevel <= draft.level)
+      .map((feature) => ({
+        id: feature.id,
+        name: feature.name,
+        kind: "Feature" as const,
+        summary: feature.summary,
+        source: `${currentCuratedSubclass.name}${feature.unlockLevel ? ` level ${feature.unlockLevel}` : ""}`,
+      })) ?? [];
 
   const speciesTraits =
     uniqueFeatures(
@@ -1101,6 +1136,7 @@ export function buildSheetContent(
   const builtFeatures = uniqueFeatures(uniqueById<BuiltFeature>([
     ...speciesTraits,
     ...classFeatures,
+    ...subclassFeatures,
     ...featFeatures,
     ...rangerChoiceFeatures(draft),
     ...rangerTerrainFeatures(draft),
@@ -1136,14 +1172,7 @@ export function buildSheetContent(
       source: sourceLabel,
       classes: spell.classes ?? [],
     })),
-    ...buildFeatureActions([
-      ...featFeatures,
-      ...rangerChoiceFeatures(draft),
-      ...rangerTerrainFeatures(draft),
-      ...rangerAdditionalModeFeatures(draft),
-      ...fighterChoiceFeatures(draft),
-      ...manualFeatures,
-    ]),
+    ...buildFeatureActions(builtFeatures),
   ]);
 
   const movementStats = deriveMovementStats(draft, lineageDataCatalog);

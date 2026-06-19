@@ -2959,7 +2959,6 @@ export function CreatorWorkspace({
   const [spellSearchQuery, setSpellSearchQuery] = useState("");
   const [featSearchQuery, setFeatSearchQuery] = useState("");
   const [selectedFeatId, setSelectedFeatId] = useState<string | null>(null);
-  const [originCarouselDirection, setOriginCarouselDirection] = useState(1);
   const [fighterJourneyDirection, setFighterJourneyDirection] = useState(1);
   const [fighterProgressionOpen, setFighterProgressionOpen] = useState(false);
   const [fighterSpellLevelFilter, setFighterSpellLevelFilter] = useState<number | "all" | "cantrip">("all");
@@ -4471,22 +4470,6 @@ export function CreatorWorkspace({
 
     return groups.filter((group) => group.items.length);
   }, [activeSidebarItems]);
-  const originPageOrder = ["identity", "lineage", "background"] as const;
-  const isOriginPage = (value: CreatorBrowser): value is (typeof originPageOrder)[number] =>
-    (originPageOrder as readonly CreatorBrowser[]).includes(value);
-  const originCarouselActive = creatorStep === 0;
-  const activeOriginPage = isOriginPage(creatorBrowser) ? creatorBrowser : "lineage";
-  const activeOriginPageIndex = originPageOrder.indexOf(activeOriginPage);
-  const navigateOriginPage = (page: (typeof originPageOrder)[number]) => {
-    const nextIndex = originPageOrder.indexOf(page);
-    setOriginCarouselDirection(nextIndex >= activeOriginPageIndex ? 1 : -1);
-    setCreatorBrowser(page);
-  };
-  const shiftOriginPage = (direction: 1 | -1) => {
-    const nextIndex = Math.min(originPageOrder.length - 1, Math.max(0, activeOriginPageIndex + direction));
-    setOriginCarouselDirection(direction);
-    setCreatorBrowser(originPageOrder[nextIndex]);
-  };
 
   useEffect(() => {
     const currentMenuItem = creatorMenu.find((item) => item.id === creatorStep);
@@ -5688,7 +5671,7 @@ export function CreatorWorkspace({
                   ))}
                 </div>
               ) : null}
-              {!originCarouselActive && !fighterJourneyActive && activeContextGroups.length ? (
+              {!fighterJourneyActive && activeContextGroups.length ? (
                 <div className="creator-subtabs creator-context-tabs" aria-label="Section content navigation">
                   {activeContextGroups.map((group) => (
                     <div key={`context-group-${group.id}`} className="creator-context-group">
@@ -5714,227 +5697,7 @@ export function CreatorWorkspace({
               ) : null}
             </div>
           </section>
-          <div className={originCarouselActive ? "creator-main-panel creator-main-panel-clean creator-main-panel-flat origin-carousel-main" : "creator-main-panel creator-main-panel-clean creator-main-panel-flat"}>
-          {originCarouselActive ? (
-            <section className="origin-carousel-shell" aria-label="Origin setup">
-              <div className="origin-carousel-topline">
-                <div>
-                  <span className="mini-heading creator-section-label">Origin</span>
-                  <h3>{activeOriginPage === "identity" ? "Identity" : activeOriginPage === "lineage" ? "Race" : "Background"}</h3>
-                </div>
-                <div className="origin-carousel-progress" aria-label="Origin pages">
-                  {originPageOrder.map((page, index) => (
-                    <button
-                      key={`origin-page-dot-${page}`}
-                      type="button"
-                      className={activeOriginPage === page ? "origin-progress-dot active" : "origin-progress-dot"}
-                      onClick={() => navigateOriginPage(page)}
-                      aria-label={`Open ${page}`}
-                    >
-                      <span>{index + 1}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="origin-carousel-window">
-                <AnimatePresence mode="wait" custom={originCarouselDirection}>
-                  <motion.section
-                    key={activeOriginPage}
-                    className="origin-carousel-page"
-                    custom={originCarouselDirection}
-                    initial={{ x: originCarouselDirection > 0 ? 90 : -90, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: originCarouselDirection > 0 ? -90 : 90, opacity: 0 }}
-                    transition={{ duration: 0.28, ease: "easeOut" }}
-                  >
-                    {activeOriginPage === "identity" ? (
-                      <div className="origin-focus-card origin-identity-card">
-                        <div className="origin-page-title">
-                          <span>Start Here</span>
-                          <h4>{draft.name.trim() || "Unnamed Character"}</h4>
-                          <p>Name the character and choose the level. The rest of the creator can stay quiet until these basics are set.</p>
-                        </div>
-                        <label className="origin-name-field">
-                          <span>Character Name</span>
-                          <input
-                            type="text"
-                            value={draft.name}
-                            placeholder="Enter character name"
-                            onChange={(event) =>
-                              updateDraft((current) => ({
-                                ...current,
-                                name: event.target.value,
-                              }))
-                            }
-                          />
-                        </label>
-                        <div className="origin-level-focus">
-                          <div className="origin-level-head">
-                            <span>Level</span>
-                            <strong>{draft.level}</strong>
-                          </div>
-                          <div className="level-chooser origin-level-chooser">
-                            {Array.from({ length: 20 }, (_, index) => index + 1).map((level) => (
-                              <button
-                                key={`origin-level-${level}`}
-                                type="button"
-                                className={draft.level === level ? "level-pill active" : "level-pill"}
-                                onClick={() => applyLevelChange(level)}
-                              >
-                                {level}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="origin-mini-summary">
-                          <div>
-                            <span>Race</span>
-                            <strong>{currentStructuredLineage?.name ?? currentLineageGroup.name}</strong>
-                          </div>
-                          <div>
-                            <span>Background</span>
-                            <strong>{selectedBackground?.name ?? currentBackground.name}</strong>
-                          </div>
-                        </div>
-                      </div>
-                    ) : null}
-
-                    {activeOriginPage === "lineage" ? (
-                      <div className="origin-focus-card origin-selection-card">
-                        <div className="origin-page-title">
-                          <span>Choose Race</span>
-                          <h4>{currentStructuredLineage?.name ?? currentLineageGroup.name}</h4>
-                          <p>{currentStructuredLineage?.summary ?? currentLineageGroup.summary}</p>
-                        </div>
-                        <div className="origin-choice-grid origin-lineage-grid">
-                          {lineageCards.map((group) => (
-                            <button
-                              type="button"
-                              key={`origin-lineage-${group.id}`}
-                              className={
-                                draft.speciesId === group.subraceId || (!group.subraceId && currentLineageGroup.id === group.lineageId)
-                                  ? "origin-choice-tile active"
-                                  : "origin-choice-tile"
-                              }
-                              onClick={() => selectLineageCard(group)}
-                            >
-                              <span className="origin-choice-icon">
-                                <AppIcon name={group.icon as Parameters<typeof AppIcon>[0]["name"]} className="summary-icon" />
-                              </span>
-                              <strong>{group.name}</strong>
-                            </button>
-                          ))}
-                        </div>
-                        {visibleSubraceOptions.length ? (
-                          <div className="origin-subchoice-strip" aria-label="Subrace choices">
-                            {visibleSubraceOptions.map((item) => (
-                              <button
-                                key={`origin-subrace-${item.id}`}
-                                type="button"
-                                className={
-                                  item.id === "__none__"
-                                    ? !currentStructuredSublineage && !currentSubraceEntry
-                                      ? "origin-subchoice active"
-                                      : "origin-subchoice"
-                                    : (currentStructuredSublineage?.id ?? currentSubraceEntry?.id) === item.id
-                                      ? "origin-subchoice active"
-                                      : "origin-subchoice"
-                                }
-                                onClick={() => selectSubrace(item.id)}
-                              >
-                                {item.name}
-                              </button>
-                            ))}
-                          </div>
-                        ) : null}
-                        <div className="origin-info-strip">
-                          {currentStructuredLineage?.facts.size ? (
-                            <div><span>Size</span><strong>{structuredFactValue(currentStructuredLineage.facts.size)}</strong></div>
-                          ) : null}
-                          {currentStructuredLineage?.facts.speed ? (
-                            <div><span>Speed</span><strong>{structuredFactValue(currentStructuredLineage.facts.speed)}</strong></div>
-                          ) : null}
-                          {currentStructuredLineage?.facts.languages.values.length ? (
-                            <div><span>Languages</span><strong>{structuredFactValue(currentStructuredLineage.facts.languages)}</strong></div>
-                          ) : null}
-                        </div>
-                        <div className="origin-trait-preview">
-                          {(currentStructuredLineage?.features ?? []).slice(0, 3).map((feature) => (
-                            <article key={`origin-lineage-feature-${feature.id}`}>
-                              <strong>{feature.name}</strong>
-                              <span>{feature.summary}</span>
-                            </article>
-                          ))}
-                        </div>
-                      </div>
-                    ) : null}
-
-                    {activeOriginPage === "background" ? (
-                      <div className="origin-focus-card origin-selection-card">
-                        <div className="origin-page-title">
-                          <span>Choose Background</span>
-                          <h4>{selectedBackground?.name ?? "Background"}</h4>
-                          <p>{selectedBackground ? backgroundDescription(selectedBackground) : "Choose the life your character had before the adventure."}</p>
-                        </div>
-                        <div className="origin-choice-grid origin-background-grid">
-                          {content.backgrounds.map((item) => (
-                            <button
-                              type="button"
-                              key={`origin-background-${item.id}`}
-                              className={draft.backgroundId === item.id ? "origin-choice-tile active" : "origin-choice-tile"}
-                              onClick={() => selectBackground(item.id)}
-                            >
-                              <span className="origin-choice-icon">
-                                <AppIcon name="background" className="summary-icon" />
-                              </span>
-                              <strong>{item.name}</strong>
-                            </button>
-                          ))}
-                        </div>
-                        {selectedBackground ? (
-                          <div className="origin-info-strip">
-                            {backgroundMetaDescription(content, selectedBackground).slice(0, 3).map((meta) => (
-                              <div key={`origin-background-meta-${meta}`}>
-                                <span>{meta.split(":")[0]}</span>
-                                <strong>{meta.includes(":") ? meta.split(":").slice(1).join(":").trim() : meta}</strong>
-                              </div>
-                            ))}
-                          </div>
-                        ) : null}
-                        {customBackgroundActive ? (
-                          <div className="origin-custom-note">
-                            <strong>Custom background</strong>
-                            <span>Feature, skill, tool, language, and equipment details continue in their focused creator sections.</span>
-                          </div>
-                        ) : null}
-                      </div>
-                    ) : null}
-                  </motion.section>
-                </AnimatePresence>
-              </div>
-
-              <div className="origin-carousel-actions">
-                <button
-                  type="button"
-                  className="sheet-button secondary"
-                  onClick={() => shiftOriginPage(-1)}
-                  disabled={activeOriginPageIndex === 0}
-                >
-                  Previous
-                </button>
-                <span>{`${activeOriginPageIndex + 1} / ${originPageOrder.length}`}</span>
-                <button
-                  type="button"
-                  className="sheet-button"
-                  onClick={() => shiftOriginPage(1)}
-                  disabled={activeOriginPageIndex === originPageOrder.length - 1}
-                >
-                  Next
-                </button>
-              </div>
-            </section>
-          ) : null}
+          <div className="creator-main-panel creator-main-panel-clean creator-main-panel-flat">
           {fighterJourneyActive ? (
             <div className="creator-stack fighter-journey-stack">
               <AnimatePresence mode="wait" custom={fighterJourneyDirection}>
@@ -7393,7 +7156,7 @@ export function CreatorWorkspace({
             </div>
           ) : null}
 
-          {!originCarouselActive && !fighterJourneyActive && creatorStep === 0 && creatorBrowser === "identity" ? (
+          {!fighterJourneyActive && creatorStep === 0 && creatorBrowser === "identity" ? (
             <div className="creator-stack">
               <div className="creator-panel creator-panel-wide identity-rework-panel">
                 <div className="identity-rework-head">
@@ -7455,7 +7218,7 @@ export function CreatorWorkspace({
             </div>
           ) : null}
 
-          {!originCarouselActive && creatorStep === 0 && creatorBrowser === "lineage" ? (
+          {creatorStep === 0 && creatorBrowser === "lineage" ? (
             <div className="creator-stack">
               <section className="lineage-picker-shell">
                 <div className="lineage-grid">
@@ -7768,7 +7531,7 @@ export function CreatorWorkspace({
             </div>
           ) : null}
 
-          {!originCarouselActive && creatorStep === 0 && creatorBrowser === "subrace" ? (
+          {creatorStep === 0 && creatorBrowser === "subrace" ? (
             <div className="creator-stack">
               <section className="lineage-picker-shell">
                 <div className="identity-browser-head">
@@ -8060,7 +7823,7 @@ export function CreatorWorkspace({
             </div>
           ) : null}
 
-          {!originCarouselActive && creatorStep === 0 && creatorBrowser === "lineage-choices" ? (
+          {creatorStep === 0 && creatorBrowser === "lineage-choices" ? (
             <div className="creator-stack">
               <section className="creator-section-block">
                 {currentStructuredChoiceGroups.length ? (
@@ -8077,7 +7840,7 @@ export function CreatorWorkspace({
             </div>
           ) : null}
 
-          {!fighterJourneyActive && (creatorStep === 1 || (!originCarouselActive && creatorStep === 0 && creatorBrowser === "background") || (creatorStep === 2 && (creatorBrowser === "skills" || creatorBrowser === "fighter-asi" || creatorBrowser === "feats")) || (creatorStep === 3 && (creatorBrowser === "custom-background-tools" || creatorBrowser === "custom-background-languages" || creatorBrowser === "custom-background-equipment"))) ? (
+          {!fighterJourneyActive && (creatorStep === 1 || (creatorStep === 0 && creatorBrowser === "background") || (creatorStep === 2 && (creatorBrowser === "skills" || creatorBrowser === "fighter-asi" || creatorBrowser === "feats")) || (creatorStep === 3 && (creatorBrowser === "custom-background-tools" || creatorBrowser === "custom-background-languages" || creatorBrowser === "custom-background-equipment"))) ? (
             <div className="creator-stack">
                 <div
                   className={

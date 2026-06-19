@@ -70,7 +70,7 @@
       "id": "fey-step",
       "name": "Fey Step",
       "category": "trait",
-      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Your season also adds a special rider effect to this teleport."
+      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Your season adds a rider to the teleport: Autumn can charm up to two nearby creatures that fail a Wisdom save; Winter can frighten one nearby creature that fails a Wisdom save; Spring lets a willing creature you touch teleport instead of you; Summer deals fire damage equal to your proficiency bonus to chosen creatures within 5 feet after you arrive."
     },
     {
       "id": "keen-senses",
