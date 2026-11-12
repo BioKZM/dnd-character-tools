@@ -9357,3 +9357,6 @@ h2 .keyword-help-trigger,
 .keyword-help:focus-within .keyword-help-trigger::before {
   opacity: 1;
 }
+.class-overview-highlight {
+  align-content: start;
+}
