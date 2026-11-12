@@ -158,6 +158,8 @@ export type CharacterDraft = {
   skills: Skill[];
   actions: ActionItem[];
   inventory: string[];
+  /** Level up'ta atilan hit die sonuclari (level -> zar). Olmayan level'lar icin ortalama kullanilir. */
+  hpRolls?: Record<number, number>;
   /** Inventory'ye en son hangi background paketinin eklendigi. Degismedikce paket tekrar eklenmez (silinen esya geri gelmez). */
   appliedBackgroundEquipment?: string;
   features: FeatureItem[];

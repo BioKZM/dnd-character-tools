@@ -9050,3 +9050,112 @@ h2 .keyword-help-trigger,
 .dm-notes span {
   opacity: 0.75;
 }
+
+/* Faz 5: level up */
+.level-up-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(5, 7, 12, 0.72);
+}
+.level-up-dialog {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.level-up-head h2 {
+  margin: 4px 0 0;
+}
+.level-up-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.level-up-hp-modes,
+.level-up-roll-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.level-up-roll-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+.level-up-roll-row input {
+  width: 64px;
+}
+.level-up-hp-total {
+  font-weight: 700;
+}
+.level-up-gains,
+.level-up-tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.level-up-gains li,
+.level-up-tasks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.level-up-tasks li {
+  align-items: center;
+  justify-content: space-between;
+}
+.level-up-gains li div,
+.level-up-tasks li div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.level-up-gains span,
+.level-up-tasks span {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+.level-up-gain-kind {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem !important;
+  text-transform: uppercase;
+  background: rgba(217, 180, 90, 0.18);
+  opacity: 1 !important;
+}
+.level-up-gain-kind.improvement {
+  background: rgba(120, 170, 230, 0.18);
+}
+.level-up-gain-kind.subclass {
+  background: rgba(180, 130, 230, 0.18);
+}
+.level-up-muted {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+.level-up-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.level-up-pending {
+  border-color: rgba(217, 180, 90, 0.6) !important;
+}

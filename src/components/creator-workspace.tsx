@@ -11,6 +11,7 @@ import { LanguageChoicePanel } from "@/components/language-choice-panel";
 import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
 import type { DerivedStatDisplay } from "@/lib/character/build-sheet";
 import { OptionChoicePanel } from "@/components/option-choice-panel";
+import { clearCreatorJump, readCreatorJump } from "@/components/level-up-dialog";
 import type { EngineCatalog } from "@/lib/engine/collect";
 import { asiAbilityBonuses, featEligibility, featSlots, type FeatCheckContext } from "@/lib/engine/feats";
 import type { ClassDocBlock, ClassDocCollection, ClassDocSection, ClassDocTable } from "@/lib/content/class-docs";
@@ -2951,7 +2952,11 @@ export function CreatorWorkspace({
     () => new Map(classCuratedCollection.entries.map((entry) => [entry.id, entry])),
     [classCuratedCollection.entries],
   );
-  const [creatorBrowser, setCreatorBrowser] = useState<CreatorBrowser>("lineage");
+  // Level up'tan gelinirse ilgili sayfa acilir (sessionStorage'daki atlama bir kez kullanilir).
+  const [creatorBrowser, setCreatorBrowser] = useState<CreatorBrowser>(() => (readCreatorJump()?.browser as CreatorBrowser | undefined) ?? "lineage");
+  useEffect(() => {
+    clearCreatorJump();
+  }, []);
   const initialLineageGroup = lineageGroupForSpecies(lineageGroups, draft.speciesId) ?? lineageGroups[0];
   const initialSubrace = initialLineageGroup?.subraces.find((subrace) => subrace.id === draft.speciesId) ?? initialLineageGroup?.subraces[0] ?? null;
   const [selectedLineageId, setSelectedLineageId] = useState(initialLineageGroup?.id ?? "");

@@ -6,6 +6,8 @@ import { ClassPortrait } from "@/components/ui/class-portrait";
 import { AppIcon } from "@/components/ui/app-icon";
 import { buildSheetContent } from "@/lib/character/build-sheet";
 import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
+import { CREATOR_JUMP_KEY, LevelUpDialog, readCreatorJump, type LevelUpTask } from "@/components/level-up-dialog";
+import { useRouter } from "next/navigation";
 import { activeEntry, importCharacters, parseImport, saveActiveDraft, setActiveCharacter } from "@/lib/character/roster";
 import { emptyDraft, FULL_HP, stripLeakedDemoValues, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
@@ -15,6 +17,7 @@ import { SheetInventoryPanel } from "@/components/sheet-inventory-panel";
 import { availableChoices, languageChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
 import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
 import { computeArmorClass, mageArmorAvailable } from "@/lib/engine/armor-class";
+import { asiStatus, classHitPoints, hitDieAverage, levelGains } from "@/lib/engine/level-up";
 import { asiAbilityBonuses, asiFeatIds, migrateLegacyFeatIds, type FeatCheckContext } from "@/lib/engine/feats";
 import { deriveCharacter, hasProficiency, senseLabel, type DerivedCharacter } from "@/lib/engine/derive";
 import {
@@ -1022,12 +1025,9 @@ function buildSheetDraftFromSelection(
   const normalizedRangerChoices = normalizeRangerChoices(draft.rangerChoices, draft.level);
   const proficiencyBonus = proficiencyBonusForLevel(draft.level);
   const { abilities, modifiers } = finalAbilitiesForDraft(engine, draft, derived);
+  // Level 1 tam hit die, sonraki level'lar zar sonucu (draft.hpRolls) ya da ortalama.
   const maxHp = Math.max(
-    chosenClass.hitDie +
-      modifiers.CON +
-      (draft.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON) +
-      derived.hp.perLevel * draft.level +
-      derived.hp.flat,
+    classHitPoints(draft, chosenClass.hitDie, modifiers.CON) + derived.hp.perLevel * draft.level + derived.hp.flat,
     1,
   );
   const skills = defaultSkillOrder.map((skillId) => {
@@ -1239,12 +1239,7 @@ function buildDraftFromSelection(
   };
   const existingSkills = new Map(previous.skills.map((skill) => [skill.id, skill]));
 
-  const maxHp = Math.max(
-    chosenClass.hitDie +
-      modifiers.CON +
-      (previous.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON),
-    1,
-  );
+  const maxHp = Math.max(classHitPoints(previous, chosenClass.hitDie, modifiers.CON), 1);
   // Background paketi sadece background (ya da custom paket) degisince eklenir; oyuncunun sildigi esya geri gelmez.
   const backgroundEquipmentKey = isCustomBackground(chosenBackground.id)
     ? `${chosenBackground.id}:${customBackground.equipmentMode}:${customEquipmentBackground.id}`
@@ -1467,6 +1462,7 @@ export function PartyRoomDashboard({
   initialSpellReferenceCollection: SpellReferenceCollection;
   mode?: "creator" | "sheet";
 }) {
+  const router = useRouter();
   const isHydrated = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -1516,7 +1512,8 @@ export function PartyRoomDashboard({
   const [activityFilter, setActivityFilter] = useState<ActivityFilter>("all");
   const [activeTab, setActiveTab] = useState<InfoTab>("actions");
   const [actionFilter, setActionFilter] = useState<ActionFilter>("all");
-  const [creatorStep, setCreatorStep] = useState<CreatorStep>(0);
+  // Level up'taki "Choose" linkleri creator'i ilgili adimda acar.
+  const [creatorStep, setCreatorStep] = useState<CreatorStep>(() => (mode === "creator" ? readCreatorJump()?.step ?? 0 : 0));
   const jsonImportRef = useRef<HTMLInputElement | null>(null);
   const pdfImportRef = useRef<HTMLInputElement | null>(null);
   const filteredActivityLog = activityLog.filter((event) =>
@@ -2186,11 +2183,112 @@ export function PartyRoomDashboard({
     event.target.value = "";
   };
 
-  const levelUp = () => {
-    updateDraft((current) => ({
-      ...current,
-      level: Math.min(20, current.level + 1),
-    }));
+  // Level up: once ne kazanilacagi gosterilir, HP icin ortalama ya da zar secilir; sonra acik secimler listelenir.
+  const [levelUpPhase, setLevelUpPhase] = useState<"preview" | "tasks" | null>(null);
+  const [lastHpGain, setLastHpGain] = useState<number | null>(null);
+  const finalConModifier = sheetDraft.abilities.find((ability) => ability.id === "CON")?.modifier ?? 0;
+  const applyLevelUp = (roll: number | null) => {
+    const nextLevel = Math.min(20, draft.level + 1);
+    const average = hitDieAverage(currentClass.hitDie);
+    setLastHpGain(Math.max(1, (roll ?? average) + finalConModifier));
+    updateDraft((current) => {
+      const hpRolls = { ...(current.hpRolls ?? {}) };
+      if (roll !== null) {
+        hpRolls[nextLevel] = roll;
+      } else {
+        delete hpRolls[nextLevel];
+      }
+      return { ...current, level: nextLevel, hpRolls };
+    });
+    setLevelUpPhase("tasks");
+  };
+  const levelUpGains = draft.level < 20 ? levelGains(engineCatalog, draft, draft.level + 1) : [];
+  const levelUpTasks: LevelUpTask[] = (() => {
+    const tasks: LevelUpTask[] = [];
+    const subclassUnlockLevel = draft.classId === "warlock" ? 1 : 3;
+    if (currentCuratedClass?.subclasses.length && draft.level >= subclassUnlockLevel && !draft.selectedSubclassOptions.length) {
+      tasks.push({
+        id: "subclass",
+        label: currentCuratedClass.subclassHeading || "Subclass",
+        detail: "Pick your subclass.",
+        jump: { step: 1, browser: "subclass" },
+      });
+    }
+    asiStatus(engineCatalog, draft).open.forEach((level) => {
+      tasks.push({
+        id: `asi-${level}`,
+        label: `Level ${level} Ability Score Improvement`,
+        detail: "+2 to one ability, +1 to two, or a feat.",
+        jump: { step: 2, browser: "fighter-asi" },
+      });
+    });
+    if (draft.classId === "warlock" && draft.level >= 3 && !draft.pactBoonId) {
+      tasks.push({ id: "pact-boon", label: "Pact Boon", detail: "Choose your Pact Boon.", jump: { step: 1, browser: "warlock-pact" } });
+    }
+    const invocationCount = (draft.selectedInvocationIds ?? []).length;
+    if (warlockInvocationLimit > invocationCount) {
+      tasks.push({
+        id: "invocations",
+        label: "Eldritch Invocations",
+        detail: `${invocationCount} / ${warlockInvocationLimit} chosen.`,
+        jump: { step: 1, browser: "warlock-invocations" },
+      });
+    }
+    const knownSpells = draft.spellIds
+      .map((spellId) => initialContent.spells.find((spell) => spell.id === spellId))
+      .filter((spell): spell is ContentBundle["spells"][number] => Boolean(spell));
+    const cantripCount = knownSpells.filter((spell) => spell.level === 0).length;
+    const spellCount = knownSpells.length - cantripCount;
+    // Fighter sadece Eldritch Knight secildiyse buyu bilir (secilmemisken varsayilan subclass sayilmasin).
+    const castsSpells = draft.classId !== "fighter" || draft.selectedSubclassOptions.includes("eldritch-knight");
+    if (castsSpells && Number.isFinite(spellSelectionRules.cantripLimit) && cantripCount < spellSelectionRules.cantripLimit) {
+      tasks.push({
+        id: "cantrips",
+        label: "Cantrips",
+        detail: `${cantripCount} / ${spellSelectionRules.cantripLimit} known.`,
+        jump: { step: 1, browser: "spells" },
+      });
+    }
+    if (castsSpells && Number.isFinite(spellSelectionRules.totalKnownLimit) && spellCount < spellSelectionRules.totalKnownLimit) {
+      tasks.push({
+        id: "spells",
+        label: "Spells Known",
+        detail: `${spellCount} / ${spellSelectionRules.totalKnownLimit} known (up to level ${spellSelectionRules.maxSpellLevel}).`,
+        jump: { step: 1, browser: "spells" },
+      });
+    }
+    if (draft.classId === "warlock") {
+      availableMysticArcanumLevels(draft.level)
+        .filter((spellLevel) => !draft.mysticArcanumSelections?.[spellLevel])
+        .forEach((spellLevel) =>
+          tasks.push({
+            id: `arcanum-${spellLevel}`,
+            label: `Mystic Arcanum (level ${spellLevel})`,
+            detail: "Choose one spell.",
+            jump: { step: 1, browser: "spells" },
+          }),
+        );
+    }
+    availableChoices(draft, engineCatalog)
+      .filter((entry) => entry.selectedIds.length < (entry.choice.min ?? entry.choice.count))
+      .forEach((entry) =>
+        tasks.push({
+          id: `choice-${entry.choice.id}`,
+          label: `${entry.sourceName}: ${entry.choice.label}`,
+          detail: `${entry.selectedIds.length} / ${entry.choice.min ?? entry.choice.count} chosen.`,
+          jump: entry.choice.from.kind === "skill" ? { step: 2, browser: "skills" } : { step: 1, browser: "warlock-invocations" },
+        }),
+      );
+    return tasks;
+  })();
+  const jumpToCreator = (task: LevelUpTask) => {
+    try {
+      window.sessionStorage.setItem(CREATOR_JUMP_KEY, JSON.stringify(task.jump));
+    } catch {
+      // yok say
+    }
+    setLevelUpPhase(null);
+    router.push("/campaign/creator");
   };
 
   const broadcastCheck = async (label: string, bonus: number) => {
@@ -2237,6 +2335,25 @@ export function PartyRoomDashboard({
 
   return (
     <main className={`sheet-shell mode-${mode}`}>
+      {levelUpPhase ? (
+        <LevelUpDialog
+          phase={levelUpPhase}
+          currentLevel={draft.level}
+          className={currentClass.name}
+          hitDie={currentClass.hitDie}
+          hitDieAverage={hitDieAverage(currentClass.hitDie)}
+          conModifier={finalConModifier}
+          gains={levelUpGains}
+          tasks={levelUpTasks}
+          lastHpGain={levelUpPhase === "tasks" ? lastHpGain : null}
+          onConfirm={applyLevelUp}
+          onJump={jumpToCreator}
+          onClose={() => {
+            setLevelUpPhase(null);
+            setLastHpGain(null);
+          }}
+        />
+      ) : null}
       <div className="sheet-page">
         {mode === "creator" ? (
           <section className="creator-card">
@@ -2313,9 +2430,14 @@ export function PartyRoomDashboard({
 
           <div className="top-actions">
             <div className="top-actions-group">
-              <button className="sheet-button secondary" onClick={levelUp}>
+              <button className="sheet-button secondary" disabled={draft.level >= 20} onClick={() => setLevelUpPhase("preview")}>
                 Level Up
               </button>
+              {levelUpTasks.length ? (
+                <button className="sheet-button secondary level-up-pending" onClick={() => setLevelUpPhase("tasks")}>
+                  {`${levelUpTasks.length} choice${levelUpTasks.length === 1 ? "" : "s"} pending`}
+                </button>
+              ) : null}
               <button className="sheet-button secondary" onClick={shortRest}>
                 Short Rest
               </button>
