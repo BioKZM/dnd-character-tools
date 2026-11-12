@@ -1,9 +1,22 @@
+# dependencies / build output
 node_modules
 .next
 out
 dist
 coverage
-*.log
+*.tsbuildinfo
 next-env.d.ts
+
+# logs
+*.log
+
+# python (data scripts)
 .pythonlibs
-/scripts
+__pycache__/
+
+# local backups / zips - never commit
+*.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db

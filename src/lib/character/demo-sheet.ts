@@ -348,3 +348,44 @@ export const demoCharacter: CharacterDraft = {
     "Investigate runes before touching cursed objects.",
   ],
 };
+
+/**
+ * Yeni karakterin baslangic hali. Demo karakterin (Elira Voss) degerleri
+ * buraya sizmasin diye isim, secimler, feat/spell ve savunmalar bos.
+ * Yapisal alanlar (abilities, skills listesi) demo'dan geliyor ama hepsi
+ * buildDraftFromSelection icinde yeniden hesaplaniyor.
+ */
+export const emptyDraft: CharacterDraft = {
+  ...demoCharacter,
+  name: "New Character",
+  ancestry: "",
+  classLine: "",
+  classId: "",
+  speciesId: "",
+  backgroundId: "",
+  level: 1,
+  selectedSkillIds: [],
+  spellIds: [],
+  featIds: [],
+  currentHp: 0,
+  tempHp: 0,
+  defenses: [],
+  conditions: [],
+  proficiencies: { armor: [], weapons: [], tools: [], languages: [] },
+  inventory: [],
+  features: [],
+  notes: [],
+  background: "",
+};
+
+/** Eski surumlerde demo karakterden sizip localStorage'a yazilmis degerleri temizler. */
+export function stripLeakedDemoValues(draft: CharacterDraft): CharacterDraft {
+  const sameList = (left: string[] | undefined, right: string[]) =>
+    Array.isArray(left) && left.length === right.length && left.every((value, index) => value === right[index]);
+
+  return {
+    ...draft,
+    conditions: sameList(draft.conditions, demoCharacter.conditions) ? [] : draft.conditions ?? [],
+    defenses: [],
+  };
+}

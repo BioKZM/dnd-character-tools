@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { abilityIdSchema, grantSchema, spellUsesSchema } from "@/lib/engine/grants";
 
 export const classCuratedFeatureSchema = z.object({
   id: z.string(),
@@ -16,11 +17,14 @@ export const classCuratedFeatureSchema = z.object({
       }),
     )
     .default([]),
+  grants: z.array(grantSchema).default([]),
 });
 
 export const classCuratedSpellGrantSchema = z.object({
   unlockLevel: z.number().int().positive(),
   spells: z.array(z.string()).default([]),
+  /** "list": sadece secilebilir havuza eklenir (Warlock patron listeleri). "known": otomatik bilinir. */
+  uses: spellUsesSchema.default("known"),
 });
 
 export const classJourneyStageSchema = z.object({
@@ -91,6 +95,10 @@ export const classCuratedEntrySchema = z.object({
   summary: z.string(),
   multiclassRequirement: z.string(),
   hitDie: z.string(),
+  primaryAbilities: z.array(abilityIdSchema).default([]),
+  savingThrows: z.array(abilityIdSchema).default([]),
+  /** 1. level'da class'tan gelen proficiency'ler (armor, weapon, tool, save). */
+  startingGrants: z.array(grantSchema).default([]),
   hitPoints: z.record(z.string(), z.string()),
   proficiencies: z.record(z.string(), z.string()),
   spellcastingTable: classCuratedSpellTableSchema,

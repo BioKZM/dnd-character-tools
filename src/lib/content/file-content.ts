@@ -278,32 +278,13 @@ function readGroupedClasses(): ContentBundle["classes"] {
       id: entry.id,
       name: entry.name,
       hitDie: Number.parseInt(entry.hitDie.replace(/[^0-9]/g, ""), 10) || 0,
-      primaryAbilities:
-        entry.id === "bard"
-          ? ["CHA"]
-          : entry.id === "fighter"
-            ? ["STR", "DEX"]
-            : entry.id === "ranger"
-              ? ["DEX", "WIS"]
-              : entry.id === "warlock"
-                ? ["CHA"]
-                : [],
-      savingThrows:
-        entry.id === "bard"
-          ? ["DEX", "CHA"]
-          : entry.id === "fighter"
-            ? ["STR", "CON"]
-            : entry.id === "ranger"
-              ? ["STR", "DEX"]
-              : entry.id === "warlock"
-                ? ["WIS", "CHA"]
-                : [],
+      primaryAbilities: entry.primaryAbilities,
+      savingThrows: entry.savingThrows,
       featuresByLevel: entry.classFeatures.reduce<Record<string, { id: string; name: string; summary: string }[]>>(
         (accumulator, feature) => {
-          const levelMatch = entry.spellcastingTable.rows.find((row) => row[2]?.includes(feature.name));
-          const level = levelMatch?.[0]?.match(/^(\d+)/)?.[1] ?? "1";
+          const level = String(feature.unlockLevel ?? 1);
           accumulator[level] ??= [];
-          accumulator[level].push(feature);
+          accumulator[level].push({ id: feature.id, name: feature.name, summary: feature.summary });
           return accumulator;
         },
         {},
@@ -345,7 +326,8 @@ export function readNormalizedContent(): ContentBundle {
       source: entry.source,
       classes: entry.classes,
       subclassOptions: entry.subclassOptions,
-    })),
+    }))
+      .sort((left, right) => (left.level === right.level ? left.name.localeCompare(right.name) : left.level - right.level)),
   };
 
   return contentBundleSchema.parse(bundle);

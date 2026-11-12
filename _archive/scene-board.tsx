@@ -1,4 +1,4 @@
-import type { CampaignHubData } from "@/lib/campaign/campaign-hub";
+import type { CampaignHubData } from "./campaign-hub";
 
 export function SceneBoard({ data }: { data: CampaignHubData }) {
   return (

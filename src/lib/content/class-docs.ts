@@ -1,3 +1,4 @@
+// Sadece tipler: eski "class docs" verisi kaldirildi, creator-workspace bolunurken bu dosya da silinecek.
 export type ClassDocOption = {
   id: string;
   name: string;
@@ -63,7 +64,3 @@ export type ClassDocEntry = {
 };
 
 export type ClassDocCollection = Record<string, ClassDocEntry>;
-
-export function readClassDocCollection(): ClassDocCollection {
-  return {};
-}

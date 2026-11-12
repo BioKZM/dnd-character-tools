@@ -15,19 +15,43 @@
       "id": "detect-portal",
       "name": "Detect Portal",
       "unlockLevel": 3,
-      "summary": "As an action, you detect the distance and direction to the closest planar portal within 1 mile of you. Once used, you regain it after a short or long rest."
+      "summary": "As an action, you detect the distance and direction to the closest planar portal within 1 mile of you. Once used, you regain it after a short or long rest.",
+      "grants": [
+        {
+          "type": "resource",
+          "id": "detect-portal",
+          "name": "Detect Portal",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ]
     },
     {
       "id": "planar-warrior",
       "name": "Planar Warrior",
       "unlockLevel": 3,
-      "summary": "As a bonus action, choose one creature you can see within 30 feet. The next time you hit it this turn, the attack deals force damage and an extra 1d8 force damage, increasing to 2d8 at 11th level."
+      "summary": "As a bonus action, choose one creature you can see within 30 feet. The next time you hit it this turn, the attack deals force damage and an extra 1d8 force damage, increasing to 2d8 at 11th level.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Bonus action: mark a creature; next hit deals force damage and +1d8 (2d8 at 11th)."
+        }
+      ]
     },
     {
       "id": "ethereal-step",
       "name": "Ethereal Step",
       "unlockLevel": 7,
-      "summary": "As a bonus action, you can cast etherealness on yourself without a spell slot, but it ends at the end of the current turn. Once used, you regain it after a short or long rest."
+      "summary": "As a bonus action, you can cast etherealness on yourself without a spell slot, but it ends at the end of the current turn. Once used, you regain it after a short or long rest.",
+      "grants": [
+        {
+          "type": "resource",
+          "id": "ethereal-step",
+          "name": "Ethereal Step",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ]
     },
     {
       "id": "distant-strike",
@@ -45,23 +69,38 @@
   "expandedSpells": [
     {
       "unlockLevel": 3,
-      "spells": ["Protection from Evil and Good"]
+      "spells": [
+        "Protection from Evil and Good"
+      ],
+      "uses": "known"
     },
     {
       "unlockLevel": 5,
-      "spells": ["Misty Step"]
+      "spells": [
+        "Misty Step"
+      ],
+      "uses": "known"
     },
     {
       "unlockLevel": 9,
-      "spells": ["Haste"]
+      "spells": [
+        "Haste"
+      ],
+      "uses": "known"
     },
     {
       "unlockLevel": 13,
-      "spells": ["Banishment"]
+      "spells": [
+        "Banishment"
+      ],
+      "uses": "known"
     },
     {
       "unlockLevel": 17,
-      "spells": ["Teleportation Circle"]
+      "spells": [
+        "Teleportation Circle"
+      ],
+      "uses": "known"
     }
   ],
   "notes": []

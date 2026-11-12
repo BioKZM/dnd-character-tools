@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { grantSchema, optionPrerequisiteSchema } from "@/lib/engine/grants";
 
 export const classOptionEntrySchema = z.object({
   id: z.string(),
@@ -6,6 +7,9 @@ export const classOptionEntrySchema = z.object({
   summary: z.string(),
   shortLabel: z.string().optional(),
   keyFacts: z.array(z.string()).default([]),
+  source: z.string().optional(),
+  prerequisite: optionPrerequisiteSchema.optional(),
+  grants: z.array(grantSchema).default([]),
 });
 
 export const classOptionGroupSchema = z.object({

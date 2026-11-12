@@ -9,7 +9,13 @@
       "id": "psychic-blades",
       "name": "Psychic Blades",
       "unlockLevel": 3,
-      "summary": "When you join the College of Whispers at 3rd level, you gain the ability to make your weapon attacks magically toxic to a creature's mind. When you hit a creature with a weapon attack, you can expend one use of your Bardic Inspiration to deal an additional 2d6 psychic damage to that target. You can do so only once per round on your turn. The psychic damage increases when you reach certain levels in this class, increasing to 3d6 at 5th level, 5d6 at 10th level, and 8d6 at 15th level."
+      "summary": "When you join the College of Whispers at 3rd level, you gain the ability to make your weapon attacks magically toxic to a creature's mind. When you hit a creature with a weapon attack, you can expend one use of your Bardic Inspiration to deal an additional 2d6 psychic damage to that target. You can do so only once per round on your turn. The psychic damage increases when you reach certain levels in this class, increasing to 3d6 at 5th level, 5d6 at 10th level, and 8d6 at 15th level.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Spend a Bardic Inspiration on a hit to deal extra psychic damage (2d6, scaling)."
+        }
+      ]
     },
     {
       "id": "words-of-terror",
@@ -21,7 +27,16 @@
       "id": "mantle-of-whispers",
       "name": "Mantle of Whispers",
       "unlockLevel": 6,
-      "summary": "At 6th level, you gain the ability to adopt a humanoid's persona. When a humanoid dies within 30 feet of you, you can magically capture its shadow using your reaction. You retain this shadow until you use it or you finish a long rest. You can use the shadow as an action. When you do so, it vanishes, magically transforming into a disguise that appears on you. You now look like the dead person, but healthy and alive. This disguise lasts for 1 hour or until you end it as a bonus action. While you're in the disguise, you gain access to all information that the humanoid would freely share with a casual acquaintance. Such information includes general details on its background and personal life, but doesn't include secrets. The information is enough that you can pass yourself off as the person by drawing on its memories. Another creature can see through this disguise by succeeding on a Wisdom (Insight) check contested by your Charisma (Deception) check. You gain a +5 bonus to your check. Once you capture a shadow with this feature, you can't capture another one with it until you finish a short or long rest."
+      "summary": "At 6th level, you gain the ability to adopt a humanoid's persona. When a humanoid dies within 30 feet of you, you can magically capture its shadow using your reaction. You retain this shadow until you use it or you finish a long rest. You can use the shadow as an action. When you do so, it vanishes, magically transforming into a disguise that appears on you. You now look like the dead person, but healthy and alive. This disguise lasts for 1 hour or until you end it as a bonus action. While you're in the disguise, you gain access to all information that the humanoid would freely share with a casual acquaintance. Such information includes general details on its background and personal life, but doesn't include secrets. The information is enough that you can pass yourself off as the person by drawing on its memories. Another creature can see through this disguise by succeeding on a Wisdom (Insight) check contested by your Charisma (Deception) check. You gain a +5 bonus to your check. Once you capture a shadow with this feature, you can't capture another one with it until you finish a short or long rest.",
+      "grants": [
+        {
+          "type": "resource",
+          "id": "mantle-of-whispers",
+          "name": "Mantle of Whispers",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ]
     },
     {
       "id": "shadow-lore",

@@ -1,14 +1,7 @@
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import type { ContentBundle } from "@/lib/content/schema";
-import type { ClassDocCollection, ClassDocSpellGrant, ClassDocTable } from "@/lib/content/class-docs";
-import type { ClassCuratedCollection } from "@/lib/content/class-curated-schema";
-import type {
-  LineageCatalog,
-  LineageChoiceGroup,
-  LineageGrant,
-  LineageEntry as StructuredLineageEntry,
-  Sublineage as StructuredSublineage,
-} from "@/lib/data/lineages/schema";
+import type { EngineCatalog } from "@/lib/engine/collect";
+import { deriveCharacter, type DerivedCharacter, type DerivedSpell } from "@/lib/engine/derive";
 
 type BuiltAction = {
   id: string;
@@ -47,11 +40,6 @@ type DerivedStatDisplay = {
   bonusValue: number;
   tone: DerivedStatTone;
   breakdown: string[];
-};
-
-type SelectedLineageGrantEntry = {
-  sourceLabel: string;
-  grant: LineageGrant;
 };
 
 function uniqueById<T extends { id: string }>(items: T[]) {
@@ -133,62 +121,6 @@ function parseDamageFromText(summary: string) {
 function parseRangeFromText(summary: string) {
   const match = summary.match(/(\d+\s*ft\.?(?:\s*\/\s*\d+\s*ft\.?)?)/i);
   return match?.[1] ?? "Self";
-}
-
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
-function subclassMatchSlug(value: string) {
-  return slugify(
-    value
-      .replace(/\b(conclave|archetype|college|domain|circle|oath|tradition|path|spells)\b/gi, " ")
-      .replace(/\s+/g, " ")
-      .trim(),
-  );
-}
-
-function spellGrantsFromDocTables(tables: ClassDocTable[]) {
-  return tables.flatMap((table) =>
-    table.rows
-      .map((row) => {
-        const levelMatch = row[0]?.match(/(\d+)/);
-        if (!levelMatch || row.length < 2) {
-          return null;
-        }
-
-        const spells = row
-          .slice(1)
-          .flatMap((cell) => cell.split(/,\s*/))
-          .map((entry) => entry.trim())
-          .filter(Boolean)
-          .filter((entry) => entry !== "-");
-
-        if (!spells.length) {
-          return null;
-        }
-
-        return {
-          unlockLevel: Number(levelMatch[1]),
-          spells,
-        } satisfies ClassDocSpellGrant;
-      })
-      .filter((entry): entry is ClassDocSpellGrant => Boolean(entry)),
-  );
-}
-
-function uniqueSpellGrants(items: ClassDocSpellGrant[]) {
-  return items.filter(
-    (item, index, collection) =>
-      collection.findIndex(
-        (entry) =>
-          entry.unlockLevel === item.unlockLevel &&
-          entry.spells.join("|").toLowerCase() === item.spells.join("|").toLowerCase(),
-      ) === index,
-  );
 }
 
 function spellMatchesName(spellName: string, targetName: string) {
@@ -381,121 +313,55 @@ function calculatedArmorClass(content: ContentBundle, draft: CharacterDraft) {
     baselineArmorClass,
     currentValue,
     breakdown,
+    wearingArmor: "armor" in best && Boolean(best.armor),
   };
 }
 
-function findStructuredLineageForDraft(
-  lineageDataCatalog: LineageCatalog | undefined,
-  draft: CharacterDraft,
-): { lineage: StructuredLineageEntry | null; sublineage: StructuredSublineage | null } {
-  if (!lineageDataCatalog) {
-    return { lineage: null, sublineage: null };
-  }
-
-  const lineage =
-    lineageDataCatalog.entries.find((entry) => entry.id === draft.speciesId) ??
-    lineageDataCatalog.entries.find((entry) => entry.sublineages.some((sublineage) => sublineage.id === draft.speciesId)) ??
-    null;
-  const sublineage = lineage?.sublineages.find((entry) => entry.id === draft.speciesId) ?? null;
-  return { lineage, sublineage };
-}
-
-function selectedLineageGrantEntries(
-  draft: CharacterDraft,
-  lineage: StructuredLineageEntry | null,
-  sublineage: StructuredSublineage | null,
-): SelectedLineageGrantEntry[] {
-  const groups: LineageChoiceGroup[] = [...(lineage?.choiceGroups ?? []), ...(sublineage?.choiceGroups ?? [])];
-
-  return groups.flatMap((group) => {
-    const selectedIds = draft.lineageChoices[group.id] ?? [];
-    return group.options
-      .filter((option) => selectedIds.includes(option.id))
-      .flatMap((option) => option.grants.map((grant) => ({ sourceLabel: option.label, grant })));
-  });
-}
-
-function deriveMovementStats(
-  draft: CharacterDraft,
-  lineageDataCatalog: LineageCatalog | undefined,
-): { walkingSpeed: DerivedStatDisplay; extraMovementModes: DerivedStatDisplay[] } {
-  const { lineage, sublineage } = findStructuredLineageForDraft(lineageDataCatalog, draft);
-  const selectedGrantEntries = selectedLineageGrantEntries(draft, lineage, sublineage);
-
-  const lineageBaseWalk = lineage?.facts.speed?.walk ?? parseFeetValue(draft.speed);
-  let currentWalk = sublineage?.facts.speed?.walk ?? lineageBaseWalk;
-  const walkBreakdown = [`Base lineage speed: ${formatFeet(lineageBaseWalk)}`];
-
-  if (sublineage?.facts.speed?.walk && sublineage.facts.speed.walk !== lineageBaseWalk) {
-    const delta = sublineage.facts.speed.walk - lineageBaseWalk;
-    walkBreakdown.push(`${sublineage.name}: ${delta >= 0 ? "+" : ""}${delta} ft.`);
-  }
-
-  const extraMovementModes = new Map<string, { currentValue: number; breakdown: string[] }>();
-
-  selectedGrantEntries.forEach(({ sourceLabel, grant }) => {
-    if (grant.type !== "movement") {
-      return;
-    }
-
-    if (grant.mode === "walk") {
-      if (grant.operation === "set") {
-        const delta = grant.value - currentWalk;
-        currentWalk = grant.value;
-        walkBreakdown.push(`${sourceLabel}: ${delta >= 0 ? "+" : ""}${delta} ft. (set to ${formatFeet(grant.value)})`);
-        return;
-      }
-
-      currentWalk += grant.value;
-      walkBreakdown.push(`${sourceLabel}: +${grant.value} ft.`);
-      return;
-    }
-
-    const existing = extraMovementModes.get(grant.mode) ?? {
-      currentValue: 0,
-      breakdown: [`Base ${grant.mode} speed: 0 ft.`],
-    };
-
-    if (grant.operation === "set") {
-      const delta = grant.value - existing.currentValue;
-      existing.currentValue = grant.value;
-      existing.breakdown.push(`${sourceLabel}: ${delta >= 0 ? "+" : ""}${delta} ft. (set to ${formatFeet(grant.value)})`);
-    } else {
-      existing.currentValue += grant.value;
-      existing.breakdown.push(`${sourceLabel}: +${grant.value} ft.`);
-    }
-
-    extraMovementModes.set(grant.mode, existing);
-  });
+function deriveMovementStats(derived: DerivedCharacter): { walkingSpeed: DerivedStatDisplay; extraMovementModes: DerivedStatDisplay[] } {
+  const walk = derived.speeds.find((speed) => speed.mode === "walk");
+  const baseWalk = Number.parseInt(walk?.breakdown[0]?.match(/(\d+) ft\./)?.[1] ?? "", 10) || walk?.value || 30;
+  const currentWalk = walk?.value ?? baseWalk;
 
   const walkingSpeed: DerivedStatDisplay = {
     id: "walking-speed",
     label: "Walking Speed",
     displayValue: formatFeet(currentWalk),
-    baseValue: lineageBaseWalk,
+    baseValue: baseWalk,
     currentValue: currentWalk,
-    bonusValue: currentWalk - lineageBaseWalk,
-    tone: derivedStatTone(lineageBaseWalk, currentWalk),
-    breakdown: walkBreakdown,
+    bonusValue: currentWalk - baseWalk,
+    tone: derivedStatTone(baseWalk, currentWalk),
+    breakdown: walk?.breakdown ?? [],
   };
 
   return {
     walkingSpeed,
-    extraMovementModes: Array.from(extraMovementModes.entries()).map(([mode, entry]) => ({
-      id: `${mode}-speed`,
-      label: `${mode.charAt(0).toUpperCase() + mode.slice(1)} Speed`,
-      displayValue: formatFeet(entry.currentValue),
-      baseValue: 0,
-      currentValue: entry.currentValue,
-      bonusValue: entry.currentValue,
-      tone: derivedStatTone(0, entry.currentValue),
-      breakdown: entry.breakdown,
-    })),
+    extraMovementModes: derived.speeds
+      .filter((speed) => speed.mode !== "walk" && speed.value > 0)
+      .map((speed) => ({
+        id: `${speed.mode}-speed`,
+        label: `${speed.mode.charAt(0).toUpperCase() + speed.mode.slice(1)} Speed`,
+        displayValue: formatFeet(speed.value),
+        baseValue: 0,
+        currentValue: speed.value,
+        bonusValue: speed.value,
+        tone: derivedStatTone(0, speed.value),
+        breakdown: speed.breakdown,
+      })),
   };
 }
 
-function deriveArmorClassStat(content: ContentBundle, draft: CharacterDraft): DerivedStatDisplay {
-  const calculated = calculatedArmorClass(content, draft);
+function deriveArmorClassStat(content: ContentBundle, draft: CharacterDraft, derived: DerivedCharacter): DerivedStatDisplay {
+  const base = calculatedArmorClass(content, draft);
+  const calculated = { ...base, breakdown: [...base.breakdown] };
+  derived.armorClassBonuses.forEach((bonus) => {
+    const needsArmor = bonus.condition?.toLowerCase().includes("armor") ?? false;
+    if (needsArmor && !base.wearingArmor) {
+      calculated.breakdown.push(`${bonus.source}: +${bonus.bonus} (${bonus.condition}, not active)`);
+      return;
+    }
+    calculated.currentValue += bonus.bonus;
+    calculated.breakdown.push(`${bonus.source}: +${bonus.bonus}${bonus.condition ? ` (${bonus.condition})` : ""}`);
+  });
 
   return {
     id: "armor-class",
@@ -509,94 +375,26 @@ function deriveArmorClassStat(content: ContentBundle, draft: CharacterDraft): De
   };
 }
 
-function autoAddedSpellSources(
-  content: ContentBundle,
-  draft: CharacterDraft,
-  classDocs?: ClassDocCollection,
-  classCuratedCollection?: ClassCuratedCollection,
-) {
-  const results: SpellActionSource[] = [];
-  const selectedSubclassId = draft.selectedSubclassOptions[0] ?? null;
-  const currentCuratedClass = draft.classId
-    ? classCuratedCollection?.entries.find((entry) => entry.id === draft.classId) ?? null
-    : null;
-  const currentCuratedSubclass =
-    selectedSubclassId && currentCuratedClass
-      ? currentCuratedClass.subclasses.find((entry) => entry.id === selectedSubclassId) ?? null
-      : null;
-  const currentDocClass = draft.classId ? classDocs?.[draft.classId] : undefined;
-  const currentDocSubclass =
-    selectedSubclassId && currentDocClass
-      ? currentDocClass.subclasses.find(
-          (entry) =>
-            entry.id === selectedSubclassId ||
-            slugify(entry.name) === selectedSubclassId ||
-            subclassMatchSlug(entry.name) === selectedSubclassId,
-        ) ?? null
-      : null;
+const SPELL_USE_LABELS: Record<DerivedSpell["uses"], string> = {
+  at_will: "at will",
+  long_rest: "1 / long rest",
+  known: "always known",
+  list: "spell list",
+};
 
-  if (draft.classId === "warlock" && selectedSubclassId && classCuratedCollection) {
-    const grants = (currentCuratedSubclass?.expandedSpells ?? []).filter((entry) => draft.level >= entry.unlockLevel);
-    grants.forEach((grant) => {
-      grant.spells.forEach((spellName) => {
-        const spell = content.spells.find((entry) => spellMatchesName(entry.name, spellName));
-        if (spell) {
-          results.push({ spellId: spell.id, sourceLabel: "Auto Added from Pact Magic" });
-        }
-      });
-    });
-  }
-
-  if (draft.classId !== "warlock" && currentCuratedSubclass) {
-    currentCuratedSubclass.expandedSpells
-      .filter((entry) => draft.level >= entry.unlockLevel)
-      .forEach((grant) => {
-        grant.spells.forEach((spellName) => {
-          const spell = content.spells.find((entry) => spellMatchesName(entry.name, spellName));
-          if (spell) {
-            results.push({ spellId: spell.id, sourceLabel: "Auto Added from subclass magic" });
-          }
-        });
-      });
-  }
-
-  if (draft.classId === "ranger" && currentDocClass) {
-    const subclassGrants = uniqueSpellGrants([
-      ...(currentDocSubclass?.grantedSpells ?? []),
-      ...spellGrantsFromDocTables(currentDocSubclass?.sections.flatMap((section) => section.tables) ?? []),
-    ]).filter((entry) => draft.level >= entry.unlockLevel);
-
-    subclassGrants.forEach((grant) => {
-      grant.spells.forEach((spellName) => {
-        const spell = content.spells.find((entry) => spellMatchesName(entry.name, spellName));
-        if (spell) {
-          results.push({ spellId: spell.id, sourceLabel: "Auto Added from subclass magic" });
-        }
-      });
-    });
-
-    if (draft.rangerChoices?.awarenessMode === "primal") {
-      const primalAwarenessGrants = uniqueSpellGrants([
-        ...(currentDocClass.baseGrantedSpells ?? []),
-        ...spellGrantsFromDocTables(
-          currentDocClass.baseSectionEntries["primal-awareness"]?.tables ??
-            currentDocClass.baseSectionEntries["primeval-awareness"]?.tables ??
-            [],
-        ),
-      ]).filter((entry) => draft.level >= entry.unlockLevel);
-
-      primalAwarenessGrants.forEach((grant) => {
-        grant.spells.forEach((spellName) => {
-          const spell = content.spells.find((entry) => spellMatchesName(entry.name, spellName));
-          if (spell) {
-            results.push({ spellId: spell.id, sourceLabel: "Auto Added from Primal Awareness" });
-          }
-        });
-      });
-    }
-  }
-
-  return uniqueSpellActionSources(results);
+/** Lineage, subclass, invocation, feat vb. kaynaklardan otomatik gelen buyuler (ortak motordan). */
+function grantedSpellSources(content: ContentBundle, derived: DerivedCharacter): SpellActionSource[] {
+  return uniqueSpellActionSources(
+    derived.spells
+      .filter((spell) => spell.uses !== "list")
+      .map((spell) => {
+        const match =
+          content.spells.find((entry) => entry.id === spell.spellId) ??
+          content.spells.find((entry) => spellMatchesName(entry.name, spell.spellId.replace(/-/g, " ")));
+        return match ? { spellId: match.id, sourceLabel: `${spell.source} · ${SPELL_USE_LABELS[spell.uses]}` } : null;
+      })
+      .filter((entry): entry is SpellActionSource => Boolean(entry)),
+  );
 }
 
 function isActionableFeatureSummary(summary: string) {
@@ -1021,13 +819,9 @@ function fightingStyleSummary(styleId: string | null | undefined) {
   return `${fallbackName}. Selected fighting style.`;
 }
 
-export function buildSheetContent(
-  content: ContentBundle,
-  draft: CharacterDraft,
-  classDocs?: ClassDocCollection,
-  classCuratedCollection?: ClassCuratedCollection,
-  lineageDataCatalog?: LineageCatalog,
-) {
+export function buildSheetContent(content: ContentBundle, draft: CharacterDraft, engine: EngineCatalog) {
+  const classCuratedCollection = engine.classes;
+  const derived = deriveCharacter(draft, engine);
   const chosenClass = content.classes.find((item) => item.id === draft.classId);
   const chosenSpecies = content.species.find((item) => item.id === draft.speciesId);
   const chosenBackground = content.backgrounds.find(
@@ -1057,7 +851,7 @@ export function buildSheetContent(
     ...Object.values(draft.mysticArcanumSelections ?? {})
       .filter((spellId): spellId is string => typeof spellId === "string" && Boolean(spellId))
       .map((spellId) => ({ spellId, sourceLabel: "Mystic Arcanum" })),
-    ...autoAddedSpellSources(content, draft, classDocs, classCuratedCollection),
+    ...grantedSpellSources(content, derived),
   ]);
   const learnedSpells = learnedSpellSources
     .map((entry) => {
@@ -1065,9 +859,8 @@ export function buildSheetContent(
       return spell ? { spell, sourceLabel: entry.sourceLabel } : null;
     })
     .filter((entry): entry is { spell: ContentBundle["spells"][number]; sourceLabel: string } => Boolean(entry));
-  const selectedFeats = content.feats.filter((feat) =>
-    draft.featIds.includes(feat.id),
-  );
+  // Taslakta secilen feat'ler + background gibi kaynaklarin verdigi feat'ler.
+  const selectedFeats = content.feats.filter((feat) => derived.featIds.includes(feat.id));
   const selectedSubclassId = draft.selectedSubclassOptions[0] ?? null;
   const currentCuratedClass = classCuratedCollection?.entries.find((entry) => entry.id === draft.classId) ?? null;
   const currentCuratedSubclass =
@@ -1112,13 +905,29 @@ export function buildSheetContent(
       })) ?? [],
     );
 
-  const featFeatures = selectedFeats.map((feat) => ({
-    id: feat.id,
-    name: feat.name,
-    kind: "Feat" as const,
-    summary: feat.summary,
-    source: "Feat",
-  }));
+  const featFeatures = selectedFeats.map((feat) => {
+    const grantedBy = derived.sources.find(
+      (source) => source.kind !== "feat" && source.grants.some((grant) => grant.type === "feat" && grant.featId === feat.id),
+    );
+    return {
+      id: feat.id,
+      name: feat.name,
+      kind: "Feat" as const,
+      summary: feat.summary,
+      source: grantedBy && !draft.featIds.includes(feat.id) ? `Feat (from ${grantedBy.name})` : "Feat",
+    };
+  });
+
+  // Invocation ve Pact Boon gibi secilen opsiyonlar (eskiden sheet'te hic gorunmuyordu).
+  const optionFeatures = derived.sources
+    .filter((source) => source.showAsFeature)
+    .map((source) => ({
+      id: `${source.kind}-${source.id}`,
+      name: source.name,
+      kind: "Feature" as const,
+      summary: source.summary,
+      source: source.kind === "invocation" ? "Eldritch Invocation" : source.kind === "pact-boon" ? "Pact Boon" : source.kind,
+    }));
 
   const manualFeatures = (draft.features ?? []).map((feature) => ({
     id: `draft-feature-${feature.id}`,
@@ -1138,6 +947,7 @@ export function buildSheetContent(
     ...classFeatures,
     ...subclassFeatures,
     ...featFeatures,
+    ...optionFeatures,
     ...rangerChoiceFeatures(draft),
     ...rangerTerrainFeatures(draft),
     ...rangerAdditionalModeFeatures(draft),
@@ -1175,8 +985,8 @@ export function buildSheetContent(
     ...buildFeatureActions(builtFeatures),
   ]);
 
-  const movementStats = deriveMovementStats(draft, lineageDataCatalog);
-  const armorClassStat = deriveArmorClassStat(content, draft);
+  const movementStats = deriveMovementStats(derived);
+  const armorClassStat = deriveArmorClassStat(content, draft, derived);
 
   return {
     className: chosenClass?.name ?? draft.classLine,

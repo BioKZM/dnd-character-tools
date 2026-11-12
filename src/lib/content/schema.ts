@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { grantSchema } from "@/lib/engine/grants";
 
 export const featureSchema = z.object({
   id: z.string(),
@@ -95,6 +96,7 @@ export const backgroundSchema = z.object({
     })
     .default({ fixed: [], choices: [] }),
   equipment: z.array(z.string()).default([]),
+  grants: z.array(grantSchema).default([]),
 });
 
 export const languageSchema = z.object({
@@ -182,6 +184,7 @@ export const featSchema = z.object({
   source: z.string().optional(),
   prerequisite: z.string().optional(),
   isRacialFeat: z.boolean().optional(),
+  grants: z.array(grantSchema).default([]),
   detailParagraphs: z.array(z.string()).default([]),
   detailTables: z
     .array(

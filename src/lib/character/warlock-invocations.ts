@@ -1,98 +1,67 @@
+import type { ClassOptionEntry } from "@/lib/content/class-options-schema";
+import type { OptionPrerequisite } from "@/lib/engine/grants";
+
 export type InvocationRequirementContext = {
   level: number;
   pactBoonId: string | null;
   spellIds: string[];
 };
 
-const DESCRIPTION_STARTERS = [
-  "When ",
-  "You ",
-  "As ",
-  "Once ",
-  "While ",
-  "Choose ",
-  "A ",
-  "Your ",
-  "Using ",
-  "If ",
-  "The ",
-  "Unless ",
-  "With ",
-  "On ",
-];
-
-function normalizeWhitespace(value: string) {
-  return value.replace(/\s+/g, " ").trim();
+function titleCase(value: string) {
+  return value
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }
 
-function findFirstBoundaryIndex(value: string) {
-  const indexes = DESCRIPTION_STARTERS.map((starter) => value.indexOf(starter)).filter((index) => index >= 0);
-  return indexes.length ? Math.min(...indexes) : -1;
+/** Yapisal on kosulu ekranda gosterilecek metne cevirir. */
+export function invocationPrerequisiteLabel(prerequisite: OptionPrerequisite | undefined) {
+  if (!prerequisite) {
+    return null;
+  }
+  if (prerequisite.text) {
+    return prerequisite.text;
+  }
+
+  const parts: string[] = [];
+  if (prerequisite.level) {
+    const suffix = prerequisite.level === 1 ? "st" : prerequisite.level === 2 ? "nd" : prerequisite.level === 3 ? "rd" : "th";
+    parts.push(`${prerequisite.level}${suffix} level`);
+  }
+  if (prerequisite.pactBoon) {
+    parts.push(`${titleCase(prerequisite.pactBoon)} feature`);
+  }
+  if (prerequisite.spellId) {
+    parts.push(`${prerequisite.spellId.replace(/-/g, " ")} cantrip`);
+  }
+  return parts.length ? parts.join(", ") : null;
 }
 
-export function parseWarlockInvocationSummary(summary: string) {
-  let remaining = normalizeWhitespace(summary);
-  let source: string | null = null;
-  let prerequisite: string | null = null;
-
-  if (remaining.startsWith("Source:")) {
-    const afterSource = remaining.slice("Source:".length).trim();
-    const prerequisiteIndex = afterSource.indexOf("Prerequisite:");
-    const descriptionIndex = findFirstBoundaryIndex(afterSource);
-    const sourceEndCandidates = [prerequisiteIndex, descriptionIndex].filter((index) => index >= 0);
-    const sourceEnd = sourceEndCandidates.length ? Math.min(...sourceEndCandidates) : afterSource.length;
-    source = normalizeWhitespace(afterSource.slice(0, sourceEnd));
-    remaining = normalizeWhitespace(afterSource.slice(sourceEnd));
-  }
-
-  if (remaining.startsWith("Prerequisite:")) {
-    const afterPrerequisite = remaining.slice("Prerequisite:".length).trim();
-    const descriptionIndex = findFirstBoundaryIndex(afterPrerequisite);
-    const prerequisiteEnd = descriptionIndex >= 0 ? descriptionIndex : afterPrerequisite.length;
-    prerequisite = normalizeWhitespace(afterPrerequisite.slice(0, prerequisiteEnd));
-    remaining = normalizeWhitespace(afterPrerequisite.slice(prerequisiteEnd));
-  }
-
+/** Invocation kartinin gosterim bilgisi. Eskiden ham Wikidot metninden regex'le ayristiriliyordu. */
+export function parseWarlockInvocationSummary(option: ClassOptionEntry) {
   return {
-    source,
-    prerequisite,
-    description: remaining,
+    source: option.source ?? null,
+    prerequisite: invocationPrerequisiteLabel(option.prerequisite),
+    requirement: option.prerequisite,
+    description: option.summary,
   };
 }
 
 export function warlockInvocationMeetsPrerequisite(
-  prerequisite: string | null | undefined,
+  prerequisite: OptionPrerequisite | undefined,
   context: InvocationRequirementContext,
 ) {
   if (!prerequisite) {
     return true;
   }
-
-  const normalized = prerequisite.toLowerCase();
-  const levelRequirement = normalized.match(/(\d+)(?:st|nd|rd|th)\s+level/);
-  if (levelRequirement && context.level < Number(levelRequirement[1])) {
+  if (prerequisite.level && context.level < prerequisite.level) {
     return false;
   }
-
-  if (normalized.includes("pact of the blade feature") && context.pactBoonId !== "pact-of-the-blade") {
+  if (prerequisite.pactBoon && context.pactBoonId !== prerequisite.pactBoon) {
     return false;
   }
-
-  if (normalized.includes("pact of the chain feature") && context.pactBoonId !== "pact-of-the-chain") {
+  if (prerequisite.spellId && !context.spellIds.includes(prerequisite.spellId)) {
     return false;
   }
-
-  if (normalized.includes("pact of the tome feature") && context.pactBoonId !== "pact-of-the-tome") {
-    return false;
-  }
-
-  if (normalized.includes("pact of the talisman feature") && context.pactBoonId !== "pact-of-the-talisman") {
-    return false;
-  }
-
-  if (normalized.includes("eldritch blast cantrip") && !context.spellIds.includes("eldritch-blast")) {
-    return false;
-  }
-
   return true;
 }

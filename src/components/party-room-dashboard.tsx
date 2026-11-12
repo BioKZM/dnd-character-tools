@@ -6,19 +6,18 @@ import { ClassPortrait } from "@/components/ui/class-portrait";
 import { AppIcon } from "@/components/ui/app-icon";
 import { buildSheetContent } from "@/lib/character/build-sheet";
 import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
-import { demoCharacter, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
+import { emptyDraft, stripLeakedDemoValues, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
+import type { EngineCatalog } from "@/lib/engine/collect";
+import { deriveCharacter, hasProficiency, senseLabel, type DerivedCharacter } from "@/lib/engine/derive";
 import {
-  parseWarlockInvocationSummary,
   warlockInvocationMeetsPrerequisite,
 } from "@/lib/character/warlock-invocations";
-import type { ClassDocCollection } from "@/lib/content/class-docs";
 import type { ClassCuratedCollection, ResolvedClassCuratedEntry } from "@/lib/content/class-curated-schema";
 import type { ClassOptionCollection } from "@/lib/content/class-options-schema";
 import type { CreatorOptions } from "@/lib/content/creator-options";
 import type { LineageCollection } from "@/lib/content/lineage-schema";
 import type { ContentBundle } from "@/lib/content/schema";
-import type { RawBookManifest } from "@/lib/content/raw-books";
 import type { SpellReferenceCollection } from "@/lib/content/spell-reference";
 type LocalActivity = {
   id: string;
@@ -906,17 +905,18 @@ function lineageSkillProficiencyIds(lineageDataCatalog: LineageCatalog | undefin
   );
 }
 
+
 function resolvedLineageData(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
   const lineage =
     lineageDataCatalog?.entries.find((entry) => entry.id === draft.speciesId) ??
     lineageDataCatalog?.entries.find((entry) => entry.sublineages.some((sublineage) => sublineage.id === draft.speciesId)) ??
     null;
+    
   const sublineage = lineage?.sublineages.find((entry) => entry.id === draft.speciesId) ?? null;
 
   return { lineage, sublineage };
 }
-
-function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
+function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft, derived?: DerivedCharacter) {
   const bonuses = new Map<AbilityId, number>();
   const addBonus = (ability: AbilityId, amount: number) => {
     bonuses.set(ability, (bonuses.get(ability) ?? 0) + amount);
@@ -982,11 +982,14 @@ function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, dra
     addBonus(ability, amount);
   });
 
+  // Feat / invocation gibi lineage disi kaynaklardan gelen stat bonuslari (ortak motor).
+  derived?.abilityBonuses.forEach((bonus) => addBonus(bonus.ability, bonus.amount));
+
   return bonuses;
 }
 
-function finalAbilitiesForDraft(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
-  const bonuses = finalAbilityBonuses(lineageDataCatalog, draft);
+function finalAbilitiesForDraft(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft, derived?: DerivedCharacter) {
+  const bonuses = finalAbilityBonuses(lineageDataCatalog, draft, derived);
   const abilities = draft.abilities.map((ability) => {
     const score = ability.score + (bonuses.get(ability.id) ?? 0);
     return {
@@ -1035,8 +1038,11 @@ function buildSheetDraftFromSelection(
   content: ContentBundle,
   creatorOptions: CreatorOptions,
   draft: CharacterDraft,
-  lineageDataCatalog?: LineageCatalog,
+  engine: EngineCatalog,
 ): CharacterDraft {
+  const lineageDataCatalog = engine.lineages;
+  // Ortak motor: lineage, class, subclass, invocation, feat ve background grant'leri tek yerden.
+  const derived = deriveCharacter(draft, engine);
   const chosenClass = content.classes.find((item) => item.id === draft.classId) ?? content.classes[0];
   const chosenBackground =
     content.backgrounds.find((item) => item.id === draft.backgroundId) ?? content.backgrounds[0];
@@ -1047,11 +1053,13 @@ function buildSheetDraftFromSelection(
   const lineageSkillProficiencies = lineageSkillProficiencyIds(lineageDataCatalog, draft);
   const normalizedRangerChoices = normalizeRangerChoices(draft.rangerChoices, draft.level);
   const proficiencyBonus = proficiencyBonusForLevel(draft.level);
-  const { abilities, modifiers } = finalAbilitiesForDraft(lineageDataCatalog, draft);
+  const { abilities, modifiers } = finalAbilitiesForDraft(lineageDataCatalog, draft, derived);
   const maxHp = Math.max(
     chosenClass.hitDie +
       modifiers.CON +
-      (draft.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON),
+      (draft.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON) +
+      derived.hp.perLevel * draft.level +
+      derived.hp.flat,
     1,
   );
   const skills = defaultSkillOrder.map((skillId) => {
@@ -1063,11 +1071,12 @@ function buildSheetDraftFromSelection(
       activeBackgroundSkillIds.includes(skillId) ||
       lineageSkillProficiencies.includes(skillId) ||
       draft.selectedSkillIds.includes(skillId) ||
-      false;
+      hasProficiency(derived, "skill", skillId);
     const expertise =
-      chosenClass.id === "ranger" &&
-      normalizedRangerChoices.favoredTerrainMode === "deft" &&
-      normalizedRangerChoices.cannySkillId === skillId &&
+      ((chosenClass.id === "ranger" &&
+        normalizedRangerChoices.favoredTerrainMode === "deft" &&
+        normalizedRangerChoices.cannySkillId === skillId) ||
+        derived.expertise.some((entry) => entry.skill === skillId)) &&
       proficient;
 
     return {
@@ -1085,24 +1094,46 @@ function buildSheetDraftFromSelection(
     };
   });
 
+  const saveProficient = (ability: AbilityId) =>
+    chosenClass.savingThrows.includes(ability) || hasProficiency(derived, "save", ability);
+  const mergeNames = (existing: string[], extra: { value: string }[]) => {
+    const seen = new Set(existing.map((value) => value.toLowerCase()));
+    return [...existing, ...extra.map((entry) => entry.value).filter((value) => !seen.has(value.toLowerCase()) && seen.add(value.toLowerCase()))];
+  };
+
   return {
     ...draft,
     abilities,
     proficiencyBonus,
-    initiative: modifiers.DEX,
+    initiative: modifiers.DEX + derived.initiative.bonus,
     armorClass: calculatedArmorClass(content, draft.inventory, modifiers.DEX),
     maxHp,
     currentHp: Math.min(draft.currentHp, maxHp),
     savingThrows: (["STR", "DEX", "CON", "INT", "WIS", "CHA"] as AbilityId[]).map((ability) => ({
       ability,
-      bonus: modifiers[ability] + (chosenClass.savingThrows.includes(ability) ? proficiencyBonus : 0),
-      proficient: chosenClass.savingThrows.includes(ability),
-      breakdown: chosenClass.savingThrows.includes(ability)
-        ? `${abilityLabels[ability]} modifier + class save proficiency.`
+      bonus: modifiers[ability] + (saveProficient(ability) ? proficiencyBonus : 0),
+      proficient: saveProficient(ability),
+      breakdown: saveProficient(ability)
+        ? `${abilityLabels[ability]} modifier + save proficiency.`
         : `${abilityLabels[ability]} modifier only.`,
     })),
     skills,
-    senses: derivedSensesFromSkills(skills),
+    senses: [
+      ...derived.senses.map((sense) => ({
+        id: sense.sense,
+        label: senseLabel(sense.sense),
+        value: sense.range,
+        description: `${sense.range} ft.${sense.note ? ` (${sense.note})` : ""} · from ${sense.sources.join(", ")}`,
+      })),
+      ...derivedSensesFromSkills(skills),
+    ],
+    defenses: derived.defenses.map((entry) => `${entry.label} (${entry.sources.join(", ")})`),
+    proficiencies: {
+      armor: mergeNames(draft.proficiencies?.armor ?? [], derived.proficiencies.armor),
+      weapons: mergeNames(draft.proficiencies?.weapons ?? [], derived.proficiencies.weapon),
+      tools: mergeNames(draft.proficiencies?.tools ?? [], derived.proficiencies.tool),
+      languages: mergeNames(draft.proficiencies?.languages ?? [], derived.proficiencies.language),
+    },
   };
 }
 
@@ -1110,8 +1141,9 @@ function buildDraftFromSelection(
   content: ContentBundle,
   creatorOptions: CreatorOptions,
   previous: CharacterDraft,
-  lineageDataCatalog?: LineageCatalog,
+  engine: EngineCatalog,
 ): CharacterDraft {
+  const lineageDataCatalog = engine.lineages;
   const chosenClass = content.classes.find((item) => item.id === previous.classId) ?? content.classes[0];
   const chosenSpecies =
     content.species.find((item) => item.id === previous.speciesId) ?? content.species[0];
@@ -1158,8 +1190,15 @@ function buildDraftFromSelection(
       .map((classId) => content.classes.find((item) => item.id === classId)?.name)
       .filter((value): value is string => Boolean(value)),
   ];
+  // Patron / subclass listelerinden gelen ek buyuler (orn. Great Old One expanded spells) secilebilir havuza girer.
+  const grantedListSpellIds = new Set(
+    deriveCharacter(previous, engine).spells.filter((spell) => spell.uses === "list").map((spell) => spell.spellId),
+  );
   const allowedSpellIds = content.spells
     .filter((spell) => {
+      if (grantedListSpellIds.has(spell.id)) {
+        return true;
+      }
       const byClass = classPool.some((className) => classMatchesSpell(spell, className));
       const byEldritchKnight =
         chosenClass.id === "fighter" &&
@@ -1359,11 +1398,11 @@ function buildDraftFromSelection(
   };
 }
 
-function loadInitialDraft(content: ContentBundle, creatorOptions: CreatorOptions, lineageDataCatalog?: LineageCatalog) {
-  return buildDraftFromSelection(content, creatorOptions, demoCharacter, lineageDataCatalog);
+function loadInitialDraft(content: ContentBundle, creatorOptions: CreatorOptions, engine: EngineCatalog) {
+  return buildDraftFromSelection(content, creatorOptions, emptyDraft, engine);
 }
 
-function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions, lineageDataCatalog?: LineageCatalog) {
+function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions, engine: EngineCatalog) {
   if (typeof window === "undefined") {
     return null;
   }
@@ -1374,33 +1413,29 @@ function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions,
   }
 
   try {
-    const parsed = JSON.parse(stored) as CharacterDraft;
-    return buildDraftFromSelection(content, creatorOptions, parsed, lineageDataCatalog);
+    const parsed = stripLeakedDemoValues(JSON.parse(stored) as CharacterDraft);
+    return buildDraftFromSelection(content, creatorOptions, parsed, engine);
   } catch {
     return null;
   }
 }
 
 export function PartyRoomDashboard({
-  initialBookManifest,
   initialContent,
   initialCreatorOptions,
   initialLineageCollection,
   initialLineageDataCatalog,
   initialClassCuratedCollection,
   initialClassOptionCollection,
-  initialClassDocs,
   initialSpellReferenceCollection,
   mode = "creator",
 }: {
-  initialBookManifest: RawBookManifest | null;
   initialContent: ContentBundle;
   initialCreatorOptions: CreatorOptions;
   initialLineageCollection: LineageCollection;
   initialLineageDataCatalog: LineageCatalog;
   initialClassCuratedCollection: ClassCuratedCollection;
   initialClassOptionCollection: ClassOptionCollection;
-  initialClassDocs: ClassDocCollection;
   initialSpellReferenceCollection: SpellReferenceCollection;
   mode?: "creator" | "sheet";
 }) {
@@ -1409,21 +1444,29 @@ export function PartyRoomDashboard({
     () => true,
     () => false,
   );
+  const engineCatalog = useMemo<EngineCatalog>(
+    () => ({
+      content: initialContent,
+      lineages: initialLineageDataCatalog,
+      classes: initialClassCuratedCollection,
+      classOptions: initialClassOptionCollection,
+    }),
+    [initialContent, initialLineageDataCatalog, initialClassCuratedCollection, initialClassOptionCollection],
+  );
   const [draft, setDraft] = useState<CharacterDraft>(() => {
     if (typeof window !== "undefined") {
-      return readStoredDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog) ?? loadInitialDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog);
+      return readStoredDraft(initialContent, initialCreatorOptions, engineCatalog) ?? loadInitialDraft(initialContent, initialCreatorOptions, engineCatalog);
     }
-    return loadInitialDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog);
+    return loadInitialDraft(initialContent, initialCreatorOptions, engineCatalog);
   });
   const sheetDraft = useMemo(
-    () => buildSheetDraftFromSelection(initialContent, initialCreatorOptions, draft, initialLineageDataCatalog),
-    [initialContent, initialCreatorOptions, draft, initialLineageDataCatalog],
+    () => buildSheetDraftFromSelection(initialContent, initialCreatorOptions, draft, engineCatalog),
+    [initialContent, initialCreatorOptions, draft, engineCatalog],
   );
   const sheetContent = useMemo(
-    () => buildSheetContent(initialContent, sheetDraft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog),
-    [initialContent, sheetDraft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog],
+    () => buildSheetContent(initialContent, sheetDraft, engineCatalog),
+    [initialContent, sheetDraft, engineCatalog],
   );
-  const [bookManifest] = useState<RawBookManifest | null>(initialBookManifest);
   const [currentHp, setCurrentHp] = useState(() => draft.currentHp);
   const [tempHp, setTempHp] = useState(() => draft.tempHp);
   const [activityLog, setActivityLog] = useState<LocalActivity[]>([]);
@@ -1492,6 +1535,9 @@ export function PartyRoomDashboard({
       .flatMap((spell) => spell.subclassOptions ?? [])
       .filter((option) => option.toLowerCase().includes(currentClass.name.toLowerCase()) || draft.multiclassIds.some((classId) => option.toLowerCase().includes((initialContent.classes.find((item) => item.id === classId)?.name ?? "").toLowerCase()))),
   );
+  const grantedListSpellIds = new Set(
+    deriveCharacter(draft, engineCatalog).spells.filter((spell) => spell.uses === "list").map((spell) => spell.spellId),
+  );
   const availableSpells = initialContent.spells.filter((spell) => {
     const classPool = [currentClass.name, ...draft.multiclassIds
       .map((classId) => initialContent.classes.find((item) => item.id === classId)?.name)
@@ -1502,9 +1548,9 @@ export function PartyRoomDashboard({
       draft.classId === "fighter" &&
       isEffectiveEldritchKnight &&
       classMatchesSpell(spell, "Wizard");
-    const bySubclass = (spell.subclassOptions ?? []).some((option) =>
-      draft.selectedSubclassOptions.includes(option),
-    );
+    const bySubclass =
+      (spell.subclassOptions ?? []).some((option) => draft.selectedSubclassOptions.includes(option)) ||
+      grantedListSpellIds.has(spell.id);
 
     if (!(byClass || bySubclass || byEldritchKnight)) {
       return false;
@@ -1582,7 +1628,7 @@ export function PartyRoomDashboard({
     const eligibleInvocationIds = new Set(
       initialClassOptionCollection.warlock.eldritchInvocations.options
         .filter((option) =>
-          warlockInvocationMeetsPrerequisite(parseWarlockInvocationSummary(option.summary).prerequisite, {
+          warlockInvocationMeetsPrerequisite(option.prerequisite, {
             level: draft.level,
             pactBoonId: draft.pactBoonId,
             spellIds: draft.spellIds,
@@ -1621,7 +1667,7 @@ export function PartyRoomDashboard({
     ? draft.customBackground.skillIds
     : parseBackgroundSkills(currentBackground.skillProficiencies);
   const updateDraft = (updater: (current: CharacterDraft) => CharacterDraft) => {
-    setDraft((current) => buildDraftFromSelection(initialContent, initialCreatorOptions, updater(current), initialLineageDataCatalog));
+    setDraft((current) => buildDraftFromSelection(initialContent, initialCreatorOptions, updater(current), engineCatalog));
   };
 
   const updateAbility = (abilityId: AbilityId, score: number) => {
@@ -1977,7 +2023,7 @@ export function PartyRoomDashboard({
     try {
       const text = await file.text();
       const parsed = JSON.parse(text) as CharacterDraft;
-      setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, parsed, initialLineageDataCatalog));
+      setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, parsed, engineCatalog));
       setCurrentHp(parsed.currentHp ?? parsed.maxHp ?? draft.maxHp);
       setTempHp(parsed.tempHp ?? 0);
       setActivityLog((current) => [
@@ -2096,7 +2142,6 @@ export function PartyRoomDashboard({
                 lineageDataCatalog={initialLineageDataCatalog}
                 classCuratedCollection={initialClassCuratedCollection}
                 classOptionCollection={initialClassOptionCollection}
-                classDocs={initialClassDocs}
                 spellReferenceCollection={initialSpellReferenceCollection}
                 currentClassRules={currentClassRules}
                 classOptions={initialCreatorOptions.classOptions}
@@ -2225,7 +2270,18 @@ export function PartyRoomDashboard({
                   variant="keyword"
                   tooltipClassName="sheet-inline-tooltip"
                 />
+                {sheetContent.derivedStats.extraMovementModes.map((speed) => (
+                  <InlineHelp
+                    key={speed.id}
+                    label={<span className="stat-label">{`${speed.label.replace(" Speed", "")} ${speed.displayValue}`}</span>}
+                    ariaLabel={`${speed.label} breakdown`}
+                    content={statTooltipContent(speed)}
+                    variant="keyword"
+                    tooltipClassName="sheet-inline-tooltip"
+                  />
+                ))}
               </article>
+
 
               <article className="badge-card badge-card-secondary">
                 <span className="stat-label">
@@ -2405,7 +2461,7 @@ export function PartyRoomDashboard({
                     <span>Defenses</span>
                     {renderInlineHelp("Defenses", "Resistances, immunities, and passive protections currently affecting the character.")}
                   </span>
-                  <p>{draft.defenses.join(", ")}</p>
+                  <p>{sheetDraft.defenses.join(", ") || "None"}</p>
                 </div>
                 <div className="detail-card">
                   <span className="mini-heading inline-heading">
@@ -2680,7 +2736,7 @@ export function PartyRoomDashboard({
                 <div className="defense-grid">
                   <div className="detail-card">
                     <span className="mini-heading">Defenses</span>
-                    <p>{draft.defenses.join(", ")}</p>
+                    <p>{sheetDraft.defenses.join(", ") || "None"}</p>
                   </div>
                   <div className="detail-card">
                     <span className="mini-heading">Conditions</span>

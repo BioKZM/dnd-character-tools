@@ -5,17 +5,51 @@
   "summary": "Fighters share an unparalleled mastery with weapons and armor, and a thorough knowledge of the skills of combat. They are well acquainted with death, both meting it out and staring it defiantly in the face.",
   "multiclassRequirement": "You must have a Dexterity or Strength score of 13 or higher in order to multiclass in or out of this class.",
   "hitDie": "d10",
+  "primaryAbilities": [
+    "STR",
+    "DEX"
+  ],
+  "savingThrows": [
+    "STR",
+    "CON"
+  ],
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "STR",
+        "CON"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "armor",
+      "values": [
+        "All Armor",
+        "Shields"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Simple Weapons",
+        "Martial Weapons"
+      ]
+    }
+  ],
   "hitPoints": {
     "Hit Dice": "1d10 per fighter level",
     "Hit Points at 1st Level": "10 + your Constitution modifier",
     "Hit Points at Higher Levels": "1d10 (or 6) + your Constitution modifier per fighter level after 1st"
   },
   "proficiencies": {
-    "Armor": "",
-    "Weapons": "",
-    "Tools": "",
-    "Saving Throws": "",
-    "Skills": ""
+    "Armor": "All armor, shields",
+    "Weapons": "Simple weapons, martial weapons",
+    "Tools": "None",
+    "Saving Throws": "Strength, Constitution",
+    "Skills": "Choose two skills from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival"
   },
   "spellcastingTable": {
     "title": "You must have a Dexterity or Strength score of 13 or higher in order to multiclass in or out of this class.",
@@ -172,12 +206,18 @@
         {
           "id": "chain-mail",
           "label": "Chain Mail",
-          "items": ["Chain Mail"]
+          "items": [
+            "Chain Mail"
+          ]
         },
         {
           "id": "archer-kit",
           "label": "Leather Armor, Longbow, and 20 Arrows",
-          "items": ["Leather Armor", "Longbow", "20 Arrows"]
+          "items": [
+            "Leather Armor",
+            "Longbow",
+            "20 Arrows"
+          ]
         }
       ]
     },
@@ -188,12 +228,17 @@
         {
           "id": "weapon-shield",
           "label": "Martial Weapon and Shield",
-          "items": ["Martial Weapon", "Shield"]
+          "items": [
+            "Martial Weapon",
+            "Shield"
+          ]
         },
         {
           "id": "two-martial",
           "label": "Two Martial Weapons",
-          "items": ["2x Martial Weapons"]
+          "items": [
+            "2x Martial Weapons"
+          ]
         }
       ]
     },
@@ -204,12 +249,17 @@
         {
           "id": "crossbow",
           "label": "Light Crossbow and 20 Bolts",
-          "items": ["Light Crossbow", "20 Bolts"]
+          "items": [
+            "Light Crossbow",
+            "20 Bolts"
+          ]
         },
         {
           "id": "handaxes",
           "label": "Two Handaxes",
-          "items": ["2x Handaxes"]
+          "items": [
+            "2x Handaxes"
+          ]
         }
       ]
     },
@@ -220,12 +270,16 @@
         {
           "id": "dungeoneer-pack",
           "label": "Dungeoneer's Pack",
-          "items": ["Dungeoneer's Pack"]
+          "items": [
+            "Dungeoneer's Pack"
+          ]
         },
         {
           "id": "explorer-pack",
           "label": "Explorer's Pack",
-          "items": ["Explorer's Pack"]
+          "items": [
+            "Explorer's Pack"
+          ]
         }
       ]
     }
@@ -238,7 +292,8 @@
         "Choose one fighting style option.",
         "You can't take the same fighting style more than once."
       ],
-      "summary": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again."
+      "summary": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
+      "unlockLevel": 1
     },
     {
       "id": "martial-versatility",
@@ -249,7 +304,10 @@
         "Only applies when you gain an Ability Score Improvement level."
       ],
       "summary": "Whenever you reach a level in this class that grants the Ability Score Improvement feature, you can replace a Fighting Style option you know with another eligible option from the fighter class.",
-      "tags": ["Optional"]
+      "tags": [
+        "Optional"
+      ],
+      "unlockLevel": 4
     },
     {
       "id": "second-wind",
@@ -260,7 +318,17 @@
         "Refreshes on a short or long rest."
       ],
       "summary": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.",
-      "currentValueTemplate": "Heal 1d10 + {fighterLevel}"
+      "currentValueTemplate": "Heal 1d10 + {fighterLevel}",
+      "unlockLevel": 1,
+      "grants": [
+        {
+          "type": "resource",
+          "id": "second-wind",
+          "name": "Second Wind",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ]
     },
     {
       "id": "action-surge",
@@ -272,8 +340,24 @@
       ],
       "summary": "Starting at 2nd level, you can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action. Once you use this feature, you must finish a short or long rest before you can use it again. Starting at 17th level, you can use it twice before a rest, but only once on the same turn.",
       "milestones": [
-        { "level": 2, "label": "1 use per short or long rest" },
-        { "level": 17, "label": "2 uses per short or long rest" }
+        {
+          "level": 2,
+          "label": "1 use per short or long rest"
+        },
+        {
+          "level": 17,
+          "label": "2 uses per short or long rest"
+        }
+      ],
+      "unlockLevel": 2,
+      "grants": [
+        {
+          "type": "resource",
+          "id": "action-surge",
+          "name": "Action Surge",
+          "uses": "1 (2 at 17th level)",
+          "recharge": "short_rest"
+        }
       ]
     },
     {
@@ -286,14 +370,36 @@
       ],
       "summary": "When you reach 4th level, and again at 6th, 8th, 12th, 14th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature. Whenever you reach a level in this class that grants the Ability Score Improvement feature, you can also replace a Fighting Style option you know with another eligible option from the fighter class.",
       "milestones": [
-        { "level": 4, "label": "+2 or +1 / +1" },
-        { "level": 6, "label": "+2 or +1 / +1" },
-        { "level": 8, "label": "+2 or +1 / +1" },
-        { "level": 12, "label": "+2 or +1 / +1" },
-        { "level": 14, "label": "+2 or +1 / +1" },
-        { "level": 16, "label": "+2 or +1 / +1" },
-        { "level": 19, "label": "+2 or +1 / +1" }
-      ]
+        {
+          "level": 4,
+          "label": "+2 or +1 / +1"
+        },
+        {
+          "level": 6,
+          "label": "+2 or +1 / +1"
+        },
+        {
+          "level": 8,
+          "label": "+2 or +1 / +1"
+        },
+        {
+          "level": 12,
+          "label": "+2 or +1 / +1"
+        },
+        {
+          "level": 14,
+          "label": "+2 or +1 / +1"
+        },
+        {
+          "level": 16,
+          "label": "+2 or +1 / +1"
+        },
+        {
+          "level": 19,
+          "label": "+2 or +1 / +1"
+        }
+      ],
+      "unlockLevel": 4
     },
     {
       "id": "extra-attack",
@@ -305,10 +411,20 @@
       ],
       "summary": "Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn. The number of attacks increases to three when you reach 11th level in this class and to four when you reach 20th level in this class.",
       "milestones": [
-        { "level": 5, "label": "2 attacks" },
-        { "level": 11, "label": "3 attacks" },
-        { "level": 20, "label": "4 attacks" }
-      ]
+        {
+          "level": 5,
+          "label": "2 attacks"
+        },
+        {
+          "level": 11,
+          "label": "3 attacks"
+        },
+        {
+          "level": 20,
+          "label": "4 attacks"
+        }
+      ],
+      "unlockLevel": 5
     },
     {
       "id": "indomitable",
@@ -320,9 +436,28 @@
       ],
       "summary": "Beginning at 9th level, you can reroll a saving throw that you fail. If you do so, you must use the new roll, and you can't use this feature again until you finish a long rest. You can use this feature twice between long rests starting at 13th level and three times between long rests starting at 17th level.",
       "milestones": [
-        { "level": 9, "label": "1 use per long rest" },
-        { "level": 13, "label": "2 uses per long rest" },
-        { "level": 17, "label": "3 uses per long rest" }
+        {
+          "level": 9,
+          "label": "1 use per long rest"
+        },
+        {
+          "level": 13,
+          "label": "2 uses per long rest"
+        },
+        {
+          "level": 17,
+          "label": "3 uses per long rest"
+        }
+      ],
+      "unlockLevel": 9,
+      "grants": [
+        {
+          "type": "resource",
+          "id": "indomitable",
+          "name": "Indomitable",
+          "uses": "1 (2 at 13th, 3 at 17th)",
+          "recharge": "long_rest"
+        }
       ]
     }
   ],

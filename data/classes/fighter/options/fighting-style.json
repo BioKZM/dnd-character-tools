@@ -12,7 +12,13 @@
         "Works with ranged weapons.",
         "Improves attack rolls, not damage."
       ],
-      "summary": "You gain a +2 bonus to attack rolls you make with ranged weapons."
+      "summary": "You gain a +2 bonus to attack rolls you make with ranged weapons.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "+2 to attack rolls with ranged weapons."
+        }
+      ]
     },
     {
       "id": "blind-fighting",
@@ -22,7 +28,14 @@
         "Grants blindsight out to 10 feet.",
         "Still requires the target not to be successfully hidden."
       ],
-      "summary": "You gain blindsight out to 10 feet and can perceive creatures in darkness or invisibility within that range unless they hide successfully."
+      "summary": "You gain blindsight out to 10 feet and can perceive creatures in darkness or invisibility within that range unless they hide successfully.",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "blindsight",
+          "range": 10
+        }
+      ]
     },
     {
       "id": "defense",
@@ -32,7 +45,14 @@
         "Only works while wearing armor.",
         "Applies a flat +1 AC bonus."
       ],
-      "summary": "While you are wearing armor, you gain a +1 bonus to AC."
+      "summary": "While you are wearing armor, you gain a +1 bonus to AC.",
+      "grants": [
+        {
+          "type": "ac",
+          "bonus": 1,
+          "condition": "while wearing armor"
+        }
+      ]
     },
     {
       "id": "dueling",
@@ -42,7 +62,13 @@
         "Requires a melee weapon in one hand.",
         "Requires no other weapons."
       ],
-      "summary": "When you wield a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
+      "summary": "When you wield a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "+2 damage with a one-handed melee weapon and no other weapon."
+        }
+      ]
     },
     {
       "id": "great-weapon-fighting",
@@ -52,7 +78,13 @@
         "Applies to two-handed or versatile melee weapon damage dice.",
         "You must use the new roll."
       ],
-      "summary": "When you roll a 1 or 2 on a damage die for a two-handed or versatile melee weapon attack, you can reroll the die and must use the new roll."
+      "summary": "When you roll a 1 or 2 on a damage die for a two-handed or versatile melee weapon attack, you can reroll the die and must use the new roll.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Reroll 1s and 2s on damage dice with two-handed or versatile melee weapons."
+        }
+      ]
     },
     {
       "id": "interception",
@@ -62,7 +94,8 @@
         "Uses your reaction.",
         "Reduces damage by 1d10 + proficiency bonus."
       ],
-      "summary": "When a creature you can see hits a nearby target, you can use your reaction to reduce the damage by 1d10 + your proficiency bonus."
+      "summary": "When a creature you can see hits a nearby target, you can use your reaction to reduce the damage by 1d10 + your proficiency bonus.",
+      "grants": []
     },
     {
       "id": "protection",
@@ -72,7 +105,8 @@
         "Uses your reaction.",
         "Requires wielding a shield."
       ],
-      "summary": "When a creature you can see attacks a nearby ally, you can use your reaction to impose disadvantage on the attack roll while wielding a shield."
+      "summary": "When a creature you can see attacks a nearby ally, you can use your reaction to impose disadvantage on the attack roll while wielding a shield.",
+      "grants": []
     },
     {
       "id": "superior-technique",
@@ -83,7 +117,8 @@
         "Gain one d6 superiority die.",
         "Refreshes on a short or long rest."
       ],
-      "summary": "You learn one Battle Master maneuver and gain one d6 superiority die that refreshes on a short or long rest."
+      "summary": "You learn one Battle Master maneuver and gain one d6 superiority die that refreshes on a short or long rest.",
+      "grants": []
     },
     {
       "id": "thrown-weapon-fighting",
@@ -93,7 +128,13 @@
         "You can draw a thrown weapon as part of the attack.",
         "Thrown weapon hits gain +2 damage."
       ],
-      "summary": "You can draw a thrown weapon as part of the attack, and thrown weapon hits gain +2 damage."
+      "summary": "You can draw a thrown weapon as part of the attack, and thrown weapon hits gain +2 damage.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "+2 damage with thrown weapons; draw a thrown weapon as part of the attack."
+        }
+      ]
     },
     {
       "id": "two-weapon-fighting",
@@ -103,7 +144,13 @@
         "Applies while fighting with two weapons.",
         "Lets the second attack add your ability modifier to damage."
       ],
-      "summary": "You can add your ability modifier to the damage of the second attack when fighting with two weapons."
+      "summary": "You can add your ability modifier to the damage of the second attack when fighting with two weapons.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Add your ability modifier to the damage of the off-hand attack."
+        }
+      ]
     },
     {
       "id": "unarmed-fighting",
@@ -113,7 +160,13 @@
         "Improves unarmed strike damage.",
         "Grappled creatures take 1d4 damage at the start of your turn."
       ],
-      "summary": "Your unarmed strikes deal improved damage, and creatures grappled by you take 1d4 damage at the start of your turn."
+      "summary": "Your unarmed strikes deal improved damage, and creatures grappled by you take 1d4 damage at the start of your turn.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Unarmed strikes deal 1d6 (1d8 with free hands) + STR; 1d4 to a grappled creature each turn."
+        }
+      ]
     }
   ],
   "notes": []

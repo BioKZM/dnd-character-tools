@@ -13,6 +13,12 @@
         "The weapon counts as magical for overcoming resistance and immunity to nonmagical attacks and damage.",
         "The weapon disappears if it is more than 5 feet away from you for 1 minute, if you use this feature again, if you dismiss it, or if you die.",
         "You can transform one magic weapon into your pact weapon with a 1-hour ritual, and it appears whenever you create your pact weapon."
+      ],
+      "grants": [
+        {
+          "type": "note",
+          "text": "Create a pact weapon as an action; you are proficient with it and it counts as magical."
+        }
       ]
     },
     {
@@ -23,6 +29,14 @@
       "keyFacts": [
         "When you cast find familiar, you can choose an imp, pseudodragon, quasit, or sprite as a special form.",
         "When you take the Attack action, you can forgo one of your own attacks to let your familiar make one attack with its reaction."
+      ],
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "find-familiar",
+          "uses": "known",
+          "note": "ritual; can take a special familiar form"
+        }
       ]
     },
     {
@@ -34,6 +48,12 @@
         "The cantrips do not count against your number of cantrips known.",
         "If a chosen cantrip is not on the warlock spell list, it is still a warlock spell for you.",
         "If you lose the book, you can perform a 1-hour ceremony during a short or long rest to receive a replacement."
+      ],
+      "grants": [
+        {
+          "type": "note",
+          "text": "Book of Shadows: three cantrips from any class list, known while you carry the book."
+        }
       ]
     },
     {
@@ -45,9 +65,14 @@
         "The d4 can turn the failed ability check into a success.",
         "The talisman can be used a number of times equal to your proficiency bonus, and all expended uses return when you finish a long rest.",
         "If you lose the talisman, you can perform a 1-hour ceremony during a short or long rest to receive a replacement."
+      ],
+      "grants": [
+        {
+          "type": "note",
+          "text": "Talisman wearer adds a d4 to a failed ability check, proficiency bonus times per long rest."
+        }
       ]
     }
-    
   ],
   "summary": "At 3rd level, your otherworldly patron bestows a gift upon you for your loyal service. Choose one Pact Boon option."
 }

@@ -13,7 +13,8 @@
       "fixed": [],
       "choices": []
     },
-    "equipment": []
+    "equipment": [],
+    "grants": []
   },
   {
     "id": "acolyte",
@@ -38,7 +39,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "anthropologist",
@@ -63,7 +65,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "archaeologist",
@@ -98,7 +101,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "ashari",
@@ -119,7 +123,8 @@
         "primordial"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "astral-drifter",
@@ -144,7 +149,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "athlete",
@@ -171,7 +177,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "azorius-functionary",
@@ -196,7 +203,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "black-fist-double-agent",
@@ -226,7 +234,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "boros-legionnaire",
@@ -263,7 +272,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "caravan-specialist",
@@ -290,7 +300,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "celebrity-adventurers-scion",
@@ -317,7 +328,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "charlatan",
@@ -338,7 +350,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "city-watch",
@@ -363,7 +376,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "clan-crafter",
@@ -390,7 +404,8 @@
         "dwarvish"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "cloistered-scholar",
@@ -414,7 +429,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "cormanthor-refugee",
@@ -439,7 +455,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "courtier",
@@ -464,7 +481,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "criminal",
@@ -491,7 +509,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "dimir-operative",
@@ -518,7 +537,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "dissenter",
@@ -533,7 +553,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "dragon-casualty",
@@ -561,7 +582,8 @@
         "draconic"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "earthspur-miner",
@@ -582,7 +604,8 @@
         "dwarvish"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "entertainer",
@@ -609,7 +632,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "faceless",
@@ -636,7 +660,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "faction-agent",
@@ -660,7 +685,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "failed-merchant",
@@ -692,7 +718,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "far-traveler",
@@ -727,7 +754,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "feylost",
@@ -760,7 +788,8 @@
           "note": "Recommended: elvish, gnomish, goblin, sylvan"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "fisher",
@@ -785,7 +814,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "folk-hero",
@@ -812,7 +842,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "gambler",
@@ -844,7 +875,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "gate-urchin",
@@ -871,7 +903,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "gate-warden",
@@ -896,7 +929,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "giant-foundling",
@@ -916,7 +950,8 @@
         "giant"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "golgari-agent",
@@ -947,7 +982,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "grinner",
@@ -974,7 +1010,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "gruul-anarch",
@@ -1006,7 +1043,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "guild-artisan",
@@ -1038,7 +1076,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "harborfolk",
@@ -1065,7 +1104,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "haunted-one",
@@ -1095,7 +1135,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "hermit",
@@ -1122,7 +1163,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "hillsfar-merchant",
@@ -1143,7 +1185,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "hillsfar-smuggler",
@@ -1163,7 +1206,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "house-agent",
@@ -1189,7 +1233,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "inheritor",
@@ -1223,7 +1268,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "initiate",
@@ -1250,7 +1296,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "inquisitor",
@@ -1277,7 +1324,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "investigator",
@@ -1297,7 +1345,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "iron-route-bandit",
@@ -1324,7 +1373,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "izzet-engineer",
@@ -1360,12 +1410,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "knight-of-solamnia",
     "name": "Knight of Solamnia",
-    "summary": "You gain theSquire of Solamniafeat.",
+    "summary": "You gain the Squire of Solamnia feat.",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "skillProficiencies": [
       "Athletics",
@@ -1385,7 +1436,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "squire-of-solamnia"
+      }
+    ]
   },
   {
     "id": "knight-of-the-order",
@@ -1419,12 +1476,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "lorehold-student",
     "name": "Lorehold Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Lorehold within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Lorehold within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "History",
@@ -1444,12 +1502,18 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   },
   {
     "id": "mage-of-high-sorcery",
     "name": "Mage of High Sorcery",
-    "summary": "You gain theInitiate of High Sorceryfeat.",
+    "summary": "You gain the Initiate of High Sorcery feat.",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "skillProficiencies": [
       "Arcana",
@@ -1469,7 +1533,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "initiate-of-high-sorcery"
+      }
+    ]
   },
   {
     "id": "marine",
@@ -1490,7 +1560,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "mercenary-veteran",
@@ -1517,7 +1588,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "mulmaster-aristocrat",
@@ -1548,7 +1620,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "noble",
@@ -1580,7 +1653,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "orzhov-representative",
@@ -1605,7 +1679,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "outlander",
@@ -1637,7 +1712,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "phlan-insurgent",
@@ -1664,7 +1740,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "phlan-refugee",
@@ -1696,7 +1773,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "plaintiff",
@@ -1728,7 +1806,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "planar-philosopher",
@@ -1752,12 +1831,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "prismari-student",
     "name": "Prismari Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Prismari within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Prismari within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "Acrobatics",
@@ -1787,12 +1867,18 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   },
   {
     "id": "quandrix-student",
     "name": "Quandrix Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Quandrix within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Quandrix within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "Arcana",
@@ -1819,7 +1905,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   },
   {
     "id": "rakdos-cultist",
@@ -1854,7 +1946,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "rewarded",
@@ -1886,7 +1979,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "rival-intern",
@@ -1918,7 +2012,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "ruined",
@@ -1950,7 +2045,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "rune-carver",
@@ -1977,7 +2073,8 @@
         "giant"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "sage",
@@ -2010,7 +2107,8 @@
       "Letter from a dead colleague posing a question you have not yet answered",
       "Common clothes",
       "Pouch containing 10 gp"
-    ]
+    ],
+    "grants": []
   },
   {
     "id": "sailor",
@@ -2031,7 +2129,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "secret-identity",
@@ -2052,7 +2151,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "selesnya-initiate",
@@ -2091,7 +2191,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "shade-fanatic",
@@ -2113,7 +2214,8 @@
         "netherese"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "shipwright",
@@ -2134,12 +2236,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "silverquill-student",
     "name": "Silverquill Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Silverquill within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Silverquill within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "Intimidation",
@@ -2159,7 +2262,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   },
   {
     "id": "simic-scientist",
@@ -2184,7 +2293,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "smuggler",
@@ -2204,7 +2314,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "soldier",
@@ -2231,7 +2342,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "stojanow-prisoner",
@@ -2258,7 +2370,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "ticklebelly-nomad",
@@ -2280,7 +2393,8 @@
         "giant"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "trade-sheriff",
@@ -2302,7 +2416,8 @@
         "elvish"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "urban-bounty-hunter",
@@ -2330,7 +2445,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "urchin",
@@ -2351,7 +2467,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "uthgardt-tribe-member",
@@ -2386,7 +2503,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "vizier",
@@ -2417,7 +2535,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "volstrucker-agent",
@@ -2444,7 +2563,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "waterdhavian-noble",
@@ -2479,7 +2599,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "wildspacer",
@@ -2500,7 +2621,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "witchlight-hand",
@@ -2535,12 +2657,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "witherbloom-student",
     "name": "Witherbloom Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Witherbloom within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Witherbloom within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "Nature",
@@ -2562,6 +2685,12 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   }
 ]

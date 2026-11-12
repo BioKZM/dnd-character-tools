@@ -7,6 +7,9 @@ import type { CharacterDraft, AbilityId } from "@/lib/character/demo-sheet";
 import { eldritchKnightProgression, getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
 import type { LineageCatalog, LineageChoiceGroup, LineageChoiceOption, LineageEntry as StructuredLineageEntry, LineageFeature as StructuredLineageFeature, Sublineage as StructuredSublineage } from "@/lib/data/lineages/schema";
 import type { ClassDocBlock, ClassDocCollection, ClassDocSection, ClassDocTable } from "@/lib/content/class-docs";
+
+// TODO(creator split): class doc verisi artik yok; asagidaki classDocs dallari olu kod, creator bolunurken silinecek.
+const classDocs: ClassDocCollection = {};
 import type { ClassCuratedCollection, ClassCuratedFeature, ClassJourneyStage, ClassStartingEquipmentGroup } from "@/lib/content/class-curated-schema";
 import type { ClassOptionCollection } from "@/lib/content/class-options-schema";
 import type { CreatorOptions } from "@/lib/content/creator-options";
@@ -2829,7 +2832,6 @@ export function CreatorWorkspace({
   lineageDataCatalog,
   classCuratedCollection,
   classOptionCollection,
-  classDocs,
   spellReferenceCollection,
   currentClassRules,
   classOptions,
@@ -2880,7 +2882,6 @@ export function CreatorWorkspace({
   lineageDataCatalog: LineageCatalog;
   classCuratedCollection: ClassCuratedCollection;
   classOptionCollection: ClassOptionCollection;
-  classDocs: ClassDocCollection;
   spellReferenceCollection: SpellReferenceCollection;
   currentClassRules:
     | {
@@ -3533,7 +3534,7 @@ export function CreatorWorkspace({
       ? `${currentVisibleSubclass?.name ?? "Subclass"} Patron Spells`
       : `${currentVisibleSubclass?.name ?? "Subclass"} Bonus Spells`;
   const subclassAutoSpellSourceLabel =
-    currentClass.id === "warlock" ? "Auto added from Expanded Spell List" : "Auto added from subclass magic";
+    currentClass.id === "warlock" ? "Added to your spell list (pick them as known spells)" : "Auto added from subclass magic";
   const rangerPrimalAwarenessLabel = "Primal Awareness Spells";
   const rangerPrimalAwarenessSourceLabel = "Auto added from Primal Awareness";
   const subclassIntroLevel =
@@ -3755,8 +3756,8 @@ export function CreatorWorkspace({
     }
 
     return classOptionCollection.warlock.eldritchInvocations.options.filter((option) => {
-      const parsed = parseWarlockInvocationSummary(option.summary);
-      return warlockInvocationMeetsPrerequisite(parsed.prerequisite, {
+      const parsed = parseWarlockInvocationSummary(option);
+      return warlockInvocationMeetsPrerequisite(parsed.requirement, {
         level: draft.level,
         pactBoonId: draft.pactBoonId,
         spellIds: draft.spellIds,
@@ -3767,8 +3768,8 @@ export function CreatorWorkspace({
     ? classOptionCollection.warlock.eldritchInvocations?.options ?? []
     : [];
   const visibleInvocationCards = invocationCandidatePool.filter((option) => {
-    const parsed = parseWarlockInvocationSummary(option.summary);
-    const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.prerequisite, {
+    const parsed = parseWarlockInvocationSummary(option);
+    const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.requirement, {
       level: draft.level,
       pactBoonId: draft.pactBoonId,
       spellIds: draft.spellIds,
@@ -6422,7 +6423,7 @@ export function CreatorWorkspace({
                                     unlockLevel: 1,
                                     currentValueTemplate: undefined,
                                     tags: [],
-                                    milestones: [],
+                                    milestones: [], grants: [],
                                   }, draft.level)}
                                 />
                               </strong>
@@ -6464,7 +6465,7 @@ export function CreatorWorkspace({
                                         unlockLevel: 1,
                                         currentValueTemplate: undefined,
                                         tags: [],
-                                        milestones: [],
+                                        milestones: [], grants: [],
                                       }, draft.level)}
                                     />
                                     <span className="fighter-feature-check" aria-hidden="true">✓</span>
@@ -6496,7 +6497,7 @@ export function CreatorWorkspace({
                                           unlockLevel: 1,
                                           currentValueTemplate: undefined,
                                           tags: [],
-                                          milestones: [],
+                                          milestones: [], grants: [],
                                         }, draft.level)}
                                       />
                                     </strong>
@@ -6807,7 +6808,7 @@ export function CreatorWorkspace({
                                         keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
                                         currentValueTemplate: undefined,
                                         tags: [],
-                                        milestones: [],
+                                        milestones: [], grants: [],
                                       }, draft.level)}
                                     />
                                   </strong>
@@ -7049,15 +7050,15 @@ export function CreatorWorkspace({
                                         reference: spellReferenceFor(spellReferenceCollection, entry.spell ?? { id: entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), name: entry.name }),
                                         summary:
                                           entry.spell?.summary ??
-                                          `${entry.name} is granted by your patron and added automatically to your warlock spell list.`,
+                                          `${entry.name} is added to your warlock spell list by your patron. Pick it in the spell list to learn it.`,
                                         spellLevel: entry.spell?.level,
-                                        meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Auto Added"],
+                                        meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Patron List"],
                                       })}
                                     />
                                   </strong>
                                   <div className="fighter-spell-tags">
                                     <span className="fighter-spell-tag tone-support">
-                                      Auto Added
+                                      Patron List
                                     </span>
                                   </div>
                                 </div>
@@ -10121,16 +10122,16 @@ export function CreatorWorkspace({
                                                     reference: spellReferenceFor(spellReferenceCollection, entry.spell ?? { id: entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), name: entry.name }),
                                                     summary:
                                                       entry.spell?.summary ??
-                                                      `${entry.name} is granted by your patron and added automatically to your warlock spell list.`,
+                                                      `${entry.name} is added to your warlock spell list by your patron. Pick it in the spell list to learn it.`,
                                                     spellLevel: entry.spell?.level,
-                                                    meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Auto Added"],
+                                                    meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Patron List"],
                                                   })}
                                                 />
                                               </strong>
                                               <div className="spell-selection-tags important">
                                                 <span className="spell-tooltip-chip tone-support">
                                                   <AppIcon name="book" className="spell-tooltip-chip-icon" />
-                                                  Auto Added
+                                                  Patron List
                                                 </span>
                                               </div>
                                             </div>
@@ -10301,8 +10302,8 @@ export function CreatorWorkspace({
                                     </div>
                                     <div className="compact-option-list graph-list">
                                       {pagedInvocationCards.map((option) => {
-                                        const parsed = parseWarlockInvocationSummary(option.summary);
-                                        const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.prerequisite, {
+                                        const parsed = parseWarlockInvocationSummary(option);
+                                        const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.requirement, {
                                           level: draft.level,
                                           pactBoonId: draft.pactBoonId,
                                           spellIds: draft.spellIds,

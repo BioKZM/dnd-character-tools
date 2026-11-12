@@ -1,5 +1,8 @@
 import nextVitals from "eslint-config-next/core-web-vitals";
 
-const config = [...nextVitals];
+const config = [
+  { ignores: ["_archive/**", "out/**", ".next/**", "scripts/**"] },
+  ...nextVitals,
+];
 
 export default config;
