@@ -1,5 +1,6 @@
 "use client";
 
+import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { CreatorWorkspace } from "@/components/creator-workspace";
 import { ClassPortrait } from "@/components/ui/class-portrait";
@@ -205,7 +206,7 @@ function InlineHelp({
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
-        {content}
+        <Keywordize>{content}</Keywordize>
       </div>
     </span>
   );
@@ -2890,7 +2891,7 @@ export function PartyRoomDashboard({
                         </strong>
                         <span className="feature-kind-pill">{feature.kind}</span>
                       </div>
-                      <p>{feature.summary}</p>
+                      <p>{highlightKeywords(feature.summary, feature.id)}</p>
                       <span className="feature-sheet-card-meta">{feature.source}</span>
                     </article>
                   ))}

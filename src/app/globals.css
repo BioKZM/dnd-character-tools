@@ -9360,3 +9360,77 @@ h2 .keyword-help-trigger,
 .class-overview-highlight {
   align-content: start;
 }
+
+/* LoL tarzi anahtar kelimeler: renk + ikon. Stat renkleri ability-accent ile ayni. */
+:root {
+  --kw-str: #ef6b5f;
+  --kw-dex: #f2c14e;
+  --kw-con: #5fd38d;
+  --kw-int: #72b7ff;
+  --kw-wis: #4fd1c5;
+  --kw-cha: #d78cff;
+  --kw-hp: #5fd38d;
+  --kw-ac: #d9c08a;
+  --kw-fire: #ff8a3d;
+  --kw-cold: #8fd3ff;
+  --kw-lightning: #ffe066;
+  --kw-thunder: #b8a2ff;
+  --kw-acid: #b6e35a;
+  --kw-poison: #7ccf5a;
+  --kw-necrotic: #a78bfa;
+  --kw-radiant: #ffd479;
+  --kw-psychic: #ff7ac8;
+  --kw-force: #c4b5fd;
+  --kw-physical: #cbd5e1;
+  --kw-advantage: #5fd38d;
+  --kw-disadvantage: #ef6b5f;
+}
+.kw {
+  display: inline;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.kw-icon {
+  display: inline-block;
+  width: 0.95em;
+  height: 0.95em;
+  margin-right: 0.18em;
+  vertical-align: -0.12em;
+  stroke-width: 2;
+}
+.kw-str { color: var(--kw-str); }
+.kw-dex { color: var(--kw-dex); }
+.kw-con { color: var(--kw-con); }
+.kw-int { color: var(--kw-int); }
+.kw-wis { color: var(--kw-wis); }
+.kw-cha { color: var(--kw-cha); }
+.kw-hp { color: var(--kw-hp); }
+.kw-ac { color: var(--kw-ac); }
+.kw-fire { color: var(--kw-fire); }
+.kw-cold { color: var(--kw-cold); }
+.kw-lightning { color: var(--kw-lightning); }
+.kw-thunder { color: var(--kw-thunder); }
+.kw-acid { color: var(--kw-acid); }
+.kw-poison { color: var(--kw-poison); }
+.kw-necrotic { color: var(--kw-necrotic); }
+.kw-radiant { color: var(--kw-radiant); }
+.kw-psychic { color: var(--kw-psychic); }
+.kw-force { color: var(--kw-force); }
+.kw-physical { color: var(--kw-physical); }
+.kw-advantage { color: var(--kw-advantage); }
+.kw-disadvantage { color: var(--kw-disadvantage); }
+.kw-hp .kw-icon,
+.kw-con .kw-icon {
+  fill: currentColor;
+  fill-opacity: 0.35;
+}
+/* Ability renkleri anahtar kelimelerle ayni olsun (CON yesil, DEX altin, WIS turkuaz). */
+.ability-accent-str { color: var(--kw-str); }
+.ability-accent-dex { color: var(--kw-dex); }
+.ability-accent-con { color: var(--kw-con); }
+.ability-accent-int { color: var(--kw-int); }
+.ability-accent-wis { color: var(--kw-wis); }
+.ability-accent-cha { color: var(--kw-cha); }
+.feature-sheet-card {
+  align-content: start;
+}

@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -926,7 +927,7 @@ function HoverTooltip({
               onMouseEnter={handleEnter}
               onMouseLeave={handleLeave}
             >
-              {content}
+              <Keywordize>{content}</Keywordize>
             </div>,
             document.body,
           )
@@ -6303,7 +6304,7 @@ export function CreatorWorkspace({
                                 ) : null}
                               </div>
                               {/* Her kartta tek satirlik ozet: bos kart kalmasin, ne ise yaradigi bir bakista gorunsun. */}
-                              {feature.keyFacts?.[0] ? <p className="fighter-feature-fact">{feature.keyFacts[0]}</p> : null}
+                              {feature.keyFacts?.[0] ? <p className="fighter-feature-fact">{highlightKeywords(feature.keyFacts[0], feature.id)}</p> : null}
                               {currentMeta || nextMeta ? (
                                 <div className="fighter-feature-meta">
                                   {currentMeta ? <span>{currentMeta}</span> : null}
@@ -10025,7 +10026,7 @@ export function CreatorWorkspace({
                             <span className="feature-detail-label">Rules Text</span>
                             <div className="class-feature-detail-body feat-rules-body">
                               {featBenefitParagraphs(selectedFeat).map((paragraph, index) => (
-                                <p key={`${selectedFeat.id}-paragraph-${index}`}>{paragraph}</p>
+                                <p key={`${selectedFeat.id}-paragraph-${index}`}>{highlightKeywords(paragraph, `${selectedFeat.id}-${index}`)}</p>
                               ))}
                             </div>
                           </div>

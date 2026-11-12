@@ -1,5 +1,6 @@
 "use client";
 
+import { highlightKeywords } from "@/components/ui/keyword-text";
 import { useState } from "react";
 import type { LevelGain } from "@/lib/engine/level-up";
 
@@ -149,7 +150,7 @@ export function LevelUpDialog({
                       </span>
                       <div>
                         <strong>{gain.name}</strong>
-                        <span>{gain.detail}</span>
+                        <span>{highlightKeywords(gain.detail, gain.name)}</span>
                       </div>
                     </li>
                   ))}
