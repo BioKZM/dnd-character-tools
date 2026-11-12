@@ -42,6 +42,13 @@ export type DerivedCharacter = {
   resources: { id: string; name: string; uses: number | string; recharge: "short_rest" | "long_rest"; source: string }[];
   /** Kaynaklardan gelen feat'ler (taslakta secilmis olanlar dahil). */
   featIds: string[];
+  /** Monk Martial Arts zari (level'a gore cozulmus) ve monk silahlari. */
+  martialArts: { die: string; source: string } | null;
+  monkWeapons: string[];
+  /** Ozel save DC'leri (Ki...). */
+  saveDcs: { name: string; ability: AbilityId; source: string }[];
+  /** Sadece zirhsiz/kalkansizken gecerli yurume hizi bonusu (Unarmored Movement). */
+  unarmoredSpeedBonus: number;
   /** Data'da olup bu motorun islemedigi grant tipleri. Bos olmali; audit scripti kontrol eder. */
   unhandled: { type: string; source: string }[];
 };
@@ -63,6 +70,9 @@ export const HANDLED_GRANT_TYPES: GrantType[] = [
   "feat",
   "resource",
   "note",
+  "martial_arts",
+  "monk_weapon",
+  "save_dc",
 ];
 
 const SENSE_LABELS: Record<string, string> = {
@@ -141,6 +151,10 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
     notes: [],
     resources: [],
     featIds: [],
+    martialArts: null,
+    monkWeapons: [],
+    saveDcs: [],
+    unarmoredSpeedBonus: 0,
     unhandled: [],
   };
 
@@ -180,14 +194,22 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
           return;
         }
         const current = speeds.get(grant.mode) ?? { mode: grant.mode, value: 0, breakdown: [] };
+        const amount = grant.scaling ? Number(resolveScaling(grant.scaling, draft.level)) || 0 : grant.value;
+        if (grant.unarmoredOnly && grant.op === "add") {
+          current.value += amount;
+          current.breakdown.push(`${label}: +${amount} ft. (no armor or shield)`);
+          result.unarmoredSpeedBonus += amount;
+          speeds.set(grant.mode, current);
+          return;
+        }
         if (grant.op === "set") {
-          if (grant.value > current.value) {
-            current.value = grant.value;
-            current.breakdown.push(`${label}: ${grant.value} ft.`);
+          if (amount > current.value) {
+            current.value = amount;
+            current.breakdown.push(`${label}: ${amount} ft.`);
           }
         } else {
-          current.value += grant.value;
-          current.breakdown.push(`${label}: +${grant.value} ft.`);
+          current.value += amount;
+          current.breakdown.push(`${label}: +${amount} ft.`);
         }
         speeds.set(grant.mode, current);
         return;
@@ -241,6 +263,19 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
           source: label,
         });
         return;
+      case "martial_arts":
+        result.martialArts = { die: resolveScaling(grant.die, draft.level), source: label };
+        return;
+      case "monk_weapon":
+        grant.weapons.forEach((weapon) => {
+          if (!result.monkWeapons.includes(weapon)) {
+            result.monkWeapons.push(weapon);
+          }
+        });
+        return;
+      case "save_dc":
+        result.saveDcs.push({ name: grant.name, ability: grant.ability, source: label });
+        return;
       case "note":
         result.notes.push({ text: grant.text, source: label });
         return;
@@ -285,6 +320,9 @@ export function resolveResourceUses(
     return uses;
   }
   const token = uses.trim().toUpperCase();
+  if (token === "LEVEL") {
+    return context.level;
+  }
   if (token === "PB") {
     return context.proficiencyBonus;
   }
@@ -298,4 +336,15 @@ export function resolveResourceUses(
     }
   }
   return total;
+}
+
+/** "1d4 (1d6 at 5th, 1d8 at 11th)" ya da "10 (15 at 6th)" -> level'a gore gecerli deger. */
+export function resolveScaling(text: string, level: number) {
+  let value = text.split("(")[0].trim();
+  for (const match of text.matchAll(/([\w+.-]+)\s+at\s+(\d+)/g)) {
+    if (level >= Number(match[2])) {
+      value = match[1];
+    }
+  }
+  return value;
 }

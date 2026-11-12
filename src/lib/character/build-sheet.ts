@@ -1,6 +1,6 @@
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import type { ContentBundle } from "@/lib/content/schema";
-import type { EngineCatalog } from "@/lib/engine/collect";
+import { optionalFeatureActive, type EngineCatalog } from "@/lib/engine/collect";
 import { deriveCharacter, resolveResourceUses, type DerivedCharacter, type DerivedSpell } from "@/lib/engine/derive";
 import { computeArmorClass, mageArmorAvailable, type ArmorClassResult } from "@/lib/engine/armor-class";
 import { cantripTier, scaleCantripDamage, spellcastingProfiles, type SpellcastingProfile } from "@/lib/engine/spellcasting";
@@ -256,10 +256,11 @@ function inventoryHasArmorName(inventory: string[], armor: ContentBundle["armors
 function deriveMovementStats(
   derived: DerivedCharacter,
   armorSpeedPenalty = 0,
+  inactiveUnarmoredBonus = 0,
 ): { walkingSpeed: DerivedStatDisplay; extraMovementModes: DerivedStatDisplay[] } {
   const walk = derived.speeds.find((speed) => speed.mode === "walk");
   const baseWalk = Number.parseInt(walk?.breakdown[0]?.match(/(\d+) ft\./)?.[1] ?? "", 10) || walk?.value || 30;
-  const currentWalk = Math.max(0, (walk?.value ?? baseWalk) - armorSpeedPenalty);
+  const currentWalk = Math.max(0, (walk?.value ?? baseWalk) - armorSpeedPenalty - inactiveUnarmoredBonus);
 
   const walkingSpeed: DerivedStatDisplay = {
     id: "walking-speed",
@@ -269,7 +270,11 @@ function deriveMovementStats(
     currentValue: currentWalk,
     bonusValue: currentWalk - baseWalk,
     tone: derivedStatTone(baseWalk, currentWalk),
-    breakdown: [...(walk?.breakdown ?? []), ...(armorSpeedPenalty ? [`Heavy armor without enough STR: -${armorSpeedPenalty} ft.`] : [])],
+    breakdown: [
+      ...(walk?.breakdown ?? []),
+      ...(armorSpeedPenalty ? [`Heavy armor without enough STR: -${armorSpeedPenalty} ft.`] : []),
+      ...(inactiveUnarmoredBonus ? [`Wearing armor or a shield: -${inactiveUnarmoredBonus} ft. (Unarmored Movement off)`] : []),
+    ],
   };
 
   return {
@@ -380,7 +385,14 @@ function abilityDamage(modifier: number, fallback = 1) {
 }
 
 function inventoryHasWeaponName(inventory: string[], weapon: ContentBundle["weapons"][number]) {
-  const inventoryNames = new Set(inventory.map(normalizeEquipmentName));
+  // "10 Darts", "2x Handaxes" gibi adetli kayitlar da silah sayilir.
+  const inventoryNames = new Set(
+    inventory.flatMap((item) => {
+      const bare = item.replace(/^\s*\d+\s*x?\s+/i, "");
+      const name = normalizeEquipmentName(bare);
+      return [normalizeEquipmentName(item), name, name.replace(/s$/, ""), name.replace(/es$/, "")];
+    }),
+  );
   return [weapon.name, ...weapon.aliases].some((name) => inventoryNames.has(normalizeEquipmentName(name)));
 }
 
@@ -417,30 +429,69 @@ function weaponDamage(draft: CharacterDraft, weapon: ContentBundle["weapons"][nu
   return `${weapon.damage}${formatSigned(weaponAbilityModifier(draft, weapon))} ${weapon.damageType}`;
 }
 
-function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft): BuiltAction[] {
+/** Monk silahi: shortsword, iki elli/heavy olmayan simple melee, ya da Kensei gibi kaynaklarin ekledigi silahlar. */
+function isMonkWeapon(weapon: ContentBundle["weapons"][number], extraIds: string[]) {
+  return (
+    extraIds.includes(weapon.id) ||
+    weapon.id === "shortsword" ||
+    (weapon.proficiency === "simple" && weapon.attackType === "melee" && !weapon.properties.includes("two-handed") && !weapon.properties.includes("heavy"))
+  );
+}
+
+function dieAverage(die: string) {
+  const match = die.match(/^(\d+)d(\d+)/);
+  return match ? (Number(match[1]) * (Number(match[2]) + 1)) / 2 : Number(die) || 0;
+}
+
+type MartialArtsContext = { die: string; monkWeapons: string[] } | null;
+
+function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, martialArts: MartialArtsContext = null): BuiltAction[] {
   const strength = draft.abilities.find((ability) => ability.id === "STR")?.modifier ?? 0;
+  const dexterity = draft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
+  const martialModifier = Math.max(strength, dexterity);
   const weapons = content.weapons.filter((weapon) => weapon.attackType !== "ammunition" && inventoryHasWeaponName(draft.inventory, weapon));
+  const unarmed: BuiltAction = martialArts
+    ? {
+        id: "unarmed-strike",
+        name: "Unarmed Strike",
+        category: "Attack",
+        range: "5 ft.",
+        hit: formatSigned(draft.proficiencyBonus + martialModifier),
+        damage: `${martialArts.die}${formatSigned(martialModifier)} bludgeoning`,
+        notes: "Martial Arts",
+        description: "Martial Arts: uses the better of STR or DEX and your Martial Arts die. After you attack with an unarmed strike or monk weapon, you can make one unarmed strike as a bonus action.",
+        source: "Martial Arts",
+      }
+    : {
+        id: "unarmed-strike",
+        name: "Unarmed Strike",
+        category: "Attack",
+        range: "5 ft.",
+        hit: meleeAttackModifier(draft),
+        damage: `${abilityDamage(strength)} bludgeoning`,
+        notes: "Melee Attack",
+        description: "A basic melee attack using fists, kicks, or body weight.",
+        source: "Core Rules",
+      };
+  const weaponStats = (weapon: ContentBundle["weapons"][number]) => {
+    if (!martialArts || !isMonkWeapon(weapon, martialArts.monkWeapons) || !weapon.damage || !weapon.damageType) {
+      return { hit: formatSigned(draft.proficiencyBonus + weaponAbilityModifier(draft, weapon)), damage: weaponDamage(draft, weapon), monk: false };
+    }
+    const modifier = weapon.attackType === "ranged" ? dexterity : Math.max(weaponAbilityModifier(draft, weapon), martialModifier);
+    const die = dieAverage(martialArts.die) > dieAverage(weapon.damage) ? martialArts.die : weapon.damage;
+    return { hit: formatSigned(draft.proficiencyBonus + modifier), damage: `${die}${formatSigned(modifier)} ${weapon.damageType}`, monk: true };
+  };
   return [
-    {
-      id: "unarmed-strike",
-      name: "Unarmed Strike",
-      category: "Attack",
-      range: "5 ft.",
-      hit: meleeAttackModifier(draft),
-      damage: `${abilityDamage(strength)} bludgeoning`,
-      notes: "Melee Attack",
-      description: "A basic melee attack using fists, kicks, or body weight.",
-      source: "Core Rules",
-    },
+    unarmed,
     ...weapons.map((weapon) => ({
       id: `weapon-${weapon.id}`,
       name: weapon.name,
       category: "Attack" as const,
       range: weaponRange(weapon),
-      hit: formatSigned(draft.proficiencyBonus + weaponAbilityModifier(draft, weapon)),
-      damage: weaponDamage(draft, weapon),
+      hit: weaponStats(weapon).hit,
+      damage: weaponStats(weapon).damage,
       notes: weapon.properties.length ? weapon.properties.map((property) => property.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join("-")).join(", ") : "-",
-      description: weapon.specialDescription ?? `${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType} weapon attack.`,
+      description: `${weaponStats(weapon).monk ? "Monk weapon (Martial Arts). " : ""}${weapon.specialDescription ?? `${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType} weapon attack.`}`,
       source: "Inventory",
     })),
   ];
@@ -795,7 +846,10 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
       ? Object.entries(chosenClass.featuresByLevel)
           .filter(([level]) => Number(level) <= draft.level)
           .flatMap(([level, features]) =>
-            features.map((feature) => ({
+            features
+              // Tasha optional feature'lari: sadece secilen taraf listelenir (orn. Favored Foe secildiyse Favored Enemy yok).
+              .filter((feature) => optionalFeatureActive(feature.id, draft))
+              .map((feature) => ({
               id: feature.id,
               name: feature.name,
               kind: "Feature" as const,
@@ -952,8 +1006,26 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     return scaleCantripDamage(base, tier);
   };
 
+  const armorClass = computeArmorClass({
+    armors: content.armors,
+    inventory: draft.inventory,
+    itemState: draft.itemState,
+    modifiers: abilityModifiers,
+    strengthScore: draft.abilities.find((ability) => ability.id === "STR")?.score ?? 10,
+    armorProficiencies: draft.proficiencies?.armor ?? [],
+    derived,
+    mageArmorActive: (draft.activeEffects ?? []).includes("mage-armor") && mageArmorAvailable(derived, draft.spellIds),
+  });
+  // Martial Arts sadece zirh ve kalkan yokken.
+  const martialArts: MartialArtsContext =
+    derived.martialArts && armorClass.unarmored ? { die: derived.martialArts.die, monkWeapons: derived.monkWeapons } : null;
+  const saveDcs = derived.saveDcs.map((entry) => ({
+    ...entry,
+    value: 8 + draft.proficiencyBonus + (abilityModifiers[entry.ability] ?? 0),
+  }));
+
   const builtActions = uniqueById<BuiltAction>([
-    ...inventoryWeaponActions(content, draft),
+    ...inventoryWeaponActions(content, draft, martialArts),
     ...learnedSpells.map(({ spell, sourceLabel }) => ({
       id: `${spell.id}-${sourceLabel}`,
       name: spell.name,
@@ -969,17 +1041,7 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     ...buildFeatureActions(builtFeatures),
   ]);
 
-  const armorClass = computeArmorClass({
-    armors: content.armors,
-    inventory: draft.inventory,
-    itemState: draft.itemState,
-    modifiers: abilityModifiers,
-    strengthScore: draft.abilities.find((ability) => ability.id === "STR")?.score ?? 10,
-    armorProficiencies: draft.proficiencies?.armor ?? [],
-    derived,
-    mageArmorActive: (draft.activeEffects ?? []).includes("mage-armor") && mageArmorAvailable(derived, draft.spellIds),
-  });
-  const movementStats = deriveMovementStats(derived, armorClass.speedPenalty);
+  const movementStats = deriveMovementStats(derived, armorClass.speedPenalty, armorClass.unarmored ? 0 : derived.unarmoredSpeedBonus);
   const armorClassStat = deriveArmorClassStat(armorClass);
 
   return {
@@ -1007,6 +1069,8 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     builtActions,
     builtFeatures,
     spellcasting,
+    saveDcs,
+    martialArtsDie: derived.martialArts?.die ?? null,
     mageArmorAvailable: mageArmorAvailable(derived, draft.spellIds),
     // Spells sekmesi icin: level'a gore siralanmis, kaynagi ve DC/attack'i hazir buyu listesi.
     spellEntries: learnedSpells

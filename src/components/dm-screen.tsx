@@ -166,6 +166,15 @@ export function DmScreen(catalog: CharacterCatalogProps) {
                 ))}
               </div>
 
+              {sheetContent.saveDcs.length || sheetContent.martialArtsDie ? (
+                <div className="dm-row">
+                  {sheetContent.martialArtsDie ? <span>{`Martial Arts ${sheetContent.martialArtsDie}`}</span> : null}
+                  {sheetContent.saveDcs.map((entry) => (
+                    <span key={entry.name}>{`${entry.name} DC ${entry.value}`}</span>
+                  ))}
+                </div>
+              ) : null}
+
               {caster ? (
                 <div className="dm-row">
                   <span>{`Spell DC ${caster.saveDc}`}</span>

@@ -56,6 +56,10 @@ export const grantSchema = z.discriminatedUnion("type", [
       mode: speedModeSchema,
       op: z.enum(["set", "add", "equal_to_walk"]),
       value: z.number().int().nonnegative().default(0),
+      /** Level'la artan deger: "10 (15 at 6th, 20 at 10th)". Varsa value yerine kullanilir. */
+      scaling: z.string().optional(),
+      /** Sadece zirh ve kalkan yokken gecerli (Monk Unarmored Movement). */
+      unarmoredOnly: z.boolean().optional(),
     })
     .strict(),
   z
@@ -120,6 +124,12 @@ export const grantSchema = z.discriminatedUnion("type", [
       shortRestFromLevel: z.number().int().positive().optional(),
     })
     .strict(),
+  /** Monk Martial Arts: zirhsiz/kalkansizken unarmed strike ve monk silahlari bu zari ve STR/DEX'in iyisini kullanir. */
+  z.object({ type: z.literal("martial_arts"), die: z.string().min(1) }).strict(),
+  /** Martial Arts'tan yararlanan ek silahlar (weapon id). "monk-default": shortsword + iki elli/heavy olmayan simple melee. */
+  z.object({ type: z.literal("monk_weapon"), weapons: z.array(z.string().min(1)).min(1) }).strict(),
+  /** Sheet'te gosterilecek ozel save DC (orn. Ki: 8 + PB + WIS). */
+  z.object({ type: z.literal("save_dc"), name: z.string().min(1), ability: abilityIdSchema }).strict(),
   /** Kural motoruna girmeyen ama sheet'te gorunmesi gereken mekanik (orn. "+CHA to eldritch blast damage"). */
   z.object({ type: z.literal("note"), text: z.string().min(1) }).strict(),
 ]);
@@ -173,16 +183,35 @@ export const optionChoiceSchema = z
         .strict(),
       z
         .object({
+          kind: z.literal("weapon"),
+          filter: z
+            .object({
+              attackType: z.enum(["melee", "ranged"]).optional(),
+              /** Kensei: heavy ve special ozelligi olmayan simple/martial silahlar + longbow. */
+              kensei: z.boolean().optional(),
+            })
+            .strict(),
+        })
+        .strict(),
+      z
+        .object({
+          kind: z.literal("tool"),
+          options: z.array(z.string().min(1)).min(1),
+        })
+        .strict(),
+      z
+        .object({
           kind: z.literal("skill"),
           /** true: sadece karakterin zaten proficient oldugu skill'ler (Expertise icin). */
           proficientOnly: z.boolean().default(false),
         })
         .strict(),
     ]),
+    /** Silah secimlerinde (Kensei): secilen silah proficiency + monk silahi olur. */
     /** Buyu secimlerinde: secilen buyu nasil eklenir. */
     grantUses: spellUsesSchema.optional(),
     /** Skill secimlerinde: secilen skill'e ne verilir. */
-    grantAs: z.enum(["proficiency", "expertise"]).optional(),
+    grantAs: z.enum(["proficiency", "expertise", "monk_weapon"]).optional(),
     note: z.string().optional(),
   })
   .strict();

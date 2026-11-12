@@ -14,6 +14,8 @@ export type ArmorClassResult = {
   wearingArmor: boolean;
   /** STR gereksinimi karsilanmayan agir zirh: hiz 10 ft. duser. */
   speedPenalty: number;
+  /** Zirh da kalkan da kusanili degil (Monk Martial Arts / Unarmored Movement icin). */
+  unarmored: boolean;
 };
 
 type Armor = ContentBundle["armors"][number];
@@ -142,7 +144,7 @@ export function computeArmorClass(input: {
     }
   }
 
-  return { value, baseline, breakdown, warnings, wearingArmor, speedPenalty };
+  return { value, baseline, breakdown, warnings, wearingArmor, speedPenalty, unarmored: !wornArmors.length && !shield };
 }
 
 /** Mage Armor acilabilir mi: secilen buyu ya da Armor of Shadows gibi bir kaynak. */

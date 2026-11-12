@@ -9163,3 +9163,10 @@ h2 .keyword-help-trigger,
   width: 100%;
   margin: 6px 0;
 }
+.resource-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 8px;
+  font-size: 0.85rem;
+}

@@ -6837,6 +6837,10 @@ export function CreatorWorkspace({
                         <h3>{visibleSubclassHeading}</h3>
                         <p>{`Choose the ${visibleSubclassHeading.toLowerCase()} that defines your ${currentClass.name} path.`}</p>
                       </div>
+                      <OptionChoicePanel
+                        choices={optionChoices.filter((entry) => entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool")}
+                        onToggle={toggleOptionChoice}
+                      />
                       <div className="fighter-journey-split">
                         <div className="fighter-journey-grid">
                           {fighterJourneySubclasses.map((entry) => (

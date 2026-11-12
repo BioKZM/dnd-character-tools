@@ -193,7 +193,7 @@ const OPTIONAL_FEATURE_SWITCHES: Record<string, (draft: CharacterDraft) => boole
   "nature-s-veil-optional": (draft) => draft.rangerChoices?.hideMode === "natures-veil",
 };
 
-function optionalFeatureActive(featureId: string, draft: CharacterDraft) {
+export function optionalFeatureActive(featureId: string, draft: CharacterDraft) {
   if (draft.classId !== "ranger") {
     return true;
   }
@@ -235,7 +235,7 @@ function classSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSourc
   const subclass = subclassId ? classEntry.subclasses.find((entry) => entry.id === subclassId) : null;
   if (subclass) {
     subclass.features
-      .filter((feature) => (feature.unlockLevel ?? 1) <= draft.level && feature.grants.length)
+      .filter((feature) => (feature.unlockLevel ?? 1) <= draft.level && (feature.grants.length || feature.choices.length))
       .forEach((feature) => {
         sources.push({
           kind: "subclass",
@@ -243,7 +243,7 @@ function classSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSourc
           name: feature.name,
           summary: feature.summary,
           showAsFeature: false,
-          grants: feature.grants,
+          grants: [...feature.grants, ...choiceGrants(feature, draft, catalog.content)],
         });
       });
 
@@ -274,6 +274,18 @@ function choiceGrants(host: ChoiceHost, draft: CharacterDraft, content: ContentB
   return host.choices.filter((choice) => !choice.minLevel || draft.level >= choice.minLevel).flatMap((choice): Grant[] => {
     const allowed = new Set(choiceCandidates(choice, draft, content).map((candidate) => candidate.id));
     const picked = (draft.choices?.[choice.id] ?? []).filter((id) => allowed.has(id)).slice(0, choice.count);
+    if (choice.from.kind === "weapon") {
+      const names = picked.map((id) => content.weapons.find((weapon) => weapon.id === id)?.name ?? id);
+      return picked.length
+        ? [
+            { type: "proficiency" as const, category: "weapon" as const, values: names },
+            ...(choice.grantAs === "monk_weapon" ? [{ type: "monk_weapon" as const, weapons: picked }] : []),
+          ]
+        : [];
+    }
+    if (choice.from.kind === "tool") {
+      return picked.length ? [{ type: "proficiency" as const, category: "tool" as const, values: picked }] : [];
+    }
     if (choice.from.kind === "skill") {
       return choice.grantAs === "expertise"
         ? picked.map((skill) => ({ type: "expertise" as const, skill }))
@@ -321,6 +333,26 @@ export function choiceCandidates(choice: OptionChoice, draft: CharacterDraft, co
     return Object.entries(SKILL_NAMES)
       .filter(([id]) => !proficientOnly || draft.skills.some((skill) => skill.id === id && skill.proficient))
       .map(([id, name]) => ({ id, name, tags: [] }));
+  }
+  if (choice.from.kind === "tool") {
+    return choice.from.options.map((name) => ({ id: name, name, tags: ["Tool"] }));
+  }
+  if (choice.from.kind === "weapon") {
+    const weaponFilter = choice.from.filter;
+    return content.weapons
+      .filter((weapon) => weapon.attackType !== "ammunition")
+      .filter((weapon) => !weaponFilter.attackType || weapon.attackType === weaponFilter.attackType)
+      .filter(
+        (weapon) =>
+          !weaponFilter.kensei ||
+          weapon.id === "longbow" ||
+          (!weapon.properties.includes("heavy") && !weapon.properties.includes("special")),
+      )
+      .map((weapon) => ({
+        id: weapon.id,
+        name: weapon.name,
+        tags: [`${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType}`, weapon.damage ? `${weapon.damage} ${weapon.damageType ?? ""}`.trim() : ""].filter(Boolean),
+      }));
   }
   const filter = choice.from.filter;
   const maxLevel = filter.maxLevel === "half_level" ? Math.ceil(draft.level / 2) : filter.maxLevel;

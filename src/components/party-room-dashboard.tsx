@@ -2283,7 +2283,9 @@ export function PartyRoomDashboard({
           jump:
             entry.choice.from.kind === "skill"
               ? { step: 2, browser: "skills" }
-              : draft.classId === "warlock"
+              : entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool"
+                ? { step: 1, browser: "subclass" }
+                : draft.classId === "warlock"
                 ? { step: 1, browser: "warlock-invocations" }
                 : { step: 1, browser: "spells" },
         }),
@@ -2759,6 +2761,8 @@ export function PartyRoomDashboard({
                     resources={sheetContent.resources}
                     usedResources={draft.usedResources ?? {}}
                     onChange={setResourceUsage}
+                    saveDcs={sheetContent.saveDcs}
+                    martialArtsDie={sheetContent.martialArtsDie}
                   />
                   <div className="action-header">
                     <span>Actions</span>
