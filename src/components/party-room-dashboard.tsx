@@ -6,6 +6,7 @@ import { ClassPortrait } from "@/components/ui/class-portrait";
 import { AppIcon } from "@/components/ui/app-icon";
 import { buildSheetContent } from "@/lib/character/build-sheet";
 import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
+import { activeEntry, importCharacters, parseImport, saveActiveDraft, setActiveCharacter } from "@/lib/character/roster";
 import { emptyDraft, FULL_HP, stripLeakedDemoValues, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
 import { SheetSpellsPanel } from "@/components/sheet-spells-panel";
@@ -1404,17 +1405,47 @@ function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions,
     return null;
   }
 
-  const stored = window.localStorage.getItem("codex-character-draft");
+  // Aktif karakter roster'dan (ilk acilista eski tek kayit roster'a tasinir).
+  const stored = activeEntry()?.draft;
   if (!stored) {
     return null;
   }
 
   try {
-    const parsed = migrateLegacyFeatIds(engine, stripLeakedDemoValues(JSON.parse(stored) as CharacterDraft));
+    const parsed = migrateLegacyFeatIds(engine, stripLeakedDemoValues(structuredClone(stored)));
     return buildDraftFromSelection(content, creatorOptions, parsed, engine);
   } catch {
     return null;
   }
+}
+
+export type CharacterCatalogProps = {
+  initialContent: ContentBundle;
+  initialCreatorOptions: CreatorOptions;
+  initialLineageDataCatalog: LineageCatalog;
+  initialClassCuratedCollection: ClassCuratedCollection;
+  initialClassOptionCollection: ClassOptionCollection;
+};
+
+/** Creator/Sheet'in kullandigi ayni hesaplama; DM Screen gibi birden cok karakteri gosteren ekranlar icin. */
+export function computeCharacterView(catalog: CharacterCatalogProps, rawDraft: CharacterDraft) {
+  const engine: EngineCatalog = {
+    content: catalog.initialContent,
+    lineages: catalog.initialLineageDataCatalog,
+    classes: catalog.initialClassCuratedCollection,
+    classOptions: catalog.initialClassOptionCollection,
+  };
+  const storedHp = rawDraft.currentHp;
+  const draft = buildDraftFromSelection(
+    catalog.initialContent,
+    catalog.initialCreatorOptions,
+    migrateLegacyFeatIds(engine, stripLeakedDemoValues(structuredClone(rawDraft))),
+    engine,
+  );
+  const sheetDraft = buildSheetDraftFromSelection(catalog.initialContent, catalog.initialCreatorOptions, draft, engine);
+  const sheetContent = buildSheetContent(catalog.initialContent, sheetDraft, engine);
+  const currentHp = storedHp < 0 ? sheetDraft.maxHp : Math.min(storedHp ?? sheetDraft.maxHp, sheetDraft.maxHp);
+  return { draft, sheetDraft, sheetContent, currentHp };
 }
 
 export function PartyRoomDashboard({
@@ -1497,14 +1528,11 @@ export function PartyRoomDashboard({
       return;
     }
 
-    window.localStorage.setItem(
-      "codex-character-draft",
-      JSON.stringify({
-        ...draft,
-        currentHp: currentHp < 0 || currentHp >= sheetDraft.maxHp ? FULL_HP : currentHp,
-        tempHp,
-      }),
-    );
+    saveActiveDraft({
+      ...draft,
+      currentHp: currentHp < 0 || currentHp >= sheetDraft.maxHp ? FULL_HP : currentHp,
+      tempHp,
+    });
   }, [draft, currentHp, tempHp, sheetDraft.maxHp]);
 
   const filteredActions =
@@ -2091,7 +2119,16 @@ export function PartyRoomDashboard({
 
     try {
       const text = await file.text();
-      const parsed = JSON.parse(text) as CharacterDraft;
+      const imported = parseImport(text);
+      const parsed = imported[0];
+      if (!parsed) {
+        throw new Error("no character");
+      }
+      // Iceri alinan karakter(ler) yeni kayit olarak eklenir; ilki aktif olur. Mevcut karakterin ustune yazilmaz.
+      const [firstId] = importCharacters(imported);
+      if (firstId) {
+        setActiveCharacter(firstId);
+      }
       setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, migrateLegacyFeatIds(engineCatalog, parsed), engineCatalog));
       setCurrentHp(parsed.currentHp ?? parsed.maxHp ?? draft.maxHp);
       setTempHp(parsed.tempHp ?? 0);

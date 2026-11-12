@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { AppIcon } from "@/components/ui/app-icon";
+import { CharacterSwitcher } from "@/components/character-switcher";
 
 export function CampaignShell({
   title,
@@ -27,6 +28,11 @@ export function CampaignShell({
           </div>
 
           <nav className="campaign-nav">
+            <CharacterSwitcher />
+            <Link href="/campaign/characters">
+              <AppIcon name="class" className="nav-icon" />
+              <span>Characters</span>
+            </Link>
             <Link href="/campaign/creator">
               <AppIcon name="wand" className="nav-icon" />
               <span>Creator</span>
@@ -34,6 +40,10 @@ export function CampaignShell({
             <Link href="/campaign/sheet">
               <AppIcon name="scroll" className="nav-icon" />
               <span>Sheet</span>
+            </Link>
+            <Link href="/campaign/dm">
+              <AppIcon name="shield" className="nav-icon" />
+              <span>DM Screen</span>
             </Link>
           </nav>
         </section>
