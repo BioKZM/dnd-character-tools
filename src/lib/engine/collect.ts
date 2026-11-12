@@ -3,7 +3,7 @@ import type { ClassCuratedCollection } from "@/lib/content/class-curated-schema"
 import type { ClassOptionCollection, ClassOptionEntry } from "@/lib/content/class-options-schema";
 import type { ContentBundle } from "@/lib/content/schema";
 import type { LineageCatalog, LineageGrant } from "@/lib/data/lineages/schema";
-import type { Grant } from "@/lib/engine/grants";
+import type { Grant, OptionChoice } from "@/lib/engine/grants";
 
 /** deriveCharacter'in ihtiyac duydugu tum veri. */
 export type EngineCatalog = {
@@ -217,7 +217,23 @@ function classSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSourc
   return sources;
 }
 
-function optionSource(kind: GrantSourceKind, option: ClassOptionEntry | undefined): GrantSource[] {
+/** Opsiyonun secimlerinden (draft.choices) gelen grant'ler. Gecersiz/fazla secimler atlanir. */
+function choiceGrants(option: ClassOptionEntry, draft: CharacterDraft, content: ContentBundle): Grant[] {
+  return option.choices.flatMap((choice) => {
+    const allowed = new Set(choiceCandidates(choice, draft, content).map((spell) => spell.id));
+    return (draft.choices?.[choice.id] ?? [])
+      .filter((spellId) => allowed.has(spellId))
+      .slice(0, choice.count)
+      .map((spellId) => ({ type: "spell" as const, spellId, uses: choice.grantUses, note: choice.note }));
+  });
+}
+
+function optionSource(
+  kind: GrantSourceKind,
+  option: ClassOptionEntry | undefined,
+  draft: CharacterDraft,
+  content: ContentBundle,
+): GrantSource[] {
   if (!option) {
     return [];
   }
@@ -228,28 +244,43 @@ function optionSource(kind: GrantSourceKind, option: ClassOptionEntry | undefine
       name: option.name,
       summary: option.summary,
       showAsFeature: true,
-      grants: option.grants,
+      grants: [...option.grants, ...choiceGrants(option, draft, content)],
     },
   ];
 }
 
-function classOptionSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSource[] {
-  const options = catalog.classOptions;
-  if (!options) {
-    return [];
-  }
+/** Bir secim icin secilebilecek buyuler. */
+export function choiceCandidates(choice: OptionChoice, draft: CharacterDraft, content: ContentBundle) {
+  const filter = choice.from.filter;
+  const maxLevel = filter.maxLevel === "half_level" ? Math.ceil(draft.level / 2) : filter.maxLevel;
+  return content.spells.filter((spell) => {
+    if (filter.level !== undefined && spell.level !== filter.level) return false;
+    if (filter.minLevel !== undefined && spell.level < filter.minLevel) return false;
+    if (maxLevel !== undefined && spell.level > maxLevel) return false;
+    if (filter.tags.some((tag) => !(spell.tags ?? []).includes(tag))) return false;
+    if (filter.classes.length && !filter.classes.some((className) => (spell.classes ?? []).includes(className))) return false;
+    return true;
+  });
+}
 
-  const sources: GrantSource[] = [];
+/** Taslakta secili olan opsiyonlar (pact boon, invocation, fighting style). */
+function selectedClassOptions(catalog: EngineCatalog, draft: CharacterDraft) {
+  const options = catalog.classOptions;
+  const selected: { kind: GrantSourceKind; option: ClassOptionEntry }[] = [];
+  if (!options) {
+    return selected;
+  }
+  const push = (kind: GrantSourceKind, option: ClassOptionEntry | undefined) => {
+    if (option) selected.push({ kind, option });
+  };
 
   if (draft.classId === "warlock") {
     if (draft.level >= 3) {
-      sources.push(...optionSource("pact-boon", options.warlock.pactBoon?.options.find((entry) => entry.id === draft.pactBoonId)));
+      push("pact-boon", options.warlock.pactBoon?.options.find((entry) => entry.id === draft.pactBoonId));
     }
     if (draft.level >= 2) {
       (draft.selectedInvocationIds ?? []).forEach((invocationId) => {
-        sources.push(
-          ...optionSource("invocation", options.warlock.eldritchInvocations?.options.find((entry) => entry.id === invocationId)),
-        );
+        push("invocation", options.warlock.eldritchInvocations?.options.find((entry) => entry.id === invocationId));
       });
     }
   }
@@ -262,14 +293,46 @@ function classOptionSources(catalog: EngineCatalog, draft: CharacterDraft): Gran
         : null;
   if (fightingStyleId) {
     // Ranger icin de ayni havuz; ranger'da olmayan stiller zaten creator'da secilemiyor.
-    sources.push(
-      ...optionSource("fighting-style", options.fighter.fightingStyle?.options.find((entry) => entry.id === fightingStyleId)).map(
-        (source) => ({ ...source, showAsFeature: false }),
-      ),
-    );
+    push("fighting-style", options.fighter.fightingStyle?.options.find((entry) => entry.id === fightingStyleId));
   }
 
-  return sources;
+  return selected;
+}
+
+export type AvailableChoice = {
+  choice: OptionChoice;
+  sourceName: string;
+  candidates: ContentBundle["spells"];
+  selectedIds: string[];
+};
+
+/** Creator'da gosterilecek acik secimler (secili opsiyonlarin `choices` alanlari). */
+export function availableChoices(draft: CharacterDraft, catalog: EngineCatalog): AvailableChoice[] {
+  return selectedClassOptions(catalog, draft).flatMap(({ option }) =>
+    option.choices.map((choice) => {
+      const candidates = choiceCandidates(choice, draft, catalog.content);
+      const allowed = new Set(candidates.map((spell) => spell.id));
+      return {
+        choice,
+        sourceName: option.name,
+        candidates,
+        selectedIds: (draft.choices?.[choice.id] ?? []).filter((spellId) => allowed.has(spellId)).slice(0, choice.count),
+      };
+    }),
+  );
+}
+
+/** Artik gecerli olmayan secimleri (opsiyon birakildi, level dustu...) temizler. */
+export function sanitizeChoices(draft: CharacterDraft, catalog: EngineCatalog): Record<string, string[]> {
+  return Object.fromEntries(availableChoices(draft, catalog).map((entry) => [entry.choice.id, entry.selectedIds]));
+}
+
+function classOptionSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSource[] {
+  return selectedClassOptions(catalog, draft).flatMap(({ kind, option }) =>
+    optionSource(kind, option, draft, catalog.content).map((source) =>
+      kind === "fighting-style" ? { ...source, showAsFeature: false } : source,
+    ),
+  );
 }
 
 function featSource(content: ContentBundle, featId: string, showAsFeature: boolean): GrantSource[] {

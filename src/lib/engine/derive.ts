@@ -1,12 +1,16 @@
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import { collectGrantSources, type EngineCatalog, type GrantSource } from "@/lib/engine/collect";
 import type { AbilityId, Grant, GrantType, ProficiencyCategory } from "@/lib/engine/grants";
+import type { z } from "zod";
+import type { spellUsesSchema } from "@/lib/engine/grants";
+
+type SpellUses = z.infer<typeof spellUsesSchema>;
 
 export type SourcedValue<T> = T & { sources: string[] };
 
 export type DerivedSpell = {
   spellId: string;
-  uses: "at_will" | "long_rest" | "known" | "list";
+  uses: SpellUses;
   ability?: AbilityId;
   note?: string;
   source: string;

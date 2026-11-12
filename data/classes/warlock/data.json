@@ -300,10 +300,17 @@
       "summary": "Choose the pact gift your patron grants at 3rd level."
     },
     {
+      "id": "invocations",
+      "label": "Invocations",
+      "browser": "warlock-invocations",
+      "minLevel": 2,
+      "summary": "Choose your Eldritch Invocations and their extra picks (Book of Ancient Secrets rituals)."
+    },
+    {
       "id": "spells",
       "label": "Spells",
       "browser": "spells",
-      "summary": "Choose warlock spells and manage Eldritch Invocations."
+      "summary": "Choose warlock spells, patron list spells, and Mystic Arcanum."
     }
   ],
   "startingEquipment": [

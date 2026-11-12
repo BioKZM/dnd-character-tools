@@ -8,7 +8,7 @@ import { buildSheetContent } from "@/lib/character/build-sheet";
 import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
 import { emptyDraft, stripLeakedDemoValues, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
-import type { EngineCatalog } from "@/lib/engine/collect";
+import { availableChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
 import { deriveCharacter, hasProficiency, senseLabel, type DerivedCharacter } from "@/lib/engine/derive";
 import {
   warlockInvocationMeetsPrerequisite,
@@ -1263,7 +1263,7 @@ function buildDraftFromSelection(
   ]);
   const armorClass = calculatedArmorClass(content, inventory, modifiers.DEX);
 
-  return {
+  const built: CharacterDraft = {
     ...previous,
     ancestry: chosenSpecies.name,
     classLine: `${chosenClass.name} ${previous.level}`,
@@ -1396,6 +1396,9 @@ function buildDraftFromSelection(
       };
     }),
   };
+
+  // Secim opsiyonlari birakildiysa / level dustuyse onlara bagli secimler de temizlenir.
+  return { ...built, choices: sanitizeChoices(built, engine) };
 }
 
 function loadInitialDraft(content: ContentBundle, creatorOptions: CreatorOptions, engine: EngineCatalog) {
@@ -1710,6 +1713,22 @@ export function PartyRoomDashboard({
       pactBoonId,
       selectedPactCantripIds: pactBoonId === "pact-of-the-tome" ? current.selectedPactCantripIds ?? [] : [],
     }));
+  };
+
+  const toggleOptionChoice = (choiceId: string, value: string) => {
+    updateDraft((current) => {
+      const entry = availableChoices(current, engineCatalog).find((item) => item.choice.id === choiceId);
+      if (!entry) {
+        return current;
+      }
+      const existing = entry.selectedIds;
+      const next = existing.includes(value)
+        ? existing.filter((item) => item !== value)
+        : existing.length < entry.choice.count && entry.candidates.some((spell) => spell.id === value)
+          ? [...existing, value]
+          : existing;
+      return { ...current, choices: { ...(current.choices ?? {}), [choiceId]: next } };
+    });
   };
 
   const togglePactCantripSelection = (spellId: string) => {
@@ -2162,6 +2181,8 @@ export function PartyRoomDashboard({
               toggleInvocationSelection={toggleInvocationSelection}
               setPactBoon={setPactBoon}
               togglePactCantripSelection={togglePactCantripSelection}
+              optionChoices={availableChoices(draft, engineCatalog)}
+              toggleOptionChoice={toggleOptionChoice}
               setMysticArcanumSpell={setMysticArcanumSpell}
               setRangerFavoredEnemyMode={setRangerFavoredEnemyMode}
               updateRangerFavoredEnemyChoice={updateRangerFavoredEnemyChoice}

@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { CharacterDraft, AbilityId } from "@/lib/character/demo-sheet";
 import { eldritchKnightProgression, getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
 import type { LineageCatalog, LineageChoiceGroup, LineageChoiceOption, LineageEntry as StructuredLineageEntry, LineageFeature as StructuredLineageFeature, Sublineage as StructuredSublineage } from "@/lib/data/lineages/schema";
+import type { AvailableChoice } from "@/lib/engine/collect";
+import { OptionChoicePanel } from "@/components/option-choice-panel";
 import type { ClassDocBlock, ClassDocCollection, ClassDocSection, ClassDocTable } from "@/lib/content/class-docs";
 
 // TODO(creator split): class doc verisi artik yok; asagidaki classDocs dallari olu kod, creator bolunurken silinecek.
@@ -36,6 +38,7 @@ type CreatorBrowser =
   | "fighter-fighting-style"
   | "fighter-asi"
   | "warlock-pact"
+  | "warlock-invocations"
   | "background"
   | "custom-background-tools"
   | "custom-background-languages"
@@ -61,7 +64,8 @@ type FighterJourneyScene =
   | "fighter-subclass"
   | "fighter-eldritch"
   | "warlock-spells"
-  | "warlock-pact";
+  | "warlock-pact"
+  | "warlock-invocations";
 
 type SidebarNavEntry =
   | {
@@ -229,6 +233,7 @@ const fighterJourneySceneOrder: FighterJourneyScene[] = [
   "fighter-asi",
   "fighter-subclass",
   "warlock-pact",
+  "warlock-invocations",
   "warlock-spells",
   "fighter-eldritch",
 ];
@@ -1024,6 +1029,10 @@ function fighterSceneFromBrowser(browser: CreatorBrowser, subclassId: string | n
 
   if (browser === "warlock-pact") {
     return "warlock-pact";
+  }
+
+  if (browser === "warlock-invocations") {
+    return "warlock-invocations";
   }
 
   if (browser === "spells" && classId === "warlock") {
@@ -2852,6 +2861,8 @@ export function CreatorWorkspace({
   toggleInvocationSelection,
   setPactBoon,
   togglePactCantripSelection,
+  optionChoices,
+  toggleOptionChoice,
   setMysticArcanumSpell,
   setRangerFavoredEnemyMode,
   updateRangerFavoredEnemyChoice,
@@ -2917,6 +2928,8 @@ export function CreatorWorkspace({
   toggleInvocationSelection: (value: string) => void;
   setPactBoon: (value: string) => void;
   togglePactCantripSelection: (value: string) => void;
+  optionChoices: AvailableChoice[];
+  toggleOptionChoice: (choiceId: string, value: string) => void;
   setMysticArcanumSpell: (spellLevel: 6 | 7 | 8 | 9, spellId: string) => void;
   setRangerFavoredEnemyMode: (mode: "enemy" | "foe") => void;
   updateRangerFavoredEnemyChoice: (
@@ -4320,6 +4333,7 @@ export function CreatorWorkspace({
     "class-features",
     "fighter-fighting-style",
     "warlock-pact",
+    "warlock-invocations",
     "subclass",
     "subclass-features",
     "subclass-choices",
@@ -4377,7 +4391,7 @@ export function CreatorWorkspace({
     const baseStages = currentCuratedClass?.journeyStages.length ? currentCuratedClass.journeyStages : fallbackStages;
     const normalizedBaseStages = baseStages.filter((stage) => stage.browser !== "inventory");
     const subclassStages = selectedJourneySubclass?.journeyStages ?? [];
-    const stageOrder = ["class", "class-features", "fighter-fighting-style", "fighter-asi", "subclass", "subclass-features", "subclass-choices", "warlock-pact", "spells"];
+    const stageOrder = ["class", "class-features", "fighter-fighting-style", "fighter-asi", "subclass", "subclass-features", "subclass-choices", "warlock-pact", "warlock-invocations", "spells"];
     return [...normalizedBaseStages, ...subclassStages]
       .filter((stage) => (stage.minLevel ? draft.level >= stage.minLevel : true))
       .filter((stage) => (stage.requiresSubclassId ? fighterJourneySubclassId === stage.requiresSubclassId : true))
@@ -5950,7 +5964,7 @@ export function CreatorWorkspace({
                       "creator-panel",
                       "creator-panel-wide",
                       "fighter-journey-panel",
-                      fighterJourneyScene === "fighter-features" || fighterJourneyScene === "fighter-style" || fighterJourneyScene === "fighter-asi" || fighterJourneyScene === "fighter-class" || fighterJourneyScene === "fighter-eldritch" || fighterJourneyScene === "warlock-pact" || fighterJourneyScene === "warlock-spells"
+                      fighterJourneyScene === "fighter-features" || fighterJourneyScene === "fighter-style" || fighterJourneyScene === "fighter-asi" || fighterJourneyScene === "fighter-class" || fighterJourneyScene === "fighter-eldritch" || fighterJourneyScene === "warlock-pact" || fighterJourneyScene === "warlock-invocations" || fighterJourneyScene === "warlock-spells"
                         ? "creator-stage-panel-flat fighter-journey-panel-plain"
                         : "",
                       fighterJourneySubclassId === "eldritch-knight" ? "is-arcane" : "",
@@ -6773,6 +6787,98 @@ export function CreatorWorkspace({
                     </div>
                   ) : null}
 
+                  {fighterJourneyScene === "warlock-invocations" ? (
+                    <div className="fighter-journey-scene">
+                      <div className="fighter-journey-scene-head compact">
+                        <span className="mini-heading creator-section-label">Eldritch Invocations</span>
+                        <h3>Eldritch Invocations</h3>
+                        <p>{`Choose the invocations your patron teaches you. ${visibleSelectedInvocationCount} / ${warlockInvocationLimit || 0} selected. Locked ones need a higher level, a Pact Boon, or a specific spell.`}</p>
+                      </div>
+                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
+                      {draft.level < 2 ? (
+                        <div className="list-row">
+                          <strong>Invocations locked</strong>
+                          <span>Eldritch Invocations open at Warlock Level 2.</span>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="skill-spell-toolbar">
+                            <button
+                              type="button"
+                              className={showUnavailableOptions ? "table-toggle-button active" : "table-toggle-button"}
+                              onClick={() => setShowUnavailableOptions((current) => !current)}
+                            >
+                              {showUnavailableOptions ? "Hide Locked" : "Show Locked"}
+                            </button>
+                          </div>
+                          {visibleInvocationCards.length ? (
+                                  <div className="warlock-flow-panel">
+                                    <div className="compact-pagination-row centered">
+                                      <button type="button" className="pagination-arrow" onClick={() => setInvocationPage((current) => Math.max(0, current - 1))} disabled={invocationPage === 0}>‹</button>
+                                      <span className="pagination-indicator">{`${invocationPage + 1} / ${invocationPageCount}`}</span>
+                                      <button type="button" className="pagination-arrow" onClick={() => setInvocationPage((current) => Math.min(invocationPageCount - 1, current + 1))} disabled={invocationPage >= invocationPageCount - 1}>›</button>
+                                    </div>
+                                    <div className="compact-option-list graph-list">
+                                      {pagedInvocationCards.map((option) => {
+                                        const parsed = parseWarlockInvocationSummary(option);
+                                        const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.requirement, {
+                                          level: draft.level,
+                                          pactBoonId: draft.pactBoonId,
+                                          spellIds: draft.spellIds,
+                                        });
+                                        return (
+                                          <label className={draft.selectedInvocationIds.includes(option.id) ? `spell-selection-row active${isUnlocked ? "" : " disabled"}` : `spell-selection-row${isUnlocked ? "" : " disabled"}`} key={option.id}>
+                                            <input type="checkbox" className="visually-hidden" checked={draft.selectedInvocationIds.includes(option.id)} disabled={!isUnlocked} onChange={() => toggleInvocationSelection(option.id)} />
+                                            <div className="spell-selection-main">
+                                              <strong className="spell-selection-title">
+                                                <HoverTooltip label={option.name} content={
+                                                  <>
+                                                    <span className="spell-tooltip-head">
+                                                      <span className="spell-tooltip-class">
+                                                        <ClassPortrait classId={currentClass.id} alt={currentClass.name} className="spell-tooltip-portrait" />
+                                                        <span>{currentClass.name}</span>
+                                                      </span>
+                                                      <strong>{option.name}</strong>
+                                                    </span>
+                                                    <span className="spell-tooltip-meta">
+                                                      {parsed.source ? <span>{parsed.source}</span> : null}
+                                                      {parsed.prerequisite ? <span>{`Prerequisite: ${parsed.prerequisite}`}</span> : null}
+                                                    </span>
+                                                    <span className="spell-tooltip-copy">{parsed.description}</span>
+                                                  </>
+                                                } />
+                                              </strong>
+                                            </div>
+                                            <div className="spell-selection-tags important">
+                                              {parsed.prerequisite ? (
+                                                <span className="spell-tooltip-chip tone-utility">
+                                                  <AppIcon name="book" className="spell-tooltip-chip-icon" />
+                                                  Prerequisite
+                                                </span>
+                                              ) : null}
+                                              {damageChipFromText(parsed.description) ? (
+                                                <span className="spell-tooltip-chip tone-danger">
+                                                  <AppIcon name="dice" className="spell-tooltip-chip-icon" />
+                                                  {damageChipFromText(parsed.description)}
+                                                </span>
+                                              ) : null}
+                                            </div>
+                                          </label>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="list-row">
+                                    <strong>No available invocations</strong>
+                                    <span>Your current level, Pact Boon, or learned spells do not unlock an invocation here yet.</span>
+                                  </div>
+                                )}
+                          <OptionChoicePanel choices={optionChoices} onToggle={toggleOptionChoice} />
+                        </>
+                      )}
+                    </div>
+                  ) : null}
                   {fighterJourneyScene === "warlock-pact" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
@@ -10356,6 +10462,9 @@ export function CreatorWorkspace({
                                     <span>Your current level, Pact Boon, or learned spells do not unlock an invocation here yet.</span>
                                   </div>
                                 )
+                              ) : null}
+                              {openWarlockGroup === "invocations" ? (
+                                <OptionChoicePanel choices={optionChoices} onToggle={toggleOptionChoice} />
                               ) : null}
                             </div>
                           </div>

@@ -125,7 +125,43 @@
       "prerequisite": {
         "pactBoon": "pact-of-the-tome"
       },
-      "grants": []
+      "grants": [],
+      "choices": [
+        {
+          "id": "book-of-ancient-secrets-rituals",
+          "label": "Two 1st-level rituals from any class",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "level": 1,
+              "tags": [
+                "Ritual"
+              ]
+            }
+          },
+          "grantUses": "ritual",
+          "note": "Book of Shadows in hand; ritual casting only"
+        },
+        {
+          "id": "book-of-ancient-secrets-transcribed",
+          "label": "Rituals transcribed later (level up to half your warlock level)",
+          "count": 20,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "minLevel": 1,
+              "maxLevel": "half_level",
+              "tags": [
+                "Ritual"
+              ]
+            }
+          },
+          "grantUses": "ritual",
+          "note": "transcribed into the Book of Shadows; ritual casting only"
+        }
+      ]
     },
     {
       "id": "chains-of-carceri",

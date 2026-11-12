@@ -108,6 +108,8 @@ export type CharacterDraft = {
   selectedSubclassOptions: string[];
   pactBoonId: string | null;
   selectedPactCantripIds: string[];
+  /** Genel secimler: choice id -> secilen degerler (orn. Book of Ancient Secrets ritual'lari). */
+  choices: Record<string, string[]>;
   selectedInvocationIds: string[];
   mysticArcanumSelections: Partial<Record<6 | 7 | 8 | 9, string>>;
   rangerChoices: RangerChoices;
@@ -161,6 +163,7 @@ export const demoCharacter: CharacterDraft = {
   selectedSubclassOptions: [],
   pactBoonId: null,
   selectedPactCantripIds: [],
+  choices: {},
   selectedInvocationIds: [],
   mysticArcanumSelections: {},
   rangerChoices: {

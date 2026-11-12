@@ -380,6 +380,7 @@ const SPELL_USE_LABELS: Record<DerivedSpell["uses"], string> = {
   long_rest: "1 / long rest",
   known: "always known",
   list: "spell list",
+  ritual: "ritual only",
 };
 
 /** Lineage, subclass, invocation, feat vb. kaynaklardan otomatik gelen buyuler (ortak motordan). */

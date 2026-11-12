@@ -28,8 +28,9 @@ export const defenseKindSchema = z.enum(["resistance", "immunity", "condition_im
  *  - long_rest      : long rest basina bir kez, slot harcamadan
  *  - known          : bilinen buyu olarak eklenir, bilinen buyu sayisina dahil DEGIL
  *  - list           : sadece secilebilir buyu havuzuna eklenir (orn. Great Old One expanded spells)
+ *  - ritual         : sadece ritual olarak yapilabilir (orn. Book of Ancient Secrets)
  */
-export const spellUsesSchema = z.enum(["at_will", "long_rest", "known", "list"]);
+export const spellUsesSchema = z.enum(["at_will", "long_rest", "known", "list", "ritual"]);
 
 export const grantSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("ability"), ability: abilityIdSchema, amount: z.number().int() }).strict(),
@@ -120,3 +121,36 @@ export const optionPrerequisiteSchema = z
   .strict();
 
 export type OptionPrerequisite = z.infer<typeof optionPrerequisiteSchema>;
+
+/**
+ * Oyuncunun sectigi kazanim. Secilenler draft.choices[choice.id] icinde saklanir.
+ * Simdilik buyu secimleri destekleniyor; diger turler (skill, dil, feat) ayni kaliba eklenecek.
+ */
+export const optionChoiceSchema = z
+  .object({
+    id: z.string().min(1),
+    label: z.string().min(1),
+    /** En fazla kac secim. Zorunlu sayi `min` ile verilir. */
+    count: z.number().int().positive(),
+    min: z.number().int().nonnegative().optional(),
+    from: z
+      .object({
+        kind: z.literal("spell"),
+        filter: z
+          .object({
+            level: z.number().int().nonnegative().optional(),
+            /** "half_level": karakter level'inin yarisi (yukari yuvarlanir) ve alti. */
+            maxLevel: z.union([z.number().int().nonnegative(), z.literal("half_level")]).optional(),
+            minLevel: z.number().int().nonnegative().optional(),
+            tags: z.array(z.string()).default([]),
+            classes: z.array(z.string()).default([]),
+          })
+          .strict(),
+      })
+      .strict(),
+    grantUses: spellUsesSchema,
+    note: z.string().optional(),
+  })
+  .strict();
+
+export type OptionChoice = z.infer<typeof optionChoiceSchema>;
