@@ -34,7 +34,7 @@
       "grants": [
         {
           "type": "note",
-          "text": "Bonus action: mark a creature; next hit deals force damage and +1d8 (2d8 at 11th)."
+          "text": "Planar Warrior: bonus action, mark a creature within 30 ft.; your next hit on it this turn deals +1d8 force and all its damage becomes force (2d8 at 11th)."
         }
       ]
     },
@@ -57,13 +57,25 @@
       "id": "distant-strike",
       "name": "Distant Strike",
       "unlockLevel": 11,
-      "summary": "When you use the Attack action, you can teleport up to 10 feet before each attack. If you attack at least two different creatures with the action, you can make one additional attack against a third creature."
+      "summary": "When you use the Attack action, you can teleport up to 10 feet before each attack. If you attack at least two different creatures with the action, you can make one additional attack against a third creature.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Distant Strike: teleport up to 10 ft. before each attack; if you attack two different creatures, make a third attack against another creature."
+        }
+      ]
     },
     {
       "id": "spectral-defense",
       "name": "Spectral Defense",
       "unlockLevel": 15,
-      "summary": "When you take damage from an attack, you can use your reaction to give yourself resistance to all of that attack's damage on this turn."
+      "summary": "When you take damage from an attack, you can use your reaction to give yourself resistance to all of that attack's damage on this turn.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Spectral Defense: reaction when hit by an attack, gain resistance to all of its damage."
+        }
+      ]
     }
   ],
   "expandedSpells": [

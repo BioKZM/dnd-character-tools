@@ -539,6 +539,65 @@
       "unlockLevel": 1
     },
     {
+      "id": "roving-optional",
+      "name": "Roving (Deft Explorer)",
+      "summary": "Part of Deft Explorer. Your walking speed increases by 5 feet, and you gain a climbing speed and a swimming speed equal to your walking speed.",
+      "keyFacts": [
+        "+5 ft. walking speed",
+        "Climb and swim speed equal to walking speed"
+      ],
+      "tags": [
+        "Optional"
+      ],
+      "milestones": [],
+      "unlockLevel": 6,
+      "grants": [
+        {
+          "type": "speed",
+          "mode": "walk",
+          "op": "add",
+          "value": 5
+        },
+        {
+          "type": "speed",
+          "mode": "climb",
+          "op": "equal_to_walk",
+          "value": 0
+        },
+        {
+          "type": "speed",
+          "mode": "swim",
+          "op": "equal_to_walk",
+          "value": 0
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "tireless-optional",
+      "name": "Tireless (Deft Explorer)",
+      "summary": "Part of Deft Explorer. As an action, give yourself temporary hit points equal to 1d8 + your Wisdom modifier, a number of times equal to your proficiency bonus per long rest. Whenever you finish a short rest, your exhaustion level decreases by 1.",
+      "keyFacts": [
+        "Action: 1d8 + WIS temporary HP",
+        "PB uses per long rest"
+      ],
+      "tags": [
+        "Optional"
+      ],
+      "milestones": [],
+      "unlockLevel": 10,
+      "grants": [
+        {
+          "type": "resource",
+          "id": "tireless",
+          "name": "Tireless",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
       "id": "fighting-style",
       "name": "Fighting Style",
       "keyFacts": [
@@ -775,7 +834,13 @@
         }
       ],
       "summary": "Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn.",
-      "unlockLevel": 5
+      "unlockLevel": 5,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Extra Attack: attack twice when you take the Attack action."
+        }
+      ]
     },
     {
       "id": "land-s-stride",
@@ -792,7 +857,13 @@
         }
       ],
       "summary": "Starting at 8th level, moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard. In addition, you have advantage on saving throws against plants that are magically created or manipulated to impede movement, such as those created by the Entangle spell.",
-      "unlockLevel": 8
+      "unlockLevel": 8,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Land's Stride: nonmagical difficult terrain costs no extra movement; advantage on saves against magically impeding plants."
+        }
+      ]
     },
     {
       "id": "hide-in-plain-sight",
@@ -830,7 +901,16 @@
         }
       ],
       "summary": "This 10th-level feature replaces the Hide in Plain Sight feature. You gain no benefit from the replaced feature and don't qualify for anything in the game that requires it. You draw on the powers of nature to hide yourself from view briefly. As a bonus action, you can magically become invisible, along with any equipment you are wearing or carrying, until the start of your next turn. You can use this feature a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest.",
-      "unlockLevel": 10
+      "unlockLevel": 10,
+      "grants": [
+        {
+          "type": "resource",
+          "id": "natures-veil",
+          "name": "Nature's Veil",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ]
     },
     {
       "id": "vanish",
@@ -847,7 +927,13 @@
         }
       ],
       "summary": "Starting at 14th level, you can use the Hide action as a bonus action on your turn. Also, you can't be tracked by nonmagical means, unless you choose to leave a trail.",
-      "unlockLevel": 14
+      "unlockLevel": 14,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Vanish: Hide as a bonus action; you can't be tracked by nonmagical means unless you choose to leave a trail."
+        }
+      ]
     },
     {
       "id": "feral-senses",
@@ -864,7 +950,13 @@
         }
       ],
       "summary": "At 18th level, you gain preternatural senses that help you fight creatures you can't see. When you attack a creature you can't see, your inability to see it doesn't impose disadvantage on your attack rolls against it. You are also aware of the location of any invisible creature within 30 feet of you, provided that the creature isn't hidden from you and you aren't blinded or deafened.",
-      "unlockLevel": 18
+      "unlockLevel": 18,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Feral Senses: no disadvantage attacking creatures you can't see; you know where invisible creatures within 30 ft. are."
+        }
+      ]
     },
     {
       "id": "foe-slayer",
@@ -881,7 +973,13 @@
         }
       ],
       "summary": "At 20th level, you become an unparalleled hunter of your enemies. Once on each of your turns, you can add your Wisdom modifier to the attack roll or the damage roll of an attack you make against one of your favored enemies. You can choose to use this feature before or after the roll, but before any effects of the roll are applied.",
-      "unlockLevel": 20
+      "unlockLevel": 20,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Foe Slayer: once per turn, add WIS to an attack or damage roll against a favored enemy."
+        }
+      ]
     }
   ],
   "subclassHeading": "Ranger Archetype",

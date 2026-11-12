@@ -589,6 +589,10 @@
           "uses": "CHA",
           "recharge": "long_rest",
           "shortRestFromLevel": 5
+        },
+        {
+          "type": "note",
+          "text": "Bardic Inspiration die: d6 (d8 at 5th, d10 at 10th, d12 at 15th)."
         }
       ]
     },
@@ -642,7 +646,13 @@
         }
       ],
       "summary": "Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest by spending one or more Hit Dice, each of those creatures regains an extra 1d6 hit points. The extra Hit Points increase when you reach certain levels in this class: to 1d8 at 9th level, to 1d10 at 13th level, and to 1d12 at 17th level.",
-      "unlockLevel": 2
+      "unlockLevel": 2,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Song of Rest: allies who spend Hit Dice during your short rest regain an extra 1d6 HP (1d8 at 9th, 1d10 at 13th, 1d12 at 17th)."
+        }
+      ]
     },
     {
       "id": "magical-inspiration-optional",
@@ -783,7 +793,13 @@
         }
       ],
       "summary": "At 6th level, you gain the ability to use musical notes or words of power to disrupt mind-influencing effects. As an action, you can start a performance that lasts until the end of your next turn. During that time, you and any friendly creatures within 30 feet of you have advantage on saving throws against being frightened or charmed. A creature must be able to hear you to gain this benefit. The performance ends early if you are incapacitated or silenced or if you voluntarily end it (no action required).",
-      "unlockLevel": 6
+      "unlockLevel": 6,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Countercharm: action, allies within 30 ft. have advantage on saves against being frightened or charmed until your next turn."
+        }
+      ]
     },
     {
       "id": "magical-secrets",
@@ -808,7 +824,57 @@
         }
       ],
       "summary": "By 10th level, you have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any classes, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table. You learn two additional spells from any classes at 14th level and again at 18th level.",
-      "unlockLevel": 10
+      "unlockLevel": 10,
+      "choices": [
+        {
+          "id": "magical-secrets-10",
+          "label": "Magical Secrets (10th level): 2 spells from any class",
+          "count": 2,
+          "min": 2,
+          "minLevel": 10,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "maxLevel": 5,
+              "minLevel": 0
+            }
+          },
+          "grantUses": "known",
+          "note": "Magical Secrets: counts as a bard spell and toward spells known."
+        },
+        {
+          "id": "magical-secrets-14",
+          "label": "Magical Secrets (14th level): 2 spells from any class",
+          "count": 2,
+          "min": 2,
+          "minLevel": 14,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "maxLevel": 7,
+              "minLevel": 0
+            }
+          },
+          "grantUses": "known",
+          "note": "Magical Secrets: counts as a bard spell and toward spells known."
+        },
+        {
+          "id": "magical-secrets-18",
+          "label": "Magical Secrets (18th level): 2 spells from any class",
+          "count": 2,
+          "min": 2,
+          "minLevel": 18,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "maxLevel": 9,
+              "minLevel": 0
+            }
+          },
+          "grantUses": "known",
+          "note": "Magical Secrets: counts as a bard spell and toward spells known."
+        }
+      ]
     },
     {
       "id": "superior-inspiration",
@@ -825,7 +891,13 @@
         }
       ],
       "summary": "At 20th level, when you roll initiative and have no uses of Bardic Inspiration left, you regain one use.",
-      "unlockLevel": 20
+      "unlockLevel": 20,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Superior Inspiration: if you roll initiative with no Bardic Inspiration left, you regain one."
+        }
+      ]
     }
   ],
   "subclassHeading": "Bard College",

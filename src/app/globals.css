@@ -9159,3 +9159,7 @@ h2 .keyword-help-trigger,
 .level-up-pending {
   border-color: rgba(217, 180, 90, 0.6) !important;
 }
+.option-choice-search {
+  width: 100%;
+  margin: 6px 0;
+}

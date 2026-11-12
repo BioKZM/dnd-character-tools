@@ -3738,7 +3738,14 @@ export function CreatorWorkspace({
   const warlockSelectedCantrips = warlockCantripPool.filter((spell) => draft.spellIds.includes(spell.id)).length;
   const warlockSelectedLeveledSpells = warlockLeveledPool.filter((spell) => draft.spellIds.includes(spell.id)).length;
   const classCantripLimit = spellSelectionRules.cantripLimit || Number(readCurrentSpellTableCell("Cantrips Known") || 0) || 0;
-  const classKnownSpellLimit = spellSelectionRules.totalKnownLimit || Number(currentWarlockSpellsKnown || 0) || 0;
+  // Magical Secrets gibi "spells known'a sayilan" secimler class listesinden secilebilecek sayidan duser.
+  const knownSpellsFromChoices = optionChoices
+    .filter((entry) => entry.choice.id.startsWith("magical-secrets"))
+    .reduce((total, entry) => total + entry.selectedIds.length, 0);
+  const classKnownSpellLimit = Math.max(
+    0,
+    (spellSelectionRules.totalKnownLimit || Number(currentWarlockSpellsKnown || 0) || 0) - knownSpellsFromChoices,
+  );
   const classSelectedCantrips = availableSpells.filter((spell) => spell.level === 0 && draft.spellIds.includes(spell.id));
   const classSelectedLeveledSpells = availableSpells.filter((spell) => spell.level > 0 && draft.spellIds.includes(spell.id));
   const classSpellUnavailableReason = (spell: ContentBundle["spells"][number]) => {
@@ -7156,6 +7163,9 @@ export function CreatorWorkspace({
                         </button>
                       </div>
                       <div className="fighter-journey-scene-divider" aria-hidden="true" />
+                      {currentClass.id !== "warlock" ? (
+                        <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                      ) : null}
                       <div className="fighter-journey-counter-row">
                         <div className="fighter-journey-counter">
                           <span>Cantrips</span>

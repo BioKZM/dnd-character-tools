@@ -424,7 +424,13 @@
           "label": "4 attacks"
         }
       ],
-      "unlockLevel": 5
+      "unlockLevel": 5,
+      "grants": [
+        {
+          "type": "note",
+          "text": "Extra Attack: attack twice when you take the Attack action (3 at 11th, 4 at 20th)."
+        }
+      ]
     },
     {
       "id": "indomitable",

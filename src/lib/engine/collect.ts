@@ -187,6 +187,8 @@ const OPTIONAL_FEATURE_SWITCHES: Record<string, (draft: CharacterDraft) => boole
   "deft-explorer-optional": (draft) => draft.rangerChoices?.favoredTerrainMode === "deft",
   "primeval-awareness": (draft) => draft.rangerChoices?.awarenessMode !== "primal",
   "primal-awareness-optional": (draft) => draft.rangerChoices?.awarenessMode === "primal",
+  "roving-optional": (draft) => draft.rangerChoices?.favoredTerrainMode === "deft",
+  "tireless-optional": (draft) => draft.rangerChoices?.favoredTerrainMode === "deft",
   "hide-in-plain-sight": (draft) => draft.rangerChoices?.hideMode !== "natures-veil",
   "nature-s-veil-optional": (draft) => draft.rangerChoices?.hideMode === "natures-veil",
 };

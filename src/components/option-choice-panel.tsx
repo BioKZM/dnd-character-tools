@@ -31,7 +31,13 @@ export function OptionChoicePanel({
 
 function ChoiceBlock({ entry, onToggle }: { entry: AvailableChoice; onToggle: (choiceId: string, value: string) => void }) {
   const [page, setPage] = useState(0);
-  const { choice, candidates, selectedIds, sourceName } = entry;
+  const [query, setQuery] = useState("");
+  const { choice, selectedIds, sourceName } = entry;
+  // Uzun listelerde (Magical Secrets: tum class'larin buyuleri) arama; secilenler her zaman ustte.
+  const needle = query.trim().toLowerCase();
+  const candidates = [...entry.candidates]
+    .filter((candidate) => !needle || candidate.name.toLowerCase().includes(needle) || selectedIds.includes(candidate.id))
+    .sort((left, right) => Number(selectedIds.includes(right.id)) - Number(selectedIds.includes(left.id)));
   const pageCount = Math.max(1, Math.ceil(candidates.length / PAGE_SIZE));
   const safePage = Math.min(page, pageCount - 1);
   const paged = candidates.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
@@ -44,6 +50,19 @@ function ChoiceBlock({ entry, onToggle }: { entry: AvailableChoice; onToggle: (c
         <strong>{`${sourceName}: ${choice.label}`}</strong>
         <span>{counter}</span>
       </div>
+      {entry.candidates.length > PAGE_SIZE * 2 ? (
+        <input
+          type="search"
+          className="option-choice-search"
+          placeholder="Search..."
+          aria-label={`Search ${choice.label}`}
+          value={query}
+          onChange={(event) => {
+            setQuery(event.target.value);
+            setPage(0);
+          }}
+        />
+      ) : null}
       {candidates.length ? (
         <div className="compact-option-list graph-list">
           {paged.map((spell) => {

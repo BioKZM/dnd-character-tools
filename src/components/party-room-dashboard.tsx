@@ -2249,11 +2249,15 @@ export function PartyRoomDashboard({
         jump: { step: 1, browser: "spells" },
       });
     }
-    if (castsSpells && Number.isFinite(spellSelectionRules.totalKnownLimit) && spellCount < spellSelectionRules.totalKnownLimit) {
+    const choiceKnownSpells = availableChoices(draft, engineCatalog)
+      .filter((entry) => entry.choice.id.startsWith("magical-secrets"))
+      .reduce((total, entry) => total + entry.selectedIds.length, 0);
+    const knownLimit = spellSelectionRules.totalKnownLimit - choiceKnownSpells;
+    if (castsSpells && Number.isFinite(knownLimit) && spellCount < knownLimit) {
       tasks.push({
         id: "spells",
         label: "Spells Known",
-        detail: `${spellCount} / ${spellSelectionRules.totalKnownLimit} known (up to level ${spellSelectionRules.maxSpellLevel}).`,
+        detail: `${spellCount} / ${knownLimit} known (up to level ${spellSelectionRules.maxSpellLevel})${choiceKnownSpells ? ` + ${choiceKnownSpells} Magical Secrets` : ""}.`,
         jump: { step: 1, browser: "spells" },
       });
     }
@@ -2276,7 +2280,12 @@ export function PartyRoomDashboard({
           id: `choice-${entry.choice.id}`,
           label: `${entry.sourceName}: ${entry.choice.label}`,
           detail: `${entry.selectedIds.length} / ${entry.choice.min ?? entry.choice.count} chosen.`,
-          jump: entry.choice.from.kind === "skill" ? { step: 2, browser: "skills" } : { step: 1, browser: "warlock-invocations" },
+          jump:
+            entry.choice.from.kind === "skill"
+              ? { step: 2, browser: "skills" }
+              : draft.classId === "warlock"
+                ? { step: 1, browser: "warlock-invocations" }
+                : { step: 1, browser: "spells" },
         }),
       );
     return tasks;
