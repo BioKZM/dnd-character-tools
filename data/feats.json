@@ -5,7 +5,14 @@
     "summary": "Prerequisite: No other dragonmark",
     "source": "Eberron - Rising from the Last War",
     "prerequisite": "No other dragonmark",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "campaign",
+        "text": "No other dragonmark (Eberron)"
+      }
+    ]
   },
   {
     "id": "actor",
@@ -13,7 +20,18 @@
     "summary": "Skilled at mimicry and dramatics, you gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "CHA",
+        "amount": 1
+      },
+      {
+        "type": "note",
+        "text": "Advantage on Deception and Performance checks when passing yourself off as someone else."
+      }
+    ]
   },
   {
     "id": "adept-of-the-black-robes",
@@ -21,7 +39,20 @@
     "summary": "Prerequisite: 4th Level,Initiate of High Sorcery(Nuitari) Feat",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High Sorcery(Nuitari) Feat",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "initiate-of-high-sorcery"
+        ]
+      }
+    ]
   },
   {
     "id": "adept-of-the-red-robes",
@@ -29,7 +60,20 @@
     "summary": "Prerequisite: 4th Level,Initiate of High Sorcery(Lunitari) Feat",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High Sorcery(Lunitari) Feat",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "initiate-of-high-sorcery"
+        ]
+      }
+    ]
   },
   {
     "id": "adept-of-the-white-robes",
@@ -37,7 +81,20 @@
     "summary": "Prerequisite: 4th Level,Initiate of High SorceryFeat",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High SorceryFeat",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "initiate-of-high-sorcery"
+        ]
+      }
+    ]
   },
   {
     "id": "agent-of-order",
@@ -45,7 +102,20 @@
     "summary": "Prerequisite: 4th Level,Scion of the Outer Planes(Lawful Outer Plane) Feat",
     "source": "Planescape - Adventures in the Multiverse.",
     "prerequisite": "4th Level,Scion of the Outer Planes(Lawful Outer Plane) Feat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "alert",
@@ -53,7 +123,17 @@
     "summary": "Always on the lookout for danger, you gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "initiative",
+        "bonus": 5
+      },
+      {
+        "type": "note",
+        "text": "Can't be surprised while conscious; hidden attackers gain no advantage against you."
+      }
+    ]
   },
   {
     "id": "artificer-initiate",
@@ -61,7 +141,8 @@
     "summary": "You’ve learned some of an artificer’s inventiveness:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "athlete",
@@ -69,7 +150,8 @@
     "summary": "You have undergone extensive physical training to gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "baleful-scion",
@@ -77,7 +159,20 @@
     "summary": "Prerequisite: 4th Level,Scion of the Outer Planes(Evil Outer Plane) Feat.",
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Evil Outer Plane) Feat.",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "bountiful-luck",
@@ -85,7 +180,17 @@
     "summary": "Your people have extraordinary luck, which you have learned to mystically lend to your companions whenever you see them falter. You're not sure how you do it, you just wish it, and it happens. Surely a sign of fortune's favor!",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Halfling",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "halfling"
+        ],
+        "label": "Halfling"
+      }
+    ]
   },
   {
     "id": "cartomancer",
@@ -93,7 +198,18 @@
     "summary": "Prerequisite: 4th Level, Spellcasting Feature",
     "source": "The Book of Many Things",
     "prerequisite": "4th Level, Spellcasting Feature",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "spellcasting",
+        "mode": "feature"
+      }
+    ]
   },
   {
     "id": "charger",
@@ -101,7 +217,8 @@
     "summary": "When you use your action to Dash, you can use a bonus action to make one melee weapon attack or to shove a creature. If you move at least 10 feet in a straight line immediately before taking this bonus action, you either gain a +5 bonus to the attack’s damage roll (if you chose to make a melee attack and hit) or push the target up to 10 feet away from you (if you chose to shove and you succeed).",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "chef",
@@ -109,7 +226,8 @@
     "summary": "Time and effort spent mastering the culinary arts has paid off. You gain the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "cohort-of-chaos",
@@ -117,7 +235,20 @@
     "summary": "Prerequisite: 4th Level,Scion of the Outer Planes(Chaotic Outer Plane) Feat.",
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Chaotic Outer Plane) Feat.",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "crossbow-expert",
@@ -125,7 +256,8 @@
     "summary": "Thanks to extensive practice with the crossbow, you gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "cruel",
@@ -133,7 +265,8 @@
     "summary": "The challenges and struggles you've faced throughout your life have led you to delight in inflicting pain and anguish upon others. You gain a number of cruelty dice equal to your proficiency bonus. Your cruelty dice are d6s. You can roll only one cruelty die per turn, and a cruelty die is spent when you roll it.",
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "crusher",
@@ -141,7 +274,8 @@
     "summary": "You are practiced in the art of crushing your enemies, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "defensive-duelist",
@@ -149,7 +283,17 @@
     "summary": "Prerequisite: Dexterity 13 or higher",
     "source": "Player's Handbook",
     "prerequisite": "Dexterity 13 or higher",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "DEX"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "divinely-favored",
@@ -157,7 +301,18 @@
     "summary": "Prerequisite: 4th Level, Dragonlance Campaign",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level, Dragonlance Campaign",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "campaign",
+        "text": "Dragonlance campaign"
+      }
+    ]
   },
   {
     "id": "dragon-fear",
@@ -165,7 +320,17 @@
     "summary": "When angered, you radiate menace. You gain the following benefits:",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dragonborn",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "dragonborn"
+        ],
+        "label": "Dragonborn"
+      }
+    ]
   },
   {
     "id": "dragon-hide",
@@ -173,7 +338,17 @@
     "summary": "You manifest scales and claws reminiscent of your draconic ancestors. You gain the following benefits:",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dragonborn",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "dragonborn"
+        ],
+        "label": "Dragonborn"
+      }
+    ]
   },
   {
     "id": "drow-high-magic",
@@ -181,7 +356,17 @@
     "summary": "You learn more of the magic typical of dark elves. You learn theDetect Magicspell and can cast it at will, without expending a spell slot. You also learnLevitateandDispel Magic, each of which you can cast once without expending a spell slot. You regain the ability to cast the spell in this way when you finish a long rest. Charisma is your spellcasting ability for these spells.",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Elf (drow)",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "drow"
+        ],
+        "label": "Elf (Drow)"
+      }
+    ]
   },
   {
     "id": "dual-wielder",
@@ -189,7 +374,8 @@
     "summary": "You master fighting with two weapons, gaining the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "dungeon-delver",
@@ -197,7 +383,23 @@
     "summary": "Alert to the hidden traps and secret doors found in many dungeons, you gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "defense",
+        "kind": "save_advantage",
+        "against": "traps"
+      },
+      {
+        "type": "defense",
+        "kind": "resistance",
+        "against": "trap damage"
+      },
+      {
+        "type": "note",
+        "text": "Advantage on Perception and Investigation checks to detect secret doors."
+      }
+    ]
   },
   {
     "id": "durable",
@@ -205,7 +407,18 @@
     "summary": "Hardy and resilient, you gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "CON",
+        "amount": 1
+      },
+      {
+        "type": "note",
+        "text": "Hit Dice healing regains at least twice your CON modifier."
+      }
+    ]
   },
   {
     "id": "dwarven-resilience",
@@ -213,7 +426,33 @@
     "summary": "You have the blood of dwarf heroes flowing through your veins. You gain the following benefits:",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dwarf",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "CON",
+        "amount": 1
+      },
+      {
+        "type": "defense",
+        "kind": "resistance",
+        "against": "poison"
+      },
+      {
+        "type": "defense",
+        "kind": "save_advantage",
+        "against": "poisoned"
+      }
+    ],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "dwarf"
+        ],
+        "label": "Dwarf"
+      }
+    ]
   },
   {
     "id": "eldritch-adept",
@@ -221,7 +460,14 @@
     "summary": "Prerequisite: Spellcasting or Pact Magic feature",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Spellcasting or Pact Magic feature",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "feature"
+      }
+    ]
   },
   {
     "id": "elemental-adept",
@@ -229,7 +475,14 @@
     "summary": "Prerequisite: The ability to cast at least one spell",
     "source": "Player's Handbook",
     "prerequisite": "The ability to cast at least one spell",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "any"
+      }
+    ]
   },
   {
     "id": "elven-accuracy",
@@ -237,7 +490,22 @@
     "summary": ", { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });",
     "source": "",
     "prerequisite": "Elf or Half-Elf",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "elf",
+          "high-elf",
+          "wood-elf",
+          "drow",
+          "eladrin",
+          "half-elf"
+        ],
+        "label": "Elf or Half-Elf"
+      }
+    ]
   },
   {
     "id": "ember-of-the-fire-giant",
@@ -245,7 +513,20 @@
     "summary": "Prerequisite: 4th Level,Strike of the Giants(Fire Strike) Feat",
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Fire Strike) Feat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "fade-away",
@@ -253,7 +534,17 @@
     "summary": ", { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });",
     "source": "",
     "prerequisite": "Gnome",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "gnome"
+        ],
+        "label": "Gnome"
+      }
+    ]
   },
   {
     "id": "fey-teleportation",
@@ -261,7 +552,17 @@
     "summary": ", { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });",
     "source": "",
     "prerequisite": "Elf (High)",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "high-elf"
+        ],
+        "label": "Elf (High)"
+      }
+    ]
   },
   {
     "id": "fey-touched",
@@ -269,7 +570,15 @@
     "summary": "Your exposure to the Feywild's magic has changed you, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "spell",
+        "spellId": "misty-step",
+        "uses": "long_rest",
+        "note": "also castable with spell slots; +1 INT/WIS/CHA and a 1st-level divination or enchantment spell are chosen in the creator (not wired yet)"
+      }
+    ]
   },
   {
     "id": "fighting-initiate",
@@ -277,7 +586,15 @@
     "summary": "Prerequisite: Proficiency with a martial weapon",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Proficiency with a martial weapon",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "weapon",
+        "value": "martial"
+      }
+    ]
   },
   {
     "id": "flames-of-phlegethos",
@@ -285,7 +602,17 @@
     "summary": "You learn to call on hellfire to serve your commands. You gain the following benefits:",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Tiefling",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "tiefling"
+        ],
+        "label": "Tiefling"
+      }
+    ]
   },
   {
     "id": "flash-recall",
@@ -293,7 +620,14 @@
     "summary": "Prerequisite: Spellcasting feature from a class that prepares spells",
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "Spellcasting feature from a class that prepares spells",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "prepared"
+      }
+    ]
   },
   {
     "id": "fury-of-the-frost-giant",
@@ -301,7 +635,20 @@
     "summary": "Prerequisite: 4th Level,Strike of the Giants(Frost Strike) Feat",
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Frost Strike) Feat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "gift-of-the-chromatic-dragon",
@@ -309,7 +656,8 @@
     "summary": "You’ve manifested some of the power of chromatic dragons, granting you the following benefits:",
     "source": "Fizban's Treasury of Dragons",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "gift-of-the-gem-dragon",
@@ -317,7 +665,8 @@
     "summary": "You’ve manifested some of the power of gem dragons, granting you the following benefits:",
     "source": "Fizban's Treasury of Dragons",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "gift-of-the-metallic-dragon",
@@ -325,7 +674,8 @@
     "summary": "You’ve manifested some of the power of metallic dragons, granting you the following benefits:",
     "source": "Fizban's Treasury of Dragons",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "grappler",
@@ -333,7 +683,17 @@
     "summary": "Prerequisite: Strength 13 or higher",
     "source": "Player's Handbook",
     "prerequisite": "Strength 13 or higher",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "STR"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "great-weapon-master",
@@ -341,7 +701,13 @@
     "summary": "You've learned to put the weight of a weapon to your advantage, letting its momentum empower your strikes. You gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "note",
+        "text": "Bonus attack on a crit or kill; -5 to hit for +10 damage with heavy weapons."
+      }
+    ]
   },
   {
     "id": "guile-of-the-cloud-giant",
@@ -349,7 +715,20 @@
     "summary": "Prerequisite: 4th Level,Strike of the Giants(Cloud Strike) Feat",
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Cloud Strike) Feat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "gunner",
@@ -357,7 +736,8 @@
     "summary": "You have a quick hand and keen eye when employing firearms, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "healer",
@@ -365,7 +745,8 @@
     "summary": "You are an able physician, allowing you to mend wounds quickly and get your allies back in the fight. You gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "heavily-armored",
@@ -373,7 +754,28 @@
     "summary": "Prerequisite: Proficiency with medium armor",
     "source": "Player's Handbook",
     "prerequisite": "Proficiency with medium armor",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "STR",
+        "amount": 1
+      },
+      {
+        "type": "proficiency",
+        "category": "armor",
+        "values": [
+          "Heavy Armor"
+        ]
+      }
+    ],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "armor",
+        "value": "medium"
+      }
+    ]
   },
   {
     "id": "heavy-armor-master",
@@ -381,7 +783,25 @@
     "summary": "Prerequisite: Proficiency with heavy armor",
     "source": "Player's Handbook",
     "prerequisite": "Proficiency with heavy armor",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "STR",
+        "amount": 1
+      },
+      {
+        "type": "note",
+        "text": "While in heavy armor, nonmagical bludgeoning, piercing and slashing damage is reduced by 3."
+      }
+    ],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "armor",
+        "value": "heavy"
+      }
+    ]
   },
   {
     "id": "infernal-constitution",
@@ -389,7 +809,38 @@
     "summary": "Fiendish blood runs strong in you, unlocking a resilience akin to that possessed by some fiends. You gain the following benefits:",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Tiefling",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "CON",
+        "amount": 1
+      },
+      {
+        "type": "defense",
+        "kind": "resistance",
+        "against": "cold"
+      },
+      {
+        "type": "defense",
+        "kind": "resistance",
+        "against": "poison"
+      },
+      {
+        "type": "defense",
+        "kind": "save_advantage",
+        "against": "poisoned"
+      }
+    ],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "tiefling"
+        ],
+        "label": "Tiefling"
+      }
+    ]
   },
   {
     "id": "initiate-of-high-sorcery",
@@ -397,7 +848,37 @@
     "summary": "Prerequisite: Dragonlance Campaign, Sorcerer or Wizard Class or Mage of High Sorcery Background",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "Dragonlance Campaign, Sorcerer or Wizard Class or Mage of High Sorcery Background",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn a cantrip and two 1st-level spells tied to your moon (Lunar Spells table); cast each once per long rest without a slot."
+      }
+    ],
+    "requires": [
+      {
+        "kind": "campaign",
+        "text": "Dragonlance campaign"
+      },
+      {
+        "kind": "anyOf",
+        "conditions": [
+          {
+            "kind": "class",
+            "ids": [
+              "sorcerer",
+              "wizard"
+            ]
+          },
+          {
+            "kind": "background",
+            "ids": [
+              "mage-of-high-sorcery"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "inspiring-leader",
@@ -405,7 +886,17 @@
     "summary": "Prerequisite: Charisma 13 or higher",
     "source": "Player's Handbook",
     "prerequisite": "Charisma 13 or higher",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "CHA"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "keen-mind",
@@ -413,7 +904,18 @@
     "summary": "You have a mind that can track time, direction, and detail with uncanny precision. You gain the following benefits.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "INT",
+        "amount": 1
+      },
+      {
+        "type": "note",
+        "text": "Always know north, hours until sunrise/sunset, and recall anything from the past month."
+      }
+    ]
   },
   {
     "id": "keenness-of-the-stone-giant",
@@ -421,7 +923,20 @@
     "summary": "Prerequisite: 4th Level,Strike of the Giants(Stone Strike) Feat",
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Stone Strike) Feat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "knight-of-the-crown",
@@ -429,7 +944,20 @@
     "summary": "Prerequisite: 4th Level,Squire of SolamniaFeat",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "squire-of-solamnia"
+        ]
+      }
+    ]
   },
   {
     "id": "knight-of-the-rose",
@@ -437,7 +965,20 @@
     "summary": "Prerequisite: 4th Level,Squire of SolamniaFeat",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "squire-of-solamnia"
+        ]
+      }
+    ]
   },
   {
     "id": "knight-of-the-sword",
@@ -445,7 +986,20 @@
     "summary": "Prerequisite: 4th Level,Squire of SolamniaFeat",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "squire-of-solamnia"
+        ]
+      }
+    ]
   },
   {
     "id": "lightly-armored",
@@ -453,7 +1007,8 @@
     "summary": "You have trained to master the use of light armor, gaining the following benefits.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "linguist",
@@ -461,7 +1016,18 @@
     "summary": "You have studied languages and codes, gaining the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "INT",
+        "amount": 1
+      },
+      {
+        "type": "note",
+        "text": "Learn three languages of your choice; create written ciphers."
+      }
+    ]
   },
   {
     "id": "lucky",
@@ -469,7 +1035,16 @@
     "summary": "You have inexplicable luck that seems to kick in at just the right moment.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "resource",
+        "id": "luck-points",
+        "name": "Luck Points",
+        "uses": 3,
+        "recharge": "long_rest"
+      }
+    ]
   },
   {
     "id": "mage-slayer",
@@ -477,7 +1052,8 @@
     "summary": "You have practiced techniques in melee combat against spellcasters, gaining the following benefits.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "magic-initiate",
@@ -485,7 +1061,8 @@
     "summary": "Choose a class: bard, cleric, druid, sorcerer, warlock, or wizard. You learn two cantrips of your choice from that class's spell list.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "martial-adept",
@@ -493,7 +1070,8 @@
     "summary": "You have martial training that allows you to perform special combat maneuvers. You gain the following benefits.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "medium-armor-master",
@@ -501,7 +1079,15 @@
     "summary": "Prerequisite: Proficiency with medium armor",
     "source": "Player's Handbook",
     "prerequisite": "Proficiency with medium armor",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "armor",
+        "value": "medium"
+      }
+    ]
   },
   {
     "id": "metamagic-adept",
@@ -509,7 +1095,14 @@
     "summary": "Prerequisite: Spellcasting or Pact Magic feature",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Spellcasting or Pact Magic feature",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "feature"
+      }
+    ]
   },
   {
     "id": "mobile",
@@ -517,7 +1110,19 @@
     "summary": "You are exceptionally speedy and agile. You gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "speed",
+        "mode": "walk",
+        "op": "add",
+        "value": 10
+      },
+      {
+        "type": "note",
+        "text": "Dash ignores difficult terrain; no opportunity attacks from creatures you attack in melee."
+      }
+    ]
   },
   {
     "id": "moderately-armored",
@@ -525,7 +1130,15 @@
     "summary": "Prerequisite: Proficiency with light armor",
     "source": "Player's Handbook",
     "prerequisite": "Proficiency with light armor",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "armor",
+        "value": "light"
+      }
+    ]
   },
   {
     "id": "mounted-combatant",
@@ -533,7 +1146,8 @@
     "summary": "You are a dangerous foe to face while mounted. While you are mounted and aren't incapacitated, you gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "mystic-conflux",
@@ -541,7 +1155,8 @@
     "summary": "You possess an intuitive understanding of the way magic ebbs and flows within enchanted items. Such items attune easily to you, and you are able to sound out their secrets. You gain the following benefits:",
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "observant",
@@ -549,7 +1164,8 @@
     "summary": "Quick to notice details of your environment, you gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "orcish-fury",
@@ -557,7 +1173,17 @@
     "summary": "Your fury burns tirelessly. You gain the following benefits:",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Half-orc",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "half-orc"
+        ],
+        "label": "Half-Orc"
+      }
+    ]
   },
   {
     "id": "outlands-envoy",
@@ -565,7 +1191,20 @@
     "summary": "Prerequisite: 4th Level,Scion of the Outer Planes(The Outlands) Feat.",
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(The Outlands) Feat.",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "piercer",
@@ -573,7 +1212,8 @@
     "summary": "You have achieved a penetrating precision in combat, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "planar-wanderer",
@@ -581,7 +1221,20 @@
     "summary": "Prerequisite: 4th Level,Scion of the Outer PlanesFeat",
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer PlanesFeat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "poisoner",
@@ -589,7 +1242,8 @@
     "summary": "You can prepare and deliver deadly poisons, gaining the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "polearm-master",
@@ -597,7 +1251,8 @@
     "summary": "You gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "prodigy",
@@ -605,7 +1260,20 @@
     "summary": "Prerequisite: Half-Elf, Half-Orc or Human",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Half-Elf, Half-Orc or Human",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "half-elf",
+          "half-orc",
+          "human",
+          "variant-human"
+        ],
+        "label": "Half-Elf, Half-Orc or Human"
+      }
+    ]
   },
   {
     "id": "quicksmithing",
@@ -613,7 +1281,17 @@
     "summary": "Prerequisite: Intelligence 13 or higher",
     "source": "Plane Shift - Kaladesh",
     "prerequisite": "Intelligence 13 or higher",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "INT"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "remarkable-recovery",
@@ -621,7 +1299,8 @@
     "summary": "Your body has the ability to recover quickly from terrible injuries, and is unusually receptive to healing magic. You gain the following benefits:",
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "resilient",
@@ -629,7 +1308,8 @@
     "summary": "Choose one ability score. You gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "revenant-blade",
@@ -637,7 +1317,21 @@
     "summary": "You are descended from a master of the double-bladed scimitar, and some of that mastery has passed on to you. You gain the following benefits:",
     "source": "Eberron - Rising from the Last War",
     "prerequisite": "Elf",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "elf",
+          "high-elf",
+          "wood-elf",
+          "drow",
+          "eladrin"
+        ],
+        "label": "Elf"
+      }
+    ]
   },
   {
     "id": "righteous-heritor",
@@ -645,7 +1339,20 @@
     "summary": "Prerequisite: 4th Level,Scion of the Outer Planes(Good Outer Plane) Feat.",
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Good Outer Plane) Feat.",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "ritual-caster",
@@ -653,7 +1360,18 @@
     "summary": "Prerequisite: Intelligence or Wisdom of 13 or higher",
     "source": "Player's Handbook",
     "prerequisite": "Intelligence or Wisdom of 13 or higher",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "INT",
+          "WIS"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "rune-shaper",
@@ -661,7 +1379,25 @@
     "summary": "Prerequisite: Spellcasting Feature or Rune Carver Background",
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "Spellcasting Feature or Rune Carver Background",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "anyOf",
+        "conditions": [
+          {
+            "kind": "spellcasting",
+            "mode": "feature"
+          },
+          {
+            "kind": "background",
+            "ids": [
+              "rune-carver"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "savage-attacker",
@@ -669,7 +1405,8 @@
     "summary": "Once per turn when you roll damage for a melee weapon attack, you can reroll the weapon's damage dice and use either total.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "scion-of-the-outer-planes",
@@ -677,7 +1414,14 @@
     "summary": "Prerequisite: Planescape Campaign.",
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "Planescape Campaign.",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "campaign",
+        "text": "Planescape campaign"
+      }
+    ]
   },
   {
     "id": "second-chance",
@@ -685,7 +1429,17 @@
     "summary": "Fortune favors you when someone tries to strike you. You gain the following benefits:",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Halfling",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "halfling"
+        ],
+        "label": "Halfling"
+      }
+    ]
   },
   {
     "id": "sentinel",
@@ -693,7 +1447,13 @@
     "summary": "You have mastered techniques to take advantage of every drop in any enemy's guard, gaining the following benefits.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "note",
+        "text": "Opportunity attack hits reduce speed to 0; creatures provoke even when disengaging."
+      }
+    ]
   },
   {
     "id": "servo-crafting",
@@ -701,7 +1461,17 @@
     "summary": "Prerequisite: Intelligence 13 or higher",
     "source": "Plane Shift - Kaladesh",
     "prerequisite": "Intelligence 13 or higher",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "INT"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "shadow-touched",
@@ -709,7 +1479,15 @@
     "summary": "Your exposure to the Shadowfell's magic has changed you, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "spell",
+        "spellId": "invisibility",
+        "uses": "long_rest",
+        "note": "also castable with spell slots; +1 INT/WIS/CHA and a 1st-level illusion or necromancy spell are chosen in the creator (not wired yet)"
+      }
+    ]
   },
   {
     "id": "sharpshooter",
@@ -717,7 +1495,13 @@
     "summary": "You have mastered ranged weapons and can make shots that others find impossible. You gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "note",
+        "text": "No disadvantage at long range, ignore half/three-quarters cover; -5 to hit for +10 damage."
+      }
+    ]
   },
   {
     "id": "shield-master",
@@ -725,7 +1509,8 @@
     "summary": "You use shields not just for protection but also for offense. You gain the following benefits while you are wielding a shield:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "skill-expert",
@@ -733,7 +1518,8 @@
     "summary": "You have honed your proficiency with particular skills, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "skilled",
@@ -741,7 +1527,8 @@
     "summary": "You gain proficiency in any combination of three skills or tools of your choice.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "skulker",
@@ -749,7 +1536,22 @@
     "summary": "Prerequisite: Dexterity 13 or higher",
     "source": "Player's Handbook",
     "prerequisite": "Dexterity 13 or higher",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "note",
+        "text": "Hide when lightly obscured; missing a ranged attack does not reveal you; dim light no disadvantage on Perception."
+      }
+    ],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "DEX"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "slasher",
@@ -757,7 +1559,8 @@
     "summary": "You've learned where to cut to have the greatest results, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "soul-of-the-storm-giant",
@@ -765,7 +1568,20 @@
     "summary": "Prerequisite: 4th Level,Strike of the Giants(Storm Strike) Feat",
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Storm Strike) Feat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "spell-sniper",
@@ -773,7 +1589,14 @@
     "summary": "Prerequisite: The ability to cast at least one spell",
     "source": "Player's Handbook",
     "prerequisite": "The ability to cast at least one spell",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "any"
+      }
+    ]
   },
   {
     "id": "spelldriver",
@@ -781,7 +1604,8 @@
     "summary": "Prerequisites: Character level 11 or higher; Spellcasting or Pact Magic feature",
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "squat-nimbleness",
@@ -789,7 +1613,19 @@
     "summary": "Prerequisite: Dwarf or a Small race",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dwarf or a Small race",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "dwarf",
+          "gnome",
+          "halfling"
+        ],
+        "label": "Dwarf or a Small race"
+      }
+    ]
   },
   {
     "id": "squire-of-solamnia",
@@ -797,7 +1633,37 @@
     "summary": "Prerequisite: Dragonlance Campaign, Fighter or Paladin Class or Knight of Solamnia Background",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "Dragonlance Campaign, Fighter or Paladin Class or Knight of Solamnia Background",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "note",
+        "text": "Precise Strike: on a missed weapon attack, add a d8 to the roll (proficiency bonus times per long rest)."
+      }
+    ],
+    "requires": [
+      {
+        "kind": "campaign",
+        "text": "Dragonlance campaign"
+      },
+      {
+        "kind": "anyOf",
+        "conditions": [
+          {
+            "kind": "class",
+            "ids": [
+              "fighter",
+              "paladin"
+            ]
+          },
+          {
+            "kind": "background",
+            "ids": [
+              "knight-of-solamnia"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "strike-of-the-giants",
@@ -805,7 +1671,26 @@
     "summary": "Prerequisite: Martial Weapon Proficiency or Giant Foundling Background",
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "Martial Weapon Proficiency or Giant Foundling Background",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "anyOf",
+        "conditions": [
+          {
+            "kind": "proficiency",
+            "category": "weapon",
+            "value": "martial"
+          },
+          {
+            "kind": "background",
+            "ids": [
+              "giant-foundling"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "strixhaven-initiate",
@@ -813,7 +1698,13 @@
     "summary": "You have studied some magical theory and have learned a few spells associated with Strixhaven University.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn two cantrips and one 1st-level spell from your college list (Strixhaven Spells table); cast the 1st-level spell once per long rest without a slot."
+      }
+    ]
   },
   {
     "id": "strixhaven-mascot",
@@ -821,7 +1712,20 @@
     "summary": "Prerequisite: 4th Level, Strixhaven Initiate Feat",
     "source": "Strixhaven: A Curriculum of Chaos",
     "prerequisite": "4th Level, Strixhaven Initiate Feat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strixhaven-initiate"
+        ]
+      }
+    ]
   },
   {
     "id": "svirfneblin-magic",
@@ -829,7 +1733,18 @@
     "summary": "Prerequisite: Gnome (Deep Gnome)",
     "source": "Mordenkainen's Tome of Foes",
     "prerequisite": "Gnome (Deep Gnome)",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "deep-gnome",
+          "svirfneblin"
+        ],
+        "label": "Gnome (Deep Gnome)"
+      }
+    ]
   },
   {
     "id": "tavern-brawler",
@@ -837,7 +1752,8 @@
     "summary": "Accustomed to the rough-and-tumble fighting using whatever weapons happen to be at hand, you gain the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "telekinetic",
@@ -845,7 +1761,19 @@
     "summary": "You learn to move things with your mind, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "spell",
+        "spellId": "mage-hand",
+        "uses": "at_will",
+        "note": "invisible, 30 ft. extra range"
+      },
+      {
+        "type": "note",
+        "text": "Bonus action: shove a creature within 30 feet 5 feet (STR save)."
+      }
+    ]
   },
   {
     "id": "telepathic",
@@ -853,7 +1781,19 @@
     "summary": "You awaken the ability to mentally connect with others, granting you the following benefits:",
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "spell",
+        "spellId": "detect-thoughts",
+        "uses": "long_rest",
+        "note": "no components; also castable with spell slots"
+      },
+      {
+        "type": "note",
+        "text": "Telepathy 60 feet."
+      }
+    ]
   },
   {
     "id": "thrown-arms-master",
@@ -861,7 +1801,8 @@
     "summary": "You’ve honed your ability to lob weaponry into the fray, including weapons not meant for ranged combat. You gain the following benefits:",
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "tough",
@@ -869,7 +1810,13 @@
     "summary": "Your hit point maximum increases by an amount equal to twice your level when you gain this feat. Whenever you gain a level thereafter, your hit point maximum increases by an additional 2 hit points.",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "hp",
+        "perLevel": 2
+      }
+    ]
   },
   {
     "id": "vampiric-exultation",
@@ -877,7 +1824,17 @@
     "summary": "Prerequisite: Vampire (Ixalan)",
     "source": "Plane Shift - Ixalan",
     "prerequisite": "Vampire (Ixalan)",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "vampire"
+        ],
+        "label": "Vampire (Ixalan)"
+      }
+    ]
   },
   {
     "id": "vigor-of-the-hill-giant",
@@ -885,7 +1842,20 @@
     "summary": "Prerequisite: 4th Level,Strike of the Giants(Hill Strike) Feat",
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Hill Strike) Feat",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "vital-sacrifice",
@@ -893,7 +1863,8 @@
     "summary": "You've learned secrets of hemocraft that grant you esoteric power at the price of your own life force. As a bonus action, you can choose to take 1d6 necrotic damage to gain a blood boon. Your blood boon lasts for 1 hour or until expended.",
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "war-caster",
@@ -901,7 +1872,24 @@
     "summary": "Prerequisite: The ability to cast at least one spell",
     "source": "Player's Handbook",
     "prerequisite": "The ability to cast at least one spell",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": [
+      {
+        "type": "defense",
+        "kind": "save_advantage",
+        "against": "concentration (CON saves)"
+      },
+      {
+        "type": "note",
+        "text": "Somatic components with hands full; cast a spell as an opportunity attack."
+      }
+    ],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "any"
+      }
+    ]
   },
   {
     "id": "weapon-master",
@@ -909,7 +1897,8 @@
     "summary": "You have practiced extensively with a variety of weapons, gaining the following benefits:",
     "source": "Player's Handbook",
     "prerequisite": "",
-    "isRacialFeat": false
+    "isRacialFeat": false,
+    "grants": []
   },
   {
     "id": "wood-elf-magic",
@@ -917,6 +1906,16 @@
     "summary": "You learn the magic of the primeval woods, which are revered and protected by your people. You learn oneDruid cantripof your choice. You also learn theLongstriderandPass Without Tracespells, each of which you can cast once without expending a spell slot. You regain the ability to cast these two spells in this way when you finish a long rest. Wisdom is your spellcasting ability for all three spells.",
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Elf (Wood)",
-    "isRacialFeat": true
+    "isRacialFeat": true,
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "wood-elf"
+        ],
+        "label": "Elf (Wood)"
+      }
+    ]
   }
 ]

@@ -1,0 +1,10 @@
+# Repo icinde satir sonlari her zaman LF; Windows'ta CRLF yuzunden
+# "butun dosya degismis" diff'leri cikmasin.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.zip binary
+*.pdf binary

@@ -15,47 +15,99 @@
       "id": "awakened-mind",
       "name": "Awakened Mind",
       "unlockLevel": 1,
-      "summary": "Starting at 1st level, your alien knowledge gives you the ability to touch the minds of other creatures. You can telepathically speak to any creature you can see within 30 feet of you. You don't need to share a language with the creature for it to understand your telepathic utterances, but the creature must be able to understand at least one language."
+      "summary": "Starting at 1st level, your alien knowledge gives you the ability to touch the minds of other creatures. You can telepathically speak to any creature you can see within 30 feet of you. You don't need to share a language with the creature for it to understand your telepathic utterances, but the creature must be able to understand at least one language.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Telepathy with any creature within 30 feet that understands a language."
+        }
+      ]
     },
     {
       "id": "entropic-ward",
       "name": "Entropic Ward",
       "unlockLevel": 6,
-      "summary": "At 6th level, you learn to magically ward yourself against attack and to turn an enemy's failed strike into good luck for yourself. When a creature makes an attack roll against you, you can use your reaction to impose disadvantage on that roll. If the attack misses you, your next attack roll against the creature has advantage if you make it before the end of your next turn. Once you use this feature, you can't use it again until you finish a short or long rest."
+      "summary": "At 6th level, you learn to magically ward yourself against attack and to turn an enemy's failed strike into good luck for yourself. When a creature makes an attack roll against you, you can use your reaction to impose disadvantage on that roll. If the attack misses you, your next attack roll against the creature has advantage if you make it before the end of your next turn. Once you use this feature, you can't use it again until you finish a short or long rest.",
+      "grants": [
+        {
+          "type": "resource",
+          "id": "entropic-ward",
+          "name": "Entropic Ward",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ]
     },
     {
       "id": "thought-shield",
       "name": "Thought Shield",
       "unlockLevel": 10,
-      "summary": "Starting at 10th level, your thoughts can't be read by telepathy or other means unless you allow it. You also have resistance to psychic damage, and whenever a creature deals psychic damage to you, that creature takes the same amount of damage that you do."
+      "summary": "Starting at 10th level, your thoughts can't be read by telepathy or other means unless you allow it. You also have resistance to psychic damage, and whenever a creature deals psychic damage to you, that creature takes the same amount of damage that you do.",
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "psychic"
+        },
+        {
+          "type": "note",
+          "text": "Your thoughts cannot be read unless you allow it; psychic damage is reflected to the attacker."
+        }
+      ]
     },
     {
       "id": "create-thrall",
       "name": "Create Thrall",
       "unlockLevel": 14,
-      "summary": "At 14th level, you gain the ability to infect a humanoid's mind with the alien magic of your patron. You can use your action to touch an incapacitated humanoid. That creature is then charmed by you until a Remove Curse spell is cast on it, the charmed condition is removed from it, or you use this feature again. You can communicate telepathically with the charmed creature as long as the two of you are on the same plane of existence."
+      "summary": "At 14th level, you gain the ability to infect a humanoid's mind with the alien magic of your patron. You can use your action to touch an incapacitated humanoid. That creature is then charmed by you until a Remove Curse spell is cast on it, the charmed condition is removed from it, or you use this feature again. You can communicate telepathically with the charmed creature as long as the two of you are on the same plane of existence.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Create Thrall: touch an incapacitated humanoid to charm it until Remove Curse; telepathy with it on the same plane."
+        }
+      ]
     }
   ],
   "expandedSpells": [
     {
       "unlockLevel": 1,
-      "spells": ["Dissonant Whispers", "Tasha's Hideous Laughter"]
+      "spells": [
+        "Dissonant Whispers",
+        "Tasha's Hideous Laughter"
+      ],
+      "uses": "list"
     },
     {
       "unlockLevel": 3,
-      "spells": ["Detect Thoughts", "Phantasmal Force"]
+      "spells": [
+        "Detect Thoughts",
+        "Phantasmal Force"
+      ],
+      "uses": "list"
     },
     {
       "unlockLevel": 5,
-      "spells": ["Clairvoyance", "Sending"]
+      "spells": [
+        "Clairvoyance",
+        "Sending"
+      ],
+      "uses": "list"
     },
     {
       "unlockLevel": 7,
-      "spells": ["Dominate Beast", "Evard's Black Tentacles"]
+      "spells": [
+        "Dominate Beast",
+        "Evard's Black Tentacles"
+      ],
+      "uses": "list"
     },
     {
       "unlockLevel": 9,
-      "spells": ["Dominate Person", "Telekinesis"]
+      "spells": [
+        "Dominate Person",
+        "Telekinesis"
+      ],
+      "uses": "list"
     }
   ],
   "notes": [

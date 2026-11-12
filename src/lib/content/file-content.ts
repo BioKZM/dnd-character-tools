@@ -187,18 +187,43 @@ function readRawFeatReferenceMap() {
   return new Map(entries.map((entry) => [entry.id, entry]));
 }
 
+/**
+ * Wikidot'tan alinan metinde link olan kelimeler bir onceki kelimeye yapismis geliyor
+ * ("thesorcerer spell list", "theDetect Magic"). Bilinen kaliplari ayirir.
+ */
+const GLUED_WORDS: Record<string, string> = {
+  thesorcerer: "the sorcerer",
+  themage: "the mage",
+  theleast: "the least",
+  agreater: "a greater",
+  aspirit: "a spirit",
+  anart: "an art",
+};
+
+export function repairGluedWords(text: string) {
+  return text
+    .replace(/\b(the|from|and|one|a|an|of|to|your|with|or|on|in)([A-Z][a-z])/g, "$1 $2")
+    .replace(/\b(thesorcerer|themage|theleast|agreater|aspirit|anart)\b/g, (match) => GLUED_WORDS[match] ?? match);
+}
+
 function enrichFeats(feats: ContentBundle["feats"]): ContentBundle["feats"] {
   const rawFeatMap = readRawFeatReferenceMap();
 
   return feats.map((feat) => {
     const rawFeat = rawFeatMap.get(feat.id);
-    const detailParagraphs = parseFeatDetailParagraphs(rawFeat?.text);
+    const detailParagraphs = parseFeatDetailParagraphs(rawFeat?.text).map(repairGluedWords);
 
     return {
       ...feat,
-      summary: cleanWikidotText(feat.summary),
+      summary: repairGluedWords(cleanWikidotText(feat.summary)),
       source: feat.source ? cleanWikidotText(feat.source) : feat.source,
-      prerequisite: feat.prerequisite ? cleanWikidotText(feat.prerequisite) : feat.prerequisite,
+      // "4th Level,Initiate of High Sorcery(Nuitari) Feat" -> "4th Level, Initiate of High Sorcery (Nuitari) Feat"
+      prerequisite: feat.prerequisite
+        ? repairGluedWords(cleanWikidotText(feat.prerequisite))
+            .replace(/,(?=\S)/g, ", ")
+            .replace(/(\w)\(/g, "$1 (")
+            .replace(/([a-z\)])Feat\b/g, "$1 Feat")
+        : feat.prerequisite,
       detailParagraphs,
       detailTables: parseFeatDetailTables(feat.id),
     };
@@ -278,32 +303,13 @@ function readGroupedClasses(): ContentBundle["classes"] {
       id: entry.id,
       name: entry.name,
       hitDie: Number.parseInt(entry.hitDie.replace(/[^0-9]/g, ""), 10) || 0,
-      primaryAbilities:
-        entry.id === "bard"
-          ? ["CHA"]
-          : entry.id === "fighter"
-            ? ["STR", "DEX"]
-            : entry.id === "ranger"
-              ? ["DEX", "WIS"]
-              : entry.id === "warlock"
-                ? ["CHA"]
-                : [],
-      savingThrows:
-        entry.id === "bard"
-          ? ["DEX", "CHA"]
-          : entry.id === "fighter"
-            ? ["STR", "CON"]
-            : entry.id === "ranger"
-              ? ["STR", "DEX"]
-              : entry.id === "warlock"
-                ? ["WIS", "CHA"]
-                : [],
+      primaryAbilities: entry.primaryAbilities,
+      savingThrows: entry.savingThrows,
       featuresByLevel: entry.classFeatures.reduce<Record<string, { id: string; name: string; summary: string }[]>>(
         (accumulator, feature) => {
-          const levelMatch = entry.spellcastingTable.rows.find((row) => row[2]?.includes(feature.name));
-          const level = levelMatch?.[0]?.match(/^(\d+)/)?.[1] ?? "1";
+          const level = String(feature.unlockLevel ?? 1);
           accumulator[level] ??= [];
-          accumulator[level].push(feature);
+          accumulator[level].push({ id: feature.id, name: feature.name, summary: feature.summary });
           return accumulator;
         },
         {},
@@ -345,7 +351,8 @@ export function readNormalizedContent(): ContentBundle {
       source: entry.source,
       classes: entry.classes,
       subclassOptions: entry.subclassOptions,
-    })),
+    }))
+      .sort((left, right) => (left.level === right.level ? left.name.localeCompare(right.name) : left.level - right.level)),
   };
 
   return contentBundleSchema.parse(bundle);

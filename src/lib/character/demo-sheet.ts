@@ -108,6 +108,17 @@ export type CharacterDraft = {
   selectedSubclassOptions: string[];
   pactBoonId: string | null;
   selectedPactCantripIds: string[];
+  /** Genel secimler: choice id -> secilen degerler (orn. Book of Ancient Secrets ritual'lari). */
+  choices: Record<string, string[]>;
+  /** Harcanan spell slot'lar: "spell-1", "pact-3" -> kullanilan sayi. */
+  usedSlots: Record<string, number>;
+  /** Harcanan kaynaklar: resource id -> kullanilan sayi. */
+  usedResources: Record<string, number>;
+  /** Inventory esyalarinin durumu: kusanili mi, kac adet. Yazilmamissa kusanili, 1 adet. */
+  itemState: Record<string, { equipped?: boolean; quantity?: number }>;
+  currency: { cp: number; sp: number; ep: number; gp: number; pp: number };
+  /** Acik sureli etkiler (orn. "mage-armor"). */
+  activeEffects: string[];
   selectedInvocationIds: string[];
   mysticArcanumSelections: Partial<Record<6 | 7 | 8 | 9, string>>;
   rangerChoices: RangerChoices;
@@ -135,6 +146,8 @@ export type CharacterDraft = {
     tools: string[];
     languages: string[];
   };
+  /** Ability skoru yontemi. Yoksa skorlara bakilarak point buy ya da manual sayilir. */
+  abilityMethod?: "point-buy" | "standard-array" | "manual";
   flexibleAbilityBonuses: {
     plusTwo: AbilityId | null;
     plusOne: AbilityId | null;
@@ -145,6 +158,10 @@ export type CharacterDraft = {
   skills: Skill[];
   actions: ActionItem[];
   inventory: string[];
+  /** Level up'ta atilan hit die sonuclari (level -> zar). Olmayan level'lar icin ortalama kullanilir. */
+  hpRolls?: Record<number, number>;
+  /** Inventory'ye en son hangi background paketinin eklendigi. Degismedikce paket tekrar eklenmez (silinen esya geri gelmez). */
+  appliedBackgroundEquipment?: string;
   features: FeatureItem[];
   background: string;
   notes: string[];
@@ -161,6 +178,12 @@ export const demoCharacter: CharacterDraft = {
   selectedSubclassOptions: [],
   pactBoonId: null,
   selectedPactCantripIds: [],
+  choices: {},
+  usedSlots: {},
+  usedResources: {},
+  itemState: {},
+  currency: { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 },
+  activeEffects: [],
   selectedInvocationIds: [],
   mysticArcanumSelections: {},
   rangerChoices: {
@@ -348,3 +371,47 @@ export const demoCharacter: CharacterDraft = {
     "Investigate runes before touching cursed objects.",
   ],
 };
+
+/**
+ * Yeni karakterin baslangic hali. Demo karakterin (Elira Voss) degerleri
+ * buraya sizmasin diye isim, secimler, feat/spell ve savunmalar bos.
+ * Yapisal alanlar (abilities, skills listesi) demo'dan geliyor ama hepsi
+ * buildDraftFromSelection icinde yeniden hesaplaniyor.
+ */
+/** currentHp icin "can tam" isareti; gercek deger max HP'den hesaplanir. */
+export const FULL_HP = -1;
+
+export const emptyDraft: CharacterDraft = {
+  ...demoCharacter,
+  name: "New Character",
+  ancestry: "",
+  classLine: "",
+  classId: "",
+  speciesId: "",
+  backgroundId: "",
+  level: 1,
+  selectedSkillIds: [],
+  spellIds: [],
+  featIds: [],
+  currentHp: FULL_HP,
+  tempHp: 0,
+  defenses: [],
+  conditions: [],
+  proficiencies: { armor: [], weapons: [], tools: [], languages: [] },
+  inventory: [],
+  features: [],
+  notes: [],
+  background: "",
+};
+
+/** Eski surumlerde demo karakterden sizip localStorage'a yazilmis degerleri temizler. */
+export function stripLeakedDemoValues(draft: CharacterDraft): CharacterDraft {
+  const sameList = (left: string[] | undefined, right: string[]) =>
+    Array.isArray(left) && left.length === right.length && left.every((value, index) => value === right[index]);
+
+  return {
+    ...draft,
+    conditions: sameList(draft.conditions, demoCharacter.conditions) ? [] : draft.conditions ?? [],
+    defenses: [],
+  };
+}

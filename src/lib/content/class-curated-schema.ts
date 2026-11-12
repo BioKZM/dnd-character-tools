@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { abilityIdSchema, grantSchema, optionChoiceSchema, spellUsesSchema } from "@/lib/engine/grants";
 
 export const classCuratedFeatureSchema = z.object({
   id: z.string(),
@@ -16,11 +17,16 @@ export const classCuratedFeatureSchema = z.object({
       }),
     )
     .default([]),
+  grants: z.array(grantSchema).default([]),
+  /** Feature'in oyuncu secimleri (orn. Bard Expertise: proficient oldugun 2 skill). */
+  choices: z.array(optionChoiceSchema).default([]),
 });
 
 export const classCuratedSpellGrantSchema = z.object({
   unlockLevel: z.number().int().positive(),
   spells: z.array(z.string()).default([]),
+  /** "list": sadece secilebilir havuza eklenir (Warlock patron listeleri). "known": otomatik bilinir. */
+  uses: spellUsesSchema.default("known"),
 });
 
 export const classJourneyStageSchema = z.object({
@@ -91,6 +97,12 @@ export const classCuratedEntrySchema = z.object({
   summary: z.string(),
   multiclassRequirement: z.string(),
   hitDie: z.string(),
+  primaryAbilities: z.array(abilityIdSchema).default([]),
+  savingThrows: z.array(abilityIdSchema).default([]),
+  /** Class'in buyu yapma yetenegi (Bard CHA, Ranger WIS, Warlock CHA). Fighter gibi buyusuz class'larda yok; Eldritch Knight subclass'tan gelir. */
+  spellcastingAbility: abilityIdSchema.optional(),
+  /** 1. level'da class'tan gelen proficiency'ler (armor, weapon, tool, save). */
+  startingGrants: z.array(grantSchema).default([]),
   hitPoints: z.record(z.string(), z.string()),
   proficiencies: z.record(z.string(), z.string()),
   spellcastingTable: classCuratedSpellTableSchema,

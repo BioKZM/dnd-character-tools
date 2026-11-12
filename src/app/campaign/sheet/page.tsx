@@ -1,36 +1,11 @@
 import { CampaignShell } from "@/components/campaign-shell";
 import { PartyRoomDashboard } from "@/components/party-room-dashboard";
-import { readClassCuratedCollection } from "@/lib/content/class-curated-content";
-import { readClassDocCollection } from "@/lib/content/class-docs";
-import { readClassOptionCollection } from "@/lib/content/class-options-content";
-import { readCreatorOptions, readNormalizedContent } from "@/lib/content/file-content";
-import { readLineageCollection } from "@/lib/content/lineage-content";
-import { readLineageDataCatalog } from "@/lib/data/lineages/content";
-import { readRawBookManifest } from "@/lib/content/raw-books";
-import { mergeSpellReferencesIntoContent, readSpellReferenceCollection } from "@/lib/content/spell-reference";
+import { loadCharacterCatalog } from "@/lib/content/load-catalog";
 
 export default function CampaignSheetPage() {
-  const spellReferences = readSpellReferenceCollection();
-  const content = mergeSpellReferencesIntoContent(readNormalizedContent(), spellReferences);
-
   return (
-    <CampaignShell
-      eyebrow="Character Inspector"
-      title="Sheet"
-      description="Review the character output in a compact read-only layout."
-    >
-      <PartyRoomDashboard
-        initialBookManifest={readRawBookManifest()}
-        initialContent={content}
-        initialCreatorOptions={readCreatorOptions()}
-        initialLineageCollection={readLineageCollection()}
-        initialLineageDataCatalog={readLineageDataCatalog()}
-        initialClassCuratedCollection={readClassCuratedCollection()}
-        initialClassOptionCollection={readClassOptionCollection()}
-        initialClassDocs={readClassDocCollection()}
-        initialSpellReferenceCollection={spellReferences}
-        mode="sheet"
-      />
+    <CampaignShell eyebrow="" title="" description="">
+      <PartyRoomDashboard {...loadCharacterCatalog()} mode="sheet" />
     </CampaignShell>
   );
 }

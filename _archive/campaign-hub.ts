@@ -1,4 +1,4 @@
-import { readNormalizedMonsters } from "@/lib/campaign/monster-content";
+import { readNormalizedMonsters } from "./campaign/monster-content";
 
 export type CampaignCharacter = {
   id: string;

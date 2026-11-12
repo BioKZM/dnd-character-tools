@@ -1,24 +1,34 @@
 "use client";
 
+import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { CreatorWorkspace } from "@/components/creator-workspace";
 import { ClassPortrait } from "@/components/ui/class-portrait";
 import { AppIcon } from "@/components/ui/app-icon";
 import { buildSheetContent } from "@/lib/character/build-sheet";
 import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
-import { demoCharacter, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
+import { CREATOR_JUMP_KEY, LevelUpDialog, readCreatorJump, type LevelUpTask } from "@/components/level-up-dialog";
+import { useRouter } from "next/navigation";
+import { activeEntry, importCharacters, parseImport, saveActiveDraft, setActiveCharacter } from "@/lib/character/roster";
+import { emptyDraft, FULL_HP, stripLeakedDemoValues, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
+import { SheetSpellsPanel } from "@/components/sheet-spells-panel";
+import { SheetResourcesPanel } from "@/components/sheet-resources-panel";
+import { SheetInventoryPanel } from "@/components/sheet-inventory-panel";
+import { availableChoices, languageChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
+import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
+import { computeArmorClass, mageArmorAvailable } from "@/lib/engine/armor-class";
+import { asiStatus, classHitPoints, hitDieAverage, levelGains } from "@/lib/engine/level-up";
+import { asiAbilityBonuses, asiFeatIds, migrateLegacyFeatIds, type FeatCheckContext } from "@/lib/engine/feats";
+import { deriveCharacter, hasProficiency, senseLabel, type DerivedCharacter } from "@/lib/engine/derive";
 import {
-  parseWarlockInvocationSummary,
   warlockInvocationMeetsPrerequisite,
 } from "@/lib/character/warlock-invocations";
-import type { ClassDocCollection } from "@/lib/content/class-docs";
 import type { ClassCuratedCollection, ResolvedClassCuratedEntry } from "@/lib/content/class-curated-schema";
 import type { ClassOptionCollection } from "@/lib/content/class-options-schema";
 import type { CreatorOptions } from "@/lib/content/creator-options";
 import type { LineageCollection } from "@/lib/content/lineage-schema";
 import type { ContentBundle } from "@/lib/content/schema";
-import type { RawBookManifest } from "@/lib/content/raw-books";
 import type { SpellReferenceCollection } from "@/lib/content/spell-reference";
 type LocalActivity = {
   id: string;
@@ -27,7 +37,7 @@ type LocalActivity = {
   createdAt: string;
 };
 
-type InfoTab = "actions" | "inventory" | "features" | "background";
+type InfoTab = "actions" | "spells" | "inventory" | "features" | "background";
 type CreatorStep = 0 | 1 | 2 | 3;
 type ActivityFilter = "all" | "rolls" | "system";
 type ActionFilter = "all" | "Attack" | "Action" | "Bonus Action" | "Reaction" | "Other";
@@ -196,7 +206,7 @@ function InlineHelp({
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
-        {content}
+        <Keywordize>{content}</Keywordize>
       </div>
     </span>
   );
@@ -311,10 +321,6 @@ function actionTooltipContent(action: (ReturnType<typeof buildSheetContent>)["bu
       ) : null}
     </div>
   );
-}
-
-function actionHintChips(action: (ReturnType<typeof buildSheetContent>)["builtActions"][number]) {
-  return [];
 }
 
 const skillNameToId = Object.fromEntries(
@@ -488,26 +494,7 @@ function inventoryHasArmorName(inventory: string[], armor: ContentBundle["armors
   return [armor.name, ...armor.aliases].some((name) => inventoryNames.has(normalizeEquipmentName(name)));
 }
 
-function armorAcValue(armor: ContentBundle["armors"][number], dexterityModifier: number) {
-  const baseAc = armor.baseAc ?? 10;
-  if (!armor.dexBonus) {
-    return baseAc;
-  }
 
-  const dexBonus = typeof armor.maxDexBonus === "number"
-    ? Math.min(dexterityModifier, armor.maxDexBonus)
-    : dexterityModifier;
-  return baseAc + dexBonus;
-}
-
-function calculatedArmorClass(content: ContentBundle, inventory: string[], dexterityModifier: number) {
-  const shieldBonus = content.armors
-    .filter((armor) => armor.category === "shield" && inventoryHasArmorName(inventory, armor))
-    .reduce((total, armor) => total + (armor.acBonus ?? 0), 0);
-  const wearableArmors = content.armors.filter((armor) => armor.category !== "shield" && inventoryHasArmorName(inventory, armor));
-  const bestArmorAc = wearableArmors.reduce((best, armor) => Math.max(best, armorAcValue(armor, dexterityModifier)), 10 + dexterityModifier);
-  return bestArmorAc + shieldBonus;
-}
 
 function parseBackgroundSkills(value?: string | string[]) {
   const entries = Array.isArray(value)
@@ -849,30 +836,6 @@ function normalizeFighterChoices(fighterChoices: FighterChoices | undefined) {
   } satisfies FighterChoices;
 }
 
-function fighterAsiLevelChoices(
-  improvements: CharacterDraft["fighterChoices"]["abilityScoreImprovements"] | undefined,
-) {
-  const bonuses = new Map<AbilityId, number>();
-
-  Object.values(improvements ?? {}).forEach((choice) => {
-    if (!choice) {
-      return;
-    }
-
-    if (choice.mode === "plus-two" && choice.plusTwoAbilityId) {
-      bonuses.set(choice.plusTwoAbilityId, (bonuses.get(choice.plusTwoAbilityId) ?? 0) + 2);
-    }
-
-    if (choice.mode === "split") {
-      choice.plusOneAbilityIds.forEach((abilityId) => {
-        bonuses.set(abilityId, (bonuses.get(abilityId) ?? 0) + 1);
-      });
-    }
-  });
-
-  return bonuses;
-}
-
 function isDynamicLineageSkillChoiceGroup(groupId: string) {
   return groupId === "variant-human-skill-choice" || groupId === "half-elf-skill-choice";
 }
@@ -906,17 +869,19 @@ function lineageSkillProficiencyIds(lineageDataCatalog: LineageCatalog | undefin
   );
 }
 
+
 function resolvedLineageData(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
   const lineage =
     lineageDataCatalog?.entries.find((entry) => entry.id === draft.speciesId) ??
     lineageDataCatalog?.entries.find((entry) => entry.sublineages.some((sublineage) => sublineage.id === draft.speciesId)) ??
     null;
+    
   const sublineage = lineage?.sublineages.find((entry) => entry.id === draft.speciesId) ?? null;
 
   return { lineage, sublineage };
 }
-
-function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
+function finalAbilityBonuses(engine: EngineCatalog, draft: CharacterDraft, derived?: DerivedCharacter) {
+  const lineageDataCatalog = engine.lineages;
   const bonuses = new Map<AbilityId, number>();
   const addBonus = (ability: AbilityId, amount: number) => {
     bonuses.set(ability, (bonuses.get(ability) ?? 0) + amount);
@@ -971,22 +936,28 @@ function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, dra
     lineage?.facts.abilityScoreBonuses.some((bonus) => bonus.type === "choice") ||
     sublineage?.facts.abilityScoreBonuses.some((bonus) => bonus.type === "choice");
 
+  // Slot miktarlari lineage kuralindan: Tabaxi/Eladrin +2/+1, Variant Human +1/+1.
+  const [firstSlotAmount, secondSlotAmount] = flexibleBonusAmounts(lineage, sublineage);
   if (supportsFlexibleBonuses && draft.flexibleAbilityBonuses?.plusTwo) {
-    addBonus(draft.flexibleAbilityBonuses.plusTwo, 2);
+    addBonus(draft.flexibleAbilityBonuses.plusTwo, firstSlotAmount);
   }
   if (supportsFlexibleBonuses && draft.flexibleAbilityBonuses?.plusOne) {
-    addBonus(draft.flexibleAbilityBonuses.plusOne, 1);
+    addBonus(draft.flexibleAbilityBonuses.plusOne, secondSlotAmount);
   }
 
-  fighterAsiLevelChoices(draft.fighterChoices?.abilityScoreImprovements).forEach((amount, ability) => {
+  // Sadece class'in ASI level'lari ve karakter level'ina kadar olanlar sayilir.
+  asiAbilityBonuses(engine, draft).forEach((amount, ability) => {
     addBonus(ability, amount);
   });
+
+  // Feat / invocation gibi lineage disi kaynaklardan gelen stat bonuslari (ortak motor).
+  derived?.abilityBonuses.forEach((bonus) => addBonus(bonus.ability, bonus.amount));
 
   return bonuses;
 }
 
-function finalAbilitiesForDraft(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft) {
-  const bonuses = finalAbilityBonuses(lineageDataCatalog, draft);
+function finalAbilitiesForDraft(engine: EngineCatalog, draft: CharacterDraft, derived?: DerivedCharacter) {
+  const bonuses = finalAbilityBonuses(engine, draft, derived);
   const abilities = draft.abilities.map((ability) => {
     const score = ability.score + (bonuses.get(ability.id) ?? 0);
     return {
@@ -1035,8 +1006,11 @@ function buildSheetDraftFromSelection(
   content: ContentBundle,
   creatorOptions: CreatorOptions,
   draft: CharacterDraft,
-  lineageDataCatalog?: LineageCatalog,
+  engine: EngineCatalog,
 ): CharacterDraft {
+  const lineageDataCatalog = engine.lineages;
+  // Ortak motor: lineage, class, subclass, invocation, feat ve background grant'leri tek yerden.
+  const derived = deriveCharacter(draft, engine);
   const chosenClass = content.classes.find((item) => item.id === draft.classId) ?? content.classes[0];
   const chosenBackground =
     content.backgrounds.find((item) => item.id === draft.backgroundId) ?? content.backgrounds[0];
@@ -1047,27 +1021,29 @@ function buildSheetDraftFromSelection(
   const lineageSkillProficiencies = lineageSkillProficiencyIds(lineageDataCatalog, draft);
   const normalizedRangerChoices = normalizeRangerChoices(draft.rangerChoices, draft.level);
   const proficiencyBonus = proficiencyBonusForLevel(draft.level);
-  const { abilities, modifiers } = finalAbilitiesForDraft(lineageDataCatalog, draft);
+  const { abilities, modifiers } = finalAbilitiesForDraft(engine, draft, derived);
+  // Level 1 tam hit die, sonraki level'lar zar sonucu (draft.hpRolls) ya da ortalama.
   const maxHp = Math.max(
-    chosenClass.hitDie +
-      modifiers.CON +
-      (draft.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON),
+    classHitPoints(draft, chosenClass.hitDie, modifiers.CON) + derived.hp.perLevel * draft.level + derived.hp.flat,
     1,
   );
   const skills = defaultSkillOrder.map((skillId) => {
     const existing = draft.skills.find((skill) => skill.id === skillId);
     const ability = skillAbilities[skillId] ?? existing?.ability ?? "INT";
     const modifier = modifiers[ability];
+    // Jack of All Trades: proficient olunmayan skill'lere yarim proficiency (asagi yuvarlanir).
+    const halfProficiency = derived.halfProficiency.sources.length ? Math.floor(proficiencyBonus / 2) : 0;
     const proficient =
       backgroundRules?.skillProficiencies.includes(skillId) ||
       activeBackgroundSkillIds.includes(skillId) ||
       lineageSkillProficiencies.includes(skillId) ||
       draft.selectedSkillIds.includes(skillId) ||
-      false;
+      hasProficiency(derived, "skill", skillId);
     const expertise =
-      chosenClass.id === "ranger" &&
-      normalizedRangerChoices.favoredTerrainMode === "deft" &&
-      normalizedRangerChoices.cannySkillId === skillId &&
+      ((chosenClass.id === "ranger" &&
+        normalizedRangerChoices.favoredTerrainMode === "deft" &&
+        normalizedRangerChoices.cannySkillId === skillId) ||
+        derived.expertise.some((entry) => entry.skill === skillId)) &&
       proficient;
 
     return {
@@ -1075,34 +1051,77 @@ function buildSheetDraftFromSelection(
       label: existing?.label ?? skillLabel(skillId),
       ability,
       proficient,
-      bonus: modifier + (proficient ? proficiencyBonus : 0) + (expertise ? proficiencyBonus : 0),
+      bonus: modifier + (proficient ? proficiencyBonus : halfProficiency) + (expertise ? proficiencyBonus : 0),
       breakdown: expertise
         ? `${ability} modifier + expertise.`
         : proficient
           ? `${ability} modifier + proficiency.`
-          : `${ability} modifier.`,
+          : halfProficiency
+            ? `${ability} modifier + half proficiency (${derived.halfProficiency.sources.join(", ")}).`
+            : `${ability} modifier.`,
       description: skillDescriptions[skillId] ?? existing?.description ?? "",
     };
   });
+
+  const saveProficient = (ability: AbilityId) =>
+    chosenClass.savingThrows.includes(ability) || hasProficiency(derived, "save", ability);
+  // "Longswords" (class) ile "Longsword" (lineage) ayni proficiency; tekil/cogul farki tekrar sayilmaz.
+  const proficiencyKey = (value: string) => value.toLowerCase().trim().replace(/s$/, "");
+  const mergeNames = (existing: string[], extra: { value: string }[]) => {
+    const seen = new Set<string>();
+    return [...existing, ...extra.map((entry) => entry.value)].filter((value) => {
+      const key = proficiencyKey(value);
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
+  };
 
   return {
     ...draft,
     abilities,
     proficiencyBonus,
-    initiative: modifiers.DEX,
-    armorClass: calculatedArmorClass(content, draft.inventory, modifiers.DEX),
+    initiative:
+      modifiers.DEX + derived.initiative.bonus + (derived.halfProficiency.sources.length ? Math.floor(proficiencyBonus / 2) : 0),
+    armorClass: computeArmorClass({
+      armors: content.armors,
+      inventory: draft.inventory,
+      itemState: draft.itemState,
+      modifiers,
+      strengthScore: abilities.find((ability) => ability.id === "STR")?.score ?? 10,
+      armorProficiencies: mergeNames(draft.proficiencies?.armor ?? [], derived.proficiencies.armor),
+      derived,
+      mageArmorActive: (draft.activeEffects ?? []).includes("mage-armor") && mageArmorAvailable(derived, draft.spellIds),
+    }).value,
     maxHp,
-    currentHp: Math.min(draft.currentHp, maxHp),
+    currentHp: draft.currentHp < 0 ? maxHp : Math.min(draft.currentHp, maxHp),
     savingThrows: (["STR", "DEX", "CON", "INT", "WIS", "CHA"] as AbilityId[]).map((ability) => ({
       ability,
-      bonus: modifiers[ability] + (chosenClass.savingThrows.includes(ability) ? proficiencyBonus : 0),
-      proficient: chosenClass.savingThrows.includes(ability),
-      breakdown: chosenClass.savingThrows.includes(ability)
-        ? `${abilityLabels[ability]} modifier + class save proficiency.`
+      bonus: modifiers[ability] + (saveProficient(ability) ? proficiencyBonus : 0),
+      proficient: saveProficient(ability),
+      breakdown: saveProficient(ability)
+        ? `${abilityLabels[ability]} modifier + save proficiency.`
         : `${abilityLabels[ability]} modifier only.`,
     })),
     skills,
-    senses: derivedSensesFromSkills(skills),
+    senses: [
+      ...derived.senses.map((sense) => ({
+        id: sense.sense,
+        label: senseLabel(sense.sense),
+        value: sense.range,
+        description: `${sense.range} ft.${sense.note ? ` (${sense.note})` : ""} · from ${sense.sources.join(", ")}`,
+      })),
+      ...derivedSensesFromSkills(skills),
+    ],
+    defenses: derived.defenses.map((entry) => `${entry.label} (${entry.sources.join(", ")})`),
+    proficiencies: {
+      armor: mergeNames(draft.proficiencies?.armor ?? [], derived.proficiencies.armor),
+      weapons: mergeNames(draft.proficiencies?.weapons ?? [], derived.proficiencies.weapon),
+      tools: mergeNames(draft.proficiencies?.tools ?? [], derived.proficiencies.tool),
+      languages: mergeNames(draft.proficiencies?.languages ?? [], derived.proficiencies.language),
+    },
   };
 }
 
@@ -1110,8 +1129,9 @@ function buildDraftFromSelection(
   content: ContentBundle,
   creatorOptions: CreatorOptions,
   previous: CharacterDraft,
-  lineageDataCatalog?: LineageCatalog,
+  engine: EngineCatalog,
 ): CharacterDraft {
+  const lineageDataCatalog = engine.lineages;
   const chosenClass = content.classes.find((item) => item.id === previous.classId) ?? content.classes[0];
   const chosenSpecies =
     content.species.find((item) => item.id === previous.speciesId) ?? content.species[0];
@@ -1158,8 +1178,15 @@ function buildDraftFromSelection(
       .map((classId) => content.classes.find((item) => item.id === classId)?.name)
       .filter((value): value is string => Boolean(value)),
   ];
+  // Patron / subclass listelerinden gelen ek buyuler (orn. Great Old One expanded spells) secilebilir havuza girer.
+  const grantedListSpellIds = new Set(
+    deriveCharacter(previous, engine).spells.filter((spell) => spell.uses === "list").map((spell) => spell.spellId),
+  );
   const allowedSpellIds = content.spells
     .filter((spell) => {
+      if (grantedListSpellIds.has(spell.id)) {
+        return true;
+      }
       const byClass = classPool.some((className) => classMatchesSpell(spell, className));
       const byEldritchKnight =
         chosenClass.id === "fighter" &&
@@ -1171,9 +1198,6 @@ function buildDraftFromSelection(
       return byClass || bySubclass || byEldritchKnight;
     })
     .map((spell) => spell.id);
-  const allowedFeatIds = content.feats
-    .filter((feat) => !feat.isRacialFeat || raceFeatMatchesSpecies(feat.prerequisite, chosenSpecies.name))
-    .map((feat) => feat.id);
   const allowedMysticArcanumLevels = chosenClass.id === "warlock" ? availableMysticArcanumLevels(previous.level) : [];
   const allowedMysticArcanumSpellIds = new Set(
     content.spells
@@ -1212,19 +1236,20 @@ function buildDraftFromSelection(
   };
   const existingSkills = new Map(previous.skills.map((skill) => [skill.id, skill]));
 
-  const maxHp = Math.max(
-    chosenClass.hitDie +
-      modifiers.CON +
-      (previous.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON),
-    1,
-  );
-  const inventory = unique([
-    ...previous.inventory.filter((item) => !allBackgroundEquipment.includes(item)),
-    ...backgroundEquipment,
-  ]);
-  const armorClass = calculatedArmorClass(content, inventory, modifiers.DEX);
+  const maxHp = Math.max(classHitPoints(previous, chosenClass.hitDie, modifiers.CON), 1);
+  // Background paketi sadece background (ya da custom paket) degisince eklenir; oyuncunun sildigi esya geri gelmez.
+  const backgroundEquipmentKey = isCustomBackground(chosenBackground.id)
+    ? `${chosenBackground.id}:${customBackground.equipmentMode}:${customEquipmentBackground.id}`
+    : chosenBackground.id;
+  const inventory =
+    previous.appliedBackgroundEquipment === backgroundEquipmentKey
+      ? previous.inventory
+      : unique([
+          ...previous.inventory.filter((item) => !allBackgroundEquipment.includes(item)),
+          ...backgroundEquipment,
+        ]);
 
-  return {
+  const built: CharacterDraft = {
     ...previous,
     ancestry: chosenSpecies.name,
     classLine: `${chosenClass.name} ${previous.level}`,
@@ -1282,13 +1307,14 @@ function buildDraftFromSelection(
     backgroundToolChoiceIds,
     customBackground,
     spellIds: previous.spellIds.filter((spellId) => allowedSpellIds.includes(spellId)),
-    featIds: previous.featIds.filter((featId) => allowedFeatIds.includes(featId)),
+    // Feat listesi tek yerden: ASI secimleri. Lineage/background feat'leri motor grant olarak ekler.
+    featIds: asiFeatIds(engine, previous),
     inventory,
+    appliedBackgroundEquipment: backgroundEquipmentKey,
     proficiencyBonus,
     initiative: modifiers.DEX,
-    armorClass,
     maxHp,
-    currentHp: Math.min(previous.currentHp, maxHp),
+    currentHp: previous.currentHp < 0 ? FULL_HP : Math.min(previous.currentHp, maxHp),
     proficiencies: {
       armor: unique([...(classRules?.armor ?? [])]),
       weapons: unique([...(classRules?.weapons ?? [])]),
@@ -1357,73 +1383,125 @@ function buildDraftFromSelection(
       };
     }),
   };
+
+  // Secim opsiyonlari birakildiysa / level dustuyse onlara bagli secimler de temizlenir.
+  return { ...built, choices: sanitizeChoices(built, engine) };
 }
 
-function loadInitialDraft(content: ContentBundle, creatorOptions: CreatorOptions, lineageDataCatalog?: LineageCatalog) {
-  return buildDraftFromSelection(content, creatorOptions, demoCharacter, lineageDataCatalog);
+function loadInitialDraft(content: ContentBundle, creatorOptions: CreatorOptions, engine: EngineCatalog) {
+  return buildDraftFromSelection(content, creatorOptions, emptyDraft, engine);
 }
 
-function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions, lineageDataCatalog?: LineageCatalog) {
+function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions, engine: EngineCatalog) {
   if (typeof window === "undefined") {
     return null;
   }
 
-  const stored = window.localStorage.getItem("codex-character-draft");
+  // Aktif karakter roster'dan (ilk acilista eski tek kayit roster'a tasinir).
+  const stored = activeEntry()?.draft;
   if (!stored) {
     return null;
   }
 
   try {
-    const parsed = JSON.parse(stored) as CharacterDraft;
-    return buildDraftFromSelection(content, creatorOptions, parsed, lineageDataCatalog);
+    const parsed = migrateLegacyFeatIds(engine, stripLeakedDemoValues(structuredClone(stored)));
+    return buildDraftFromSelection(content, creatorOptions, parsed, engine);
   } catch {
     return null;
   }
 }
 
+export type CharacterCatalogProps = {
+  initialContent: ContentBundle;
+  initialCreatorOptions: CreatorOptions;
+  initialLineageDataCatalog: LineageCatalog;
+  initialClassCuratedCollection: ClassCuratedCollection;
+  initialClassOptionCollection: ClassOptionCollection;
+};
+
+/** Creator/Sheet'in kullandigi ayni hesaplama; DM Screen gibi birden cok karakteri gosteren ekranlar icin. */
+export function computeCharacterView(catalog: CharacterCatalogProps, rawDraft: CharacterDraft) {
+  const engine: EngineCatalog = {
+    content: catalog.initialContent,
+    lineages: catalog.initialLineageDataCatalog,
+    classes: catalog.initialClassCuratedCollection,
+    classOptions: catalog.initialClassOptionCollection,
+  };
+  const storedHp = rawDraft.currentHp;
+  const draft = buildDraftFromSelection(
+    catalog.initialContent,
+    catalog.initialCreatorOptions,
+    migrateLegacyFeatIds(engine, stripLeakedDemoValues(structuredClone(rawDraft))),
+    engine,
+  );
+  const sheetDraft = buildSheetDraftFromSelection(catalog.initialContent, catalog.initialCreatorOptions, draft, engine);
+  const sheetContent = buildSheetContent(catalog.initialContent, sheetDraft, engine);
+  const currentHp = storedHp < 0 ? sheetDraft.maxHp : Math.min(storedHp ?? sheetDraft.maxHp, sheetDraft.maxHp);
+  return { draft, sheetDraft, sheetContent, currentHp };
+}
+
 export function PartyRoomDashboard({
-  initialBookManifest,
   initialContent,
   initialCreatorOptions,
   initialLineageCollection,
   initialLineageDataCatalog,
   initialClassCuratedCollection,
   initialClassOptionCollection,
-  initialClassDocs,
   initialSpellReferenceCollection,
   mode = "creator",
 }: {
-  initialBookManifest: RawBookManifest | null;
   initialContent: ContentBundle;
   initialCreatorOptions: CreatorOptions;
   initialLineageCollection: LineageCollection;
   initialLineageDataCatalog: LineageCatalog;
   initialClassCuratedCollection: ClassCuratedCollection;
   initialClassOptionCollection: ClassOptionCollection;
-  initialClassDocs: ClassDocCollection;
   initialSpellReferenceCollection: SpellReferenceCollection;
   mode?: "creator" | "sheet";
 }) {
+  const router = useRouter();
   const isHydrated = useSyncExternalStore(
     () => () => {},
     () => true,
     () => false,
   );
+  const engineCatalog = useMemo<EngineCatalog>(
+    () => ({
+      content: initialContent,
+      lineages: initialLineageDataCatalog,
+      classes: initialClassCuratedCollection,
+      classOptions: initialClassOptionCollection,
+    }),
+    [initialContent, initialLineageDataCatalog, initialClassCuratedCollection, initialClassOptionCollection],
+  );
   const [draft, setDraft] = useState<CharacterDraft>(() => {
     if (typeof window !== "undefined") {
-      return readStoredDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog) ?? loadInitialDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog);
+      return readStoredDraft(initialContent, initialCreatorOptions, engineCatalog) ?? loadInitialDraft(initialContent, initialCreatorOptions, engineCatalog);
     }
-    return loadInitialDraft(initialContent, initialCreatorOptions, initialLineageDataCatalog);
+    return loadInitialDraft(initialContent, initialCreatorOptions, engineCatalog);
   });
   const sheetDraft = useMemo(
-    () => buildSheetDraftFromSelection(initialContent, initialCreatorOptions, draft, initialLineageDataCatalog),
-    [initialContent, initialCreatorOptions, draft, initialLineageDataCatalog],
+    () => buildSheetDraftFromSelection(initialContent, initialCreatorOptions, draft, engineCatalog),
+    [initialContent, initialCreatorOptions, draft, engineCatalog],
   );
   const sheetContent = useMemo(
-    () => buildSheetContent(initialContent, sheetDraft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog),
-    [initialContent, sheetDraft, initialClassDocs, initialClassCuratedCollection, initialLineageDataCatalog],
+    () => buildSheetContent(initialContent, sheetDraft, engineCatalog),
+    [initialContent, sheetDraft, engineCatalog],
   );
-  const [bookManifest] = useState<RawBookManifest | null>(initialBookManifest);
+  // Feat on kosullarini kontrol etmek icin karakterin su anki hali.
+  const featContext = useMemo<FeatCheckContext>(() => {
+    const derived = deriveCharacter(draft, engineCatalog);
+    const hasSpellcastingFeature = sheetContent.spellcasting.some((profile) => profile.slots.length > 0);
+    return {
+      scores: Object.fromEntries(sheetDraft.abilities.map((ability) => [ability.id, ability.score])) as FeatCheckContext["scores"],
+      featIds: derived.featIds,
+      armorProficiencies: sheetDraft.proficiencies.armor,
+      weaponProficiencies: sheetDraft.proficiencies.weapons,
+      hasSpellcastingFeature,
+      canCastSpell: hasSpellcastingFeature || derived.spells.length > 0 || draft.spellIds.length > 0,
+    };
+  }, [draft, engineCatalog, sheetContent.spellcasting, sheetDraft.abilities, sheetDraft.proficiencies]);
+  // currentHp < 0 (FULL_HP) = "can tam": max HP level/CON ile degisse bile karakter dolu kalir.
   const [currentHp, setCurrentHp] = useState(() => draft.currentHp);
   const [tempHp, setTempHp] = useState(() => draft.tempHp);
   const [activityLog, setActivityLog] = useState<LocalActivity[]>([]);
@@ -1431,7 +1509,8 @@ export function PartyRoomDashboard({
   const [activityFilter, setActivityFilter] = useState<ActivityFilter>("all");
   const [activeTab, setActiveTab] = useState<InfoTab>("actions");
   const [actionFilter, setActionFilter] = useState<ActionFilter>("all");
-  const [creatorStep, setCreatorStep] = useState<CreatorStep>(0);
+  // Level up'taki "Choose" linkleri creator'i ilgili adimda acar.
+  const [creatorStep, setCreatorStep] = useState<CreatorStep>(() => (mode === "creator" ? readCreatorJump()?.step ?? 0 : 0));
   const jsonImportRef = useRef<HTMLInputElement | null>(null);
   const pdfImportRef = useRef<HTMLInputElement | null>(null);
   const filteredActivityLog = activityLog.filter((event) =>
@@ -1443,21 +1522,18 @@ export function PartyRoomDashboard({
       return;
     }
 
-    window.localStorage.setItem(
-      "codex-character-draft",
-      JSON.stringify({
-        ...draft,
-        currentHp,
-        tempHp,
-      }),
-    );
-  }, [draft, currentHp, tempHp]);
+    saveActiveDraft({
+      ...draft,
+      currentHp: currentHp < 0 || currentHp >= sheetDraft.maxHp ? FULL_HP : currentHp,
+      tempHp,
+    });
+  }, [draft, currentHp, tempHp, sheetDraft.maxHp]);
 
   const filteredActions =
     activeTab === "actions"
       ? sheetContent.builtActions.filter((action) => actionFilter === "all" || action.category === actionFilter)
       : [];
-  const displayedCurrentHp = Math.min(currentHp, sheetDraft.maxHp);
+  const displayedCurrentHp = currentHp < 0 ? sheetDraft.maxHp : Math.min(currentHp, sheetDraft.maxHp);
   const currentCuratedClass =
     initialClassCuratedCollection.entries.find((entry) => entry.id === draft.classId) ?? null;
   const currentClassRules = initialCreatorOptions.classOptions[draft.classId];
@@ -1492,6 +1568,9 @@ export function PartyRoomDashboard({
       .flatMap((spell) => spell.subclassOptions ?? [])
       .filter((option) => option.toLowerCase().includes(currentClass.name.toLowerCase()) || draft.multiclassIds.some((classId) => option.toLowerCase().includes((initialContent.classes.find((item) => item.id === classId)?.name ?? "").toLowerCase()))),
   );
+  const grantedListSpellIds = new Set(
+    deriveCharacter(draft, engineCatalog).spells.filter((spell) => spell.uses === "list").map((spell) => spell.spellId),
+  );
   const availableSpells = initialContent.spells.filter((spell) => {
     const classPool = [currentClass.name, ...draft.multiclassIds
       .map((classId) => initialContent.classes.find((item) => item.id === classId)?.name)
@@ -1502,9 +1581,9 @@ export function PartyRoomDashboard({
       draft.classId === "fighter" &&
       isEffectiveEldritchKnight &&
       classMatchesSpell(spell, "Wizard");
-    const bySubclass = (spell.subclassOptions ?? []).some((option) =>
-      draft.selectedSubclassOptions.includes(option),
-    );
+    const bySubclass =
+      (spell.subclassOptions ?? []).some((option) => draft.selectedSubclassOptions.includes(option)) ||
+      grantedListSpellIds.has(spell.id);
 
     if (!(byClass || bySubclass || byEldritchKnight)) {
       return false;
@@ -1582,7 +1661,7 @@ export function PartyRoomDashboard({
     const eligibleInvocationIds = new Set(
       initialClassOptionCollection.warlock.eldritchInvocations.options
         .filter((option) =>
-          warlockInvocationMeetsPrerequisite(parseWarlockInvocationSummary(option.summary).prerequisite, {
+          warlockInvocationMeetsPrerequisite(option.prerequisite, {
             level: draft.level,
             pactBoonId: draft.pactBoonId,
             spellIds: draft.spellIds,
@@ -1621,7 +1700,7 @@ export function PartyRoomDashboard({
     ? draft.customBackground.skillIds
     : parseBackgroundSkills(currentBackground.skillProficiencies);
   const updateDraft = (updater: (current: CharacterDraft) => CharacterDraft) => {
-    setDraft((current) => buildDraftFromSelection(initialContent, initialCreatorOptions, updater(current), initialLineageDataCatalog));
+    setDraft((current) => buildDraftFromSelection(initialContent, initialCreatorOptions, updater(current), engineCatalog));
   };
 
   const updateAbility = (abilityId: AbilityId, score: number) => {
@@ -1664,6 +1743,64 @@ export function PartyRoomDashboard({
       pactBoonId,
       selectedPactCantripIds: pactBoonId === "pact-of-the-tome" ? current.selectedPactCantripIds ?? [] : [],
     }));
+  };
+
+  // Short rest: pact slot'lar ve short rest kaynaklari yenilenir. Long rest: hepsi + HP.
+  const shortRest = () => {
+    const shortResourceIds = new Set(
+      sheetContent.resources.filter((resource) => resource.recharge === "short_rest").map((resource) => resource.id),
+    );
+    updateDraft((current) => ({
+      ...current,
+      usedSlots: Object.fromEntries(Object.entries(current.usedSlots ?? {}).filter(([key]) => !key.startsWith("pact-"))),
+      usedResources: Object.fromEntries(Object.entries(current.usedResources ?? {}).filter(([id]) => !shortResourceIds.has(id))),
+    }));
+  };
+
+  const longRest = () => {
+    setCurrentHp(FULL_HP);
+    setTempHp(0);
+    updateDraft((current) => ({ ...current, usedSlots: {}, usedResources: {} }));
+  };
+
+  const setSlotUsage = (slotKey: string, used: number) => {
+    updateDraft((current) => ({ ...current, usedSlots: { ...(current.usedSlots ?? {}), [slotKey]: used } }));
+  };
+
+  const setResourceUsage = (resourceId: string, used: number) => {
+    updateDraft((current) => ({ ...current, usedResources: { ...(current.usedResources ?? {}), [resourceId]: used } }));
+  };
+
+  const toggleLanguageChoice = (choiceId: string, language: string) => {
+    updateDraft((current) => {
+      const entry = languageChoices(current, engineCatalog).find((item) => item.id === choiceId);
+      if (!entry) {
+        return current;
+      }
+      const existing = entry.selectedNames;
+      const next = existing.includes(language)
+        ? existing.filter((item) => item !== language)
+        : existing.length < entry.count && entry.options.includes(language)
+          ? [...existing, language]
+          : existing;
+      return { ...current, choices: { ...(current.choices ?? {}), [choiceId]: next } };
+    });
+  };
+
+  const toggleOptionChoice = (choiceId: string, value: string) => {
+    updateDraft((current) => {
+      const entry = availableChoices(current, engineCatalog).find((item) => item.choice.id === choiceId);
+      if (!entry) {
+        return current;
+      }
+      const existing = entry.selectedIds;
+      const next = existing.includes(value)
+        ? existing.filter((item) => item !== value)
+        : existing.length < entry.choice.count && entry.candidates.some((spell) => spell.id === value)
+          ? [...existing, value]
+          : existing;
+      return { ...current, choices: { ...(current.choices ?? {}), [choiceId]: next } };
+    });
   };
 
   const togglePactCantripSelection = (spellId: string) => {
@@ -1950,7 +2087,7 @@ export function PartyRoomDashboard({
         JSON.stringify(
           {
             ...draft,
-            currentHp,
+            currentHp: displayedCurrentHp,
             tempHp,
           },
           null,
@@ -1976,8 +2113,17 @@ export function PartyRoomDashboard({
 
     try {
       const text = await file.text();
-      const parsed = JSON.parse(text) as CharacterDraft;
-      setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, parsed, initialLineageDataCatalog));
+      const imported = parseImport(text);
+      const parsed = imported[0];
+      if (!parsed) {
+        throw new Error("no character");
+      }
+      // Iceri alinan karakter(ler) yeni kayit olarak eklenir; ilki aktif olur. Mevcut karakterin ustune yazilmaz.
+      const [firstId] = importCharacters(imported);
+      if (firstId) {
+        setActiveCharacter(firstId);
+      }
+      setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, migrateLegacyFeatIds(engineCatalog, parsed), engineCatalog));
       setCurrentHp(parsed.currentHp ?? parsed.maxHp ?? draft.maxHp);
       setTempHp(parsed.tempHp ?? 0);
       setActivityLog((current) => [
@@ -2034,11 +2180,123 @@ export function PartyRoomDashboard({
     event.target.value = "";
   };
 
-  const levelUp = () => {
-    updateDraft((current) => ({
-      ...current,
-      level: Math.min(20, current.level + 1),
-    }));
+  // Level up: once ne kazanilacagi gosterilir, HP icin ortalama ya da zar secilir; sonra acik secimler listelenir.
+  const [levelUpPhase, setLevelUpPhase] = useState<"preview" | "tasks" | null>(null);
+  const [lastHpGain, setLastHpGain] = useState<number | null>(null);
+  const finalConModifier = sheetDraft.abilities.find((ability) => ability.id === "CON")?.modifier ?? 0;
+  const applyLevelUp = (roll: number | null) => {
+    const nextLevel = Math.min(20, draft.level + 1);
+    const average = hitDieAverage(currentClass.hitDie);
+    setLastHpGain(Math.max(1, (roll ?? average) + finalConModifier));
+    updateDraft((current) => {
+      const hpRolls = { ...(current.hpRolls ?? {}) };
+      if (roll !== null) {
+        hpRolls[nextLevel] = roll;
+      } else {
+        delete hpRolls[nextLevel];
+      }
+      return { ...current, level: nextLevel, hpRolls };
+    });
+    setLevelUpPhase("tasks");
+  };
+  const levelUpGains = draft.level < 20 ? levelGains(engineCatalog, draft, draft.level + 1) : [];
+  const levelUpTasks: LevelUpTask[] = (() => {
+    const tasks: LevelUpTask[] = [];
+    const subclassUnlockLevel = draft.classId === "warlock" ? 1 : 3;
+    if (currentCuratedClass?.subclasses.length && draft.level >= subclassUnlockLevel && !draft.selectedSubclassOptions.length) {
+      tasks.push({
+        id: "subclass",
+        label: currentCuratedClass.subclassHeading || "Subclass",
+        detail: "Pick your subclass.",
+        jump: { step: 1, browser: "subclass" },
+      });
+    }
+    asiStatus(engineCatalog, draft).open.forEach((level) => {
+      tasks.push({
+        id: `asi-${level}`,
+        label: `Level ${level} Ability Score Improvement`,
+        detail: "+2 to one ability, +1 to two, or a feat.",
+        jump: { step: 2, browser: "fighter-asi" },
+      });
+    });
+    if (draft.classId === "warlock" && draft.level >= 3 && !draft.pactBoonId) {
+      tasks.push({ id: "pact-boon", label: "Pact Boon", detail: "Choose your Pact Boon.", jump: { step: 1, browser: "warlock-pact" } });
+    }
+    const invocationCount = (draft.selectedInvocationIds ?? []).length;
+    if (warlockInvocationLimit > invocationCount) {
+      tasks.push({
+        id: "invocations",
+        label: "Eldritch Invocations",
+        detail: `${invocationCount} / ${warlockInvocationLimit} chosen.`,
+        jump: { step: 1, browser: "warlock-invocations" },
+      });
+    }
+    const knownSpells = draft.spellIds
+      .map((spellId) => initialContent.spells.find((spell) => spell.id === spellId))
+      .filter((spell): spell is ContentBundle["spells"][number] => Boolean(spell));
+    const cantripCount = knownSpells.filter((spell) => spell.level === 0).length;
+    const spellCount = knownSpells.length - cantripCount;
+    // Fighter sadece Eldritch Knight secildiyse buyu bilir (secilmemisken varsayilan subclass sayilmasin).
+    const castsSpells = draft.classId !== "fighter" || draft.selectedSubclassOptions.includes("eldritch-knight");
+    if (castsSpells && Number.isFinite(spellSelectionRules.cantripLimit) && cantripCount < spellSelectionRules.cantripLimit) {
+      tasks.push({
+        id: "cantrips",
+        label: "Cantrips",
+        detail: `${cantripCount} / ${spellSelectionRules.cantripLimit} known.`,
+        jump: { step: 1, browser: "spells" },
+      });
+    }
+    const choiceKnownSpells = availableChoices(draft, engineCatalog)
+      .filter((entry) => entry.choice.id.startsWith("magical-secrets"))
+      .reduce((total, entry) => total + entry.selectedIds.length, 0);
+    const knownLimit = spellSelectionRules.totalKnownLimit - choiceKnownSpells;
+    if (castsSpells && Number.isFinite(knownLimit) && spellCount < knownLimit) {
+      tasks.push({
+        id: "spells",
+        label: "Spells Known",
+        detail: `${spellCount} / ${knownLimit} known (up to level ${spellSelectionRules.maxSpellLevel})${choiceKnownSpells ? ` + ${choiceKnownSpells} Magical Secrets` : ""}.`,
+        jump: { step: 1, browser: "spells" },
+      });
+    }
+    if (draft.classId === "warlock") {
+      availableMysticArcanumLevels(draft.level)
+        .filter((spellLevel) => !draft.mysticArcanumSelections?.[spellLevel])
+        .forEach((spellLevel) =>
+          tasks.push({
+            id: `arcanum-${spellLevel}`,
+            label: `Mystic Arcanum (level ${spellLevel})`,
+            detail: "Choose one spell.",
+            jump: { step: 1, browser: "spells" },
+          }),
+        );
+    }
+    availableChoices(draft, engineCatalog)
+      .filter((entry) => entry.selectedIds.length < (entry.choice.min ?? entry.choice.count))
+      .forEach((entry) =>
+        tasks.push({
+          id: `choice-${entry.choice.id}`,
+          label: `${entry.sourceName}: ${entry.choice.label}`,
+          detail: `${entry.selectedIds.length} / ${entry.choice.min ?? entry.choice.count} chosen.`,
+          jump:
+            entry.choice.from.kind === "skill"
+              ? { step: 2, browser: "skills" }
+              : entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool"
+                ? { step: 1, browser: "subclass" }
+                : draft.classId === "warlock"
+                ? { step: 1, browser: "warlock-invocations" }
+                : { step: 1, browser: "spells" },
+        }),
+      );
+    return tasks;
+  })();
+  const jumpToCreator = (task: LevelUpTask) => {
+    try {
+      window.sessionStorage.setItem(CREATOR_JUMP_KEY, JSON.stringify(task.jump));
+    } catch {
+      // yok say
+    }
+    setLevelUpPhase(null);
+    router.push("/campaign/creator");
   };
 
   const broadcastCheck = async (label: string, bonus: number) => {
@@ -2056,11 +2314,16 @@ export function PartyRoomDashboard({
   };
 
   const applyDamage = (amount: number) => {
-    setCurrentHp((value) => Math.max(value - amount, 0));
+    // Hasar once gecici HP'den dusulur.
+    const absorbed = Math.min(tempHp, amount);
+    if (absorbed > 0) {
+      setTempHp((value) => Math.max(value - absorbed, 0));
+    }
+    setCurrentHp((value) => Math.max((value < 0 ? sheetDraft.maxHp : value) - (amount - absorbed), 0));
   };
 
   const applyHealing = (amount: number) => {
-    setCurrentHp((value) => Math.min(value + amount, sheetDraft.maxHp));
+    setCurrentHp((value) => (value < 0 ? FULL_HP : Math.min(value + amount, sheetDraft.maxHp)));
   };
 
   if (!isHydrated) {
@@ -2080,11 +2343,32 @@ export function PartyRoomDashboard({
 
   return (
     <main className={`sheet-shell mode-${mode}`}>
+      {levelUpPhase ? (
+        <LevelUpDialog
+          phase={levelUpPhase}
+          currentLevel={draft.level}
+          className={currentClass.name}
+          hitDie={currentClass.hitDie}
+          hitDieAverage={hitDieAverage(currentClass.hitDie)}
+          conModifier={finalConModifier}
+          gains={levelUpGains}
+          tasks={levelUpTasks}
+          lastHpGain={levelUpPhase === "tasks" ? lastHpGain : null}
+          onConfirm={applyLevelUp}
+          onJump={jumpToCreator}
+          onClose={() => {
+            setLevelUpPhase(null);
+            setLastHpGain(null);
+          }}
+        />
+      ) : null}
       <div className="sheet-page">
         {mode === "creator" ? (
           <section className="creator-card">
             <CreatorWorkspace
               draft={draft}
+              previewDraft={sheetDraft}
+              previewStats={sheetContent.derivedStats}
               content={initialContent}
               creatorStep={creatorStep}
               moveCreatorStep={moveCreatorStep}
@@ -2096,7 +2380,6 @@ export function PartyRoomDashboard({
                 lineageDataCatalog={initialLineageDataCatalog}
                 classCuratedCollection={initialClassCuratedCollection}
                 classOptionCollection={initialClassOptionCollection}
-                classDocs={initialClassDocs}
                 spellReferenceCollection={initialSpellReferenceCollection}
                 currentClassRules={currentClassRules}
                 classOptions={initialCreatorOptions.classOptions}
@@ -2104,6 +2387,8 @@ export function PartyRoomDashboard({
               availableSubclassOptions={availableSubclassOptions}
               availableSpells={availableSpells}
               availableFeats={availableFeats}
+              engineCatalog={engineCatalog}
+              featContext={featContext}
               maxSpellLevel={maxSpellLevel}
               spellSelectionRules={spellSelectionRules}
               eldritchKnightFlexibleSchoolAllowance={eldritchKnightSpellRules?.flexibleSchoolAllowance ?? 0}
@@ -2117,6 +2402,10 @@ export function PartyRoomDashboard({
               toggleInvocationSelection={toggleInvocationSelection}
               setPactBoon={setPactBoon}
               togglePactCantripSelection={togglePactCantripSelection}
+              optionChoices={availableChoices(draft, engineCatalog)}
+              toggleOptionChoice={toggleOptionChoice}
+              languageChoices={languageChoices(draft, engineCatalog)}
+              toggleLanguageChoice={toggleLanguageChoice}
               setMysticArcanumSpell={setMysticArcanumSpell}
               setRangerFavoredEnemyMode={setRangerFavoredEnemyMode}
               updateRangerFavoredEnemyChoice={updateRangerFavoredEnemyChoice}
@@ -2149,11 +2438,20 @@ export function PartyRoomDashboard({
 
           <div className="top-actions">
             <div className="top-actions-group">
-              <button className="sheet-button secondary" onClick={levelUp}>
+              <button className="sheet-button secondary" disabled={draft.level >= 20} onClick={() => setLevelUpPhase("preview")}>
                 Level Up
               </button>
-              <button className="sheet-button secondary">Short Rest</button>
-              <button className="sheet-button secondary">Long Rest</button>
+              {levelUpTasks.length ? (
+                <button className="sheet-button secondary level-up-pending" onClick={() => setLevelUpPhase("tasks")}>
+                  {`${levelUpTasks.length} choice${levelUpTasks.length === 1 ? "" : "s"} pending`}
+                </button>
+              ) : null}
+              <button className="sheet-button secondary" onClick={shortRest}>
+                Short Rest
+              </button>
+              <button className="sheet-button secondary" onClick={longRest}>
+                Long Rest
+              </button>
             </div>
             <div className="top-actions-divider print-hide" />
             <div className="top-actions-group print-hide">
@@ -2225,7 +2523,18 @@ export function PartyRoomDashboard({
                   variant="keyword"
                   tooltipClassName="sheet-inline-tooltip"
                 />
+                {sheetContent.derivedStats.extraMovementModes.map((speed) => (
+                  <InlineHelp
+                    key={speed.id}
+                    label={<span className="stat-label">{`${speed.label.replace(" Speed", "")} ${speed.displayValue}`}</span>}
+                    ariaLabel={`${speed.label} breakdown`}
+                    content={statTooltipContent(speed)}
+                    variant="keyword"
+                    tooltipClassName="sheet-inline-tooltip"
+                  />
+                ))}
               </article>
+
 
               <article className="badge-card badge-card-secondary">
                 <span className="stat-label">
@@ -2237,10 +2546,10 @@ export function PartyRoomDashboard({
                 <strong>{formatSigned(sheetDraft.initiative)}</strong>
               </article>
 
-              <article className="badge-card badge-card-secondary">
+              <article className="badge-card badge-card-secondary badge-card-ac">
                 <span className="stat-label">
                   {renderKeywordHelp(
-                    "AC",
+                    "Armor Class",
                     "Armor Class is the number an attack roll must meet or exceed to hit your character.",
                   )}
                 </span>
@@ -2405,7 +2714,7 @@ export function PartyRoomDashboard({
                     <span>Defenses</span>
                     {renderInlineHelp("Defenses", "Resistances, immunities, and passive protections currently affecting the character.")}
                   </span>
-                  <p>{draft.defenses.join(", ")}</p>
+                  <p>{sheetDraft.defenses.join(", ") || "None"}</p>
                 </div>
                 <div className="detail-card">
                   <span className="mini-heading inline-heading">
@@ -2421,7 +2730,9 @@ export function PartyRoomDashboard({
           <div className="sheet-column right-column">
             <article className="sheet-card tabs-card pdf-page-break-before-soft">
               <div className="tab-strip">
-                {(["actions", "inventory", "features", "background"] as InfoTab[]).map((tab) => (
+                {(["actions", "spells", "inventory", "features", "background"] as InfoTab[])
+                  .filter((tab) => tab !== "spells" || sheetContent.spellcasting.length || sheetContent.spellEntries.length)
+                  .map((tab) => (
                   <button
                     className={tab === activeTab ? "tab-button active" : "tab-button"}
                     key={tab}
@@ -2432,8 +2743,24 @@ export function PartyRoomDashboard({
                 ))}
               </div>
 
+              {activeTab === "spells" ? (
+                <SheetSpellsPanel
+                  profiles={sheetContent.spellcasting}
+                  spells={sheetContent.spellEntries}
+                  usedSlots={draft.usedSlots ?? {}}
+                  onSlotChange={setSlotUsage}
+                />
+              ) : null}
+
               {activeTab === "actions" ? (
                 <div className="tab-body action-tab-body">
+                  <SheetResourcesPanel
+                    resources={sheetContent.resources}
+                    usedResources={draft.usedResources ?? {}}
+                    onChange={setResourceUsage}
+                    saveDcs={sheetContent.saveDcs}
+                    martialArtsDie={sheetContent.martialArtsDie}
+                  />
                   <div className="action-header">
                     <span>Actions</span>
                     <span>{`${sheetContent.builtActions.length} total entries`}</span>
@@ -2464,13 +2791,21 @@ export function PartyRoomDashboard({
                           </strong>
                           <span className="action-selection-source">{action.source}</span>
                         </div>
-                        <div className="spell-selection-tags important">
-                          {actionHintChips(action).map((item) => (
-                            <span key={`${action.id}-${item}`} className={`spell-tooltip-chip tone-${spellChipTone(item)}`}>
-                              <AppIcon name={spellChipIcon(item)} className="spell-tooltip-chip-icon" />
-                              {item}
-                            </span>
-                          ))}
+                        {/* Savasta bakilan degerler satirin kendisinde: menzil, vurus, hasar. */}
+                        <div className="action-stats">
+                          {[
+                            { label: "Range", value: action.range },
+                            { label: "Hit / DC", value: action.hit },
+                            { label: "Damage", value: action.damage },
+                          ]
+                            .filter((cell) => cell.value && cell.value !== "-")
+                            .map((cell) => (
+                              <span key={`${action.id}-${cell.label}`} className={`action-stat action-stat-${cell.label.toLowerCase().replace(/\W+/g, "")}`}>
+                                <small>{cell.label}</small>
+                                <b>{cell.value}</b>
+                              </span>
+                            ))}
+                          {action.category !== "Attack" ? <span className="action-category-chip">{action.category}</span> : null}
                         </div>
                       </article>
                     )) : (
@@ -2484,19 +2819,62 @@ export function PartyRoomDashboard({
               ) : null}
 
               {activeTab === "inventory" ? (
-                <div className="tab-body simple-list">
-                  {draft.inventory.map((item) => (
-                    <div className="list-row" key={item}>
-                      <strong>
-                        <InlineHelp
-                          label={item}
-                          variant="keyword"
-                          content={`${item} is currently equipped or carried by the character.`}
-                        />
-                      </strong>
-                    </div>
-                  ))}
-                </div>
+                <SheetInventoryPanel
+                  content={initialContent}
+                  inventory={draft.inventory}
+                  itemState={draft.itemState ?? {}}
+                  currency={draft.currency ?? { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 }}
+                  mageArmorAvailable={sheetContent.mageArmorAvailable}
+                  mageArmorActive={(draft.activeEffects ?? []).includes("mage-armor")}
+                  onToggleEquipped={(item) =>
+                    updateDraft((current) => ({
+                      ...current,
+                      itemState: {
+                        ...(current.itemState ?? {}),
+                        [item]: { ...(current.itemState?.[item] ?? {}), equipped: current.itemState?.[item]?.equipped === false },
+                      },
+                    }))
+                  }
+                  onQuantity={(item, quantity) =>
+                    updateDraft((current) => ({
+                      ...current,
+                      itemState: { ...(current.itemState ?? {}), [item]: { ...(current.itemState?.[item] ?? {}), quantity } },
+                    }))
+                  }
+                  onRemove={(item) =>
+                    updateDraft((current) => ({ ...current, inventory: current.inventory.filter((entry) => entry !== item) }))
+                  }
+                  onAdd={(item) =>
+                    updateDraft((current) =>
+                      current.inventory.includes(item)
+                        ? {
+                            ...current,
+                            itemState: {
+                              ...(current.itemState ?? {}),
+                              [item]: { ...(current.itemState?.[item] ?? {}), quantity: (current.itemState?.[item]?.quantity ?? 1) + 1 },
+                            },
+                          }
+                        : { ...current, inventory: [...current.inventory, item] },
+                    )
+                  }
+                  onCurrency={(coin, value) =>
+                    updateDraft((current) => ({
+                      ...current,
+                      currency: { ...(current.currency ?? { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 }), [coin]: value },
+                    }))
+                  }
+                  onToggleMageArmor={() =>
+                    updateDraft((current) => {
+                      const effects = current.activeEffects ?? [];
+                      return {
+                        ...current,
+                        activeEffects: effects.includes("mage-armor")
+                          ? effects.filter((effect) => effect !== "mage-armor")
+                          : [...effects, "mage-armor"],
+                      };
+                    })
+                  }
+                />
               ) : null}
 
               {activeTab === "features" ? (
@@ -2513,7 +2891,7 @@ export function PartyRoomDashboard({
                         </strong>
                         <span className="feature-kind-pill">{feature.kind}</span>
                       </div>
-                      <p>{feature.summary}</p>
+                      <p>{highlightKeywords(feature.summary, feature.id)}</p>
                       <span className="feature-sheet-card-meta">{feature.source}</span>
                     </article>
                   ))}
@@ -2555,6 +2933,8 @@ export function PartyRoomDashboard({
           <button
             type="button"
             className="activity-launcher"
+            aria-label="Recent Activity"
+            title="Recent Activity"
             onClick={() => setIsActivityOpen((current) => !current)}
           >
             <span className="activity-launcher-copy">
@@ -2680,7 +3060,7 @@ export function PartyRoomDashboard({
                 <div className="defense-grid">
                   <div className="detail-card">
                     <span className="mini-heading">Defenses</span>
-                    <p>{draft.defenses.join(", ")}</p>
+                    <p>{sheetDraft.defenses.join(", ") || "None"}</p>
                   </div>
                   <div className="detail-card">
                     <span className="mini-heading">Conditions</span>

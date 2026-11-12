@@ -5520,6 +5520,13 @@ h2 .keyword-help-trigger,
   line-height: 1;
 }
 
+/* Secili durum her zaman gorunsun (yontem secimi, level up HP, ASI Feat). */
+.ability-flex-pick.active {
+  border-color: rgba(201, 176, 122, 0.42);
+  background: rgba(201, 176, 122, 0.16);
+  color: rgba(255, 248, 236, 0.96);
+}
+
 .ability-flex-pick.active.plus-two {
   border-color: rgba(201, 176, 122, 0.42);
   background: rgba(201, 176, 122, 0.16);
@@ -8695,4 +8702,735 @@ h2 .keyword-help-trigger,
     transform: rotate(360deg);
     opacity: 1;
   }
+}
+
+/* --- Sheet: spells tab, slot and resource trackers --- */
+.spells-tab-body {
+  display: grid;
+  gap: 14px;
+}
+
+.spellcasting-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.spellcasting-summary-stat {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.spellcasting-summary-stat span {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.spellcasting-summary-stat strong {
+  font-size: 1.05rem;
+}
+
+.spell-slot-list,
+.resource-list,
+.spell-level-group {
+  display: grid;
+  gap: 8px;
+}
+
+.resource-list {
+  margin-bottom: 14px;
+}
+
+.spell-slot-row {
+  align-items: center;
+}
+
+.spell-slot-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.usage-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.usage-dot {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  background: transparent;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.usage-dot.spent {
+  background: currentColor;
+  opacity: 0.35;
+}
+
+@media (max-width: 640px) {
+  .spellcasting-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Sheet: inventory tab --- */
+.inventory-tab-body {
+  display: grid;
+  gap: 8px;
+}
+
+.inventory-row {
+  align-items: center;
+}
+
+.inventory-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.quantity-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.currency-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.currency-field {
+  display: grid;
+  gap: 4px;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.currency-field input,
+.inventory-add-row input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  font: inherit;
+}
+
+.inventory-add-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+@media (max-width: 640px) {
+  .currency-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Faz 3: feat on kosullari */
+.feat-requirement-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 0.82rem;
+}
+.feat-requirement-unmet {
+  color: #e8836b;
+}
+.feat-requirement-dm {
+  color: #d9b45a;
+}
+.feat-requirement-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  opacity: 0.7;
+}
+.feature-browser-item.locked {
+  opacity: 0.45;
+}
+.ability-method-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ability-method-row .ability-flex-pick {
+  min-width: 0;
+  padding: 6px 12px;
+}
+.ability-array-select {
+  width: 100%;
+}
+
+/* Faz 4: roster ve DM Screen */
+.character-switcher {
+  display: flex;
+  align-items: center;
+}
+.character-switcher select {
+  max-width: 180px;
+}
+.roster-card,
+.dm-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.roster-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+.roster-toolbar h2 {
+  margin: 0;
+}
+.roster-toolbar p {
+  margin: 4px 0 0;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+.roster-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.roster-message {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #d9b45a;
+}
+.roster-select-all {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+.roster-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.roster-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+.roster-item.active {
+  border-color: rgba(217, 180, 90, 0.6);
+}
+.roster-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.roster-item-meta {
+  font-size: 0.78rem;
+  opacity: 0.6;
+}
+.roster-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.sheet-button.danger {
+  border-color: #e8836b;
+  color: #e8836b;
+}
+.dm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 12px;
+}
+.dm-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.dm-card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dm-card-head span {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+.dm-card-name {
+  all: unset;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.dm-card-name:hover {
+  text-decoration: underline;
+}
+.dm-card-vitals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.dm-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.dm-stat span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.dm-stat strong {
+  font-size: 1.05rem;
+}
+.dm-stat small {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+.dm-stat.warn strong {
+  color: #d9b45a;
+}
+.dm-stat.danger strong {
+  color: #e8836b;
+}
+.dm-row,
+.dm-saves,
+.dm-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  font-size: 0.85rem;
+}
+.dm-save {
+  opacity: 0.7;
+}
+.dm-save.proficient {
+  opacity: 1;
+  font-weight: 700;
+}
+.dm-pill {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.dm-pill.empty {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+.dm-notes span {
+  opacity: 0.75;
+}
+
+/* Faz 5: level up */
+.level-up-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(5, 7, 12, 0.72);
+}
+.level-up-dialog {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.level-up-head h2 {
+  margin: 4px 0 0;
+}
+.level-up-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.level-up-hp-modes,
+.level-up-roll-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.level-up-roll-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+.level-up-roll-row input {
+  width: 64px;
+}
+.level-up-hp-total {
+  font-weight: 700;
+}
+.level-up-gains,
+.level-up-tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.level-up-gains li,
+.level-up-tasks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.level-up-tasks li {
+  align-items: center;
+  justify-content: space-between;
+}
+.level-up-gains li div,
+.level-up-tasks li div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.level-up-gains span,
+.level-up-tasks span {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+.level-up-gain-kind {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem !important;
+  text-transform: uppercase;
+  background: rgba(217, 180, 90, 0.18);
+  opacity: 1 !important;
+}
+.level-up-gain-kind.improvement {
+  background: rgba(120, 170, 230, 0.18);
+}
+.level-up-gain-kind.subclass {
+  background: rgba(180, 130, 230, 0.18);
+}
+.level-up-muted {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+.level-up-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.level-up-pending {
+  border-color: rgba(217, 180, 90, 0.6) !important;
+}
+.option-choice-search {
+  width: 100%;
+  margin: 6px 0;
+}
+.resource-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 8px;
+  font-size: 0.85rem;
+}
+
+/* UI duzeltmeleri (#4): actions satirinda menzil / vurus / hasar */
+.spell-selection-row.action-selection-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.action-selection-row .spell-selection-main {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.action-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.action-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 64px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-variant-numeric: tabular-nums;
+}
+.action-stat small {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.action-stat b {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.action-stat-hitdc b {
+  color: #e6c77c;
+}
+.action-stat-damage {
+  min-width: 120px;
+}
+.action-category-chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* UI duzeltmeleri (#5): ikincil stat satiri - etiket ustte, deger altta */
+.badge-card-secondary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.badge-card-secondary strong {
+  margin-top: 0;
+}
+.badge-card-secondary .stat-label + * {
+  display: block;
+}
+.badge-card-ac {
+  border-color: rgba(214, 178, 94, 0.45);
+  background: rgba(214, 178, 94, 0.06);
+}
+.badge-card-ac strong {
+  font-size: 1.35rem;
+  color: #f1dca4;
+}
+
+/* UI duzeltmeleri (#6, #7) */
+.sheet-button.success {
+  color: #9fdc9b;
+  border-color: rgba(120, 190, 116, 0.55);
+  background: rgba(93, 152, 91, 0.16);
+}
+/* Kapaliyken sadece kucuk bir ikon; genis gorunmez alan altindaki satirlara tiklamayi engellemesin. */
+.activity-drawer {
+  pointer-events: none;
+}
+.activity-drawer > * {
+  pointer-events: auto;
+}
+.activity-drawer:not(.open) .activity-launcher {
+  min-width: 0;
+  padding: 5px;
+  border-radius: 14px;
+}
+.activity-drawer:not(.open) .activity-launcher-copy {
+  display: none;
+}
+
+/* UI duzeltmeleri (#8): ability kartlari */
+.ability-pointbuy-topline {
+  flex-wrap: wrap;
+}
+.ability-method-row {
+  flex-wrap: nowrap;
+}
+.ability-method-row .ability-flex-pick {
+  white-space: nowrap;
+}
+.ability-pointbuy-topline .ability-topline-meta {
+  margin-left: auto;
+  text-align: right;
+}
+.ability-pointbuy-card {
+  align-content: start;
+}
+.ability-pointbuy-base,
+.ability-pointbuy-total {
+  padding: 10px 6px;
+  min-width: 0;
+}
+.ability-pointbuy-base .mini-heading,
+.ability-pointbuy-total .mini-heading {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+/* UI duzeltmeleri (#9, #10, #11, #12) */
+.creator-stage-header-card:not(:has(button)) {
+  display: none;
+}
+.origin-trait-preview article {
+  align-content: start;
+}
+.fighter-feature-fact {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.fighter-feature-card.locked .fighter-feature-fact {
+  opacity: 0.6;
+}
+.option-choice-search {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 6px 0 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--ink);
+  font-size: 0.88rem;
+  outline: none;
+}
+.option-choice-search::placeholder {
+  color: var(--muted);
+}
+.option-choice-search:focus-visible {
+  border-color: rgba(201, 176, 122, 0.5);
+}
+/* Aciklama ipucu olan yazilar: cizgi sadece uzerine gelince; durumda sadece imlec degisir. */
+.keyword-help-trigger {
+  cursor: help;
+}
+.keyword-help-trigger::before {
+  opacity: 0;
+}
+.keyword-help:hover .keyword-help-trigger::before,
+.keyword-help.open .keyword-help-trigger::before,
+.keyword-help:focus-visible .keyword-help-trigger::before,
+.keyword-help:focus-within .keyword-help-trigger::before {
+  opacity: 1;
+}
+.class-overview-highlight {
+  align-content: start;
+}
+
+/* LoL tarzi anahtar kelimeler: renk + ikon. Stat renkleri ability-accent ile ayni. */
+:root {
+  --kw-str: #ef6b5f;
+  --kw-dex: #f2c14e;
+  --kw-con: #5fd38d;
+  --kw-int: #72b7ff;
+  --kw-wis: #4fd1c5;
+  --kw-cha: #d78cff;
+  --kw-hp: #5fd38d;
+  --kw-ac: #d9c08a;
+  --kw-fire: #ff8a3d;
+  --kw-cold: #8fd3ff;
+  --kw-lightning: #ffe066;
+  --kw-thunder: #b8a2ff;
+  --kw-acid: #b6e35a;
+  --kw-poison: #7ccf5a;
+  --kw-necrotic: #a78bfa;
+  --kw-radiant: #ffd479;
+  --kw-psychic: #ff7ac8;
+  --kw-force: #c4b5fd;
+  --kw-physical: #cbd5e1;
+  --kw-advantage: #5fd38d;
+  --kw-disadvantage: #ef6b5f;
+}
+.kw {
+  display: inline;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.kw-icon {
+  display: inline-block;
+  width: 0.95em;
+  height: 0.95em;
+  margin-right: 0.18em;
+  vertical-align: -0.12em;
+  stroke-width: 2;
+}
+.kw-str { color: var(--kw-str); }
+.kw-dex { color: var(--kw-dex); }
+.kw-con { color: var(--kw-con); }
+.kw-int { color: var(--kw-int); }
+.kw-wis { color: var(--kw-wis); }
+.kw-cha { color: var(--kw-cha); }
+.kw-hp { color: var(--kw-hp); }
+.kw-ac { color: var(--kw-ac); }
+.kw-fire { color: var(--kw-fire); }
+.kw-cold { color: var(--kw-cold); }
+.kw-lightning { color: var(--kw-lightning); }
+.kw-thunder { color: var(--kw-thunder); }
+.kw-acid { color: var(--kw-acid); }
+.kw-poison { color: var(--kw-poison); }
+.kw-necrotic { color: var(--kw-necrotic); }
+.kw-radiant { color: var(--kw-radiant); }
+.kw-psychic { color: var(--kw-psychic); }
+.kw-force { color: var(--kw-force); }
+.kw-physical { color: var(--kw-physical); }
+.kw-advantage { color: var(--kw-advantage); }
+.kw-disadvantage { color: var(--kw-disadvantage); }
+.kw-hp .kw-icon,
+.kw-con .kw-icon {
+  fill: currentColor;
+  fill-opacity: 0.35;
+}
+/* Ability renkleri anahtar kelimelerle ayni olsun (CON yesil, DEX altin, WIS turkuaz). */
+.ability-accent-str { color: var(--kw-str); }
+.ability-accent-dex { color: var(--kw-dex); }
+.ability-accent-con { color: var(--kw-con); }
+.ability-accent-int { color: var(--kw-int); }
+.ability-accent-wis { color: var(--kw-wis); }
+.ability-accent-cha { color: var(--kw-cha); }
+.feature-sheet-card {
+  align-content: start;
 }

@@ -13,7 +13,8 @@
       "fixed": [],
       "choices": []
     },
-    "equipment": []
+    "equipment": [],
+    "grants": []
   },
   {
     "id": "acolyte",
@@ -38,7 +39,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "anthropologist",
@@ -63,7 +65,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "archaeologist",
@@ -98,12 +101,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "ashari",
     "name": "Ashari",
-    "summary": "Growing up surrounded by wild elemental magics has attuned your senses to those chaotic forces, enabling you to subtly bend them to your will. As an action, you channel minor magic involving the element of your chosen Ashari order, giving you one of the following abilities:",
+    "summary": "You were raised among the Ashari of Tal'Dorei, guardians of the elemental rifts. Living beside wild elemental magic has attuned you to it.",
     "source": "Tal'Dorei Campaign Setting Reborn",
     "skillProficiencies": [
       "Nature, plus your choice of Arcana or Survival"
@@ -119,7 +123,8 @@
         "primordial"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "astral-drifter",
@@ -144,7 +149,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "athlete",
@@ -171,7 +177,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "azorius-functionary",
@@ -196,7 +203,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "black-fist-double-agent",
@@ -226,7 +234,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "boros-legionnaire",
@@ -263,7 +272,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "caravan-specialist",
@@ -290,7 +300,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "celebrity-adventurers-scion",
@@ -317,12 +328,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "charlatan",
     "name": "Charlatan",
-    "summary": "Every charlatan has an angle they use in preference to other schemes. Choose a favorite scam or roll on the table below.",
+    "summary": "You have always had a way with people: you know what makes them tick and how to sell them a lie. You keep a second, forged identity ready for when you need it.",
     "source": "Player's Handbook",
     "skillProficiencies": [
       "Deception",
@@ -338,7 +350,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "city-watch",
@@ -363,7 +376,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "clan-crafter",
@@ -390,7 +404,8 @@
         "dwarvish"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "cloistered-scholar",
@@ -414,7 +429,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "cormanthor-refugee",
@@ -439,7 +455,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "courtier",
@@ -464,12 +481,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "criminal",
     "name": "Criminal",
-    "summary": "Although your capabilities are not much different from those of a burglar or smuggler, you learned and practiced them in a very different context: as an espionage agent. You might have been an officially sanctioned agent of the crown, or perhaps you sold the secrets you uncovered to the highest bidder.",
+    "summary": "You have a history of breaking the law, and you still keep contacts in the criminal underworld who can pass messages for you. The Spy variant uses the same rules.",
     "source": "Player's Handbook",
     "skillProficiencies": [
       "Deception",
@@ -491,7 +509,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "dimir-operative",
@@ -518,7 +537,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "dissenter",
@@ -533,7 +553,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "dragon-casualty",
@@ -561,7 +582,8 @@
         "draconic"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "earthspur-miner",
@@ -582,12 +604,13 @@
         "dwarvish"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "entertainer",
     "name": "Entertainer",
-    "summary": "A gladiator is as much an entertainer as any minstrel or circus performer trained to make the arts of combat into a spectacle the crowd can enjoy. This kind of flashy combat is your entertainer routine, though you might also have some skills as a tumbler or actor. Using your By Popular Demand feature, you can find a place to perform in any place that features combat for entertainment-perhaps a gladiatorial arena or secret pit fighting club. You can replace the musical instrument in your equipment package with an inexpensive but unusual weapon, such as a trident or net.",
+    "summary": "You thrive in front of an audience as a musician, dancer, actor, storyteller or other performer. You can always find a place to perform in exchange for food and lodging. The Gladiator variant uses the same rules.",
     "source": "Player's Handbook",
     "skillProficiencies": [
       "Acrobatics",
@@ -609,7 +632,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "faceless",
@@ -636,7 +660,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "faction-agent",
@@ -660,7 +685,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "failed-merchant",
@@ -692,7 +718,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "far-traveler",
@@ -727,7 +754,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "feylost",
@@ -760,7 +788,8 @@
           "note": "Recommended: elvish, gnomish, goblin, sylvan"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "fisher",
@@ -785,7 +814,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "folk-hero",
@@ -812,7 +842,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "gambler",
@@ -844,7 +875,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "gate-urchin",
@@ -871,12 +903,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "gate-warden",
     "name": "Gate Warden",
-    "summary": "Prerequisite:Planescape Campaign",
+    "summary": "You grew up in one of the Outlands gate-towns, where the influence of a neighbouring Outer Plane shaped your daily life. Requires a Planescape campaign.",
     "source": "Planescape - Adventures in the Multiverse",
     "skillProficiencies": [
       "Persuasion",
@@ -896,7 +929,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "giant-foundling",
@@ -916,7 +950,8 @@
         "giant"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "golgari-agent",
@@ -947,7 +982,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "grinner",
@@ -974,7 +1010,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "gruul-anarch",
@@ -1006,7 +1043,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "guild-artisan",
@@ -1038,7 +1076,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "harborfolk",
@@ -1065,12 +1104,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "haunted-one",
     "name": "Haunted One",
-    "summary": "1 Chest - Value:5gp Weight:25lbs",
+    "summary": "You are haunted by something so terrible that you dare not speak of it. You have seen horrors firsthand, and monster hunters and occultists recognise a kindred spirit in you.",
     "source": "Curse of Strahd",
     "skillProficiencies": [
       "Choose two of Arcana, Investigation, Religion, or Survival"
@@ -1095,12 +1135,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "hermit",
     "name": "Hermit",
-    "summary": "What was the reason for your isolation, and what changed to allow you to end your solitude? You can work with your DM to determine the exact nature of your seclusion, or you can choose to roll on the table below to determine the reason behind your seclusion.",
+    "summary": "You lived in seclusion for a formative part of your life, in a sheltered community or entirely alone, and during that time you discovered something unique and important.",
     "source": "Player's Handbook",
     "skillProficiencies": [
       "Medicine",
@@ -1122,7 +1163,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "hillsfar-merchant",
@@ -1143,7 +1185,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "hillsfar-smuggler",
@@ -1163,12 +1206,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "house-agent",
     "name": "House Agent",
-    "summary": "Your HouseHouse Tool Proficiencies",
+    "summary": "You are an agent of one of Eberron's dragonmarked houses. Your house gives you contacts, resources and a mission, and expects your loyalty in return.",
     "source": "Eberron - Rising from the Last War",
     "skillProficiencies": [
       "Investigation",
@@ -1189,12 +1233,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "inheritor",
     "name": "Inheritor",
-    "summary": "Choose or randomly determine your inheritance from among the possibilities in the table below. Work with your DM to come up with details: Why is your inheritance so important, and what is its full story? You might prefer for the DM to invent these details as part of the game, allowing you to learn more about your inheritance as your character does.",
+    "summary": "You are the heir to something of great value: an item, a title, a secret or a piece of land. Others may want what you inherited, and you must decide what to do with it.",
     "source": "Sword Coast Adventurer's Guide",
     "skillProficiencies": [
       "Survival, plus one from among Arcana, History, and Religion"
@@ -1223,7 +1268,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "initiate",
@@ -1250,7 +1296,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "inquisitor",
@@ -1277,12 +1324,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "investigator",
     "name": "Investigator (VRGR)",
-    "summary": "Your first case influenced the types of mysteries you're interested in. Why was this case so impactful, personal, or traumatic? Whom did it affect besides you? Why and how did you get involved? Was it solved? How did it set you on the path to investigating other mysteries? Roll on or choose details from the First Case table below to develop the mystery that started your career as an investigator.",
+    "summary": "You hunt for the truth behind crimes and mysteries, whether as a constable, a private detective or a curious amateur. Your first case shaped the kinds of mysteries you chase.",
     "source": "Van Richten's Guide to Ravenloft",
     "skillProficiencies": [
       "Choose two from among Insight, Investigation, or Perception"
@@ -1297,7 +1345,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "iron-route-bandit",
@@ -1324,7 +1373,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "izzet-engineer",
@@ -1360,12 +1410,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "knight-of-solamnia",
     "name": "Knight of Solamnia",
-    "summary": "You gain theSquire of Solamniafeat.",
+    "summary": "You trained as a squire of the Knights of Solamnia, sworn to the Oath and the Measure. This background grants the Squire of Solamnia feat.",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "skillProficiencies": [
       "Athletics",
@@ -1385,7 +1436,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "squire-of-solamnia"
+      }
+    ]
   },
   {
     "id": "knight-of-the-order",
@@ -1419,12 +1476,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "lorehold-student",
     "name": "Lorehold Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Lorehold within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Lorehold within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "History",
@@ -1444,12 +1502,18 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   },
   {
     "id": "mage-of-high-sorcery",
     "name": "Mage of High Sorcery",
-    "summary": "You gain theInitiate of High Sorceryfeat.",
+    "summary": "You gain the Initiate of High Sorcery feat.",
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "skillProficiencies": [
       "Arcana",
@@ -1469,7 +1533,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "initiate-of-high-sorcery"
+      }
+    ]
   },
   {
     "id": "marine",
@@ -1490,7 +1560,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "mercenary-veteran",
@@ -1517,7 +1588,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "mulmaster-aristocrat",
@@ -1548,12 +1620,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "noble",
     "name": "Noble",
-    "summary": "A knighthood is among the lowest noble titles in most societies, but it can be a path to higher status. If you wish to be a knight, choose the Retainers feature below instead of the Position of Privilege feature. One of your commoner retainers is replaced by a noble who serves as your squire, aiding you in exchange for training on his or her own path to knighthood. Your two remaining retainers might include a groom to care for your horse and a servant who polishes your armor (and even helps you put it on).",
+    "summary": "You were born into wealth, power and privilege, and people of high society treat you as one of their own. Knights can take the Retainers feature in place of Position of Privilege.",
     "source": "Player's Handbook",
     "skillProficiencies": [
       "History",
@@ -1580,12 +1653,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "orzhov-representative",
     "name": "Orzhov Representative",
-    "summary": "You can exert leverage over one or more individuals below you in the guild's hierarchy and demand their help as needs warrant. For example, you can have a message carried across a neighborhood, procure a short carriage ride without paying, or have others clean up a bloody mess you left in an alley. The DM decides if your demands are reasonable and if there are subordinates available to fulfill them. As your status in the guild improves, you gain influence over more people, including ones in greater positions of power.",
+    "summary": "You serve the Orzhov Syndicate of Ravnica, a guild of wealthy oligarchs and indebted spirits. You can call on lower-ranking guild members for help.",
     "source": "Guildmaster's Guide to Ravnica",
     "skillProficiencies": [
       "Intimidation",
@@ -1605,7 +1679,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "outlander",
@@ -1637,7 +1712,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "phlan-insurgent",
@@ -1664,7 +1740,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "phlan-refugee",
@@ -1696,7 +1773,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "plaintiff",
@@ -1728,12 +1806,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "planar-philosopher",
     "name": "Planar Philosopher",
-    "summary": "Prerequisite: Planescape Campaign.",
+    "summary": "You belong to one of Sigil's factions and hold firm beliefs about the nature of the multiverse. Requires a Planescape campaign.",
     "source": "Planescape - Adventures in the Multiverse",
     "skillProficiencies": [
       "Arcana, the skill associated with your faction (see the Sigil Faction Affinities table) or one skill of your choice."
@@ -1752,12 +1831,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "prismari-student",
     "name": "Prismari Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Prismari within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Prismari within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "Acrobatics",
@@ -1787,12 +1867,18 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   },
   {
     "id": "quandrix-student",
     "name": "Quandrix Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Quandrix within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Quandrix within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "Arcana",
@@ -1819,7 +1905,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   },
   {
     "id": "rakdos-cultist",
@@ -1854,7 +1946,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "rewarded",
@@ -1886,7 +1979,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "rival-intern",
@@ -1918,7 +2012,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "ruined",
@@ -1950,7 +2045,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "rune-carver",
@@ -1977,12 +2073,13 @@
         "giant"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "sage",
     "name": "Sage",
-    "summary": "To determine the nature of your scholarly training, roll a d8 or choose from the options in the table below.",
+    "summary": "You spent years learning the lore of the multiverse through manuscripts, scrolls and the teaching of experts. When you don't know a piece of information, you often know where to find it.",
     "source": "Player's Handbook",
     "skillProficiencies": [
       "Arcana",
@@ -2010,7 +2107,8 @@
       "Letter from a dead colleague posing a question you have not yet answered",
       "Common clothes",
       "Pouch containing 10 gp"
-    ]
+    ],
+    "grants": []
   },
   {
     "id": "sailor",
@@ -2031,7 +2129,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "secret-identity",
@@ -2052,7 +2151,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "selesnya-initiate",
@@ -2091,7 +2191,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "shade-fanatic",
@@ -2113,7 +2214,8 @@
         "netherese"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "shipwright",
@@ -2134,12 +2236,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "silverquill-student",
     "name": "Silverquill Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Silverquill within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Silverquill within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "Intimidation",
@@ -2159,7 +2262,13 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   },
   {
     "id": "simic-scientist",
@@ -2184,7 +2293,8 @@
           "label": "Choose two languages"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "smuggler",
@@ -2204,12 +2314,13 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "soldier",
     "name": "Soldier",
-    "summary": "During your time as a soldier, you had a specific role to play in your unit or army. Roll a d8 or choose from the options in the table below to determine your role:",
+    "summary": "You served in an army or militia and learned discipline, rank and the realities of war. Your military rank still carries weight with soldiers of your former organization.",
     "source": "Player's Handbook",
     "skillProficiencies": [
       "Athletics",
@@ -2231,7 +2342,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "stojanow-prisoner",
@@ -2258,7 +2370,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "ticklebelly-nomad",
@@ -2280,7 +2393,8 @@
         "giant"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "trade-sheriff",
@@ -2302,7 +2416,8 @@
         "elvish"
       ],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "urban-bounty-hunter",
@@ -2330,7 +2445,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "urchin",
@@ -2351,7 +2467,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "uthgardt-tribe-member",
@@ -2386,7 +2503,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "vizier",
@@ -2417,7 +2535,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "volstrucker-agent",
@@ -2444,7 +2563,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "waterdhavian-noble",
@@ -2479,7 +2599,8 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "wildspacer",
@@ -2500,7 +2621,8 @@
     "languages": {
       "fixed": [],
       "choices": []
-    }
+    },
+    "grants": []
   },
   {
     "id": "witchlight-hand",
@@ -2535,12 +2657,13 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": []
   },
   {
     "id": "witherbloom-student",
     "name": "Witherbloom Student",
-    "summary": "You gain theStrixhaven Initiatefeat and must choose Witherbloom within it.",
+    "summary": "You gain the Strixhaven Initiate feat and must choose Witherbloom within it.",
     "source": "Strixhaven: A Curriculum of Chaos",
     "skillProficiencies": [
       "Nature",
@@ -2562,6 +2685,12 @@
           "label": "Choose one language"
         }
       ]
-    }
+    },
+    "grants": [
+      {
+        "type": "feat",
+        "featId": "strixhaven-initiate"
+      }
+    ]
   }
 ]

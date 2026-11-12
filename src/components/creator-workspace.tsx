@@ -1,12 +1,24 @@
 ﻿"use client";
 
+import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import type { CharacterDraft, AbilityId } from "@/lib/character/demo-sheet";
 import { eldritchKnightProgression, getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
 import type { LineageCatalog, LineageChoiceGroup, LineageChoiceOption, LineageEntry as StructuredLineageEntry, LineageFeature as StructuredLineageFeature, Sublineage as StructuredSublineage } from "@/lib/data/lineages/schema";
+import type { AvailableChoice, LanguageChoice } from "@/lib/engine/collect";
+import { LanguageChoicePanel } from "@/components/language-choice-panel";
+import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
+import type { DerivedStatDisplay } from "@/lib/character/build-sheet";
+import { OptionChoicePanel } from "@/components/option-choice-panel";
+import { clearCreatorJump, readCreatorJump } from "@/components/level-up-dialog";
+import type { EngineCatalog } from "@/lib/engine/collect";
+import { asiAbilityBonuses, featEligibility, featSlots, type FeatCheckContext } from "@/lib/engine/feats";
 import type { ClassDocBlock, ClassDocCollection, ClassDocSection, ClassDocTable } from "@/lib/content/class-docs";
+
+// TODO(creator split): class doc verisi artik yok; asagidaki classDocs dallari olu kod, creator bolunurken silinecek.
+const classDocs: ClassDocCollection = {};
 import type { ClassCuratedCollection, ClassCuratedFeature, ClassJourneyStage, ClassStartingEquipmentGroup } from "@/lib/content/class-curated-schema";
 import type { ClassOptionCollection } from "@/lib/content/class-options-schema";
 import type { CreatorOptions } from "@/lib/content/creator-options";
@@ -33,6 +45,7 @@ type CreatorBrowser =
   | "fighter-fighting-style"
   | "fighter-asi"
   | "warlock-pact"
+  | "warlock-invocations"
   | "background"
   | "custom-background-tools"
   | "custom-background-languages"
@@ -58,7 +71,8 @@ type FighterJourneyScene =
   | "fighter-subclass"
   | "fighter-eldritch"
   | "warlock-spells"
-  | "warlock-pact";
+  | "warlock-pact"
+  | "warlock-invocations";
 
 type SidebarNavEntry =
   | {
@@ -226,6 +240,7 @@ const fighterJourneySceneOrder: FighterJourneyScene[] = [
   "fighter-asi",
   "fighter-subclass",
   "warlock-pact",
+  "warlock-invocations",
   "warlock-spells",
   "fighter-eldritch",
 ];
@@ -403,6 +418,23 @@ const classOverviewHighlightsByClass = {
       body: "Bard College unlocks at 3, Inspiration improves at 5 and 10, and Magical Secrets expands your spell access at 10.",
     },
   ],
+  monk: [
+    {
+      id: "combat-role",
+      title: "Combat Role",
+      body: "Fast, unarmored skirmisher who strikes several times a turn, slips in and out of melee, and locks down single targets.",
+    },
+    {
+      id: "core-resources",
+      title: "Core Resources",
+      body: "Martial Arts powers unarmed strikes and monk weapons, Ki fuels Flurry of Blows, Patient Defense, Step of the Wind and Stunning Strike, and Unarmored Defense uses DEX + WIS.",
+    },
+    {
+      id: "level-rhythm",
+      title: "Level Rhythm",
+      body: "Ki arrives at 2, your Monastic Tradition at 3, Extra Attack and Stunning Strike at 5, Evasion at 7, and the Martial Arts die grows at 5, 11 and 17.",
+    },
+  ],
 } as const;
 
 const fallbackFighterStartingEquipment: ClassStartingEquipmentGroup[] = [
@@ -439,32 +471,6 @@ const fallbackFighterStartingEquipment: ClassStartingEquipmentGroup[] = [
     ],
   },
 ];
-
-function fighterAsiLevelChoices(
-  improvements: CharacterDraft["fighterChoices"]["abilityScoreImprovements"] | undefined,
-  excludeLevel?: number,
-) {
-  const bonuses = new Map<AbilityId, number>();
-
-  Object.entries(improvements ?? {}).forEach(([levelKey, choice]) => {
-    const level = Number(levelKey);
-    if (!choice || (excludeLevel && level === excludeLevel)) {
-      return;
-    }
-
-    if (choice.mode === "plus-two" && choice.plusTwoAbilityId) {
-      bonuses.set(choice.plusTwoAbilityId, (bonuses.get(choice.plusTwoAbilityId) ?? 0) + 2);
-    }
-
-    if (choice.mode === "split") {
-      choice.plusOneAbilityIds.forEach((abilityId) => {
-        bonuses.set(abilityId, (bonuses.get(abilityId) ?? 0) + 1);
-      });
-    }
-  });
-
-  return bonuses;
-}
 
 type LineageGroup = ResolvedLineageEntry & { icon: string };
 type LineageCard = {
@@ -921,7 +927,7 @@ function HoverTooltip({
               onMouseEnter={handleEnter}
               onMouseLeave={handleLeave}
             >
-              {content}
+              <Keywordize>{content}</Keywordize>
             </div>,
             document.body,
           )
@@ -1021,6 +1027,10 @@ function fighterSceneFromBrowser(browser: CreatorBrowser, subclassId: string | n
 
   if (browser === "warlock-pact") {
     return "warlock-pact";
+  }
+
+  if (browser === "warlock-invocations") {
+    return "warlock-invocations";
   }
 
   if (browser === "spells" && classId === "warlock") {
@@ -1366,6 +1376,8 @@ function hasFlexibleAbilityScoreIncreaseText(values: string[]) {
     );
   });
 }
+
+const STANDARD_ARRAY = [15, 14, 13, 12, 10, 8];
 
 function pointBuyStepCost(currentScore: number, nextScore: number) {
   return pointBuyCost(nextScore) - pointBuyCost(currentScore);
@@ -2351,6 +2363,12 @@ function lineageGroupIcon(lineageId: string) {
       return "skill";
     case "gnome":
       return "book";
+    case "eladrin":
+      return "leaf";
+    case "human":
+      return "person";
+    case "tabaxi":
+      return "paw";
     default:
       return "species";
   }
@@ -2829,7 +2847,6 @@ export function CreatorWorkspace({
   lineageDataCatalog,
   classCuratedCollection,
   classOptionCollection,
-  classDocs,
   spellReferenceCollection,
   currentClassRules,
   classOptions,
@@ -2837,6 +2854,8 @@ export function CreatorWorkspace({
   availableSubclassOptions,
   availableSpells,
   availableFeats,
+  engineCatalog,
+  featContext,
   maxSpellLevel,
   spellSelectionRules,
   eldritchKnightFlexibleSchoolAllowance,
@@ -2850,6 +2869,12 @@ export function CreatorWorkspace({
   toggleInvocationSelection,
   setPactBoon,
   togglePactCantripSelection,
+  optionChoices,
+  toggleOptionChoice,
+  previewDraft,
+  previewStats,
+  languageChoices,
+  toggleLanguageChoice,
   setMysticArcanumSpell,
   setRangerFavoredEnemyMode,
   updateRangerFavoredEnemyChoice,
@@ -2880,7 +2905,6 @@ export function CreatorWorkspace({
   lineageDataCatalog: LineageCatalog;
   classCuratedCollection: ClassCuratedCollection;
   classOptionCollection: ClassOptionCollection;
-  classDocs: ClassDocCollection;
   spellReferenceCollection: SpellReferenceCollection;
   currentClassRules:
     | {
@@ -2898,6 +2922,8 @@ export function CreatorWorkspace({
   availableSubclassOptions: string[];
   availableSpells: ContentBundle["spells"];
   availableFeats: ContentBundle["feats"];
+  engineCatalog: EngineCatalog;
+  featContext: FeatCheckContext;
   maxSpellLevel: number;
   spellSelectionRules: {
     maxSpellLevel: number;
@@ -2916,6 +2942,13 @@ export function CreatorWorkspace({
   toggleInvocationSelection: (value: string) => void;
   setPactBoon: (value: string) => void;
   togglePactCantripSelection: (value: string) => void;
+  optionChoices: AvailableChoice[];
+  /** Sheet ile ayni hesaptan gelen taslak; onizleme panelindeki sayilar buradan okunur. */
+  previewDraft: CharacterDraft;
+  languageChoices: LanguageChoice[];
+  toggleLanguageChoice: (choiceId: string, language: string) => void;
+  previewStats: { armorClass: DerivedStatDisplay; walkingSpeed: DerivedStatDisplay; extraMovementModes: DerivedStatDisplay[] };
+  toggleOptionChoice: (choiceId: string, value: string) => void;
   setMysticArcanumSpell: (spellLevel: 6 | 7 | 8 | 9, spellId: string) => void;
   setRangerFavoredEnemyMode: (mode: "enemy" | "foe") => void;
   updateRangerFavoredEnemyChoice: (
@@ -2943,7 +2976,11 @@ export function CreatorWorkspace({
     () => new Map(classCuratedCollection.entries.map((entry) => [entry.id, entry])),
     [classCuratedCollection.entries],
   );
-  const [creatorBrowser, setCreatorBrowser] = useState<CreatorBrowser>("lineage");
+  // Level up'tan gelinirse ilgili sayfa acilir (sessionStorage'daki atlama bir kez kullanilir).
+  const [creatorBrowser, setCreatorBrowser] = useState<CreatorBrowser>(() => (readCreatorJump()?.browser as CreatorBrowser | undefined) ?? "lineage");
+  useEffect(() => {
+    clearCreatorJump();
+  }, []);
   const initialLineageGroup = lineageGroupForSpecies(lineageGroups, draft.speciesId) ?? lineageGroups[0];
   const initialSubrace = initialLineageGroup?.subraces.find((subrace) => subrace.id === draft.speciesId) ?? initialLineageGroup?.subraces[0] ?? null;
   const [selectedLineageId, setSelectedLineageId] = useState(initialLineageGroup?.id ?? "");
@@ -3023,6 +3060,26 @@ export function CreatorWorkspace({
       };
     }
 
+    if (group.id.endsWith("-feat-choice")) {
+      // 1. level'da alinabilecek feat'ler: irk feat'leri ve level on kosullu feat'ler haric.
+      return {
+        ...group,
+        options: content.feats
+          .filter((feat) => {
+            const current = draft.lineageChoices?.[group.id] ?? [];
+            return current.includes(feat.id) || checkFeat(feat.id, current[0] ?? null).eligible;
+          })
+          .map((feat) => ({
+            id: feat.id,
+            label: feat.name,
+            summary: feat.prerequisite ? `Prerequisite: ${feat.prerequisite}` : cleanImportedText(feat.summary),
+            details: [],
+            grants: [],
+            childChoiceGroupIds: [],
+          })),
+      };
+    }
+
     if (group.id === "half-elf-cantrip-choice" || group.id === "high-elf-cantrip-choice") {
       return {
         ...group,
@@ -3055,6 +3112,10 @@ export function CreatorWorkspace({
 
     return currentStructuredSublineageChoiceGroups.filter((group) => !childGroupIds.has(group.id));
   }, [currentStructuredSublineageChoiceGroups]);
+  const originRaceChoiceGroups = [
+    ...currentStructuredRootChoiceGroups.map((group) => ({ group, map: currentStructuredChoiceGroupMap })),
+    ...currentStructuredSublineageRootChoiceGroups.map((group) => ({ group, map: currentStructuredSublineageChoiceGroupMap })),
+  ].filter(({ group }) => !group.id.includes("language"));
   const structuredLineageChoicesAvailable = Boolean(currentStructuredLineage?.choiceGroups.length);
   const structuredSublineageChoicesAvailable = Boolean(currentStructuredSublineage?.choiceGroups.length);
   const lineageChoiceTabs = useMemo(
@@ -3132,6 +3193,10 @@ export function CreatorWorkspace({
     : lineageHasFlexibleAbilityIncrease
       ? currentLineageGroup.name
       : null;
+  // Esnek bonus slot miktarlari: Tabaxi/Eladrin +2/+1, Variant Human +1/+1.
+  const [firstFlexAmount, secondFlexAmount] = flexibleBonusAmounts(currentStructuredLineage, currentStructuredSublineage);
+  const firstFlexLabel = `+${firstFlexAmount}`;
+  const secondFlexLabel = `+${secondFlexAmount}`;
   const structuredLineageFixedBonuses =
     currentStructuredLineage && !(currentStructuredLineage.id === "human" && currentStructuredSublineage?.id === "variant-human")
       ? currentStructuredLineage.facts.abilityScoreBonuses
@@ -3158,15 +3223,15 @@ export function CreatorWorkspace({
   const flexiblePreviewBonuses = flexibleAbilityBonusSource
     ? [
         draft.flexibleAbilityBonuses.plusTwo
-          ? { ability: draft.flexibleAbilityBonuses.plusTwo, amount: 2 }
+          ? { ability: draft.flexibleAbilityBonuses.plusTwo, amount: firstFlexAmount }
           : null,
         draft.flexibleAbilityBonuses.plusOne
-          ? { ability: draft.flexibleAbilityBonuses.plusOne, amount: 1 }
+          ? { ability: draft.flexibleAbilityBonuses.plusOne, amount: secondFlexAmount }
           : null,
       ].filter((entry): entry is { ability: AbilityId; amount: number } => Boolean(entry))
     : [];
   const fighterAsiChoices = draft.fighterChoices?.abilityScoreImprovements ?? {};
-  const fighterAsiBonuses = fighterAsiLevelChoices(fighterAsiChoices);
+  const fighterAsiBonuses = asiAbilityBonuses(engineCatalog, draft);
   const previewAbilities = draft.abilities.map((ability) => {
     const racialBonus = previewAbilityBonuses
       .filter((entry) => entry.ability === ability.id)
@@ -3189,6 +3254,40 @@ export function CreatorWorkspace({
   });
   const pointBuySpent = draft.abilities.reduce((total, ability) => total + pointBuyCost(ability.score), 0);
   const pointBuyRemaining = 27 - pointBuySpent;
+  // Ability yontemi: Point Buy (27 puan, 8-15), Standard Array (15,14,13,12,10,8) ya da Manual (zar / DM).
+  const pointBuyValid = pointBuyRemaining >= 0 && draft.abilities.every((ability) => ability.score >= 8 && ability.score <= 15);
+  const standardArrayValid =
+    [...draft.abilities.map((ability) => ability.score)].sort((left, right) => right - left).join(",") === STANDARD_ARRAY.join(",");
+  const abilityMethod = draft.abilityMethod ?? (pointBuyValid ? "point-buy" : "manual");
+  const setAbilityMethod = (method: "point-buy" | "standard-array" | "manual") => {
+    updateDraft((current) => {
+      const scores = current.abilities.map((ability) => ability.score);
+      const keepsPointBuy = scores.every((score) => score >= 8 && score <= 15) && scores.reduce((total, score) => total + pointBuyCost(score), 0) <= 27;
+      const keepsArray = [...scores].sort((left, right) => right - left).join(",") === STANDARD_ARRAY.join(",");
+      return {
+        ...current,
+        abilityMethod: method,
+        abilities:
+          method === "point-buy" && !keepsPointBuy
+            ? current.abilities.map((ability) => ({ ...ability, score: 8 }))
+            : method === "standard-array" && !keepsArray
+              ? current.abilities.map((ability, index) => ({ ...ability, score: STANDARD_ARRAY[index] ?? 8 }))
+              : current.abilities,
+      };
+    });
+  };
+  // Standard Array'de bir degeri baska bir yetenege verince ikisi yer degistirir.
+  const assignStandardArrayValue = (abilityId: AbilityId, value: number) => {
+    updateDraft((current) => {
+      const previousValue = current.abilities.find((ability) => ability.id === abilityId)?.score ?? value;
+      return {
+        ...current,
+        abilities: current.abilities.map((ability) =>
+          ability.id === abilityId ? { ...ability, score: value } : ability.score === value ? { ...ability, score: previousValue } : ability,
+        ),
+      };
+    });
+  };
   const lineagePageSize = 15;
   const lineagePageCount = Math.max(1, Math.ceil(lineageCards.length / lineagePageSize));
   const backgroundPageSize = 16;
@@ -3208,7 +3307,8 @@ export function CreatorWorkspace({
     customBackgroundProficiencyLabel(content, entry),
   );
   const normalFeats = useMemo(
-    () => content.feats.filter((feat) => !feat.isRacialFeat),
+    // Irk feat'leri de listede; uygun olmayanlar on kosul kontrolunde kilitli gorunur.
+    () => content.feats,
     [content.feats],
   );
   const visibleNormalFeats = useMemo(() => {
@@ -3217,7 +3317,7 @@ export function CreatorWorkspace({
   }, [featSearchQuery, normalFeats]);
   const selectedFeat =
     normalFeats.find((feat) => feat.id === selectedFeatId) ??
-    normalFeats.find((feat) => draft.featIds.includes(feat.id)) ??
+    normalFeats.find((feat) => featContext.featIds.includes(feat.id)) ??
     normalFeats[0] ??
     null;
   const hasSelectedBackgroundToolData = Boolean(
@@ -3533,7 +3633,7 @@ export function CreatorWorkspace({
       ? `${currentVisibleSubclass?.name ?? "Subclass"} Patron Spells`
       : `${currentVisibleSubclass?.name ?? "Subclass"} Bonus Spells`;
   const subclassAutoSpellSourceLabel =
-    currentClass.id === "warlock" ? "Auto added from Expanded Spell List" : "Auto added from subclass magic";
+    currentClass.id === "warlock" ? "Added to your spell list (pick them as known spells)" : "Auto added from subclass magic";
   const rangerPrimalAwarenessLabel = "Primal Awareness Spells";
   const rangerPrimalAwarenessSourceLabel = "Auto added from Primal Awareness";
   const subclassIntroLevel =
@@ -3662,7 +3762,14 @@ export function CreatorWorkspace({
   const warlockSelectedCantrips = warlockCantripPool.filter((spell) => draft.spellIds.includes(spell.id)).length;
   const warlockSelectedLeveledSpells = warlockLeveledPool.filter((spell) => draft.spellIds.includes(spell.id)).length;
   const classCantripLimit = spellSelectionRules.cantripLimit || Number(readCurrentSpellTableCell("Cantrips Known") || 0) || 0;
-  const classKnownSpellLimit = spellSelectionRules.totalKnownLimit || Number(currentWarlockSpellsKnown || 0) || 0;
+  // Magical Secrets gibi "spells known'a sayilan" secimler class listesinden secilebilecek sayidan duser.
+  const knownSpellsFromChoices = optionChoices
+    .filter((entry) => entry.choice.id.startsWith("magical-secrets"))
+    .reduce((total, entry) => total + entry.selectedIds.length, 0);
+  const classKnownSpellLimit = Math.max(
+    0,
+    (spellSelectionRules.totalKnownLimit || Number(currentWarlockSpellsKnown || 0) || 0) - knownSpellsFromChoices,
+  );
   const classSelectedCantrips = availableSpells.filter((spell) => spell.level === 0 && draft.spellIds.includes(spell.id));
   const classSelectedLeveledSpells = availableSpells.filter((spell) => spell.level > 0 && draft.spellIds.includes(spell.id));
   const classSpellUnavailableReason = (spell: ContentBundle["spells"][number]) => {
@@ -3755,8 +3862,8 @@ export function CreatorWorkspace({
     }
 
     return classOptionCollection.warlock.eldritchInvocations.options.filter((option) => {
-      const parsed = parseWarlockInvocationSummary(option.summary);
-      return warlockInvocationMeetsPrerequisite(parsed.prerequisite, {
+      const parsed = parseWarlockInvocationSummary(option);
+      return warlockInvocationMeetsPrerequisite(parsed.requirement, {
         level: draft.level,
         pactBoonId: draft.pactBoonId,
         spellIds: draft.spellIds,
@@ -3767,8 +3874,8 @@ export function CreatorWorkspace({
     ? classOptionCollection.warlock.eldritchInvocations?.options ?? []
     : [];
   const visibleInvocationCards = invocationCandidatePool.filter((option) => {
-    const parsed = parseWarlockInvocationSummary(option.summary);
-    const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.prerequisite, {
+    const parsed = parseWarlockInvocationSummary(option);
+    const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.requirement, {
       level: draft.level,
       pactBoonId: draft.pactBoonId,
       spellIds: draft.spellIds,
@@ -4037,7 +4144,19 @@ export function CreatorWorkspace({
       : [];
   const classOverviewHighlights =
     classOverviewHighlightsByClass[currentClass.id as keyof typeof classOverviewHighlightsByClass] ??
-    classOverviewHighlightsByClass.fighter;
+    // Yazilmamis bir class icin baska class'in metni gosterilmez; kartlar class verisinden kurulur.
+    [
+      { id: "combat-role", title: "Overview", body: currentCuratedClass?.summary ?? currentClass.name },
+      {
+        id: "core-resources",
+        title: "Core Features",
+        body: (currentCuratedClass?.classFeatures ?? [])
+          .filter((feature) => (feature.unlockLevel ?? 1) <= 2)
+          .map((feature) => feature.name)
+          .join(", ") || "See Class Features.",
+      },
+      { id: "level-rhythm", title: "Hit Dice", body: `d${currentClass.hitDie} per level` },
+    ];
   const selectedSubclassFeatureTags =
     selectedSubclassFeature && "tags" in selectedSubclassFeature && Array.isArray(selectedSubclassFeature.tags)
       ? selectedSubclassFeature.tags
@@ -4317,8 +4436,10 @@ export function CreatorWorkspace({
   const fighterJourneyBrowsers: CreatorBrowser[] = [
     "class",
     "class-features",
+    "inventory",
     "fighter-fighting-style",
     "warlock-pact",
+    "warlock-invocations",
     "subclass",
     "subclass-features",
     "subclass-choices",
@@ -4374,9 +4495,10 @@ export function CreatorWorkspace({
       },
     ];
     const baseStages = currentCuratedClass?.journeyStages.length ? currentCuratedClass.journeyStages : fallbackStages;
-    const normalizedBaseStages = baseStages.filter((stage) => stage.browser !== "inventory");
+    // Ekipman adimi artik Class akisinda (eskiden filtreleniyordu ve sadece Tools & Gear'dan aciliyordu).
+    const normalizedBaseStages = baseStages;
     const subclassStages = selectedJourneySubclass?.journeyStages ?? [];
-    const stageOrder = ["class", "class-features", "fighter-fighting-style", "fighter-asi", "subclass", "subclass-features", "subclass-choices", "warlock-pact", "spells"];
+    const stageOrder = ["class", "class-features", "inventory", "fighter-fighting-style", "fighter-asi", "subclass", "subclass-features", "subclass-choices", "warlock-pact", "warlock-invocations", "spells"];
     return [...normalizedBaseStages, ...subclassStages]
       .filter((stage) => (stage.minLevel ? draft.level >= stage.minLevel : true))
       .filter((stage) => (stage.requiresSubclassId ? fighterJourneySubclassId === stage.requiresSubclassId : true))
@@ -5456,6 +5578,83 @@ export function CreatorWorkspace({
       ? fighterJourneyStageItems[fighterJourneyActiveIndex + 1]?.browser ?? null
       : null;
 
+  // Feat on kosullari ve slotlari ortak motordan (src/lib/engine/feats.ts).
+  const checkFeat = (featId: string, ownFeatId: string | null = null) =>
+    featEligibility(featId, engineCatalog, draft, {
+      ...featContext,
+      featIds: featContext.featIds.filter((id) => id !== ownFeatId),
+    });
+  const currentFeatSlots = featSlots(engineCatalog, draft);
+  const openFeatSlot =
+    currentFeatSlots.find((slot) => slot.kind === "lineage" && !slot.featId) ??
+    currentFeatSlots.find((slot) => slot.kind === "asi" && (!slot.mode || (slot.mode === "feat" && !slot.featId))) ??
+    null;
+  const usedFeatSlotCount = currentFeatSlots.filter((slot) => slot.featId).length;
+  const assignFeatToSlot = (featId: string) => {
+    if (!openFeatSlot) {
+      return;
+    }
+    if (openFeatSlot.kind === "asi" && openFeatSlot.level) {
+      setFighterAsiFeatChoice(openFeatSlot.level, featId);
+      return;
+    }
+    if (openFeatSlot.groupId) {
+      const groupId = openFeatSlot.groupId;
+      updateDraft((current) => ({ ...current, lineageChoices: { ...(current.lineageChoices ?? {}), [groupId]: [featId] } }));
+    }
+  };
+  const removeFeatFromSlot = (featId: string) => {
+    const slot = currentFeatSlots.find((entry) => entry.featId === featId);
+    if (slot?.kind === "asi" && slot.level) {
+      clearFighterAsiChoice(slot.level);
+    } else if (slot?.groupId) {
+      const groupId = slot.groupId;
+      updateDraft((current) => ({ ...current, lineageChoices: { ...(current.lineageChoices ?? {}), [groupId]: [] } }));
+    }
+  };
+  const renderFeatRequirementNotes = (featId: string, ownFeatId: string | null) => {
+    const check = checkFeat(featId, ownFeatId);
+    if (!check.unmet.length && !check.dmNotes.length) {
+      return null;
+    }
+    return (
+      <span className="feat-requirement-notes">
+        {check.unmet.length ? <span className="feat-requirement-unmet">{`Missing: ${check.unmet.join(", ")}`}</span> : null}
+        {check.dmNotes.length ? <span className="feat-requirement-dm">{`DM approval: ${check.dmNotes.join(", ")}`}</span> : null}
+      </span>
+    );
+  };
+  const renderAsiFeatPicker = (level: number, selectedFeatId: string) => {
+    const eligibleFeats = content.feats.filter((feat) => feat.id === selectedFeatId || checkFeat(feat.id, selectedFeatId || null).eligible);
+    const lockedCount = content.feats.length - eligibleFeats.length;
+    return (
+      <div className="equipment-picker-card fighter-asi-feat-picker">
+        <strong>Choose a feat</strong>
+        <select
+          className="equipment-picker-select"
+          value={selectedFeatId}
+          onChange={(event) => setFighterAsiFeatChoice(level, event.target.value)}
+        >
+          <option value="" disabled>
+            Choose feat
+          </option>
+          {eligibleFeats.map((feat) => (
+            <option key={`asi-feat-${level}-${feat.id}`} value={feat.id}>
+              {feat.name}
+            </option>
+          ))}
+        </select>
+        {selectedFeatId ? (
+          <span>{content.feats.find((feat) => feat.id === selectedFeatId)?.summary ?? "Feat selected."}</span>
+        ) : (
+          <span>Pick one feat instead of ability score bonuses.</span>
+        )}
+        {selectedFeatId ? renderFeatRequirementNotes(selectedFeatId, selectedFeatId) : null}
+        {lockedCount ? <span className="feat-requirement-hint">{`${lockedCount} feats hidden: prerequisites not met.`}</span> : null}
+      </div>
+    );
+  };
+
   const fighterAsiProjectedScore = (abilityId: AbilityId, level: number) => {
     const baseScore = draft.abilities.find((ability) => ability.id === abilityId)?.score ?? 8;
     const racialBonus = previewAbilityBonuses
@@ -5464,7 +5663,7 @@ export function CreatorWorkspace({
     const flexibleBonus = flexiblePreviewBonuses
       .filter((entry) => entry.ability === abilityId)
       .reduce((total, entry) => total + entry.amount, 0);
-    const existingAsiBonus = fighterAsiLevelChoices(fighterAsiChoices, level).get(abilityId) ?? 0;
+    const existingAsiBonus = asiAbilityBonuses(engineCatalog, draft, level).get(abilityId) ?? 0;
     return baseScore + racialBonus + flexibleBonus + existingAsiBonus;
   };
 
@@ -5556,36 +5755,40 @@ export function CreatorWorkspace({
     id: ability.id,
     value: ability.previewScore,
   }));
-  const dexterityModifier = draft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
-  const constitutionModifier = draft.abilities.find((ability) => ability.id === "CON")?.modifier ?? 0;
+  // Onizleme sayilari sheet ile ayni hesaptan (previewDraft / previewStats) gelir; ikisi asla farkli gostermez.
+  const dexterityModifier = previewDraft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
+  const constitutionModifier = previewDraft.abilities.find((ability) => ability.id === "CON")?.modifier ?? 0;
   const averageHitDieValue = Math.floor(currentClass.hitDie / 2) + 1;
-  const unarmoredArmorClass = 10 + dexterityModifier;
+  const initiativeBonusFromGrants = previewDraft.initiative - dexterityModifier;
   const previewPanelStats = [
     {
       label: "Armor Class",
-      value: String(draft.armorClass),
-      breakdown: [
-        `Unarmored baseline: 10 + DEX ${signedNumber(dexterityModifier)} = ${unarmoredArmorClass}.`,
-        `Current best from armor/shield inventory: ${draft.armorClass}.`,
-      ],
+      value: previewStats.armorClass.displayValue,
+      breakdown: previewStats.armorClass.breakdown,
     },
     {
       label: "Initiative",
-      value: signedNumber(draft.initiative),
-      breakdown: [`Initiative equals DEX modifier: ${signedNumber(dexterityModifier)}.`],
+      value: signedNumber(previewDraft.initiative),
+      breakdown: [
+        `DEX modifier: ${signedNumber(dexterityModifier)}.`,
+        ...(initiativeBonusFromGrants ? [`Other bonuses (feats, features): ${signedNumber(initiativeBonusFromGrants)}.`] : []),
+      ],
     },
     {
       label: "Speed",
-      value: draft.speed,
-      breakdown: [`Base movement from lineage and selected options: ${draft.speed}.`],
+      value: previewStats.walkingSpeed.displayValue,
+      breakdown: [
+        ...previewStats.walkingSpeed.breakdown,
+        ...previewStats.extraMovementModes.map((speed) => `${speed.label}: ${speed.displayValue}`),
+      ],
     },
     {
       label: "Hit Points",
-      value: String(draft.maxHp),
+      value: String(previewDraft.maxHp),
       breakdown: [
         `Level 1: ${currentClass.hitDie} + CON ${signedNumber(constitutionModifier)}.`,
         `Later levels: ${Math.max(0, draft.level - 1)} × (${averageHitDieValue} + CON ${signedNumber(constitutionModifier)}).`,
-        `Current maximum: ${draft.maxHp}.`,
+        `Current maximum: ${previewDraft.maxHp}.`,
       ],
     },
   ];
@@ -5596,15 +5799,15 @@ export function CreatorWorkspace({
       value: `${draft.proficiencyBonus + intelligenceModifier >= 0 ? "+" : ""}${draft.proficiencyBonus + intelligenceModifier}`,
     },
   ] as const;
-  const previewSkillEntries = draft.skills
+  const previewSkillEntries = previewDraft.skills
     .filter((skill) => skill.proficient || draft.selectedSkillIds.includes(skill.id) || backgroundSkillIds.includes(skill.id))
     .map((skill) => ({
       label: skill.label,
       breakdown: skill.breakdown,
     }));
   const previewPanelProficiencies = [
-    { label: "Weapons", value: compactPreviewValue(draft.proficiencies.weapons.join(", ") || "None", 2) },
-    { label: "Armor", value: compactPreviewValue(draft.proficiencies.armor.join(", ") || "None", 2) },
+    { label: "Weapons", value: compactPreviewValue(previewDraft.proficiencies.weapons.join(", ") || "None", 2) },
+    { label: "Armor", value: compactPreviewValue(previewDraft.proficiencies.armor.join(", ") || "None", 2) },
     {
       label: "Skills",
       value: compactPreviewValue(previewSkillEntries.map((skill) => skill.label).join(", ") || "None", 3),
@@ -5871,6 +6074,12 @@ export function CreatorWorkspace({
                             </article>
                           ))}
                         </div>
+                        {/* Irk / alt irk secimleri (Variant Human skill + feat, High Elf cantrip). Dil secimleri Tools & Gear > Languages'ta. */}
+                        {originRaceChoiceGroups.length ? (
+                          <div className="creator-stack">
+                            {originRaceChoiceGroups.map(({ group, map }) => renderLineageChoiceGroup(group, false, map))}
+                          </div>
+                        ) : null}
                       </div>
                     ) : null}
 
@@ -5949,7 +6158,7 @@ export function CreatorWorkspace({
                       "creator-panel",
                       "creator-panel-wide",
                       "fighter-journey-panel",
-                      fighterJourneyScene === "fighter-features" || fighterJourneyScene === "fighter-style" || fighterJourneyScene === "fighter-asi" || fighterJourneyScene === "fighter-class" || fighterJourneyScene === "fighter-eldritch" || fighterJourneyScene === "warlock-pact" || fighterJourneyScene === "warlock-spells"
+                      fighterJourneyScene === "fighter-features" || fighterJourneyScene === "fighter-style" || fighterJourneyScene === "fighter-asi" || fighterJourneyScene === "fighter-class" || fighterJourneyScene === "fighter-eldritch" || fighterJourneyScene === "warlock-pact" || fighterJourneyScene === "warlock-invocations" || fighterJourneyScene === "fighter-equipment" || fighterJourneyScene === "warlock-spells"
                         ? "creator-stage-panel-flat fighter-journey-panel-plain"
                         : "",
                       fighterJourneySubclassId === "eldritch-knight" ? "is-arcane" : "",
@@ -6094,6 +6303,8 @@ export function CreatorWorkspace({
                                   <span className="fighter-feature-level">{`Lvl. ${lockedLevel}`}</span>
                                 ) : null}
                               </div>
+                              {/* Her kartta tek satirlik ozet: bos kart kalmasin, ne ise yaradigi bir bakista gorunsun. */}
+                              {feature.keyFacts?.[0] ? <p className="fighter-feature-fact">{highlightKeywords(feature.keyFacts[0], feature.id)}</p> : null}
                               {currentMeta || nextMeta ? (
                                 <div className="fighter-feature-meta">
                                   {currentMeta ? <span>{currentMeta}</span> : null}
@@ -6422,7 +6633,7 @@ export function CreatorWorkspace({
                                     unlockLevel: 1,
                                     currentValueTemplate: undefined,
                                     tags: [],
-                                    milestones: [],
+                                    milestones: [], grants: [], choices: [],
                                   }, draft.level)}
                                 />
                               </strong>
@@ -6464,7 +6675,7 @@ export function CreatorWorkspace({
                                         unlockLevel: 1,
                                         currentValueTemplate: undefined,
                                         tags: [],
-                                        milestones: [],
+                                        milestones: [], grants: [], choices: [],
                                       }, draft.level)}
                                     />
                                     <span className="fighter-feature-check" aria-hidden="true">✓</span>
@@ -6496,7 +6707,7 @@ export function CreatorWorkspace({
                                           unlockLevel: 1,
                                           currentValueTemplate: undefined,
                                           tags: [],
-                                          milestones: [],
+                                          milestones: [], grants: [], choices: [],
                                         }, draft.level)}
                                       />
                                     </strong>
@@ -6583,28 +6794,7 @@ export function CreatorWorkspace({
                                 </button>
                               </div>
                               {selectedMode === "feat" ? (
-                                <div className="equipment-picker-card fighter-asi-feat-picker">
-                                  <strong>Choose a feat</strong>
-                                  <select
-                                    className="equipment-picker-select"
-                                    value={selectedFeatId}
-                                    onChange={(event) => setFighterAsiFeatChoice(level, event.target.value)}
-                                  >
-                                    <option value="" disabled>
-                                      Choose feat
-                                    </option>
-                                    {content.feats.map((feat) => (
-                                      <option key={`journey-fighter-asi-feat-${level}-${feat.id}`} value={feat.id}>
-                                        {feat.name}
-                                      </option>
-                                    ))}
-                                  </select>
-                                  {selectedFeatId ? (
-                                    <span>{content.feats.find((feat) => feat.id === selectedFeatId)?.summary ?? "Feat selected."}</span>
-                                  ) : (
-                                    <span>Pick one feat instead of ability score bonuses.</span>
-                                  )}
-                                </div>
+                                renderAsiFeatPicker(level, selectedFeatId)
                               ) : (
                                 <div className="ability-flex-assignment-grid fighter-asi-grid">
                                   {draft.abilities.map((ability) => {
@@ -6685,6 +6875,10 @@ export function CreatorWorkspace({
                         <h3>{visibleSubclassHeading}</h3>
                         <p>{`Choose the ${visibleSubclassHeading.toLowerCase()} that defines your ${currentClass.name} path.`}</p>
                       </div>
+                      <OptionChoicePanel
+                        choices={optionChoices.filter((entry) => entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool")}
+                        onToggle={toggleOptionChoice}
+                      />
                       <div className="fighter-journey-split">
                         <div className="fighter-journey-grid">
                           {fighterJourneySubclasses.map((entry) => (
@@ -6772,6 +6966,119 @@ export function CreatorWorkspace({
                     </div>
                   ) : null}
 
+                  {fighterJourneyScene === "fighter-equipment" ? (
+                    <div className="fighter-journey-scene">
+                      <div className="fighter-journey-scene-head compact">
+                        <span className="mini-heading creator-section-label">Equipment</span>
+                        <h3>Starting Equipment</h3>
+                        <p>{`Choose the ${currentClass.name.toLowerCase()} kit you start with. Items land in the sheet's Inventory, where you can equip, add or remove them.`}</p>
+                      </div>
+                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
+                      <article className="fighter-equipment-section">
+                        <div className="equipment-choice-stack">
+                          {classStartingEquipment.length ? classStartingEquipment.map((group) => renderEquipmentChoiceGroup(group, "journey-gear")) : (
+                            <div className="list-row">
+                              <strong>No class equipment choices</strong>
+                              <span>This class does not have curated starting equipment yet.</span>
+                            </div>
+                          )}
+                        </div>
+                      </article>
+                    </div>
+                  ) : null}
+
+                  {fighterJourneyScene === "warlock-invocations" ? (
+                    <div className="fighter-journey-scene">
+                      <div className="fighter-journey-scene-head compact">
+                        <span className="mini-heading creator-section-label">Eldritch Invocations</span>
+                        <h3>Eldritch Invocations</h3>
+                        <p>{`Choose the invocations your patron teaches you. ${visibleSelectedInvocationCount} / ${warlockInvocationLimit || 0} selected. Locked ones need a higher level, a Pact Boon, or a specific spell.`}</p>
+                      </div>
+                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
+                      {draft.level < 2 ? (
+                        <div className="list-row">
+                          <strong>Invocations locked</strong>
+                          <span>Eldritch Invocations open at Warlock Level 2.</span>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="skill-spell-toolbar">
+                            <button
+                              type="button"
+                              className={showUnavailableOptions ? "table-toggle-button active" : "table-toggle-button"}
+                              onClick={() => setShowUnavailableOptions((current) => !current)}
+                            >
+                              {showUnavailableOptions ? "Hide Locked" : "Show Locked"}
+                            </button>
+                          </div>
+                          {visibleInvocationCards.length ? (
+                                  <div className="warlock-flow-panel">
+                                    <div className="compact-pagination-row centered">
+                                      <button type="button" className="pagination-arrow" onClick={() => setInvocationPage((current) => Math.max(0, current - 1))} disabled={invocationPage === 0}>‹</button>
+                                      <span className="pagination-indicator">{`${invocationPage + 1} / ${invocationPageCount}`}</span>
+                                      <button type="button" className="pagination-arrow" onClick={() => setInvocationPage((current) => Math.min(invocationPageCount - 1, current + 1))} disabled={invocationPage >= invocationPageCount - 1}>›</button>
+                                    </div>
+                                    <div className="compact-option-list graph-list">
+                                      {pagedInvocationCards.map((option) => {
+                                        const parsed = parseWarlockInvocationSummary(option);
+                                        const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.requirement, {
+                                          level: draft.level,
+                                          pactBoonId: draft.pactBoonId,
+                                          spellIds: draft.spellIds,
+                                        });
+                                        return (
+                                          <label className={draft.selectedInvocationIds.includes(option.id) ? `spell-selection-row active${isUnlocked ? "" : " disabled"}` : `spell-selection-row${isUnlocked ? "" : " disabled"}`} key={option.id}>
+                                            <input type="checkbox" className="visually-hidden" checked={draft.selectedInvocationIds.includes(option.id)} disabled={!isUnlocked} onChange={() => toggleInvocationSelection(option.id)} />
+                                            <div className="spell-selection-main">
+                                              <strong className="spell-selection-title">
+                                                <HoverTooltip label={option.name} content={
+                                                  <>
+                                                    <span className="spell-tooltip-head">
+                                                      <span className="spell-tooltip-class">
+                                                        <ClassPortrait classId={currentClass.id} alt={currentClass.name} className="spell-tooltip-portrait" />
+                                                        <span>{currentClass.name}</span>
+                                                      </span>
+                                                      <strong>{option.name}</strong>
+                                                    </span>
+                                                    <span className="spell-tooltip-meta">
+                                                      {parsed.source ? <span>{parsed.source}</span> : null}
+                                                      {parsed.prerequisite ? <span>{`Prerequisite: ${parsed.prerequisite}`}</span> : null}
+                                                    </span>
+                                                    <span className="spell-tooltip-copy">{parsed.description}</span>
+                                                  </>
+                                                } />
+                                              </strong>
+                                            </div>
+                                            <div className="spell-selection-tags important">
+                                              {parsed.prerequisite ? (
+                                                <span className="spell-tooltip-chip tone-utility">
+                                                  <AppIcon name="book" className="spell-tooltip-chip-icon" />
+                                                  Prerequisite
+                                                </span>
+                                              ) : null}
+                                              {damageChipFromText(parsed.description) ? (
+                                                <span className="spell-tooltip-chip tone-danger">
+                                                  <AppIcon name="dice" className="spell-tooltip-chip-icon" />
+                                                  {damageChipFromText(parsed.description)}
+                                                </span>
+                                              ) : null}
+                                            </div>
+                                          </label>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="list-row">
+                                    <strong>No available invocations</strong>
+                                    <span>Your current level, Pact Boon, or learned spells do not unlock an invocation here yet.</span>
+                                  </div>
+                                )}
+                          <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                        </>
+                      )}
+                    </div>
+                  ) : null}
                   {fighterJourneyScene === "warlock-pact" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
@@ -6807,7 +7114,7 @@ export function CreatorWorkspace({
                                         keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
                                         currentValueTemplate: undefined,
                                         tags: [],
-                                        milestones: [],
+                                        milestones: [], grants: [], choices: [],
                                       }, draft.level)}
                                     />
                                   </strong>
@@ -6898,6 +7205,9 @@ export function CreatorWorkspace({
                         </button>
                       </div>
                       <div className="fighter-journey-scene-divider" aria-hidden="true" />
+                      {currentClass.id !== "warlock" ? (
+                        <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                      ) : null}
                       <div className="fighter-journey-counter-row">
                         <div className="fighter-journey-counter">
                           <span>Cantrips</span>
@@ -7049,15 +7359,15 @@ export function CreatorWorkspace({
                                         reference: spellReferenceFor(spellReferenceCollection, entry.spell ?? { id: entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), name: entry.name }),
                                         summary:
                                           entry.spell?.summary ??
-                                          `${entry.name} is granted by your patron and added automatically to your warlock spell list.`,
+                                          `${entry.name} is added to your warlock spell list by your patron. Pick it in the spell list to learn it.`,
                                         spellLevel: entry.spell?.level,
-                                        meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Auto Added"],
+                                        meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Patron List"],
                                       })}
                                     />
                                   </strong>
                                   <div className="fighter-spell-tags">
                                     <span className="fighter-spell-tag tone-support">
-                                      Auto Added
+                                      Patron List
                                     </span>
                                   </div>
                                 </div>
@@ -9278,28 +9588,7 @@ export function CreatorWorkspace({
                                   </button>
                                 </div>
                                 {selectedMode === "feat" ? (
-                                  <div className="equipment-picker-card fighter-asi-feat-picker">
-                                    <strong>Choose a feat</strong>
-                                    <select
-                                      className="equipment-picker-select"
-                                      value={selectedFeatId}
-                                      onChange={(event) => setFighterAsiFeatChoice(level, event.target.value)}
-                                    >
-                                      <option value="" disabled>
-                                        Choose feat
-                                      </option>
-                                      {content.feats.map((feat) => (
-                                        <option key={`fighter-asi-feat-${level}-${feat.id}`} value={feat.id}>
-                                          {feat.name}
-                                        </option>
-                                      ))}
-                                    </select>
-                                    {selectedFeatId ? (
-                                      <span>{content.feats.find((feat) => feat.id === selectedFeatId)?.summary ?? "Feat selected."}</span>
-                                    ) : (
-                                      <span>Pick one feat instead of ability score bonuses.</span>
-                                    )}
-                                  </div>
+                                  renderAsiFeatPicker(level, selectedFeatId)
                                 ) : (
                                   <div className="ability-flex-assignment-grid fighter-asi-grid">
                                     {draft.abilities.map((ability) => {
@@ -9576,6 +9865,7 @@ export function CreatorWorkspace({
                       <span>This background does not grant languages.</span>
                     </div>
                   )}
+                  <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} />
                 </section>
                 ) : null}
 
@@ -9588,7 +9878,7 @@ export function CreatorWorkspace({
                   <div className="fighter-journey-scene">
                     <div className="fighter-journey-scene-head compact">
                       <h3>Equipment</h3>
-                      <p>Choose the fighter kit you start with.</p>
+                      <p>{`Choose the ${currentClass.name.toLowerCase()} kit you start with.`}</p>
                     </div>
                     <div className="fighter-journey-scene-divider" aria-hidden="true" />
                     <article className="fighter-equipment-section">
@@ -9623,15 +9913,16 @@ export function CreatorWorkspace({
                       />
                     </div>
                     <div className="feat-browser-count">
-                      <strong>{draft.featIds.filter((featId) => normalFeats.some((feat) => feat.id === featId)).length}</strong>
-                      <span>selected</span>
+                      <strong>{`${usedFeatSlotCount} / ${currentFeatSlots.length}`}</strong>
+                      <span>feat slots</span>
                     </div>
                   </div>
                   <div className="feature-browser-layout feat-browser-layout">
                     <div className="feature-browser-list feat-browser-list">
                       {visibleNormalFeats.map((feat) => {
-                        const selected = draft.featIds.includes(feat.id);
+                        const selected = featContext.featIds.includes(feat.id);
                         const focused = selectedFeat?.id === feat.id;
+                        const locked = !selected && !checkFeat(feat.id).eligible;
                         return (
                           <button
                             type="button"
@@ -9641,6 +9932,7 @@ export function CreatorWorkspace({
                               "feat-browser-item",
                               focused ? "active" : "",
                               selected ? "acquired" : "",
+                              locked ? "locked" : "",
                             ].filter(Boolean).join(" ")}
                             onClick={() => setSelectedFeatId(feat.id)}
                           >
@@ -9670,14 +9962,35 @@ export function CreatorWorkspace({
                                   {selectedFeat.prerequisite ? <span className="feature-tag-pill">Prerequisite</span> : null}
                                 </div>
                               </div>
-                              <button
-                                type="button"
-                                className={draft.featIds.includes(selectedFeat.id) ? "sheet-button secondary active" : "sheet-button secondary"}
-                                onClick={() => toggleSelection("featIds", selectedFeat.id)}
-                              >
-                                {draft.featIds.includes(selectedFeat.id) ? "Selected" : "Select"}
-                              </button>
+                              {(() => {
+                                const slot = currentFeatSlots.find((entry) => entry.featId === selectedFeat.id);
+                                if (slot) {
+                                  return (
+                                    <button type="button" className="sheet-button secondary active" onClick={() => removeFeatFromSlot(selectedFeat.id)}>
+                                      {`Remove (${slot.label})`}
+                                    </button>
+                                  );
+                                }
+                                if (featContext.featIds.includes(selectedFeat.id)) {
+                                  return <span className="feature-tag-pill">Granted automatically</span>;
+                                }
+                                const check = checkFeat(selectedFeat.id);
+                                return (
+                                  <button
+                                    type="button"
+                                    className="sheet-button secondary"
+                                    disabled={!openFeatSlot || !check.eligible}
+                                    onClick={() => assignFeatToSlot(selectedFeat.id)}
+                                  >
+                                    {!check.eligible ? "Prerequisite not met" : openFeatSlot ? `Take (${openFeatSlot.label})` : "No free feat slot"}
+                                  </button>
+                                );
+                              })()}
                             </div>
+                            {renderFeatRequirementNotes(selectedFeat.id, currentFeatSlots.some((slot) => slot.featId === selectedFeat.id) ? selectedFeat.id : null)}
+                            {!currentFeatSlots.length ? (
+                              <span className="feat-requirement-hint">Feats come from Ability Score Improvements (level 4, 8, 12...) or a lineage that grants one.</span>
+                            ) : null}
                           </div>
                           <div className="feature-detail-block">
                             <span className="feature-detail-label">At a Glance</span>
@@ -9713,7 +10026,7 @@ export function CreatorWorkspace({
                             <span className="feature-detail-label">Rules Text</span>
                             <div className="class-feature-detail-body feat-rules-body">
                               {featBenefitParagraphs(selectedFeat).map((paragraph, index) => (
-                                <p key={`${selectedFeat.id}-paragraph-${index}`}>{paragraph}</p>
+                                <p key={`${selectedFeat.id}-paragraph-${index}`}>{highlightKeywords(paragraph, `${selectedFeat.id}-${index}`)}</p>
                               ))}
                             </div>
                           </div>
@@ -9759,6 +10072,8 @@ export function CreatorWorkspace({
                         <div className="identity-detail-head compact">
                           <span className="mini-heading creator-section-label class-section-label">Skills</span>
                         </div>
+                        {/* Feature'lardan gelen skill secimleri (orn. Bard Expertise). */}
+                        <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
                         <div className="creator-inline-list">
                           <div className="list-row">
                             <strong>{`Choose ${skillChoiceCount} class skill${skillChoiceCount === 1 ? "" : "s"}`}</strong>
@@ -10121,16 +10436,16 @@ export function CreatorWorkspace({
                                                     reference: spellReferenceFor(spellReferenceCollection, entry.spell ?? { id: entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), name: entry.name }),
                                                     summary:
                                                       entry.spell?.summary ??
-                                                      `${entry.name} is granted by your patron and added automatically to your warlock spell list.`,
+                                                      `${entry.name} is added to your warlock spell list by your patron. Pick it in the spell list to learn it.`,
                                                     spellLevel: entry.spell?.level,
-                                                    meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Auto Added"],
+                                                    meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Patron List"],
                                                   })}
                                                 />
                                               </strong>
                                               <div className="spell-selection-tags important">
                                                 <span className="spell-tooltip-chip tone-support">
                                                   <AppIcon name="book" className="spell-tooltip-chip-icon" />
-                                                  Auto Added
+                                                  Patron List
                                                 </span>
                                               </div>
                                             </div>
@@ -10301,8 +10616,8 @@ export function CreatorWorkspace({
                                     </div>
                                     <div className="compact-option-list graph-list">
                                       {pagedInvocationCards.map((option) => {
-                                        const parsed = parseWarlockInvocationSummary(option.summary);
-                                        const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.prerequisite, {
+                                        const parsed = parseWarlockInvocationSummary(option);
+                                        const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.requirement, {
                                           level: draft.level,
                                           pactBoonId: draft.pactBoonId,
                                           spellIds: draft.spellIds,
@@ -10355,6 +10670,9 @@ export function CreatorWorkspace({
                                     <span>Your current level, Pact Boon, or learned spells do not unlock an invocation here yet.</span>
                                   </div>
                                 )
+                              ) : null}
+                              {openWarlockGroup === "invocations" ? (
+                                <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                               ) : null}
                             </div>
                           </div>
@@ -10497,27 +10815,59 @@ export function CreatorWorkspace({
               <div className="creator-panel creator-panel-wide">
                 <div className="ability-pointbuy-topline">
                   <span className="mini-heading">Ability Scores</span>
+                  <div className="ability-method-row" role="tablist" aria-label="Ability score method">
+                    {([
+                      ["point-buy", "Point Buy"],
+                      ["standard-array", "Standard Array"],
+                      ["manual", "Manual / Rolled"],
+                    ] as const).map(([method, label]) => (
+                      <button
+                        key={`ability-method-${method}`}
+                        type="button"
+                        role="tab"
+                        aria-selected={abilityMethod === method}
+                        className={abilityMethod === method ? "ability-flex-pick active" : "ability-flex-pick"}
+                        onClick={() => setAbilityMethod(method)}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
                   <div className="ability-topline-meta">
-                    <span>
-                      27 points |{" "}
-                      <span className={pointBuyRemaining < 0 ? "ability-remaining-negative" : undefined}>
-                        {`Remaining ${pointBuyRemaining}`}
+                    {abilityMethod === "point-buy" ? (
+                      <span>
+                        27 points |{" "}
+                        <span className={pointBuyRemaining < 0 ? "ability-remaining-negative" : undefined}>
+                          {`Remaining ${pointBuyRemaining}`}
+                        </span>
                       </span>
-                    </span>
+                    ) : abilityMethod === "standard-array" ? (
+                      <span className={standardArrayValid ? undefined : "ability-remaining-negative"}>
+                        {standardArrayValid ? "15, 14, 13, 12, 10, 8" : "Each value must be used once"}
+                      </span>
+                    ) : (
+                      <span>Enter your rolled or DM-approved scores (3-18 before bonuses)</span>
+                    )}
                   </div>
                 </div>
                 {flexibleAbilityBonusSource ? (
                   <div className="flexible-bonus-panel compact">
                     <div className="list-row">
                       <strong>Flexible Ability Score Increase</strong>
-                      <span>{`${flexibleAbilityBonusSource} lets you assign one +2 and one +1 to different abilities.`}</span>
+                      <span>{`${flexibleAbilityBonusSource} lets you assign one ${firstFlexLabel} and one ${secondFlexLabel} to different abilities.`}</span>
                     </div>
                   </div>
                 ) : null}
                 <div className="ability-pointbuy-grid">
                   {previewAbilities.map((ability) => {
-                    const canDecrease = true;
-                    const canIncrease = true;
+                    const canDecrease =
+                      abilityMethod === "point-buy" ? ability.score > 8 : abilityMethod === "manual" ? ability.score > 3 : false;
+                    const canIncrease =
+                      abilityMethod === "point-buy"
+                        ? ability.score < 15 && pointBuyStepCost(ability.score, ability.score + 1) <= pointBuyRemaining
+                        : abilityMethod === "manual"
+                          ? ability.score < 18
+                          : false;
 
                     return (
                       <article className="ability-pointbuy-card" key={ability.id}>
@@ -10543,7 +10893,7 @@ export function CreatorWorkspace({
                               <strong>{ability.previewScore}</strong>
                             </div>
                             <div className="ability-pointbuy-total">
-                              <span className="mini-heading">Modifier</span>
+                              <span className="mini-heading">Mod</span>
                               <strong>{ability.previewModifier >= 0 ? `+${ability.previewModifier}` : ability.previewModifier}</strong>
                             </div>
                           </div>
@@ -10558,7 +10908,24 @@ export function CreatorWorkspace({
                           </button>
                         </div>
                         <div className="ability-pointbuy-controls">
-                          <span>{`${pointBuyCost(ability.score)} pts`}</span>
+                          {abilityMethod === "standard-array" ? (
+                            <select
+                              className="equipment-picker-select ability-array-select"
+                              value={ability.score}
+                              aria-label={`${ability.label} standard array value`}
+                              onChange={(event) => assignStandardArrayValue(ability.id, Number(event.target.value))}
+                            >
+                              {STANDARD_ARRAY.map((value) => (
+                                <option key={`array-${ability.id}-${value}`} value={value}>
+                                  {`Base ${value}`}
+                                </option>
+                              ))}
+                            </select>
+                          ) : abilityMethod === "point-buy" ? (
+                            <span>{`Base ${ability.score} | ${pointBuyCost(ability.score)} pts`}</span>
+                          ) : (
+                            <span>{`Base ${ability.score}`}</span>
+                          )}
                         </div>
                         {(ability.racialBonus > 0 || ability.flexibleBonus > 0 || ability.classBonus > 0) ? (
                           <div className="ability-pointbuy-meta">
@@ -10581,7 +10948,7 @@ export function CreatorWorkspace({
                   <div className="flexible-bonus-panel compact ability-bonus-assignment-panel">
                     <div className="list-row">
                       <strong>Assign Flexible Bonuses</strong>
-                      <span>Choose which abilities receive the +2 and +1 bonuses.</span>
+                      <span>{`Choose which abilities receive the ${firstFlexLabel} and ${secondFlexLabel} bonuses.`}</span>
                     </div>
                     <div className="ability-flex-assignment-grid">
                       {draft.abilities.map((ability) => (
@@ -10600,7 +10967,7 @@ export function CreatorWorkspace({
                               }
                               disabled={draft.flexibleAbilityBonuses.plusOne === ability.id}
                             >
-                              +2
+                              {firstFlexLabel}
                             </button>
                             <button
                               type="button"
@@ -10614,7 +10981,7 @@ export function CreatorWorkspace({
                               }
                               disabled={draft.flexibleAbilityBonuses.plusTwo === ability.id}
                             >
-                              +1
+                              {secondFlexLabel}
                             </button>
                           </div>
                         </div>

@@ -190,7 +190,13 @@
         "You can summon a bonded weapon as a bonus action."
       ],
       "unlockLevel": 3,
-      "summary": "At 3rd level, you learn a ritual that creates a magical bond between yourself and one weapon. You perform the ritual over the course of 1 hour, which can be done during a short rest. The weapon must be within your reach throughout the ritual, at the conclusion of which you touch the weapon and forge the bond.\n\nOnce you have bonded a weapon to yourself, you can't be disarmed of that weapon unless you are incapacitated. If it is on the same plane of existence, you can summon that weapon as a bonus action on your turn, causing it to teleport instantly to your hand.\n\nYou can have up to two bonded weapons, but can summon only one at a time with your bonus action. If you attempt to bond with a third weapon, you must break the bond with one of the other two."
+      "summary": "At 3rd level, you learn a ritual that creates a magical bond between yourself and one weapon. You perform the ritual over the course of 1 hour, which can be done during a short rest. The weapon must be within your reach throughout the ritual, at the conclusion of which you touch the weapon and forge the bond.\n\nOnce you have bonded a weapon to yourself, you can't be disarmed of that weapon unless you are incapacitated. If it is on the same plane of existence, you can summon that weapon as a bonus action on your turn, causing it to teleport instantly to your hand.\n\nYou can have up to two bonded weapons, but can summon only one at a time with your bonus action. If you attempt to bond with a third weapon, you must break the bond with one of the other two.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Bond with up to two weapons; you cannot be disarmed of them and can summon them as a bonus action."
+        }
+      ]
     },
     {
       "id": "war-magic",
@@ -200,7 +206,13 @@
         "Effect: make one weapon attack as a bonus action."
       ],
       "unlockLevel": 7,
-      "summary": "Beginning at 7th level, when you use your action to cast a cantrip, you can make one weapon attack as a bonus action."
+      "summary": "Beginning at 7th level, when you use your action to cast a cantrip, you can make one weapon attack as a bonus action.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "War Magic: after casting a cantrip as an action, make one weapon attack as a bonus action."
+        }
+      ]
     },
     {
       "id": "eldritch-strike",
@@ -211,7 +223,13 @@
         "Duration: before the end of your next turn."
       ],
       "unlockLevel": 10,
-      "summary": "At 10th level, you learn how to make your weapon strikes undercut a creature's resistance to your spells. When you hit a creature with a weapon attack, that creature has disadvantage on the next saving throw it makes against a spell you cast before the end of your next turn."
+      "summary": "At 10th level, you learn how to make your weapon strikes undercut a creature's resistance to your spells. When you hit a creature with a weapon attack, that creature has disadvantage on the next saving throw it makes against a spell you cast before the end of your next turn.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Eldritch Strike: a creature you hit with a weapon has disadvantage on its next save against your spell before the end of your next turn."
+        }
+      ]
     },
     {
       "id": "arcane-charge",
@@ -222,7 +240,13 @@
         "You can teleport before or after the additional action."
       ],
       "unlockLevel": 15,
-      "summary": "At 15th level, you gain the ability to teleport up to 30 feet to an unoccupied space you can see when you use your Action Surge. You can teleport before or after the additional action."
+      "summary": "At 15th level, you gain the ability to teleport up to 30 feet to an unoccupied space you can see when you use your Action Surge. You can teleport before or after the additional action.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Arcane Charge: when you use Action Surge, you can teleport up to 30 ft."
+        }
+      ]
     },
     {
       "id": "improved-war-magic",
@@ -232,7 +256,13 @@
         "Effect: make one weapon attack as a bonus action."
       ],
       "unlockLevel": 18,
-      "summary": "Starting at 18th level, when you use your action to cast a spell, you can make one weapon attack as a bonus action."
+      "summary": "Starting at 18th level, when you use your action to cast a spell, you can make one weapon attack as a bonus action.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Improved War Magic: after casting a spell as an action, make one weapon attack as a bonus action."
+        }
+      ]
     }
   ],
   "notes": [

@@ -1,6 +1,6 @@
 import { CampaignShell } from "@/components/campaign-shell";
-import { SceneBoard } from "@/components/scene-board";
-import { getCampaignHubData } from "@/lib/campaign/campaign-hub";
+import { SceneBoard } from "../scene-board";
+import { getCampaignHubData } from "../campaign-hub";
 
 export default function CampaignScenesPage() {
   const data = getCampaignHubData();
