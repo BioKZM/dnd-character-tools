@@ -6,7 +6,13 @@
     "source": "Eberron - Rising from the Last War",
     "prerequisite": "No other dragonmark",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "campaign",
+        "text": "No other dragonmark (Eberron)"
+      }
+    ]
   },
   {
     "id": "actor",
@@ -34,7 +40,19 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High Sorcery(Nuitari) Feat",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "initiate-of-high-sorcery"
+        ]
+      }
+    ]
   },
   {
     "id": "adept-of-the-red-robes",
@@ -43,7 +61,19 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High Sorcery(Lunitari) Feat",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "initiate-of-high-sorcery"
+        ]
+      }
+    ]
   },
   {
     "id": "adept-of-the-white-robes",
@@ -52,7 +82,19 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High SorceryFeat",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "initiate-of-high-sorcery"
+        ]
+      }
+    ]
   },
   {
     "id": "agent-of-order",
@@ -61,7 +103,19 @@
     "source": "Planescape - Adventures in the Multiverse.",
     "prerequisite": "4th Level,Scion of the Outer Planes(Lawful Outer Plane) Feat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "alert",
@@ -106,7 +160,19 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Evil Outer Plane) Feat.",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "bountiful-luck",
@@ -115,7 +181,16 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Halfling",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "halfling"
+        ],
+        "label": "Halfling"
+      }
+    ]
   },
   {
     "id": "cartomancer",
@@ -124,7 +199,17 @@
     "source": "The Book of Many Things",
     "prerequisite": "4th Level, Spellcasting Feature",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "spellcasting",
+        "mode": "feature"
+      }
+    ]
   },
   {
     "id": "charger",
@@ -151,7 +236,19 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Chaotic Outer Plane) Feat.",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "crossbow-expert",
@@ -187,7 +284,16 @@
     "source": "Player's Handbook",
     "prerequisite": "Dexterity 13 or higher",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "DEX"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "divinely-favored",
@@ -196,7 +302,17 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level, Dragonlance Campaign",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "campaign",
+        "text": "Dragonlance campaign"
+      }
+    ]
   },
   {
     "id": "dragon-fear",
@@ -205,7 +321,16 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dragonborn",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "dragonborn"
+        ],
+        "label": "Dragonborn"
+      }
+    ]
   },
   {
     "id": "dragon-hide",
@@ -214,7 +339,16 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dragonborn",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "dragonborn"
+        ],
+        "label": "Dragonborn"
+      }
+    ]
   },
   {
     "id": "drow-high-magic",
@@ -223,7 +357,16 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Elf (drow)",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "drow"
+        ],
+        "label": "Elf (Drow)"
+      }
+    ]
   },
   {
     "id": "dual-wielder",
@@ -300,6 +443,15 @@
         "kind": "save_advantage",
         "against": "poisoned"
       }
+    ],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "dwarf"
+        ],
+        "label": "Dwarf"
+      }
     ]
   },
   {
@@ -309,7 +461,13 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Spellcasting or Pact Magic feature",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "feature"
+      }
+    ]
   },
   {
     "id": "elemental-adept",
@@ -318,7 +476,13 @@
     "source": "Player's Handbook",
     "prerequisite": "The ability to cast at least one spell",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "any"
+      }
+    ]
   },
   {
     "id": "elven-accuracy",
@@ -327,7 +491,21 @@
     "source": "",
     "prerequisite": "Elf or Half-Elf",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "elf",
+          "high-elf",
+          "wood-elf",
+          "drow",
+          "eladrin",
+          "half-elf"
+        ],
+        "label": "Elf or Half-Elf"
+      }
+    ]
   },
   {
     "id": "ember-of-the-fire-giant",
@@ -336,7 +514,19 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Fire Strike) Feat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "fade-away",
@@ -345,7 +535,16 @@
     "source": "",
     "prerequisite": "Gnome",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "gnome"
+        ],
+        "label": "Gnome"
+      }
+    ]
   },
   {
     "id": "fey-teleportation",
@@ -354,7 +553,16 @@
     "source": "",
     "prerequisite": "Elf (High)",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "high-elf"
+        ],
+        "label": "Elf (High)"
+      }
+    ]
   },
   {
     "id": "fey-touched",
@@ -379,7 +587,14 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Proficiency with a martial weapon",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "weapon",
+        "value": "martial"
+      }
+    ]
   },
   {
     "id": "flames-of-phlegethos",
@@ -388,7 +603,16 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Tiefling",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "tiefling"
+        ],
+        "label": "Tiefling"
+      }
+    ]
   },
   {
     "id": "flash-recall",
@@ -397,7 +621,13 @@
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "Spellcasting feature from a class that prepares spells",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "prepared"
+      }
+    ]
   },
   {
     "id": "fury-of-the-frost-giant",
@@ -406,7 +636,19 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Frost Strike) Feat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "gift-of-the-chromatic-dragon",
@@ -442,7 +684,16 @@
     "source": "Player's Handbook",
     "prerequisite": "Strength 13 or higher",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "STR"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "great-weapon-master",
@@ -465,7 +716,19 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Cloud Strike) Feat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "gunner",
@@ -505,6 +768,13 @@
           "Heavy Armor"
         ]
       }
+    ],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "armor",
+        "value": "medium"
+      }
     ]
   },
   {
@@ -523,6 +793,13 @@
       {
         "type": "note",
         "text": "While in heavy armor, nonmagical bludgeoning, piercing and slashing damage is reduced by 3."
+      }
+    ],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "armor",
+        "value": "heavy"
       }
     ]
   },
@@ -554,6 +831,15 @@
         "kind": "save_advantage",
         "against": "poisoned"
       }
+    ],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "tiefling"
+        ],
+        "label": "Tiefling"
+      }
     ]
   },
   {
@@ -568,6 +854,30 @@
         "type": "note",
         "text": "Learn a cantrip and two 1st-level spells tied to your moon (Lunar Spells table); cast each once per long rest without a slot."
       }
+    ],
+    "requires": [
+      {
+        "kind": "campaign",
+        "text": "Dragonlance campaign"
+      },
+      {
+        "kind": "anyOf",
+        "conditions": [
+          {
+            "kind": "class",
+            "ids": [
+              "sorcerer",
+              "wizard"
+            ]
+          },
+          {
+            "kind": "background",
+            "ids": [
+              "mage-of-high-sorcery"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -577,7 +887,16 @@
     "source": "Player's Handbook",
     "prerequisite": "Charisma 13 or higher",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "CHA"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "keen-mind",
@@ -605,7 +924,19 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Stone Strike) Feat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "knight-of-the-crown",
@@ -614,7 +945,19 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "squire-of-solamnia"
+        ]
+      }
+    ]
   },
   {
     "id": "knight-of-the-rose",
@@ -623,7 +966,19 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "squire-of-solamnia"
+        ]
+      }
+    ]
   },
   {
     "id": "knight-of-the-sword",
@@ -632,7 +987,19 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "squire-of-solamnia"
+        ]
+      }
+    ]
   },
   {
     "id": "lightly-armored",
@@ -713,7 +1080,14 @@
     "source": "Player's Handbook",
     "prerequisite": "Proficiency with medium armor",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "armor",
+        "value": "medium"
+      }
+    ]
   },
   {
     "id": "metamagic-adept",
@@ -722,7 +1096,13 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Spellcasting or Pact Magic feature",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "feature"
+      }
+    ]
   },
   {
     "id": "mobile",
@@ -751,7 +1131,14 @@
     "source": "Player's Handbook",
     "prerequisite": "Proficiency with light armor",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "proficiency",
+        "category": "armor",
+        "value": "light"
+      }
+    ]
   },
   {
     "id": "mounted-combatant",
@@ -787,7 +1174,16 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Half-orc",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "half-orc"
+        ],
+        "label": "Half-Orc"
+      }
+    ]
   },
   {
     "id": "outlands-envoy",
@@ -796,7 +1192,19 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(The Outlands) Feat.",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "piercer",
@@ -814,7 +1222,19 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer PlanesFeat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "poisoner",
@@ -841,7 +1261,19 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Half-Elf, Half-Orc or Human",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "half-elf",
+          "half-orc",
+          "human",
+          "variant-human"
+        ],
+        "label": "Half-Elf, Half-Orc or Human"
+      }
+    ]
   },
   {
     "id": "quicksmithing",
@@ -850,7 +1282,16 @@
     "source": "Plane Shift - Kaladesh",
     "prerequisite": "Intelligence 13 or higher",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "INT"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "remarkable-recovery",
@@ -877,7 +1318,20 @@
     "source": "Eberron - Rising from the Last War",
     "prerequisite": "Elf",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "elf",
+          "high-elf",
+          "wood-elf",
+          "drow",
+          "eladrin"
+        ],
+        "label": "Elf"
+      }
+    ]
   },
   {
     "id": "righteous-heritor",
@@ -886,7 +1340,19 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Good Outer Plane) Feat.",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "scion-of-the-outer-planes"
+        ]
+      }
+    ]
   },
   {
     "id": "ritual-caster",
@@ -895,7 +1361,17 @@
     "source": "Player's Handbook",
     "prerequisite": "Intelligence or Wisdom of 13 or higher",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "INT",
+          "WIS"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "rune-shaper",
@@ -904,7 +1380,24 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "Spellcasting Feature or Rune Carver Background",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "anyOf",
+        "conditions": [
+          {
+            "kind": "spellcasting",
+            "mode": "feature"
+          },
+          {
+            "kind": "background",
+            "ids": [
+              "rune-carver"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "savage-attacker",
@@ -922,7 +1415,13 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "Planescape Campaign.",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "campaign",
+        "text": "Planescape campaign"
+      }
+    ]
   },
   {
     "id": "second-chance",
@@ -931,7 +1430,16 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Halfling",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "halfling"
+        ],
+        "label": "Halfling"
+      }
+    ]
   },
   {
     "id": "sentinel",
@@ -954,7 +1462,16 @@
     "source": "Plane Shift - Kaladesh",
     "prerequisite": "Intelligence 13 or higher",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "INT"
+        ],
+        "min": 13
+      }
+    ]
   },
   {
     "id": "shadow-touched",
@@ -1025,6 +1542,15 @@
         "type": "note",
         "text": "Hide when lightly obscured; missing a ranged attack does not reveal you; dim light no disadvantage on Perception."
       }
+    ],
+    "requires": [
+      {
+        "kind": "ability",
+        "abilities": [
+          "DEX"
+        ],
+        "min": 13
+      }
     ]
   },
   {
@@ -1043,7 +1569,19 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Storm Strike) Feat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "spell-sniper",
@@ -1052,7 +1590,13 @@
     "source": "Player's Handbook",
     "prerequisite": "The ability to cast at least one spell",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "any"
+      }
+    ]
   },
   {
     "id": "spelldriver",
@@ -1070,7 +1614,18 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dwarf or a Small race",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "dwarf",
+          "gnome",
+          "halfling"
+        ],
+        "label": "Dwarf or a Small race"
+      }
+    ]
   },
   {
     "id": "squire-of-solamnia",
@@ -1084,6 +1639,30 @@
         "type": "note",
         "text": "Precise Strike: on a missed weapon attack, add a d8 to the roll (proficiency bonus times per long rest)."
       }
+    ],
+    "requires": [
+      {
+        "kind": "campaign",
+        "text": "Dragonlance campaign"
+      },
+      {
+        "kind": "anyOf",
+        "conditions": [
+          {
+            "kind": "class",
+            "ids": [
+              "fighter",
+              "paladin"
+            ]
+          },
+          {
+            "kind": "background",
+            "ids": [
+              "knight-of-solamnia"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -1093,7 +1672,25 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "Martial Weapon Proficiency or Giant Foundling Background",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "anyOf",
+        "conditions": [
+          {
+            "kind": "proficiency",
+            "category": "weapon",
+            "value": "martial"
+          },
+          {
+            "kind": "background",
+            "ids": [
+              "giant-foundling"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "strixhaven-initiate",
@@ -1116,7 +1713,19 @@
     "source": "Strixhaven: A Curriculum of Chaos",
     "prerequisite": "4th Level, Strixhaven Initiate Feat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strixhaven-initiate"
+        ]
+      }
+    ]
   },
   {
     "id": "svirfneblin-magic",
@@ -1125,7 +1734,17 @@
     "source": "Mordenkainen's Tome of Foes",
     "prerequisite": "Gnome (Deep Gnome)",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "deep-gnome",
+          "svirfneblin"
+        ],
+        "label": "Gnome (Deep Gnome)"
+      }
+    ]
   },
   {
     "id": "tavern-brawler",
@@ -1206,7 +1825,16 @@
     "source": "Plane Shift - Ixalan",
     "prerequisite": "Vampire (Ixalan)",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "vampire"
+        ],
+        "label": "Vampire (Ixalan)"
+      }
+    ]
   },
   {
     "id": "vigor-of-the-hill-giant",
@@ -1215,7 +1843,19 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Hill Strike) Feat",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "level",
+        "min": 4
+      },
+      {
+        "kind": "feat",
+        "ids": [
+          "strike-of-the-giants"
+        ]
+      }
+    ]
   },
   {
     "id": "vital-sacrifice",
@@ -1243,6 +1883,12 @@
         "type": "note",
         "text": "Somatic components with hands full; cast a spell as an opportunity attack."
       }
+    ],
+    "requires": [
+      {
+        "kind": "spellcasting",
+        "mode": "any"
+      }
     ]
   },
   {
@@ -1261,6 +1907,15 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Elf (Wood)",
     "isRacialFeat": true,
-    "grants": []
+    "grants": [],
+    "requires": [
+      {
+        "kind": "lineage",
+        "ids": [
+          "wood-elf"
+        ],
+        "label": "Elf (Wood)"
+      }
+    ]
   }
 ]

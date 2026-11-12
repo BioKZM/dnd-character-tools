@@ -14,6 +14,7 @@ import { SheetInventoryPanel } from "@/components/sheet-inventory-panel";
 import { availableChoices, languageChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
 import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
 import { computeArmorClass, mageArmorAvailable } from "@/lib/engine/armor-class";
+import { asiAbilityBonuses, asiFeatIds, migrateLegacyFeatIds, type FeatCheckContext } from "@/lib/engine/feats";
 import { deriveCharacter, hasProficiency, senseLabel, type DerivedCharacter } from "@/lib/engine/derive";
 import {
   warlockInvocationMeetsPrerequisite,
@@ -834,30 +835,6 @@ function normalizeFighterChoices(fighterChoices: FighterChoices | undefined) {
   } satisfies FighterChoices;
 }
 
-function fighterAsiLevelChoices(
-  improvements: CharacterDraft["fighterChoices"]["abilityScoreImprovements"] | undefined,
-) {
-  const bonuses = new Map<AbilityId, number>();
-
-  Object.values(improvements ?? {}).forEach((choice) => {
-    if (!choice) {
-      return;
-    }
-
-    if (choice.mode === "plus-two" && choice.plusTwoAbilityId) {
-      bonuses.set(choice.plusTwoAbilityId, (bonuses.get(choice.plusTwoAbilityId) ?? 0) + 2);
-    }
-
-    if (choice.mode === "split") {
-      choice.plusOneAbilityIds.forEach((abilityId) => {
-        bonuses.set(abilityId, (bonuses.get(abilityId) ?? 0) + 1);
-      });
-    }
-  });
-
-  return bonuses;
-}
-
 function isDynamicLineageSkillChoiceGroup(groupId: string) {
   return groupId === "variant-human-skill-choice" || groupId === "half-elf-skill-choice";
 }
@@ -902,7 +879,8 @@ function resolvedLineageData(lineageDataCatalog: LineageCatalog | undefined, dra
 
   return { lineage, sublineage };
 }
-function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft, derived?: DerivedCharacter) {
+function finalAbilityBonuses(engine: EngineCatalog, draft: CharacterDraft, derived?: DerivedCharacter) {
+  const lineageDataCatalog = engine.lineages;
   const bonuses = new Map<AbilityId, number>();
   const addBonus = (ability: AbilityId, amount: number) => {
     bonuses.set(ability, (bonuses.get(ability) ?? 0) + amount);
@@ -966,7 +944,8 @@ function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, dra
     addBonus(draft.flexibleAbilityBonuses.plusOne, secondSlotAmount);
   }
 
-  fighterAsiLevelChoices(draft.fighterChoices?.abilityScoreImprovements).forEach((amount, ability) => {
+  // Sadece class'in ASI level'lari ve karakter level'ina kadar olanlar sayilir.
+  asiAbilityBonuses(engine, draft).forEach((amount, ability) => {
     addBonus(ability, amount);
   });
 
@@ -976,8 +955,8 @@ function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, dra
   return bonuses;
 }
 
-function finalAbilitiesForDraft(lineageDataCatalog: LineageCatalog | undefined, draft: CharacterDraft, derived?: DerivedCharacter) {
-  const bonuses = finalAbilityBonuses(lineageDataCatalog, draft, derived);
+function finalAbilitiesForDraft(engine: EngineCatalog, draft: CharacterDraft, derived?: DerivedCharacter) {
+  const bonuses = finalAbilityBonuses(engine, draft, derived);
   const abilities = draft.abilities.map((ability) => {
     const score = ability.score + (bonuses.get(ability.id) ?? 0);
     return {
@@ -1041,7 +1020,7 @@ function buildSheetDraftFromSelection(
   const lineageSkillProficiencies = lineageSkillProficiencyIds(lineageDataCatalog, draft);
   const normalizedRangerChoices = normalizeRangerChoices(draft.rangerChoices, draft.level);
   const proficiencyBonus = proficiencyBonusForLevel(draft.level);
-  const { abilities, modifiers } = finalAbilitiesForDraft(lineageDataCatalog, draft, derived);
+  const { abilities, modifiers } = finalAbilitiesForDraft(engine, draft, derived);
   const maxHp = Math.max(
     chosenClass.hitDie +
       modifiers.CON +
@@ -1221,9 +1200,6 @@ function buildDraftFromSelection(
       return byClass || bySubclass || byEldritchKnight;
     })
     .map((spell) => spell.id);
-  const allowedFeatIds = content.feats
-    .filter((feat) => !feat.isRacialFeat || raceFeatMatchesSpecies(feat.prerequisite, chosenSpecies.name))
-    .map((feat) => feat.id);
   const allowedMysticArcanumLevels = chosenClass.id === "warlock" ? availableMysticArcanumLevels(previous.level) : [];
   const allowedMysticArcanumSpellIds = new Set(
     content.spells
@@ -1268,10 +1244,17 @@ function buildDraftFromSelection(
       (previous.level - 1) * (Math.floor(chosenClass.hitDie / 2) + 1 + modifiers.CON),
     1,
   );
-  const inventory = unique([
-    ...previous.inventory.filter((item) => !allBackgroundEquipment.includes(item)),
-    ...backgroundEquipment,
-  ]);
+  // Background paketi sadece background (ya da custom paket) degisince eklenir; oyuncunun sildigi esya geri gelmez.
+  const backgroundEquipmentKey = isCustomBackground(chosenBackground.id)
+    ? `${chosenBackground.id}:${customBackground.equipmentMode}:${customEquipmentBackground.id}`
+    : chosenBackground.id;
+  const inventory =
+    previous.appliedBackgroundEquipment === backgroundEquipmentKey
+      ? previous.inventory
+      : unique([
+          ...previous.inventory.filter((item) => !allBackgroundEquipment.includes(item)),
+          ...backgroundEquipment,
+        ]);
 
   const built: CharacterDraft = {
     ...previous,
@@ -1331,8 +1314,10 @@ function buildDraftFromSelection(
     backgroundToolChoiceIds,
     customBackground,
     spellIds: previous.spellIds.filter((spellId) => allowedSpellIds.includes(spellId)),
-    featIds: previous.featIds.filter((featId) => allowedFeatIds.includes(featId)),
+    // Feat listesi tek yerden: ASI secimleri. Lineage/background feat'leri motor grant olarak ekler.
+    featIds: asiFeatIds(engine, previous),
     inventory,
+    appliedBackgroundEquipment: backgroundEquipmentKey,
     proficiencyBonus,
     initiative: modifiers.DEX,
     maxHp,
@@ -1425,7 +1410,7 @@ function readStoredDraft(content: ContentBundle, creatorOptions: CreatorOptions,
   }
 
   try {
-    const parsed = stripLeakedDemoValues(JSON.parse(stored) as CharacterDraft);
+    const parsed = migrateLegacyFeatIds(engine, stripLeakedDemoValues(JSON.parse(stored) as CharacterDraft));
     return buildDraftFromSelection(content, creatorOptions, parsed, engine);
   } catch {
     return null;
@@ -1479,6 +1464,19 @@ export function PartyRoomDashboard({
     () => buildSheetContent(initialContent, sheetDraft, engineCatalog),
     [initialContent, sheetDraft, engineCatalog],
   );
+  // Feat on kosullarini kontrol etmek icin karakterin su anki hali.
+  const featContext = useMemo<FeatCheckContext>(() => {
+    const derived = deriveCharacter(draft, engineCatalog);
+    const hasSpellcastingFeature = sheetContent.spellcasting.some((profile) => profile.slots.length > 0);
+    return {
+      scores: Object.fromEntries(sheetDraft.abilities.map((ability) => [ability.id, ability.score])) as FeatCheckContext["scores"],
+      featIds: derived.featIds,
+      armorProficiencies: sheetDraft.proficiencies.armor,
+      weaponProficiencies: sheetDraft.proficiencies.weapons,
+      hasSpellcastingFeature,
+      canCastSpell: hasSpellcastingFeature || derived.spells.length > 0 || draft.spellIds.length > 0,
+    };
+  }, [draft, engineCatalog, sheetContent.spellcasting, sheetDraft.abilities, sheetDraft.proficiencies]);
   // currentHp < 0 (FULL_HP) = "can tam": max HP level/CON ile degisse bile karakter dolu kalir.
   const [currentHp, setCurrentHp] = useState(() => draft.currentHp);
   const [tempHp, setTempHp] = useState(() => draft.tempHp);
@@ -2094,7 +2092,7 @@ export function PartyRoomDashboard({
     try {
       const text = await file.text();
       const parsed = JSON.parse(text) as CharacterDraft;
-      setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, parsed, engineCatalog));
+      setDraft(buildDraftFromSelection(initialContent, initialCreatorOptions, migrateLegacyFeatIds(engineCatalog, parsed), engineCatalog));
       setCurrentHp(parsed.currentHp ?? parsed.maxHp ?? draft.maxHp);
       setTempHp(parsed.tempHp ?? 0);
       setActivityLog((current) => [
@@ -2227,6 +2225,8 @@ export function PartyRoomDashboard({
               availableSubclassOptions={availableSubclassOptions}
               availableSpells={availableSpells}
               availableFeats={availableFeats}
+              engineCatalog={engineCatalog}
+              featContext={featContext}
               maxSpellLevel={maxSpellLevel}
               spellSelectionRules={spellSelectionRules}
               eldritchKnightFlexibleSchoolAllowance={eldritchKnightSpellRules?.flexibleSchoolAllowance ?? 0}

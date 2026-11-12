@@ -474,7 +474,16 @@
         }
       ],
       "summary": "This 1st-level feature replaces the Favored Enemy feature and works with the Foe Slayer feature. You gain no benefit from the replaced feature and don't qualify for anything in the game that requires it. When you hit a creature with an attack roll, you can call on your mystical bond with nature to mark the target as your favored enemy for 1 minute or until you lose your concentration (as if you were concentrating on a spell). The first time on each of your turns that you hit the favored enemy and deal damage to it, including when you mark it, you increase that damage by 1d4. You can use this feature to mark a favored enemy a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest. This feature's extra damage increases when you reach certain levels in this class: to 1d6 at 6th level and to 1d8 at 14th level.",
-      "unlockLevel": 1
+      "unlockLevel": 1,
+      "grants": [
+        {
+          "type": "resource",
+          "id": "favored-foe",
+          "name": "Favored Foe",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ]
     },
     {
       "id": "natural-explorer",
@@ -631,7 +640,49 @@
         }
       ],
       "summary": "This 3rd-level feature replaces the Primeval Awareness feature. You gain no benefit from the replaced feature and don't qualify for anything in the game that requires it. You can focus your awareness through the interconnections of nature: you learn additional spells when you reach certain levels in this class if you don't already know them, as shown in the Primal Awareness Spells table. These spells don't count against the number of ranger spells you know. You can cast each of these spells once without expending a spell slot. Once you cast a spell in this way, you can't do so again until you finish a long rest.",
-      "unlockLevel": 3
+      "unlockLevel": 3,
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "speak-with-animals",
+          "uses": "long_rest",
+          "minLevel": 3,
+          "ability": "WIS",
+          "note": "Always known; doesn't count against spells known. Once per long rest without a slot."
+        },
+        {
+          "type": "spell",
+          "spellId": "beast-sense",
+          "uses": "long_rest",
+          "minLevel": 5,
+          "ability": "WIS",
+          "note": "Always known; doesn't count against spells known. Once per long rest without a slot."
+        },
+        {
+          "type": "spell",
+          "spellId": "speak-with-plants",
+          "uses": "long_rest",
+          "minLevel": 9,
+          "ability": "WIS",
+          "note": "Always known; doesn't count against spells known. Once per long rest without a slot."
+        },
+        {
+          "type": "spell",
+          "spellId": "locate-creature",
+          "uses": "long_rest",
+          "minLevel": 13,
+          "ability": "WIS",
+          "note": "Always known; doesn't count against spells known. Once per long rest without a slot."
+        },
+        {
+          "type": "spell",
+          "spellId": "commune-with-nature",
+          "uses": "long_rest",
+          "minLevel": 17,
+          "ability": "WIS",
+          "note": "Always known; doesn't count against spells known. Once per long rest without a slot."
+        }
+      ]
     },
     {
       "id": "ranger-conclave",

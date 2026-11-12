@@ -188,3 +188,28 @@ export const optionChoiceSchema = z
   .strict();
 
 export type OptionChoice = z.infer<typeof optionChoiceSchema>;
+
+/**
+ * Feat on kosullari. Her kosul ayri ayri saglanmali (AND); "anyOf" icindekilerden biri yeterli.
+ * "campaign" kosulu kontrol edilemez, sadece DM'e not olarak gosterilir.
+ */
+const featConditionBase = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("level"), min: z.number().int().positive() }).strict(),
+  z.object({ kind: z.literal("ability"), abilities: z.array(abilityIdSchema).min(1), min: z.number().int() }).strict(),
+  /** Lineage ya da sublineage id'lerinden biri (orn. "elf", "high-elf"). */
+  z.object({ kind: z.literal("lineage"), ids: z.array(z.string()).min(1), label: z.string() }).strict(),
+  z.object({ kind: z.literal("proficiency"), category: z.enum(["armor", "weapon"]), value: z.enum(["light", "medium", "heavy", "martial"]) }).strict(),
+  /** any: en az bir buyu yapabilmek; feature: class/subclass spellcasting ya da Pact Magic; prepared: buyu hazirlayan class. */
+  z.object({ kind: z.literal("spellcasting"), mode: z.enum(["any", "feature", "prepared"]) }).strict(),
+  z.object({ kind: z.literal("feat"), ids: z.array(z.string()).min(1) }).strict(),
+  z.object({ kind: z.literal("class"), ids: z.array(z.string()).min(1) }).strict(),
+  z.object({ kind: z.literal("background"), ids: z.array(z.string()).min(1) }).strict(),
+  z.object({ kind: z.literal("campaign"), text: z.string() }).strict(),
+]);
+
+export const featConditionSchema = z.union([
+  featConditionBase,
+  z.object({ kind: z.literal("anyOf"), conditions: z.array(featConditionBase).min(2) }).strict(),
+]);
+
+export type FeatCondition = z.infer<typeof featConditionSchema>;

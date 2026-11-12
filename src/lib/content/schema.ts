@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { grantSchema } from "@/lib/engine/grants";
+import { featConditionSchema, grantSchema } from "@/lib/engine/grants";
 
 export const featureSchema = z.object({
   id: z.string(),
@@ -184,6 +184,8 @@ export const featSchema = z.object({
   source: z.string().optional(),
   prerequisite: z.string().optional(),
   isRacialFeat: z.boolean().optional(),
+  /** Makinenin kontrol ettigi on kosullar. Bos ise feat herkese acik. */
+  requires: z.array(featConditionSchema).default([]),
   grants: z.array(grantSchema).default([]),
   detailParagraphs: z.array(z.string()).default([]),
   detailTables: z

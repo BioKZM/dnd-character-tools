@@ -146,6 +146,8 @@ export type CharacterDraft = {
     tools: string[];
     languages: string[];
   };
+  /** Ability skoru yontemi. Yoksa skorlara bakilarak point buy ya da manual sayilir. */
+  abilityMethod?: "point-buy" | "standard-array" | "manual";
   flexibleAbilityBonuses: {
     plusTwo: AbilityId | null;
     plusOne: AbilityId | null;
@@ -156,6 +158,8 @@ export type CharacterDraft = {
   skills: Skill[];
   actions: ActionItem[];
   inventory: string[];
+  /** Inventory'ye en son hangi background paketinin eklendigi. Degismedikce paket tekrar eklenmez (silinen esya geri gelmez). */
+  appliedBackgroundEquipment?: string;
   features: FeatureItem[];
   background: string;
   notes: string[];

@@ -1,4 +1,5 @@
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
+import { asiFeatIds } from "@/lib/engine/feats";
 import type { ClassCuratedCollection } from "@/lib/content/class-curated-schema";
 import type { ClassOptionCollection, ClassOptionEntry } from "@/lib/content/class-options-schema";
 import type { ContentBundle } from "@/lib/content/schema";
@@ -175,6 +176,28 @@ function lineageSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSou
   return sources;
 }
 
+/**
+ * Tasha's optional feature'lari ve yerine gectikleri feature'lar: sadece secilen taraf grant verir.
+ * Secim su an Ranger'in kendi alanlarinda (draft.rangerChoices) tutuluyor.
+ */
+const OPTIONAL_FEATURE_SWITCHES: Record<string, (draft: CharacterDraft) => boolean> = {
+  "favored-enemy": (draft) => draft.rangerChoices?.favoredEnemyMode !== "foe",
+  "favored-foe-optional": (draft) => draft.rangerChoices?.favoredEnemyMode === "foe",
+  "natural-explorer": (draft) => draft.rangerChoices?.favoredTerrainMode !== "deft",
+  "deft-explorer-optional": (draft) => draft.rangerChoices?.favoredTerrainMode === "deft",
+  "primeval-awareness": (draft) => draft.rangerChoices?.awarenessMode !== "primal",
+  "primal-awareness-optional": (draft) => draft.rangerChoices?.awarenessMode === "primal",
+  "hide-in-plain-sight": (draft) => draft.rangerChoices?.hideMode !== "natures-veil",
+  "nature-s-veil-optional": (draft) => draft.rangerChoices?.hideMode === "natures-veil",
+};
+
+function optionalFeatureActive(featureId: string, draft: CharacterDraft) {
+  if (draft.classId !== "ranger") {
+    return true;
+  }
+  return OPTIONAL_FEATURE_SWITCHES[featureId]?.(draft) ?? true;
+}
+
 function classSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSource[] {
   const classEntry = catalog.classes?.entries.find((entry) => entry.id === draft.classId);
   if (!classEntry) {
@@ -194,6 +217,7 @@ function classSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSourc
 
   classEntry.classFeatures
     .filter((feature) => (feature.unlockLevel ?? 1) <= draft.level && (feature.grants.length || feature.choices.length))
+    .filter((feature) => optionalFeatureActive(feature.id, draft))
     .forEach((feature) => {
       sources.push({
         kind: "class",
@@ -529,7 +553,11 @@ export function collectGrantSources(draft: CharacterDraft, catalog: EngineCatalo
   }
 
   const featIds = new Set<string>();
-  (draft.featIds ?? []).forEach((featId) => {
+  // Feat'lerin tek yolu: ASI secimleri (lineage ve background feat'leri grant olarak asagida zincirlenir).
+  asiFeatIds(catalog, draft).forEach((featId) => {
+    if (featIds.has(featId)) {
+      return;
+    }
     featIds.add(featId);
     sources.push(...featSource(catalog.content, featId, false));
   });

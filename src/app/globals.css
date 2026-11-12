@@ -8840,3 +8840,39 @@ h2 .keyword-help-trigger,
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* Faz 3: feat on kosullari */
+.feat-requirement-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 0.82rem;
+}
+.feat-requirement-unmet {
+  color: #e8836b;
+}
+.feat-requirement-dm {
+  color: #d9b45a;
+}
+.feat-requirement-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  opacity: 0.7;
+}
+.feature-browser-item.locked {
+  opacity: 0.45;
+}
+.ability-method-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ability-method-row .ability-flex-pick {
+  min-width: 0;
+  padding: 6px 12px;
+}
+.ability-array-select {
+  width: 100%;
+}
