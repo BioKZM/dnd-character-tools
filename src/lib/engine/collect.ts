@@ -136,6 +136,28 @@ function lineageSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSou
 
   [...lineage.choiceGroups, ...(sublineage?.choiceGroups ?? [])].forEach((group) => {
     const selectedIds = draft.lineageChoices?.[group.id] ?? [];
+
+    // Secenekleri data'da degil creator'da uretilen gruplar: secilen deger dogrudan skill / feat / cantrip id'si.
+    const dynamicGrants: Grant[] = group.id.endsWith("-skill-choice")
+      ? selectedIds.length ? [{ type: "proficiency", category: "skill", values: selectedIds }] : []
+      : group.id.endsWith("-feat-choice")
+        ? selectedIds.filter((id) => catalog.content.feats.some((feat) => feat.id === id)).map((featId) => ({ type: "feat" as const, featId }))
+        : group.id.endsWith("-cantrip-choice")
+          ? selectedIds
+              .filter((id) => catalog.content.spells.some((spell) => spell.id === id && spell.level === 0))
+              .map((spellId) => ({ type: "spell" as const, spellId, uses: "known" as const, ability: "INT" as const }))
+          : [];
+    if (dynamicGrants.length) {
+      sources.push({
+        kind: "lineage",
+        id: group.id,
+        name: sublineage?.name ?? lineage.name,
+        summary: group.name,
+        showAsFeature: false,
+        grants: dynamicGrants,
+      });
+    }
+
     group.options
       .filter((option) => selectedIds.includes(option.id))
       .forEach((option) => {
@@ -324,7 +346,80 @@ export function availableChoices(draft: CharacterDraft, catalog: EngineCatalog):
 
 /** Artik gecerli olmayan secimleri (opsiyon birakildi, level dustu...) temizler. */
 export function sanitizeChoices(draft: CharacterDraft, catalog: EngineCatalog): Record<string, string[]> {
-  return Object.fromEntries(availableChoices(draft, catalog).map((entry) => [entry.choice.id, entry.selectedIds]));
+  return Object.fromEntries([
+    ...availableChoices(draft, catalog).map((entry) => [entry.choice.id, entry.selectedIds]),
+    ...languageChoices(draft, catalog).map((entry) => [entry.id, entry.selectedNames]),
+  ]);
+}
+
+export type LanguageChoice = {
+  id: string;
+  label: string;
+  sourceName: string;
+  count: number;
+  options: string[];
+  selectedNames: string[];
+};
+
+/** Lineage dil gruplari (orn. "human-extra-language") secim anahtarlari "lineage:<grup id>". */
+function lineageLanguageGroups(catalog: EngineCatalog, draft: CharacterDraft) {
+  const { lineage, sublineage } = findLineage(catalog, draft);
+  if (!lineage) {
+    return [];
+  }
+  return [...lineage.choiceGroups, ...(sublineage?.choiceGroups ?? [])]
+    .filter((group) => group.id.includes("language"))
+    .map((group) => ({ group, sourceName: sublineage?.name ?? lineage.name }));
+}
+
+/**
+ * Race ve background'dan gelen dil secimleri. Secilenler draft.choices icinde
+ * "lineage:<grup>" ve "background:<secim>" anahtarlariyla saklanir.
+ */
+export function languageChoices(draft: CharacterDraft, catalog: EngineCatalog): LanguageChoice[] {
+  const languages = catalog.content.languages;
+  const { lineage, sublineage } = findLineage(catalog, draft);
+  const fixedNames = new Set(
+    [
+      ...(sublineage?.facts.languages.values.length ? sublineage.facts.languages.values : lineage?.facts.languages.values ?? []),
+      ...(catalog.content.backgrounds.find((entry) => entry.id === draft.backgroundId)?.languages.fixed ?? []).map(
+        (id) => languages.find((language) => language.id === id)?.name ?? id,
+      ),
+    ].map((name) => name.toLowerCase()),
+  );
+  const pool = (filter: "any" | "standard" | "exotic" | string[]) =>
+    (Array.isArray(filter)
+      ? filter.map((value) => languages.find((language) => language.id === value || language.name === value)?.name ?? value)
+      : languages.filter((language) => filter === "any" || language.category === filter).map((language) => language.name)
+    ).filter((name) => !fixedNames.has(name.toLowerCase()));
+
+  const entries: Omit<LanguageChoice, "selectedNames">[] = [
+    ...lineageLanguageGroups(catalog, draft).map(({ group, sourceName }) => ({
+      id: `lineage:${group.id}`,
+      label: group.name,
+      sourceName,
+      count: Math.max(1, group.maxSelections),
+      options: pool("any"),
+    })),
+    ...(catalog.content.backgrounds.find((entry) => entry.id === draft.backgroundId)?.languages.choices ?? []).map((choice) => ({
+      id: `background:${choice.id}`,
+      label: choice.label,
+      sourceName: catalog.content.backgrounds.find((entry) => entry.id === draft.backgroundId)?.name ?? "Background",
+      count: choice.count,
+      options: pool(choice.options),
+    })),
+  ];
+
+  // Ayni dil iki farkli secimde secilmesin.
+  const taken = new Set<string>();
+  return entries.map((entry) => {
+    const allowed = new Set(entry.options);
+    const selectedNames = (draft.choices?.[entry.id] ?? [])
+      .filter((name) => allowed.has(name) && !taken.has(name))
+      .slice(0, entry.count);
+    selectedNames.forEach((name) => taken.add(name));
+    return { ...entry, selectedNames };
+  });
 }
 
 function classOptionSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSource[] {
@@ -362,6 +457,18 @@ export function collectGrantSources(draft: CharacterDraft, catalog: EngineCatalo
     ...classSources(catalog, draft),
     ...classOptionSources(catalog, draft),
   ];
+
+  const pickedLanguages = languageChoices(draft, catalog).filter((entry) => entry.selectedNames.length);
+  pickedLanguages.forEach((entry) => {
+    sources.push({
+      kind: entry.id.startsWith("lineage:") ? "lineage" : "background",
+      id: entry.id,
+      name: entry.sourceName,
+      summary: entry.label,
+      showAsFeature: false,
+      grants: [{ type: "proficiency", category: "language", values: entry.selectedNames }],
+    });
+  });
 
   const background = catalog.content.backgrounds.find((entry) => entry.id === draft.backgroundId);
   if (background?.grants.length) {

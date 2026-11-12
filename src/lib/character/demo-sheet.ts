@@ -358,6 +358,9 @@ export const demoCharacter: CharacterDraft = {
  * Yapisal alanlar (abilities, skills listesi) demo'dan geliyor ama hepsi
  * buildDraftFromSelection icinde yeniden hesaplaniyor.
  */
+/** currentHp icin "can tam" isareti; gercek deger max HP'den hesaplanir. */
+export const FULL_HP = -1;
+
 export const emptyDraft: CharacterDraft = {
   ...demoCharacter,
   name: "New Character",
@@ -370,7 +373,7 @@ export const emptyDraft: CharacterDraft = {
   selectedSkillIds: [],
   spellIds: [],
   featIds: [],
-  currentHp: 0,
+  currentHp: FULL_HP,
   tempHp: 0,
   defenses: [],
   conditions: [],

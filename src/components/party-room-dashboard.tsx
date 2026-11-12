@@ -6,9 +6,10 @@ import { ClassPortrait } from "@/components/ui/class-portrait";
 import { AppIcon } from "@/components/ui/app-icon";
 import { buildSheetContent } from "@/lib/character/build-sheet";
 import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
-import { emptyDraft, stripLeakedDemoValues, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
+import { emptyDraft, FULL_HP, stripLeakedDemoValues, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
-import { availableChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
+import { availableChoices, languageChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
+import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
 import { deriveCharacter, hasProficiency, senseLabel, type DerivedCharacter } from "@/lib/engine/derive";
 import {
   warlockInvocationMeetsPrerequisite,
@@ -971,11 +972,13 @@ function finalAbilityBonuses(lineageDataCatalog: LineageCatalog | undefined, dra
     lineage?.facts.abilityScoreBonuses.some((bonus) => bonus.type === "choice") ||
     sublineage?.facts.abilityScoreBonuses.some((bonus) => bonus.type === "choice");
 
+  // Slot miktarlari lineage kuralindan: Tabaxi/Eladrin +2/+1, Variant Human +1/+1.
+  const [firstSlotAmount, secondSlotAmount] = flexibleBonusAmounts(lineage, sublineage);
   if (supportsFlexibleBonuses && draft.flexibleAbilityBonuses?.plusTwo) {
-    addBonus(draft.flexibleAbilityBonuses.plusTwo, 2);
+    addBonus(draft.flexibleAbilityBonuses.plusTwo, firstSlotAmount);
   }
   if (supportsFlexibleBonuses && draft.flexibleAbilityBonuses?.plusOne) {
-    addBonus(draft.flexibleAbilityBonuses.plusOne, 1);
+    addBonus(draft.flexibleAbilityBonuses.plusOne, secondSlotAmount);
   }
 
   fighterAsiLevelChoices(draft.fighterChoices?.abilityScoreImprovements).forEach((amount, ability) => {
@@ -1096,9 +1099,18 @@ function buildSheetDraftFromSelection(
 
   const saveProficient = (ability: AbilityId) =>
     chosenClass.savingThrows.includes(ability) || hasProficiency(derived, "save", ability);
+  // "Longswords" (class) ile "Longsword" (lineage) ayni proficiency; tekil/cogul farki tekrar sayilmaz.
+  const proficiencyKey = (value: string) => value.toLowerCase().trim().replace(/s$/, "");
   const mergeNames = (existing: string[], extra: { value: string }[]) => {
-    const seen = new Set(existing.map((value) => value.toLowerCase()));
-    return [...existing, ...extra.map((entry) => entry.value).filter((value) => !seen.has(value.toLowerCase()) && seen.add(value.toLowerCase()))];
+    const seen = new Set<string>();
+    return [...existing, ...extra.map((entry) => entry.value)].filter((value) => {
+      const key = proficiencyKey(value);
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
   };
 
   return {
@@ -1108,7 +1120,7 @@ function buildSheetDraftFromSelection(
     initiative: modifiers.DEX + derived.initiative.bonus,
     armorClass: calculatedArmorClass(content, draft.inventory, modifiers.DEX),
     maxHp,
-    currentHp: Math.min(draft.currentHp, maxHp),
+    currentHp: draft.currentHp < 0 ? maxHp : Math.min(draft.currentHp, maxHp),
     savingThrows: (["STR", "DEX", "CON", "INT", "WIS", "CHA"] as AbilityId[]).map((ability) => ({
       ability,
       bonus: modifiers[ability] + (saveProficient(ability) ? proficiencyBonus : 0),
@@ -1327,7 +1339,7 @@ function buildDraftFromSelection(
     initiative: modifiers.DEX,
     armorClass,
     maxHp,
-    currentHp: Math.min(previous.currentHp, maxHp),
+    currentHp: previous.currentHp < 0 ? FULL_HP : Math.min(previous.currentHp, maxHp),
     proficiencies: {
       armor: unique([...(classRules?.armor ?? [])]),
       weapons: unique([...(classRules?.weapons ?? [])]),
@@ -1470,6 +1482,7 @@ export function PartyRoomDashboard({
     () => buildSheetContent(initialContent, sheetDraft, engineCatalog),
     [initialContent, sheetDraft, engineCatalog],
   );
+  // currentHp < 0 (FULL_HP) = "can tam": max HP level/CON ile degisse bile karakter dolu kalir.
   const [currentHp, setCurrentHp] = useState(() => draft.currentHp);
   const [tempHp, setTempHp] = useState(() => draft.tempHp);
   const [activityLog, setActivityLog] = useState<LocalActivity[]>([]);
@@ -1493,17 +1506,17 @@ export function PartyRoomDashboard({
       "codex-character-draft",
       JSON.stringify({
         ...draft,
-        currentHp,
+        currentHp: currentHp < 0 || currentHp >= sheetDraft.maxHp ? FULL_HP : currentHp,
         tempHp,
       }),
     );
-  }, [draft, currentHp, tempHp]);
+  }, [draft, currentHp, tempHp, sheetDraft.maxHp]);
 
   const filteredActions =
     activeTab === "actions"
       ? sheetContent.builtActions.filter((action) => actionFilter === "all" || action.category === actionFilter)
       : [];
-  const displayedCurrentHp = Math.min(currentHp, sheetDraft.maxHp);
+  const displayedCurrentHp = currentHp < 0 ? sheetDraft.maxHp : Math.min(currentHp, sheetDraft.maxHp);
   const currentCuratedClass =
     initialClassCuratedCollection.entries.find((entry) => entry.id === draft.classId) ?? null;
   const currentClassRules = initialCreatorOptions.classOptions[draft.classId];
@@ -1713,6 +1726,22 @@ export function PartyRoomDashboard({
       pactBoonId,
       selectedPactCantripIds: pactBoonId === "pact-of-the-tome" ? current.selectedPactCantripIds ?? [] : [],
     }));
+  };
+
+  const toggleLanguageChoice = (choiceId: string, language: string) => {
+    updateDraft((current) => {
+      const entry = languageChoices(current, engineCatalog).find((item) => item.id === choiceId);
+      if (!entry) {
+        return current;
+      }
+      const existing = entry.selectedNames;
+      const next = existing.includes(language)
+        ? existing.filter((item) => item !== language)
+        : existing.length < entry.count && entry.options.includes(language)
+          ? [...existing, language]
+          : existing;
+      return { ...current, choices: { ...(current.choices ?? {}), [choiceId]: next } };
+    });
   };
 
   const toggleOptionChoice = (choiceId: string, value: string) => {
@@ -2015,7 +2044,7 @@ export function PartyRoomDashboard({
         JSON.stringify(
           {
             ...draft,
-            currentHp,
+            currentHp: displayedCurrentHp,
             tempHp,
           },
           null,
@@ -2121,11 +2150,16 @@ export function PartyRoomDashboard({
   };
 
   const applyDamage = (amount: number) => {
-    setCurrentHp((value) => Math.max(value - amount, 0));
+    // Hasar once gecici HP'den dusulur.
+    const absorbed = Math.min(tempHp, amount);
+    if (absorbed > 0) {
+      setTempHp((value) => Math.max(value - absorbed, 0));
+    }
+    setCurrentHp((value) => Math.max((value < 0 ? sheetDraft.maxHp : value) - (amount - absorbed), 0));
   };
 
   const applyHealing = (amount: number) => {
-    setCurrentHp((value) => Math.min(value + amount, sheetDraft.maxHp));
+    setCurrentHp((value) => (value < 0 ? FULL_HP : Math.min(value + amount, sheetDraft.maxHp)));
   };
 
   if (!isHydrated) {
@@ -2150,6 +2184,8 @@ export function PartyRoomDashboard({
           <section className="creator-card">
             <CreatorWorkspace
               draft={draft}
+              previewDraft={sheetDraft}
+              previewStats={sheetContent.derivedStats}
               content={initialContent}
               creatorStep={creatorStep}
               moveCreatorStep={moveCreatorStep}
@@ -2183,6 +2219,8 @@ export function PartyRoomDashboard({
               togglePactCantripSelection={togglePactCantripSelection}
               optionChoices={availableChoices(draft, engineCatalog)}
               toggleOptionChoice={toggleOptionChoice}
+              languageChoices={languageChoices(draft, engineCatalog)}
+              toggleLanguageChoice={toggleLanguageChoice}
               setMysticArcanumSpell={setMysticArcanumSpell}
               setRangerFavoredEnemyMode={setRangerFavoredEnemyMode}
               updateRangerFavoredEnemyChoice={updateRangerFavoredEnemyChoice}
@@ -2219,7 +2257,15 @@ export function PartyRoomDashboard({
                 Level Up
               </button>
               <button className="sheet-button secondary">Short Rest</button>
-              <button className="sheet-button secondary">Long Rest</button>
+              <button
+                className="sheet-button secondary"
+                onClick={() => {
+                  setCurrentHp(FULL_HP);
+                  setTempHp(0);
+                }}
+              >
+                Long Rest
+              </button>
             </div>
             <div className="top-actions-divider print-hide" />
             <div className="top-actions-group print-hide">

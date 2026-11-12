@@ -6,7 +6,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { CharacterDraft, AbilityId } from "@/lib/character/demo-sheet";
 import { eldritchKnightProgression, getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
 import type { LineageCatalog, LineageChoiceGroup, LineageChoiceOption, LineageEntry as StructuredLineageEntry, LineageFeature as StructuredLineageFeature, Sublineage as StructuredSublineage } from "@/lib/data/lineages/schema";
-import type { AvailableChoice } from "@/lib/engine/collect";
+import type { AvailableChoice, LanguageChoice } from "@/lib/engine/collect";
+import { LanguageChoicePanel } from "@/components/language-choice-panel";
+import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
+import type { DerivedStatDisplay } from "@/lib/character/build-sheet";
 import { OptionChoicePanel } from "@/components/option-choice-panel";
 import type { ClassDocBlock, ClassDocCollection, ClassDocSection, ClassDocTable } from "@/lib/content/class-docs";
 
@@ -2863,6 +2866,10 @@ export function CreatorWorkspace({
   togglePactCantripSelection,
   optionChoices,
   toggleOptionChoice,
+  previewDraft,
+  previewStats,
+  languageChoices,
+  toggleLanguageChoice,
   setMysticArcanumSpell,
   setRangerFavoredEnemyMode,
   updateRangerFavoredEnemyChoice,
@@ -2929,6 +2936,11 @@ export function CreatorWorkspace({
   setPactBoon: (value: string) => void;
   togglePactCantripSelection: (value: string) => void;
   optionChoices: AvailableChoice[];
+  /** Sheet ile ayni hesaptan gelen taslak; onizleme panelindeki sayilar buradan okunur. */
+  previewDraft: CharacterDraft;
+  languageChoices: LanguageChoice[];
+  toggleLanguageChoice: (choiceId: string, language: string) => void;
+  previewStats: { armorClass: DerivedStatDisplay; walkingSpeed: DerivedStatDisplay; extraMovementModes: DerivedStatDisplay[] };
   toggleOptionChoice: (choiceId: string, value: string) => void;
   setMysticArcanumSpell: (spellLevel: 6 | 7 | 8 | 9, spellId: string) => void;
   setRangerFavoredEnemyMode: (mode: "enemy" | "foe") => void;
@@ -3037,6 +3049,23 @@ export function CreatorWorkspace({
       };
     }
 
+    if (group.id.endsWith("-feat-choice")) {
+      // 1. level'da alinabilecek feat'ler: irk feat'leri ve level on kosullu feat'ler haric.
+      return {
+        ...group,
+        options: content.feats
+          .filter((feat) => !feat.isRacialFeat && !/level/i.test(feat.prerequisite ?? ""))
+          .map((feat) => ({
+            id: feat.id,
+            label: feat.name,
+            summary: feat.prerequisite ? `Prerequisite: ${feat.prerequisite}` : cleanImportedText(feat.summary),
+            details: [],
+            grants: [],
+            childChoiceGroupIds: [],
+          })),
+      };
+    }
+
     if (group.id === "half-elf-cantrip-choice" || group.id === "high-elf-cantrip-choice") {
       return {
         ...group,
@@ -3069,6 +3098,10 @@ export function CreatorWorkspace({
 
     return currentStructuredSublineageChoiceGroups.filter((group) => !childGroupIds.has(group.id));
   }, [currentStructuredSublineageChoiceGroups]);
+  const originRaceChoiceGroups = [
+    ...currentStructuredRootChoiceGroups.map((group) => ({ group, map: currentStructuredChoiceGroupMap })),
+    ...currentStructuredSublineageRootChoiceGroups.map((group) => ({ group, map: currentStructuredSublineageChoiceGroupMap })),
+  ].filter(({ group }) => !group.id.includes("language"));
   const structuredLineageChoicesAvailable = Boolean(currentStructuredLineage?.choiceGroups.length);
   const structuredSublineageChoicesAvailable = Boolean(currentStructuredSublineage?.choiceGroups.length);
   const lineageChoiceTabs = useMemo(
@@ -3146,6 +3179,10 @@ export function CreatorWorkspace({
     : lineageHasFlexibleAbilityIncrease
       ? currentLineageGroup.name
       : null;
+  // Esnek bonus slot miktarlari: Tabaxi/Eladrin +2/+1, Variant Human +1/+1.
+  const [firstFlexAmount, secondFlexAmount] = flexibleBonusAmounts(currentStructuredLineage, currentStructuredSublineage);
+  const firstFlexLabel = `+${firstFlexAmount}`;
+  const secondFlexLabel = `+${secondFlexAmount}`;
   const structuredLineageFixedBonuses =
     currentStructuredLineage && !(currentStructuredLineage.id === "human" && currentStructuredSublineage?.id === "variant-human")
       ? currentStructuredLineage.facts.abilityScoreBonuses
@@ -3172,10 +3209,10 @@ export function CreatorWorkspace({
   const flexiblePreviewBonuses = flexibleAbilityBonusSource
     ? [
         draft.flexibleAbilityBonuses.plusTwo
-          ? { ability: draft.flexibleAbilityBonuses.plusTwo, amount: 2 }
+          ? { ability: draft.flexibleAbilityBonuses.plusTwo, amount: firstFlexAmount }
           : null,
         draft.flexibleAbilityBonuses.plusOne
-          ? { ability: draft.flexibleAbilityBonuses.plusOne, amount: 1 }
+          ? { ability: draft.flexibleAbilityBonuses.plusOne, amount: secondFlexAmount }
           : null,
       ].filter((entry): entry is { ability: AbilityId; amount: number } => Boolean(entry))
     : [];
@@ -5571,36 +5608,40 @@ export function CreatorWorkspace({
     id: ability.id,
     value: ability.previewScore,
   }));
-  const dexterityModifier = draft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
-  const constitutionModifier = draft.abilities.find((ability) => ability.id === "CON")?.modifier ?? 0;
+  // Onizleme sayilari sheet ile ayni hesaptan (previewDraft / previewStats) gelir; ikisi asla farkli gostermez.
+  const dexterityModifier = previewDraft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
+  const constitutionModifier = previewDraft.abilities.find((ability) => ability.id === "CON")?.modifier ?? 0;
   const averageHitDieValue = Math.floor(currentClass.hitDie / 2) + 1;
-  const unarmoredArmorClass = 10 + dexterityModifier;
+  const initiativeBonusFromGrants = previewDraft.initiative - dexterityModifier;
   const previewPanelStats = [
     {
       label: "Armor Class",
-      value: String(draft.armorClass),
-      breakdown: [
-        `Unarmored baseline: 10 + DEX ${signedNumber(dexterityModifier)} = ${unarmoredArmorClass}.`,
-        `Current best from armor/shield inventory: ${draft.armorClass}.`,
-      ],
+      value: previewStats.armorClass.displayValue,
+      breakdown: previewStats.armorClass.breakdown,
     },
     {
       label: "Initiative",
-      value: signedNumber(draft.initiative),
-      breakdown: [`Initiative equals DEX modifier: ${signedNumber(dexterityModifier)}.`],
+      value: signedNumber(previewDraft.initiative),
+      breakdown: [
+        `DEX modifier: ${signedNumber(dexterityModifier)}.`,
+        ...(initiativeBonusFromGrants ? [`Other bonuses (feats, features): ${signedNumber(initiativeBonusFromGrants)}.`] : []),
+      ],
     },
     {
       label: "Speed",
-      value: draft.speed,
-      breakdown: [`Base movement from lineage and selected options: ${draft.speed}.`],
+      value: previewStats.walkingSpeed.displayValue,
+      breakdown: [
+        ...previewStats.walkingSpeed.breakdown,
+        ...previewStats.extraMovementModes.map((speed) => `${speed.label}: ${speed.displayValue}`),
+      ],
     },
     {
       label: "Hit Points",
-      value: String(draft.maxHp),
+      value: String(previewDraft.maxHp),
       breakdown: [
         `Level 1: ${currentClass.hitDie} + CON ${signedNumber(constitutionModifier)}.`,
         `Later levels: ${Math.max(0, draft.level - 1)} × (${averageHitDieValue} + CON ${signedNumber(constitutionModifier)}).`,
-        `Current maximum: ${draft.maxHp}.`,
+        `Current maximum: ${previewDraft.maxHp}.`,
       ],
     },
   ];
@@ -5611,15 +5652,15 @@ export function CreatorWorkspace({
       value: `${draft.proficiencyBonus + intelligenceModifier >= 0 ? "+" : ""}${draft.proficiencyBonus + intelligenceModifier}`,
     },
   ] as const;
-  const previewSkillEntries = draft.skills
+  const previewSkillEntries = previewDraft.skills
     .filter((skill) => skill.proficient || draft.selectedSkillIds.includes(skill.id) || backgroundSkillIds.includes(skill.id))
     .map((skill) => ({
       label: skill.label,
       breakdown: skill.breakdown,
     }));
   const previewPanelProficiencies = [
-    { label: "Weapons", value: compactPreviewValue(draft.proficiencies.weapons.join(", ") || "None", 2) },
-    { label: "Armor", value: compactPreviewValue(draft.proficiencies.armor.join(", ") || "None", 2) },
+    { label: "Weapons", value: compactPreviewValue(previewDraft.proficiencies.weapons.join(", ") || "None", 2) },
+    { label: "Armor", value: compactPreviewValue(previewDraft.proficiencies.armor.join(", ") || "None", 2) },
     {
       label: "Skills",
       value: compactPreviewValue(previewSkillEntries.map((skill) => skill.label).join(", ") || "None", 3),
@@ -5886,6 +5927,12 @@ export function CreatorWorkspace({
                             </article>
                           ))}
                         </div>
+                        {/* Irk / alt irk secimleri (Variant Human skill + feat, High Elf cantrip). Dil secimleri Tools & Gear > Languages'ta. */}
+                        {originRaceChoiceGroups.length ? (
+                          <div className="creator-stack">
+                            {originRaceChoiceGroups.map(({ group, map }) => renderLineageChoiceGroup(group, false, map))}
+                          </div>
+                        ) : null}
                       </div>
                     ) : null}
 
@@ -9683,6 +9730,7 @@ export function CreatorWorkspace({
                       <span>This background does not grant languages.</span>
                     </div>
                   )}
+                  <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} />
                 </section>
                 ) : null}
 
@@ -10620,7 +10668,7 @@ export function CreatorWorkspace({
                   <div className="flexible-bonus-panel compact">
                     <div className="list-row">
                       <strong>Flexible Ability Score Increase</strong>
-                      <span>{`${flexibleAbilityBonusSource} lets you assign one +2 and one +1 to different abilities.`}</span>
+                      <span>{`${flexibleAbilityBonusSource} lets you assign one ${firstFlexLabel} and one ${secondFlexLabel} to different abilities.`}</span>
                     </div>
                   </div>
                 ) : null}
@@ -10691,7 +10739,7 @@ export function CreatorWorkspace({
                   <div className="flexible-bonus-panel compact ability-bonus-assignment-panel">
                     <div className="list-row">
                       <strong>Assign Flexible Bonuses</strong>
-                      <span>Choose which abilities receive the +2 and +1 bonuses.</span>
+                      <span>{`Choose which abilities receive the ${firstFlexLabel} and ${secondFlexLabel} bonuses.`}</span>
                     </div>
                     <div className="ability-flex-assignment-grid">
                       {draft.abilities.map((ability) => (
@@ -10710,7 +10758,7 @@ export function CreatorWorkspace({
                               }
                               disabled={draft.flexibleAbilityBonuses.plusOne === ability.id}
                             >
-                              +2
+                              {firstFlexLabel}
                             </button>
                             <button
                               type="button"
@@ -10724,7 +10772,7 @@ export function CreatorWorkspace({
                               }
                               disabled={draft.flexibleAbilityBonuses.plusTwo === ability.id}
                             >
-                              +1
+                              {secondFlexLabel}
                             </button>
                           </div>
                         </div>

@@ -31,7 +31,7 @@ type SpellActionSource = {
 
 type DerivedStatTone = "neutral" | "boosted";
 
-type DerivedStatDisplay = {
+export type DerivedStatDisplay = {
   id: string;
   label: string;
   displayValue: string;
