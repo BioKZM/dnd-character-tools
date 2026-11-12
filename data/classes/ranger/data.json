@@ -13,6 +13,7 @@
     "STR",
     "DEX"
   ],
+  "spellcastingAbility": "WIS",
   "startingGrants": [
     {
       "type": "proficiency",

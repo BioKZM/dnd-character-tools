@@ -8696,3 +8696,85 @@ h2 .keyword-help-trigger,
     opacity: 1;
   }
 }
+
+/* --- Sheet: spells tab, slot and resource trackers --- */
+.spells-tab-body {
+  display: grid;
+  gap: 14px;
+}
+
+.spellcasting-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.spellcasting-summary-stat {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.spellcasting-summary-stat span {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.spellcasting-summary-stat strong {
+  font-size: 1.05rem;
+}
+
+.spell-slot-list,
+.resource-list,
+.spell-level-group {
+  display: grid;
+  gap: 8px;
+}
+
+.resource-list {
+  margin-bottom: 14px;
+}
+
+.spell-slot-row {
+  align-items: center;
+}
+
+.spell-slot-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.usage-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.usage-dot {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  background: transparent;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.usage-dot.spent {
+  background: currentColor;
+  opacity: 0.35;
+}
+
+@media (max-width: 640px) {
+  .spellcasting-summary {
+    grid-template-columns: 1fr;
+  }
+}

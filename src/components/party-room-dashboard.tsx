@@ -8,6 +8,8 @@ import { buildSheetContent } from "@/lib/character/build-sheet";
 import { getEldritchKnightProgression } from "@/lib/character/eldritch-knight";
 import { emptyDraft, FULL_HP, stripLeakedDemoValues, type CharacterDraft, type AbilityId, type RangerChoices, type FighterChoices } from "@/lib/character/demo-sheet";
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
+import { SheetSpellsPanel } from "@/components/sheet-spells-panel";
+import { SheetResourcesPanel } from "@/components/sheet-resources-panel";
 import { availableChoices, languageChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
 import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
 import { deriveCharacter, hasProficiency, senseLabel, type DerivedCharacter } from "@/lib/engine/derive";
@@ -27,7 +29,7 @@ type LocalActivity = {
   createdAt: string;
 };
 
-type InfoTab = "actions" | "inventory" | "features" | "background";
+type InfoTab = "actions" | "spells" | "inventory" | "features" | "background";
 type CreatorStep = 0 | 1 | 2 | 3;
 type ActivityFilter = "all" | "rolls" | "system";
 type ActionFilter = "all" | "Attack" | "Action" | "Bonus Action" | "Reaction" | "Other";
@@ -1069,6 +1071,8 @@ function buildSheetDraftFromSelection(
     const existing = draft.skills.find((skill) => skill.id === skillId);
     const ability = skillAbilities[skillId] ?? existing?.ability ?? "INT";
     const modifier = modifiers[ability];
+    // Jack of All Trades: proficient olunmayan skill'lere yarim proficiency (asagi yuvarlanir).
+    const halfProficiency = derived.halfProficiency.sources.length ? Math.floor(proficiencyBonus / 2) : 0;
     const proficient =
       backgroundRules?.skillProficiencies.includes(skillId) ||
       activeBackgroundSkillIds.includes(skillId) ||
@@ -1087,12 +1091,14 @@ function buildSheetDraftFromSelection(
       label: existing?.label ?? skillLabel(skillId),
       ability,
       proficient,
-      bonus: modifier + (proficient ? proficiencyBonus : 0) + (expertise ? proficiencyBonus : 0),
+      bonus: modifier + (proficient ? proficiencyBonus : halfProficiency) + (expertise ? proficiencyBonus : 0),
       breakdown: expertise
         ? `${ability} modifier + expertise.`
         : proficient
           ? `${ability} modifier + proficiency.`
-          : `${ability} modifier.`,
+          : halfProficiency
+            ? `${ability} modifier + half proficiency (${derived.halfProficiency.sources.join(", ")}).`
+            : `${ability} modifier.`,
       description: skillDescriptions[skillId] ?? existing?.description ?? "",
     };
   });
@@ -1117,7 +1123,8 @@ function buildSheetDraftFromSelection(
     ...draft,
     abilities,
     proficiencyBonus,
-    initiative: modifiers.DEX + derived.initiative.bonus,
+    initiative:
+      modifiers.DEX + derived.initiative.bonus + (derived.halfProficiency.sources.length ? Math.floor(proficiencyBonus / 2) : 0),
     armorClass: calculatedArmorClass(content, draft.inventory, modifiers.DEX),
     maxHp,
     currentHp: draft.currentHp < 0 ? maxHp : Math.min(draft.currentHp, maxHp),
@@ -1728,6 +1735,32 @@ export function PartyRoomDashboard({
     }));
   };
 
+  // Short rest: pact slot'lar ve short rest kaynaklari yenilenir. Long rest: hepsi + HP.
+  const shortRest = () => {
+    const shortResourceIds = new Set(
+      sheetContent.resources.filter((resource) => resource.recharge === "short_rest").map((resource) => resource.id),
+    );
+    updateDraft((current) => ({
+      ...current,
+      usedSlots: Object.fromEntries(Object.entries(current.usedSlots ?? {}).filter(([key]) => !key.startsWith("pact-"))),
+      usedResources: Object.fromEntries(Object.entries(current.usedResources ?? {}).filter(([id]) => !shortResourceIds.has(id))),
+    }));
+  };
+
+  const longRest = () => {
+    setCurrentHp(FULL_HP);
+    setTempHp(0);
+    updateDraft((current) => ({ ...current, usedSlots: {}, usedResources: {} }));
+  };
+
+  const setSlotUsage = (slotKey: string, used: number) => {
+    updateDraft((current) => ({ ...current, usedSlots: { ...(current.usedSlots ?? {}), [slotKey]: used } }));
+  };
+
+  const setResourceUsage = (resourceId: string, used: number) => {
+    updateDraft((current) => ({ ...current, usedResources: { ...(current.usedResources ?? {}), [resourceId]: used } }));
+  };
+
   const toggleLanguageChoice = (choiceId: string, language: string) => {
     updateDraft((current) => {
       const entry = languageChoices(current, engineCatalog).find((item) => item.id === choiceId);
@@ -2256,14 +2289,10 @@ export function PartyRoomDashboard({
               <button className="sheet-button secondary" onClick={levelUp}>
                 Level Up
               </button>
-              <button className="sheet-button secondary">Short Rest</button>
-              <button
-                className="sheet-button secondary"
-                onClick={() => {
-                  setCurrentHp(FULL_HP);
-                  setTempHp(0);
-                }}
-              >
+              <button className="sheet-button secondary" onClick={shortRest}>
+                Short Rest
+              </button>
+              <button className="sheet-button secondary" onClick={longRest}>
                 Long Rest
               </button>
             </div>
@@ -2544,7 +2573,9 @@ export function PartyRoomDashboard({
           <div className="sheet-column right-column">
             <article className="sheet-card tabs-card pdf-page-break-before-soft">
               <div className="tab-strip">
-                {(["actions", "inventory", "features", "background"] as InfoTab[]).map((tab) => (
+                {(["actions", "spells", "inventory", "features", "background"] as InfoTab[])
+                  .filter((tab) => tab !== "spells" || sheetContent.spellcasting.length || sheetContent.spellEntries.length)
+                  .map((tab) => (
                   <button
                     className={tab === activeTab ? "tab-button active" : "tab-button"}
                     key={tab}
@@ -2555,8 +2586,22 @@ export function PartyRoomDashboard({
                 ))}
               </div>
 
+              {activeTab === "spells" ? (
+                <SheetSpellsPanel
+                  profiles={sheetContent.spellcasting}
+                  spells={sheetContent.spellEntries}
+                  usedSlots={draft.usedSlots ?? {}}
+                  onSlotChange={setSlotUsage}
+                />
+              ) : null}
+
               {activeTab === "actions" ? (
                 <div className="tab-body action-tab-body">
+                  <SheetResourcesPanel
+                    resources={sheetContent.resources}
+                    usedResources={draft.usedResources ?? {}}
+                    onChange={setResourceUsage}
+                  />
                   <div className="action-header">
                     <span>Actions</span>
                     <span>{`${sheetContent.builtActions.length} total entries`}</span>

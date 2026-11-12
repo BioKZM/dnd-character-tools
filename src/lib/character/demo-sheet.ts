@@ -110,6 +110,10 @@ export type CharacterDraft = {
   selectedPactCantripIds: string[];
   /** Genel secimler: choice id -> secilen degerler (orn. Book of Ancient Secrets ritual'lari). */
   choices: Record<string, string[]>;
+  /** Harcanan spell slot'lar: "spell-1", "pact-3" -> kullanilan sayi. */
+  usedSlots: Record<string, number>;
+  /** Harcanan kaynaklar: resource id -> kullanilan sayi. */
+  usedResources: Record<string, number>;
   selectedInvocationIds: string[];
   mysticArcanumSelections: Partial<Record<6 | 7 | 8 | 9, string>>;
   rangerChoices: RangerChoices;
@@ -164,6 +168,8 @@ export const demoCharacter: CharacterDraft = {
   pactBoonId: null,
   selectedPactCantripIds: [],
   choices: {},
+  usedSlots: {},
+  usedResources: {},
   selectedInvocationIds: [],
   mysticArcanumSelections: {},
   rangerChoices: {

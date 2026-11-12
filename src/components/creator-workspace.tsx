@@ -6484,7 +6484,7 @@ export function CreatorWorkspace({
                                     unlockLevel: 1,
                                     currentValueTemplate: undefined,
                                     tags: [],
-                                    milestones: [], grants: [],
+                                    milestones: [], grants: [], choices: [],
                                   }, draft.level)}
                                 />
                               </strong>
@@ -6526,7 +6526,7 @@ export function CreatorWorkspace({
                                         unlockLevel: 1,
                                         currentValueTemplate: undefined,
                                         tags: [],
-                                        milestones: [], grants: [],
+                                        milestones: [], grants: [], choices: [],
                                       }, draft.level)}
                                     />
                                     <span className="fighter-feature-check" aria-hidden="true">✓</span>
@@ -6558,7 +6558,7 @@ export function CreatorWorkspace({
                                           unlockLevel: 1,
                                           currentValueTemplate: undefined,
                                           tags: [],
-                                          milestones: [], grants: [],
+                                          milestones: [], grants: [], choices: [],
                                         }, draft.level)}
                                       />
                                     </strong>
@@ -6921,7 +6921,7 @@ export function CreatorWorkspace({
                                     <span>Your current level, Pact Boon, or learned spells do not unlock an invocation here yet.</span>
                                   </div>
                                 )}
-                          <OptionChoicePanel choices={optionChoices} onToggle={toggleOptionChoice} />
+                          <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                         </>
                       )}
                     </div>
@@ -6961,7 +6961,7 @@ export function CreatorWorkspace({
                                         keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
                                         currentValueTemplate: undefined,
                                         tags: [],
-                                        milestones: [], grants: [],
+                                        milestones: [], grants: [], choices: [],
                                       }, draft.level)}
                                     />
                                   </strong>
@@ -9914,6 +9914,8 @@ export function CreatorWorkspace({
                         <div className="identity-detail-head compact">
                           <span className="mini-heading creator-section-label class-section-label">Skills</span>
                         </div>
+                        {/* Feature'lardan gelen skill secimleri (orn. Bard Expertise). */}
+                        <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
                         <div className="creator-inline-list">
                           <div className="list-row">
                             <strong>{`Choose ${skillChoiceCount} class skill${skillChoiceCount === 1 ? "" : "s"}`}</strong>
@@ -10512,7 +10514,7 @@ export function CreatorWorkspace({
                                 )
                               ) : null}
                               {openWarlockGroup === "invocations" ? (
-                                <OptionChoicePanel choices={optionChoices} onToggle={toggleOptionChoice} />
+                                <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                               ) : null}
                             </div>
                           </div>

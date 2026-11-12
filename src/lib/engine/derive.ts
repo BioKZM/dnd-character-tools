@@ -33,9 +33,11 @@ export type DerivedCharacter = {
   hp: { perLevel: number; flat: number; breakdown: string[] };
   armorClassBonuses: { bonus: number; condition?: string; source: string }[];
   initiative: { bonus: number; breakdown: string[] };
+  /** Jack of All Trades gibi: proficient olunmayan check'lere yarim proficiency. */
+  halfProficiency: { sources: string[] };
   spells: DerivedSpell[];
   notes: { text: string; source: string }[];
-  resources: { id: string; name: string; uses: number | string; recharge: string; source: string }[];
+  resources: { id: string; name: string; uses: number | string; recharge: "short_rest" | "long_rest"; source: string }[];
   /** Kaynaklardan gelen feat'ler (taslakta secilmis olanlar dahil). */
   featIds: string[];
   /** Data'da olup bu motorun islemedigi grant tipleri. Bos olmali; audit scripti kontrol eder. */
@@ -53,6 +55,7 @@ export const HANDLED_GRANT_TYPES: GrantType[] = [
   "hp",
   "ac",
   "initiative",
+  "half_proficiency",
   "spell",
   "feat",
   "resource",
@@ -129,6 +132,7 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
     hp: { perLevel: 0, flat: 0, breakdown: [] },
     armorClassBonuses: [],
     initiative: { bonus: 0, breakdown: [] },
+    halfProficiency: { sources: [] },
     spells: [],
     notes: [],
     resources: [],
@@ -209,6 +213,9 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
         result.initiative.bonus += grant.bonus;
         result.initiative.breakdown.push(`${label}: +${grant.bonus}`);
         return;
+      case "half_proficiency":
+        result.halfProficiency.sources.push(label);
+        return;
       case "spell":
         if (grant.minLevel && draft.level < grant.minLevel) {
           return;
@@ -219,7 +226,13 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
         // Zincirleme feat'ler collectGrantSources icinde kaynak olarak eklendi.
         return;
       case "resource":
-        result.resources.push({ id: grant.id, name: grant.name, uses: grant.uses, recharge: grant.recharge, source: label });
+        result.resources.push({
+          id: grant.id,
+          name: grant.name,
+          uses: grant.uses,
+          recharge: grant.shortRestFromLevel && draft.level >= grant.shortRestFromLevel ? "short_rest" : grant.recharge,
+          source: label,
+        });
         return;
       case "note":
         result.notes.push({ text: grant.text, source: label });
@@ -254,4 +267,28 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
 
 export function hasProficiency(derived: DerivedCharacter, category: ProficiencyCategory, value: string) {
   return derived.proficiencies[category].some((entry) => entry.value.toLowerCase() === value.toLowerCase());
+}
+
+/** Kaynak kullanim sayisini level ve yeteneklere gore cozer ("1 (2 at 17th level)", "CHA", "PB"). */
+export function resolveResourceUses(
+  uses: number | string,
+  context: { level: number; proficiencyBonus: number; modifiers: Record<AbilityId, number> },
+) {
+  if (typeof uses === "number") {
+    return uses;
+  }
+  const token = uses.trim().toUpperCase();
+  if (token === "PB") {
+    return context.proficiencyBonus;
+  }
+  if (token in context.modifiers) {
+    return Math.max(1, context.modifiers[token as AbilityId]);
+  }
+  let total = Number(uses.match(/^\d+/)?.[0] ?? 1);
+  for (const match of uses.matchAll(/(\d+)\s+at\s+(\d+)/g)) {
+    if (context.level >= Number(match[2])) {
+      total = Number(match[1]);
+    }
+  }
+  return total;
 }

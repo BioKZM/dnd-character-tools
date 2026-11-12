@@ -80,6 +80,8 @@ export const grantSchema = z.discriminatedUnion("type", [
     })
     .strict(),
   z.object({ type: z.literal("initiative"), bonus: z.number().int() }).strict(),
+  /** Proficient olunmayan ability check'lere yarim proficiency (Bard Jack of All Trades). Initiative dahil. */
+  z.object({ type: z.literal("half_proficiency") }).strict(),
   z
     .object({
       type: z.literal("spell"),
@@ -96,8 +98,14 @@ export const grantSchema = z.discriminatedUnion("type", [
       type: z.literal("resource"),
       id: z.string().min(1),
       name: z.string().min(1),
+      /**
+       * Sayi, ya da level'a gore artan metin: "1 (2 at 17th level)".
+       * "STR".."CHA" = o yetenegin modifier'i (en az 1), "PB" = proficiency bonus.
+       */
       uses: z.union([z.number().int().positive(), z.string().min(1)]),
       recharge: z.enum(["short_rest", "long_rest"]),
+      /** Bu level'dan itibaren short rest'te de yenilenir (orn. Bard Font of Inspiration, 5). */
+      shortRestFromLevel: z.number().int().positive().optional(),
     })
     .strict(),
   /** Kural motoruna girmeyen ama sheet'te gorunmesi gereken mekanik (orn. "+CHA to eldritch blast damage"). */
@@ -133,22 +141,36 @@ export const optionChoiceSchema = z
     /** En fazla kac secim. Zorunlu sayi `min` ile verilir. */
     count: z.number().int().positive(),
     min: z.number().int().nonnegative().optional(),
-    from: z
-      .object({
-        kind: z.literal("spell"),
-        filter: z
-          .object({
-            level: z.number().int().nonnegative().optional(),
-            /** "half_level": karakter level'inin yarisi (yukari yuvarlanir) ve alti. */
-            maxLevel: z.union([z.number().int().nonnegative(), z.literal("half_level")]).optional(),
-            minLevel: z.number().int().nonnegative().optional(),
-            tags: z.array(z.string()).default([]),
-            classes: z.array(z.string()).default([]),
-          })
-          .strict(),
-      })
-      .strict(),
-    grantUses: spellUsesSchema,
+    /** Secim bu karakter level'indan itibaren acilir (orn. Bard'in ikinci Expertise'i, 10). */
+    minLevel: z.number().int().positive().optional(),
+    from: z.discriminatedUnion("kind", [
+      z
+        .object({
+          kind: z.literal("spell"),
+          filter: z
+            .object({
+              level: z.number().int().nonnegative().optional(),
+              /** "half_level": karakter level'inin yarisi (yukari yuvarlanir) ve alti. */
+              maxLevel: z.union([z.number().int().nonnegative(), z.literal("half_level")]).optional(),
+              minLevel: z.number().int().nonnegative().optional(),
+              tags: z.array(z.string()).default([]),
+              classes: z.array(z.string()).default([]),
+            })
+            .strict(),
+        })
+        .strict(),
+      z
+        .object({
+          kind: z.literal("skill"),
+          /** true: sadece karakterin zaten proficient oldugu skill'ler (Expertise icin). */
+          proficientOnly: z.boolean().default(false),
+        })
+        .strict(),
+    ]),
+    /** Buyu secimlerinde: secilen buyu nasil eklenir. */
+    grantUses: spellUsesSchema.optional(),
+    /** Skill secimlerinde: secilen skill'e ne verilir. */
+    grantAs: z.enum(["proficiency", "expertise"]).optional(),
     note: z.string().optional(),
   })
   .strict();

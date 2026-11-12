@@ -193,7 +193,7 @@ function classSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSourc
   ];
 
   classEntry.classFeatures
-    .filter((feature) => (feature.unlockLevel ?? 1) <= draft.level && feature.grants.length)
+    .filter((feature) => (feature.unlockLevel ?? 1) <= draft.level && (feature.grants.length || feature.choices.length))
     .forEach((feature) => {
       sources.push({
         kind: "class",
@@ -201,7 +201,7 @@ function classSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSourc
         name: feature.name,
         summary: feature.summary,
         showAsFeature: false,
-        grants: feature.grants,
+        grants: [...feature.grants, ...choiceGrants(feature, draft, catalog.content)],
       });
     });
 
@@ -239,14 +239,23 @@ function classSources(catalog: EngineCatalog, draft: CharacterDraft): GrantSourc
   return sources;
 }
 
-/** Opsiyonun secimlerinden (draft.choices) gelen grant'ler. Gecersiz/fazla secimler atlanir. */
-function choiceGrants(option: ClassOptionEntry, draft: CharacterDraft, content: ContentBundle): Grant[] {
-  return option.choices.flatMap((choice) => {
-    const allowed = new Set(choiceCandidates(choice, draft, content).map((spell) => spell.id));
-    return (draft.choices?.[choice.id] ?? [])
-      .filter((spellId) => allowed.has(spellId))
-      .slice(0, choice.count)
-      .map((spellId) => ({ type: "spell" as const, spellId, uses: choice.grantUses, note: choice.note }));
+export type ChoiceCandidate = { id: string; name: string; tags: string[]; summary?: string };
+
+type ChoiceHost = { choices: OptionChoice[] };
+
+/** Secimlerden (draft.choices) gelen grant'ler. Gecersiz/fazla secimler atlanir. */
+function choiceGrants(host: ChoiceHost, draft: CharacterDraft, content: ContentBundle): Grant[] {
+  return host.choices.filter((choice) => !choice.minLevel || draft.level >= choice.minLevel).flatMap((choice): Grant[] => {
+    const allowed = new Set(choiceCandidates(choice, draft, content).map((candidate) => candidate.id));
+    const picked = (draft.choices?.[choice.id] ?? []).filter((id) => allowed.has(id)).slice(0, choice.count);
+    if (choice.from.kind === "skill") {
+      return choice.grantAs === "expertise"
+        ? picked.map((skill) => ({ type: "expertise" as const, skill }))
+        : picked.length
+          ? [{ type: "proficiency" as const, category: "skill" as const, values: picked }]
+          : [];
+    }
+    return picked.map((spellId) => ({ type: "spell" as const, spellId, uses: choice.grantUses ?? "known", note: choice.note }));
   });
 }
 
@@ -271,18 +280,39 @@ function optionSource(
   ];
 }
 
-/** Bir secim icin secilebilecek buyuler. */
-export function choiceCandidates(choice: OptionChoice, draft: CharacterDraft, content: ContentBundle) {
+const SKILL_NAMES: Record<string, string> = {
+  acrobatics: "Acrobatics", "animal-handling": "Animal Handling", arcana: "Arcana", athletics: "Athletics",
+  deception: "Deception", history: "History", insight: "Insight", intimidation: "Intimidation",
+  investigation: "Investigation", medicine: "Medicine", nature: "Nature", perception: "Perception",
+  performance: "Performance", persuasion: "Persuasion", religion: "Religion", "sleight-of-hand": "Sleight of Hand",
+  stealth: "Stealth", survival: "Survival",
+};
+
+/** Bir secim icin secilebilecek adaylar (buyu ya da skill). */
+export function choiceCandidates(choice: OptionChoice, draft: CharacterDraft, content: ContentBundle): ChoiceCandidate[] {
+  if (choice.from.kind === "skill") {
+    const proficientOnly = choice.from.proficientOnly;
+    return Object.entries(SKILL_NAMES)
+      .filter(([id]) => !proficientOnly || draft.skills.some((skill) => skill.id === id && skill.proficient))
+      .map(([id, name]) => ({ id, name, tags: [] }));
+  }
   const filter = choice.from.filter;
   const maxLevel = filter.maxLevel === "half_level" ? Math.ceil(draft.level / 2) : filter.maxLevel;
-  return content.spells.filter((spell) => {
-    if (filter.level !== undefined && spell.level !== filter.level) return false;
-    if (filter.minLevel !== undefined && spell.level < filter.minLevel) return false;
-    if (maxLevel !== undefined && spell.level > maxLevel) return false;
-    if (filter.tags.some((tag) => !(spell.tags ?? []).includes(tag))) return false;
-    if (filter.classes.length && !filter.classes.some((className) => (spell.classes ?? []).includes(className))) return false;
-    return true;
-  });
+  return content.spells
+    .filter((spell) => {
+      if (filter.level !== undefined && spell.level !== filter.level) return false;
+      if (filter.minLevel !== undefined && spell.level < filter.minLevel) return false;
+      if (maxLevel !== undefined && spell.level > maxLevel) return false;
+      if (filter.tags.some((tag) => !(spell.tags ?? []).includes(tag))) return false;
+      if (filter.classes.length && !filter.classes.some((className) => (spell.classes ?? []).includes(className))) return false;
+      return true;
+    })
+    .map((spell) => ({
+      id: spell.id,
+      name: spell.name,
+      tags: [spell.level === 0 ? "Cantrip" : `Level ${spell.level}`, spell.school],
+      summary: spell.summary,
+    }));
 }
 
 /** Taslakta secili olan opsiyonlar (pact boon, invocation, fighting style). */
@@ -324,21 +354,37 @@ function selectedClassOptions(catalog: EngineCatalog, draft: CharacterDraft) {
 export type AvailableChoice = {
   choice: OptionChoice;
   sourceName: string;
-  candidates: ContentBundle["spells"];
+  candidates: ChoiceCandidate[];
   selectedIds: string[];
 };
 
-/** Creator'da gosterilecek acik secimler (secili opsiyonlarin `choices` alanlari). */
+/** Acilmis class / subclass feature'lari arasinda secimi olanlar (orn. Bard Expertise). */
+function unlockedFeatureChoiceHosts(catalog: EngineCatalog, draft: CharacterDraft) {
+  const classEntry = catalog.classes?.entries.find((entry) => entry.id === draft.classId);
+  if (!classEntry) {
+    return [];
+  }
+  const subclass = classEntry.subclasses.find((entry) => entry.id === draft.selectedSubclassOptions[0]);
+  return [...classEntry.classFeatures, ...(subclass?.features ?? [])].filter(
+    (feature) => feature.choices.length && (feature.unlockLevel ?? 1) <= draft.level,
+  );
+}
+
+/** Creator'da gosterilecek acik secimler: secili opsiyonlar ve acilmis feature'lar. */
 export function availableChoices(draft: CharacterDraft, catalog: EngineCatalog): AvailableChoice[] {
-  return selectedClassOptions(catalog, draft).flatMap(({ option }) =>
-    option.choices.map((choice) => {
+  const hosts = [
+    ...selectedClassOptions(catalog, draft).map(({ option }) => ({ name: option.name, choices: option.choices })),
+    ...unlockedFeatureChoiceHosts(catalog, draft).map((feature) => ({ name: feature.name, choices: feature.choices })),
+  ];
+  return hosts.flatMap((host) =>
+    host.choices.filter((choice) => !choice.minLevel || draft.level >= choice.minLevel).map((choice) => {
       const candidates = choiceCandidates(choice, draft, catalog.content);
-      const allowed = new Set(candidates.map((spell) => spell.id));
+      const allowed = new Set(candidates.map((candidate) => candidate.id));
       return {
         choice,
-        sourceName: option.name,
+        sourceName: host.name,
         candidates,
-        selectedIds: (draft.choices?.[choice.id] ?? []).filter((spellId) => allowed.has(spellId)).slice(0, choice.count),
+        selectedIds: (draft.choices?.[choice.id] ?? []).filter((id) => allowed.has(id)).slice(0, choice.count),
       };
     }),
   );

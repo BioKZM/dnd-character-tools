@@ -1,7 +1,9 @@
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import type { ContentBundle } from "@/lib/content/schema";
 import type { EngineCatalog } from "@/lib/engine/collect";
-import { deriveCharacter, type DerivedCharacter, type DerivedSpell } from "@/lib/engine/derive";
+import { deriveCharacter, resolveResourceUses, type DerivedCharacter, type DerivedSpell } from "@/lib/engine/derive";
+import { cantripTier, scaleCantripDamage, spellcastingProfiles, type SpellcastingProfile } from "@/lib/engine/spellcasting";
+import type { AbilityId } from "@/lib/engine/grants";
 
 type BuiltAction = {
   id: string;
@@ -429,12 +431,6 @@ function buildFeatureActions(features: BuiltFeature[]): BuiltAction[] {
       description: feature.summary,
       source: feature.source,
     }));
-}
-
-function estimatedAttackBonus(draft: CharacterDraft) {
-  const intelligence = draft.abilities.find((ability) => ability.id === "INT")?.modifier ?? 0;
-  const total = draft.proficiencyBonus + intelligence;
-  return total >= 0 ? `+${total}` : `${total}`;
 }
 
 function formatSigned(value: number) {
@@ -969,6 +965,68 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
       : []),
   ]));
 
+  // Buyu yapma: yetenek, save DC, attack bonusu, slotlar (class data'sindan).
+  const abilityModifiers = Object.fromEntries(draft.abilities.map((ability) => [ability.id, ability.modifier])) as Record<AbilityId, number>;
+  const spellcasting = spellcastingProfiles(
+    {
+      classId: draft.classId,
+      subclassId: draft.selectedSubclassOptions[0] ?? null,
+      level: draft.level,
+      proficiencyBonus: draft.proficiencyBonus,
+      modifiers: abilityModifiers,
+    },
+    classCuratedCollection,
+  );
+  const grantedSpellAbility = new Map(derived.spells.filter((spell) => spell.ability).map((spell) => [spell.spellId, spell.ability as AbilityId]));
+  const castingFor = (spellId: string): SpellcastingProfile | null => {
+    const ability = grantedSpellAbility.get(spellId);
+    const base = spellcasting.at(0) ?? null;
+    if (!ability) {
+      return base;
+    }
+    const modifier = abilityModifiers[ability] ?? 0;
+    return {
+      sourceName: base?.sourceName ?? "Innate",
+      ability,
+      modifier,
+      saveDc: 8 + draft.proficiencyBonus + modifier,
+      attackBonus: draft.proficiencyBonus + modifier,
+      slots: [],
+    };
+  };
+  const tier = cantripTier(draft.level);
+  const hasAgonizingBlast = derived.sources.some((source) => source.kind === "invocation" && source.id === "agonizing-blast");
+  const spellHit = (spell: ContentBundle["spells"][number]) => {
+    const casting = castingFor(spell.id);
+    const parsed = parseHitFromText(spell.summary);
+    if (!casting) {
+      return parsed;
+    }
+    if (parsed.endsWith(" save")) {
+      return `DC ${casting.saveDc} ${parsed.replace(" save", "")}`;
+    }
+    if (parsed === "Spell attack" || /spell attack/i.test(spell.summary)) {
+      return formatSigned(casting.attackBonus);
+    }
+    return "-";
+  };
+  const spellDamage = (spell: ContentBundle["spells"][number]) => {
+    const parsed = parseDamageFromText(spell.summary);
+    // "1d8 + your spellcasting ability modifier" (Cure Wounds, Healing Word) -> "1d8+3".
+    const casting = castingFor(spell.id);
+    const base = /\+\s*your$/i.test(parsed) && casting ? `${parsed.replace(/\s*\+\s*your$/i, "")}${formatSigned(casting.modifier)}` : parsed;
+    if (spell.level !== 0 || base === "-") {
+      return base;
+    }
+    if (spell.id === "eldritch-blast") {
+      // Eldritch Blast zarlari degil isin sayisini arttirir; Agonizing Blast her isina CHA ekler.
+      const charisma = abilityModifiers.CHA ?? 0;
+      const perBeam = hasAgonizingBlast && charisma ? `1d10${formatSigned(charisma)} force` : "1d10 force";
+      return tier > 1 ? `${tier} beams × ${perBeam}` : perBeam;
+    }
+    return scaleCantripDamage(base, tier);
+  };
+
   const builtActions = uniqueById<BuiltAction>([
     ...inventoryWeaponActions(content, draft),
     ...learnedSpells.map(({ spell, sourceLabel }) => ({
@@ -976,8 +1034,8 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
       name: spell.name,
       category: spellCategory(spell.castingTime),
       range: spell.range,
-      hit: parseHitFromText(spell.summary) === "-" && spell.level === 0 ? estimatedAttackBonus(draft) : parseHitFromText(spell.summary),
-      damage: parseDamageFromText(spell.summary),
+      hit: spellHit(spell),
+      damage: spellDamage(spell),
       notes: `${spell.school} | ${spell.duration}${spell.classes?.length ? ` | ${spell.classes.join(", ")}` : ""}`,
       description: spell.summary,
       source: sourceLabel,
@@ -1013,6 +1071,35 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     learnedSpells: uniqueById(learnedSpells.map((entry) => entry.spell)),
     builtActions,
     builtFeatures,
+    spellcasting,
+    // Spells sekmesi icin: level'a gore siralanmis, kaynagi ve DC/attack'i hazir buyu listesi.
+    spellEntries: learnedSpells
+      .map(({ spell, sourceLabel }) => ({
+        id: `${spell.id}-${sourceLabel}`,
+        spellId: spell.id,
+        name: spell.name,
+        level: spell.level,
+        school: spell.school,
+        castingTime: spell.castingTime,
+        range: spell.range,
+        duration: spell.duration,
+        concentration: /concentration/i.test(spell.duration),
+        ritual: /ritual/i.test(spell.subtitle ?? "") || (spell.tags ?? []).includes("Ritual"),
+        source: sourceLabel,
+        hit: spellHit(spell),
+        damage: spellDamage(spell),
+        summary: spell.summary,
+      }))
+      .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
+    // Kisa / uzun dinlenmede yenilenen kaynaklar (Second Wind, Bardic Inspiration...).
+    resources: derived.resources.map((resource) => ({
+      ...resource,
+      total: resolveResourceUses(resource.uses, {
+        level: draft.level,
+        proficiencyBonus: draft.proficiencyBonus,
+        modifiers: abilityModifiers,
+      }),
+    })),
     derivedStats: {
       walkingSpeed: movementStats.walkingSpeed,
       extraMovementModes: movementStats.extraMovementModes,

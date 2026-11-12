@@ -12,6 +12,7 @@
     "WIS",
     "CHA"
   ],
+  "spellcastingAbility": "CHA",
   "startingGrants": [
     {
       "type": "proficiency",

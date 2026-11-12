@@ -67,8 +67,11 @@ function ChoiceBlock({ entry, onToggle }: { entry: AvailableChoice; onToggle: (c
                   </strong>
                 </div>
                 <div className="spell-selection-tags important">
-                  <span className="spell-tooltip-chip tone-utility">{spell.level === 0 ? "Cantrip" : `Level ${spell.level}`}</span>
-                  <span className="spell-tooltip-chip tone-utility">{spell.school}</span>
+                  {spell.tags.map((tag) => (
+                    <span key={`${spell.id}-${tag}`} className="spell-tooltip-chip tone-utility">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </label>
             );
@@ -76,7 +79,7 @@ function ChoiceBlock({ entry, onToggle }: { entry: AvailableChoice; onToggle: (c
         </div>
       ) : (
         <div className="list-row">
-          <span>No spells match this choice at your current level.</span>
+          <span>Nothing matches this choice at your current level.</span>
         </div>
       )}
       {pageCount > 1 ? (

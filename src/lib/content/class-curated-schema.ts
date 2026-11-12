@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { abilityIdSchema, grantSchema, spellUsesSchema } from "@/lib/engine/grants";
+import { abilityIdSchema, grantSchema, optionChoiceSchema, spellUsesSchema } from "@/lib/engine/grants";
 
 export const classCuratedFeatureSchema = z.object({
   id: z.string(),
@@ -18,6 +18,8 @@ export const classCuratedFeatureSchema = z.object({
     )
     .default([]),
   grants: z.array(grantSchema).default([]),
+  /** Feature'in oyuncu secimleri (orn. Bard Expertise: proficient oldugun 2 skill). */
+  choices: z.array(optionChoiceSchema).default([]),
 });
 
 export const classCuratedSpellGrantSchema = z.object({
@@ -97,6 +99,8 @@ export const classCuratedEntrySchema = z.object({
   hitDie: z.string(),
   primaryAbilities: z.array(abilityIdSchema).default([]),
   savingThrows: z.array(abilityIdSchema).default([]),
+  /** Class'in buyu yapma yetenegi (Bard CHA, Ranger WIS, Warlock CHA). Fighter gibi buyusuz class'larda yok; Eldritch Knight subclass'tan gelir. */
+  spellcastingAbility: abilityIdSchema.optional(),
   /** 1. level'da class'tan gelen proficiency'ler (armor, weapon, tool, save). */
   startingGrants: z.array(grantSchema).default([]),
   hitPoints: z.record(z.string(), z.string()),
