@@ -417,6 +417,23 @@ const classOverviewHighlightsByClass = {
       body: "Bard College unlocks at 3, Inspiration improves at 5 and 10, and Magical Secrets expands your spell access at 10.",
     },
   ],
+  monk: [
+    {
+      id: "combat-role",
+      title: "Combat Role",
+      body: "Fast, unarmored skirmisher who strikes several times a turn, slips in and out of melee, and locks down single targets.",
+    },
+    {
+      id: "core-resources",
+      title: "Core Resources",
+      body: "Martial Arts powers unarmed strikes and monk weapons, Ki fuels Flurry of Blows, Patient Defense, Step of the Wind and Stunning Strike, and Unarmored Defense uses DEX + WIS.",
+    },
+    {
+      id: "level-rhythm",
+      title: "Level Rhythm",
+      body: "Ki arrives at 2, your Monastic Tradition at 3, Extra Attack and Stunning Strike at 5, Evasion at 7, and the Martial Arts die grows at 5, 11 and 17.",
+    },
+  ],
 } as const;
 
 const fallbackFighterStartingEquipment: ClassStartingEquipmentGroup[] = [
@@ -2345,6 +2362,12 @@ function lineageGroupIcon(lineageId: string) {
       return "skill";
     case "gnome":
       return "book";
+    case "eladrin":
+      return "leaf";
+    case "human":
+      return "person";
+    case "tabaxi":
+      return "paw";
     default:
       return "species";
   }
@@ -4120,7 +4143,19 @@ export function CreatorWorkspace({
       : [];
   const classOverviewHighlights =
     classOverviewHighlightsByClass[currentClass.id as keyof typeof classOverviewHighlightsByClass] ??
-    classOverviewHighlightsByClass.fighter;
+    // Yazilmamis bir class icin baska class'in metni gosterilmez; kartlar class verisinden kurulur.
+    [
+      { id: "combat-role", title: "Overview", body: currentCuratedClass?.summary ?? currentClass.name },
+      {
+        id: "core-resources",
+        title: "Core Features",
+        body: (currentCuratedClass?.classFeatures ?? [])
+          .filter((feature) => (feature.unlockLevel ?? 1) <= 2)
+          .map((feature) => feature.name)
+          .join(", ") || "See Class Features.",
+      },
+      { id: "level-rhythm", title: "Hit Dice", body: `d${currentClass.hitDie} per level` },
+    ];
   const selectedSubclassFeatureTags =
     selectedSubclassFeature && "tags" in selectedSubclassFeature && Array.isArray(selectedSubclassFeature.tags)
       ? selectedSubclassFeature.tags
@@ -6267,6 +6302,8 @@ export function CreatorWorkspace({
                                   <span className="fighter-feature-level">{`Lvl. ${lockedLevel}`}</span>
                                 ) : null}
                               </div>
+                              {/* Her kartta tek satirlik ozet: bos kart kalmasin, ne ise yaradigi bir bakista gorunsun. */}
+                              {feature.keyFacts?.[0] ? <p className="fighter-feature-fact">{feature.keyFacts[0]}</p> : null}
                               {currentMeta || nextMeta ? (
                                 <div className="fighter-feature-meta">
                                   {currentMeta ? <span>{currentMeta}</span> : null}
@@ -10855,7 +10892,7 @@ export function CreatorWorkspace({
                               <strong>{ability.previewScore}</strong>
                             </div>
                             <div className="ability-pointbuy-total">
-                              <span className="mini-heading">Modifier</span>
+                              <span className="mini-heading">Mod</span>
                               <strong>{ability.previewModifier >= 0 ? `+${ability.previewModifier}` : ability.previewModifier}</strong>
                             </div>
                           </div>

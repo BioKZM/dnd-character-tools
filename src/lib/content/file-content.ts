@@ -187,18 +187,43 @@ function readRawFeatReferenceMap() {
   return new Map(entries.map((entry) => [entry.id, entry]));
 }
 
+/**
+ * Wikidot'tan alinan metinde link olan kelimeler bir onceki kelimeye yapismis geliyor
+ * ("thesorcerer spell list", "theDetect Magic"). Bilinen kaliplari ayirir.
+ */
+const GLUED_WORDS: Record<string, string> = {
+  thesorcerer: "the sorcerer",
+  themage: "the mage",
+  theleast: "the least",
+  agreater: "a greater",
+  aspirit: "a spirit",
+  anart: "an art",
+};
+
+export function repairGluedWords(text: string) {
+  return text
+    .replace(/\b(the|from|and|one|a|an|of|to|your|with|or|on|in)([A-Z][a-z])/g, "$1 $2")
+    .replace(/\b(thesorcerer|themage|theleast|agreater|aspirit|anart)\b/g, (match) => GLUED_WORDS[match] ?? match);
+}
+
 function enrichFeats(feats: ContentBundle["feats"]): ContentBundle["feats"] {
   const rawFeatMap = readRawFeatReferenceMap();
 
   return feats.map((feat) => {
     const rawFeat = rawFeatMap.get(feat.id);
-    const detailParagraphs = parseFeatDetailParagraphs(rawFeat?.text);
+    const detailParagraphs = parseFeatDetailParagraphs(rawFeat?.text).map(repairGluedWords);
 
     return {
       ...feat,
-      summary: cleanWikidotText(feat.summary),
+      summary: repairGluedWords(cleanWikidotText(feat.summary)),
       source: feat.source ? cleanWikidotText(feat.source) : feat.source,
-      prerequisite: feat.prerequisite ? cleanWikidotText(feat.prerequisite) : feat.prerequisite,
+      // "4th Level,Initiate of High Sorcery(Nuitari) Feat" -> "4th Level, Initiate of High Sorcery (Nuitari) Feat"
+      prerequisite: feat.prerequisite
+        ? repairGluedWords(cleanWikidotText(feat.prerequisite))
+            .replace(/,(?=\S)/g, ", ")
+            .replace(/(\w)\(/g, "$1 (")
+            .replace(/([a-z\)])Feat\b/g, "$1 Feat")
+        : feat.prerequisite,
       detailParagraphs,
       detailTables: parseFeatDetailTables(feat.id),
     };

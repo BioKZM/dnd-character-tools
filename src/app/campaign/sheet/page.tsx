@@ -4,11 +4,7 @@ import { loadCharacterCatalog } from "@/lib/content/load-catalog";
 
 export default function CampaignSheetPage() {
   return (
-    <CampaignShell
-      eyebrow="Character Inspector"
-      title="Sheet"
-      description="Review the character output in a compact read-only layout."
-    >
+    <CampaignShell eyebrow="" title="" description="">
       <PartyRoomDashboard {...loadCharacterCatalog()} mode="sheet" />
     </CampaignShell>
   );

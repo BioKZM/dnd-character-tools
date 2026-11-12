@@ -5520,6 +5520,13 @@ h2 .keyword-help-trigger,
   line-height: 1;
 }
 
+/* Secili durum her zaman gorunsun (yontem secimi, level up HP, ASI Feat). */
+.ability-flex-pick.active {
+  border-color: rgba(201, 176, 122, 0.42);
+  background: rgba(201, 176, 122, 0.16);
+  color: rgba(255, 248, 236, 0.96);
+}
+
 .ability-flex-pick.active.plus-two {
   border-color: rgba(201, 176, 122, 0.42);
   background: rgba(201, 176, 122, 0.16);
@@ -9169,4 +9176,184 @@ h2 .keyword-help-trigger,
   gap: 6px;
   margin: 4px 0 8px;
   font-size: 0.85rem;
+}
+
+/* UI duzeltmeleri (#4): actions satirinda menzil / vurus / hasar */
+.spell-selection-row.action-selection-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.action-selection-row .spell-selection-main {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.action-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.action-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 64px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-variant-numeric: tabular-nums;
+}
+.action-stat small {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.action-stat b {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.action-stat-hitdc b {
+  color: #e6c77c;
+}
+.action-stat-damage {
+  min-width: 120px;
+}
+.action-category-chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* UI duzeltmeleri (#5): ikincil stat satiri - etiket ustte, deger altta */
+.badge-card-secondary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.badge-card-secondary strong {
+  margin-top: 0;
+}
+.badge-card-secondary .stat-label + * {
+  display: block;
+}
+.badge-card-ac {
+  border-color: rgba(214, 178, 94, 0.45);
+  background: rgba(214, 178, 94, 0.06);
+}
+.badge-card-ac strong {
+  font-size: 1.35rem;
+  color: #f1dca4;
+}
+
+/* UI duzeltmeleri (#6, #7) */
+.sheet-button.success {
+  color: #9fdc9b;
+  border-color: rgba(120, 190, 116, 0.55);
+  background: rgba(93, 152, 91, 0.16);
+}
+/* Kapaliyken sadece kucuk bir ikon; genis gorunmez alan altindaki satirlara tiklamayi engellemesin. */
+.activity-drawer {
+  pointer-events: none;
+}
+.activity-drawer > * {
+  pointer-events: auto;
+}
+.activity-drawer:not(.open) .activity-launcher {
+  min-width: 0;
+  padding: 5px;
+  border-radius: 14px;
+}
+.activity-drawer:not(.open) .activity-launcher-copy {
+  display: none;
+}
+
+/* UI duzeltmeleri (#8): ability kartlari */
+.ability-pointbuy-topline {
+  flex-wrap: wrap;
+}
+.ability-method-row {
+  flex-wrap: nowrap;
+}
+.ability-method-row .ability-flex-pick {
+  white-space: nowrap;
+}
+.ability-pointbuy-topline .ability-topline-meta {
+  margin-left: auto;
+  text-align: right;
+}
+.ability-pointbuy-card {
+  align-content: start;
+}
+.ability-pointbuy-base,
+.ability-pointbuy-total {
+  padding: 10px 6px;
+  min-width: 0;
+}
+.ability-pointbuy-base .mini-heading,
+.ability-pointbuy-total .mini-heading {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+/* UI duzeltmeleri (#9, #10, #11, #12) */
+.creator-stage-header-card:not(:has(button)) {
+  display: none;
+}
+.origin-trait-preview article {
+  align-content: start;
+}
+.fighter-feature-fact {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.fighter-feature-card.locked .fighter-feature-fact {
+  opacity: 0.6;
+}
+.option-choice-search {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 6px 0 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--ink);
+  font-size: 0.88rem;
+  outline: none;
+}
+.option-choice-search::placeholder {
+  color: var(--muted);
+}
+.option-choice-search:focus-visible {
+  border-color: rgba(201, 176, 122, 0.5);
+}
+/* Aciklama ipucu olan yazilar: cizgi sadece uzerine gelince; durumda sadece imlec degisir. */
+.keyword-help-trigger {
+  cursor: help;
+}
+.keyword-help-trigger::before {
+  opacity: 0;
+}
+.keyword-help:hover .keyword-help-trigger::before,
+.keyword-help.open .keyword-help-trigger::before,
+.keyword-help:focus-visible .keyword-help-trigger::before,
+.keyword-help:focus-within .keyword-help-trigger::before {
+  opacity: 1;
 }

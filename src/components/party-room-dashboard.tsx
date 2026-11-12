@@ -322,10 +322,6 @@ function actionTooltipContent(action: (ReturnType<typeof buildSheetContent>)["bu
   );
 }
 
-function actionHintChips(action: (ReturnType<typeof buildSheetContent>)["builtActions"][number]) {
-  return [];
-}
-
 const skillNameToId = Object.fromEntries(
   Object.keys(skillAbilities).map((skillId) => [skillLabel(skillId).toLowerCase(), skillId]),
 ) as Record<string, string>;
@@ -2549,10 +2545,10 @@ export function PartyRoomDashboard({
                 <strong>{formatSigned(sheetDraft.initiative)}</strong>
               </article>
 
-              <article className="badge-card badge-card-secondary">
+              <article className="badge-card badge-card-secondary badge-card-ac">
                 <span className="stat-label">
                   {renderKeywordHelp(
-                    "AC",
+                    "Armor Class",
                     "Armor Class is the number an attack roll must meet or exceed to hit your character.",
                   )}
                 </span>
@@ -2794,13 +2790,21 @@ export function PartyRoomDashboard({
                           </strong>
                           <span className="action-selection-source">{action.source}</span>
                         </div>
-                        <div className="spell-selection-tags important">
-                          {actionHintChips(action).map((item) => (
-                            <span key={`${action.id}-${item}`} className={`spell-tooltip-chip tone-${spellChipTone(item)}`}>
-                              <AppIcon name={spellChipIcon(item)} className="spell-tooltip-chip-icon" />
-                              {item}
-                            </span>
-                          ))}
+                        {/* Savasta bakilan degerler satirin kendisinde: menzil, vurus, hasar. */}
+                        <div className="action-stats">
+                          {[
+                            { label: "Range", value: action.range },
+                            { label: "Hit / DC", value: action.hit },
+                            { label: "Damage", value: action.damage },
+                          ]
+                            .filter((cell) => cell.value && cell.value !== "-")
+                            .map((cell) => (
+                              <span key={`${action.id}-${cell.label}`} className={`action-stat action-stat-${cell.label.toLowerCase().replace(/\W+/g, "")}`}>
+                                <small>{cell.label}</small>
+                                <b>{cell.value}</b>
+                              </span>
+                            ))}
+                          {action.category !== "Attack" ? <span className="action-category-chip">{action.category}</span> : null}
                         </div>
                       </article>
                     )) : (
@@ -2928,6 +2932,8 @@ export function PartyRoomDashboard({
           <button
             type="button"
             className="activity-launcher"
+            aria-label="Recent Activity"
+            title="Recent Activity"
             onClick={() => setIsActivityOpen((current) => !current)}
           >
             <span className="activity-launcher-copy">
