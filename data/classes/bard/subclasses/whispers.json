@@ -15,7 +15,12 @@
           "type": "note",
           "text": "Psychic Blades: once per turn on a weapon hit, spend a Bardic Inspiration for +2d6 psychic (3d6 at 5th, 5d6 at 10th, 8d6 at 15th)."
         }
-      ]
+      ],
+      "short": "Spend Bardic Inspiration on a weapon hit for extra psychic damage.",
+      "facts": {
+        "cost": "1 Bardic Inspiration",
+        "uses": "Once per turn"
+      }
     },
     {
       "id": "words-of-terror",
@@ -30,7 +35,15 @@
           "uses": 1,
           "recharge": "short_rest"
         }
-      ]
+      ],
+      "short": "Talk to a humanoid for a minute to frighten it.",
+      "facts": {
+        "action": "Special",
+        "save": "WIS",
+        "dc": "spell",
+        "uses": "1 / short rest",
+        "duration": "1 hour"
+      }
     },
     {
       "id": "mantle-of-whispers",
@@ -45,7 +58,13 @@
           "uses": 1,
           "recharge": "short_rest"
         }
-      ]
+      ],
+      "short": "Capture a dying humanoid's shadow and wear its persona.",
+      "facts": {
+        "action": "Reaction",
+        "uses": "1 / short rest",
+        "duration": "1 hour"
+      }
     },
     {
       "id": "shadow-lore",
@@ -60,7 +79,16 @@
           "uses": 1,
           "recharge": "long_rest"
         }
-      ]
+      ],
+      "short": "Whisper to charm a creature into obeying you.",
+      "facts": {
+        "action": "Action",
+        "save": "WIS",
+        "dc": "spell",
+        "uses": "1 / long rest",
+        "duration": "8 hours",
+        "range": "30 ft."
+      }
     }
   ],
   "notes": [

@@ -9,7 +9,11 @@
       "id": "expanded-spell-list",
       "name": "Expanded Spell List",
       "unlockLevel": 1,
-      "summary": "The Great Old One lets you choose from an expanded list of spells when you learn a warlock spell. The following spells are added to the warlock spell list for you."
+      "summary": "The Great Old One lets you choose from an expanded list of spells when you learn a warlock spell. The following spells are added to the warlock spell list for you.",
+      "short": "Your patron adds mind-bending spells to your spell list.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "awakened-mind",
@@ -21,7 +25,12 @@
           "type": "note",
           "text": "Telepathy with any creature within 30 feet that understands a language."
         }
-      ]
+      ],
+      "short": "Speak telepathically with a creature you can see.",
+      "facts": {
+        "action": "Passive",
+        "range": "30 ft."
+      }
     },
     {
       "id": "entropic-ward",
@@ -36,7 +45,12 @@
           "uses": 1,
           "recharge": "short_rest"
         }
-      ]
+      ],
+      "short": "Give an attacker disadvantage; if it misses, gain advantage on it.",
+      "facts": {
+        "action": "Reaction",
+        "uses": "1 / short rest"
+      }
     },
     {
       "id": "thought-shield",
@@ -53,7 +67,11 @@
           "type": "note",
           "text": "Your thoughts cannot be read unless you allow it; psychic damage is reflected to the attacker."
         }
-      ]
+      ],
+      "short": "Resist psychic damage and reflect it back on attackers.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "create-thrall",
@@ -65,7 +83,11 @@
           "type": "note",
           "text": "Create Thrall: touch an incapacitated humanoid to charm it until Remove Curse; telepathy with it on the same plane."
         }
-      ]
+      ],
+      "short": "Touch an incapacitated humanoid to charm it indefinitely.",
+      "facts": {
+        "action": "Action"
+      }
     }
   ],
   "expandedSpells": [

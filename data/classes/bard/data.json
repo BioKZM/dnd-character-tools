@@ -549,7 +549,11 @@
         }
       ],
       "summary": "You have learned to untangle and reshape the fabric of reality in harmony with your wishes and music. Your spells are part of your vast repertoire, magic that you can tune to different situations. You know two cantrips of your choice from the bard spell list. You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table. The Bard table shows how many spell slots you have to cast your bard spells of 1st level and higher. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest. For example, if you know the 1st-level spell Cure Wounds and have a 1st-level and a 2nd-level spell slot available, you can cast Cure Wounds using either slot. You know four 1st-level spells of your choice from the bard spell list. The Spells Known column of the Bard table shows when you learn more bard spells of your choice. Each of these spells must be of a level for which you have spell slots, as shown on the table. For instance, when you reach 3rd level in this class, you can learn one new spell of 1st or 2nd level. Additionally, when you gain a level in this class, you can choose one of the bard spells you know and replace it with another spell from the bard spell list, which also must be of a level for which you have spell slots. Charisma is your spellcasting ability for your bard spells. Your magic comes from the heart and soul you pour into the performance of your music or oration. You use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a bard spell you cast and when making an attack roll with one. Spell save DC = 8 + your proficiency bonus + your Charisma modifier Spell attack modifier = your proficiency bonus + your Charisma modifier You can cast any bard spell you know as a ritual if that spell has the ritual tag. You can use a musical instrument (found in chapter 5) as a spellcasting focus for your bard spells.",
-      "unlockLevel": 1
+      "unlockLevel": 1,
+      "short": "Cast bard spells with Charisma; known spells, long rest slots.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "bardic-inspiration",
@@ -594,7 +598,13 @@
           "type": "note",
           "text": "Bardic Inspiration die: d6 (d8 at 5th, d10 at 10th, d12 at 15th)."
         }
-      ]
+      ],
+      "short": "Give an ally an inspiration die to add to one roll.",
+      "facts": {
+        "action": "Bonus Action",
+        "uses": "CHA mod / long rest",
+        "range": "60 ft."
+      }
     },
     {
       "id": "jack-of-all-trades",
@@ -616,7 +626,11 @@
         {
           "type": "half_proficiency"
         }
-      ]
+      ],
+      "short": "Add half your proficiency bonus to checks you aren't proficient in.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "song-of-rest",
@@ -652,7 +666,11 @@
           "type": "note",
           "text": "Song of Rest: allies who spend Hit Dice during your short rest regain an extra 1d6 HP (1d8 at 9th, 1d10 at 13th, 1d12 at 17th)."
         }
-      ]
+      ],
+      "short": "Allies spending Hit Dice in your short rest heal extra.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "magical-inspiration-optional",
@@ -666,7 +684,11 @@
         "Optional"
       ],
       "summary": "At 2nd level, if a creature has a Bardic Inspiration die from you and casts a spell that restores hit points or deals damage, the creature can roll that die and choose a target affected by the spell. Add the number rolled as a bonus to the hit points regained or the damage dealt. The Bardic Inspiration die is then lost.",
-      "unlockLevel": 2
+      "unlockLevel": 2,
+      "short": "Inspiration dice can boost an ally's spell damage or healing.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "expertise",
@@ -712,7 +734,11 @@
           },
           "grantAs": "expertise"
         }
-      ]
+      ],
+      "short": "Double your proficiency bonus for two chosen skills.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "ability-score-improvement",
@@ -745,7 +771,11 @@
         }
       ],
       "summary": "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-      "unlockLevel": 4
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "bardic-versatility-optional",
@@ -759,7 +789,11 @@
         "Optional"
       ],
       "summary": "Whenever you reach a level in this class that grants the Ability Score Improvement feature, you can do one of the following, representing a change in focus as you use your skills and magic: Replace one of the skills you chose for the Expertise feature with one of your other skill proficiencies that isn't benefiting from Expertise. Replace one cantrip you learned from this class's Spellcasting feature with another cantrip from the bard spell list.",
-      "unlockLevel": 4
+      "unlockLevel": 4,
+      "short": "Swap an Expertise skill or a cantrip when you gain an ASI.",
+      "facts": {
+        "action": "Special"
+      }
     },
     {
       "id": "font-of-inspiration",
@@ -776,7 +810,11 @@
         }
       ],
       "summary": "Beginning when you reach 5th level, you regain all of your expended uses of Bardic Inspiration when you finish a short or long rest.",
-      "unlockLevel": 5
+      "unlockLevel": 5,
+      "short": "Bardic Inspiration now recharges on a short rest too.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "countercharm",
@@ -799,7 +837,13 @@
           "type": "note",
           "text": "Countercharm: action, allies within 30 ft. have advantage on saves against being frightened or charmed until your next turn."
         }
-      ]
+      ],
+      "short": "Allies near you get advantage against charm and fear.",
+      "facts": {
+        "action": "Action",
+        "range": "30 ft.",
+        "duration": "Until your next turn"
+      }
     },
     {
       "id": "magical-secrets",
@@ -874,7 +918,11 @@
           "grantUses": "known",
           "note": "Magical Secrets: counts as a bard spell and toward spells known."
         }
-      ]
+      ],
+      "short": "Learn two spells from any class's list.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "superior-inspiration",
@@ -897,7 +945,11 @@
           "type": "note",
           "text": "Superior Inspiration: if you roll initiative with no Bardic Inspiration left, you regain one."
         }
-      ]
+      ],
+      "short": "Regain one Bardic Inspiration when you roll initiative with none.",
+      "facts": {
+        "action": "Passive"
+      }
     }
   ],
   "subclassHeading": "Bard College",

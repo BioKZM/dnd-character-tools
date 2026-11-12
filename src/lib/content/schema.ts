@@ -1,10 +1,27 @@
 import { z } from "zod";
 import { featConditionSchema, grantSchema } from "@/lib/engine/grants";
 
+export const featureFactsSchema = z
+  .object({
+    action: z.string().optional(),
+    cost: z.string().optional(),
+    uses: z.string().optional(),
+    range: z.string().optional(),
+    save: z.string().optional(),
+    dc: z.enum(["spell", "ki"]).optional(),
+    duration: z.string().optional(),
+  })
+  .partial();
+
+export type FeatureFacts = z.infer<typeof featureFactsSchema>;
+
 export const featureSchema = z.object({
   id: z.string(),
   name: z.string(),
   summary: z.string(),
+  /** Bir bakista okunan tek satir; yoksa summary kullanilir. */
+  short: z.string().optional(),
+  facts: featureFactsSchema.optional(),
 });
 
 export const spellSchema = z.object({

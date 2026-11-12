@@ -293,7 +293,11 @@
         "You can't take the same fighting style more than once."
       ],
       "summary": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
-      "unlockLevel": 1
+      "unlockLevel": 1,
+      "short": "Pick a combat specialty such as Archery, Defense or Dueling.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "martial-versatility",
@@ -307,7 +311,11 @@
       "tags": [
         "Optional"
       ],
-      "unlockLevel": 4
+      "unlockLevel": 4,
+      "short": "Swap your fighting style or a maneuver when you gain an ASI.",
+      "facts": {
+        "action": "Special"
+      }
     },
     {
       "id": "second-wind",
@@ -328,7 +336,12 @@
           "uses": 1,
           "recharge": "short_rest"
         }
-      ]
+      ],
+      "short": "Heal 1d10 + fighter level.",
+      "facts": {
+        "action": "Bonus Action",
+        "uses": "1 / short rest"
+      }
     },
     {
       "id": "action-surge",
@@ -358,7 +371,12 @@
           "uses": "1 (2 at 17th level)",
           "recharge": "short_rest"
         }
-      ]
+      ],
+      "short": "Take one extra action on your turn.",
+      "facts": {
+        "action": "Special",
+        "uses": "1 / short rest (2 at 17th)"
+      }
     },
     {
       "id": "ability-score-improvement",
@@ -399,7 +417,11 @@
           "label": "+2 or +1 / +1"
         }
       ],
-      "unlockLevel": 4
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "extra-attack",
@@ -430,7 +452,11 @@
           "type": "note",
           "text": "Extra Attack: attack twice when you take the Attack action (3 at 11th, 4 at 20th)."
         }
-      ]
+      ],
+      "short": "Attack twice when you take the Attack action.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "indomitable",
@@ -464,7 +490,12 @@
           "uses": "1 (2 at 13th, 3 at 17th)",
           "recharge": "long_rest"
         }
-      ]
+      ],
+      "short": "Reroll a failed saving throw.",
+      "facts": {
+        "action": "Special",
+        "uses": "1 / long rest (more at 13th, 17th)"
+      }
     }
   ],
   "subclassHeading": "Martial Archetype",

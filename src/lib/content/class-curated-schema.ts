@@ -6,6 +6,22 @@ export const classCuratedFeatureSchema = z.object({
   name: z.string(),
   summary: z.string(),
   keyFacts: z.array(z.string()).default([]),
+  /** Bir bakista okunan tek satir (fiille baslar, ~12 kelime). Tam kural metni summary'de kalir. */
+  short: z.string().optional(),
+  /** Taranabilir kural bilgisi: sheet ve tooltip'lerde etiket olarak gosterilir. */
+  facts: z
+    .object({
+      action: z.enum(["Action", "Bonus Action", "Reaction", "Passive", "Special"]).optional(),
+      cost: z.string().optional(),
+      uses: z.string().optional(),
+      range: z.string().optional(),
+      save: z.string().optional(),
+      /** Save DC'si hangi hesaptan gelir. */
+      dc: z.enum(["spell", "ki"]).optional(),
+      duration: z.string().optional(),
+    })
+    .strict()
+    .optional(),
   unlockLevel: z.number().int().positive().optional(),
   currentValueTemplate: z.string().optional(),
   tags: z.array(z.string()).default([]),

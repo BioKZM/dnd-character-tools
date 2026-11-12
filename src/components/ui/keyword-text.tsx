@@ -8,7 +8,7 @@ import { AppIcon } from "@/components/ui/app-icon";
  */
 
 type IconName = Parameters<typeof AppIcon>[0]["name"];
-type KeywordRule = { pattern: string; kind: string; icon: IconName; caseSensitive?: boolean };
+type KeywordRule = { pattern: string; kind: string; icon?: IconName; caseSensitive?: boolean };
 
 const RULES: KeywordRule[] = [
   // Stat'lar: tam adlar buyuk harfle baslayinca, kisaltmalar sadece buyuk harfle (lowercase "con" eslesmesin).
@@ -36,6 +36,14 @@ const RULES: KeywordRule[] = [
   // Zar avantaji
   { pattern: "disadvantage", kind: "disadvantage", icon: "arrow-down" },
   { pattern: "advantage", kind: "advantage", icon: "arrow-up" },
+  // Ikonsuz kalin vurgular: metni okumadan yakalanmasi gereken maliyet, sure, menzil ve eylem.
+  { pattern: "\\d+\\s?d\\s?\\d+(?:\\s?[+\u2212-]\\s?\\d+)?", kind: "em", caseSensitive: true },
+  { pattern: "\\d+(?:\u2013\\d+)?(?: to \\d+)? (?:ki points?|ki|feet|foot|ft\\.?|miles?|minutes?|hours?|rounds?|days?|hit dice|times)", kind: "em", caseSensitive: true },
+  { pattern: "DC \\d+", kind: "em", caseSensitive: true },
+  { pattern: "bonus action|reaction", kind: "em" },
+  { pattern: "short or long rest|short rest|long rest", kind: "em" },
+  { pattern: "once per turn|once on each of your turns|once per long rest|once per short rest", kind: "em" },
+  { pattern: "saving throws?|spell slots?|proficiency bonus", kind: "em" },
 ];
 
 // Kurallar sirayla denenir; uzun ifadeler (temporary hit points) kisalardan once yazili.
@@ -70,7 +78,7 @@ export function highlightKeywords(text: string, keyPrefix = "kw"): ReactNode {
     }
     parts.push(
       <span key={`${keyPrefix}-${match.index}`} className={`kw kw-${rule.kind}`}>
-        <AppIcon name={rule.icon} className="kw-icon" />
+        {rule.icon ? <AppIcon name={rule.icon} className="kw-icon" /> : null}
         {match[0]}
       </span>,
     );

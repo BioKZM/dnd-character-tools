@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
+import { FactChips } from "@/components/ui/feature-rules";
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -1073,6 +1074,8 @@ function featureTooltipContent(feature: ClassCuratedFeature, currentLevel: numbe
       <span className="spell-tooltip-head">
         <strong>{feature.name}</strong>
       </span>
+      {feature.short ? <span className="feature-tooltip-short">{feature.short}</span> : null}
+      <FactChips facts={feature.facts} hidePassive />
       {keyFacts.length ? (
         <span className="spell-tooltip-block">
           <span className="spell-tooltip-block-title">Key Facts</span>
@@ -6304,7 +6307,7 @@ export function CreatorWorkspace({
                                 ) : null}
                               </div>
                               {/* Her kartta tek satirlik ozet: bos kart kalmasin, ne ise yaradigi bir bakista gorunsun. */}
-                              {feature.keyFacts?.[0] ? <p className="fighter-feature-fact">{highlightKeywords(feature.keyFacts[0], feature.id)}</p> : null}
+                              {feature.short ?? feature.keyFacts?.[0] ? <p className="fighter-feature-fact">{highlightKeywords(feature.short ?? feature.keyFacts[0], feature.id)}</p> : null}
                               {currentMeta || nextMeta ? (
                                 <div className="fighter-feature-meta">
                                   {currentMeta ? <span>{currentMeta}</span> : null}

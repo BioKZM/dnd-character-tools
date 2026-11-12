@@ -1,6 +1,7 @@
 "use client";
 
 import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
+import { FactChips, LayeredFeature } from "@/components/ui/feature-rules";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { CreatorWorkspace } from "@/components/creator-workspace";
 import { ClassPortrait } from "@/components/ui/class-portrait";
@@ -162,7 +163,8 @@ function InlineHelp({
   label: ReactNode;
   ariaLabel?: string;
   content: ReactNode;
-  variant?: "icon" | "keyword";
+  /** formula: hesaplanan deger; alti hep noktali cizgili, ustune gelince nereden geldigi. */
+  variant?: "icon" | "keyword" | "formula";
   tooltipClassName?: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -192,7 +194,7 @@ function InlineHelp({
 
   return (
     <span
-      className={`inline-help${variant === "keyword" ? " keyword-help" : ""}${open ? " open" : ""}`}
+      className={`inline-help${variant !== "icon" ? " keyword-help" : ""}${variant === "formula" ? " formula-help" : ""}${open ? " open" : ""}`}
       aria-label={`${ariaLabel ?? (typeof label === "string" ? label : "Help")} info`}
       tabIndex={0}
       onMouseEnter={handleEnter}
@@ -200,7 +202,7 @@ function InlineHelp({
       onFocus={handleEnter}
       onBlur={handleLeave}
     >
-      <span className={variant === "keyword" ? "keyword-help-trigger" : "inline-help-trigger"}>{variant === "keyword" ? label : "?"}</span>
+      <span className={variant !== "icon" ? "keyword-help-trigger" : "inline-help-trigger"}>{variant !== "icon" ? label : "?"}</span>
       <div
         className={`inline-help-tooltip ${tooltipClassName}`}
         onMouseEnter={handleEnter}
@@ -1488,6 +1490,11 @@ export function PartyRoomDashboard({
     () => buildSheetContent(initialContent, sheetDraft, engineCatalog),
     [initialContent, sheetDraft, engineCatalog],
   );
+  // Feature etiketlerindeki save DC'leri (Ki, buyu) hesaplanmis halde.
+  const saveDcValues = {
+    spell: sheetContent.spellcasting.at(0)?.saveDc ?? null,
+    ki: sheetContent.saveDcs.find((entry) => entry.name === "Ki")?.value ?? null,
+  };
   // Feat on kosullarini kontrol etmek icin karakterin su anki hali.
   const featContext = useMemo<FeatCheckContext>(() => {
     const derived = deriveCharacter(draft, engineCatalog);
@@ -2520,7 +2527,7 @@ export function PartyRoomDashboard({
                   label={<strong className={statValueClassName(sheetContent.derivedStats.walkingSpeed.tone)}>{sheetContent.derivedStats.walkingSpeed.displayValue}</strong>}
                   ariaLabel="Walking speed breakdown"
                   content={statTooltipContent(sheetContent.derivedStats.walkingSpeed)}
-                  variant="keyword"
+                  variant="formula"
                   tooltipClassName="sheet-inline-tooltip"
                 />
                 {sheetContent.derivedStats.extraMovementModes.map((speed) => (
@@ -2557,7 +2564,7 @@ export function PartyRoomDashboard({
                   label={<strong className={statValueClassName(sheetContent.derivedStats.armorClass.tone)}>{sheetContent.derivedStats.armorClass.displayValue}</strong>}
                   ariaLabel="Armor Class breakdown"
                   content={statTooltipContent(sheetContent.derivedStats.armorClass)}
-                  variant="keyword"
+                  variant="formula"
                   tooltipClassName="sheet-inline-tooltip"
                 />
               </article>
@@ -2789,23 +2796,37 @@ export function PartyRoomDashboard({
                               content={actionTooltipContent(action)}
                             />
                           </strong>
+                          {action.short ? <span className="action-selection-short">{highlightKeywords(action.short, action.id)}</span> : null}
                           <span className="action-selection-source">{action.source}</span>
                         </div>
                         {/* Savasta bakilan degerler satirin kendisinde: menzil, vurus, hasar. */}
                         <div className="action-stats">
                           {[
-                            { label: "Range", value: action.range },
-                            { label: "Hit / DC", value: action.hit },
-                            { label: "Damage", value: action.damage },
+                            { label: "Range", value: action.range, formula: undefined as string | undefined },
+                            { label: "Hit / DC", value: action.hit, formula: action.formula?.hit },
+                            { label: "Damage", value: action.damage, formula: action.formula?.damage },
                           ]
                             .filter((cell) => cell.value && cell.value !== "-")
                             .map((cell) => (
                               <span key={`${action.id}-${cell.label}`} className={`action-stat action-stat-${cell.label.toLowerCase().replace(/\W+/g, "")}`}>
                                 <small>{cell.label}</small>
-                                <b>{cell.value}</b>
+                                {cell.formula ? (
+                                  <InlineHelp
+                                    label={<b>{cell.value}</b>}
+                                    ariaLabel={`${action.name} ${cell.label} formula`}
+                                    content={<div className="stat-breakdown-tooltip"><strong>{cell.label}</strong><div>{cell.formula}</div></div>}
+                                    variant="formula"
+                                  />
+                                ) : (
+                                  <b>{cell.value}</b>
+                                )}
                               </span>
                             ))}
-                          {action.category !== "Attack" ? <span className="action-category-chip">{action.category}</span> : null}
+                          {action.facts ? (
+                            <FactChips facts={{ ...action.facts, save: undefined, range: undefined }} dcs={saveDcValues} hidePassive />
+                          ) : action.category !== "Attack" ? (
+                            <span className="action-category-chip">{action.category}</span>
+                          ) : null}
                         </div>
                       </article>
                     )) : (
@@ -2882,16 +2903,11 @@ export function PartyRoomDashboard({
                   {sheetContent.builtFeatures.map((feature) => (
                     <article className="feature-sheet-card" key={feature.id}>
                       <div className="feature-sheet-card-head">
-                        <strong>
-                          <InlineHelp
-                            label={feature.name}
-                            variant="keyword"
-                            content={`${feature.summary} ${feature.kind} | ${feature.source}`}
-                          />
-                        </strong>
+                        <strong>{feature.name}</strong>
                         <span className="feature-kind-pill">{feature.kind}</span>
                       </div>
-                      <p>{highlightKeywords(feature.summary, feature.id)}</p>
+                      {/* Katmanli: tek satir + kural etiketleri + acilir tam metin. */}
+                      <LayeredFeature id={feature.id} short={feature.short} summary={feature.summary} facts={feature.facts} dcs={saveDcValues} />
                       <span className="feature-sheet-card-meta">{feature.source}</span>
                     </article>
                   ))}

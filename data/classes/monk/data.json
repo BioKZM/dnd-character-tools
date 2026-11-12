@@ -321,7 +321,11 @@
           ],
           "shield": false
         }
-      ]
+      ],
+      "short": "Without armor or shield, AC = 10 + DEX + WIS.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "martial-arts",
@@ -356,7 +360,11 @@
           "type": "martial_arts",
           "die": "1d4 (1d6 at 5th, 1d8 at 11th, 1d10 at 17th)"
         }
-      ]
+      ],
+      "short": "Fight with fists and monk weapons using DEX and your Martial Arts die.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "ki",
@@ -407,7 +415,13 @@
           "type": "note",
           "text": "Patient Defense (1 ki): Dodge as a bonus action. Step of the Wind (1 ki): Disengage or Dash as a bonus action, jump distance doubled."
         }
-      ]
+      ],
+      "short": "Spend ki on Flurry of Blows, Patient Defense and Step of the Wind.",
+      "facts": {
+        "action": "Bonus Action",
+        "uses": "Monk level / short rest",
+        "dc": "ki"
+      }
     },
     {
       "id": "unarmored-movement",
@@ -452,7 +466,11 @@
           "scaling": "10 (15 at 6th, 20 at 10th, 25 at 14th, 30 at 18th)",
           "unarmoredOnly": true
         }
-      ]
+      ],
+      "short": "Move faster while unarmored; later run on walls and water.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "dedicated-weapon-optional",
@@ -464,7 +482,11 @@
         "Optional"
       ],
       "summary": "Also at 2nd level, you train yourself to use a variety of weapons as monk weapons, not just simple melee weapons and shortswords. Whenever you finish a short or long rest, you can touch one weapon, focus your ki on it, and then count that weapon as a monk weapon until you use this feature again. The chosen weapon must meet these criteria: The weapon must be a simple or martial weapon. You must be proficient with it. It must lack the heavy and special properties.",
-      "unlockLevel": 2
+      "unlockLevel": 2,
+      "short": "Make one proficient weapon count as a monk weapon.",
+      "facts": {
+        "action": "Special"
+      }
     },
     {
       "id": "deflect-missiles",
@@ -480,7 +502,12 @@
           "type": "note",
           "text": "Deflect Missiles (reaction): reduce ranged weapon damage by 1d10 + DEX + monk level; 1 ki to throw it back."
         }
-      ]
+      ],
+      "short": "Reduce ranged weapon damage; catch and throw it back.",
+      "facts": {
+        "action": "Reaction",
+        "cost": "1 ki to throw back"
+      }
     },
     {
       "id": "ki-fueled-attack-optional",
@@ -492,7 +519,11 @@
         "Optional"
       ],
       "summary": "Also at 3rd level, if you spend 1 ki point or more as part of your action on your turn, you can make one attack with an unarmed strike or a monk weapon as a bonus action before the end of the turn.",
-      "unlockLevel": 3
+      "unlockLevel": 3,
+      "short": "After spending ki in your action, make one quick attack.",
+      "facts": {
+        "action": "Bonus Action"
+      }
     },
     {
       "id": "ability-score-improvement",
@@ -523,7 +554,11 @@
         }
       ],
       "summary": "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-      "unlockLevel": 4
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "slow-fall",
@@ -538,7 +573,11 @@
           "type": "note",
           "text": "Slow Fall (reaction): reduce falling damage by 5 × monk level."
         }
-      ]
+      ],
+      "short": "Reduce falling damage by 5 × monk level.",
+      "facts": {
+        "action": "Reaction"
+      }
     },
     {
       "id": "quickened-healing-optional",
@@ -550,7 +589,12 @@
         "Optional"
       ],
       "summary": "Also at 4th level, as an action, you can spend 2 ki points and roll a Martial Arts die. You regain a number of hit points equal to the number rolled plus your proficiency bonus.",
-      "unlockLevel": 4
+      "unlockLevel": 4,
+      "short": "Heal a Martial Arts die + proficiency bonus.",
+      "facts": {
+        "action": "Action",
+        "cost": "2 ki"
+      }
     },
     {
       "id": "extra-attack",
@@ -565,7 +609,11 @@
           "type": "note",
           "text": "Extra Attack: attack twice when you take the Attack action."
         }
-      ]
+      ],
+      "short": "Attack twice when you take the Attack action.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "stunning-strike",
@@ -580,7 +628,14 @@
           "type": "note",
           "text": "Stunning Strike (1 ki): on a melee weapon hit, target makes a CON save against your ki DC or is stunned until the end of your next turn."
         }
-      ]
+      ],
+      "short": "Spend 1 ki on a melee hit to stun the target.",
+      "facts": {
+        "cost": "1 ki",
+        "save": "CON",
+        "dc": "ki",
+        "duration": "Until end of your next turn"
+      }
     },
     {
       "id": "focused-aim-optional",
@@ -592,7 +647,11 @@
         "Optional"
       ],
       "summary": "Also at 5th level, when you miss with an attack roll, you can spend 1 to 3 ki points to increase your attack roll by 2 for each of these ki points you spend, potentially turning the miss into a hit.",
-      "unlockLevel": 5
+      "unlockLevel": 5,
+      "short": "Turn a miss into a hit: +2 to the roll per ki.",
+      "facts": {
+        "cost": "1–3 ki"
+      }
     },
     {
       "id": "ki-empowered-strikes",
@@ -607,7 +666,11 @@
           "type": "note",
           "text": "Ki-Empowered Strikes: unarmed strikes count as magical."
         }
-      ]
+      ],
+      "short": "Your unarmed strikes count as magical.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "evasion",
@@ -622,7 +685,11 @@
           "type": "note",
           "text": "Evasion: no damage on a successful DEX save for half damage, half on a failure."
         }
-      ]
+      ],
+      "short": "Take no damage on a successful DEX save, half on a failure.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "stillness-of-mind",
@@ -631,7 +698,11 @@
         "Action: end one charmed or frightened effect on yourself."
       ],
       "summary": "Starting at 7th level, you can use your action to end one effect on yourself that is causing you to be charmed or frightened.",
-      "unlockLevel": 7
+      "unlockLevel": 7,
+      "short": "End a charm or fear effect on yourself.",
+      "facts": {
+        "action": "Action"
+      }
     },
     {
       "id": "purity-of-body",
@@ -657,7 +728,11 @@
           "kind": "condition_immunity",
           "against": "disease"
         }
-      ]
+      ],
+      "short": "Become immune to disease and poison.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "tongue-of-the-sun-and-moon",
@@ -666,7 +741,11 @@
         "Understand all spoken languages; any creature that knows a language understands you."
       ],
       "summary": "Starting at 13th level, you learn to touch the ki of other minds so that you understand all spoken languages. Moreover, any creature that can understand a language can understand what you say.",
-      "unlockLevel": 13
+      "unlockLevel": 13,
+      "short": "Understand every spoken language and be understood.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "diamond-soul",
@@ -694,7 +773,12 @@
           "type": "note",
           "text": "Diamond Soul: spend 1 ki to reroll a failed saving throw."
         }
-      ]
+      ],
+      "short": "Gain proficiency in all saves; spend 1 ki to reroll one.",
+      "facts": {
+        "action": "Passive",
+        "cost": "1 ki to reroll"
+      }
     },
     {
       "id": "timeless-body",
@@ -703,7 +787,11 @@
         "No frailty of old age; no need for food or water."
       ],
       "summary": "At 15th level, your ki sustains you so that you suffer none of the frailty of old age, and you can't be aged magically. You can still die of old age, however. In addition, you no longer need food or water.",
-      "unlockLevel": 15
+      "unlockLevel": 15,
+      "short": "Stop aging and no longer need food or water.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "empty-body",
@@ -719,7 +807,13 @@
           "type": "note",
           "text": "Empty Body (4 ki): invisible for 1 minute and resistance to all damage except force; 8 ki for Astral Projection."
         }
-      ]
+      ],
+      "short": "Turn invisible and resist most damage for a minute.",
+      "facts": {
+        "action": "Action",
+        "cost": "4 ki",
+        "duration": "1 minute"
+      }
     },
     {
       "id": "perfect-self",
@@ -734,7 +828,11 @@
           "type": "note",
           "text": "Perfect Self: regain 4 ki when you roll initiative with no ki left."
         }
-      ]
+      ],
+      "short": "Regain 4 ki when you roll initiative with none left.",
+      "facts": {
+        "action": "Passive"
+      }
     }
   ],
   "subclassHeading": "Monastic Tradition",
