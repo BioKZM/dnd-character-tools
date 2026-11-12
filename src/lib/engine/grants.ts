@@ -80,6 +80,18 @@ export const grantSchema = z.discriminatedUnion("type", [
     })
     .strict(),
   z.object({ type: z.literal("initiative"), bonus: z.number().int() }).strict(),
+  /**
+   * Zirh yokken kullanilabilecek alternatif AC tabani: Unarmored Defense (Barbarian 10 + DEX + CON),
+   * dogal zirh (Lizardfolk 13 + DEX), Draconic Resilience vb. En yuksek taban secilir.
+   */
+  z
+    .object({
+      type: z.literal("ac_base"),
+      base: z.number().int(),
+      abilities: z.array(abilityIdSchema).default([]),
+      shield: z.boolean().default(true),
+    })
+    .strict(),
   /** Proficient olunmayan ability check'lere yarim proficiency (Bard Jack of All Trades). Initiative dahil. */
   z.object({ type: z.literal("half_proficiency") }).strict(),
   z

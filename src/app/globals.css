@@ -8778,3 +8778,65 @@ h2 .keyword-help-trigger,
     grid-template-columns: 1fr;
   }
 }
+
+/* --- Sheet: inventory tab --- */
+.inventory-tab-body {
+  display: grid;
+  gap: 8px;
+}
+
+.inventory-row {
+  align-items: center;
+}
+
+.inventory-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.quantity-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.currency-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.currency-field {
+  display: grid;
+  gap: 4px;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.currency-field input,
+.inventory-add-row input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  font: inherit;
+}
+
+.inventory-add-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+@media (max-width: 640px) {
+  .currency-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

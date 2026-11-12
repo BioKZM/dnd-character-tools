@@ -114,6 +114,11 @@ export type CharacterDraft = {
   usedSlots: Record<string, number>;
   /** Harcanan kaynaklar: resource id -> kullanilan sayi. */
   usedResources: Record<string, number>;
+  /** Inventory esyalarinin durumu: kusanili mi, kac adet. Yazilmamissa kusanili, 1 adet. */
+  itemState: Record<string, { equipped?: boolean; quantity?: number }>;
+  currency: { cp: number; sp: number; ep: number; gp: number; pp: number };
+  /** Acik sureli etkiler (orn. "mage-armor"). */
+  activeEffects: string[];
   selectedInvocationIds: string[];
   mysticArcanumSelections: Partial<Record<6 | 7 | 8 | 9, string>>;
   rangerChoices: RangerChoices;
@@ -170,6 +175,9 @@ export const demoCharacter: CharacterDraft = {
   choices: {},
   usedSlots: {},
   usedResources: {},
+  itemState: {},
+  currency: { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 },
+  activeEffects: [],
   selectedInvocationIds: [],
   mysticArcanumSelections: {},
   rangerChoices: {

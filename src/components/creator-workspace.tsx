@@ -4368,6 +4368,7 @@ export function CreatorWorkspace({
   const fighterJourneyBrowsers: CreatorBrowser[] = [
     "class",
     "class-features",
+    "inventory",
     "fighter-fighting-style",
     "warlock-pact",
     "warlock-invocations",
@@ -4426,9 +4427,10 @@ export function CreatorWorkspace({
       },
     ];
     const baseStages = currentCuratedClass?.journeyStages.length ? currentCuratedClass.journeyStages : fallbackStages;
-    const normalizedBaseStages = baseStages.filter((stage) => stage.browser !== "inventory");
+    // Ekipman adimi artik Class akisinda (eskiden filtreleniyordu ve sadece Tools & Gear'dan aciliyordu).
+    const normalizedBaseStages = baseStages;
     const subclassStages = selectedJourneySubclass?.journeyStages ?? [];
-    const stageOrder = ["class", "class-features", "fighter-fighting-style", "fighter-asi", "subclass", "subclass-features", "subclass-choices", "warlock-pact", "warlock-invocations", "spells"];
+    const stageOrder = ["class", "class-features", "inventory", "fighter-fighting-style", "fighter-asi", "subclass", "subclass-features", "subclass-choices", "warlock-pact", "warlock-invocations", "spells"];
     return [...normalizedBaseStages, ...subclassStages]
       .filter((stage) => (stage.minLevel ? draft.level >= stage.minLevel : true))
       .filter((stage) => (stage.requiresSubclassId ? fighterJourneySubclassId === stage.requiresSubclassId : true))
@@ -6011,7 +6013,7 @@ export function CreatorWorkspace({
                       "creator-panel",
                       "creator-panel-wide",
                       "fighter-journey-panel",
-                      fighterJourneyScene === "fighter-features" || fighterJourneyScene === "fighter-style" || fighterJourneyScene === "fighter-asi" || fighterJourneyScene === "fighter-class" || fighterJourneyScene === "fighter-eldritch" || fighterJourneyScene === "warlock-pact" || fighterJourneyScene === "warlock-invocations" || fighterJourneyScene === "warlock-spells"
+                      fighterJourneyScene === "fighter-features" || fighterJourneyScene === "fighter-style" || fighterJourneyScene === "fighter-asi" || fighterJourneyScene === "fighter-class" || fighterJourneyScene === "fighter-eldritch" || fighterJourneyScene === "warlock-pact" || fighterJourneyScene === "warlock-invocations" || fighterJourneyScene === "fighter-equipment" || fighterJourneyScene === "warlock-spells"
                         ? "creator-stage-panel-flat fighter-journey-panel-plain"
                         : "",
                       fighterJourneySubclassId === "eldritch-knight" ? "is-arcane" : "",
@@ -6831,6 +6833,27 @@ export function CreatorWorkspace({
                           </button>
                         ) : null}
                       </div>
+                    </div>
+                  ) : null}
+
+                  {fighterJourneyScene === "fighter-equipment" ? (
+                    <div className="fighter-journey-scene">
+                      <div className="fighter-journey-scene-head compact">
+                        <span className="mini-heading creator-section-label">Equipment</span>
+                        <h3>Starting Equipment</h3>
+                        <p>{`Choose the ${currentClass.name.toLowerCase()} kit you start with. Items land in the sheet's Inventory, where you can equip, add or remove them.`}</p>
+                      </div>
+                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
+                      <article className="fighter-equipment-section">
+                        <div className="equipment-choice-stack">
+                          {classStartingEquipment.length ? classStartingEquipment.map((group) => renderEquipmentChoiceGroup(group, "journey-gear")) : (
+                            <div className="list-row">
+                              <strong>No class equipment choices</strong>
+                              <span>This class does not have curated starting equipment yet.</span>
+                            </div>
+                          )}
+                        </div>
+                      </article>
                     </div>
                   ) : null}
 
@@ -9743,7 +9766,7 @@ export function CreatorWorkspace({
                   <div className="fighter-journey-scene">
                     <div className="fighter-journey-scene-head compact">
                       <h3>Equipment</h3>
-                      <p>Choose the fighter kit you start with.</p>
+                      <p>{`Choose the ${currentClass.name.toLowerCase()} kit you start with.`}</p>
                     </div>
                     <div className="fighter-journey-scene-divider" aria-hidden="true" />
                     <article className="fighter-equipment-section">

@@ -32,6 +32,8 @@ export type DerivedCharacter = {
   defenses: SourcedValue<{ kind: string; against: string; label: string }>[];
   hp: { perLevel: number; flat: number; breakdown: string[] };
   armorClassBonuses: { bonus: number; condition?: string; source: string }[];
+  /** Zirhsizken kullanilabilecek AC tabanlari (Unarmored Defense, dogal zirh...). */
+  armorClassBases: { base: number; abilities: AbilityId[]; shield: boolean; source: string }[];
   initiative: { bonus: number; breakdown: string[] };
   /** Jack of All Trades gibi: proficient olunmayan check'lere yarim proficiency. */
   halfProficiency: { sources: string[] };
@@ -54,6 +56,7 @@ export const HANDLED_GRANT_TYPES: GrantType[] = [
   "defense",
   "hp",
   "ac",
+  "ac_base",
   "initiative",
   "half_proficiency",
   "spell",
@@ -131,6 +134,7 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
     defenses: [],
     hp: { perLevel: 0, flat: 0, breakdown: [] },
     armorClassBonuses: [],
+    armorClassBases: [],
     initiative: { bonus: 0, breakdown: [] },
     halfProficiency: { sources: [] },
     spells: [],
@@ -208,6 +212,9 @@ export function deriveCharacter(draft: CharacterDraft, catalog: EngineCatalog): 
         return;
       case "ac":
         result.armorClassBonuses.push({ bonus: grant.bonus, condition: grant.condition, source: label });
+        return;
+      case "ac_base":
+        result.armorClassBases.push({ base: grant.base, abilities: grant.abilities, shield: grant.shield, source: label });
         return;
       case "initiative":
         result.initiative.bonus += grant.bonus;

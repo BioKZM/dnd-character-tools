@@ -10,8 +10,10 @@ import { emptyDraft, FULL_HP, stripLeakedDemoValues, type CharacterDraft, type A
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
 import { SheetSpellsPanel } from "@/components/sheet-spells-panel";
 import { SheetResourcesPanel } from "@/components/sheet-resources-panel";
+import { SheetInventoryPanel } from "@/components/sheet-inventory-panel";
 import { availableChoices, languageChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
 import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
+import { computeArmorClass, mageArmorAvailable } from "@/lib/engine/armor-class";
 import { deriveCharacter, hasProficiency, senseLabel, type DerivedCharacter } from "@/lib/engine/derive";
 import {
   warlockInvocationMeetsPrerequisite,
@@ -490,26 +492,7 @@ function inventoryHasArmorName(inventory: string[], armor: ContentBundle["armors
   return [armor.name, ...armor.aliases].some((name) => inventoryNames.has(normalizeEquipmentName(name)));
 }
 
-function armorAcValue(armor: ContentBundle["armors"][number], dexterityModifier: number) {
-  const baseAc = armor.baseAc ?? 10;
-  if (!armor.dexBonus) {
-    return baseAc;
-  }
 
-  const dexBonus = typeof armor.maxDexBonus === "number"
-    ? Math.min(dexterityModifier, armor.maxDexBonus)
-    : dexterityModifier;
-  return baseAc + dexBonus;
-}
-
-function calculatedArmorClass(content: ContentBundle, inventory: string[], dexterityModifier: number) {
-  const shieldBonus = content.armors
-    .filter((armor) => armor.category === "shield" && inventoryHasArmorName(inventory, armor))
-    .reduce((total, armor) => total + (armor.acBonus ?? 0), 0);
-  const wearableArmors = content.armors.filter((armor) => armor.category !== "shield" && inventoryHasArmorName(inventory, armor));
-  const bestArmorAc = wearableArmors.reduce((best, armor) => Math.max(best, armorAcValue(armor, dexterityModifier)), 10 + dexterityModifier);
-  return bestArmorAc + shieldBonus;
-}
 
 function parseBackgroundSkills(value?: string | string[]) {
   const entries = Array.isArray(value)
@@ -1125,7 +1108,16 @@ function buildSheetDraftFromSelection(
     proficiencyBonus,
     initiative:
       modifiers.DEX + derived.initiative.bonus + (derived.halfProficiency.sources.length ? Math.floor(proficiencyBonus / 2) : 0),
-    armorClass: calculatedArmorClass(content, draft.inventory, modifiers.DEX),
+    armorClass: computeArmorClass({
+      armors: content.armors,
+      inventory: draft.inventory,
+      itemState: draft.itemState,
+      modifiers,
+      strengthScore: abilities.find((ability) => ability.id === "STR")?.score ?? 10,
+      armorProficiencies: mergeNames(draft.proficiencies?.armor ?? [], derived.proficiencies.armor),
+      derived,
+      mageArmorActive: (draft.activeEffects ?? []).includes("mage-armor") && mageArmorAvailable(derived, draft.spellIds),
+    }).value,
     maxHp,
     currentHp: draft.currentHp < 0 ? maxHp : Math.min(draft.currentHp, maxHp),
     savingThrows: (["STR", "DEX", "CON", "INT", "WIS", "CHA"] as AbilityId[]).map((ability) => ({
@@ -1280,7 +1272,6 @@ function buildDraftFromSelection(
     ...previous.inventory.filter((item) => !allBackgroundEquipment.includes(item)),
     ...backgroundEquipment,
   ]);
-  const armorClass = calculatedArmorClass(content, inventory, modifiers.DEX);
 
   const built: CharacterDraft = {
     ...previous,
@@ -1344,7 +1335,6 @@ function buildDraftFromSelection(
     inventory,
     proficiencyBonus,
     initiative: modifiers.DEX,
-    armorClass,
     maxHp,
     currentHp: previous.currentHp < 0 ? FULL_HP : Math.min(previous.currentHp, maxHp),
     proficiencies: {
@@ -2652,19 +2642,62 @@ export function PartyRoomDashboard({
               ) : null}
 
               {activeTab === "inventory" ? (
-                <div className="tab-body simple-list">
-                  {draft.inventory.map((item) => (
-                    <div className="list-row" key={item}>
-                      <strong>
-                        <InlineHelp
-                          label={item}
-                          variant="keyword"
-                          content={`${item} is currently equipped or carried by the character.`}
-                        />
-                      </strong>
-                    </div>
-                  ))}
-                </div>
+                <SheetInventoryPanel
+                  content={initialContent}
+                  inventory={draft.inventory}
+                  itemState={draft.itemState ?? {}}
+                  currency={draft.currency ?? { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 }}
+                  mageArmorAvailable={sheetContent.mageArmorAvailable}
+                  mageArmorActive={(draft.activeEffects ?? []).includes("mage-armor")}
+                  onToggleEquipped={(item) =>
+                    updateDraft((current) => ({
+                      ...current,
+                      itemState: {
+                        ...(current.itemState ?? {}),
+                        [item]: { ...(current.itemState?.[item] ?? {}), equipped: current.itemState?.[item]?.equipped === false },
+                      },
+                    }))
+                  }
+                  onQuantity={(item, quantity) =>
+                    updateDraft((current) => ({
+                      ...current,
+                      itemState: { ...(current.itemState ?? {}), [item]: { ...(current.itemState?.[item] ?? {}), quantity } },
+                    }))
+                  }
+                  onRemove={(item) =>
+                    updateDraft((current) => ({ ...current, inventory: current.inventory.filter((entry) => entry !== item) }))
+                  }
+                  onAdd={(item) =>
+                    updateDraft((current) =>
+                      current.inventory.includes(item)
+                        ? {
+                            ...current,
+                            itemState: {
+                              ...(current.itemState ?? {}),
+                              [item]: { ...(current.itemState?.[item] ?? {}), quantity: (current.itemState?.[item]?.quantity ?? 1) + 1 },
+                            },
+                          }
+                        : { ...current, inventory: [...current.inventory, item] },
+                    )
+                  }
+                  onCurrency={(coin, value) =>
+                    updateDraft((current) => ({
+                      ...current,
+                      currency: { ...(current.currency ?? { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 }), [coin]: value },
+                    }))
+                  }
+                  onToggleMageArmor={() =>
+                    updateDraft((current) => {
+                      const effects = current.activeEffects ?? [];
+                      return {
+                        ...current,
+                        activeEffects: effects.includes("mage-armor")
+                          ? effects.filter((effect) => effect !== "mage-armor")
+                          : [...effects, "mage-armor"],
+                      };
+                    })
+                  }
+                />
               ) : null}
 
               {activeTab === "features" ? (

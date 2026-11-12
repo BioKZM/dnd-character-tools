@@ -2,6 +2,7 @@ import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import type { ContentBundle } from "@/lib/content/schema";
 import type { EngineCatalog } from "@/lib/engine/collect";
 import { deriveCharacter, resolveResourceUses, type DerivedCharacter, type DerivedSpell } from "@/lib/engine/derive";
+import { computeArmorClass, mageArmorAvailable, type ArmorClassResult } from "@/lib/engine/armor-class";
 import { cantripTier, scaleCantripDamage, spellcastingProfiles, type SpellcastingProfile } from "@/lib/engine/spellcasting";
 import type { AbilityId } from "@/lib/engine/grants";
 
@@ -249,80 +250,16 @@ function inventoryHasArmorName(inventory: string[], armor: ContentBundle["armors
   return [armor.name, ...armor.aliases].some((name) => inventoryNames.has(normalizeEquipmentName(name)));
 }
 
-function armorAcValue(armor: ContentBundle["armors"][number], dexterityModifier: number) {
-  const baseAc = armor.baseAc ?? 10;
-  if (!armor.dexBonus) {
-    return baseAc;
-  }
 
-  const dexBonus = typeof armor.maxDexBonus === "number"
-    ? Math.min(dexterityModifier, armor.maxDexBonus)
-    : dexterityModifier;
-  return baseAc + dexBonus;
-}
 
-function armorAcFormula(armor: ContentBundle["armors"][number]) {
-  if (armor.category === "shield") {
-    return `+${armor.acBonus ?? 0}`;
-  }
 
-  if (!armor.dexBonus) {
-    return `${armor.baseAc ?? 10}`;
-  }
-
-  return typeof armor.maxDexBonus === "number"
-    ? `${armor.baseAc ?? 10} + DEX modifier (max ${armor.maxDexBonus})`
-    : `${armor.baseAc ?? 10} + DEX modifier`;
-}
-
-function calculatedArmorClass(content: ContentBundle, draft: CharacterDraft) {
-  const dexterityModifier = draft.abilities.find((ability) => ability.id === "DEX")?.modifier ?? 0;
-  const baselineArmorClass = 10 + dexterityModifier;
-  const shieldEntries = content.armors.filter((armor) => armor.category === "shield" && inventoryHasArmorName(draft.inventory, armor));
-  const shieldBonus = shieldEntries.reduce((total, armor) => total + (armor.acBonus ?? 0), 0);
-  const wearableArmors = content.armors.filter((armor) => armor.category !== "shield" && inventoryHasArmorName(draft.inventory, armor));
-  const armorCandidates = [
-    {
-      label: "Unarmored",
-      value: baselineArmorClass,
-      breakdown: `Unarmored baseline: 10 + DEX ${dexterityModifier >= 0 ? `+${dexterityModifier}` : dexterityModifier} = ${baselineArmorClass}`,
-    },
-    ...wearableArmors.map((armor) => ({
-      label: armor.name,
-      value: armorAcValue(armor, dexterityModifier),
-      breakdown: `${armor.name}: ${armorAcFormula(armor)} = ${armorAcValue(armor, dexterityModifier)}`,
-      armor,
-    })),
-  ];
-  const best = armorCandidates.reduce((currentBest, candidate) => candidate.value > currentBest.value ? candidate : currentBest, armorCandidates[0]);
-  const currentValue = best.value + shieldBonus;
-  const breakdown = [best.breakdown];
-
-  shieldEntries.forEach((shield) => {
-    breakdown.push(`${shield.name}: +${shield.acBonus ?? 0}`);
-  });
-
-  if ("armor" in best && best.armor) {
-    if (best.armor.strengthRequirement) {
-      breakdown.push(`${best.armor.name} strength requirement: STR ${best.armor.strengthRequirement}`);
-    }
-    if (best.armor.stealthDisadvantage) {
-      breakdown.push(`${best.armor.name} imposes disadvantage on Stealth checks.`);
-    }
-  }
-
-  return {
-    baselineArmorClass,
-    currentValue,
-    breakdown,
-    wearingArmor: "armor" in best && Boolean(best.armor),
-  };
-}
-
-function deriveMovementStats(derived: DerivedCharacter): { walkingSpeed: DerivedStatDisplay; extraMovementModes: DerivedStatDisplay[] } {
+function deriveMovementStats(
+  derived: DerivedCharacter,
+  armorSpeedPenalty = 0,
+): { walkingSpeed: DerivedStatDisplay; extraMovementModes: DerivedStatDisplay[] } {
   const walk = derived.speeds.find((speed) => speed.mode === "walk");
   const baseWalk = Number.parseInt(walk?.breakdown[0]?.match(/(\d+) ft\./)?.[1] ?? "", 10) || walk?.value || 30;
-  const currentWalk = walk?.value ?? baseWalk;
+  const currentWalk = Math.max(0, (walk?.value ?? baseWalk) - armorSpeedPenalty);
 
   const walkingSpeed: DerivedStatDisplay = {
     id: "walking-speed",
@@ -332,7 +269,7 @@ function deriveMovementStats(derived: DerivedCharacter): { walkingSpeed: Derived
     currentValue: currentWalk,
     bonusValue: currentWalk - baseWalk,
     tone: derivedStatTone(baseWalk, currentWalk),
-    breakdown: walk?.breakdown ?? [],
+    breakdown: [...(walk?.breakdown ?? []), ...(armorSpeedPenalty ? [`Heavy armor without enough STR: -${armorSpeedPenalty} ft.`] : [])],
   };
 
   return {
@@ -352,28 +289,16 @@ function deriveMovementStats(derived: DerivedCharacter): { walkingSpeed: Derived
   };
 }
 
-function deriveArmorClassStat(content: ContentBundle, draft: CharacterDraft, derived: DerivedCharacter): DerivedStatDisplay {
-  const base = calculatedArmorClass(content, draft);
-  const calculated = { ...base, breakdown: [...base.breakdown] };
-  derived.armorClassBonuses.forEach((bonus) => {
-    const needsArmor = bonus.condition?.toLowerCase().includes("armor") ?? false;
-    if (needsArmor && !base.wearingArmor) {
-      calculated.breakdown.push(`${bonus.source}: +${bonus.bonus} (${bonus.condition}, not active)`);
-      return;
-    }
-    calculated.currentValue += bonus.bonus;
-    calculated.breakdown.push(`${bonus.source}: +${bonus.bonus}${bonus.condition ? ` (${bonus.condition})` : ""}`);
-  });
-
+function deriveArmorClassStat(armorClass: ArmorClassResult): DerivedStatDisplay {
   return {
     id: "armor-class",
     label: "Armor Class",
-    displayValue: `${calculated.currentValue}`,
-    baseValue: calculated.baselineArmorClass,
-    currentValue: calculated.currentValue,
-    bonusValue: calculated.currentValue - calculated.baselineArmorClass,
-    tone: derivedStatTone(calculated.baselineArmorClass, calculated.currentValue),
-    breakdown: calculated.breakdown,
+    displayValue: `${armorClass.value}`,
+    baseValue: armorClass.baseline,
+    currentValue: armorClass.value,
+    bonusValue: armorClass.value - armorClass.baseline,
+    tone: derivedStatTone(armorClass.baseline, armorClass.value),
+    breakdown: [...armorClass.breakdown, ...armorClass.warnings.map((warning) => `Warning: ${warning}`)],
   };
 }
 
@@ -1044,8 +969,18 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     ...buildFeatureActions(builtFeatures),
   ]);
 
-  const movementStats = deriveMovementStats(derived);
-  const armorClassStat = deriveArmorClassStat(content, draft, derived);
+  const armorClass = computeArmorClass({
+    armors: content.armors,
+    inventory: draft.inventory,
+    itemState: draft.itemState,
+    modifiers: abilityModifiers,
+    strengthScore: draft.abilities.find((ability) => ability.id === "STR")?.score ?? 10,
+    armorProficiencies: draft.proficiencies?.armor ?? [],
+    derived,
+    mageArmorActive: (draft.activeEffects ?? []).includes("mage-armor") && mageArmorAvailable(derived, draft.spellIds),
+  });
+  const movementStats = deriveMovementStats(derived, armorClass.speedPenalty);
+  const armorClassStat = deriveArmorClassStat(armorClass);
 
   return {
     className: chosenClass?.name ?? draft.classLine,
@@ -1072,6 +1007,7 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     builtActions,
     builtFeatures,
     spellcasting,
+    mageArmorAvailable: mageArmorAvailable(derived, draft.spellIds),
     // Spells sekmesi icin: level'a gore siralanmis, kaynagi ve DC/attack'i hazir buyu listesi.
     spellEntries: learnedSpells
       .map(({ spell, sourceLabel }) => ({
