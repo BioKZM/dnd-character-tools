@@ -768,6 +768,14 @@ function deriveSpellSelectionRules(
     }
   }
 
+  // Slot sayisi kac kez cast edebilecegini belirler, kac buyu bilecegini degil: slotu olan her seviye
+  // acik, tek sinir toplam bilinen/hazirlanan buyu sayisi.
+  if (Number.isFinite(totalKnownLimit) && totalKnownLimit > 0) {
+    Object.keys(perLevelLimits).forEach((spellLevel) => {
+      perLevelLimits[Number(spellLevel)] = totalKnownLimit;
+    });
+  }
+
   if (!Object.keys(perLevelLimits).length && warlockMaxLevel > 0) {
     const slotCount = numericValue(readCell("Spell Slots"));
     for (let spellLevel = 1; spellLevel <= warlockMaxLevel; spellLevel += 1) {

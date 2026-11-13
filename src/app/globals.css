@@ -9906,3 +9906,16 @@ h2 .keyword-help-trigger,
 .pick-pager-dot { min-width: 28px; height: 28px; padding: 0 6px; border-radius: 8px; border: 1px solid #2c313a; background: none; color: #9aa0aa; font: inherit; font-size: 0.8rem; font-weight: 650; cursor: pointer; }
 .pick-pager-dot.active { border-color: #d6b25e; color: #f1dca4; background: rgba(214, 178, 94, 0.14); }
 .pick-pager-count { font-size: 0.8rem; color: #8a909b; font-variant-numeric: tabular-nums; }
+
+/* Spell secim gruplari: Cantrips / Spells / Any school sekmeleri */
+.pick-tabs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 6px; padding: 5px; border-radius: 14px; border: 1px solid #2c313a; background: rgba(255, 255, 255, 0.02); }
+.pick-tab { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 10px; row-gap: 2px; padding: 10px 14px; border-radius: 10px; border: 1px solid transparent; background: none; color: #b1b5bd; font: inherit; text-align: left; cursor: pointer; }
+.pick-tab:hover { background: rgba(255, 255, 255, 0.04); }
+.pick-tab.active { border-color: #d6b25e; background: rgba(214, 178, 94, 0.12); color: #f1dca4; }
+.pick-tab-label { font-size: 0.95rem; font-weight: 700; }
+.pick-tab-count { font-size: 0.82rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+.pick-tab-count.pending { color: #f1c56b; background: rgba(241, 197, 107, 0.12); }
+.pick-tab-count.done { color: #7fd69a; background: rgba(127, 214, 154, 0.12); }
+.pick-tab-hint { grid-column: 1 / -1; font-size: 0.78rem; color: #8d929b; font-weight: 500; }
+.pick-tab.active .pick-tab-hint { color: #c9b98f; }
+@media (max-width: 700px) { .pick-tabs { grid-auto-flow: row; } }

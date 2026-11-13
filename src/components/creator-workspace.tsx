@@ -28,7 +28,7 @@ import type { LineageCollection, ResolvedLineageEntry, SubraceEntry } from "@/li
 import type { ContentBundle } from "@/lib/content/schema";
 import type { SpellReferenceCollection, SpellReferenceEntry } from "@/lib/content/spell-reference";
 import { AppIcon } from "@/components/ui/app-icon";
-import { InspectPanel, PickGrid, PickLayout, PickSection, type PickTile } from "@/components/ui/pick-grid";
+import { InspectPanel, PickGrid, PickLayout, PickSection, PickTabs, type PickTile } from "@/components/ui/pick-grid";
 import { GearList } from "@/components/ui/gear-info";
 import { findGearInfo, gearInfosFor } from "@/lib/content/item-info";
 import { backgroundIcon, classIcon, featIcon, featureIcon, pactIcon, raceIcon, schoolIcon, skillIcon, styleIcon } from "@/lib/ui/game-icons";
@@ -3020,6 +3020,9 @@ export function CreatorWorkspace({
   const [activeSpellFilter, setActiveSpellFilter] = useState<number | "all">("all");
   const [spellListPage, setSpellListPage] = useState(0);
   const [spellSearchQuery, setSpellSearchQuery] = useState("");
+  // Spell ekranindaki grup sekmesi; null = otomatik (once eksik olan grup).
+  const [classSpellGroup, setClassSpellGroup] = useState<"cantrips" | "spells" | null>(null);
+  const [ekSpellGroup, setEkSpellGroup] = useState<"cantrips" | "focus" | "any" | null>(null);
   const [featSearchQuery, setFeatSearchQuery] = useState("");
   const [selectedFeatId, setSelectedFeatId] = useState<string | null>(null);
   const [featFilter, setFeatFilter] = useState<"fits" | "locked" | "all">("fits");
@@ -7205,9 +7208,25 @@ export function CreatorWorkspace({
                         ]
                           .filter(Boolean)
                           .join(" · ");
-                        const leftToPick =
-                          Math.max(0, (classCantripLimit || 0) - classSelectedCantrips.length) +
-                          Math.max(0, (classKnownSpellLimit || 0) - classSelectedLeveledSpells.length);
+                        const hasCantripGroup = classCantripLimit > 0;
+                        const hasSpellGroup = spellSelectionRules.maxSpellLevel > 0 && spellCandidatePool.some((spell) => spell.level > 0);
+                        const spellGroup: "cantrips" | "spells" =
+                          classSpellGroup === "cantrips" && hasCantripGroup
+                            ? "cantrips"
+                            : classSpellGroup === "spells" && hasSpellGroup
+                              ? "spells"
+                              : hasCantripGroup && (!hasSpellGroup || classSelectedCantrips.length < classCantripLimit)
+                                ? "cantrips"
+                                : "spells";
+                        const groupLevels = spellLevelPages.filter((level) => level > 0);
+                        const groupLevelFilter = spellGroup === "spells" && activeSpellFilter !== 0 ? activeSpellFilter : "all";
+                        const groupPool = searchedSpellCards.filter((spell) =>
+                          spellGroup === "cantrips" ? spell.level === 0 : spell.level > 0 && (groupLevelFilter === "all" || spell.level === groupLevelFilter),
+                        );
+                        const groupPicked = spellGroup === "cantrips" ? classSelectedCantrips.length : classSelectedLeveledSpells.length;
+                        const countable = (value: number) => (Number.isFinite(value) && value > 0 ? value : undefined);
+                        const groupTotal = countable(spellGroup === "cantrips" ? classCantripLimit : classKnownSpellLimit);
+                        const spellsWord = currentCuratedClass?.spellPreparation ? "Prepared spells" : "Spells";
                         return (
                           <PickLayout
                             inspect={
@@ -7282,56 +7301,84 @@ export function CreatorWorkspace({
                             {currentClass.id !== "warlock" ? (
                               <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                             ) : null}
+                            <PickTabs
+                              label="Spell groups"
+                              active={spellGroup}
+                              onChange={(id) => {
+                                setClassSpellGroup(id as "cantrips" | "spells");
+                                setActiveSpellFilter("all");
+                              }}
+                              tabs={[
+                                ...(hasCantripGroup ? [{ id: "cantrips", label: "Cantrips", picked: classSelectedCantrips.length, total: classCantripLimit, hint: "At-will, no slot needed" }] : []),
+                                ...(hasSpellGroup
+                                  ? [
+                                      {
+                                        id: "spells",
+                                        label: spellsWord,
+                                        picked: classSelectedLeveledSpells.length,
+                                        total: countable(classKnownSpellLimit),
+                                        hint: `Level 1 to ${spellSelectionRules.maxSpellLevel}, cast with spell slots`,
+                                      },
+                                    ]
+                                  : []),
+                              ]}
+                            />
                             <PickSection
-                              title={`${currentClass.name} spells`}
-                              meta={counterMeta}
-                              picked={leftToPick ? 0 : 1}
-                              total={leftToPick ? leftToPick : 1}
+                              title={spellGroup === "cantrips" ? `${currentClass.name} cantrips` : `${currentClass.name} ${spellsWord.toLowerCase()}`}
+                              meta={
+                                spellGroup === "cantrips"
+                                  ? "Cast as often as you like."
+                                  : `Up to level ${spellSelectionRules.maxSpellLevel}. Any mix of levels; only the total counts.`
+                              }
+                              picked={groupTotal === undefined ? undefined : groupPicked}
+                              total={groupTotal}
                               actions={
                                 <input
                                   type="search"
                                   className="pick-search"
                                   value={spellSearchQuery}
                                   onChange={(event) => setSpellSearchQuery(event.target.value)}
-                                  placeholder="Search spells"
+                                  placeholder={spellGroup === "cantrips" ? "Search cantrips" : "Search spells"}
                                   aria-label="Search spells"
                                 />
                               }
                             >
-                              {spellLevelPages.length ? (
-                                <div className="pick-filters" role="group" aria-label="Spell level">
-                                  <button type="button" className={activeSpellFilter === "all" ? "pick-filter active" : "pick-filter"} onClick={() => setActiveSpellFilter("all")}>
-                                    All
-                                  </button>
-                                  {spellLevelPages.map((level) => (
-                                    <button
-                                      type="button"
-                                      key={`spell-level-filter-${level}`}
-                                      className={activeSpellFilter === level ? "pick-filter active" : "pick-filter"}
-                                      onClick={() => setActiveSpellFilter(level)}
-                                    >
-                                      {level === 0 ? "Cantrips" : `Level ${level}`}
+                              <div className="pick-filters" role="group" aria-label="Spell level">
+                                {spellGroup === "spells" && groupLevels.length > 1 ? (
+                                  <>
+                                    <button type="button" className={groupLevelFilter === "all" ? "pick-filter active" : "pick-filter"} onClick={() => setActiveSpellFilter("all")}>
+                                      All levels
                                     </button>
-                                  ))}
-                                  <button
-                                    type="button"
-                                    className={showUnavailableOptions ? "pick-filter active" : "pick-filter"}
-                                    onClick={() => setShowUnavailableOptions((value) => !value)}
-                                  >
-                                    {showUnavailableOptions ? "Hide locked" : "Show locked"}
-                                  </button>
-                                </div>
-                              ) : null}
-                              {activeSpellPool.length ? (
+                                    {groupLevels.map((level) => (
+                                      <button
+                                        type="button"
+                                        key={`spell-level-filter-${level}`}
+                                        className={groupLevelFilter === level ? "pick-filter active" : "pick-filter"}
+                                        onClick={() => setActiveSpellFilter(level)}
+                                      >
+                                        {`Level ${level}`}
+                                      </button>
+                                    ))}
+                                  </>
+                                ) : null}
+                                <button
+                                  type="button"
+                                  className={showUnavailableOptions ? "pick-filter active" : "pick-filter"}
+                                  onClick={() => setShowUnavailableOptions((value) => !value)}
+                                >
+                                  {showUnavailableOptions ? "Hide locked" : "Show locked"}
+                                </button>
+                              </div>
+                              {groupPool.length ? (
                                 <PickGrid
-                                  label="Spell list"
+                                  label={spellGroup === "cantrips" ? "Cantrip list" : "Spell list"}
                                   pageSize={16}
-                                  key={`spells-${activeSpellFilter}-${spellSearchQuery}-${showUnavailableOptions}`}
+                                  key={`spells-${spellGroup}-${groupLevelFilter}-${spellSearchQuery}-${showUnavailableOptions}`}
                                   columns={4}
                                   size="sm"
                                   inspectedId={inspectId}
                                   onInspect={setInspectId}
-                                  items={activeSpellPool.map((spell) => {
+                                  items={groupPool.map((spell) => {
                                     const reason = classSpellUnavailableReason(spell);
                                     const known = draft.spellIds.includes(spell.id);
                                     return {
@@ -7404,9 +7451,29 @@ export function CreatorWorkspace({
                           const focusReason = focus ? eldritchKnightSpellUnavailableReason(focus) : null;
                           const focusKnown = Boolean(focus && draft.spellIds.includes(focus.id));
                           const meta = `Cantrips ${eldritchKnightCantripSelections.length}/${eldritchKnightCantripLimit} · Spells ${eldritchKnightLeveledSelections.length}/${eldritchKnightSpellsKnownLimit} · Any school ${eldritchKnightOffSchoolSelections.length}/${eldritchKnightFlexibleSchoolAllowance}`;
-                          const left =
-                            Math.max(0, eldritchKnightCantripLimit - eldritchKnightCantripSelections.length) +
-                            Math.max(0, eldritchKnightSpellsKnownLimit - eldritchKnightLeveledSelections.length);
+                          const isFocus = (spell: ContentBundle["spells"][number]) => ["abjuration", "evocation"].includes(spell.school.toLowerCase());
+                          const focusPicked = eldritchKnightLeveledSelections.length - eldritchKnightOffSchoolSelections.length;
+                          const focusTotal = Math.max(0, eldritchKnightSpellsKnownLimit - eldritchKnightFlexibleSchoolAllowance);
+                          const ekGroup: "cantrips" | "focus" | "any" =
+                            ekSpellGroup === "any" && eldritchKnightFlexibleSchoolAllowance > 0
+                              ? "any"
+                              : ekSpellGroup === "focus" && eldritchKnightSpellsKnownLimit > 0
+                                ? "focus"
+                                : ekSpellGroup === "cantrips" || eldritchKnightSpellsKnownLimit <= 0 || eldritchKnightCantripSelections.length < eldritchKnightCantripLimit
+                                  ? "cantrips"
+                                  : focusPicked < focusTotal || eldritchKnightFlexibleSchoolAllowance <= 0
+                                    ? "focus"
+                                    : "any";
+                          const ekLevels = fighterJourneySpellLevelOptions.filter((level) => level > 0 && level <= spellSelectionRules.maxSpellLevel);
+                          const ekLevelFilter = ekGroup !== "cantrips" && typeof fighterSpellLevelFilter === "number" ? fighterSpellLevelFilter : "all";
+                          const ekPool = fighterJourneySpellPool.filter((spell) =>
+                            ekGroup === "cantrips"
+                              ? spell.level === 0
+                              : spell.level > 0 &&
+                                spell.level <= spellSelectionRules.maxSpellLevel &&
+                                (ekGroup === "focus" ? isFocus(spell) : !isFocus(spell)) &&
+                                (ekLevelFilter === "all" || spell.level === ekLevelFilter),
+                          );
                           return (
                             <PickLayout
                               inspect={
@@ -7438,34 +7505,61 @@ export function CreatorWorkspace({
                                 )
                               }
                             >
-                              <PickSection title="Wizard spells" meta={meta} picked={left ? 0 : 1} total={left || 1}>
-                                <div className="pick-filters" role="group" aria-label="Spell level">
-                                  <button type="button" className={fighterSpellLevelFilter === "all" ? "pick-filter active" : "pick-filter"} onClick={() => setFighterSpellLevelFilter("all")}>
-                                    All
-                                  </button>
-                                  <button type="button" className={fighterSpellLevelFilter === "cantrip" ? "pick-filter active" : "pick-filter"} onClick={() => setFighterSpellLevelFilter("cantrip")}>
-                                    Cantrips
-                                  </button>
-                                  {fighterJourneySpellLevelOptions.filter((level) => level > 0).map((level) => (
-                                    <button
-                                      key={`ek-level-filter-${level}`}
-                                      type="button"
-                                      className={fighterSpellLevelFilter === level ? "pick-filter active" : "pick-filter"}
-                                      onClick={() => setFighterSpellLevelFilter(level)}
-                                    >
-                                      {`Level ${level}`}
+                              <PickTabs
+                                label="Eldritch Knight spell groups"
+                                active={ekGroup}
+                                onChange={(id) => {
+                                  setEkSpellGroup(id as "cantrips" | "focus" | "any");
+                                  setFighterSpellLevelFilter("all");
+                                }}
+                                tabs={[
+                                  { id: "cantrips", label: "Cantrips", picked: eldritchKnightCantripSelections.length, total: eldritchKnightCantripLimit, hint: "Any wizard cantrip" },
+                                  ...(eldritchKnightSpellsKnownLimit > 0
+                                    ? [{ id: "focus", label: eldritchKnightSchoolFocusLabel, picked: focusPicked, total: focusTotal, hint: "Your main schools" }]
+                                    : []),
+                                  ...(eldritchKnightFlexibleSchoolAllowance > 0
+                                    ? [{ id: "any", label: "Any school", picked: eldritchKnightOffSchoolSelections.length, total: eldritchKnightFlexibleSchoolAllowance, hint: "Free picks from any wizard school" }]
+                                    : []),
+                                ]}
+                              />
+                              <PickSection
+                                title={ekGroup === "cantrips" ? "Wizard cantrips" : ekGroup === "focus" ? `${eldritchKnightSchoolFocusLabel} spells` : "Any-school spells"}
+                                meta={
+                                  ekGroup === "cantrips"
+                                    ? "Cast as often as you like."
+                                    : ekGroup === "focus"
+                                      ? `Up to level ${spellSelectionRules.maxSpellLevel}. Unused any-school picks can also go here.`
+                                      : `Up to level ${spellSelectionRules.maxSpellLevel}. Spells from the other wizard schools.`
+                                }
+                                picked={ekGroup === "cantrips" ? eldritchKnightCantripSelections.length : ekGroup === "focus" ? focusPicked : eldritchKnightOffSchoolSelections.length}
+                                total={ekGroup === "cantrips" ? eldritchKnightCantripLimit : ekGroup === "focus" ? focusTotal : eldritchKnightFlexibleSchoolAllowance}
+                              >
+                                {ekGroup !== "cantrips" && ekLevels.length > 1 ? (
+                                  <div className="pick-filters" role="group" aria-label="Spell level">
+                                    <button type="button" className={ekLevelFilter === "all" ? "pick-filter active" : "pick-filter"} onClick={() => setFighterSpellLevelFilter("all")}>
+                                      All levels
                                     </button>
-                                  ))}
-                                </div>
+                                    {ekLevels.map((level) => (
+                                      <button
+                                        key={`ek-level-filter-${level}`}
+                                        type="button"
+                                        className={ekLevelFilter === level ? "pick-filter active" : "pick-filter"}
+                                        onClick={() => setFighterSpellLevelFilter(level)}
+                                      >
+                                        {`Level ${level}`}
+                                      </button>
+                                    ))}
+                                  </div>
+                                ) : null}
                                 <PickGrid
                                   label="Eldritch Knight spells"
                                   pageSize={16}
-                                  key={`ek-${fighterSpellLevelFilter}`}
+                                  key={`ek-${ekGroup}-${ekLevelFilter}`}
                                   columns={4}
                                   size="sm"
                                   inspectedId={inspectId}
                                   onInspect={setInspectId}
-                                  items={fighterJourneyFilteredSpellPool.map((spell) => {
+                                  items={ekPool.map((spell) => {
                                     const reason = eldritchKnightSpellUnavailableReason(spell);
                                     const known = draft.spellIds.includes(spell.id);
                                     return {
