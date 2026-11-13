@@ -502,6 +502,8 @@ export function availableChoices(draft: CharacterDraft, catalog: EngineCatalog):
 /** Artik gecerli olmayan secimleri (opsiyon birakildi, level dustu...) temizler. */
 export function sanitizeChoices(draft: CharacterDraft, catalog: EngineCatalog): Record<string, string[]> {
   return Object.fromEntries([
+    // "custom:" ile baslayanlar oyuncunun serbest secimleri (or. custom silahlar); kurallara bagli degil, korunur.
+    ...Object.entries(draft.choices ?? {}).filter(([key]) => key.startsWith("custom:")),
     ...availableChoices(draft, catalog).map((entry) => [entry.choice.id, entry.selectedIds]),
     ...languageChoices(draft, catalog).map((entry) => [entry.id, entry.selectedNames]),
   ]);

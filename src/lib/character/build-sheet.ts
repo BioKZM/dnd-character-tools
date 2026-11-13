@@ -424,7 +424,9 @@ function abilityDamage(modifier: number, fallback = 1) {
 function inventoryHasWeaponName(inventory: string[], weapon: ContentBundle["weapons"][number]) {
   // "10 Darts", "2x Handaxes" gibi adetli kayitlar da silah sayilir.
   const inventoryNames = new Set(
-    inventory.flatMap((item) => {
+    inventory.flatMap((rawItem) => {
+      // Creator'daki custom silahlar "Longsword (custom)" olarak tutulur.
+      const item = rawItem.replace(/\s*\(custom\)\s*$/i, "");
       const bare = item.replace(/^\s*\d+\s*x?\s+/i, "");
       const name = normalizeEquipmentName(bare);
       return [normalizeEquipmentName(item), name, name.replace(/s$/, ""), name.replace(/es$/, "")];
@@ -514,16 +516,31 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
         description: "A basic melee attack using fists, kicks, or body weight.",
         source: "Core Rules",
       };
+  // Proficiency sadece custom eklenen silahlarda kontrol edilir (class listesi zaten proficient).
+  const weaponLabels = (draft.proficiencies?.weapons ?? []).map((label) => label.toLowerCase());
+  const customNames = new Set(draft.inventory.filter((item) => /\(custom\)\s*$/i.test(item)).map((item) => item.replace(/\s*\(custom\)\s*$/i, "").toLowerCase()));
+  const lacksProficiency = (weapon: ContentBundle["weapons"][number]) =>
+    customNames.has(weapon.name.toLowerCase()) &&
+    weaponLabels.length > 0 &&
+    !weaponLabels.some((label) =>
+      label.startsWith("simple weapon")
+        ? weapon.proficiency === "simple"
+        : label.startsWith("martial weapon")
+          ? weapon.proficiency === "martial"
+          : label === weapon.name.toLowerCase() || label.replace(/s$/, "") === weapon.name.toLowerCase(),
+    );
   const weaponStats = (weapon: ContentBundle["weapons"][number]) => {
     const abilityName = (modifier: number) => (modifier === dexterity && (weapon.attackType === "ranged" || weapon.properties.includes("finesse") || martialArts) ? "DEX" : "STR");
     if (!martialArts || !isMonkWeapon(weapon, martialArts.monkWeapons) || !weapon.damage || !weapon.damageType) {
       const modifier = weaponAbilityModifier(draft, weapon);
+      const proficiency = lacksProficiency(weapon) ? 0 : draft.proficiencyBonus;
+      const proficiencyText = proficiency ? `Proficiency ${formatSigned(proficiency)}` : "Not proficient +0";
       return {
-        hit: formatSigned(draft.proficiencyBonus + modifier),
+        hit: formatSigned(proficiency + modifier),
         damage: weaponDamage(draft, weapon),
         monk: false,
         formula: weapon.damage && weapon.damage !== "1"
-          ? { hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${abilityName(modifier)} ${formatSigned(modifier)}`, damage: `${weapon.name} ${weapon.damage} + ${abilityName(modifier)} ${formatSigned(modifier)}` }
+          ? { hit: `${proficiencyText} + ${abilityName(modifier)} ${formatSigned(modifier)}`, damage: `${weapon.name} ${weapon.damage} + ${abilityName(modifier)} ${formatSigned(modifier)}` }
           : undefined,
       };
     }

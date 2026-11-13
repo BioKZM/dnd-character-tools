@@ -156,6 +156,40 @@ export function PickSection({
   );
 }
 
+export type PathCard = { id: string; name: string; line?: string; icon: GameIconName; selected?: boolean; disabled?: boolean };
+
+/** Buyuk yol kartlari (subclass / oath / patron): ikon + isim + tek satir. Kapali olanlar soluk. */
+export function PathCards({ items, onPick, onInspect, label }: { items: PathCard[]; onPick: (id: string) => void; onInspect?: (id: string) => void; label: string }) {
+  return (
+    <div className="path-cards" role="group" aria-label={label}>
+      {items.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          className={`path-card${item.selected ? " on" : ""}${item.disabled ? " off" : ""}`}
+          aria-pressed={item.disabled ? undefined : Boolean(item.selected)}
+          aria-disabled={item.disabled || undefined}
+          onClick={() => {
+            onInspect?.(item.id);
+            if (!item.disabled) {
+              onPick(item.id);
+            }
+          }}
+        >
+          <span className="path-card-icon">
+            <GameIcon name={item.icon} />
+          </span>
+          <span className="path-card-text">
+            <strong>{item.name}</strong>
+            {item.line ? <span>{item.line}</span> : null}
+          </span>
+          {item.selected ? <GameIcon name="check-mark" className="path-card-check" /> : null}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export type PickTab = { id: string; label: string; picked?: number; total?: number; hint?: string };
 
 /** Ayni ekrandaki farkli secim gruplari (Cantrips / Spells / Any school) icin sekmeler; her birinin kendi sayaci var. */

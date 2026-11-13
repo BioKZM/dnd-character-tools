@@ -271,3 +271,31 @@ export function pactIcon(name: string): GameIconName {
     "evil-eyes",
   );
 }
+
+/** Subclass (yol / oath / patron) ikonu: isimden anahtar kelimeyle. */
+export function subclassIcon(name: string): GameIconName {
+  return byKeywords(
+    name,
+    [
+      [/kensei|samurai|blade|sword/, "katana"],
+      [/oathbreaker|death|necro|grave|undying|reaper/, "skull-crossed-bones"],
+      [/old one|fiend|hexblade|archfey|patron|fathomless|genie|celestial/, "evil-eyes"],
+      [/whisper|lore|glamour|eloquence|creation|swords|valor/, "drama-masks"],
+      [/horizon|portal|planar|wanderer/, "magic-portal"],
+      [/eldritch knight|arcane|spell|wizard|bladesinging|evocation|abjuration/, "fire-spell-cast"],
+      [/open hand|fist|astral|drunken/, "fist"],
+      [/shadow|assassin|thief|gloom|trickster|stalker/, "hood"],
+      [/mercy|life|healing|devotion|redemption/, "heart-plus"],
+      [/light|sun|dawn|glory|crown|ancients|vengeance|watchers|conquest/, "holy-symbol"],
+      [/nature|land|moon|circle|spores|stars|wildfire|shepherd|druid/, "oak-leaf"],
+      [/fey|dream|twilight/, "fairy"],
+      [/hunter|beast|gloom|swarm|archer|monster|drakewarden/, "bow-arrow"],
+      [/drag|draconic/, "dragon-head"],
+      [/battle master|champion|banneret|cavalier|rune|psi|echo/, "crossed-swords"],
+      [/berserker|totem|zealot|storm|wild magic|giant|beast/, "battle-axe"],
+      [/alchem|artiller|battle smith|armorer/, "gears"],
+      [/elements|kensei|tranquil|four/, "meditation"],
+    ],
+    "laurels",
+  );
+}

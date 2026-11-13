@@ -253,8 +253,111 @@ function variantsOf(value: string) {
   return set;
 }
 
+/** Data'da tek bir esya olmayan genel kalemler ("Arcane Focus", "Musical Instrument"...). */
+const GENERIC_GEAR: Array<{ match: RegExp; info: Omit<GearInfo, "name"> }> = [
+  {
+    match: /^arcane focus$/,
+    info: {
+      kind: "item",
+      id: "generic-arcane-focus",
+      icon: "crystal-ball",
+      kicker: "Spellcasting focus",
+      summary: "A crystal, orb, rod, staff or wand you hold while casting. It replaces material components that have no gold cost.",
+      sub: "Cast spells through it",
+      rows: [
+        { label: "Used by", value: "Sorcerers, warlocks and wizards" },
+        { label: "Pick one", value: "Crystal, Orb, Rod, Staff or Wand. A staff also works as a quarterstaff." },
+        { label: "How", value: "Hold it in a hand when you cast. Spells with a gold-cost component still need that item." },
+      ],
+    },
+  },
+  {
+    match: /^druidic focus$/,
+    info: {
+      kind: "item",
+      id: "generic-druidic-focus",
+      icon: "oak-leaf",
+      kicker: "Spellcasting focus",
+      summary: "A sprig of mistletoe, totem, wooden staff or yew wand. Druids cast spells through it instead of using material components.",
+      sub: "Cast druid spells through it",
+      rows: [
+        { label: "Used by", value: "Druids" },
+        { label: "Pick one", value: "Sprig of Mistletoe, Totem, Wooden Staff or Yew Wand" },
+      ],
+    },
+  },
+  {
+    match: /^holy symbol$/,
+    info: {
+      kind: "item",
+      id: "generic-holy-symbol",
+      icon: "holy-symbol",
+      kicker: "Spellcasting focus",
+      summary: "An amulet, emblem or reliquary of your god. Clerics and paladins cast spells through it instead of using material components.",
+      sub: "Cast cleric / paladin spells through it",
+      rows: [
+        { label: "Used by", value: "Clerics and paladins" },
+        { label: "Tip", value: "An emblem painted on your shield works while you hold the shield, so your other hand stays free." },
+      ],
+    },
+  },
+  {
+    match: /^component pouch$/,
+    info: {
+      kind: "item",
+      id: "generic-component-pouch",
+      icon: "swap-bag",
+      kicker: "Spellcasting kit",
+      summary: "A belt pouch with all the small material components your spells need. Works like a focus: no need to track bat guano or pinches of sand.",
+      sub: "Covers material components",
+      rows: [{ label: "Limit", value: "Components with a gold cost (like a 300 gp diamond) are not inside; buy those separately." }],
+    },
+  },
+  {
+    match: /^spellbook$/,
+    info: {
+      kind: "item",
+      id: "generic-spellbook",
+      icon: "spell-book",
+      kicker: "Wizard gear",
+      summary: "Your wizard spells live here. You prepare spells from it after a long rest; losing it means losing those spells until you rebuild it.",
+      sub: "Holds your wizard spells",
+      rows: [{ label: "Pages", value: "100 vellum pages; copying a new spell costs time and gold." }],
+    },
+  },
+  {
+    match: /^musical instrument$/,
+    info: {
+      kind: "tool",
+      id: "generic-musical-instrument",
+      icon: "pan-flute",
+      kicker: "Musical instrument",
+      summary: "Any instrument you like: lute, flute, drum, horn, lyre, viol... Bards can cast spells through it.",
+      sub: "Your choice of instrument",
+      rows: [{ label: "Bards", value: "Works as a spellcasting focus for bard spells." }],
+    },
+  },
+  {
+    match: /^(simple|martial)( melee)? weapons?$/,
+    info: {
+      kind: "weapon",
+      id: "generic-weapon",
+      icon: "sword-clash",
+      kicker: "Weapon of your choice",
+      summary: "Pick any weapon of this kind in the list above. Your pick replaces this line.",
+      sub: "Your choice",
+      rows: [],
+    },
+  },
+];
+
 /** Isimden (or. "20 Arrows", "2x Handaxes", "Leather Armor") esya bilgisi bulur. */
 export function findGearInfo(content: ContentBundle, name: string): GearInfo | null {
+  const normalized = normalize(name);
+  const generic = GENERIC_GEAR.find((entry) => entry.match.test(normalized));
+  if (generic) {
+    return { ...generic.info, name: name.replace(/^\s*\d+x?\s+/i, "") };
+  }
   const variants = variantsOf(name);
   const has = (candidate: string) => [...variantsOf(candidate)].some((entry) => variants.has(entry));
   const weapon = content.weapons.find((entry) => [entry.name, ...(entry.aliases ?? [])].some(has));

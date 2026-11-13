@@ -1,5 +1,8 @@
 "use client";
 
+import { GameIcon } from "@/components/ui/game-icon";
+import type { GameIconName } from "@/lib/ui/game-icons";
+
 // Creator'in tek navigasyonu: ustte adimlar (Origin, Class, Abilities, Gear),
 // altinda aktif adimin ekranlari ve tek satir karakter ozeti. En altta Back / Next.
 
@@ -23,17 +26,11 @@ export function CreatorFlowNav({
   activeStep,
   activeBrowser,
   onNavigate,
-  title,
-  subtitle,
-  stats,
 }: {
   steps: CreatorFlowStep[];
   activeStep: number;
   activeBrowser: string | null;
   onNavigate: (screen: CreatorFlowScreen) => void;
-  title: string;
-  subtitle: string;
-  stats: SummaryStat[];
 }) {
   const current = steps.find((step) => step.id === activeStep) ?? steps[0];
   return (
@@ -81,18 +78,6 @@ export function CreatorFlowNav({
               ))
             : null}
         </div>
-        <div className="creator-flow-summary">
-          <span className="creator-flow-summary-name">
-            <strong>{title}</strong>
-            <span>{subtitle}</span>
-          </span>
-          {stats.map((stat) => (
-            <span key={`flow-stat-${stat.label}`} className="creator-flow-stat">
-              <span>{stat.label}</span>
-              <strong>{stat.value}</strong>
-            </span>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -103,33 +88,128 @@ export function CreatorFlowFooter({
   next,
   pendingHere,
   onNavigate,
+  position,
 }: {
   previous: CreatorFlowScreen | null;
   next: CreatorFlowScreen | null;
   pendingHere: number;
   onNavigate: (screen: CreatorFlowScreen) => void;
+  /** "Class · 3 / 5" gibi konum etiketi. */
+  position?: string;
 }) {
   return (
     <footer className="creator-flow-footer">
       {previous ? (
-        <button type="button" className="sheet-button secondary" onClick={() => onNavigate(previous)}>
-          {`Back: ${previous.label}`}
+        <button type="button" className="creator-nav-button back" onClick={() => onNavigate(previous)}>
+          <span aria-hidden="true">←</span>
+          <span className="creator-nav-button-text">
+            <small>Back</small>
+            {previous.label}
+          </span>
         </button>
       ) : (
         <span />
       )}
-      <span className={pendingHere ? "creator-flow-note pending" : "creator-flow-note"}>
-        {pendingHere
-          ? `${pendingHere} ${pendingHere === 1 ? "choice" : "choices"} left here. You can come back later.`
-          : "Nothing left to pick here."}
+      <span className="creator-flow-note-wrap">
+        {position ? <small className="creator-flow-position">{position}</small> : null}
+        <span className={pendingHere ? "creator-flow-note pending" : "creator-flow-note"}>
+          {pendingHere ? `${pendingHere} ${pendingHere === 1 ? "pick" : "picks"} left on this screen. You can skip and come back.` : "This screen is done."}
+        </span>
       </span>
       {next ? (
-        <button type="button" className="sheet-button primary" onClick={() => onNavigate(next)}>
-          {`Next: ${next.label}`}
+        <button type="button" className={pendingHere ? "creator-nav-button next" : "creator-nav-button next ready"} onClick={() => onNavigate(next)}>
+          <span className="creator-nav-button-text">
+            <small>{pendingHere ? "Skip to" : "Next"}</small>
+            {next.label}
+          </span>
+          <span aria-hidden="true">→</span>
         </button>
       ) : (
-        <span />
+        <span className="creator-flow-finish">All steps visited. Open the sheet to play.</span>
       )}
     </footer>
+  );
+}
+
+/** Solda sabit karakter ozeti: kim oldugu, sayilari ve nelerin kaldigi. */
+export function CreatorSummaryPanel({
+  icon,
+  name,
+  lines,
+  stats,
+  abilities,
+  steps,
+  activeBrowser,
+  onNavigate,
+}: {
+  icon: GameIconName;
+  name: string;
+  lines: string[];
+  stats: SummaryStat[];
+  abilities: Array<{ id: string; value: number }>;
+  steps: CreatorFlowStep[];
+  activeBrowser: string | null;
+  onNavigate: (screen: CreatorFlowScreen) => void;
+}) {
+  const left = steps.flatMap((step) => step.screens.filter((screen) => screen.pending > 0).map((screen) => ({ step, screen })));
+  const total = left.reduce((sum, entry) => sum + entry.screen.pending, 0);
+  return (
+    <aside className="creator-summary" aria-label="Character summary">
+      <div className="creator-summary-id">
+        <span className="creator-summary-portrait">
+          <GameIcon name={icon} />
+        </span>
+        <span className="creator-summary-name">
+          <strong>{name}</strong>
+          {lines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </span>
+      </div>
+      <div className="creator-summary-stats">
+        {stats.map((stat) => (
+          <span key={`sum-stat-${stat.label}`}>
+            <small>{stat.label}</small>
+            <strong>{stat.value}</strong>
+          </span>
+        ))}
+      </div>
+      <div className="creator-summary-abilities">
+        {abilities.map((ability) => {
+          const mod = Math.floor((ability.value - 10) / 2);
+          return (
+            <span key={`sum-ab-${ability.id}`}>
+              <small>{ability.id}</small>
+              <strong>{ability.value}</strong>
+              <em>{mod >= 0 ? `+${mod}` : mod}</em>
+            </span>
+          );
+        })}
+      </div>
+      <div className="creator-summary-todo">
+        <span className="creator-summary-heading">{total ? `Still to pick (${total})` : "Everything picked"}</span>
+        {left.length ? (
+          <ul>
+            {left.map(({ step, screen }) => (
+              <li key={`todo-${screen.step}-${screen.browser}`}>
+                <button
+                  type="button"
+                  className={screen.browser === activeBrowser ? "creator-summary-todo-item active" : "creator-summary-todo-item"}
+                  onClick={() => onNavigate(screen)}
+                >
+                  <span>
+                    <small>{step.label}</small>
+                    {screen.label}
+                  </span>
+                  <b>{screen.pending}</b>
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Your character is ready. You can still change anything.</p>
+        )}
+      </div>
+    </aside>
   );
 }

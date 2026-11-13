@@ -15,6 +15,7 @@ import { emptyDraft, FULL_HP, stripLeakedDemoValues, type CharacterDraft, type A
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
 import { SheetSpellsPanel } from "@/components/sheet-spells-panel";
 import { SheetResourcesPanel } from "@/components/sheet-resources-panel";
+import { SheetCombatView } from "@/components/sheet-combat-view";
 import { SheetInventoryPanel } from "@/components/sheet-inventory-panel";
 import { availableChoices, languageChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
 import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
@@ -1532,6 +1533,8 @@ export function PartyRoomDashboard({
   const [activityFilter, setActivityFilter] = useState<ActivityFilter>("all");
   const [activeTab, setActiveTab] = useState<InfoTab>("actions");
   const [actionFilter, setActionFilter] = useState<ActionFilter>("all");
+  // Sheet'in savas gorunumu: eylemler kisayol cubugu gibi, sagda secili eylemin sayilari.
+  const [combatView, setCombatView] = useState(false);
   // Level up'taki "Choose" linkleri creator'i ilgili adimda acar.
   const [creatorStep, setCreatorStep] = useState<CreatorStep>(() => (mode === "creator" ? readCreatorJump()?.step ?? 0 : 0));
   const jsonImportRef = useRef<HTMLInputElement | null>(null);
@@ -2471,6 +2474,9 @@ export function PartyRoomDashboard({
 
           <div className="top-actions">
             <div className="top-actions-group">
+              <button className={combatView ? "sheet-button combat-toggle active" : "sheet-button combat-toggle"} onClick={() => setCombatView(!combatView)}>
+                {combatView ? "Full sheet" : "Combat view"}
+              </button>
               <button className="sheet-button secondary" disabled={draft.level >= 20} onClick={() => setLevelUpPhase("preview")}>
                 Level Up
               </button>
@@ -2632,6 +2638,27 @@ export function PartyRoomDashboard({
           </article>
         </section>
 
+        {combatView ? (
+          <SheetCombatView
+            actions={sheetContent.builtActions}
+            resources={sheetContent.resources}
+            usedResources={draft.usedResources ?? {}}
+            onResourceChange={setResourceUsage}
+            passives={sheetContent.builtFeatures
+              .filter((feature) => feature.facts?.action === "Passive" && !/ability score improvement|spellcasting/i.test(feature.name))
+              .slice(0, 10)
+              .map((feature) => ({ id: feature.id, name: feature.name, short: feature.short, summary: feature.summary }))}
+            stats={[
+              { label: "Proficiency", value: formatSigned(sheetDraft.proficiencyBonus) },
+              ...(sheetContent.martialArtsDie ? [{ label: "Martial Arts", value: sheetContent.martialArtsDie }] : []),
+              ...sheetContent.spellcasting.slice(0, 1).flatMap((profile) => [
+                { label: "Spell DC", value: String(profile.saveDc), hint: "8 + proficiency + spellcasting ability" },
+                { label: "Spell attack", value: formatSigned(profile.attackBonus) },
+              ]),
+              ...sheetContent.saveDcs.map((entry) => ({ label: `${entry.name} DC`, value: String(entry.value), hint: `8 + proficiency + ${entry.ability}` })),
+            ]}
+          />
+        ) : (
         <section className="sheet-grid">
           <div className="sheet-column left-column">
             <article className="sheet-card">
@@ -2971,6 +2998,7 @@ export function PartyRoomDashboard({
 
           </div>
         </section>
+        )}
         <div className={isActivityOpen ? "activity-drawer open" : "activity-drawer"}>
           <button
             type="button"
