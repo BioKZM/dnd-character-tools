@@ -4,258 +4,295 @@
     "name": "Alchemist's Supplies",
     "category": "artisan-tools",
     "cost": "50 gp",
-    "weight": "8 lb."
+    "weight": "8 lb.",
+    "summary": "Brew acids, alchemist's fire and simple reagents; identify potions and strange substances."
   },
   {
     "id": "brewers-supplies",
     "name": "Brewer's Supplies",
     "category": "artisan-tools",
     "cost": "20 gp",
-    "weight": "9 lb."
+    "weight": "9 lb.",
+    "summary": "Brew beer and ale, judge whether a drink is safe, and purify water."
   },
   {
     "id": "calligraphers-supplies",
     "name": "Calligrapher's Supplies",
     "category": "artisan-tools",
     "cost": "10 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Write in fine script, spot forged handwriting and decode written ciphers."
   },
   {
     "id": "carpenters-tools",
     "name": "Carpenter's Tools",
     "category": "artisan-tools",
     "cost": "8 gp",
-    "weight": "6 lb."
+    "weight": "6 lb.",
+    "summary": "Build or repair wooden things: doors, barricades, carts, simple shelters."
   },
   {
     "id": "cartographers-tools",
     "name": "Cartographer's Tools",
     "category": "artisan-tools",
     "cost": "15 gp",
-    "weight": "6 lb."
+    "weight": "6 lb.",
+    "summary": "Draw accurate maps while you travel, read old maps and work out where you are."
   },
   {
     "id": "cobblers-tools",
     "name": "Cobbler's Tools",
     "category": "artisan-tools",
     "cost": "5 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Make and repair shoes; read footprints and notice hidden compartments in boots."
   },
   {
     "id": "cooks-utensils",
     "name": "Cook's Utensils",
     "category": "artisan-tools",
     "cost": "1 gp",
-    "weight": "8 lb."
+    "weight": "8 lb.",
+    "summary": "Cook decent meals on the road; helps the party recover over a rest and spot bad food."
   },
   {
     "id": "glassblowers-tools",
     "name": "Glassblower's Tools",
     "category": "artisan-tools",
     "cost": "30 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Shape glass bottles, lenses and vials; judge where a piece of glass came from."
   },
   {
     "id": "jewelers-tools",
     "name": "Jeweler's Tools",
     "category": "artisan-tools",
     "cost": "25 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Cut and set gems, appraise jewelry and spot fake stones."
   },
   {
     "id": "leatherworkers-tools",
     "name": "Leatherworker's Tools",
     "category": "artisan-tools",
     "cost": "5 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Make and repair leather armor, bags and straps; judge hides."
   },
   {
     "id": "masons-tools",
     "name": "Mason's Tools",
     "category": "artisan-tools",
     "cost": "10 gp",
-    "weight": "8 lb."
+    "weight": "8 lb.",
+    "summary": "Work stone: repair walls, find weak points in masonry and secret passages."
   },
   {
     "id": "painters-supplies",
     "name": "Painter's Supplies",
     "category": "artisan-tools",
     "cost": "10 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Paint pictures and signs, copy art and spot forged paintings."
   },
   {
     "id": "potters-tools",
     "name": "Potter's Tools",
     "category": "artisan-tools",
     "cost": "10 gp",
-    "weight": "3 lb."
+    "weight": "3 lb.",
+    "summary": "Make clay pots and judge where pottery shards came from."
   },
   {
     "id": "smiths-tools",
     "name": "Smith's Tools",
     "category": "artisan-tools",
     "cost": "20 gp",
-    "weight": "8 lb."
+    "weight": "8 lb.",
+    "summary": "Repair metal weapons and armor, and work iron at a forge."
   },
   {
     "id": "tinkers-tools",
     "name": "Tinker's Tools",
     "category": "artisan-tools",
     "cost": "50 gp",
-    "weight": "10 lb."
+    "weight": "10 lb.",
+    "summary": "Fix small gadgets and objects, and build simple contraptions."
   },
   {
     "id": "weavers-tools",
     "name": "Weaver's Tools",
     "category": "artisan-tools",
     "cost": "1 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Make and mend cloth, rope and clothing; spot a disguise's seams."
   },
   {
     "id": "woodcarvers-tools",
     "name": "Woodcarver's Tools",
     "category": "artisan-tools",
     "cost": "1 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Carve wood: arrows, staves, small figures and repairs."
   },
   {
     "id": "dice-set",
     "name": "Dice Set",
     "category": "gaming-sets",
     "cost": "1 sp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Play dice games and tell when someone is cheating at them."
   },
   {
     "id": "dragonchess-set",
     "name": "Dragonchess Set",
     "category": "gaming-sets",
     "cost": "1 gp",
-    "weight": "1/2 lb."
+    "weight": "1/2 lb.",
+    "summary": "Play dragonchess, a long strategy game popular with nobles and scholars."
   },
   {
     "id": "playing-card-set",
     "name": "Playing Card Set",
     "category": "gaming-sets",
     "cost": "5 sp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Play card games and spot a marked deck or a cheat."
   },
   {
     "id": "three-dragon-ante-set",
     "name": "Three-Dragon Ante Set",
     "category": "gaming-sets",
     "cost": "1 gp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Play Three-Dragon Ante, a betting card game found in many taverns."
   },
   {
     "id": "bagpipes",
     "name": "Bagpipes",
     "category": "musical-instruments",
     "cost": "30 gp",
-    "weight": "6 lb."
+    "weight": "6 lb.",
+    "summary": "Loud wind instrument. Add proficiency when you perform with it."
   },
   {
     "id": "drum",
     "name": "Drum",
     "category": "musical-instruments",
     "cost": "6 gp",
-    "weight": "3 lb."
+    "weight": "3 lb.",
+    "summary": "Percussion instrument. Add proficiency when you perform with it."
   },
   {
     "id": "dulcimer",
     "name": "Dulcimer",
     "category": "musical-instruments",
     "cost": "25 gp",
-    "weight": "10 lb."
+    "weight": "10 lb.",
+    "summary": "Stringed instrument you strike with hammers. Add proficiency when you perform with it."
   },
   {
     "id": "flute",
     "name": "Flute",
     "category": "musical-instruments",
     "cost": "2 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Simple wind instrument. Add proficiency when you perform with it."
   },
   {
     "id": "lute",
     "name": "Lute",
     "category": "musical-instruments",
     "cost": "35 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "The classic bard instrument. Add proficiency when you perform with it."
   },
   {
     "id": "lyre",
     "name": "Lyre",
     "category": "musical-instruments",
     "cost": "30 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Small handheld harp. Add proficiency when you perform with it."
   },
   {
     "id": "horn",
     "name": "Horn",
     "category": "musical-instruments",
     "cost": "3 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Brass horn, also good for signals. Add proficiency when you perform with it."
   },
   {
     "id": "pan-flute",
     "name": "Pan Flute",
     "category": "musical-instruments",
     "cost": "12 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Set of reed pipes. Add proficiency when you perform with it."
   },
   {
     "id": "shawm",
     "name": "Shawm",
     "category": "musical-instruments",
     "cost": "2 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Reedy wind instrument. Add proficiency when you perform with it."
   },
   {
     "id": "viol",
     "name": "Viol",
     "category": "musical-instruments",
     "cost": "30 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Bowed string instrument. Add proficiency when you perform with it."
   },
   {
     "id": "disguise-kit",
     "name": "Disguise Kit",
     "category": "kits",
     "cost": "25 gp",
-    "weight": "3 lb."
+    "weight": "3 lb.",
+    "summary": "Makeup, dyes and props to change how you look. Add proficiency to checks to create a disguise."
   },
   {
     "id": "forgery-kit",
     "name": "Forgery Kit",
     "category": "kits",
     "cost": "15 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Inks, papers and seals to copy documents and signatures."
   },
   {
     "id": "herbalism-kit",
     "name": "Herbalism Kit",
     "category": "kits",
     "cost": "5 gp",
-    "weight": "3 lb."
+    "weight": "3 lb.",
+    "summary": "Find and use herbs; required to make antitoxin and potions of healing."
   },
   {
     "id": "navigators-tools",
     "name": "Navigator's Tools",
     "category": "kits",
     "cost": "25 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Plot a course at sea and find your position by the stars."
   },
   {
     "id": "poisoners-kit",
     "name": "Poisoner's Kit",
     "category": "kits",
     "cost": "50 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Make and handle poisons safely, and identify them."
   },
   {
     "id": "thieves-tools",
     "name": "Thieves' Tools",
     "category": "kits",
     "cost": "25 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Lockpicks and small tools. Needed to pick locks and disarm traps."
   }
 ]

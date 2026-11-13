@@ -9815,3 +9815,25 @@ h2 .keyword-help-trigger,
 .site-credits a { color: #8a909b; }
 .creator-flow-footer { width: 100%; justify-self: stretch; align-self: stretch; }
 .creator-workbench-flat .origin-carousel-main { justify-items: stretch; }
+
+/* ===== Esya aciklamalari ===== */
+.gear-list { display: grid; gap: 8px; }
+.gear-list-title { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8a909b; }
+.gear-card { border: 1px solid #262b34; border-radius: 12px; background: #12151b; }
+.gear-card.open { border-color: #3d424c; }
+.gear-card-head { display: flex; align-items: center; gap: 12px; width: 100%; padding: 9px 12px; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.gear-card-icon { width: 36px; height: 36px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid #3a3f49; color: #cfc6ad; font-size: 20px; }
+.gear-card-title { display: grid; gap: 1px; flex: 1; min-width: 0; }
+.gear-card-title strong { font-size: 0.92rem; color: #f4f5f7; }
+.gear-card-title span { font-size: 0.8rem; color: #9aa0aa; }
+.gear-card-toggle { font-size: 1.1rem; color: #d6b25e; width: 18px; text-align: center; }
+.gear-card-body { display: grid; gap: 10px; padding: 0 14px 14px 60px; }
+.gear-card-body p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: #dfe2e7; }
+.equipment-choice-group > .gear-list,
+.equipment-choice-group > .pick-note { margin-top: 10px; }
+.inventory-entry { display: grid; }
+.inventory-item-name { display: grid; gap: 1px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.inventory-item-name span { font-size: 0.78rem; color: #9aa0aa; }
+.inventory-item-name:hover strong { color: #f1dca4; }
+.inventory-detail { display: grid; gap: 8px; margin: 0 0 8px; padding: 10px 14px; border-radius: 12px; background: #12151b; border: 1px solid #262b34; }
+.inventory-detail p { margin: 0; font-size: 0.88rem; line-height: 1.5; }

@@ -2,107 +2,154 @@
   {
     "id": "common",
     "name": "Common",
-    "category": "standard"
+    "category": "standard",
+    "speakers": "Humans and most folk in towns and cities",
+    "script": "Common"
   },
   {
     "id": "dwarvish",
     "name": "Dwarvish",
-    "category": "standard"
+    "category": "standard",
+    "speakers": "Dwarves",
+    "script": "Dwarvish"
   },
   {
     "id": "elvish",
     "name": "Elvish",
-    "category": "standard"
+    "category": "standard",
+    "speakers": "Elves",
+    "script": "Elvish"
   },
   {
     "id": "giant",
     "name": "Giant",
-    "category": "standard"
+    "category": "standard",
+    "speakers": "Giants and ogres",
+    "script": "Dwarvish"
   },
   {
     "id": "gnomish",
     "name": "Gnomish",
-    "category": "standard"
+    "category": "standard",
+    "speakers": "Gnomes",
+    "script": "Dwarvish"
   },
   {
     "id": "goblin",
     "name": "Goblin",
-    "category": "standard"
+    "category": "standard",
+    "speakers": "Goblins, hobgoblins and bugbears",
+    "script": "Dwarvish"
   },
   {
     "id": "halfling",
     "name": "Halfling",
-    "category": "standard"
+    "category": "standard",
+    "speakers": "Halflings",
+    "script": "Common"
   },
   {
     "id": "orc",
     "name": "Orc",
-    "category": "standard"
+    "category": "standard",
+    "speakers": "Orcs",
+    "script": "Dwarvish"
   },
   {
     "id": "abyssal",
     "name": "Abyssal",
-    "category": "exotic"
+    "category": "exotic",
+    "speakers": "Demons",
+    "script": "Infernal"
   },
   {
     "id": "celestial",
     "name": "Celestial",
-    "category": "exotic"
+    "category": "exotic",
+    "speakers": "Angels and other celestials",
+    "script": "Celestial"
   },
   {
     "id": "deep-speech",
     "name": "Deep Speech",
-    "category": "exotic"
+    "category": "exotic",
+    "speakers": "Aboleths, mind flayers and other aberrations",
+    "script": "none (no written form)"
   },
   {
     "id": "draconic",
     "name": "Draconic",
-    "category": "exotic"
+    "category": "exotic",
+    "speakers": "Dragons and dragonborn; also the language of many wizards",
+    "script": "Draconic"
   },
   {
     "id": "infernal",
     "name": "Infernal",
-    "category": "exotic"
+    "category": "exotic",
+    "speakers": "Devils",
+    "script": "Infernal"
   },
   {
     "id": "primordial",
     "name": "Primordial",
     "category": "exotic",
-    "variants": ["Aquan", "Auran", "Ignan", "Terran"]
+    "variants": [
+      "Aquan",
+      "Auran",
+      "Ignan",
+      "Terran"
+    ],
+    "speakers": "Elementals (dialects: Aquan, Auran, Ignan, Terran)",
+    "script": "Dwarvish"
   },
   {
     "id": "sylvan",
     "name": "Sylvan",
-    "category": "exotic"
+    "category": "exotic",
+    "speakers": "Fey creatures",
+    "script": "Elvish"
   },
   {
     "id": "undercommon",
     "name": "Undercommon",
-    "category": "exotic"
+    "category": "exotic",
+    "speakers": "Traders of the Underdark",
+    "script": "Elvish"
   },
   {
     "id": "kraul",
     "name": "Kraul",
-    "category": "setting"
+    "category": "setting",
+    "speakers": "Kraul insect folk (Ravnica)",
+    "script": "Kraul"
   },
   {
     "id": "loxodon",
     "name": "Loxodon",
-    "category": "setting"
+    "category": "setting",
+    "speakers": "Loxodon elephant folk (Ravnica)",
+    "script": "Loxodon"
   },
   {
     "id": "minotaur",
     "name": "Minotaur",
-    "category": "setting"
+    "category": "setting",
+    "speakers": "Minotaurs (Ravnica, Theros)",
+    "script": "Minotaur"
   },
   {
     "id": "netherese",
     "name": "Netherese",
-    "category": "setting"
+    "category": "setting",
+    "speakers": "Old Netheril; mostly found in ancient texts",
+    "script": "Draconic"
   },
   {
     "id": "vedalken",
     "name": "Vedalken",
-    "category": "setting"
+    "category": "setting",
+    "speakers": "Vedalken (Ravnica)",
+    "script": "Vedalken"
   }
 ]

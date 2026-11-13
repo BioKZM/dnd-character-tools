@@ -126,28 +126,32 @@
     "name": "Abacus",
     "category": "common-item",
     "cost": "2 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Counting frame for quick sums."
   },
   {
     "id": "bedroll",
     "name": "Bedroll",
     "category": "common-item",
     "cost": "1 gp",
-    "weight": "7 lb."
+    "weight": "7 lb.",
+    "summary": "Sleep outdoors in some comfort."
   },
   {
     "id": "bell",
     "name": "Bell",
     "category": "common-item",
     "cost": "1 gp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Hang it on a door or string as a simple alarm."
   },
   {
     "id": "blanket",
     "name": "Blanket",
     "category": "common-item",
     "cost": "5 sp",
-    "weight": "3 lb."
+    "weight": "3 lb.",
+    "summary": "Keeps you warm at night."
   },
   {
     "id": "block-and-tackle",
@@ -194,7 +198,8 @@
     "name": "Chalk (1 pc)",
     "category": "common-item",
     "cost": "1 cp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Mark walls and floors so you don't get lost."
   },
   {
     "id": "component-pouch",
@@ -221,42 +226,48 @@
     "name": "Grappling Hook",
     "category": "common-item",
     "cost": "2 gp",
-    "weight": "4 lb."
+    "weight": "4 lb.",
+    "summary": "Tie to rope to climb walls or snag ledges."
   },
   {
     "id": "hammer",
     "name": "Hammer",
     "category": "common-item",
     "cost": "1 gp",
-    "weight": "3 lb."
+    "weight": "3 lb.",
+    "summary": "Drive pitons and spikes, or break small things."
   },
   {
     "id": "hourglass",
     "name": "Hourglass",
     "category": "common-item",
     "cost": "25 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Measures time."
   },
   {
     "id": "ink-1-oz",
     "name": "Ink (1 oz)",
     "category": "common-item",
     "cost": "10 gp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "For writing letters, notes and maps."
   },
   {
     "id": "ink-pen",
     "name": "Ink Pen",
     "category": "common-item",
     "cost": "2 cp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Write with ink."
   },
   {
     "id": "ladder-10-ft",
     "name": "Ladder (10 ft)",
     "category": "common-item",
     "cost": "1 sp",
-    "weight": "25 lb."
+    "weight": "25 lb.",
+    "summary": "Reach high places."
   },
   {
     "id": "lock",
@@ -303,42 +314,48 @@
     "name": "Miner's Pick",
     "category": "common-item",
     "cost": "2 gp",
-    "weight": "10 lb."
+    "weight": "10 lb.",
+    "summary": "Dig through rock and hard ground."
   },
   {
     "id": "paper-1-sheet",
     "name": "Paper (1 sheet)",
     "category": "common-item",
     "cost": "2 sp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Write or draw on it."
   },
   {
     "id": "parchment-1-sheet",
     "name": "Parchment (1 sheet)",
     "category": "common-item",
     "cost": "1 sp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Write or draw on it; tougher than paper."
   },
   {
     "id": "perfume-vial",
     "name": "Perfume (vial)",
     "category": "common-item",
     "cost": "5 gp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Smell nice; useful at court."
   },
   {
     "id": "piton",
     "name": "Piton",
     "category": "common-item",
     "cost": "5 cp",
-    "weight": "0.25 lb."
+    "weight": "0.25 lb.",
+    "summary": "Metal spike you hammer into rock to anchor a rope."
   },
   {
     "id": "pole-10-ft",
     "name": "Pole (10 ft)",
     "category": "common-item",
     "cost": "5 cp",
-    "weight": "7 lb."
+    "weight": "7 lb.",
+    "summary": "Poke at suspicious floors and things you don't want to touch."
   },
   {
     "id": "ram-portable",
@@ -385,35 +402,40 @@
     "name": "Sealing Wax",
     "category": "common-item",
     "cost": "5 sp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Seal letters so you can tell if they were opened."
   },
   {
     "id": "shovel",
     "name": "Shovel",
     "category": "common-item",
     "cost": "2 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Dig."
   },
   {
     "id": "signal-whistle",
     "name": "Signal Whistle",
     "category": "common-item",
     "cost": "5 cp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Loud whistle that carries far."
   },
   {
     "id": "signet-ring",
     "name": "Signet Ring",
     "category": "common-item",
     "cost": "5 gp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Your personal seal for stamping wax."
   },
   {
     "id": "sledgehammer",
     "name": "Sledgehammer",
     "category": "common-item",
     "cost": "2 gp",
-    "weight": "10 lb."
+    "weight": "10 lb.",
+    "summary": "Break doors, walls and locks the loud way."
   },
   {
     "id": "spellbook",
@@ -430,7 +452,8 @@
     "name": "Spikes, Iron (10)",
     "category": "common-item",
     "cost": "1 gp",
-    "weight": "5 lb."
+    "weight": "5 lb.",
+    "summary": "Wedge doors shut or anchor ropes."
   },
   {
     "id": "spyglass",
@@ -447,14 +470,16 @@
     "name": "Tent, Two-person",
     "category": "common-item",
     "cost": "2 gp",
-    "weight": "20 lb."
+    "weight": "20 lb.",
+    "summary": "Shelter for two on the road."
   },
   {
     "id": "whetstone",
     "name": "Whetstone",
     "category": "common-item",
     "cost": "1 cp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Keep blades sharp."
   },
   {
     "id": "acid-vial",
@@ -612,7 +637,8 @@
     "name": "Potion of Healing (common)",
     "category": "usable-item",
     "cost": "50 gp",
-    "weight": "0.5 lb."
+    "weight": "0.5 lb.",
+    "summary": "Drink it (an action) to regain 2d4 + 2 hit points."
   },
   {
     "id": "tinderbox",
@@ -639,119 +665,136 @@
     "name": "Common Clothes",
     "category": "clothes",
     "cost": "5 sp",
-    "weight": "3 lb."
+    "weight": "3 lb.",
+    "summary": "Everyday clothing."
   },
   {
     "id": "costume",
     "name": "Costume",
     "category": "clothes",
     "cost": "5 gp",
-    "weight": "4 lb."
+    "weight": "4 lb.",
+    "summary": "Clothes for playing a role."
   },
   {
     "id": "fine-clothes",
     "name": "Fine Clothes",
     "category": "clothes",
     "cost": "15 gp",
-    "weight": "6 lb."
+    "weight": "6 lb.",
+    "summary": "Expensive clothes for nobles and court."
   },
   {
     "id": "robes",
     "name": "Robes",
     "category": "clothes",
     "cost": "1 gp",
-    "weight": "4 lb."
+    "weight": "4 lb.",
+    "summary": "Simple robes, common for priests and wizards."
   },
   {
     "id": "travelers-clothes",
     "name": "Traveler's Clothes",
     "category": "clothes",
     "cost": "2 gp",
-    "weight": "4 lb."
+    "weight": "4 lb.",
+    "summary": "Sturdy clothes for the road."
   },
   {
     "id": "arcane-focus-crystal",
     "name": "Crystal",
     "category": "arcane-focus",
     "cost": "10 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Arcane focus: cast spells through it instead of using material components."
   },
   {
     "id": "arcane-focus-orb",
     "name": "Orb",
     "category": "arcane-focus",
     "cost": "20 gp",
-    "weight": "3 lb."
+    "weight": "3 lb.",
+    "summary": "Arcane focus: cast spells through it instead of using material components."
   },
   {
     "id": "arcane-focus-rod",
     "name": "Rod",
     "category": "arcane-focus",
     "cost": "10 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Arcane focus: cast spells through it instead of using material components."
   },
   {
     "id": "arcane-focus-staff",
     "name": "Staff",
     "category": "arcane-focus",
     "cost": "5 gp",
-    "weight": "4 lb."
+    "weight": "4 lb.",
+    "summary": "Arcane focus that also works as a quarterstaff."
   },
   {
     "id": "arcane-focus-wand",
     "name": "Wand",
     "category": "arcane-focus",
     "cost": "10 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Arcane focus: cast spells through it instead of using material components."
   },
   {
     "id": "druidic-focus-sprig-of-mistletoe",
     "name": "Sprig of Mistletoe",
     "category": "druidic-focus",
     "cost": "1 gp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Druidic focus: cast druid spells through it."
   },
   {
     "id": "druidic-focus-totem",
     "name": "Totem",
     "category": "druidic-focus",
     "cost": "1 gp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Druidic focus: cast druid spells through it."
   },
   {
     "id": "druidic-focus-wooden-staff",
     "name": "Wooden Staff",
     "category": "druidic-focus",
     "cost": "5 gp",
-    "weight": "4 lb."
+    "weight": "4 lb.",
+    "summary": "Druidic focus that also works as a quarterstaff."
   },
   {
     "id": "druidic-focus-yew-wand",
     "name": "Yew Wand",
     "category": "druidic-focus",
     "cost": "10 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Druidic focus: cast druid spells through it."
   },
   {
     "id": "holy-symbol-amulet",
     "name": "Amulet",
     "category": "holy-symbol",
     "cost": "5 gp",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Holy symbol: worn or held, lets clerics and paladins cast through it."
   },
   {
     "id": "holy-symbol-emblem",
     "name": "Emblem",
     "category": "holy-symbol",
     "cost": "5 gp",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Holy symbol on a shield or clothing; cast cleric and paladin spells through it."
   },
   {
     "id": "holy-symbol-reliquary",
     "name": "Reliquary",
     "category": "holy-symbol",
     "cost": "5 gp",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Holy symbol holding a sacred relic; cast cleric and paladin spells through it."
   },
   {
     "id": "backpack",
@@ -770,7 +813,8 @@
     "category": "container",
     "cost": "2 gp",
     "capacity": "40 gallons liquid, 4 cubic feet solid",
-    "weight": "70 lb."
+    "weight": "70 lb.",
+    "summary": "Holds liquids or goods."
   },
   {
     "id": "basket",
@@ -778,7 +822,8 @@
     "category": "container",
     "cost": "4 sp",
     "capacity": "2 cubic feet/40 pounds of gear",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Carries small goods."
   },
   {
     "id": "bucket",
@@ -786,7 +831,8 @@
     "category": "container",
     "cost": "5 cp",
     "capacity": "3 gallons liquid, 1/2 cubic foot solid",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Carries water."
   },
   {
     "id": "case-crossbow-bolt",
@@ -794,7 +840,8 @@
     "category": "container",
     "cost": "1 gp",
     "capacity": "20 crossbow bolts",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Holds up to 20 crossbow bolts."
   },
   {
     "id": "case-map-scroll",
@@ -802,7 +849,8 @@
     "category": "container",
     "cost": "1 gp",
     "capacity": "ten rolled-up sheets of paper or five rolled-up sheets of parchment",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Keeps maps and scrolls safe and dry."
   },
   {
     "id": "chest",
@@ -810,7 +858,8 @@
     "category": "container",
     "cost": "5 gp",
     "capacity": "12 cubic feet/300 pounds of gear",
-    "weight": "25 lb."
+    "weight": "25 lb.",
+    "summary": "Sturdy box for valuables."
   },
   {
     "id": "flask-or-tankard",
@@ -818,7 +867,8 @@
     "category": "container",
     "cost": "2 cp",
     "capacity": "1 pint liquid",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Holds a drink."
   },
   {
     "id": "glass-bottle",
@@ -826,7 +876,8 @@
     "category": "container",
     "cost": "2 gp",
     "capacity": "1.5 pints liquid",
-    "weight": "2 lb."
+    "weight": "2 lb.",
+    "summary": "Holds liquid."
   },
   {
     "id": "jug-or-pitcher",
@@ -834,7 +885,8 @@
     "category": "container",
     "cost": "2 cp",
     "capacity": "1 gallon liquid",
-    "weight": "4 lb."
+    "weight": "4 lb.",
+    "summary": "Holds liquid."
   },
   {
     "id": "pot-iron",
@@ -842,7 +894,8 @@
     "category": "container",
     "cost": "2 gp",
     "capacity": "1 gallon liquid",
-    "weight": "10 lb."
+    "weight": "10 lb.",
+    "summary": "Cook over a fire."
   },
   {
     "id": "pouch",
@@ -861,7 +914,8 @@
     "category": "container",
     "cost": "1 gp",
     "capacity": "20 arrows",
-    "weight": "1 lb."
+    "weight": "1 lb.",
+    "summary": "Holds up to 20 arrows."
   },
   {
     "id": "sack",
@@ -869,7 +923,8 @@
     "category": "container",
     "cost": "1 cp",
     "capacity": "1 cubic foot/30 pounds of gear",
-    "weight": "0.5 lb."
+    "weight": "0.5 lb.",
+    "summary": "Carries loose goods."
   },
   {
     "id": "vial",
@@ -877,7 +932,8 @@
     "category": "container",
     "cost": "1 gp",
     "capacity": "4 ounces liquid",
-    "weight": "-"
+    "weight": "-",
+    "summary": "Small container for potions and oils."
   },
   {
     "id": "waterskin",
@@ -885,7 +941,8 @@
     "category": "container",
     "cost": "2 sp",
     "capacity": "4 pints liquid",
-    "weight": "5 lb. (full)"
+    "weight": "5 lb. (full)",
+    "summary": "Holds water for a day of travel."
   },
   {
     "id": "fargab",

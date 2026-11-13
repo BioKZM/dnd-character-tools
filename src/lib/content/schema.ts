@@ -121,6 +121,8 @@ export const languageSchema = z.object({
   name: z.string(),
   category: z.enum(["standard", "exotic", "setting"]),
   variants: z.array(z.string()).default([]),
+  speakers: z.string().optional(),
+  script: z.string().optional(),
 });
 
 export const toolSchema = z.object({
@@ -129,6 +131,7 @@ export const toolSchema = z.object({
   category: z.enum(["artisan-tools", "gaming-sets", "musical-instruments", "vehicles", "kits"]),
   cost: z.string().optional(),
   weight: z.string().optional(),
+  summary: z.string().optional(),
 });
 
 export const itemSchema = z.object({
@@ -150,6 +153,7 @@ export const itemSchema = z.object({
   capacity: z.string().optional(),
   contents: z.array(z.string()).optional(),
   description: z.array(z.string()).optional(),
+  summary: z.string().optional(),
   source: z.string().optional(),
   setting: z.string().optional(),
 });

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import type { ContentBundle } from "@/lib/content/schema";
+import { findGearInfo } from "@/lib/content/item-info";
+import { Keywordize } from "@/components/ui/keyword-text";
 import type { ItemState } from "@/lib/engine/armor-class";
 
 type Currency = { cp: number; sp: number; ep: number; gp: number; pp: number };
@@ -41,6 +43,7 @@ export function SheetInventoryPanel({
   onToggleMageArmor: () => void;
 }) {
   const [newItem, setNewItem] = useState("");
+  const [openItem, setOpenItem] = useState<string | null>(null);
   const armorByName = new Map(
     content.armors.flatMap((armor) => [armor.name, ...armor.aliases].map((name) => [normalize(name), armor] as const)),
   );
@@ -93,13 +96,25 @@ export function SheetInventoryPanel({
 
       {inventory.length ? (
         inventory.map((item) => {
-          const kind = kindOf(item);
+          const info = findGearInfo(content, item);
+          const baseKind = kindOf(item);
+          // "10 Darts" gibi adetli isimler de silah sayilsin.
+          const kind = baseKind === "Gear" && info?.kind === "weapon" ? "Weapon" : baseKind;
           const equippable = kind !== "Gear";
           const equipped = itemState[item]?.equipped !== false;
           const quantity = itemState[item]?.quantity ?? 1;
+          const open = openItem === item;
           return (
-            <div className="list-row inventory-row" key={item}>
-              <strong>{item}</strong>
+            <div className="inventory-entry" key={item}>
+            <div className="list-row inventory-row">
+              {info ? (
+                <button type="button" className="inventory-item-name" aria-expanded={open} onClick={() => setOpenItem(open ? null : item)}>
+                  <strong>{item}</strong>
+                  <span>{info.sub}</span>
+                </button>
+              ) : (
+                <strong>{item}</strong>
+              )}
               <span className="inventory-row-actions">
                 <span className="spell-tooltip-chip tone-utility">{kind}</span>
                 {equippable ? (
@@ -120,6 +135,24 @@ export function SheetInventoryPanel({
                   Remove
                 </button>
               </span>
+            </div>
+            {open && info ? (
+              <div className="inventory-detail">
+                <p>
+                  <Keywordize>{info.summary}</Keywordize>
+                </p>
+                <dl className="inspect-rows">
+                  {info.rows.map((row, index) => (
+                    <div key={`${item}-${row.label}-${index}`}>
+                      <dt>{row.label}</dt>
+                      <dd>
+                        <Keywordize>{row.value}</Keywordize>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ) : null}
             </div>
           );
         })

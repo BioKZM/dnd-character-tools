@@ -5,7 +5,7 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 const set = require("@iconify-json/game-icons/icons.json");
-const sources = ["src/lib/ui/game-icons.ts"];
+const sources = ["src/lib/ui/game-icons.ts", "src/lib/content/item-info.ts"];
 const names = new Set(["star-swirl", "padlock", "check-mark"]);
 for (const file of sources) {
   for (const match of readFileSync(file, "utf8").matchAll(/"([a-z0-9-]+)"/g)) {

@@ -29,6 +29,8 @@ import type { ContentBundle } from "@/lib/content/schema";
 import type { SpellReferenceCollection, SpellReferenceEntry } from "@/lib/content/spell-reference";
 import { AppIcon } from "@/components/ui/app-icon";
 import { InspectPanel, PickGrid, PickLayout, PickSection, type PickTile } from "@/components/ui/pick-grid";
+import { GearList } from "@/components/ui/gear-info";
+import { findGearInfo, gearInfosFor } from "@/lib/content/item-info";
 import { backgroundIcon, classIcon, featIcon, featureIcon, raceIcon, schoolIcon, skillIcon } from "@/lib/ui/game-icons";
 import { ClassPortrait } from "@/components/ui/class-portrait";
 import {
@@ -5374,6 +5376,14 @@ export function CreatorWorkspace({
             </div>
           ) : null}
         </div>
+        {(() => {
+          const chosen = group.options.find((option) => option.id === selectedOptionId) ?? null;
+          return chosen ? (
+            <GearList title="What you get" infos={gearInfosFor(content, chosen.label, chosen.items)} />
+          ) : (
+            <p className="pick-note">Pick one to see what is inside.</p>
+          );
+        })()}
       </div>
     );
   };
@@ -5860,6 +5870,9 @@ export function CreatorWorkspace({
     if (browser === "skills") {
       return fromTasks + remainingClassSkillChoices;
     }
+    if (browser === "custom-background-languages") {
+      return fromTasks + languageChoices.reduce((total, choice) => total + Math.max(0, choice.count - choice.selectedNames.length), 0);
+    }
     return fromTasks;
   };
   const originScreenLabels: Record<(typeof originPageOrder)[number], string> = {
@@ -6119,7 +6132,11 @@ export function CreatorWorkspace({
                                       value: meta.includes(":") ? meta.split(":").slice(1).join(":").trim() : meta,
                                     }))}
                                     fullText={backgroundDescription(focus)}
-                                  />
+                                  >
+                                    <GearList
+                                      infos={gearInfosFor(content, "", [...backgroundToolSummary(content, focus), ...backgroundLanguageSummary(content, focus)])}
+                                    />
+                                  </InspectPanel>
                                 ) : (
                                   <InspectPanel icon="open-book" title="Background" summary="Who you were before adventuring. Gives two skills and a tool or languages." />
                                 )
@@ -6967,7 +6984,7 @@ export function CreatorWorkspace({
                               />
                             </PickSection>
                             {selectedJourneySubclass && subclassChoices.length ? (
-                              <OptionChoicePanel choices={subclassChoices} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel content={content} choices={subclassChoices} onToggle={toggleOptionChoice} />
                             ) : null}
                           </PickLayout>
                         );
@@ -7081,7 +7098,7 @@ export function CreatorWorkspace({
                                   <p className="pick-note">Nothing unlocked yet at your level, Pact Boon and spells.</p>
                                 )}
                               </PickSection>
-                              <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                             </PickLayout>
                           );
                         })()
@@ -7342,7 +7359,7 @@ export function CreatorWorkspace({
                               </PickSection>
                             ) : null}
                             {currentClass.id !== "warlock" ? (
-                              <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                             ) : null}
                             <PickSection
                               title={`${currentClass.name} spells`}
@@ -9610,113 +9627,112 @@ export function CreatorWorkspace({
                 </section>
                 ) : null}
 
-                {creatorBrowser === "custom-background-tools" ? (
+                {creatorBrowser === "custom-background-tools" || creatorBrowser === "custom-background-languages" ? (
                 <section className="creator-section-block">
-                  <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
-                    <h4>Tools</h4>
-                  </div>
-                  <div className="creator-inline-list">
-                    <div className="list-row">
-                      <strong>{customBackgroundActive ? `${draft.customBackground?.proficiencyIds.length ?? 0} / 2 selected` : "Background tools"}</strong>
-                      <span>{customBackgroundActive ? selectedCustomProficiencyLabels.join(", ") || "Choose tools or languages in any mix of two." : "Granted by your selected background."}</span>
-                    </div>
-                  </div>
-                  {customBackgroundActive ? (
-                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                    {customBackgroundProficiencyChoices.filter((option) => option.kind === "Tool").map((option) => {
-                      const selected = draft.customBackground?.proficiencyIds.includes(option.id) ?? false;
-                      const locked = !selected && (draft.customBackground?.proficiencyIds.length ?? 0) >= 2;
-                      return (
-                        <button
-                          key={`custom-background-prof-${option.id}`}
-                          type="button"
-                          className={selected ? "fighter-journey-card active tool-choice-card" : `fighter-journey-card tool-choice-card${locked ? " disabled" : ""}`}
-                          disabled={locked}
-                          onClick={() => toggleCustomBackgroundProficiency(option.id)}
+                  {(() => {
+                    const isTools = creatorBrowser === "custom-background-tools";
+                    const kind = isTools ? "Tool" : "Language";
+                    const customOptions = customBackgroundProficiencyChoices.filter((option) => option.kind === kind);
+                    const pickedCustom = draft.customBackground?.proficiencyIds ?? [];
+                    const infoForOption = (optionId: string) => {
+                      const [, id] = optionId.split(":");
+                      const tool = content.tools.find((entry) => entry.id === id);
+                      const language = content.languages.find((entry) => entry.id === id);
+                      return isTools ? (tool ? findGearInfo(content, tool.name) : null) : language ? findGearInfo(content, language.name) : null;
+                    };
+                    const grantedNames = selectedBackground
+                      ? isTools
+                        ? backgroundToolSummary(content, selectedBackground)
+                        : backgroundLanguageSummary(content, selectedBackground)
+                      : [];
+                    const grantedInfos = gearInfosFor(content, "", grantedNames);
+                    const focusInfo =
+                      (inspectId ? infoForOption(inspectId) ?? findGearInfo(content, inspectId) : null) ??
+                      (pickedCustom.find((id) => id.startsWith(isTools ? "tool:" : "language:")) ? infoForOption(pickedCustom.find((id) => id.startsWith(isTools ? "tool:" : "language:")) as string) : null) ??
+                      grantedInfos[0] ??
+                      null;
+                    return (
+                      <>
+                        <div className="fighter-journey-scene-head compact">
+                          <h3>{isTools ? "Tools" : "Languages"}</h3>
+                          <p>
+                            {isTools
+                              ? "Tools let you add your proficiency bonus when you use them. Click one to see what it is good for."
+                              : "Languages you can speak, read and write. Click one to see who speaks it."}
+                          </p>
+                        </div>
+                        <PickLayout
+                          inspect={
+                            focusInfo ? (
+                              <InspectPanel icon={focusInfo.icon} kicker={focusInfo.kicker} title={focusInfo.name} summary={focusInfo.summary} rows={focusInfo.rows} />
+                            ) : (
+                              <InspectPanel icon={isTools ? "toolbox" : "talk"} title={isTools ? "Tools" : "Languages"} summary="Click one to read about it." />
+                            )
+                          }
                         >
-                          <span className="fighter-journey-card-label">{option.meta}</span>
-                          <strong>
-                            <HoverTooltip
-                              label={option.label}
-                              content={toolTooltipContent(content.tools.find((tool) => `tool:${tool.id}` === option.id), option.label, option.meta)}
-                            />
-                          </strong>
-                        </button>
-                      );
-                    })}
-                    </div>
-                  ) : hasSelectedBackgroundToolData ? (
-                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                      {renderBackgroundToolCards("background-tool-gear-section")}
-                    </div>
-                  ) : (
-                    <div className="list-row">
-                      <strong>No background tools</strong>
-                      <span>This background does not grant tool proficiencies.</span>
-                    </div>
-                  )}
-                </section>
-                ) : null}
-
-                {creatorBrowser === "custom-background-languages" ? (
-                <section className="creator-section-block">
-                  <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
-                    <h4>Languages</h4>
-                  </div>
-                  <div className="creator-inline-list">
-                    <div className="list-row">
-                      <strong>{customBackgroundActive ? `${draft.customBackground?.proficiencyIds.length ?? 0} / 2 selected` : "Background languages"}</strong>
-                      <span>{customBackgroundActive ? selectedCustomProficiencyLabels.join(", ") || "Choose tools or languages in any mix of two." : "Granted by your selected background."}</span>
-                    </div>
-                  </div>
-                  {customBackgroundActive ? (
-                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                    {customBackgroundProficiencyChoices.filter((option) => option.kind === "Language").map((option) => {
-                      const selected = draft.customBackground?.proficiencyIds.includes(option.id) ?? false;
-                      const locked = !selected && (draft.customBackground?.proficiencyIds.length ?? 0) >= 2;
-                      return (
-                        <button
-                          key={`custom-background-prof-${option.id}`}
-                          type="button"
-                          className={selected ? "fighter-journey-card active tool-choice-card" : `fighter-journey-card tool-choice-card${locked ? " disabled" : ""}`}
-                          disabled={locked}
-                          onClick={() => toggleCustomBackgroundProficiency(option.id)}
-                        >
-                          <span className="fighter-journey-card-label">{option.meta}</span>
-                          <strong>{option.label}</strong>
-                        </button>
-                      );
-                    })}
-                    </div>
-                  ) : backgroundLanguageSummary(content, selectedBackground).length ? (
-                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                      {backgroundLanguageSummary(content, selectedBackground).map((language) => (
-                        <article key={`background-language-${language}`} className="fighter-feature-card compact unlocked">
-                          <div className="fighter-feature-card-head">
-                            <strong>{language}</strong>
-                            <span className="fighter-feature-check" aria-hidden="true">✓</span>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="list-row">
-                      <strong>No background languages</strong>
-                      <span>This background does not grant languages.</span>
-                    </div>
-                  )}
-                  <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} />
+                          {customBackgroundActive ? (
+                            <PickSection
+                              title={`Custom background ${isTools ? "tools" : "languages"}`}
+                              meta="any mix of two tools or languages"
+                              picked={pickedCustom.length}
+                              total={2}
+                            >
+                              <PickGrid
+                                label={isTools ? "Tools" : "Languages"}
+                                columns={4}
+                                size="sm"
+                                inspectedId={inspectId}
+                                onInspect={setInspectId}
+                                items={customOptions.map((option) => {
+                                  const info = infoForOption(option.id);
+                                  const selected = pickedCustom.includes(option.id);
+                                  return {
+                                    id: option.id,
+                                    name: option.label,
+                                    sub: info?.sub,
+                                    icon: info?.icon ?? (isTools ? "toolbox" : "talk"),
+                                    selected,
+                                    dim: !selected && pickedCustom.length >= 2,
+                                  };
+                                })}
+                                onPick={(id) => {
+                                  if (pickedCustom.includes(id) || pickedCustom.length < 2) {
+                                    toggleCustomBackgroundProficiency(id);
+                                  }
+                                }}
+                              />
+                            </PickSection>
+                          ) : (
+                            <PickSection title={`From ${selectedBackground?.name ?? "your background"}`}>
+                              {grantedInfos.length ? (
+                                <PickGrid
+                                  label={`Background ${isTools ? "tools" : "languages"}`}
+                                  columns={4}
+                                  size="sm"
+                                  inspectedId={focusInfo?.name ?? null}
+                                  onInspect={setInspectId}
+                                  items={grantedInfos.map((info) => ({ id: info.name, name: info.name, sub: info.sub, icon: info.icon, owned: true }))}
+                                />
+                              ) : (
+                                <p className="pick-note">{grantedNames.length ? grantedNames.join(", ") : `Your background gives no ${isTools ? "tools" : "languages"}.`}</p>
+                              )}
+                              {isTools && hasSelectedBackgroundToolData && selectedBackground?.toolProficiencies.choices.length ? (
+                                <div className="fighter-feature-grid compact fighter-equipment-source-grid">{renderBackgroundToolCards("background-tool-gear-section")}</div>
+                              ) : null}
+                            </PickSection>
+                          )}
+                          {!isTools ? (
+                            <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} content={content} onInspect={setInspectId} inspectedId={inspectId} />
+                          ) : null}
+                        </PickLayout>
+                      </>
+                    );
+                  })()}
                 </section>
                 ) : null}
 
                 {creatorBrowser === "custom-background-equipment" ? (
                 <section className="creator-section-block">
-                  <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
-                    <h4>Equipment</h4>
-                  </div>
                   <div className="fighter-journey-scene">
                     <div className="fighter-journey-scene-head compact">
                       <h3>Equipment</h3>
@@ -9900,7 +9916,7 @@ export function CreatorWorkspace({
                                 )
                               }
                             >
-                              <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
                               <PickSection title={`${currentClass.name} skills`} meta={`choose ${skillChoiceCount}`} picked={selectedClassSkillCount} total={skillChoiceCount}>
                                 <div className="skill-ability-columns">
                                   {abilityOrder.map((abilityId) => {
@@ -10474,7 +10490,7 @@ export function CreatorWorkspace({
                                 )
                               ) : null}
                               {openWarlockGroup === "invocations" ? (
-                                <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                                <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                               ) : null}
                             </div>
                           </div>

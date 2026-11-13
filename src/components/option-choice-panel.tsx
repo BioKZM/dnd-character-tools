@@ -5,6 +5,9 @@ import type { AvailableChoice } from "@/lib/engine/collect";
 import { PickGrid, PickSection, type PickTile } from "@/components/ui/pick-grid";
 import { Keywordize } from "@/components/ui/keyword-text";
 import { schoolIcon, skillIcon, toolIcon, weaponIcon, type GameIconName } from "@/lib/ui/game-icons";
+import { GearCard } from "@/components/ui/gear-info";
+import { findGearInfo, type GearInfo } from "@/lib/content/item-info";
+import type { ContentBundle } from "@/lib/content/schema";
 
 const VISIBLE_LIMIT = 24;
 
@@ -15,9 +18,12 @@ const VISIBLE_LIMIT = 24;
 export function OptionChoicePanel({
   choices,
   onToggle,
+  content,
 }: {
   choices: AvailableChoice[];
   onToggle: (choiceId: string, value: string) => void;
+  /** Verilirse silah / tool secimlerinde hasar, menzil, ne ise yaradigi gosterilir. */
+  content?: ContentBundle;
 }) {
   if (!choices.length) {
     return null;
@@ -26,7 +32,7 @@ export function OptionChoicePanel({
   return (
     <div className="option-choice-stack">
       {choices.map((entry) => (
-        <ChoiceBlock key={entry.choice.id} entry={entry} onToggle={onToggle} />
+        <ChoiceBlock key={entry.choice.id} entry={entry} onToggle={onToggle} content={content} />
       ))}
     </div>
   );
@@ -52,7 +58,22 @@ function candidateSub(kind: string, tags: string[]) {
   return tags.join(" · ");
 }
 
-function ChoiceBlock({ entry, onToggle }: { entry: AvailableChoice; onToggle: (choiceId: string, value: string) => void }) {
+function gearFor(content: ContentBundle | undefined, kind: string, candidate: AvailableChoice["candidates"][number]): GearInfo | null {
+  if (!content || (kind !== "weapon" && kind !== "tool")) {
+    return null;
+  }
+  return findGearInfo(content, candidate.name);
+}
+
+function ChoiceBlock({
+  entry,
+  onToggle,
+  content,
+}: {
+  entry: AvailableChoice;
+  onToggle: (choiceId: string, value: string) => void;
+  content?: ContentBundle;
+}) {
   const [query, setQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
   const [inspected, setInspected] = useState<string | null>(null);
@@ -67,12 +88,13 @@ function ChoiceBlock({ entry, onToggle }: { entry: AvailableChoice; onToggle: (c
   const tiles: PickTile[] = visible.map((candidate) => ({
     id: candidate.id,
     name: candidate.name,
-    sub: candidateSub(kind, candidate.tags),
+    sub: gearFor(content, kind, candidate)?.sub ?? candidateSub(kind, candidate.tags),
     icon: candidateIcon(kind, candidate),
     selected: selectedIds.includes(candidate.id),
     dim: full && choice.count > 1 && !selectedIds.includes(candidate.id),
   }));
   const focus = entry.candidates.find((candidate) => candidate.id === inspected) ?? null;
+  const focusGear = focus ? gearFor(content, kind, focus) : null;
 
   const pick = (id: string) => {
     if (selectedIds.includes(id)) {
@@ -117,7 +139,9 @@ function ChoiceBlock({ entry, onToggle }: { entry: AvailableChoice; onToggle: (c
           {`Show all ${candidates.length}`}
         </button>
       ) : null}
-      {focus?.summary ? (
+      {focusGear ? (
+        <GearCard key={focusGear.id} info={focusGear} defaultOpen />
+      ) : focus?.summary ? (
         <p className="pick-note option-choice-detail">
           <strong>{focus.name}: </strong>
           <Keywordize>{focus.summary}</Keywordize>
