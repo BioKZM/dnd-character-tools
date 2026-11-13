@@ -65,6 +65,25 @@ function handsOf(weapon: Weapon) {
 }
 
 export function weaponInfo(weapon: Weapon): GearInfo {
+  if (weapon.proficiency === "ammunition" || weapon.attackType === "ammunition") {
+    const forWhat = /bolt/i.test(weapon.name)
+      ? "crossbows"
+      : /bullet/i.test(weapon.name)
+        ? "slings"
+        : /needle/i.test(weapon.name)
+          ? "blowguns"
+          : "bows";
+    return {
+      kind: "weapon",
+      id: weapon.id,
+      name: weapon.name,
+      icon: weaponIcon(weapon.name),
+      kicker: "Ammunition",
+      summary: `Ammunition for ${forWhat}. Each shot uses one; after a fight you can recover half by searching for a minute.`,
+      sub: `Ammo for ${forWhat}`,
+      rows: [{ label: "Weight", value: `${weapon.weight} · ${weapon.cost}` }],
+    };
+  }
   const damage = weapon.damage ? `${weapon.damage} ${weapon.damageType ?? ""}`.trim() : "No damage";
   const twoHanded = weapon.versatileDamage ? `${damage}, ${weapon.versatileDamage} with two hands` : damage;
   const ranged = weapon.attackType === "ranged";

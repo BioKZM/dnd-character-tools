@@ -237,3 +237,37 @@ export function featureIcon(name: string): GameIconName {
 export function featureIconFor(text: string): GameIconName {
   return featureIcon(text);
 }
+
+export function styleIcon(name: string): GameIconName {
+  return byKeywords(
+    name,
+    [
+      [/archery/, "bow-arrow"],
+      [/defense/, "checked-shield"],
+      [/dueling/, "katana"],
+      [/great weapon/, "battle-axe"],
+      [/protection|interception/, "round-shield"],
+      [/two-weapon|two weapon/, "crossed-swords"],
+      [/blind/, "eye-target"],
+      [/thrown/, "thrown-spear"],
+      [/unarmed/, "fist"],
+      [/superior|technique/, "stars-stack"],
+      [/druidic/, "oak-leaf"],
+      [/blessed|warrior/, "holy-symbol"],
+    ],
+    "crossed-swords",
+  );
+}
+
+export function pactIcon(name: string): GameIconName {
+  return byKeywords(
+    name,
+    [
+      [/chain/, "fairy"],
+      [/blade/, "katana"],
+      [/tome/, "spell-book"],
+      [/talisman/, "holy-symbol"],
+    ],
+    "evil-eyes",
+  );
+}

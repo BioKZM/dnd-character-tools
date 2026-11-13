@@ -12,7 +12,10 @@ export function LanguageChoicePanel({
   content,
   onInspect,
   inspectedId,
+  knownLanguages = [],
 }: {
+  /** Baska yerden (irk, background) zaten bilinen diller; tekrar secilemez. */
+  knownLanguages?: string[];
   choices: LanguageChoice[];
   onToggle: (choiceId: string, language: string) => void;
   content?: ContentBundle;
@@ -27,6 +30,9 @@ export function LanguageChoicePanel({
     <div className="option-choice-stack">
       {choices.map((choice) => {
         const full = choice.selectedNames.length >= choice.count;
+        const knownElsewhere = new Set(
+          knownLanguages.map((name) => name.toLowerCase()).filter((name) => !choice.selectedNames.some((picked) => picked.toLowerCase() === name)),
+        );
         return (
           <PickSection key={choice.id} title={choice.label} meta={choice.sourceName} picked={choice.selectedNames.length} total={choice.count}>
             <PickGrid
@@ -38,13 +44,16 @@ export function LanguageChoicePanel({
               items={choice.options.map((language) => {
                 const info = content ? findGearInfo(content, language) : null;
                 const active = choice.selectedNames.includes(language);
+                const known = !active && knownElsewhere.has(language.toLowerCase());
                 return {
                   id: language,
                   name: language,
                   sub: info?.sub,
                   icon: info?.icon ?? "talk",
                   selected: active,
-                  dim: !active && full,
+                  locked: known,
+                  lockReason: known ? "You already know it" : undefined,
+                  dim: !active && !known && full,
                 };
               })}
               onPick={(language) => {

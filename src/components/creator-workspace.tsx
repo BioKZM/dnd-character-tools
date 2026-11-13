@@ -31,7 +31,7 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { InspectPanel, PickGrid, PickLayout, PickSection, type PickTile } from "@/components/ui/pick-grid";
 import { GearList } from "@/components/ui/gear-info";
 import { findGearInfo, gearInfosFor } from "@/lib/content/item-info";
-import { backgroundIcon, classIcon, featIcon, featureIcon, raceIcon, schoolIcon, skillIcon } from "@/lib/ui/game-icons";
+import { backgroundIcon, classIcon, featIcon, featureIcon, pactIcon, raceIcon, schoolIcon, skillIcon, styleIcon } from "@/lib/ui/game-icons";
 import { ClassPortrait } from "@/components/ui/class-portrait";
 import {
   parseWarlockInvocationSummary,
@@ -5160,24 +5160,31 @@ export function CreatorWorkspace({
 
     return (
       <div key={`${keyPrefix}-${group.id}`} className="equipment-choice-group">
-        <strong>{group.prompt}</strong>
+        <div className="pick-section-head">
+          <span className="pick-section-title">
+            <strong>{group.prompt}</strong>
+          </span>
+          <span className={selectedOptionId ? "pick-counter done" : "pick-counter pending"}>{selectedOptionId ? "Done" : "Pick 1"}</span>
+        </div>
+        {directOptions.length ? (
+          <PickGrid
+            label={group.prompt}
+            columns={Math.min(4, Math.max(2, directOptions.length))}
+            size="sm"
+            items={directOptions.map((option) => {
+              const infos = gearInfosFor(content, option.label, option.items);
+              return {
+                id: option.id,
+                name: option.label,
+                sub: infos.map((info) => info.sub).slice(0, 2).join(" · ") || undefined,
+                icon: infos[0]?.icon ?? "knapsack",
+                selected: selectedOptionId === option.id,
+              };
+            })}
+            onPick={(id) => setFighterEquipmentChoice(group.id, id)}
+          />
+        ) : null}
         <div className="fighter-journey-grid equipment-choice-grid">
-          {directOptions.map((option) => (
-            <button
-              key={`${keyPrefix}-${group.id}-${option.id}`}
-              type="button"
-              className={selectedOptionId === option.id ? "fighter-journey-card active" : "fighter-journey-card"}
-              onClick={() => setFighterEquipmentChoice(group.id, option.id)}
-            >
-              <span className="fighter-journey-card-label">{selectedOptionId === option.id ? "Selected" : "Choose"}</span>
-              <strong>
-                <HoverTooltip
-                  label={option.label}
-                  content={equipmentTooltipContent(content, option.label, option.items)}
-                />
-              </strong>
-            </button>
-          ))}
           {simpleOptions.length ? (
             <div className={selectedSimpleOption ? "fighter-journey-card active equipment-picker-card" : "fighter-journey-card equipment-picker-card"}>
               <span className="fighter-journey-card-label">{selectedSimpleOption ? "Selected" : "Choose"}</span>
@@ -5690,6 +5697,114 @@ export function CreatorWorkspace({
     );
   };
 
+  // Tek ASI karti: mod secimi (+2 / +1+1 / feat), sonra ability veya feat izgarasi.
+  const renderAsiLevelCard = (level: number) => {
+    const choice = fighterAsiChoices[level];
+    const mode = choice?.mode ?? null;
+    const plusTwo = choice?.plusTwoAbilityId ?? null;
+    const plusOnes = choice?.plusOneAbilityIds ?? [];
+    const featId = choice?.featId ?? "";
+    const done = mode === "plus-two" ? Boolean(plusTwo) : mode === "split" ? plusOnes.length === 2 : mode === "feat" ? Boolean(featId) : false;
+    const setMode = (next: "plus-two" | "split" | "feat") =>
+      next === "feat"
+        ? setFighterAsiFeatChoice(level, featId)
+        : updateFighterAsiChoice(level, () => ({ mode: next, plusTwoAbilityId: null, plusOneAbilityIds: [], featId: null }));
+    const eligibleFeats = content.feats.filter((feat) => feat.id === featId || checkFeat(feat.id, featId || null).eligible);
+    const chosenFeat = content.feats.find((feat) => feat.id === featId) ?? null;
+    return (
+      <PickSection
+        key={`asi-card-${level}`}
+        title={`Level ${level}`}
+        meta="Ability Score Improvement"
+        picked={done ? 1 : 0}
+        total={1}
+        actions={
+          mode ? (
+            <button type="button" className="pick-filter" onClick={() => clearFighterAsiChoice(level)}>
+              Clear
+            </button>
+          ) : null
+        }
+      >
+        <PickGrid
+          label={`Level ${level} improvement type`}
+          columns={3}
+          size="sm"
+          items={[
+            { id: "plus-two", name: "+2 to one ability", sub: "Best for your main stat", icon: "stars-stack", selected: mode === "plus-two" },
+            { id: "split", name: "+1 to two abilities", sub: "Round two odd scores up", icon: "skills", selected: mode === "split" },
+            { id: "feat", name: "Take a feat", sub: "A new ability instead", icon: "laurels", selected: mode === "feat" },
+          ]}
+          onPick={(id) => setMode(id as "plus-two" | "split" | "feat")}
+        />
+        {mode === "plus-two" || mode === "split" ? (
+          <div className="asi-ability-row">
+            {draft.abilities.map((ability) => {
+              const projected = fighterAsiProjectedScore(ability.id, level);
+              const active = mode === "plus-two" ? plusTwo === ability.id : plusOnes.includes(ability.id);
+              const gain = mode === "plus-two" ? 2 : 1;
+              const capped = projected + gain > 20;
+              const full = mode === "split" && !active && plusOnes.length >= 2;
+              return (
+                <button
+                  key={`asi-${level}-${ability.id}`}
+                  type="button"
+                  className={`asi-ability ${abilityAccentClass(ability.id)}${active ? " selected" : ""}`}
+                  disabled={!active && (capped || full)}
+                  title={capped ? "Can't go above 20" : undefined}
+                  onClick={() =>
+                    updateFighterAsiChoice(level, (current) =>
+                      mode === "plus-two"
+                        ? { mode: "plus-two", plusTwoAbilityId: current?.plusTwoAbilityId === ability.id ? null : ability.id, plusOneAbilityIds: [], featId: null }
+                        : {
+                            mode: "split",
+                            plusTwoAbilityId: null,
+                            plusOneAbilityIds: (current?.plusOneAbilityIds ?? []).includes(ability.id)
+                              ? (current?.plusOneAbilityIds ?? []).filter((entry) => entry !== ability.id)
+                              : [...(current?.plusOneAbilityIds ?? []), ability.id].slice(0, 2),
+                            featId: null,
+                          },
+                    )
+                  }
+                >
+                  <span>{ability.id}</span>
+                  <strong>{active ? `${projected} → ${projected + gain}` : projected}</strong>
+                  <small>{capped && !active ? "max 20" : `+${gain}`}</small>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+        {mode === "feat" ? (
+          <>
+            <PickGrid
+              label={`Level ${level} feat`}
+              columns={4}
+              size="sm"
+              items={eligibleFeats.map((feat) => ({
+                id: feat.id,
+                name: feat.name,
+                sub: featSourceShort(feat.source),
+                icon: featIcon(feat.name),
+                selected: feat.id === featId,
+              }))}
+              onPick={(id) => setFighterAsiFeatChoice(level, id === featId ? "" : id)}
+            />
+            {chosenFeat ? (
+              <p className="pick-note">
+                <strong>{`${chosenFeat.name}: `}</strong>
+                {firstSentence(featBenefitParagraphs(chosenFeat)[0] ?? chosenFeat.summary)}
+                {" More in the Feats tab."}
+              </p>
+            ) : (
+              <p className="pick-note">{`Only feats you qualify for are shown (${content.feats.length - eligibleFeats.length} hidden). The Feats tab shows all of them with reasons.`}</p>
+            )}
+          </>
+        ) : null}
+      </PickSection>
+    );
+  };
+
   const fighterAsiProjectedScore = (abilityId: AbilityId, level: number) => {
     const baseScore = draft.abilities.find((ability) => ability.id === abilityId)?.score ?? 8;
     const racialBonus = previewAbilityBonuses
@@ -5870,6 +5985,9 @@ export function CreatorWorkspace({
     if (browser === "skills") {
       return fromTasks + remainingClassSkillChoices;
     }
+    if (browser === "abilities") {
+      return fromTasks + (abilityMethod === "point-buy" && pointBuyRemaining > 0 ? 1 : abilityMethod === "standard-array" && !standardArrayValid ? 1 : 0);
+    }
     if (browser === "custom-background-languages") {
       return fromTasks + languageChoices.reduce((total, choice) => total + Math.max(0, choice.count - choice.selectedNames.length), 0);
     }
@@ -5983,54 +6101,58 @@ export function CreatorWorkspace({
                     transition={{ duration: 0.28, ease: "easeOut" }}
                   >
                     {activeOriginPage === "identity" ? (
-                      <div className="origin-focus-card origin-identity-card">
-                        <div className="origin-page-title">
-                          <span>Start Here</span>
-                          <h4>{draft.name.trim() || "Unnamed Character"}</h4>
-                          <p>Name the character and choose the level. The rest of the creator can stay quiet until these basics are set.</p>
+                      <div className="origin-focus-card origin-pick-page">
+                        <div className="fighter-journey-scene-head compact">
+                          <h3>Name & Level</h3>
+                          <p>Start with who you are and how far along your adventure is. You can change both later.</p>
                         </div>
-                        <label className="origin-name-field">
-                          <span>Character Name</span>
-                          <input
-                            type="text"
-                            value={draft.name}
-                            placeholder="Enter character name"
-                            onChange={(event) =>
-                              updateDraft((current) => ({
-                                ...current,
-                                name: event.target.value,
-                              }))
-                            }
-                          />
-                        </label>
-                        <div className="origin-level-focus">
-                          <div className="origin-level-head">
-                            <span>Level</span>
-                            <strong>{draft.level}</strong>
-                          </div>
-                          <div className="level-chooser origin-level-chooser">
-                            {Array.from({ length: 20 }, (_, index) => index + 1).map((level) => (
-                              <button
-                                key={`origin-level-${level}`}
-                                type="button"
-                                className={draft.level === level ? "level-pill active" : "level-pill"}
-                                onClick={() => applyLevelChange(level)}
-                              >
-                                {level}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="origin-mini-summary">
-                          <div>
-                            <span>Race</span>
-                            <strong>{currentStructuredLineage?.name ?? currentLineageGroup.name}</strong>
-                          </div>
-                          <div>
-                            <span>Background</span>
-                            <strong>{selectedBackground?.name ?? currentBackground.name}</strong>
-                          </div>
-                        </div>
+                        <PickLayout
+                          inspect={
+                            <InspectPanel
+                              icon="stars-stack"
+                              kicker="Level"
+                              title={`Level ${draft.level}`}
+                              summary="Your level decides your hit points, proficiency bonus and which class features you have."
+                              rows={[
+                                { label: "Proficiency", value: signedNumber(draft.proficiencyBonus) },
+                                { label: "Hit points", value: `${previewDraft.maxHp} with your current CON` },
+                                { label: "Features", value: `${visibleClassFeatures.filter((feature) => classFeatureUnlockState.get(feature.id)?.acquired ?? true).length} ${currentClass.name.toLowerCase()} features unlocked` },
+                                { label: "Tip", value: "Ask your DM which level the campaign starts at." },
+                              ]}
+                            />
+                          }
+                        >
+                          <PickSection title="Character name">
+                            <input
+                              type="text"
+                              className="pick-search identity-name-input"
+                              value={draft.name}
+                              placeholder="Enter character name"
+                              aria-label="Character name"
+                              onChange={(event) =>
+                                updateDraft((current) => ({
+                                  ...current,
+                                  name: event.target.value,
+                                }))
+                              }
+                            />
+                          </PickSection>
+                          <PickSection title="Level" meta={`proficiency bonus ${signedNumber(draft.proficiencyBonus)}`}>
+                            <div className="identity-level-grid" role="group" aria-label="Character level">
+                              {Array.from({ length: 20 }, (_, index) => index + 1).map((level) => (
+                                <button
+                                  key={`origin-level-${level}`}
+                                  type="button"
+                                  aria-pressed={draft.level === level}
+                                  className={draft.level === level ? "pick-filter active" : "pick-filter"}
+                                  onClick={() => applyLevelChange(level)}
+                                >
+                                  {level}
+                                </button>
+                              ))}
+                            </div>
+                          </PickSection>
+                        </PickLayout>
                       </div>
                     ) : null}
 
@@ -6642,285 +6764,100 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "fighter-style" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <span className="mini-heading creator-section-label">Fighting Style</span>
                         <h3>Fighting Style</h3>
-                        <p>{`Choose the combat edge that defines your ${currentClass.name} baseline game feel.`}</p>
+                        <p>{`A permanent combat edge. Pick the one that fits how your ${currentClass.name.toLowerCase()} fights.`}</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                      <div className="fighter-journey-split">
-                        <div className="fighter-journey-grid">
-                          <button
-                            type="button"
-                            className={
-                              currentClass.id === "ranger"
-                                ? !draft.rangerChoices?.fightingStyleId
-                                  ? "fighter-journey-card active is-none"
-                                  : "fighter-journey-card dimmed is-none"
-                                : !draft.fighterChoices?.fightingStyleId
-                                  ? "fighter-journey-card active is-none"
-                                  : "fighter-journey-card dimmed is-none"
+                      {(() => {
+                        type StyleOption = (typeof classFightingStyleOptions)[number];
+                        const shortOf = (option: StyleOption) =>
+                          "shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : firstSentence(option.summary) ?? "";
+                        const factsOf = (option: StyleOption) =>
+                          "keyFacts" in option && Array.isArray(option.keyFacts) ? (option.keyFacts as string[]) : [];
+                        const focus =
+                          classFightingStyleOptions.find((option) => option.id === inspectId) ??
+                          classFightingStyleOptions.find((option) => option.id === selectedClassFightingStyleId) ??
+                          null;
+                        const pickStyle = (id: string) => (currentClass.id === "ranger" ? setRangerFightingStyle(id) : chooseFighterStyleJourney(id));
+                        const maneuverFocus =
+                          fighterBattleMasterManeuverOptions.find((option) => option.id === inspectId) ?? null;
+                        const inspectTarget = maneuverFocus ?? focus;
+                        return (
+                          <PickLayout
+                            inspect={
+                              inspectTarget ? (
+                                <InspectPanel
+                                  icon={maneuverFocus ? "stars-stack" : styleIcon(inspectTarget.name)}
+                                  kicker={maneuverFocus ? "Maneuver" : "Fighting Style"}
+                                  title={inspectTarget.name}
+                                  summary={shortOf(inspectTarget as StyleOption)}
+                                  rows={factsOf(inspectTarget as StyleOption).map((fact, index) => ({ label: index === 0 ? "Rules" : " ", value: fact }))}
+                                  fullText={inspectTarget.summary}
+                                  action={
+                                    !maneuverFocus && focus && focus.id !== selectedClassFightingStyleId ? (
+                                      <button type="button" className="sheet-button primary" onClick={() => pickStyle(focus.id)}>
+                                        Choose this style
+                                      </button>
+                                    ) : null
+                                  }
+                                />
+                              ) : (
+                                <InspectPanel icon="crossed-swords" title="Fighting Style" summary="Click a style to read it. You can change it until the game starts." />
+                              )
                             }
-                            onClick={() => (currentClass.id === "ranger" ? setRangerFightingStyle("") : chooseFighterStyleJourney(""))}
                           >
-                            <strong>None</strong>
-                            <span>No style selected yet.</span>
-                          </button>
-                          {classFightingStyleOptions.map((option) => (
-                            <button
-                              key={option.id}
-                              type="button"
-                              className={
-                                selectedClassFightingStyleId === option.id
-                                  ? "fighter-journey-card active"
-                                  : selectedClassFightingStyleId
-                                    ? "fighter-journey-card dimmed"
-                                    : "fighter-journey-card"
-                              }
-                              onClick={() => (currentClass.id === "ranger" ? setRangerFightingStyle(option.id) : chooseFighterStyleJourney(option.id))}
-                            >
-                              <strong>
-                                <HoverTooltip
-                                  label={option.name}
-                                  content={featureTooltipContent({
+                            <PickSection title="Fighting Style" picked={selectedClassFightingStyleId ? 1 : 0} total={1}>
+                              <PickGrid
+                                label="Fighting styles"
+                                columns={4}
+                                size="sm"
+                                inspectedId={inspectId}
+                                onInspect={setInspectId}
+                                items={classFightingStyleOptions.map((option) => ({
+                                  id: option.id,
+                                  name: option.name,
+                                  sub: shortOf(option),
+                                  icon: styleIcon(option.name),
+                                  selected: selectedClassFightingStyleId === option.id,
+                                }))}
+                                onPick={(id) => pickStyle(selectedClassFightingStyleId === id ? "" : id)}
+                              />
+                            </PickSection>
+                            {currentClass.id === "fighter" && selectedFighterFightingStyle?.id === "superior-technique" ? (
+                              <PickSection title="Maneuver" meta="Superior Technique gives one Battle Master maneuver" picked={draft.fighterChoices?.superiorTechniqueManeuverId ? 1 : 0} total={1}>
+                                <PickGrid
+                                  label="Maneuvers"
+                                  columns={4}
+                                  size="sm"
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={fighterBattleMasterManeuverOptions.map((option) => ({
                                     id: option.id,
                                     name: option.name,
-                                    summary: option.summary,
-                                    keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
-                                    unlockLevel: 1,
-                                    currentValueTemplate: undefined,
-                                    tags: [],
-                                    milestones: [], grants: [], choices: [],
-                                  }, draft.level)}
+                                    sub: "shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : undefined,
+                                    icon: "stars-stack",
+                                    selected: draft.fighterChoices?.superiorTechniqueManeuverId === option.id,
+                                  }))}
+                                  onPick={(id) => setSuperiorTechniqueManeuver(id)}
                                 />
-                              </strong>
-                              <span>{"shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : option.summary}</span>
-                            </button>
-                          ))}
-                        </div>
-                        <div className="fighter-journey-detail">
-                          <article className="identity-trait-item class-feature-detail creator-subpanel-flat fighter-journey-detail-card">
-                            <span className="feature-detail-label">Focus</span>
-                            <strong>{selectedClassFightingStyle?.name ?? "None"}</strong>
-                            {selectedClassFightingStyleKeyFacts.length ? (
-                              <div className="feature-key-facts-list structured">
-                                {selectedClassFightingStyleKeyFacts.map((fact, index) => (
-                                  <div key={`${selectedClassFightingStyle?.id ?? "style"}-journey-fact-${index}`} className="feature-key-fact-row">
-                                    <span className="feature-key-fact-dot" aria-hidden="true" />
-                                    <span>{fact}</span>
-                                  </div>
-                                ))}
-                              </div>
+                              </PickSection>
                             ) : null}
-                            <div className="class-feature-detail-body">
-                              <p>{selectedClassFightingStyle?.summary ?? "Leave Fighting Style on None for now, or choose one to define your baseline combat edge."}</p>
-                            </div>
-                          </article>
-                          {currentClass.id === "fighter" && selectedFighterFightingStyle?.id === "superior-technique" ? (
-                            <article className="identity-trait-item class-feature-detail creator-subpanel-flat fighter-journey-detail-card">
-                              <span className="feature-detail-label">Maneuver</span>
-                              {selectedSuperiorTechniqueManeuver ? (
-                                <article className="fighter-feature-card compact unlocked">
-                                  <div className="fighter-feature-card-head">
-                                    <HoverTooltip
-                                      label={selectedSuperiorTechniqueManeuver.name}
-                                      content={featureTooltipContent({
-                                        id: selectedSuperiorTechniqueManeuver.id,
-                                        name: selectedSuperiorTechniqueManeuver.name,
-                                        summary: selectedSuperiorTechniqueManeuver.summary,
-                                        keyFacts: selectedSuperiorTechniqueManeuver.keyFacts ?? [],
-                                        unlockLevel: 1,
-                                        currentValueTemplate: undefined,
-                                        tags: [],
-                                        milestones: [], grants: [], choices: [],
-                                      }, draft.level)}
-                                    />
-                                    <span className="fighter-feature-check" aria-hidden="true">✓</span>
-                                  </div>
-                                  <p>{selectedSuperiorTechniqueManeuver.shortLabel ?? selectedSuperiorTechniqueManeuver.summary}</p>
-                                </article>
-                              ) : (
-                                <div className="list-row">
-                                  <strong>Choose a maneuver</strong>
-                                  <span>Superior Technique grants one Battle Master maneuver.</span>
-                                </div>
-                              )}
-                              <div className="fighter-journey-mini-grid">
-                                {fighterBattleMasterManeuverOptions.map((option) => (
-                                  <button
-                                    key={option.id}
-                                    type="button"
-                                    className={draft.fighterChoices?.superiorTechniqueManeuverId === option.id ? "fighter-journey-mini-card active" : "fighter-journey-mini-card"}
-                                    onClick={() => setSuperiorTechniqueManeuver(option.id)}
-                                  >
-                                    <strong>
-                                      <HoverTooltip
-                                        label={option.name}
-                                        content={featureTooltipContent({
-                                          id: option.id,
-                                          name: option.name,
-                                          summary: option.summary,
-                                          keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
-                                          unlockLevel: 1,
-                                          currentValueTemplate: undefined,
-                                          tags: [],
-                                          milestones: [], grants: [], choices: [],
-                                        }, draft.level)}
-                                      />
-                                    </strong>
-                                    <span>{"shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : option.summary}</span>
-                                  </button>
-                                ))}
-                              </div>
-                            </article>
-                          ) : null}
-                        </div>
-                      </div>
+                          </PickLayout>
+                        );
+                      })()}
                     </div>
                   ) : null}
 
                   {fighterJourneyScene === "fighter-asi" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <span className="mini-heading creator-section-label">ASI</span>
-                        <h3>{fighterAsiFeature?.name ?? "Ability Score Improvement"}</h3>
-                        <p>Choose a +2 bonus, split two +1 bonuses, or take a feat when an ASI level is unlocked.</p>
+                        <h3>Ability Score Improvements</h3>
+                        <p>At these levels you raise your abilities or take a feat instead. Scores can&apos;t go above 20.</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                      <div className="fighter-asi-stack">
-                        {unlockedFighterAsiLevels.length ? unlockedFighterAsiLevels.map((level) => {
-                          const choice = fighterAsiChoices[level];
-                          const selectedMode = choice?.mode ?? null;
-                          const plusTwoAbilityId = choice?.plusTwoAbilityId ?? null;
-                          const plusOneAbilityIds = choice?.plusOneAbilityIds ?? [];
-                          const selectedFeatId = choice?.featId ?? "";
-
-                          return (
-                            <article key={`journey-fighter-asi-tab-${level}`} className="fighter-asi-card">
-                              <div className="fighter-asi-card-head">
-                                <div>
-                                  <span className="mini-heading">Level {level}</span>
-                                  <strong>{fighterAsiFeature?.milestones.find((milestone) => milestone.level === level)?.label ?? "+2 or +1 / +1"}</strong>
-                                </div>
-                                <button type="button" className="fighter-choice-clear" onClick={() => clearFighterAsiChoice(level)}>
-                                  Clear
-                                </button>
-                              </div>
-                              <div className="fighter-asi-mode-row">
-                                <button
-                                  type="button"
-                                  className={selectedMode === "plus-two" ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                  onClick={() =>
-                                    updateFighterAsiChoice(level, () => ({
-                                      mode: "plus-two",
-                                      plusTwoAbilityId: null,
-                                      plusOneAbilityIds: [],
-                                      featId: null,
-                                    }))
-                                  }
-                                >
-                                  +2 to one ability
-                                </button>
-                                <button
-                                  type="button"
-                                  className={selectedMode === "split" ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                  onClick={() =>
-                                    updateFighterAsiChoice(level, () => ({
-                                      mode: "split",
-                                      plusTwoAbilityId: null,
-                                      plusOneAbilityIds: [],
-                                      featId: null,
-                                    }))
-                                  }
-                                >
-                                  +1 / +1 split
-                                </button>
-                                <button
-                                  type="button"
-                                  className={selectedMode === "feat" ? "ability-flex-pick active" : "ability-flex-pick"}
-                                  onClick={() =>
-                                    updateFighterAsiChoice(level, () => ({
-                                      mode: "feat",
-                                      plusTwoAbilityId: null,
-                                      plusOneAbilityIds: [],
-                                      featId: selectedFeatId || null,
-                                    }))
-                                  }
-                                >
-                                  Feat
-                                </button>
-                              </div>
-                              {selectedMode === "feat" ? (
-                                renderAsiFeatPicker(level, selectedFeatId)
-                              ) : (
-                                <div className="ability-flex-assignment-grid fighter-asi-grid">
-                                  {draft.abilities.map((ability) => {
-                                    const projectedScore = fighterAsiProjectedScore(ability.id, level);
-                                    const canTakePlusTwo = projectedScore <= 18;
-                                    const canTakePlusOne =
-                                      projectedScore <= 19 ||
-                                      plusOneAbilityIds.includes(ability.id);
-                                    const splitLocked =
-                                      !plusOneAbilityIds.includes(ability.id) &&
-                                      plusOneAbilityIds.length >= 2;
-
-                                    return (
-                                      <div className="ability-flex-assignment-row fighter-asi-row" key={`journey-fighter-asi-tab-${level}-${ability.id}`}>
-                                        <strong className={abilityAccentClass(ability.id)}>{ability.id}</strong>
-                                        <div className="fighter-asi-row-meta">
-                                          <span>{ability.label}</span>
-                                          <span>{`Current ${previewAbilities.find((entry) => entry.id === ability.id)?.previewScore ?? ability.score}`}</span>
-                                        </div>
-                                        <div className="ability-flex-picks prominent">
-                                          <button
-                                            type="button"
-                                            className={plusTwoAbilityId === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                            disabled={selectedMode !== "plus-two" || !canTakePlusTwo}
-                                            onClick={() =>
-                                              updateFighterAsiChoice(level, (current) => ({
-                                                mode: "plus-two",
-                                                plusTwoAbilityId: current?.plusTwoAbilityId === ability.id ? null : ability.id,
-                                                plusOneAbilityIds: [],
-                                                featId: null,
-                                              }))
-                                            }
-                                          >
-                                            +2
-                                          </button>
-                                          <button
-                                            type="button"
-                                            className={plusOneAbilityIds.includes(ability.id) ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                            disabled={selectedMode !== "split" || !canTakePlusOne || splitLocked}
-                                            onClick={() =>
-                                              updateFighterAsiChoice(level, (current) => {
-                                                const currentIds = current?.plusOneAbilityIds ?? [];
-                                                return {
-                                                  mode: "split",
-                                                  plusTwoAbilityId: null,
-                                                  plusOneAbilityIds: currentIds.includes(ability.id)
-                                                    ? currentIds.filter((entry) => entry !== ability.id)
-                                                    : [...currentIds, ability.id].slice(0, 2),
-                                                  featId: null,
-                                                };
-                                              })
-                                            }
-                                          >
-                                            +1
-                                          </button>
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                            </article>
-                          );
-                        }) : (
-                          <div className="list-row">
-                            <strong>No ASI unlocked yet</strong>
-                            <span>This class gains its first Ability Score Improvement at 4th level.</span>
-                          </div>
-                        )}
-                      </div>
+                      {unlockedFighterAsiLevels.length ? (
+                        <div className="option-choice-stack">{unlockedFighterAsiLevels.map((level) => renderAsiLevelCard(level))}</div>
+                      ) : (
+                        <p className="pick-note">Your first Ability Score Improvement comes at level 4.</p>
+                      )}
                     </div>
                   ) : null}
 
@@ -7108,112 +7045,99 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "warlock-pact" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <span className="mini-heading creator-section-label">Pact Boon</span>
                         <h3>Pact Boon</h3>
-                        <p>Choose the gift your patron grants at 3rd level. The choice also gates Pact-specific invocations and Tome cantrip setup.</p>
+                        <p>Your patron&apos;s gift at level 3. It also decides which pact invocations you can learn later.</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
                       {draft.level < 3 ? (
-                        <div className="list-row">
-                          <strong>Pact Boon locked</strong>
-                          <span>Pact Boon opens at Warlock Level 3. Raise the class level to choose a boon.</span>
-                        </div>
+                        <p className="pick-note">Pact Boon opens at warlock level 3.</p>
                       ) : (
-                        <div className="warlock-flow-panel">
-                          <div className="warlock-pact-layout">
-                            <div className="fighter-journey-grid equipment-choice-grid">
-                              {warlockPactBoonOptions.map((option) => (
-                                <button
-                                  type="button"
-                                  key={`journey-pact-${option.id}`}
-                                  className={draft.pactBoonId === option.id ? "fighter-journey-card active pact-boon-card" : "fighter-journey-card pact-boon-card"}
-                                  onClick={() => setPactBoon(option.id)}
-                                >
-                                  <span className="fighter-journey-card-label">{draft.pactBoonId === option.id ? "Selected" : "Choose"}</span>
-                                  <strong>
-                                    <HoverTooltip
-                                      label={option.name}
-                                      content={featureTooltipContent({
-                                        id: option.id,
-                                        name: option.name,
-                                        summary: option.summary,
-                                        keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
-                                        currentValueTemplate: undefined,
-                                        tags: [],
-                                        milestones: [], grants: [], choices: [],
-                                      }, draft.level)}
-                                    />
-                                  </strong>
-                                  <span>{"shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : option.summary}</span>
-                                </button>
-                              ))}
-                            </div>
-                            <article className="identity-trait-item class-feature-detail creator-subpanel-flat warlock-pact-detail-card">
-                              <span className="feature-detail-label">Selected Pact</span>
-                              <strong>{selectedPactBoon?.name ?? "No Pact Boon Selected"}</strong>
-                              <p>{
-                                selectedPactBoon && "shortLabel" in selectedPactBoon && typeof selectedPactBoon.shortLabel === "string"
-                                  ? selectedPactBoon.shortLabel
-                                  : selectedPactBoon?.summary ?? "Choose a Pact Boon to review the gift your patron grants."
-                              }</p>
-                              {selectedPactBoonFacts.length ? (
-                                <div className="feature-key-facts-list structured">
-                                  {selectedPactBoonFacts.map((fact, index) => (
-                                    <div key={`${selectedPactBoon?.id ?? "pact"}-pact-fact-${index}`} className="feature-key-fact-row">
-                                      <span className="feature-key-fact-dot" aria-hidden="true" />
-                                      <span>{fact}</span>
-                                    </div>
-                                  ))}
-                                </div>
+                        (() => {
+                          type PactOption = (typeof warlockPactBoonOptions)[number];
+                          const shortOf = (option: PactOption) =>
+                            "shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : firstSentence(option.summary) ?? "";
+                          const factsOf = (option: PactOption) =>
+                            "keyFacts" in option && Array.isArray(option.keyFacts) ? (option.keyFacts as string[]) : [];
+                          const cantripFocus = pactTomeCantripPool.find((spell) => spell.id === inspectId) ?? null;
+                          const focus = warlockPactBoonOptions.find((option) => option.id === inspectId) ?? selectedPactBoon ?? null;
+                          const tomeCount = draft.selectedPactCantripIds.length;
+                          return (
+                            <PickLayout
+                              inspect={
+                                cantripFocus ? (
+                                  <InspectPanel
+                                    icon={schoolIcon(cantripFocus.school)}
+                                    kicker={`Cantrip · ${cantripFocus.school}`}
+                                    title={cantripFocus.name}
+                                    summary={firstSentence(cantripFocus.summary)}
+                                    rows={spellMetaLines(cantripFocus)
+                                      .filter((line) => !line.startsWith("Source"))
+                                      .map((line) => ({ label: line.split(":")[0].replace("Casting Time", "Cast"), value: line.split(":").slice(1).join(":").trim() }))}
+                                    fullText={cantripFocus.summary}
+                                  />
+                                ) : focus ? (
+                                  <InspectPanel
+                                    icon={pactIcon(focus.name)}
+                                    kicker="Pact Boon"
+                                    title={focus.name}
+                                    summary={shortOf(focus)}
+                                    rows={factsOf(focus).map((fact, index) => ({ label: index === 0 ? "Rules" : " ", value: fact }))}
+                                    fullText={focus.summary}
+                                    action={
+                                      focus.id !== draft.pactBoonId ? (
+                                        <button type="button" className="sheet-button primary" onClick={() => setPactBoon(focus.id)}>
+                                          Choose this pact
+                                        </button>
+                                      ) : null
+                                    }
+                                  />
+                                ) : (
+                                  <InspectPanel icon="evil-eyes" title="Pact Boon" summary="Click a pact to read it." />
+                                )
+                              }
+                            >
+                              <PickSection title="Pact Boon" picked={draft.pactBoonId ? 1 : 0} total={1}>
+                                <PickGrid
+                                  label="Pact boons"
+                                  columns={4}
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={warlockPactBoonOptions.map((option) => ({
+                                    id: option.id,
+                                    name: option.name,
+                                    sub: shortOf(option),
+                                    icon: pactIcon(option.name),
+                                    selected: draft.pactBoonId === option.id,
+                                  }))}
+                                  onPick={(id) => setPactBoon(id)}
+                                />
+                              </PickSection>
+                              {draft.pactBoonId === "pact-of-the-tome" ? (
+                                <PickSection title="Book of Shadows cantrips" meta="three cantrips from any class" picked={tomeCount} total={3}>
+                                  <PickGrid
+                                    label="Book of Shadows cantrips"
+                                    columns={5}
+                                    size="sm"
+                                    inspectedId={inspectId}
+                                    onInspect={setInspectId}
+                                    items={pactTomeCantripPool.map((spell) => ({
+                                      id: spell.id,
+                                      name: spell.name,
+                                      sub: spell.school,
+                                      icon: schoolIcon(spell.school),
+                                      selected: draft.selectedPactCantripIds.includes(spell.id),
+                                      dim: !draft.selectedPactCantripIds.includes(spell.id) && tomeCount >= 3,
+                                    }))}
+                                    onPick={(id) => {
+                                      if (draft.selectedPactCantripIds.includes(id) || tomeCount < 3) {
+                                        togglePactCantripSelection(id);
+                                      }
+                                    }}
+                                  />
+                                </PickSection>
                               ) : null}
-                            </article>
-                          </div>
-                          <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                          {draft.pactBoonId === "pact-of-the-tome" ? (
-                            <div className="creator-inline-list">
-                              <div className="list-row">
-                                <strong>Book of Shadows Cantrips</strong>
-                                <span>{`${draft.selectedPactCantripIds.length} / 3 selected`}</span>
-                              </div>
-                              <div className="compact-option-list graph-list">
-                                {pagedPactCantripCards.map((spell) => (
-                                  <label className={draft.selectedPactCantripIds.includes(spell.id) ? "spell-selection-row active" : `spell-selection-row${!draft.selectedPactCantripIds.includes(spell.id) && draft.selectedPactCantripIds.length >= 3 ? " disabled" : ""}`} key={`journey-tome-cantrip-${spell.id}`}>
-                                    <input type="checkbox" className="visually-hidden" checked={draft.selectedPactCantripIds.includes(spell.id)} disabled={!draft.selectedPactCantripIds.includes(spell.id) && draft.selectedPactCantripIds.length >= 3} onChange={() => togglePactCantripSelection(spell.id)} />
-                                    <div className="spell-selection-main">
-                                      <strong className="spell-selection-title">
-                                        <HoverTooltip
-                                          label={spell.name}
-                                          content={spellTooltipContent({
-                                            classId: currentClass.id,
-                                            className: "Book of Shadows",
-                                            title: spell.name,
-                                            spellLevel: spell.level,
-                                            reference: spellReferenceFor(spellReferenceCollection, spell),
-                                            summary: spell.summary,
-                                            meta: ["Cantrip", "Any Class", "Pact of the Tome"],
-                                          })}
-                                        />
-                                      </strong>
-                                    </div>
-                                    <div className="spell-selection-tags important">
-                                      {spellListHintChips(spell, spellReferenceFor(spellReferenceCollection, spell)).map((item) => (
-                                        <span key={`${spell.id}-journey-tome-important-${item}`} className={`spell-tooltip-chip tone-${spellChipTone(item)}`}>
-                                          <AppIcon name={spellChipIcon(item)} className="spell-tooltip-chip-icon" />
-                                          {item}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  </label>
-                                ))}
-                              </div>
-                              <div className="compact-pagination-row centered below-list">
-                                <button type="button" className="pagination-arrow" onClick={() => setPactCantripPage((current) => Math.max(0, current - 1))} disabled={pactCantripPage === 0}>‹</button>
-                                <span className="pagination-indicator">{`${pactCantripPage + 1} / ${pactCantripPageCount}`}</span>
-                                <button type="button" className="pagination-arrow" onClick={() => setPactCantripPage((current) => Math.min(pactCantripPageCount - 1, current + 1))} disabled={pactCantripPage >= pactCantripPageCount - 1}>›</button>
-                              </div>
-                            </div>
-                          ) : null}
-                        </div>
+                            </PickLayout>
+                          );
+                        })()
                       )}
                     </div>
                   ) : null}
@@ -9369,153 +9293,17 @@ export function CreatorWorkspace({
 
                 {creatorBrowser === "fighter-asi" ? (
                 <section className="creator-section-block">
-                    {!fighterAsiFeature ? (
-                      <div className="list-row">
-                        <strong>No ASI choice panel</strong>
-                        <span>This class does not expose Ability Score Improvement choices.</span>
-                      </div>
+                  <div className="fighter-journey-scene">
+                    <div className="fighter-journey-scene-head compact">
+                      <h3>Ability Score Improvements</h3>
+                      <p>At these levels you raise your abilities or take a feat instead. Scores can&apos;t go above 20.</p>
+                    </div>
+                    {unlockedFighterAsiLevels.length ? (
+                      <div className="option-choice-stack">{unlockedFighterAsiLevels.map((level) => renderAsiLevelCard(level))}</div>
                     ) : (
-                      <>
-                        <div className="identity-detail-head">
-                          <span className="mini-heading creator-section-label class-section-label">Ability Scores</span>
-                          <h4>{`${fighterAsiFeature.name} Choices`}</h4>
-                        </div>
-                        {fighterAsiFeature.summary ? (
-                          <p className="fighter-choice-intro">{fighterAsiFeature.summary}</p>
-                        ) : null}
-                        <div className="fighter-asi-stack">
-                          {unlockedFighterAsiLevels.length ? unlockedFighterAsiLevels.map((level) => {
-                            const choice = fighterAsiChoices[level];
-                            const selectedMode = choice?.mode ?? null;
-                            const plusTwoAbilityId = choice?.plusTwoAbilityId ?? null;
-                            const plusOneAbilityIds = choice?.plusOneAbilityIds ?? [];
-                            const selectedFeatId = choice?.featId ?? "";
-
-                            return (
-                              <article key={`fighter-asi-${level}`} className="fighter-asi-card">
-                                <div className="fighter-asi-card-head">
-                                  <div>
-                                    <span className="mini-heading">Level {level}</span>
-                                    <strong>{fighterAsiFeature.milestones.find((milestone) => milestone.level === level)?.label ?? "+2 or +1 / +1"}</strong>
-                                  </div>
-                                  <button type="button" className="fighter-choice-clear" onClick={() => clearFighterAsiChoice(level)}>
-                                    Clear
-                                  </button>
-                                </div>
-                                <div className="fighter-asi-mode-row">
-                                  <button
-                                    type="button"
-                                    className={selectedMode === "plus-two" ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                    onClick={() =>
-                                      updateFighterAsiChoice(level, () => ({
-                                        mode: "plus-two",
-                                        plusTwoAbilityId: null,
-                                        plusOneAbilityIds: [],
-                                        featId: null,
-                                      }))
-                                    }
-                                  >
-                                    +2 to one ability
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className={selectedMode === "split" ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                    onClick={() =>
-                                      updateFighterAsiChoice(level, () => ({
-                                        mode: "split",
-                                        plusTwoAbilityId: null,
-                                        plusOneAbilityIds: [],
-                                        featId: null,
-                                      }))
-                                    }
-                                  >
-                                    +1 / +1 split
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className={selectedMode === "feat" ? "ability-flex-pick active" : "ability-flex-pick"}
-                                    onClick={() =>
-                                      updateFighterAsiChoice(level, () => ({
-                                        mode: "feat",
-                                        plusTwoAbilityId: null,
-                                        plusOneAbilityIds: [],
-                                        featId: selectedFeatId || null,
-                                      }))
-                                    }
-                                  >
-                                    Feat
-                                  </button>
-                                </div>
-                                {selectedMode === "feat" ? (
-                                  renderAsiFeatPicker(level, selectedFeatId)
-                                ) : (
-                                  <div className="ability-flex-assignment-grid fighter-asi-grid">
-                                    {draft.abilities.map((ability) => {
-                                      const projectedScore = fighterAsiProjectedScore(ability.id, level);
-                                      const canTakePlusTwo = projectedScore <= 18;
-                                      const canTakePlusOne = projectedScore <= 19 || plusOneAbilityIds.includes(ability.id);
-                                      const splitLocked = !plusOneAbilityIds.includes(ability.id) && plusOneAbilityIds.length >= 2;
-
-                                      return (
-                                        <div className="ability-flex-assignment-row fighter-asi-row" key={`fighter-asi-${level}-${ability.id}`}>
-                                          <strong className={abilityAccentClass(ability.id)}>{ability.id}</strong>
-                                          <div className="fighter-asi-row-meta">
-                                            <span>{ability.label}</span>
-                                            <span>{`Current ${previewAbilities.find((entry) => entry.id === ability.id)?.previewScore ?? ability.score}`}</span>
-                                          </div>
-                                          <div className="ability-flex-picks prominent">
-                                            <button
-                                              type="button"
-                                              className={plusTwoAbilityId === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                              disabled={selectedMode !== "plus-two" || !canTakePlusTwo}
-                                              onClick={() =>
-                                                updateFighterAsiChoice(level, (current) => ({
-                                                  mode: "plus-two",
-                                                  plusTwoAbilityId: current?.plusTwoAbilityId === ability.id ? null : ability.id,
-                                                  plusOneAbilityIds: [],
-                                                  featId: null,
-                                                }))
-                                              }
-                                            >
-                                              +2
-                                            </button>
-                                            <button
-                                              type="button"
-                                              className={plusOneAbilityIds.includes(ability.id) ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                              disabled={selectedMode !== "split" || !canTakePlusOne || splitLocked}
-                                              onClick={() =>
-                                                updateFighterAsiChoice(level, (current) => {
-                                                  const currentIds = current?.plusOneAbilityIds ?? [];
-                                                  return {
-                                                    mode: "split",
-                                                    plusTwoAbilityId: null,
-                                                    plusOneAbilityIds: currentIds.includes(ability.id)
-                                                      ? currentIds.filter((entry) => entry !== ability.id)
-                                                      : [...currentIds, ability.id].slice(0, 2),
-                                                    featId: null,
-                                                  };
-                                                })
-                                              }
-                                            >
-                                              +1
-                                            </button>
-                                          </div>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                )}
-                              </article>
-                            );
-                          }) : (
-                            <div className="list-row">
-                              <strong>No ASI unlocked yet</strong>
-                              <span>This class gains its first Ability Score Improvement at 4th level.</span>
-                            </div>
-                          )}
-                        </div>
-                      </>
+                      <p className="pick-note">Your first Ability Score Improvement comes at level 4.</p>
                     )}
+                  </div>
                 </section>
                 ) : null}
 
@@ -9722,7 +9510,7 @@ export function CreatorWorkspace({
                             </PickSection>
                           )}
                           {!isTools ? (
-                            <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} content={content} onInspect={setInspectId} inspectedId={inspectId} />
+                            <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} content={content} onInspect={setInspectId} inspectedId={inspectId} knownLanguages={previewDraft.proficiencies.languages} />
                           ) : null}
                         </PickLayout>
                       </>
@@ -10629,185 +10417,163 @@ export function CreatorWorkspace({
           ) : null}
 
           {creatorStep === 2 && creatorBrowser === "abilities" ? (
-            <div className="creator-stack">
-              <div className="creator-panel creator-panel-wide">
-                <div className="ability-pointbuy-topline">
-                  <span className="mini-heading">Ability Scores</span>
-                  <div className="ability-method-row" role="tablist" aria-label="Ability score method">
-                    {([
-                      ["point-buy", "Point Buy"],
-                      ["standard-array", "Standard Array"],
-                      ["manual", "Manual / Rolled"],
-                    ] as const).map(([method, label]) => (
-                      <button
-                        key={`ability-method-${method}`}
-                        type="button"
-                        role="tab"
-                        aria-selected={abilityMethod === method}
-                        className={abilityMethod === method ? "ability-flex-pick active" : "ability-flex-pick"}
-                        onClick={() => setAbilityMethod(method)}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="ability-topline-meta">
-                    {abilityMethod === "point-buy" ? (
-                      <span>
-                        27 points |{" "}
-                        <span className={pointBuyRemaining < 0 ? "ability-remaining-negative" : undefined}>
-                          {`Remaining ${pointBuyRemaining}`}
-                        </span>
-                      </span>
-                    ) : abilityMethod === "standard-array" ? (
-                      <span className={standardArrayValid ? undefined : "ability-remaining-negative"}>
-                        {standardArrayValid ? "15, 14, 13, 12, 10, 8" : "Each value must be used once"}
-                      </span>
-                    ) : (
-                      <span>Enter your rolled or DM-approved scores (3-18 before bonuses)</span>
-                    )}
-                  </div>
-                </div>
-                {flexibleAbilityBonusSource ? (
-                  <div className="flexible-bonus-panel compact">
-                    <div className="list-row">
-                      <strong>Flexible Ability Score Increase</strong>
-                      <span>{`${flexibleAbilityBonusSource} lets you assign one ${firstFlexLabel} and one ${secondFlexLabel} to different abilities.`}</span>
-                    </div>
-                  </div>
-                ) : null}
-                <div className="ability-pointbuy-grid">
-                  {previewAbilities.map((ability) => {
-                    const canDecrease =
-                      abilityMethod === "point-buy" ? ability.score > 8 : abilityMethod === "manual" ? ability.score > 3 : false;
-                    const canIncrease =
-                      abilityMethod === "point-buy"
-                        ? ability.score < 15 && pointBuyStepCost(ability.score, ability.score + 1) <= pointBuyRemaining
-                        : abilityMethod === "manual"
-                          ? ability.score < 18
-                          : false;
-
-                    return (
-                      <article className="ability-pointbuy-card" key={ability.id}>
-                        <div className="ability-pointbuy-head">
-                          <div className="ability-pointbuy-head-main">
-                            <span className={abilityAccentClass(ability.id)}>{ability.id}</span>
-                          </div>
-                          <strong className={abilityAccentClass(ability.id)}>{ability.label}</strong>
-                        </div>
-                        <div className="ability-pointbuy-statblock">
-                          <button
-                            type="button"
-                            className="ability-pointbuy-spin"
-                            disabled={!canDecrease}
-                            onClick={() => updateAbility(ability.id, ability.score - 1)}
-                            aria-label={`Decrease ${ability.label}`}
-                          >
-                            -
-                          </button>
-                          <div className="ability-pointbuy-core">
-                            <div className="ability-pointbuy-base">
-                              <span className="mini-heading">Score</span>
-                              <strong>{ability.previewScore}</strong>
-                            </div>
-                            <div className="ability-pointbuy-total">
-                              <span className="mini-heading">Mod</span>
-                              <strong>{ability.previewModifier >= 0 ? `+${ability.previewModifier}` : ability.previewModifier}</strong>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            className="ability-pointbuy-spin"
-                            disabled={!canIncrease}
-                            onClick={() => updateAbility(ability.id, ability.score + 1)}
-                            aria-label={`Increase ${ability.label}`}
-                          >
-                            +
-                          </button>
-                        </div>
-                        <div className="ability-pointbuy-controls">
-                          {abilityMethod === "standard-array" ? (
-                            <select
-                              className="equipment-picker-select ability-array-select"
-                              value={ability.score}
-                              aria-label={`${ability.label} standard array value`}
-                              onChange={(event) => assignStandardArrayValue(ability.id, Number(event.target.value))}
-                            >
-                              {STANDARD_ARRAY.map((value) => (
-                                <option key={`array-${ability.id}-${value}`} value={value}>
-                                  {`Base ${value}`}
-                                </option>
-                              ))}
-                            </select>
-                          ) : abilityMethod === "point-buy" ? (
-                            <span>{`Base ${ability.score} | ${pointBuyCost(ability.score)} pts`}</span>
-                          ) : (
-                            <span>{`Base ${ability.score}`}</span>
-                          )}
-                        </div>
-                        {(ability.racialBonus > 0 || ability.flexibleBonus > 0 || ability.classBonus > 0) ? (
-                          <div className="ability-pointbuy-meta">
-                            {ability.racialBonus > 0 ? (
-                              <span className="ability-bonus-badge">{`Racial Bonus +${ability.racialBonus}`}</span>
-                            ) : null}
-                            {ability.flexibleBonus > 0 ? (
-                              <span className="ability-bonus-badge secondary">{`Flexible Bonus +${ability.flexibleBonus}`}</span>
-                            ) : null}
-                            {ability.classBonus > 0 ? (
-                              <span className="ability-bonus-badge secondary">{`Class Bonus +${ability.classBonus}`}</span>
-                            ) : null}
-                          </div>
-                        ) : null}
-                      </article>
-                    );
-                  })}
-                </div>
-                {flexibleAbilityBonusSource ? (
-                  <div className="flexible-bonus-panel compact ability-bonus-assignment-panel">
-                    <div className="list-row">
-                      <strong>Assign Flexible Bonuses</strong>
-                      <span>{`Choose which abilities receive the ${firstFlexLabel} and ${secondFlexLabel} bonuses.`}</span>
-                    </div>
-                    <div className="ability-flex-assignment-grid">
-                      {draft.abilities.map((ability) => (
-                        <div className="ability-flex-assignment-row" key={`flex-assignment-${ability.id}`}>
-                          <strong className={abilityAccentClass(ability.id)}>{ability.id}</strong>
-                          <div className="ability-flex-picks prominent">
-                            <button
-                              type="button"
-                              className={draft.flexibleAbilityBonuses.plusTwo === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                              aria-pressed={draft.flexibleAbilityBonuses.plusTwo === ability.id}
-                              onClick={() =>
-                                updateFlexibleAbilityBonus(
-                                  "plusTwo",
-                                  draft.flexibleAbilityBonuses.plusTwo === ability.id ? "" : ability.id,
-                                )
-                              }
-                              disabled={draft.flexibleAbilityBonuses.plusOne === ability.id}
-                            >
-                              {firstFlexLabel}
-                            </button>
-                            <button
-                              type="button"
-                              className={draft.flexibleAbilityBonuses.plusOne === ability.id ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                              aria-pressed={draft.flexibleAbilityBonuses.plusOne === ability.id}
-                              onClick={() =>
-                                updateFlexibleAbilityBonus(
-                                  "plusOne",
-                                  draft.flexibleAbilityBonuses.plusOne === ability.id ? "" : ability.id,
-                                )
-                              }
-                              disabled={draft.flexibleAbilityBonuses.plusTwo === ability.id}
-                            >
-                              {secondFlexLabel}
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
+            <div className="creator-stack ability-screen">
+              <div className="fighter-journey-scene-head compact">
+                <h3>Ability Scores</h3>
+                <p>Six numbers that power everything else. The big number is your final score; the small one is what you set here. Race and level bonuses are added on top.</p>
               </div>
+              {(() => {
+                const keyAbilities: Record<string, AbilityId[]> = {
+                  artificer: ["INT"], barbarian: ["STR", "CON"], bard: ["CHA"], cleric: ["WIS"], druid: ["WIS"], fighter: ["STR", "DEX"],
+                  monk: ["DEX", "WIS"], paladin: ["STR", "CHA"], ranger: ["DEX", "WIS"], rogue: ["DEX"], sorcerer: ["CHA"], warlock: ["CHA"], wizard: ["INT"],
+                };
+                const abilityUses: Record<AbilityId, string> = {
+                  STR: "Melee attacks with heavy weapons, Athletics, jumping and how much you can carry.",
+                  DEX: "Ranged and finesse attacks, AC in light or no armor, initiative, Acrobatics and Stealth.",
+                  CON: "Hit points every level and keeping concentration on spells when you get hit.",
+                  INT: "Arcana, History, Investigation, Nature, Religion; wizard and artificer spells.",
+                  WIS: "Perception, Insight, Survival, Medicine; cleric, druid and ranger spells; monk AC and ki.",
+                  CHA: "Persuasion, Deception, Intimidation, Performance; bard, sorcerer, warlock and paladin spells.",
+                };
+                const keys = keyAbilities[currentClass.id] ?? [];
+                const focus = previewAbilities.find((ability) => ability.id === inspectId) ?? previewAbilities.find((ability) => keys.includes(ability.id as AbilityId)) ?? previewAbilities[0];
+                return (
+                  <PickLayout
+                    inspect={
+                      <InspectPanel
+                        icon="stars-stack"
+                        kicker={keys.includes(focus.id as AbilityId) ? `Key ability for ${currentClass.name}` : "Ability"}
+                        title={focus.label}
+                        summary={abilityUses[focus.id as AbilityId]}
+                        rows={[
+                          { label: "Final", value: `${focus.previewScore} (${signedNumber(focus.previewModifier)})` },
+                          { label: "Set here", value: abilityMethod === "point-buy" ? `${focus.score} (${pointBuyCost(focus.score)} points)` : String(focus.score) },
+                          ...(focus.racialBonus ? [{ label: "Race", value: `+${focus.racialBonus}` }] : []),
+                          ...(focus.flexibleBonus ? [{ label: "Flexible", value: `+${focus.flexibleBonus}` }] : []),
+                          ...(focus.classBonus ? [{ label: "Level ups", value: `+${focus.classBonus}` }] : []),
+                          { label: "Modifier", value: "Score 10-11 is +0; every 2 points above adds +1, below subtracts 1." },
+                        ]}
+                      />
+                    }
+                  >
+                    <PickSection
+                      title="Method"
+                      meta={
+                        abilityMethod === "point-buy"
+                          ? "spend 27 points, scores 8 to 15"
+                          : abilityMethod === "standard-array"
+                            ? "use 15, 14, 13, 12, 10, 8 once each"
+                            : "type rolled or DM-approved scores"
+                      }
+                      actions={
+                        abilityMethod === "point-buy" ? (
+                          <span className={pointBuyRemaining === 0 ? "pick-counter done" : "pick-counter pending"}>
+                            {pointBuyRemaining < 0 ? `${-pointBuyRemaining} points over` : `${pointBuyRemaining} points left`}
+                          </span>
+                        ) : abilityMethod === "standard-array" ? (
+                          <span className={standardArrayValid ? "pick-counter done" : "pick-counter pending"}>{standardArrayValid ? "Done" : "Use each value once"}</span>
+                        ) : null
+                      }
+                    >
+                      <div className="pick-filters" role="tablist" aria-label="Ability score method">
+                        {([
+                          ["point-buy", "Point Buy"],
+                          ["standard-array", "Standard Array"],
+                          ["manual", "Manual / Rolled"],
+                        ] as const).map(([method, label]) => (
+                          <button
+                            key={`ability-method-${method}`}
+                            type="button"
+                            role="tab"
+                            aria-selected={abilityMethod === method}
+                            className={abilityMethod === method ? "pick-filter active" : "pick-filter"}
+                            onClick={() => setAbilityMethod(method)}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                    </PickSection>
+                    {flexibleAbilityBonusSource ? (
+                      <p className="pick-note">{`${flexibleAbilityBonusSource}: put ${firstFlexLabel} on one ability and ${secondFlexLabel} on another with the small buttons under each score.`}</p>
+                    ) : null}
+                    <div className="ability-tiles">
+                      {previewAbilities.map((ability) => {
+                        const canDecrease = abilityMethod === "point-buy" ? ability.score > 8 : abilityMethod === "manual" ? ability.score > 3 : false;
+                        const canIncrease =
+                          abilityMethod === "point-buy"
+                            ? ability.score < 15 && pointBuyStepCost(ability.score, ability.score + 1) <= pointBuyRemaining
+                            : abilityMethod === "manual"
+                              ? ability.score < 18
+                              : false;
+                        const isKey = keys.includes(ability.id as AbilityId);
+                        const bonuses = [
+                          ability.racialBonus ? `+${ability.racialBonus} race` : null,
+                          ability.flexibleBonus ? `+${ability.flexibleBonus} flexible` : null,
+                          ability.classBonus ? `+${ability.classBonus} level` : null,
+                        ].filter(Boolean);
+                        return (
+                          <div key={ability.id} className={`ability-tile ${abilityAccentClass(ability.id)}${focus.id === ability.id ? " inspected" : ""}${isKey ? " key" : ""}`}>
+                            <button type="button" className="ability-tile-main" onClick={() => setInspectId(ability.id)}>
+                              <span className="ability-tile-id">{ability.id}</span>
+                              <strong className="ability-tile-score">{ability.previewScore}</strong>
+                              <span className="ability-tile-mod">{signedNumber(ability.previewModifier)}</span>
+                              {isKey ? <span className="ability-tile-key">Key</span> : null}
+                            </button>
+                            {abilityMethod === "standard-array" ? (
+                              <select
+                                className="equipment-picker-select ability-array-select"
+                                value={ability.score}
+                                aria-label={`${ability.label} standard array value`}
+                                onChange={(event) => assignStandardArrayValue(ability.id, Number(event.target.value))}
+                              >
+                                {STANDARD_ARRAY.map((value) => (
+                                  <option key={`array-${ability.id}-${value}`} value={value}>
+                                    {value}
+                                  </option>
+                                ))}
+                              </select>
+                            ) : (
+                              <div className="ability-tile-stepper">
+                                <button type="button" disabled={!canDecrease} onClick={() => updateAbility(ability.id, ability.score - 1)} aria-label={`Lower ${ability.label}`}>
+                                  −
+                                </button>
+                                <span>{ability.score}</span>
+                                <button type="button" disabled={!canIncrease} onClick={() => updateAbility(ability.id, ability.score + 1)} aria-label={`Raise ${ability.label}`}>
+                                  +
+                                </button>
+                              </div>
+                            )}
+                            <span className="ability-tile-note">{bonuses.length ? bonuses.join(" · ") : abilityMethod === "point-buy" ? `${pointBuyCost(ability.score)} pts` : "no bonus"}</span>
+                            {flexibleAbilityBonusSource ? (
+                              <div className="ability-tile-flex">
+                                <button
+                                  type="button"
+                                  className={draft.flexibleAbilityBonuses.plusTwo === ability.id ? "pick-filter active" : "pick-filter"}
+                                  aria-pressed={draft.flexibleAbilityBonuses.plusTwo === ability.id}
+                                  disabled={draft.flexibleAbilityBonuses.plusOne === ability.id}
+                                  onClick={() => updateFlexibleAbilityBonus("plusTwo", draft.flexibleAbilityBonuses.plusTwo === ability.id ? "" : ability.id)}
+                                >
+                                  {firstFlexLabel}
+                                </button>
+                                <button
+                                  type="button"
+                                  className={draft.flexibleAbilityBonuses.plusOne === ability.id ? "pick-filter active" : "pick-filter"}
+                                  aria-pressed={draft.flexibleAbilityBonuses.plusOne === ability.id}
+                                  disabled={draft.flexibleAbilityBonuses.plusTwo === ability.id}
+                                  onClick={() => updateFlexibleAbilityBonus("plusOne", draft.flexibleAbilityBonuses.plusOne === ability.id ? "" : ability.id)}
+                                >
+                                  {secondFlexLabel}
+                                </button>
+                              </div>
+                            ) : null}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </PickLayout>
+                );
+              })()}
             </div>
           ) : null}
           <CreatorFlowFooter

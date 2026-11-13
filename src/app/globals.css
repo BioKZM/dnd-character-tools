@@ -9837,3 +9837,65 @@ h2 .keyword-help-trigger,
 .inventory-item-name:hover strong { color: #f1dca4; }
 .inventory-detail { display: grid; gap: 8px; margin: 0 0 8px; padding: 10px 14px; border-radius: 12px; background: #12151b; border: 1px solid #262b34; }
 .inventory-detail p { margin: 0; font-size: 0.88rem; line-height: 1.5; }
+
+/* ===== Ability scores, ASI ===== */
+.ability-screen { display: grid; gap: 18px; }
+.ability-tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.ability-tile { display: grid; gap: 8px; justify-items: center; padding: 12px 8px; border-radius: 14px; border: 1px solid #262b34; background: #151820; }
+.ability-tile.inspected { border-color: currentColor; }
+.ability-tile-main { position: relative; display: grid; justify-items: center; gap: 2px; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.ability-tile-id { font-size: 0.78rem; font-weight: 750; letter-spacing: 0.14em; }
+.ability-tile-score { font-size: 2rem; line-height: 1.05; color: #f4f5f7; font-variant-numeric: tabular-nums; }
+.ability-tile-mod { font-size: 0.95rem; font-weight: 700; color: #dfe2e7; }
+.ability-tile-key { position: absolute; top: -4px; right: 2px; font-size: 0.66rem; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; color: #d6b25e; }
+.ability-tile-stepper { display: flex; align-items: center; gap: 8px; }
+.ability-tile-stepper button { width: 32px; height: 32px; border-radius: 9px; border: 1px solid #2f3540; background: #11141a; color: #e7e9ee; font-size: 1.05rem; font-weight: 700; cursor: pointer; }
+.ability-tile-stepper button:disabled { opacity: 0.35; cursor: default; }
+.ability-tile-stepper span { min-width: 22px; text-align: center; font-size: 0.95rem; font-weight: 650; color: #cfd2d8; }
+.ability-tile-note { font-size: 0.76rem; color: #9aa0aa; text-align: center; }
+.ability-tile-flex { display: flex; gap: 4px; }
+.ability-tile-flex .pick-filter { padding: 4px 9px; font-size: 0.76rem; }
+.ability-tile .ability-array-select { width: 100%; }
+.asi-ability-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.asi-ability { display: grid; justify-items: center; gap: 2px; padding: 10px 6px; border-radius: 12px; border: 1px solid #262b34; background: #151820; font: inherit; cursor: pointer; }
+.asi-ability span { font-size: 0.74rem; font-weight: 750; letter-spacing: 0.12em; }
+.asi-ability strong { font-size: 1.05rem; color: #f4f5f7; }
+.asi-ability small { font-size: 0.74rem; color: #9aa0aa; }
+.asi-ability.selected { border-color: #d6b25e; box-shadow: inset 0 0 0 1px #d6b25e; }
+.asi-ability:disabled { opacity: 0.4; cursor: default; }
+.creator-workbench-flat .origin-identity-card { max-width: 760px; margin: 0; padding: 0; border: 0; background: none; box-shadow: none; text-align: left; }
+.equipment-choice-group { display: grid; gap: 10px; }
+.equipment-choice-group > .equipment-choice-grid:empty { display: none; }
+.ability-tile-key { position: static; margin-top: 2px; }
+.ability-tile.key { border-color: rgba(214, 178, 94, 0.35); }
+.creator-workbench-flat .equipment-choice-group { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.creator-workbench-flat .equipment-choice-stack { gap: 26px; }
+.creator-workbench-flat .fighter-journey-scene { align-content: start; min-height: 0; }
+.creator-workbench-flat .origin-pick-page { display: grid; gap: 18px; }
+.identity-name-input { max-width: 420px; font-size: 1rem; padding: 11px 14px; }
+.identity-level-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 6px; }
+.identity-level-grid .pick-filter { padding: 8px 0; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* Kalan secim kartlari (Ranger varyantlari, ekipman secicileri) pick-tile diliyle ayni */
+.creator-workbench-flat .fighter-journey-card {
+  border-radius: 14px;
+  border: 1px solid #262b34;
+  background: #151820;
+  box-shadow: none;
+  padding: 14px 14px 12px;
+  text-align: left;
+  gap: 6px;
+}
+.creator-workbench-flat .fighter-journey-card:hover { border-color: #3d424c; background: #191d26; }
+.creator-workbench-flat .fighter-journey-card.active {
+  border-color: #d6b25e;
+  background: #1b1d22;
+  box-shadow: inset 0 0 0 1px #d6b25e;
+}
+.creator-workbench-flat .fighter-journey-card .fighter-journey-card-label { font-size: 0.7rem; letter-spacing: 0.1em; color: #8a909b; }
+.creator-workbench-flat .fighter-journey-card.active .fighter-journey-card-label { color: #d6b25e; }
+.creator-workbench-flat .fighter-journey-card strong { font-size: 0.95rem; color: #f4f5f7; }
+.creator-workbench-flat .fighter-journey-card > span:not(.fighter-journey-card-label) { font-size: 0.84rem; color: #9aa0aa; line-height: 1.4; }
+.creator-workbench-flat .equipment-picker-select { background: #12151b; border: 1px solid #2c313a; border-radius: 10px; color: #e7e9ee; }
+.creator-workbench-flat .equipment-choice-group > * { grid-column: 1 / -1; }
+.creator-workbench-flat .equipment-choice-group > strong { font-family: var(--font-body); font-size: 1rem; color: #f4f5f7; letter-spacing: 0; text-transform: none; min-height: 0; }
