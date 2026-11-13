@@ -2493,7 +2493,14 @@ export function PartyRoomDashboard({
                   </span>
                   <span className="cs-name">
                     <h1>{draft.name}</h1>
-                    <span>{[`${sheetContent.speciesName} ${sheetContent.className} ${draft.level}`, subclassName].filter(Boolean).join(" · ")}</span>
+                    <span>
+                      {[
+                        draft.classId ? `${sheetContent.speciesName} ${sheetContent.className.replace(/\s+\d+$/, "")} ${draft.level}` : "No class picked yet: open the Creator",
+                        subclassName,
+                      ]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </span>
                   </span>
                 </div>
                 <div className="cs-hp">

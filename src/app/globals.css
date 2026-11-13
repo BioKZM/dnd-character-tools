@@ -10321,3 +10321,18 @@ button.cs-stat:hover { border-color: #3a4150; }
 .creator-workbench-flat .sheet-button.primary:hover, .creator-side .sheet-button.primary:hover { background: #e2c374; }
 .creator-workbench-flat .sheet-button.secondary, .creator-side .sheet-button.secondary { background: none; border: 1px solid #2f3644; color: #dfe2e7; }
 .creator-workbench-flat .sheet-button.secondary:hover, .creator-side .sheet-button.secondary:hover { border-color: #4a5160; }
+
+/* Kapali tooltip'ler yer kaplamasin (telefonda yana kaydirma yapiyordu) */
+.inline-help:not(.open):not(:focus-visible):not(:focus-within) .inline-help-tooltip:not(.is-portal) { display: none; }
+.cs-quick .inline-help-tooltip { left: auto; right: 0; top: calc(100% + 8px); transform: none; width: min(280px, calc(100vw - 32px)); }
+@media (max-width: 700px) {
+  .cs-hero { padding: 14px; gap: 14px; }
+  .cs-name h1 { font-size: 1.5rem; }
+  .cs-quick { width: 100%; }
+  .cs-stat { flex: 1 1 60px; min-width: 0; }
+  .cs-toolbar { gap: 8px; }
+  .cs-last-roll { order: 3; flex-basis: 100%; }
+  .skill-board { grid-template-columns: minmax(0, 1fr); }
+  .combat-slots { gap: 10px; }
+  .combat-slot { width: 72px; }
+}
