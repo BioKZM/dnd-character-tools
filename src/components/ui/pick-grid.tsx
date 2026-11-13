@@ -156,6 +156,37 @@ export function PickSection({
   );
 }
 
+export type PickTab = { id: string; label: string; picked?: number; total?: number; hint?: string };
+
+/** Ayni ekrandaki farkli secim gruplari (Cantrips / Spells / Any school) icin sekmeler; her birinin kendi sayaci var. */
+export function PickTabs({ tabs, active, onChange, label }: { tabs: PickTab[]; active: string; onChange: (id: string) => void; label: string }) {
+  if (tabs.length < 2) {
+    return null;
+  }
+  return (
+    <div className="pick-tabs" role="tablist" aria-label={label}>
+      {tabs.map((tab) => {
+        const counted = tab.total !== undefined && tab.picked !== undefined;
+        const done = counted && (tab.picked ?? 0) >= (tab.total ?? 0);
+        return (
+          <button
+            key={tab.id}
+            type="button"
+            role="tab"
+            aria-selected={tab.id === active}
+            className={tab.id === active ? "pick-tab active" : "pick-tab"}
+            onClick={() => onChange(tab.id)}
+          >
+            <span className="pick-tab-label">{tab.label}</span>
+            {counted ? <span className={done ? "pick-tab-count done" : "pick-tab-count pending"}>{`${tab.picked}/${tab.total}`}</span> : null}
+            {tab.hint ? <span className="pick-tab-hint">{tab.hint}</span> : null}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export type InspectRow = { label: string; value: ReactNode };
 
 export function InspectPanel({
