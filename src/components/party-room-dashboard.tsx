@@ -2373,6 +2373,7 @@ export function PartyRoomDashboard({
         {mode === "creator" ? (
           <section className="creator-card">
             <CreatorWorkspace
+              pendingTasks={levelUpTasks}
               draft={draft}
               previewDraft={sheetDraft}
               previewStats={sheetContent.derivedStats}
