@@ -736,7 +736,9 @@
     }
   ],
   "subclassHeading": "Sacred Oath",
-  "subclasses": [],
+  "subclasses": [
+    "oathbreaker"
+  ],
   "highlights": [
     {
       "title": "Combat Role",

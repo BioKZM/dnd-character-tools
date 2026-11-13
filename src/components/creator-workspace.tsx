@@ -7160,6 +7160,24 @@ export function CreatorWorkspace({
                                 note: `${currentVisibleSubclass.name} adds this to your warlock list. Learn it from the grid below.`,
                               }))
                             : []),
+                          // Diger class'larin subclass buyuleri (Paladin oath, Cleric domain vb.): her zaman hazir.
+                          ...(currentClass.id !== "warlock" && currentClass.id !== "ranger" && currentVisibleSubclass
+                            ? currentVisibleSubclass.expandedSpells
+                                .filter((entry) => draft.level >= entry.unlockLevel)
+                                .flatMap((entry) =>
+                                  entry.spells.map((spellName) => {
+                                    const spell = content.spells.find((row) => row.name.toLowerCase() === spellName.toLowerCase()) ?? null;
+                                    return {
+                                      id: `granted-subclass-${spellName}`,
+                                      name: spellName,
+                                      sub: `From ${currentVisibleSubclass.name}`,
+                                      school: spell?.school ?? "",
+                                      spell,
+                                      note: `Always prepared from ${currentVisibleSubclass.name} (${currentClass.name.toLowerCase()} ${entry.unlockLevel}). Doesn't count against your prepared spells.`,
+                                    };
+                                  }),
+                                )
+                            : []),
                           ...(currentClass.id === "warlock" && draft.pactBoonId === "pact-of-the-tome"
                             ? selectedPactCantripSpells.map((spell) => ({
                                 id: `granted-tome-${spell.id}`,

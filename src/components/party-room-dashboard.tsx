@@ -749,7 +749,8 @@ function deriveSpellSelectionRules(
     return Number.isFinite(parsed) ? parsed : 0;
   };
 
-  const cantripLimit = numericValue(readCell("Cantrips Known")) || Infinity;
+  // Tabloda cantrip sutunu yoksa (Paladin, Ranger) class cantrip ogrenmez.
+  const cantripLimit = headerRow.includes("Cantrips Known") ? numericValue(readCell("Cantrips Known")) || Infinity : 0;
   const preparation = curatedClass.spellPreparation;
   // Hazirlayan class'larda limit formulden gelir; sadece buyu yapabildigi level'larda (slot varsa).
   const totalKnownLimit = preparation
