@@ -1,0 +1,709 @@
+{
+  "id": "cleric",
+  "name": "Cleric",
+  "sourceUrl": "https://dnd5e.wikidot.com/cleric",
+  "summary": "A priestly champion who wields divine magic in service of a higher power. Clerics heal, protect and smite, and their domain decides whether they lean into armor, light, knowledge or trickery.",
+  "multiclassRequirement": "Wisdom 13 or higher.",
+  "hitDie": "d8",
+  "primaryAbilities": [
+    "WIS"
+  ],
+  "savingThrows": [
+    "WIS",
+    "CHA"
+  ],
+  "spellcastingAbility": "WIS",
+  "spellPreparation": {
+    "ability": "WIS",
+    "divisor": 1
+  },
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "WIS",
+        "CHA"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "armor",
+      "values": [
+        "Light Armor",
+        "Medium Armor",
+        "Shields"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Simple Weapons"
+      ]
+    }
+  ],
+  "hitPoints": {
+    "Hit Dice": "1d8 per cleric level",
+    "Hit Points at 1st Level": "8 + your Constitution modifier",
+    "Hit Points at Higher Levels": "1d8 (or 5) + your Constitution modifier per cleric level after 1st"
+  },
+  "proficiencies": {
+    "Armor": "Light armor, medium armor, shields",
+    "Weapons": "Simple weapons",
+    "Tools": "None",
+    "Saving Throws": "Wisdom, Charisma",
+    "Skills": "Choose two from History, Insight, Medicine, Persuasion and Religion"
+  },
+  "spellcastingTable": {
+    "title": "The Cleric",
+    "rows": [
+      [
+        "The Cleric",
+        "Spell Slots per Spell Level"
+      ],
+      [
+        "Level",
+        "Proficiency Bonus",
+        "Features",
+        "Cantrips Known",
+        "1st",
+        "2nd",
+        "3rd",
+        "4th",
+        "5th",
+        "6th",
+        "7th",
+        "8th",
+        "9th"
+      ],
+      [
+        "1st",
+        "+2",
+        "Spellcasting, Divine Domain",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "2nd",
+        "+2",
+        "Channel Divinity, Turn Undead",
+        "3",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "3rd",
+        "+2",
+        "–",
+        "3",
+        "4",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "4th",
+        "+2",
+        "Ability Score Improvement",
+        "4",
+        "4",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "5th",
+        "+3",
+        "Destroy Undead",
+        "4",
+        "4",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "6th",
+        "+3",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "7th",
+        "+3",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "1",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "8th",
+        "+3",
+        "Ability Score Improvement",
+        "4",
+        "4",
+        "3",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "9th",
+        "+4",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "1",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "10th",
+        "+4",
+        "Divine Intervention",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "11th",
+        "+4",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "12th",
+        "+4",
+        "Ability Score Improvement",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "13th",
+        "+5",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "-",
+        "-"
+      ],
+      [
+        "14th",
+        "+5",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "-",
+        "-"
+      ],
+      [
+        "15th",
+        "+5",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "-"
+      ],
+      [
+        "16th",
+        "+5",
+        "Ability Score Improvement",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "-"
+      ],
+      [
+        "17th",
+        "+6",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "18th",
+        "+6",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "19th",
+        "+6",
+        "Ability Score Improvement",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "20th",
+        "+6",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "2",
+        "1",
+        "1"
+      ]
+    ]
+  },
+  "spellcastingNotes": [
+    "You prepare cleric spells after each long rest: your cleric level + your Wisdom modifier, minimum one."
+  ],
+  "classFeatures": [
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "keyFacts": [
+        "Prepare cleric spells after each long rest: your cleric level + WIS modifier, at least one. You can cast prepared spells as rituals if they have the ritual tag.",
+        "Spell save DC = 8 + PB + WIS; spell attack = PB + WIS."
+      ],
+      "summary": "You can cast cleric spells. Prepare cleric spells after each long rest: your cleric level + WIS modifier, at least one. You can cast prepared spells as rituals if they have the ritual tag. WIS is your spellcasting ability: spell save DC = 8 + proficiency bonus + WIS modifier, spell attack = proficiency bonus + WIS modifier. You can use a holy symbol as a spellcasting focus. You regain all spell slots on a long rest.",
+      "unlockLevel": 1,
+      "short": "Cast cleric spells using WIS.",
+      "facts": {
+        "action": "Special",
+        "dc": "spell"
+      }
+    },
+    {
+      "id": "divine-domain",
+      "name": "Divine Domain",
+      "keyFacts": [
+        "Subclass at 1st level, with always-prepared domain spells."
+      ],
+      "summary": "Choose a domain related to your deity. It grants domain spells (always prepared) and features at 1st, 2nd, 6th, 8th and 17th level.",
+      "unlockLevel": 1,
+      "short": "Choose your deity's domain.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "channel-divinity",
+      "name": "Channel Divinity",
+      "keyFacts": [
+        "1 use per short rest (2 at 6th, 3 at 18th)."
+      ],
+      "summary": "You can channel divine energy directly from your deity. You start with Turn Undead and gain more effects from your domain. You can use Channel Divinity once per short or long rest, twice from 6th level and three times from 18th.",
+      "unlockLevel": 2,
+      "short": "Channel your god's power: Turn Undead and domain effects.",
+      "facts": {
+        "action": "Action",
+        "uses": "Per short rest"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "channel-divinity",
+          "name": "Channel Divinity",
+          "uses": "1 (2 at 6, 3 at 18)",
+          "recharge": "short_rest"
+        }
+      ],
+      "milestones": [
+        {
+          "level": 2,
+          "label": "1 use"
+        },
+        {
+          "level": 6,
+          "label": "2 uses"
+        },
+        {
+          "level": 18,
+          "label": "3 uses"
+        }
+      ]
+    },
+    {
+      "id": "turn-undead",
+      "name": "Turn Undead",
+      "keyFacts": [
+        "Channel Divinity, 30 ft., WIS save.",
+        "Turned undead run away for 1 minute or until damaged."
+      ],
+      "summary": "As an action, present your holy symbol and speak a prayer. Each undead that can see or hear you within 30 feet must make a Wisdom save. On a failure it is turned for 1 minute or until it takes damage: it must spend its turns trying to move away from you.",
+      "unlockLevel": 2,
+      "short": "Action: undead within 30 ft. flee from you.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell",
+        "duration": "1 minute"
+      }
+    },
+    {
+      "id": "ability-score-improvement",
+      "name": "Ability Score Improvement",
+      "keyFacts": [
+        "+2 to one ability or +1 to two, or a feat."
+      ],
+      "milestones": [
+        {
+          "level": 4,
+          "label": "ASI"
+        },
+        {
+          "level": 8,
+          "label": "ASI"
+        },
+        {
+          "level": 12,
+          "label": "ASI"
+        },
+        {
+          "level": 16,
+          "label": "ASI"
+        },
+        {
+          "level": 19,
+          "label": "ASI"
+        }
+      ],
+      "summary": "When you reach 4th level, and again at 8th, 12th, 16th, 19th level, you can increase one ability score by 2, or two ability scores by 1. You can't raise a score above 20 this way. If your DM allows feats, you can take a feat instead.",
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "destroy-undead",
+      "name": "Destroy Undead",
+      "keyFacts": [
+        "Undead at or below the CR threshold are destroyed."
+      ],
+      "summary": "When an undead fails its saving throw against your Turn Undead, it is instantly destroyed if its challenge rating is at or below a threshold that rises with your level.",
+      "unlockLevel": 5,
+      "short": "Turn Undead destroys weak undead outright.",
+      "facts": {
+        "action": "Passive"
+      },
+      "milestones": [
+        {
+          "level": 5,
+          "label": "CR 1/2 or lower"
+        },
+        {
+          "level": 8,
+          "label": "CR 1 or lower"
+        },
+        {
+          "level": 11,
+          "label": "CR 2 or lower"
+        },
+        {
+          "level": 14,
+          "label": "CR 3 or lower"
+        },
+        {
+          "level": 17,
+          "label": "CR 4 or lower"
+        }
+      ]
+    },
+    {
+      "id": "divine-intervention",
+      "name": "Divine Intervention",
+      "keyFacts": [
+        "Roll d100 ≤ cleric level to succeed.",
+        "Automatic success at 20th level."
+      ],
+      "summary": "As an action, describe the help you seek and roll percentile dice. If you roll a number equal to or lower than your cleric level, your deity intervenes. If it works, you can't use this again for 7 days; otherwise you can try again after a long rest. At 20th level it succeeds automatically.",
+      "unlockLevel": 10,
+      "short": "Ask your god for direct help.",
+      "facts": {
+        "action": "Action"
+      }
+    }
+  ],
+  "journeyStages": [
+    {
+      "id": "class",
+      "label": "Class",
+      "browser": "class",
+      "summary": "Review the cleric at a glance."
+    },
+    {
+      "id": "features",
+      "label": "Class Features",
+      "browser": "class-features",
+      "summary": "What your class gives you, level by level."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "browser": "inventory",
+      "summary": "Choose your starting kit."
+    },
+    {
+      "id": "subclass",
+      "label": "Divine Domain",
+      "browser": "subclass",
+      "minLevel": 1,
+      "summary": "Choose your divine domain."
+    },
+    {
+      "id": "spells",
+      "label": "Spells",
+      "browser": "spells",
+      "summary": "Choose your spells."
+    }
+  ],
+  "startingEquipment": [
+    {
+      "id": "cleric-weapon",
+      "prompt": "Weapon",
+      "options": [
+        {
+          "id": "mace",
+          "label": "Mace",
+          "items": [
+            "Mace"
+          ]
+        },
+        {
+          "id": "warhammer",
+          "label": "Warhammer (if proficient)",
+          "items": [
+            "Warhammer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cleric-armor",
+      "prompt": "Armor",
+      "options": [
+        {
+          "id": "scale-mail",
+          "label": "Scale Mail",
+          "items": [
+            "Scale Mail"
+          ]
+        },
+        {
+          "id": "leather-armor",
+          "label": "Leather Armor",
+          "items": [
+            "Leather Armor"
+          ]
+        },
+        {
+          "id": "chain-mail",
+          "label": "Chain Mail (if proficient)",
+          "items": [
+            "Chain Mail"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cleric-ranged",
+      "prompt": "Ranged",
+      "options": [
+        {
+          "id": "light-crossbow-bolts",
+          "label": "Light Crossbow and 20 Bolts",
+          "items": [
+            "Light Crossbow",
+            "20 Bolts"
+          ]
+        },
+        {
+          "id": "simple-weapon",
+          "label": "Any Simple Weapon",
+          "items": [
+            "Simple Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cleric-pack",
+      "prompt": "Pack",
+      "options": [
+        {
+          "id": "priest-pack",
+          "label": "Priest's Pack",
+          "items": [
+            "Priest's Pack"
+          ]
+        },
+        {
+          "id": "explorer-pack",
+          "label": "Explorer's Pack",
+          "items": [
+            "Explorer's Pack"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cleric-kit",
+      "prompt": "Kit",
+      "options": [
+        {
+          "id": "shield-symbol",
+          "label": "Shield and Holy Symbol",
+          "items": [
+            "Shield",
+            "Amulet"
+          ]
+        }
+      ]
+    }
+  ],
+  "subclassHeading": "Divine Domain",
+  "subclasses": [],
+  "highlights": [
+    {
+      "title": "Combat Role",
+      "body": "The classic healer and support caster, with armor and a domain that can make you a front-liner, a blaster or a trickster."
+    },
+    {
+      "title": "Core Resources",
+      "body": "Prepare spells each day from the whole cleric list (level + WIS). Channel Divinity recharges on a short rest."
+    },
+    {
+      "title": "Level Rhythm",
+      "body": "Domain at 1, Channel Divinity at 2, 3rd-level spells at 5, Divine Intervention at 10, 9th-level spells at 17."
+    }
+  ],
+  "notes": []
+}

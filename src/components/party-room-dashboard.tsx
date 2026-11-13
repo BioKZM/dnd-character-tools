@@ -719,6 +719,7 @@ function levelOrdinal(level: number) {
 function deriveSpellSelectionRules(
   curatedClass: ResolvedClassCuratedEntry | null,
   level: number,
+  modifiers?: Record<AbilityId, number>,
 ) {
   const fallbackMaxLevel = maxSpellLevelForClass(curatedClass?.id ?? "", level);
   const emptyResult = {
@@ -749,7 +750,11 @@ function deriveSpellSelectionRules(
   };
 
   const cantripLimit = numericValue(readCell("Cantrips Known")) || Infinity;
-  const totalKnownLimit = numericValue(readCell("Spells Known")) || Infinity;
+  const preparation = curatedClass.spellPreparation;
+  // Hazirlayan class'larda limit formulden gelir; sadece buyu yapabildigi level'larda (slot varsa).
+  const totalKnownLimit = preparation
+    ? Math.max(1, Math.floor(level / preparation.divisor) + (modifiers?.[preparation.ability] ?? 0))
+    : numericValue(readCell("Spells Known")) || Infinity;
   const slotLevelRaw = readCell("Slot Level");
   const warlockMaxLevel = slotLevelRaw ? numericValue(slotLevelRaw.replace(/\D/g, "")) : 0;
   const perLevelLimits: Record<number, number> = {};
@@ -776,7 +781,8 @@ function deriveSpellSelectionRules(
   return {
     maxSpellLevel,
     cantripLimit,
-    totalKnownLimit,
+    // Paladin 1. level gibi henuz slotu olmayan hazirlayicilar buyu hazirlayamaz.
+    totalKnownLimit: preparation && !Object.keys(perLevelLimits).length ? 0 : totalKnownLimit,
     perLevelLimits,
   };
 }
@@ -1560,7 +1566,10 @@ export function PartyRoomDashboard({
         : [];
   const isEffectiveEldritchKnight = effectiveSelectedSubclassOptions.includes("eldritch-knight");
   const eldritchKnightSpellRules = deriveEldritchKnightSpellRules(currentCuratedClass, effectiveSelectedSubclassOptions, draft.level);
-  const spellSelectionRules = eldritchKnightSpellRules ?? deriveSpellSelectionRules(currentCuratedClass, draft.level);
+  const spellcastingModifiers = currentCuratedClass?.spellPreparation
+    ? finalAbilitiesForDraft(engineCatalog, draft, deriveCharacter(draft, engineCatalog)).modifiers
+    : undefined;
+  const spellSelectionRules = eldritchKnightSpellRules ?? deriveSpellSelectionRules(currentCuratedClass, draft.level, spellcastingModifiers);
   const maxSpellLevel = spellSelectionRules.maxSpellLevel;
   const eldritchKnightSelectedOffSchoolCount = draft.spellIds.filter((spellId) => {
     const spell = initialContent.spells.find((entry) => entry.id === spellId);
@@ -2288,6 +2297,10 @@ export function PartyRoomDashboard({
           jump:
             entry.sourceKind === "feat"
               ? { step: 2, browser: "feats" }
+              : entry.choice.from.kind === "option"
+              ? { step: 1, browser: "class-features" }
+              : entry.choice.from.kind === "language"
+              ? { step: 3, browser: "custom-background-languages" }
               : entry.choice.from.kind === "skill"
               ? { step: 2, browser: "skills" }
               : entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool"

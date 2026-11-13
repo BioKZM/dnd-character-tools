@@ -1,0 +1,653 @@
+{
+  "id": "rogue",
+  "name": "Rogue",
+  "sourceUrl": "https://dnd5e.wikidot.com/rogue",
+  "summary": "A scoundrel who uses stealth and trickery to overcome obstacles. Rogues are the party's experts: the best at skills, deadly with one precise strike each turn, and very hard to pin down.",
+  "multiclassRequirement": "Dexterity 13 or higher.",
+  "hitDie": "d8",
+  "primaryAbilities": [
+    "DEX"
+  ],
+  "savingThrows": [
+    "DEX",
+    "INT"
+  ],
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "DEX",
+        "INT"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "armor",
+      "values": [
+        "Light Armor"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Simple Weapons",
+        "Hand Crossbows",
+        "Longswords",
+        "Rapiers",
+        "Shortswords"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "tool",
+      "values": [
+        "Thieves' Tools"
+      ]
+    }
+  ],
+  "hitPoints": {
+    "Hit Dice": "1d8 per rogue level",
+    "Hit Points at 1st Level": "8 + your Constitution modifier",
+    "Hit Points at Higher Levels": "1d8 (or 5) + your Constitution modifier per rogue level after 1st"
+  },
+  "proficiencies": {
+    "Armor": "Light armor",
+    "Weapons": "Simple weapons, hand crossbows, longswords, rapiers, shortswords",
+    "Tools": "Thieves' tools",
+    "Saving Throws": "Dexterity, Intelligence",
+    "Skills": "Choose four from Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand and Stealth"
+  },
+  "spellcastingTable": {
+    "title": "The Rogue",
+    "rows": [
+      [
+        "The Rogue"
+      ],
+      [
+        "Level",
+        "Proficiency Bonus",
+        "Features",
+        "Sneak Attack"
+      ],
+      [
+        "1st",
+        "+2",
+        "Expertise, Sneak Attack, Thieves' Cant",
+        "1d6"
+      ],
+      [
+        "2nd",
+        "+2",
+        "Cunning Action",
+        "1d6"
+      ],
+      [
+        "3rd",
+        "+2",
+        "Roguish Archetype",
+        "2d6"
+      ],
+      [
+        "4th",
+        "+2",
+        "Ability Score Improvement",
+        "2d6"
+      ],
+      [
+        "5th",
+        "+3",
+        "Uncanny Dodge",
+        "3d6"
+      ],
+      [
+        "6th",
+        "+3",
+        "Expertise",
+        "3d6"
+      ],
+      [
+        "7th",
+        "+3",
+        "Evasion",
+        "4d6"
+      ],
+      [
+        "8th",
+        "+3",
+        "Ability Score Improvement",
+        "4d6"
+      ],
+      [
+        "9th",
+        "+4",
+        "–",
+        "5d6"
+      ],
+      [
+        "10th",
+        "+4",
+        "Ability Score Improvement",
+        "5d6"
+      ],
+      [
+        "11th",
+        "+4",
+        "Reliable Talent",
+        "6d6"
+      ],
+      [
+        "12th",
+        "+4",
+        "Ability Score Improvement",
+        "6d6"
+      ],
+      [
+        "13th",
+        "+5",
+        "–",
+        "7d6"
+      ],
+      [
+        "14th",
+        "+5",
+        "Blindsense",
+        "7d6"
+      ],
+      [
+        "15th",
+        "+5",
+        "Slippery Mind",
+        "8d6"
+      ],
+      [
+        "16th",
+        "+5",
+        "Ability Score Improvement",
+        "8d6"
+      ],
+      [
+        "17th",
+        "+6",
+        "–",
+        "9d6"
+      ],
+      [
+        "18th",
+        "+6",
+        "Elusive",
+        "9d6"
+      ],
+      [
+        "19th",
+        "+6",
+        "Ability Score Improvement",
+        "10d6"
+      ],
+      [
+        "20th",
+        "+6",
+        "Stroke of Luck",
+        "10d6"
+      ]
+    ]
+  },
+  "spellcastingNotes": [],
+  "classFeatures": [
+    {
+      "id": "expertise",
+      "name": "Expertise",
+      "keyFacts": [
+        "Two skills get double proficiency at 1st level.",
+        "Two more at 6th level."
+      ],
+      "summary": "Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either. At 6th level, choose two more.",
+      "unlockLevel": 1,
+      "short": "Double your proficiency bonus on two skills (two more at 6).",
+      "facts": {
+        "action": "Passive"
+      },
+      "choices": [
+        {
+          "id": "rogue-expertise-1",
+          "label": "Expertise (1st level)",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": true
+          },
+          "grantAs": "expertise",
+          "note": "Thieves' tools can be picked instead of a skill; note it on the sheet."
+        },
+        {
+          "id": "rogue-expertise-6",
+          "label": "Expertise (6th level)",
+          "count": 2,
+          "min": 2,
+          "minLevel": 6,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": true
+          },
+          "grantAs": "expertise"
+        }
+      ],
+      "milestones": [
+        {
+          "level": 1,
+          "label": "2 skills"
+        },
+        {
+          "level": 6,
+          "label": "4 skills"
+        }
+      ]
+    },
+    {
+      "id": "sneak-attack",
+      "name": "Sneak Attack",
+      "keyFacts": [
+        "Once per turn, with advantage or an ally next to the target.",
+        "Finesse or ranged weapon only."
+      ],
+      "summary": "Once per turn, you can deal extra damage to one creature you hit with an attack if you have advantage on the roll. The attack must use a finesse or a ranged weapon. You don't need advantage if another enemy of the target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the roll.",
+      "unlockLevel": 1,
+      "short": "Once per turn, deal extra damage with finesse or ranged attacks.",
+      "facts": {
+        "action": "Passive",
+        "uses": "Once per turn"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Sneak Attack: once per turn, extra damage on a finesse or ranged weapon hit with advantage, or when an ally is within 5 ft. of the target."
+        }
+      ],
+      "milestones": [
+        {
+          "level": 1,
+          "label": "1d6 extra damage"
+        },
+        {
+          "level": 3,
+          "label": "2d6 extra damage"
+        },
+        {
+          "level": 5,
+          "label": "3d6 extra damage"
+        },
+        {
+          "level": 7,
+          "label": "4d6 extra damage"
+        },
+        {
+          "level": 9,
+          "label": "5d6 extra damage"
+        },
+        {
+          "level": 11,
+          "label": "6d6 extra damage"
+        },
+        {
+          "level": 13,
+          "label": "7d6 extra damage"
+        },
+        {
+          "level": 15,
+          "label": "8d6 extra damage"
+        },
+        {
+          "level": 17,
+          "label": "9d6 extra damage"
+        },
+        {
+          "level": 19,
+          "label": "10d6 extra damage"
+        }
+      ]
+    },
+    {
+      "id": "thieves-cant",
+      "name": "Thieves' Cant",
+      "keyFacts": [
+        "Hide messages in normal speech; read thieves' signs."
+      ],
+      "summary": "You know thieves' cant, a secret mix of dialect, jargon and code that lets you hide messages in seemingly normal conversation, plus a set of secret signs for marking places.",
+      "unlockLevel": 1,
+      "short": "A secret criminal code language.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "language",
+          "values": [
+            "Thieves' Cant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cunning-action",
+      "name": "Cunning Action",
+      "keyFacts": [
+        "Dash, Disengage or Hide as a bonus action."
+      ],
+      "summary": "You can take a bonus action on each of your turns to take the Dash, Disengage or Hide action.",
+      "unlockLevel": 2,
+      "short": "Bonus action: Dash, Disengage or Hide.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Cunning Action: bonus action to Dash, Disengage or Hide."
+        }
+      ]
+    },
+    {
+      "id": "roguish-archetype",
+      "name": "Roguish Archetype",
+      "keyFacts": [
+        "Subclass features at 3, 9, 13 and 17."
+      ],
+      "summary": "Choose an archetype that you emulate in the exercise of your rogue abilities. It grants features at 3rd, 9th, 13th and 17th level.",
+      "unlockLevel": 3,
+      "short": "Choose your rogue style.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "ability-score-improvement",
+      "name": "Ability Score Improvement",
+      "keyFacts": [
+        "+2 to one ability or +1 to two, or a feat."
+      ],
+      "milestones": [
+        {
+          "level": 4,
+          "label": "ASI"
+        },
+        {
+          "level": 8,
+          "label": "ASI"
+        },
+        {
+          "level": 10,
+          "label": "ASI"
+        },
+        {
+          "level": 12,
+          "label": "ASI"
+        },
+        {
+          "level": 16,
+          "label": "ASI"
+        },
+        {
+          "level": 19,
+          "label": "ASI"
+        }
+      ],
+      "summary": "When you reach 4th level, and again at 8th, 10th, 12th, 16th, 19th level, you can increase one ability score by 2, or two ability scores by 1. You can't raise a score above 20 this way. If your DM allows feats, you can take a feat instead.",
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "uncanny-dodge",
+      "name": "Uncanny Dodge",
+      "keyFacts": [
+        "Reaction: take half damage from one hit."
+      ],
+      "summary": "When an attacker that you can see hits you with an attack, you can use your reaction to halve the attack's damage against you.",
+      "unlockLevel": 5,
+      "short": "Reaction: halve damage from an attack you see.",
+      "facts": {
+        "action": "Reaction"
+      }
+    },
+    {
+      "id": "evasion",
+      "name": "Evasion",
+      "keyFacts": [
+        "DEX save for half: success = 0, failure = half."
+      ],
+      "summary": "When you are subjected to an effect that allows a Dexterity save for half damage, you take no damage on a success and only half on a failure.",
+      "unlockLevel": 7,
+      "short": "No damage on successful DEX saves, half on failures.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "reliable-talent",
+      "name": "Reliable Talent",
+      "keyFacts": [
+        "Treat d20 rolls of 9 or lower as 10 on proficient checks."
+      ],
+      "summary": "Whenever you make an ability check that lets you add your proficiency bonus, you can treat a d20 roll of 9 or lower as a 10.",
+      "unlockLevel": 11,
+      "short": "Proficient checks never roll below 10.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "blindsense",
+      "name": "Blindsense",
+      "keyFacts": [
+        "Know where hidden and invisible creatures within 10 ft. are."
+      ],
+      "summary": "If you are able to hear, you are aware of the location of any hidden or invisible creature within 10 feet of you.",
+      "unlockLevel": 14,
+      "short": "Sense hidden or invisible creatures within 10 ft.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "blindsight",
+          "range": 10,
+          "note": "Blindsense: you hear hidden and invisible creatures"
+        }
+      ]
+    },
+    {
+      "id": "slippery-mind",
+      "name": "Slippery Mind",
+      "keyFacts": [
+        "WIS saving throw proficiency."
+      ],
+      "summary": "You have acquired greater mental strength. You gain proficiency in Wisdom saving throws.",
+      "unlockLevel": 15,
+      "short": "Proficiency in WIS saves.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "save",
+          "values": [
+            "WIS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elusive",
+      "name": "Elusive",
+      "keyFacts": [
+        "No advantage on attacks against you unless you are incapacitated."
+      ],
+      "summary": "No attack roll has advantage against you while you aren't incapacitated.",
+      "unlockLevel": 18,
+      "short": "Attacks never have advantage against you.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "stroke-of-luck",
+      "name": "Stroke of Luck",
+      "keyFacts": [
+        "Once per short or long rest."
+      ],
+      "summary": "If your attack misses a target in range, you can turn the miss into a hit. Or, if you fail an ability check, you can treat the d20 roll as a 20. Once per short or long rest.",
+      "unlockLevel": 20,
+      "short": "Turn a miss into a hit, or a failed check into a 20.",
+      "facts": {
+        "action": "Special",
+        "uses": "1 per short rest"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "stroke-of-luck",
+          "name": "Stroke of Luck",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ]
+    }
+  ],
+  "journeyStages": [
+    {
+      "id": "class",
+      "label": "Class",
+      "browser": "class",
+      "summary": "Review the rogue at a glance."
+    },
+    {
+      "id": "features",
+      "label": "Class Features",
+      "browser": "class-features",
+      "summary": "What your class gives you, level by level."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "browser": "inventory",
+      "summary": "Choose your starting kit."
+    },
+    {
+      "id": "subclass",
+      "label": "Roguish Archetype",
+      "browser": "subclass",
+      "minLevel": 3,
+      "summary": "Choose your roguish archetype."
+    }
+  ],
+  "startingEquipment": [
+    {
+      "id": "rogue-main",
+      "prompt": "Weapon",
+      "options": [
+        {
+          "id": "rapier",
+          "label": "Rapier",
+          "items": [
+            "Rapier"
+          ]
+        },
+        {
+          "id": "shortsword",
+          "label": "Shortsword",
+          "items": [
+            "Shortsword"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rogue-ranged",
+      "prompt": "Ranged",
+      "options": [
+        {
+          "id": "shortbow-quiver",
+          "label": "Shortbow and Quiver of 20 Arrows",
+          "items": [
+            "Shortbow",
+            "Quiver",
+            "20 Arrows"
+          ]
+        },
+        {
+          "id": "second-shortsword",
+          "label": "Shortsword",
+          "items": [
+            "Shortsword"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rogue-pack",
+      "prompt": "Pack",
+      "options": [
+        {
+          "id": "burglar-pack",
+          "label": "Burglar's Pack",
+          "items": [
+            "Burglar's Pack"
+          ]
+        },
+        {
+          "id": "dungeoneer-pack",
+          "label": "Dungeoneer's Pack",
+          "items": [
+            "Dungeoneer's Pack"
+          ]
+        },
+        {
+          "id": "explorer-pack",
+          "label": "Explorer's Pack",
+          "items": [
+            "Explorer's Pack"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rogue-kit",
+      "prompt": "Kit",
+      "options": [
+        {
+          "id": "leather-daggers-tools",
+          "label": "Leather Armor, Two Daggers and Thieves' Tools",
+          "items": [
+            "Leather Armor",
+            "2x Daggers",
+            "Thieves' Tools"
+          ]
+        }
+      ]
+    }
+  ],
+  "subclassHeading": "Roguish Archetype",
+  "subclasses": [],
+  "highlights": [
+    {
+      "title": "Combat Role",
+      "body": "One big Sneak Attack per turn from range or with a finesse weapon, then slip away with Cunning Action."
+    },
+    {
+      "title": "Core Resources",
+      "body": "No limited resources: Sneak Attack works every turn. Expertise makes you the best at your chosen skills."
+    },
+    {
+      "title": "Level Rhythm",
+      "body": "Cunning Action at 2, archetype at 3, Uncanny Dodge at 5, more Expertise at 6, Evasion at 7, Reliable Talent at 11."
+    }
+  ],
+  "notes": []
+}

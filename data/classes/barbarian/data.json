@@ -1,0 +1,623 @@
+{
+  "id": "barbarian",
+  "name": "Barbarian",
+  "sourceUrl": "https://dnd5e.wikidot.com/barbarian",
+  "summary": "A fierce warrior who channels primal rage. Barbarians shrug off damage, hit hard, and charge into the thick of a fight with little more than a big weapon and thick skin.",
+  "multiclassRequirement": "Strength 13 or higher.",
+  "hitDie": "d12",
+  "primaryAbilities": [
+    "STR"
+  ],
+  "savingThrows": [
+    "STR",
+    "CON"
+  ],
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "STR",
+        "CON"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "armor",
+      "values": [
+        "Light Armor",
+        "Medium Armor",
+        "Shields"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Simple Weapons",
+        "Martial Weapons"
+      ]
+    }
+  ],
+  "hitPoints": {
+    "Hit Dice": "1d12 per barbarian level",
+    "Hit Points at 1st Level": "12 + your Constitution modifier",
+    "Hit Points at Higher Levels": "1d12 (or 7) + your Constitution modifier per barbarian level after 1st"
+  },
+  "proficiencies": {
+    "Armor": "Light armor, medium armor, shields",
+    "Weapons": "Simple weapons, martial weapons",
+    "Tools": "None",
+    "Saving Throws": "Strength, Constitution",
+    "Skills": "Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception and Survival"
+  },
+  "spellcastingTable": {
+    "title": "The Barbarian",
+    "rows": [
+      [
+        "The Barbarian"
+      ],
+      [
+        "Level",
+        "Proficiency Bonus",
+        "Features",
+        "Rages",
+        "Rage Damage"
+      ],
+      [
+        "1st",
+        "+2",
+        "Rage, Unarmored Defense",
+        "2",
+        "+2"
+      ],
+      [
+        "2nd",
+        "+2",
+        "Reckless Attack, Danger Sense",
+        "2",
+        "+2"
+      ],
+      [
+        "3rd",
+        "+2",
+        "Primal Path",
+        "3",
+        "+2"
+      ],
+      [
+        "4th",
+        "+2",
+        "Ability Score Improvement",
+        "3",
+        "+2"
+      ],
+      [
+        "5th",
+        "+3",
+        "Extra Attack, Fast Movement",
+        "3",
+        "+2"
+      ],
+      [
+        "6th",
+        "+3",
+        "–",
+        "4",
+        "+2"
+      ],
+      [
+        "7th",
+        "+3",
+        "Feral Instinct",
+        "4",
+        "+2"
+      ],
+      [
+        "8th",
+        "+3",
+        "Ability Score Improvement",
+        "4",
+        "+2"
+      ],
+      [
+        "9th",
+        "+4",
+        "Brutal Critical",
+        "4",
+        "+3"
+      ],
+      [
+        "10th",
+        "+4",
+        "–",
+        "4",
+        "+3"
+      ],
+      [
+        "11th",
+        "+4",
+        "Relentless Rage",
+        "4",
+        "+3"
+      ],
+      [
+        "12th",
+        "+4",
+        "Ability Score Improvement",
+        "5",
+        "+3"
+      ],
+      [
+        "13th",
+        "+5",
+        "–",
+        "5",
+        "+3"
+      ],
+      [
+        "14th",
+        "+5",
+        "–",
+        "5",
+        "+3"
+      ],
+      [
+        "15th",
+        "+5",
+        "Persistent Rage",
+        "5",
+        "+3"
+      ],
+      [
+        "16th",
+        "+5",
+        "Ability Score Improvement",
+        "5",
+        "+4"
+      ],
+      [
+        "17th",
+        "+6",
+        "–",
+        "6",
+        "+4"
+      ],
+      [
+        "18th",
+        "+6",
+        "Indomitable Might",
+        "6",
+        "+4"
+      ],
+      [
+        "19th",
+        "+6",
+        "Ability Score Improvement",
+        "6",
+        "+4"
+      ],
+      [
+        "20th",
+        "+6",
+        "Primal Champion",
+        "Unlimited",
+        "+4"
+      ]
+    ]
+  },
+  "spellcastingNotes": [],
+  "classFeatures": [
+    {
+      "id": "rage",
+      "name": "Rage",
+      "keyFacts": [
+        "Advantage on STR checks and saves.",
+        "Extra damage on STR melee weapon attacks.",
+        "Resistance to bludgeoning, piercing and slashing."
+      ],
+      "summary": "On your turn you can enter a rage as a bonus action while not wearing heavy armor. For 1 minute you have advantage on Strength checks and saves, bonus damage on melee weapon attacks that use Strength, and resistance to bludgeoning, piercing and slashing damage. You can't cast or concentrate on spells while raging. The rage ends early if you are knocked unconscious, or if your turn ends without you attacking a hostile creature or taking damage since your last turn. You can also end it as a bonus action.",
+      "unlockLevel": 1,
+      "short": "Bonus action: hit harder and shrug off weapon damage for 1 minute.",
+      "facts": {
+        "action": "Bonus Action",
+        "uses": "Rages per long rest",
+        "duration": "1 minute"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "rage",
+          "name": "Rage",
+          "uses": "2 (3 at 3, 4 at 6, 5 at 12, 6 at 17)",
+          "recharge": "long_rest"
+        },
+        {
+          "type": "note",
+          "text": "While raging: advantage on STR checks and saves, resistance to bludgeoning, piercing and slashing, no spellcasting."
+        }
+      ],
+      "milestones": [
+        {
+          "level": 1,
+          "label": "2 rages, +2 damage"
+        },
+        {
+          "level": 3,
+          "label": "3 rages, +2 damage"
+        },
+        {
+          "level": 6,
+          "label": "4 rages, +2 damage"
+        },
+        {
+          "level": 9,
+          "label": "4 rages, +3 damage"
+        },
+        {
+          "level": 12,
+          "label": "5 rages, +3 damage"
+        },
+        {
+          "level": 16,
+          "label": "5 rages, +4 damage"
+        },
+        {
+          "level": 17,
+          "label": "6 rages, +4 damage"
+        },
+        {
+          "level": 20,
+          "label": "Unlimited rages, +4 damage"
+        }
+      ]
+    },
+    {
+      "id": "unarmored-defense",
+      "name": "Unarmored Defense",
+      "keyFacts": [
+        "No armor: AC = 10 + DEX + CON. Shields still work."
+      ],
+      "summary": "While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit.",
+      "unlockLevel": 1,
+      "short": "Without armor, AC = 10 + DEX + CON (shield allowed).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "ac_base",
+          "base": 10,
+          "abilities": [
+            "DEX",
+            "CON"
+          ],
+          "shield": true
+        }
+      ]
+    },
+    {
+      "id": "reckless-attack",
+      "name": "Reckless Attack",
+      "keyFacts": [
+        "Advantage on STR melee attacks this turn.",
+        "Attacks against you have advantage until your next turn."
+      ],
+      "summary": "When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn.",
+      "unlockLevel": 2,
+      "short": "Gain advantage on your STR melee attacks; enemies get advantage on you.",
+      "facts": {
+        "action": "Special"
+      }
+    },
+    {
+      "id": "danger-sense",
+      "name": "Danger Sense",
+      "keyFacts": [
+        "Advantage on DEX saves against effects you can see."
+      ],
+      "summary": "You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells. You can't be blinded, deafened or incapacitated to use this.",
+      "unlockLevel": 2,
+      "short": "Advantage on DEX saves against things you can see.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "save_advantage",
+          "against": "DEX saves against effects you can see"
+        }
+      ]
+    },
+    {
+      "id": "primal-path",
+      "name": "Primal Path",
+      "keyFacts": [
+        "Subclass features at 3, 6, 10 and 14."
+      ],
+      "summary": "Choose a path that shapes the nature of your rage. It grants features at 3rd, 6th, 10th and 14th level.",
+      "unlockLevel": 3,
+      "short": "Choose the path your rage follows.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "ability-score-improvement",
+      "name": "Ability Score Improvement",
+      "keyFacts": [
+        "+2 to one ability or +1 to two, or a feat."
+      ],
+      "milestones": [
+        {
+          "level": 4,
+          "label": "ASI"
+        },
+        {
+          "level": 8,
+          "label": "ASI"
+        },
+        {
+          "level": 12,
+          "label": "ASI"
+        },
+        {
+          "level": 16,
+          "label": "ASI"
+        },
+        {
+          "level": 19,
+          "label": "ASI"
+        }
+      ],
+      "summary": "When you reach 4th level, and again at 8th, 12th, 16th, 19th level, you can increase one ability score by 2, or two ability scores by 1. You can't raise a score above 20 this way. If your DM allows feats, you can take a feat instead.",
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "extra-attack",
+      "name": "Extra Attack",
+      "keyFacts": [
+        "Two attacks per Attack action."
+      ],
+      "summary": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      "unlockLevel": 5,
+      "short": "Attack twice with the Attack action.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "fast-movement",
+      "name": "Fast Movement",
+      "keyFacts": [
+        "+10 ft. walking speed when not in heavy armor."
+      ],
+      "summary": "Your speed increases by 10 feet while you aren't wearing heavy armor.",
+      "unlockLevel": 5,
+      "short": "+10 ft. speed without heavy armor.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "speed",
+          "mode": "walk",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": "feral-instinct",
+      "name": "Feral Instinct",
+      "keyFacts": [
+        "Advantage on initiative.",
+        "Surprised? Rage first and you can still act."
+      ],
+      "summary": "You have advantage on initiative rolls. If you are surprised at the start of combat, you can still act on your first turn if you enter a rage first.",
+      "unlockLevel": 7,
+      "short": "Advantage on initiative; rage to act while surprised.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Advantage on initiative rolls."
+        }
+      ]
+    },
+    {
+      "id": "brutal-critical",
+      "name": "Brutal Critical",
+      "keyFacts": [
+        "Melee crits roll extra weapon damage dice."
+      ],
+      "summary": "You roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack. This increases to two dice at 13th level and three at 17th.",
+      "unlockLevel": 9,
+      "short": "Extra weapon dice on melee critical hits.",
+      "facts": {
+        "action": "Passive"
+      },
+      "milestones": [
+        {
+          "level": 9,
+          "label": "+1 die"
+        },
+        {
+          "level": 13,
+          "label": "+2 dice"
+        },
+        {
+          "level": 17,
+          "label": "+3 dice"
+        }
+      ]
+    },
+    {
+      "id": "relentless-rage",
+      "name": "Relentless Rage",
+      "keyFacts": [
+        "Drop to 0 while raging: DC 10 CON save to stay at 1 HP.",
+        "DC rises by 5 each use until you rest."
+      ],
+      "summary": "If you drop to 0 hit points while raging and don't die outright, you can make a DC 10 Constitution save. On a success you drop to 1 hit point instead. Each time you use it after the first, the DC increases by 5; it resets to 10 after a short or long rest.",
+      "unlockLevel": 11,
+      "short": "While raging, a CON save keeps you at 1 HP.",
+      "facts": {
+        "action": "Special",
+        "save": "CON"
+      }
+    },
+    {
+      "id": "persistent-rage",
+      "name": "Persistent Rage",
+      "keyFacts": [
+        "Rage ends only if you choose or fall unconscious."
+      ],
+      "summary": "Your rage is so fierce that it ends early only if you fall unconscious or if you choose to end it.",
+      "unlockLevel": 15,
+      "short": "Your rage only ends when you want it to.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "indomitable-might",
+      "name": "Indomitable Might",
+      "keyFacts": [
+        "Use your STR score as the minimum for STR checks."
+      ],
+      "summary": "If your total for a Strength check is less than your Strength score, you can use that score in place of the total.",
+      "unlockLevel": 18,
+      "short": "STR checks never total below your STR score.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "primal-champion",
+      "name": "Primal Champion",
+      "keyFacts": [
+        "+4 STR and +4 CON, up to 24."
+      ],
+      "summary": "Your Strength and Constitution scores increase by 4. Your maximum for those scores is now 24.",
+      "unlockLevel": 20,
+      "short": "STR and CON +4 (max 24).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Primal Champion: add +4 STR and +4 CON on the sheet (maximum 24)."
+        }
+      ]
+    }
+  ],
+  "journeyStages": [
+    {
+      "id": "class",
+      "label": "Class",
+      "browser": "class",
+      "summary": "Review the barbarian at a glance."
+    },
+    {
+      "id": "features",
+      "label": "Class Features",
+      "browser": "class-features",
+      "summary": "What your class gives you, level by level."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "browser": "inventory",
+      "summary": "Choose your starting kit."
+    },
+    {
+      "id": "subclass",
+      "label": "Primal Path",
+      "browser": "subclass",
+      "minLevel": 3,
+      "summary": "Choose your primal path."
+    }
+  ],
+  "startingEquipment": [
+    {
+      "id": "barbarian-main",
+      "prompt": "Main weapon",
+      "options": [
+        {
+          "id": "greataxe",
+          "label": "Greataxe",
+          "items": [
+            "Greataxe"
+          ]
+        },
+        {
+          "id": "martial-melee-weapon",
+          "label": "Any Martial Melee Weapon",
+          "items": [
+            "Martial Melee Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "barbarian-side",
+      "prompt": "Side weapon",
+      "options": [
+        {
+          "id": "two-handaxes",
+          "label": "Two Handaxes",
+          "items": [
+            "2x Handaxes"
+          ]
+        },
+        {
+          "id": "simple-weapon",
+          "label": "Any Simple Weapon",
+          "items": [
+            "Simple Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "barbarian-kit",
+      "prompt": "Kit",
+      "options": [
+        {
+          "id": "explorer-javelins",
+          "label": "Explorer's Pack and Four Javelins",
+          "items": [
+            "Explorer's Pack",
+            "4 Javelins"
+          ]
+        }
+      ]
+    }
+  ],
+  "subclassHeading": "Primal Path",
+  "subclasses": [],
+  "highlights": [
+    {
+      "title": "Combat Role",
+      "body": "The toughest frontliner: huge hit points, resistance to weapon damage while raging, and big hits with heavy weapons."
+    },
+    {
+      "title": "Core Resources",
+      "body": "Rage (a few uses per long rest) powers everything. Unarmored Defense uses DEX + CON, so you can skip armor."
+    },
+    {
+      "title": "Level Rhythm",
+      "body": "Reckless Attack and Danger Sense at 2, Primal Path at 3, Extra Attack and Fast Movement at 5, Brutal Critical from 9."
+    }
+  ],
+  "notes": []
+}

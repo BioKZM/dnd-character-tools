@@ -3392,100 +3392,55 @@ export function CreatorWorkspace({
           ? fallbackFighterStartingEquipment
           : [];
 
-    if (currentCuratedClass?.id === "warlock") {
-      return baseEquipment.map((group) => ({
-        ...group,
-        options: group.options.flatMap((option) => {
-          if (option.id === "simple-weapon") {
-            return simpleWeaponOptions;
-          }
-
-          if (option.id === "leather-simple-daggers") {
-            return simpleWeaponOptions.map((weaponOption) => ({
-              id: `leather-${weaponOption.id}-daggers`,
-              label: `Leather Armor, ${weaponOption.label}, and Two Daggers`,
-              items: ["Leather Armor", weaponOption.label, "2x Daggers"],
-            }));
-          }
-
+    // Data'daki soyut secenekler ("simple-weapon", "two-martial"...) her class icin ayni sekilde acilir.
+    const isMelee = (option: { id: string }) => {
+      const weaponId = option.id.replace(/^(simple|martial)-/, "");
+      return content.weapons.some((weapon) => weapon.id === weaponId && weapon.attackType === "melee");
+    };
+    const expand = (option: ClassStartingEquipmentGroup["options"][number]): ClassStartingEquipmentGroup["options"] => {
+      switch (option.id) {
+        case "simple-weapon":
+          return simpleWeaponOptions;
+        case "simple-melee-weapon":
+          return simpleMeleeWeaponOptions;
+        case "martial-weapon":
+          return martialWeaponOptions;
+        case "martial-melee-weapon":
+          return martialWeaponOptions.filter(isMelee);
+        case "leather-simple-daggers":
+          return simpleWeaponOptions.map((weaponOption) => ({
+            id: `leather-${weaponOption.id}-daggers`,
+            label: `Leather Armor, ${weaponOption.label}, and Two Daggers`,
+            items: ["Leather Armor", weaponOption.label, "2x Daggers"],
+          }));
+        case "weapon-shield":
+          return martialWeaponOptions.map((weaponOption) => ({
+            id: `martial-shield-${weaponOption.id}`,
+            label: `${weaponOption.label} and Shield`,
+            items: [weaponOption.label, "Shield"],
+          }));
+        case "two-martial":
+          return martialWeaponOptions.flatMap((firstWeapon) =>
+            martialWeaponOptions.map((secondWeapon) => ({
+              id: `two-martial-${firstWeapon.id}-${secondWeapon.id}`,
+              label: "Two Martial Weapons",
+              items: [firstWeapon.label, secondWeapon.label],
+            })),
+          );
+        case "two-simple-melee":
+          return simpleMeleeWeaponOptions.flatMap((firstWeapon) =>
+            simpleMeleeWeaponOptions.map((secondWeapon) => ({
+              id: `two-simple-melee-${firstWeapon.id}-${secondWeapon.id}`,
+              label: "Two Simple Melee Weapons",
+              items: [firstWeapon.label, secondWeapon.label],
+            })),
+          );
+        default:
           return [option];
-        }),
-      }));
-    }
-
-    if (currentCuratedClass?.id === "fighter") {
-      return baseEquipment.map((group) => {
-        if (group.id !== "fighter-arms") {
-          return group;
-        }
-
-        return {
-          ...group,
-          options: group.options.flatMap((option) => {
-            if (option.id === "weapon-shield") {
-              return martialWeaponOptions.map((weaponOption) => ({
-                id: `martial-shield-${weaponOption.id}`,
-                label: `${weaponOption.label} and Shield`,
-                items: [weaponOption.label, "Shield"],
-              }));
-            }
-
-            if (option.id === "two-martial") {
-              return martialWeaponOptions.flatMap((firstWeapon) =>
-                martialWeaponOptions.map((secondWeapon) => ({
-                  id: `two-martial-${firstWeapon.id}-${secondWeapon.id}`,
-                  label: "Two Martial Weapons",
-                  items: [firstWeapon.label, secondWeapon.label],
-                })),
-              );
-            }
-
-            return [option];
-          }),
-        };
-      });
-    }
-
-    if (currentCuratedClass?.id !== "bard") {
-      if (currentCuratedClass?.id === "ranger") {
-        return baseEquipment.map((group) => {
-          if (group.id !== "ranger-arms") {
-            return group;
-          }
-
-          return {
-            ...group,
-            options: group.options.flatMap((option) => {
-              if (option.id !== "two-simple-melee") {
-                return [option];
-              }
-
-              return simpleMeleeWeaponOptions.flatMap((firstWeapon) =>
-                simpleMeleeWeaponOptions.map((secondWeapon) => ({
-                  id: `two-simple-melee-${firstWeapon.id}-${secondWeapon.id}`,
-                  label: "Two Simple Melee Weapons",
-                  items: [firstWeapon.label, secondWeapon.label],
-                })),
-              );
-            }),
-          };
-        });
       }
-
-      return baseEquipment;
-    }
-
-    return baseEquipment.map((group) => {
-      if (group.id !== "bard-arms") {
-        return group;
-      }
-
-      return {
-        ...group,
-        options: group.options.flatMap((option) => (option.id === "simple-weapon" ? simpleWeaponOptions : [option])),
-      };
-    });
-  }, [currentCuratedClass?.id, currentCuratedClass?.startingEquipment, martialWeaponOptions, simpleMeleeWeaponOptions, simpleWeaponOptions]);
+    };
+    return baseEquipment.map((group) => ({ ...group, options: group.options.flatMap(expand) }));
+  }, [content.weapons, currentCuratedClass?.id, currentCuratedClass?.startingEquipment, martialWeaponOptions, simpleMeleeWeaponOptions, simpleWeaponOptions]);
   const fighterStartingEquipment = classStartingEquipment.length ? classStartingEquipment : fallbackFighterStartingEquipment;
   const currentDocClass = classDocs[draft.classId] ?? null;
   const currentCuratedSubclasses = currentCuratedClass?.subclasses ?? [];
@@ -4170,6 +4125,9 @@ export function CreatorWorkspace({
       ? selectedSubclassFeature.keyFacts
       : [];
   const classOverviewHighlights =
+    (currentCuratedClass?.highlights.length
+      ? currentCuratedClass.highlights.map((item, index) => ({ id: `highlight-${index}`, title: item.title, body: item.body }))
+      : null) ??
     classOverviewHighlightsByClass[currentClass.id as keyof typeof classOverviewHighlightsByClass] ??
     // Yazilmamis bir class icin baska class'in metni gosterilmez; kartlar class verisinden kurulur.
     [
@@ -5169,6 +5127,7 @@ export function CreatorWorkspace({
         {directOptions.length ? (
           <PickGrid
             label={group.prompt}
+            pageSize={8}
             columns={Math.min(4, Math.max(2, directOptions.length))}
             size="sm"
             items={directOptions.map((option) => {
@@ -6424,7 +6383,11 @@ export function CreatorWorkspace({
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
                         <h3>Class Features</h3>
-                        <p>{`What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Nothing to pick here; click a feature to read it.`}</p>
+                        <p>
+                          {optionChoices.some((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))
+                            ? `What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Click a feature to read it; make your picks below the list.`
+                            : `What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Nothing to pick here; click a feature to read it.`}
+                        </p>
                       </div>
                       {(() => {
                         const featureLevel = (feature: (typeof visibleClassFeatures)[number]) => {
@@ -6484,6 +6447,11 @@ export function CreatorWorkspace({
                                 }))}
                               />
                             </PickSection>
+                            <OptionChoicePanel
+                              content={content}
+                              choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))}
+                              onToggle={toggleOptionChoice}
+                            />
                             {laterByLevel.size ? (
                               <p className="pick-later">
                                 <strong>Coming later: </strong>
@@ -7152,7 +7120,11 @@ export function CreatorWorkspace({
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
                         <h3>Spells</h3>
-                        <p>{`Pick the ${currentClass.name.toLowerCase()} spells you know. Locked ones say why. Click any spell to read it.`}</p>
+                        <p>
+                          {currentCuratedClass?.spellPreparation
+                            ? `Choose the ${currentClass.name.toLowerCase()} spells you have prepared today (${currentCuratedClass.spellPreparation.divisor > 1 ? "half your level" : "your level"} + ${currentCuratedClass.spellPreparation.ability}). You can change them after a long rest. Locked ones say why.`
+                            : `Pick the ${currentClass.name.toLowerCase()} spells you know. Locked ones say why. Click any spell to read it.`}
+                        </p>
                       </div>
                       {(() => {
                         type SpellRow = ContentBundle["spells"][number];

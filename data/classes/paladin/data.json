@@ -1,0 +1,755 @@
+{
+  "id": "paladin",
+  "name": "Paladin",
+  "sourceUrl": "https://dnd5e.wikidot.com/paladin",
+  "summary": "A holy warrior bound to a sacred oath. Paladins wear heavy armor, protect their allies with auras and healing, and turn spell slots into devastating smites.",
+  "multiclassRequirement": "Strength 13 and Charisma 13 or higher.",
+  "hitDie": "d10",
+  "primaryAbilities": [
+    "STR",
+    "CHA"
+  ],
+  "savingThrows": [
+    "WIS",
+    "CHA"
+  ],
+  "spellcastingAbility": "CHA",
+  "spellPreparation": {
+    "ability": "CHA",
+    "divisor": 2
+  },
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "WIS",
+        "CHA"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "armor",
+      "values": [
+        "Light Armor",
+        "Medium Armor",
+        "Heavy Armor",
+        "Shields"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Simple Weapons",
+        "Martial Weapons"
+      ]
+    }
+  ],
+  "hitPoints": {
+    "Hit Dice": "1d10 per paladin level",
+    "Hit Points at 1st Level": "10 + your Constitution modifier",
+    "Hit Points at Higher Levels": "1d10 (or 6) + your Constitution modifier per paladin level after 1st"
+  },
+  "proficiencies": {
+    "Armor": "All armor, shields",
+    "Weapons": "Simple weapons, martial weapons",
+    "Tools": "None",
+    "Saving Throws": "Wisdom, Charisma",
+    "Skills": "Choose two from Athletics, Insight, Intimidation, Medicine, Persuasion and Religion"
+  },
+  "spellcastingTable": {
+    "title": "The Paladin",
+    "rows": [
+      [
+        "The Paladin",
+        "Spell Slots per Spell Level"
+      ],
+      [
+        "Level",
+        "Proficiency Bonus",
+        "Features",
+        "1st",
+        "2nd",
+        "3rd",
+        "4th",
+        "5th"
+      ],
+      [
+        "1st",
+        "+2",
+        "Divine Sense, Lay on Hands",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "2nd",
+        "+2",
+        "Fighting Style, Spellcasting, Divine Smite",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "3rd",
+        "+2",
+        "Divine Health, Sacred Oath",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "4th",
+        "+2",
+        "Ability Score Improvement",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "5th",
+        "+3",
+        "Extra Attack",
+        "4",
+        "2",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "6th",
+        "+3",
+        "Aura of Protection",
+        "4",
+        "2",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "7th",
+        "+3",
+        "–",
+        "4",
+        "3",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "8th",
+        "+3",
+        "Ability Score Improvement",
+        "4",
+        "3",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "9th",
+        "+4",
+        "–",
+        "4",
+        "3",
+        "2",
+        "-",
+        "-"
+      ],
+      [
+        "10th",
+        "+4",
+        "Aura of Courage",
+        "4",
+        "3",
+        "2",
+        "-",
+        "-"
+      ],
+      [
+        "11th",
+        "+4",
+        "Improved Divine Smite",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-"
+      ],
+      [
+        "12th",
+        "+4",
+        "Ability Score Improvement",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-"
+      ],
+      [
+        "13th",
+        "+5",
+        "–",
+        "4",
+        "3",
+        "3",
+        "1",
+        "-"
+      ],
+      [
+        "14th",
+        "+5",
+        "Cleansing Touch",
+        "4",
+        "3",
+        "3",
+        "1",
+        "-"
+      ],
+      [
+        "15th",
+        "+5",
+        "–",
+        "4",
+        "3",
+        "3",
+        "2",
+        "-"
+      ],
+      [
+        "16th",
+        "+5",
+        "Ability Score Improvement",
+        "4",
+        "3",
+        "3",
+        "2",
+        "-"
+      ],
+      [
+        "17th",
+        "+6",
+        "–",
+        "4",
+        "3",
+        "3",
+        "3",
+        "1"
+      ],
+      [
+        "18th",
+        "+6",
+        "–",
+        "4",
+        "3",
+        "3",
+        "3",
+        "1"
+      ],
+      [
+        "19th",
+        "+6",
+        "Ability Score Improvement",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2"
+      ],
+      [
+        "20th",
+        "+6",
+        "–",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2"
+      ]
+    ]
+  },
+  "spellcastingNotes": [
+    "You prepare paladin spells after each long rest: half your paladin level (rounded down) + your Charisma modifier, minimum one."
+  ],
+  "classFeatures": [
+    {
+      "id": "divine-sense",
+      "name": "Divine Sense",
+      "keyFacts": [
+        "Action, 60 ft., until the end of your next turn.",
+        "Uses: 1 + CHA modifier per long rest."
+      ],
+      "summary": "As an action, you know the location of any celestial, fiend or undead within 60 feet of you that is not behind total cover, until the end of your next turn. You also sense consecrated or desecrated places. You can use this 1 + CHA modifier times per long rest.",
+      "unlockLevel": 1,
+      "short": "Action: sense celestials, fiends and undead within 60 ft.",
+      "facts": {
+        "action": "Action",
+        "range": "60 ft.",
+        "uses": "1 + CHA per long rest"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "divine-sense",
+          "name": "Divine Sense",
+          "uses": "1+CHA",
+          "recharge": "long_rest"
+        }
+      ]
+    },
+    {
+      "id": "lay-on-hands",
+      "name": "Lay on Hands",
+      "keyFacts": [
+        "Pool = 5 × paladin level, refills on a long rest.",
+        "Spend 5 points to cure a disease or poison."
+      ],
+      "summary": "You have a pool of healing power equal to 5 × your paladin level, restored on a long rest. As an action, touch a creature to restore any number of hit points from the pool, or spend 5 points to cure one disease or neutralize one poison. It has no effect on undead and constructs.",
+      "unlockLevel": 1,
+      "short": "Action: heal by touch from a pool of 5 × level HP.",
+      "facts": {
+        "action": "Action",
+        "range": "Touch"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "lay-on-hands",
+          "name": "Lay on Hands (HP pool)",
+          "uses": "5*LEVEL",
+          "recharge": "long_rest"
+        }
+      ],
+      "currentValueTemplate": "{fighterLevel} × 5 HP pool"
+    },
+    {
+      "id": "fighting-style",
+      "name": "Fighting Style",
+      "keyFacts": [
+        "Choose one Fighting Style."
+      ],
+      "summary": "You adopt a particular style of fighting as your specialty. Choose one option.",
+      "unlockLevel": 2,
+      "short": "Pick a permanent combat style.",
+      "facts": {
+        "action": "Passive"
+      },
+      "choices": [
+        {
+          "id": "paladin-fighting-style",
+          "label": "Fighting Style",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "defense",
+                "name": "Defense",
+                "summary": "While you are wearing armor, you gain a +1 bonus to AC.",
+                "grants": [
+                  {
+                    "type": "ac",
+                    "bonus": 1,
+                    "condition": "while wearing armor"
+                  }
+                ]
+              },
+              {
+                "id": "dueling",
+                "name": "Dueling",
+                "summary": "When you wield a melee weapon in one hand and no other weapons, you gain +2 to damage rolls with it."
+              },
+              {
+                "id": "great-weapon-fighting",
+                "name": "Great Weapon Fighting",
+                "summary": "When you roll a 1 or 2 on a damage die for a two-handed or versatile melee weapon held in two hands, you can reroll it once."
+              },
+              {
+                "id": "protection",
+                "name": "Protection",
+                "summary": "Reaction while holding a shield: impose disadvantage on an attack against a creature within 5 ft. of you."
+              },
+              {
+                "id": "blessed-warrior",
+                "name": "Blessed Warrior",
+                "summary": "Learn two cleric cantrips; they count as paladin spells and use CHA."
+              },
+              {
+                "id": "blind-fighting",
+                "name": "Blind Fighting",
+                "summary": "You have blindsight out to 10 feet.",
+                "grants": [
+                  {
+                    "type": "sense",
+                    "sense": "blindsight",
+                    "range": 10
+                  }
+                ]
+              },
+              {
+                "id": "interception",
+                "name": "Interception",
+                "summary": "Reaction while holding a shield or weapon: reduce damage to a creature within 5 ft. by 1d10 + your proficiency bonus."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "keyFacts": [
+        "Prepare paladin spells after each long rest: half your paladin level (rounded down) + CHA modifier, at least one.",
+        "Spell save DC = 8 + PB + CHA; spell attack = PB + CHA."
+      ],
+      "summary": "You can cast paladin spells. Prepare paladin spells after each long rest: half your paladin level (rounded down) + CHA modifier, at least one. CHA is your spellcasting ability: spell save DC = 8 + proficiency bonus + CHA modifier, spell attack = proficiency bonus + CHA modifier. You can use a holy symbol as a spellcasting focus. You regain all spell slots on a long rest.",
+      "unlockLevel": 2,
+      "short": "Cast paladin spells using CHA.",
+      "facts": {
+        "action": "Special",
+        "dc": "spell"
+      }
+    },
+    {
+      "id": "divine-smite",
+      "name": "Divine Smite",
+      "keyFacts": [
+        "2d8 radiant for a 1st-level slot, +1d8 per level above (max 5d8).",
+        "+1d8 against undead and fiends."
+      ],
+      "summary": "When you hit with a melee weapon attack, you can expend a spell slot to deal 2d8 extra radiant damage, plus 1d8 per slot level above 1st (max 5d8). Add 1d8 against undead or fiends.",
+      "unlockLevel": 2,
+      "short": "Spend a slot on a melee hit for big radiant damage.",
+      "facts": {
+        "action": "Special",
+        "cost": "Spell slot"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Divine Smite: on a melee weapon hit, spend a spell slot for 2d8 radiant (+1d8 per slot level above 1st, +1d8 vs undead/fiends, max 5d8)."
+        }
+      ]
+    },
+    {
+      "id": "divine-health",
+      "name": "Divine Health",
+      "keyFacts": [
+        "Immunity to disease."
+      ],
+      "summary": "The divine magic flowing through you makes you immune to disease.",
+      "unlockLevel": 3,
+      "short": "Immune to disease.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "disease"
+        }
+      ]
+    },
+    {
+      "id": "sacred-oath",
+      "name": "Sacred Oath",
+      "keyFacts": [
+        "Subclass: oath spells and Channel Divinity."
+      ],
+      "summary": "Swear the oath that binds you as a paladin forever. It grants oath spells, Channel Divinity options and features at 3rd, 7th, 15th and 20th level.",
+      "unlockLevel": 3,
+      "short": "Swear your sacred oath.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "channel-divinity",
+          "name": "Channel Divinity",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ]
+    },
+    {
+      "id": "ability-score-improvement",
+      "name": "Ability Score Improvement",
+      "keyFacts": [
+        "+2 to one ability or +1 to two, or a feat."
+      ],
+      "milestones": [
+        {
+          "level": 4,
+          "label": "ASI"
+        },
+        {
+          "level": 8,
+          "label": "ASI"
+        },
+        {
+          "level": 12,
+          "label": "ASI"
+        },
+        {
+          "level": 16,
+          "label": "ASI"
+        },
+        {
+          "level": 19,
+          "label": "ASI"
+        }
+      ],
+      "summary": "When you reach 4th level, and again at 8th, 12th, 16th, 19th level, you can increase one ability score by 2, or two ability scores by 1. You can't raise a score above 20 this way. If your DM allows feats, you can take a feat instead.",
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "extra-attack",
+      "name": "Extra Attack",
+      "keyFacts": [
+        "Two attacks per Attack action."
+      ],
+      "summary": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      "unlockLevel": 5,
+      "short": "Attack twice with the Attack action.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "aura-of-protection",
+      "name": "Aura of Protection",
+      "keyFacts": [
+        "+CHA modifier to saves for you and allies within 10 ft. (30 ft. at 18)."
+      ],
+      "summary": "Whenever you or a friendly creature within 10 feet of you must make a saving throw, the creature gains a bonus to the save equal to your Charisma modifier (minimum +1). You must be conscious. The range becomes 30 feet at 18th level.",
+      "unlockLevel": 6,
+      "short": "You and nearby allies add your CHA to saving throws.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Aura of Protection: you and allies within 10 ft. (30 ft. at 18th) add your CHA modifier (min +1) to saving throws."
+        }
+      ],
+      "milestones": [
+        {
+          "level": 6,
+          "label": "10 ft. aura"
+        },
+        {
+          "level": 18,
+          "label": "30 ft. aura"
+        }
+      ]
+    },
+    {
+      "id": "aura-of-courage",
+      "name": "Aura of Courage",
+      "keyFacts": [
+        "Frightened immunity in your aura."
+      ],
+      "summary": "You and friendly creatures within 10 feet of you can't be frightened while you are conscious. The range becomes 30 feet at 18th level.",
+      "unlockLevel": 10,
+      "short": "You and nearby allies can't be frightened.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "frightened"
+        }
+      ]
+    },
+    {
+      "id": "improved-divine-smite",
+      "name": "Improved Divine Smite",
+      "keyFacts": [
+        "+1d8 radiant on every melee weapon hit."
+      ],
+      "summary": "Whenever you hit a creature with a melee weapon, it takes an extra 1d8 radiant damage.",
+      "unlockLevel": 11,
+      "short": "Every melee hit deals +1d8 radiant.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Improved Divine Smite: +1d8 radiant on every melee weapon hit."
+        }
+      ]
+    },
+    {
+      "id": "cleansing-touch",
+      "name": "Cleansing Touch",
+      "keyFacts": [
+        "Uses: CHA modifier per long rest."
+      ],
+      "summary": "You can use your action to end one spell on yourself or on one willing creature that you touch. You can use this a number of times equal to your Charisma modifier (minimum 1) per long rest.",
+      "unlockLevel": 14,
+      "short": "Action: end a spell on yourself or an ally.",
+      "facts": {
+        "action": "Action",
+        "range": "Touch"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "cleansing-touch",
+          "name": "Cleansing Touch",
+          "uses": "CHA",
+          "recharge": "long_rest"
+        }
+      ]
+    }
+  ],
+  "journeyStages": [
+    {
+      "id": "class",
+      "label": "Class",
+      "browser": "class",
+      "summary": "Review the paladin at a glance."
+    },
+    {
+      "id": "features",
+      "label": "Class Features",
+      "browser": "class-features",
+      "summary": "What your class gives you, level by level."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "browser": "inventory",
+      "summary": "Choose your starting kit."
+    },
+    {
+      "id": "subclass",
+      "label": "Sacred Oath",
+      "browser": "subclass",
+      "minLevel": 3,
+      "summary": "Choose your sacred oath."
+    },
+    {
+      "id": "spells",
+      "label": "Spells",
+      "browser": "spells",
+      "summary": "Choose your spells.",
+      "minLevel": 2
+    }
+  ],
+  "startingEquipment": [
+    {
+      "id": "paladin-arms",
+      "prompt": "Primary Arms",
+      "options": [
+        {
+          "id": "weapon-shield",
+          "label": "Martial Weapon and Shield",
+          "items": [
+            "Martial Weapon",
+            "Shield"
+          ]
+        },
+        {
+          "id": "two-martial",
+          "label": "Two Martial Weapons",
+          "items": [
+            "2x Martial Weapons"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paladin-backup",
+      "prompt": "Backup",
+      "options": [
+        {
+          "id": "five-javelins",
+          "label": "Five Javelins",
+          "items": [
+            "5 Javelins"
+          ]
+        },
+        {
+          "id": "simple-melee-weapon",
+          "label": "Any Simple Melee Weapon",
+          "items": [
+            "Simple Melee Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paladin-pack",
+      "prompt": "Pack",
+      "options": [
+        {
+          "id": "priest-pack",
+          "label": "Priest's Pack",
+          "items": [
+            "Priest's Pack"
+          ]
+        },
+        {
+          "id": "explorer-pack",
+          "label": "Explorer's Pack",
+          "items": [
+            "Explorer's Pack"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paladin-kit",
+      "prompt": "Kit",
+      "options": [
+        {
+          "id": "chain-mail-symbol",
+          "label": "Chain Mail and Holy Symbol",
+          "items": [
+            "Chain Mail",
+            "Amulet"
+          ]
+        }
+      ]
+    }
+  ],
+  "subclassHeading": "Sacred Oath",
+  "subclasses": [],
+  "highlights": [
+    {
+      "title": "Combat Role",
+      "body": "Heavily armored frontliner who spikes damage with Divine Smite and keeps the party standing with Lay on Hands and auras."
+    },
+    {
+      "title": "Core Resources",
+      "body": "Spell slots fuel both spells and smites. Lay on Hands is a healing pool of 5 × your level; Channel Divinity comes from your oath."
+    },
+    {
+      "title": "Level Rhythm",
+      "body": "Fighting Style, spells and Divine Smite at 2, oath at 3, Extra Attack at 5, Aura of Protection at 6, Improved Divine Smite at 11."
+    }
+  ],
+  "notes": []
+}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { AvailableChoice } from "@/lib/engine/collect";
 import { PickGrid, PickSection, type PickTile } from "@/components/ui/pick-grid";
 import { Keywordize } from "@/components/ui/keyword-text";
-import { schoolIcon, skillIcon, toolIcon, weaponIcon, type GameIconName } from "@/lib/ui/game-icons";
+import { featureIcon, schoolIcon, skillIcon, styleIcon, toolIcon, weaponIcon, type GameIconName } from "@/lib/ui/game-icons";
 import { GearCard } from "@/components/ui/gear-info";
 import { findGearInfo, type GearInfo } from "@/lib/content/item-info";
 import type { ContentBundle } from "@/lib/content/schema";
@@ -36,7 +36,7 @@ export function OptionChoicePanel({
   );
 }
 
-function candidateIcon(kind: string, candidate: AvailableChoice["candidates"][number]): GameIconName {
+function candidateIcon(kind: string, candidate: AvailableChoice["candidates"][number], label = ""): GameIconName {
   if (kind === "weapon") {
     return weaponIcon(candidate.name);
   }
@@ -45,6 +45,9 @@ function candidateIcon(kind: string, candidate: AvailableChoice["candidates"][nu
   }
   if (kind === "skill") {
     return skillIcon(candidate.id);
+  }
+  if (kind === "option") {
+    return /fighting style/i.test(label) ? styleIcon(candidate.name) : featureIcon(candidate.name);
   }
   if (kind === "ability") {
     return "stars-stack";
@@ -55,7 +58,10 @@ function candidateIcon(kind: string, candidate: AvailableChoice["candidates"][nu
   return schoolIcon(candidate.tags.join(" "));
 }
 
-function candidateSub(kind: string, tags: string[]) {
+function candidateSub(kind: string, tags: string[], summary?: string) {
+  if (kind === "option" && summary) {
+    return summary.length > 70 ? `${summary.slice(0, 67).trimEnd()}...` : summary;
+  }
   if (kind === "weapon" && tags.length > 1) {
     return tags.slice(1).join(" · ");
   }
@@ -91,8 +97,8 @@ function ChoiceBlock({
   const tiles: PickTile[] = visible.map((candidate) => ({
     id: candidate.id,
     name: candidate.name,
-    sub: gearFor(content, kind, candidate)?.sub ?? candidateSub(kind, candidate.tags),
-    icon: candidateIcon(kind, candidate),
+    sub: gearFor(content, kind, candidate)?.sub ?? candidateSub(kind, candidate.tags, candidate.summary),
+    icon: candidateIcon(kind, candidate, choice.label),
     selected: selectedIds.includes(candidate.id),
     dim: full && choice.count > 1 && !selectedIds.includes(candidate.id),
   }));
@@ -133,7 +139,7 @@ function ChoiceBlock({
       }
     >
       {tiles.length ? (
-        <PickGrid key={needle} items={tiles} columns={kind === "ability" ? 6 : 5} size="sm" pageSize={15} label={choice.label} onPick={pick} onInspect={setInspected} inspectedId={inspected} />
+        <PickGrid key={needle} items={tiles} columns={kind === "ability" ? 6 : kind === "option" ? 3 : 5} size="sm" pageSize={15} label={choice.label} onPick={pick} onInspect={setInspected} inspectedId={inspected} />
       ) : (
         <p className="pick-note">Nothing matches this choice at your current level.</p>
       )}

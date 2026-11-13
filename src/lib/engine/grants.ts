@@ -218,6 +218,25 @@ export const optionChoiceSchema = z
           amount: z.number().int().positive().default(1),
         })
         .strict(),
+      /** Isimli secenekler (Metamagic, Infusion, Paladin Fighting Style...). Secilenin grant'leri uygulanir. */
+      z
+        .object({
+          kind: z.literal("option"),
+          options: z
+            .array(
+              z
+                .object({
+                  id: z.string().min(1),
+                  name: z.string().min(1),
+                  summary: z.string().min(1),
+                  minLevel: z.number().int().positive().optional(),
+                  grants: z.array(z.lazy((): z.ZodType<Grant> => grantSchema)).default([]),
+                })
+                .strict(),
+            )
+            .min(1),
+        })
+        .strict(),
       /** Dil secimi; options yoksa butun diller. */
       z
         .object({

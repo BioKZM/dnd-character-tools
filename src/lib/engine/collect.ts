@@ -293,6 +293,16 @@ function choiceGrants(host: ChoiceHost, draft: CharacterDraft, content: ContentB
         ...(choice.grantAs === "ability_save" ? [{ type: "proficiency" as const, category: "save" as const, values: [ability] }] : []),
       ]);
     }
+    if (choice.from.kind === "option") {
+      const options = choice.from.options;
+      return picked.flatMap((id): Grant[] => {
+        const option = options.find((entry) => entry.id === id);
+        if (!option) {
+          return [];
+        }
+        return option.grants.length ? option.grants : [{ type: "note" as const, text: `${option.name}: ${option.summary}` }];
+      });
+    }
     if (choice.from.kind === "language") {
       return picked.length ? [{ type: "proficiency" as const, category: "language" as const, values: picked }] : [];
     }
@@ -353,6 +363,11 @@ export function choiceCandidates(choice: OptionChoice, draft: CharacterDraft, co
   if (choice.from.kind === "ability") {
     const amount = choice.from.amount;
     return choice.from.options.map((id) => ({ id, name: ABILITY_NAMES[id], tags: [`+${amount}`] }));
+  }
+  if (choice.from.kind === "option") {
+    return choice.from.options
+      .filter((option) => !option.minLevel || draft.level >= option.minLevel)
+      .map((option) => ({ id: option.id, name: option.name, tags: option.minLevel ? [`Level ${option.minLevel}+`] : [], summary: option.summary }));
   }
   if (choice.from.kind === "language") {
     const only = choice.from.options;

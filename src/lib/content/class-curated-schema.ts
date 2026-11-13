@@ -117,6 +117,17 @@ export const classCuratedEntrySchema = z.object({
   savingThrows: z.array(abilityIdSchema).default([]),
   /** Class'in buyu yapma yetenegi (Bard CHA, Ranger WIS, Warlock CHA). Fighter gibi buyusuz class'larda yok; Eldritch Knight subclass'tan gelir. */
   spellcastingAbility: abilityIdSchema.optional(),
+  /**
+   * Buyu hazirlayan class'lar (Cleric, Druid, Paladin, Wizard, Artificer): hazirlanan buyu sayisi
+   * = level / divisor (asagi yuvarlanir) + ability modifier, en az 1. Yoksa "Spells Known" sutunu kullanilir.
+   */
+  spellPreparation: z
+    .object({
+      ability: abilityIdSchema,
+      divisor: z.number().int().positive().default(1),
+      note: z.string().optional(),
+    })
+    .optional(),
   /** 1. level'da class'tan gelen proficiency'ler (armor, weapon, tool, save). */
   startingGrants: z.array(grantSchema).default([]),
   hitPoints: z.record(z.string(), z.string()),
@@ -129,6 +140,8 @@ export const classCuratedEntrySchema = z.object({
   subclassHeading: z.string(),
   subclasses: z.array(z.string()),
   notes: z.array(z.string()).default([]),
+  /** Class ekranindaki ozet satirlari: "Combat Role", "Core Resources", "Level Rhythm". */
+  highlights: z.array(z.object({ title: z.string(), body: z.string() })).default([]),
 });
 
 export const resolvedClassCuratedEntrySchema = classCuratedEntrySchema.extend({

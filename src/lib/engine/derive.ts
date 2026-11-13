@@ -329,6 +329,18 @@ export function resolveResourceUses(
   if (token in context.modifiers) {
     return Math.max(1, context.modifiers[token as AbilityId]);
   }
+  // "5*LEVEL" (Lay on Hands havuzu), "1+CHA" (Divine Sense), "HALF_LEVEL".
+  const multiple = token.match(/^(\d+)\s*\*\s*LEVEL$/);
+  if (multiple) {
+    return Number(multiple[1]) * context.level;
+  }
+  const plus = token.match(/^(\d+)\s*\+\s*(STR|DEX|CON|INT|WIS|CHA)$/);
+  if (plus) {
+    return Math.max(1, Number(plus[1]) + context.modifiers[plus[2] as AbilityId]);
+  }
+  if (token === "HALF_LEVEL") {
+    return Math.max(1, Math.floor(context.level / 2));
+  }
   let total = Number(uses.match(/^\d+/)?.[0] ?? 1);
   for (const match of uses.matchAll(/(\d+)\s+at\s+(\d+)/g)) {
     if (context.level >= Number(match[2])) {
