@@ -28,7 +28,7 @@ import type { LineageCollection, ResolvedLineageEntry, SubraceEntry } from "@/li
 import type { ContentBundle } from "@/lib/content/schema";
 import type { SpellReferenceCollection, SpellReferenceEntry } from "@/lib/content/spell-reference";
 import { AppIcon } from "@/components/ui/app-icon";
-import { InspectPanel, PathCards, PickGrid, PickLayout, PickSection, PickTabs, type PickTile } from "@/components/ui/pick-grid";
+import { CreatorSideContext, InspectPanel, PathCards, PickGrid, PickLayout, PickSection, PickTabs, type PickTile } from "@/components/ui/pick-grid";
 import { GearCard, GearList } from "@/components/ui/gear-info";
 import { GameIcon } from "@/components/ui/game-icon";
 import { findGearInfo, gearInfosFor, weaponInfo } from "@/lib/content/item-info";
@@ -1730,6 +1730,34 @@ function featSearchText(feat: ContentBundle["feats"][number]) {
   ].filter(Boolean).join(" ").toLowerCase();
 }
 
+/** Feat kartinda tek satir: ne verdigi (grant'lardan), or. "+1 CHA · Advantage on Deception...". */
+function featGivesLine(feat: ContentBundle["feats"][number]) {
+  const parts: string[] = [];
+  const title = (id: string) => id.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
+  (feat.grants ?? []).forEach((raw) => {
+    const grant = raw as Record<string, unknown>;
+    if (grant.type === "ability" && grant.ability) parts.push(`+${grant.amount ?? 1} ${String(grant.ability)}`);
+    if (grant.type === "initiative" && grant.bonus) parts.push(`+${grant.bonus} initiative`);
+    if (grant.type === "hp" && grant.perLevel) parts.push(`+${grant.perLevel} HP per level`);
+    if (grant.type === "speed" && grant.value) parts.push(`+${grant.value} ft. speed`);
+    if (grant.type === "resource" && grant.name) parts.push(`${grant.uses ?? ""} ${String(grant.name)}`.trim());
+    if (grant.type === "spell" && grant.spellId) parts.push(`Learn ${title(String(grant.spellId))}`);
+  });
+  (feat.choices ?? []).forEach((choice) => {
+    if (choice.from.kind === "ability") parts.unshift(choice.label.replace(/\bto (an? )?/i, "").replace(/ or /g, "/"));
+    else if (choice.from.kind === "spell") parts.push("Pick a spell");
+    else parts.push(choice.label);
+  });
+  if (parts.length < 2) {
+    const note = (feat.grants ?? []).map((raw) => raw as Record<string, unknown>).find((grant) => grant.type === "note" && typeof grant.text === "string");
+    if (note) {
+      const text = String(note.text);
+      parts.push(text.length > 46 ? `${text.slice(0, 44).replace(/\s+\S*$/, "")}...` : text.replace(/\.$/, ""));
+    }
+  }
+  return parts.slice(0, 2).join(" · ");
+}
+
 function featTags(feat: ContentBundle["feats"][number]) {
   const text = featSearchText(feat);
   const tags = [
@@ -3021,8 +3049,10 @@ export function CreatorWorkspace({
   const [activeSpellFilter, setActiveSpellFilter] = useState<number | "all">("all");
   const [spellListPage, setSpellListPage] = useState(0);
   const [spellSearchQuery, setSpellSearchQuery] = useState("");
+  const [creatorSideTarget, setCreatorSideTarget] = useState<HTMLElement | null>(null);
   const [equipOpenFamily, setEquipOpenFamily] = useState<Record<string, string>>({});
   const [equipSlot, setEquipSlot] = useState<Record<string, number>>({});
+  const [equipFocus, setEquipFocus] = useState<{ groupId: string; optionId: string } | null>(null);
   const [customWeaponsOpen, setCustomWeaponsOpen] = useState(false);
   const [customWeaponQuery, setCustomWeaponQuery] = useState("");
   const [customWeaponFilter, setCustomWeaponFilter] = useState<"all" | "simple" | "martial" | "ranged">("all");
@@ -5161,6 +5191,7 @@ export function CreatorWorkspace({
       if (family.slots === 1) {
         const option = family.optionFor([weaponId]);
         if (option) {
+          setEquipFocus({ groupId: group.id, optionId: option.id });
           setFighterEquipmentChoice(group.id, option.id);
         }
         return;
@@ -5169,6 +5200,7 @@ export function CreatorWorkspace({
       const next = slot === 0 ? [weaponId, current[1] ?? weaponId] : [current[0] ?? weaponId, weaponId];
       const option = family.optionFor(next);
       if (option) {
+        setEquipFocus({ groupId: group.id, optionId: option.id });
         setFighterEquipmentChoice(group.id, option.id);
       }
       if (slot === 0) {
@@ -5199,6 +5231,7 @@ export function CreatorWorkspace({
                 aria-pressed={on}
                 onClick={() => {
                   setEquipOpenFamily((state) => ({ ...state, [group.id]: "" }));
+                  setEquipFocus({ groupId: group.id, optionId: option.id });
                   setFighterEquipmentChoice(group.id, option.id);
                 }}
               >
@@ -5277,8 +5310,34 @@ export function CreatorWorkspace({
             />
           </div>
         ) : null}
-        {chosen ? <GearList title="What you get" infos={gearInfosFor(content, chosen.label, chosen.items)} /> : null}
       </div>
+    );
+  };
+  // Ekipman ekraninin sag paneli: son tiklanan secenegin icindekiler.
+  const renderEquipmentInspect = () => {
+    const focusGroup = classStartingEquipment.find((group) => group.id === equipFocus?.groupId) ?? null;
+    const focusOption = focusGroup?.options.find((option) => option.id === equipFocus?.optionId) ?? null;
+    if (!focusOption || !focusGroup) {
+      const chosenItems = classStartingEquipment.flatMap((group) => {
+        const option = group.options.find((entry) => entry.id === draft.fighterChoices?.equipmentChoiceIds?.[group.id]);
+        return option ? gearInfosFor(content, option.label, option.items) : [];
+      });
+      return (
+        <InspectPanel
+          icon="knapsack"
+          kicker="Starting equipment"
+          title="Your kit so far"
+          summary={chosenItems.length ? "Click any item to see what it does. Click an option on the left to see what is inside it." : "Pick one option in each group. What is inside shows up here."}
+        >
+          {chosenItems.length ? <GearList infos={chosenItems} /> : null}
+        </InspectPanel>
+      );
+    }
+    const infos = gearInfosFor(content, focusOption.label, focusOption.items);
+    return (
+      <InspectPanel icon={infos[0]?.icon ?? "knapsack"} kicker={focusGroup.prompt} title={focusOption.label} summary={infos.length > 1 ? `${infos.length} things inside. Click one to read it.` : null}>
+        <GearList infos={infos} openFirst />
+      </InspectPanel>
     );
   };
 
@@ -6096,16 +6155,20 @@ export function CreatorWorkspace({
             onNavigate={goToCreatorScreen}
           />
           <div className="creator-stage-body">
-          <CreatorSummaryPanel
-            icon={classIcon(draft.classId)}
-            name={draft.name.trim() || "Unnamed character"}
-            lines={creatorSummaryLines}
-            stats={creatorFlowStats.slice(0, 3)}
-            abilities={previewPanelAbilities}
-            steps={creatorFlowSteps}
-            activeBrowser={creatorFlowCurrent?.browser ?? null}
-            onNavigate={goToCreatorScreen}
-          />
+          <aside className="creator-side">
+            <CreatorSummaryPanel
+              icon={classIcon(draft.classId)}
+              name={draft.name.trim() || "Unnamed character"}
+              lines={creatorSummaryLines}
+              stats={creatorFlowStats.slice(0, 3)}
+              abilities={previewPanelAbilities}
+              steps={creatorFlowSteps}
+              activeBrowser={creatorFlowCurrent?.browser ?? null}
+              onNavigate={goToCreatorScreen}
+            />
+            <div className="creator-side-inspect" ref={setCreatorSideTarget} />
+          </aside>
+          <CreatorSideContext.Provider value={creatorSideTarget}>
           <div className={originCarouselActive ? "creator-main-panel creator-main-panel-clean creator-main-panel-flat origin-carousel-main" : "creator-main-panel creator-main-panel-clean creator-main-panel-flat"}>
           {originCarouselActive ? (
             <section className="origin-carousel-shell" aria-label="Origin setup">
@@ -6809,6 +6872,9 @@ export function CreatorWorkspace({
                               picked={draft.selectedSubclassOptions.length ? 1 : 0}
                               total={1}
                             >
+                              {!fighterJourneySubclasses.length && !(currentDocClass?.subclasses ?? []).length ? (
+                                <p className="pick-later">{`No ${visibleSubclassHeading.toLowerCase()} is enabled in this campaign yet. They are coming in a later update; you can keep building without one.`}</p>
+                              ) : null}
                               <PathCards
                                 label={visibleSubclassHeading}
                                 onInspect={setInspectId}
@@ -6850,12 +6916,14 @@ export function CreatorWorkspace({
                       </div>
                       <div className="fighter-journey-scene-divider" aria-hidden="true" />
                       <article className="fighter-equipment-section">
-                        <div className="equipment-choice-stack">
-                          {classStartingEquipment.length ? classStartingEquipment.map((group) => renderEquipmentChoiceGroup(group, "journey-gear")) : (
-                            <p className="pick-note">This class has no starting equipment choices yet.</p>
-                          )}
-                          {renderCustomWeapons()}
-                        </div>
+                        <PickLayout inspect={renderEquipmentInspect()}>
+                          <div className="equipment-choice-stack">
+                            {classStartingEquipment.length ? classStartingEquipment.map((group) => renderEquipmentChoiceGroup(group, "journey-gear")) : (
+                              <p className="pick-note">This class has no starting equipment choices yet.</p>
+                            )}
+                            {renderCustomWeapons()}
+                          </div>
+                        </PickLayout>
                       </article>
                     </div>
                   ) : null}
@@ -9612,8 +9680,8 @@ export function CreatorWorkspace({
                               warning={focusCheck && !focusCheck.eligible && !focusSlot ? `Missing: ${focusCheck.unmet.join(", ")}` : null}
                               rows={[
                                 { label: "Needs", value: focus.prerequisite || "Nothing" },
-                                ...(featTags(focus).filter((tag) => tag !== "Prerequisite").length
-                                  ? [{ label: "Gives", value: featTags(focus).filter((tag) => tag !== "Prerequisite").join(", ") }]
+                                ...(featGivesLine(focus) || featTags(focus).filter((tag) => tag !== "Prerequisite").length
+                                  ? [{ label: "Gives", value: featGivesLine(focus) || featTags(focus).filter((tag) => tag !== "Prerequisite").join(", ") }]
                                   : []),
                                 ...(focusCheck?.dmNotes.length ? [{ label: "DM", value: focusCheck.dmNotes.join(" ") }] : []),
                               ]}
@@ -9683,7 +9751,10 @@ export function CreatorWorkspace({
                               items={shown.map((row) => ({
                                 id: row.feat.id,
                                 name: row.feat.name,
-                                sub: row.selected ? "Taken" : featSourceShort(row.feat.source),
+                                // Kartta kitap yerine ne verdigi: "+1 STR or DEX · Speed" gibi.
+                                sub: row.selected
+                                  ? "Taken"
+                                  : featGivesLine(row.feat) || featSourceShort(row.feat.source),
                                 icon: featIcon(row.feat.name),
                                 selected: row.selected,
                                 locked: row.locked,
@@ -9696,7 +9767,6 @@ export function CreatorWorkspace({
                         </PickSection>
                         {optionChoices.some((entry) => entry.sourceKind === "feat") ? (
                           <div className="option-choice-stack feat-choice-stack">
-                            <span className="gear-list-title">Choices from your feats</span>
                             <OptionChoicePanel title="Choices from your feats" content={content} choices={optionChoices.filter((entry) => entry.sourceKind === "feat")} onToggle={toggleOptionChoice} />
                           </div>
                         ) : null}
@@ -10681,6 +10751,7 @@ export function CreatorWorkspace({
             position={creatorFlowPosition}
           />
         </div>
+          </CreatorSideContext.Provider>
         </div>
         </div>
       </div>

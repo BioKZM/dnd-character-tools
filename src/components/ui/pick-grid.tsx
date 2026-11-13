@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { GameIcon } from "@/components/ui/game-icon";
 import { Keywordize } from "@/components/ui/keyword-text";
 import type { GameIconName } from "@/lib/ui/game-icons";
@@ -291,8 +292,20 @@ export function InspectPanel({
   );
 }
 
-/** Izgara + inceleme paneli yan yana. */
+/** Creator'da sagdaki sabit sutun: inceleme paneli oraya (karakter ozetinin altina) tasinir. */
+export const CreatorSideContext = createContext<HTMLElement | null>(null);
+
+/** Izgara + inceleme paneli. Creator'da panel sagdaki sabit sutuna gider, yoksa yan yana durur. */
 export function PickLayout({ children, inspect }: { children: ReactNode; inspect: ReactNode }) {
+  const sideTarget = useContext(CreatorSideContext);
+  if (sideTarget) {
+    return (
+      <div className="pick-layout solo">
+        <div className="pick-layout-main">{children}</div>
+        {createPortal(inspect, sideTarget)}
+      </div>
+    );
+  }
   return (
     <div className="pick-layout">
       <div className="pick-layout-main">{children}</div>

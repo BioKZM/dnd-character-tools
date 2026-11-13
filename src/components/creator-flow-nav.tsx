@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { GameIcon } from "@/components/ui/game-icon";
 import type { GameIconName } from "@/lib/ui/game-icons";
 
@@ -131,7 +132,7 @@ export function CreatorFlowFooter({
   );
 }
 
-/** Solda sabit karakter ozeti: kim oldugu, sayilari ve nelerin kaldigi. */
+/** Sagda sabit, kompakt karakter ozeti: kim oldugu, renkli statlar ve nelerin kaldigi. */
 export function CreatorSummaryPanel({
   icon,
   name,
@@ -151,34 +152,33 @@ export function CreatorSummaryPanel({
   activeBrowser: string | null;
   onNavigate: (screen: CreatorFlowScreen) => void;
 }) {
+  const [todoOpen, setTodoOpen] = useState(false);
   const left = steps.flatMap((step) => step.screens.filter((screen) => screen.pending > 0).map((screen) => ({ step, screen })));
   const total = left.reduce((sum, entry) => sum + entry.screen.pending, 0);
   return (
-    <aside className="creator-summary" aria-label="Character summary">
+    <section className="creator-summary" aria-label="Character summary">
       <div className="creator-summary-id">
         <span className="creator-summary-portrait">
           <GameIcon name={icon} />
         </span>
         <span className="creator-summary-name">
           <strong>{name}</strong>
-          {lines.map((line) => (
-            <span key={line}>{line}</span>
+          <span>{lines.join(" · ")}</span>
+        </span>
+        <span className="creator-summary-stats">
+          {stats.map((stat) => (
+            <span key={`sum-stat-${stat.label}`}>
+              <small>{stat.label}</small>
+              <strong>{stat.value}</strong>
+            </span>
           ))}
         </span>
-      </div>
-      <div className="creator-summary-stats">
-        {stats.map((stat) => (
-          <span key={`sum-stat-${stat.label}`}>
-            <small>{stat.label}</small>
-            <strong>{stat.value}</strong>
-          </span>
-        ))}
       </div>
       <div className="creator-summary-abilities">
         {abilities.map((ability) => {
           const mod = Math.floor((ability.value - 10) / 2);
           return (
-            <span key={`sum-ab-${ability.id}`}>
+            <span key={`sum-ab-${ability.id}`} className={`ability-accent ability-accent-${ability.id.toLowerCase()}`}>
               <small>{ability.id}</small>
               <strong>{ability.value}</strong>
               <em>{mod >= 0 ? `+${mod}` : mod}</em>
@@ -187,8 +187,11 @@ export function CreatorSummaryPanel({
         })}
       </div>
       <div className="creator-summary-todo">
-        <span className="creator-summary-heading">{total ? `Still to pick (${total})` : "Everything picked"}</span>
-        {left.length ? (
+        <button type="button" className="creator-summary-todo-toggle" aria-expanded={todoOpen} onClick={() => setTodoOpen((value) => !value)} disabled={!left.length}>
+          <span className={total ? "pending" : "done"}>{total ? `Still to pick: ${total}` : "Everything picked"}</span>
+          {left.length ? <i aria-hidden="true">{todoOpen ? "▴" : "▾"}</i> : null}
+        </button>
+        {todoOpen && left.length ? (
           <ul>
             {left.map(({ step, screen }) => (
               <li key={`todo-${screen.step}-${screen.browser}`}>
@@ -206,10 +209,8 @@ export function CreatorSummaryPanel({
               </li>
             ))}
           </ul>
-        ) : (
-          <p>Your character is ready. You can still change anything.</p>
-        )}
+        ) : null}
       </div>
-    </aside>
+    </section>
   );
 }

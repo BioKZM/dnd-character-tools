@@ -456,18 +456,6 @@ function weaponRange(weapon: ContentBundle["weapons"][number]) {
   return weapon.attackType === "melee" ? "5 ft." : "-";
 }
 
-function weaponDamage(draft: CharacterDraft, weapon: ContentBundle["weapons"][number]) {
-  if (!weapon.damage || !weapon.damageType) {
-    return "-";
-  }
-
-  if (weapon.damage === "1") {
-    return `1 ${weapon.damageType}`;
-  }
-
-  return `${weapon.damage}${formatSigned(weaponAbilityModifier(draft, weapon))} ${weapon.damageType}`;
-}
-
 /** Monk silahi: shortsword, iki elli/heavy olmayan simple melee, ya da Kensei gibi kaynaklarin ekledigi silahlar. */
 function isMonkWeapon(weapon: ContentBundle["weapons"][number], extraIds: string[]) {
   return (
@@ -483,6 +471,21 @@ function dieAverage(die: string) {
 }
 
 type MartialArtsContext = { die: string; monkWeapons: string[] } | null;
+
+/** Karakterin aktif fighting style'lari: Fighter / Ranger secimi, Paladin ve feat secimleri (choices icinde "fighting-style"). */
+export function activeFightingStyles(draft: CharacterDraft): Set<string> {
+  const ids = new Set<string>();
+  if (draft.classId === "fighter" && draft.fighterChoices?.fightingStyleId) {
+    ids.add(draft.fighterChoices.fightingStyleId);
+  }
+  if (draft.classId === "ranger" && draft.rangerChoices?.fightingStyleId) {
+    ids.add(draft.rangerChoices.fightingStyleId);
+  }
+  Object.entries(draft.choices ?? {})
+    .filter(([key]) => /fighting-style|fighting-initiate/.test(key))
+    .forEach(([, values]) => values.forEach((value) => ids.add(value)));
+  return ids;
+}
 
 function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, martialArts: MartialArtsContext = null): BuiltAction[] {
   const strength = draft.abilities.find((ability) => ability.id === "STR")?.modifier ?? 0;
@@ -529,18 +532,57 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
           ? weapon.proficiency === "martial"
           : label === weapon.name.toLowerCase() || label.replace(/s$/, "") === weapon.name.toLowerCase(),
     );
+  // Fighting style'lar silah satirina gercekten islenir (Dueling +2 hasar, Archery +2 vurus...).
+  const styles = activeFightingStyles(draft);
+  const styleBonus = (weapon: ContentBundle["weapons"][number]) => {
+    const melee = weapon.attackType === "melee";
+    const hit: Array<[string, number]> = [];
+    const damage: Array<[string, number]> = [];
+    const tags: string[] = [];
+    if (styles.has("archery") && weapon.attackType === "ranged") {
+      hit.push(["Archery", 2]);
+      tags.push("Archery +2 hit");
+    }
+    if (styles.has("dueling") && melee && !weapon.properties.includes("two-handed")) {
+      damage.push(["Dueling", 2]);
+      tags.push("Dueling +2 damage (no other weapon in hand)");
+    }
+    if (styles.has("thrown-weapon-fighting") && weapon.properties.includes("thrown")) {
+      if (weapon.attackType === "ranged") {
+        damage.push(["Thrown Weapon Fighting", 2]);
+      }
+      tags.push("Thrown Weapon Fighting: +2 damage when thrown");
+    }
+    if (styles.has("great-weapon-fighting") && melee && (weapon.properties.includes("two-handed") || weapon.properties.includes("versatile"))) {
+      tags.push("Great Weapon Fighting: reroll 1s and 2s on damage dice (two hands)");
+    }
+    return { hit, damage, tags };
+  };
+  const bonusText = (entries: Array<[string, number]>) => entries.map(([name, value]) => ` + ${name} ${formatSigned(value)}`).join("");
+  const bonusSum = (entries: Array<[string, number]>) => entries.reduce((sum, [, value]) => sum + value, 0);
   const weaponStats = (weapon: ContentBundle["weapons"][number]) => {
     const abilityName = (modifier: number) => (modifier === dexterity && (weapon.attackType === "ranged" || weapon.properties.includes("finesse") || martialArts) ? "DEX" : "STR");
+    const bonus = styleBonus(weapon);
     if (!martialArts || !isMonkWeapon(weapon, martialArts.monkWeapons) || !weapon.damage || !weapon.damageType) {
       const modifier = weaponAbilityModifier(draft, weapon);
       const proficiency = lacksProficiency(weapon) ? 0 : draft.proficiencyBonus;
       const proficiencyText = proficiency ? `Proficiency ${formatSigned(proficiency)}` : "Not proficient +0";
+      const damage =
+        !weapon.damage || !weapon.damageType
+          ? "-"
+          : weapon.damage === "1"
+            ? `1 ${weapon.damageType}`
+            : `${weapon.damage}${formatSigned(modifier + bonusSum(bonus.damage))} ${weapon.damageType}`;
       return {
-        hit: formatSigned(proficiency + modifier),
-        damage: weaponDamage(draft, weapon),
+        hit: formatSigned(proficiency + modifier + bonusSum(bonus.hit)),
+        damage,
         monk: false,
+        tags: bonus.tags,
         formula: weapon.damage && weapon.damage !== "1"
-          ? { hit: `${proficiencyText} + ${abilityName(modifier)} ${formatSigned(modifier)}`, damage: `${weapon.name} ${weapon.damage} + ${abilityName(modifier)} ${formatSigned(modifier)}` }
+          ? {
+              hit: `${proficiencyText} + ${abilityName(modifier)} ${formatSigned(modifier)}${bonusText(bonus.hit)}`,
+              damage: `${weapon.name} ${weapon.damage} + ${abilityName(modifier)} ${formatSigned(modifier)}${bonusText(bonus.damage)}`,
+            }
           : undefined,
       };
     }
@@ -548,12 +590,13 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
     const useMartialDie = dieAverage(martialArts.die) > dieAverage(weapon.damage);
     const die = useMartialDie ? martialArts.die : weapon.damage;
     return {
-      hit: formatSigned(draft.proficiencyBonus + modifier),
-      damage: `${die}${formatSigned(modifier)} ${weapon.damageType}`,
+      hit: formatSigned(draft.proficiencyBonus + modifier + bonusSum(bonus.hit)),
+      damage: `${die}${formatSigned(modifier + bonusSum(bonus.damage))} ${weapon.damageType}`,
       monk: true,
+      tags: bonus.tags,
       formula: {
-        hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${abilityName(modifier)} ${formatSigned(modifier)}`,
-        damage: `${useMartialDie ? `Martial Arts ${die}` : `${weapon.name} ${die}`} + ${abilityName(modifier)} ${formatSigned(modifier)}`,
+        hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${abilityName(modifier)} ${formatSigned(modifier)}${bonusText(bonus.hit)}`,
+        damage: `${useMartialDie ? `Martial Arts ${die}` : `${weapon.name} ${die}`} + ${abilityName(modifier)} ${formatSigned(modifier)}${bonusText(bonus.damage)}`,
       },
     };
   };
@@ -568,7 +611,8 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
       damage: weaponStats(weapon).damage,
       formula: weaponStats(weapon).formula,
       notes: weapon.properties.length ? weapon.properties.map((property) => property.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join("-")).join(", ") : "-",
-      description: `${weaponStats(weapon).monk ? "Monk weapon (Martial Arts). " : ""}${weapon.specialDescription ?? `${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType} weapon attack.`}`,
+      short: weaponStats(weapon).tags.length ? weaponStats(weapon).tags.join(" · ") : undefined,
+      description: `${weaponStats(weapon).monk ? "Monk weapon (Martial Arts). " : ""}${weapon.specialDescription ?? `${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType} weapon attack.`}${weaponStats(weapon).tags.length ? ` ${weaponStats(weapon).tags.join(". ")}.` : ""}`,
       source: "Inventory",
     })),
   ];
@@ -1188,6 +1232,7 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
         hit: spellHit(spell),
         damage: spellDamage(spell),
         summary: spell.summary,
+        atHigherLevels: spell.atHigherLevels ?? "",
       }))
       .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
     // Kisa / uzun dinlenmede yenilenen kaynaklar (Second Wind, Bardic Inspiration...).
