@@ -1,0 +1,860 @@
+{
+  "id": "sorcerer",
+  "name": "Sorcerer",
+  "sourceUrl": "https://dnd5e.wikidot.com/sorcerer",
+  "summary": "A spellcaster who draws on inherent magic from a gift or bloodline. Sorcerers know fewer spells than wizards but bend them with Metamagic: twin them, quicken them, or cast them silently.",
+  "multiclassRequirement": "Charisma 13 or higher.",
+  "hitDie": "d6",
+  "primaryAbilities": [
+    "CHA"
+  ],
+  "savingThrows": [
+    "CON",
+    "CHA"
+  ],
+  "spellcastingAbility": "CHA",
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "CON",
+        "CHA"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Daggers",
+        "Darts",
+        "Slings",
+        "Quarterstaffs",
+        "Light Crossbows"
+      ]
+    }
+  ],
+  "hitPoints": {
+    "Hit Dice": "1d6 per sorcerer level",
+    "Hit Points at 1st Level": "6 + your Constitution modifier",
+    "Hit Points at Higher Levels": "1d6 (or 4) + your Constitution modifier per sorcerer level after 1st"
+  },
+  "proficiencies": {
+    "Armor": "None",
+    "Weapons": "Daggers, darts, slings, quarterstaffs, light crossbows",
+    "Tools": "None",
+    "Saving Throws": "Constitution, Charisma",
+    "Skills": "Choose two from Arcana, Deception, Insight, Intimidation, Persuasion and Religion"
+  },
+  "spellcastingTable": {
+    "title": "The Sorcerer",
+    "rows": [
+      [
+        "The Sorcerer",
+        "Spell Slots per Spell Level"
+      ],
+      [
+        "Level",
+        "Proficiency Bonus",
+        "Features",
+        "Sorcery Points",
+        "Cantrips Known",
+        "Spells Known",
+        "1st",
+        "2nd",
+        "3rd",
+        "4th",
+        "5th",
+        "6th",
+        "7th",
+        "8th",
+        "9th"
+      ],
+      [
+        "1st",
+        "+2",
+        "Spellcasting, Sorcerous Origin",
+        "–",
+        "4",
+        "2",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "2nd",
+        "+2",
+        "Font of Magic",
+        "2",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "3rd",
+        "+2",
+        "Metamagic",
+        "3",
+        "4",
+        "4",
+        "4",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "4th",
+        "+2",
+        "Ability Score Improvement",
+        "4",
+        "5",
+        "5",
+        "4",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "5th",
+        "+3",
+        "–",
+        "5",
+        "5",
+        "6",
+        "4",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "6th",
+        "+3",
+        "–",
+        "6",
+        "5",
+        "7",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "7th",
+        "+3",
+        "–",
+        "7",
+        "5",
+        "8",
+        "4",
+        "3",
+        "3",
+        "1",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "8th",
+        "+3",
+        "Ability Score Improvement",
+        "8",
+        "5",
+        "9",
+        "4",
+        "3",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "9th",
+        "+4",
+        "–",
+        "9",
+        "5",
+        "10",
+        "4",
+        "3",
+        "3",
+        "3",
+        "1",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "10th",
+        "+4",
+        "–",
+        "10",
+        "6",
+        "11",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "11th",
+        "+4",
+        "–",
+        "11",
+        "6",
+        "12",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "12th",
+        "+4",
+        "Ability Score Improvement",
+        "12",
+        "6",
+        "12",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "13th",
+        "+5",
+        "–",
+        "13",
+        "6",
+        "13",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "-",
+        "-"
+      ],
+      [
+        "14th",
+        "+5",
+        "–",
+        "14",
+        "6",
+        "13",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "-",
+        "-"
+      ],
+      [
+        "15th",
+        "+5",
+        "–",
+        "15",
+        "6",
+        "14",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "-"
+      ],
+      [
+        "16th",
+        "+5",
+        "Ability Score Improvement",
+        "16",
+        "6",
+        "14",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "-"
+      ],
+      [
+        "17th",
+        "+6",
+        "–",
+        "17",
+        "6",
+        "15",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "18th",
+        "+6",
+        "–",
+        "18",
+        "6",
+        "15",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "19th",
+        "+6",
+        "Ability Score Improvement",
+        "19",
+        "6",
+        "15",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "20th",
+        "+6",
+        "Sorcerous Restoration",
+        "20",
+        "6",
+        "15",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "2",
+        "1",
+        "1"
+      ]
+    ]
+  },
+  "spellcastingNotes": [
+    "You know a fixed number of sorcerer spells, shown in the Spells Known column."
+  ],
+  "classFeatures": [
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "keyFacts": [
+        "You know a fixed number of sorcerer spells (see Spells Known); when you level up you can swap one.",
+        "Spell save DC = 8 + PB + CHA; spell attack = PB + CHA."
+      ],
+      "summary": "You can cast sorcerer spells. You know a fixed number of sorcerer spells (see Spells Known); when you level up you can swap one. CHA is your spellcasting ability: spell save DC = 8 + proficiency bonus + CHA modifier, spell attack = proficiency bonus + CHA modifier. You can use an arcane focus as a spellcasting focus. You regain all spell slots on a long rest.",
+      "unlockLevel": 1,
+      "short": "Cast sorcerer spells using CHA.",
+      "facts": {
+        "action": "Special",
+        "dc": "spell"
+      }
+    },
+    {
+      "id": "sorcerous-origin",
+      "name": "Sorcerous Origin",
+      "keyFacts": [
+        "Subclass at 1st level."
+      ],
+      "summary": "Choose the source of your innate magic. It grants features at 1st, 6th, 14th and 18th level.",
+      "unlockLevel": 1,
+      "short": "Choose where your magic comes from.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "font-of-magic",
+      "name": "Font of Magic",
+      "keyFacts": [
+        "Points = sorcerer level, refill on a long rest.",
+        "Bonus action to convert slots and points."
+      ],
+      "summary": "You have sorcery points equal to your sorcerer level, restored on a long rest. As a bonus action you can turn spell slots into sorcery points (points equal to the slot level) or sorcery points into slots: 2 points for 1st, 3 for 2nd, 5 for 3rd, 6 for 4th, 7 for 5th level.",
+      "unlockLevel": 2,
+      "short": "Sorcery points: turn them into slots and back.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "sorcery-points",
+          "name": "Sorcery Points",
+          "uses": "LEVEL",
+          "recharge": "long_rest"
+        }
+      ],
+      "currentValueTemplate": "{fighterLevel} sorcery points"
+    },
+    {
+      "id": "metamagic",
+      "name": "Metamagic",
+      "keyFacts": [
+        "2 options at 3rd, 3 at 10th, 4 at 17th."
+      ],
+      "summary": "You can twist your spells to suit your needs. You learn two Metamagic options, one more at 10th and another at 17th level. Only one Metamagic option can be used per spell unless noted.",
+      "unlockLevel": 3,
+      "short": "Spend sorcery points to bend your spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "choices": [
+        {
+          "id": "sorcerer-metamagic",
+          "label": "Metamagic",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "careful-spell",
+                "name": "Careful Spell",
+                "summary": "1 point: chosen creatures automatically succeed on the spell's saving throw."
+              },
+              {
+                "id": "distant-spell",
+                "name": "Distant Spell",
+                "summary": "1 point: double the spell's range, or make a touch spell reach 30 feet."
+              },
+              {
+                "id": "empowered-spell",
+                "name": "Empowered Spell",
+                "summary": "1 point: reroll up to CHA modifier damage dice."
+              },
+              {
+                "id": "extended-spell",
+                "name": "Extended Spell",
+                "summary": "1 point: double a spell's duration (up to 24 hours)."
+              },
+              {
+                "id": "heightened-spell",
+                "name": "Heightened Spell",
+                "summary": "3 points: one target has disadvantage on its first save against the spell."
+              },
+              {
+                "id": "quickened-spell",
+                "name": "Quickened Spell",
+                "summary": "2 points: cast a 1-action spell as a bonus action."
+              },
+              {
+                "id": "subtle-spell",
+                "name": "Subtle Spell",
+                "summary": "1 point: cast without verbal or somatic components."
+              },
+              {
+                "id": "twinned-spell",
+                "name": "Twinned Spell",
+                "summary": "Points = spell level (1 for cantrips): target a second creature with a single-target spell."
+              },
+              {
+                "id": "seeking-spell",
+                "name": "Seeking Spell",
+                "summary": "2 points: reroll a missed spell attack."
+              },
+              {
+                "id": "transmuted-spell",
+                "name": "Transmuted Spell",
+                "summary": "1 point: change the damage type to acid, cold, fire, lightning, poison or thunder."
+              }
+            ]
+          }
+        },
+        {
+          "id": "sorcerer-metamagic-10",
+          "label": "Metamagic (10th level)",
+          "count": 1,
+          "min": 1,
+          "minLevel": 10,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "careful-spell",
+                "name": "Careful Spell",
+                "summary": "1 point: chosen creatures automatically succeed on the spell's saving throw."
+              },
+              {
+                "id": "distant-spell",
+                "name": "Distant Spell",
+                "summary": "1 point: double the spell's range, or make a touch spell reach 30 feet."
+              },
+              {
+                "id": "empowered-spell",
+                "name": "Empowered Spell",
+                "summary": "1 point: reroll up to CHA modifier damage dice."
+              },
+              {
+                "id": "extended-spell",
+                "name": "Extended Spell",
+                "summary": "1 point: double a spell's duration (up to 24 hours)."
+              },
+              {
+                "id": "heightened-spell",
+                "name": "Heightened Spell",
+                "summary": "3 points: one target has disadvantage on its first save against the spell."
+              },
+              {
+                "id": "quickened-spell",
+                "name": "Quickened Spell",
+                "summary": "2 points: cast a 1-action spell as a bonus action."
+              },
+              {
+                "id": "subtle-spell",
+                "name": "Subtle Spell",
+                "summary": "1 point: cast without verbal or somatic components."
+              },
+              {
+                "id": "twinned-spell",
+                "name": "Twinned Spell",
+                "summary": "Points = spell level (1 for cantrips): target a second creature with a single-target spell."
+              },
+              {
+                "id": "seeking-spell",
+                "name": "Seeking Spell",
+                "summary": "2 points: reroll a missed spell attack."
+              },
+              {
+                "id": "transmuted-spell",
+                "name": "Transmuted Spell",
+                "summary": "1 point: change the damage type to acid, cold, fire, lightning, poison or thunder."
+              }
+            ]
+          }
+        },
+        {
+          "id": "sorcerer-metamagic-17",
+          "label": "Metamagic (17th level)",
+          "count": 1,
+          "min": 1,
+          "minLevel": 17,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "careful-spell",
+                "name": "Careful Spell",
+                "summary": "1 point: chosen creatures automatically succeed on the spell's saving throw."
+              },
+              {
+                "id": "distant-spell",
+                "name": "Distant Spell",
+                "summary": "1 point: double the spell's range, or make a touch spell reach 30 feet."
+              },
+              {
+                "id": "empowered-spell",
+                "name": "Empowered Spell",
+                "summary": "1 point: reroll up to CHA modifier damage dice."
+              },
+              {
+                "id": "extended-spell",
+                "name": "Extended Spell",
+                "summary": "1 point: double a spell's duration (up to 24 hours)."
+              },
+              {
+                "id": "heightened-spell",
+                "name": "Heightened Spell",
+                "summary": "3 points: one target has disadvantage on its first save against the spell."
+              },
+              {
+                "id": "quickened-spell",
+                "name": "Quickened Spell",
+                "summary": "2 points: cast a 1-action spell as a bonus action."
+              },
+              {
+                "id": "subtle-spell",
+                "name": "Subtle Spell",
+                "summary": "1 point: cast without verbal or somatic components."
+              },
+              {
+                "id": "twinned-spell",
+                "name": "Twinned Spell",
+                "summary": "Points = spell level (1 for cantrips): target a second creature with a single-target spell."
+              },
+              {
+                "id": "seeking-spell",
+                "name": "Seeking Spell",
+                "summary": "2 points: reroll a missed spell attack."
+              },
+              {
+                "id": "transmuted-spell",
+                "name": "Transmuted Spell",
+                "summary": "1 point: change the damage type to acid, cold, fire, lightning, poison or thunder."
+              }
+            ]
+          }
+        }
+      ],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "2 options"
+        },
+        {
+          "level": 10,
+          "label": "3 options"
+        },
+        {
+          "level": 17,
+          "label": "4 options"
+        }
+      ]
+    },
+    {
+      "id": "ability-score-improvement",
+      "name": "Ability Score Improvement",
+      "keyFacts": [
+        "+2 to one ability or +1 to two, or a feat."
+      ],
+      "milestones": [
+        {
+          "level": 4,
+          "label": "ASI"
+        },
+        {
+          "level": 8,
+          "label": "ASI"
+        },
+        {
+          "level": 12,
+          "label": "ASI"
+        },
+        {
+          "level": 16,
+          "label": "ASI"
+        },
+        {
+          "level": 19,
+          "label": "ASI"
+        }
+      ],
+      "summary": "When you reach 4th level, and again at 8th, 12th, 16th, 19th level, you can increase one ability score by 2, or two ability scores by 1. You can't raise a score above 20 this way. If your DM allows feats, you can take a feat instead.",
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "sorcerous-restoration",
+      "name": "Sorcerous Restoration",
+      "keyFacts": [
+        "+4 sorcery points on each short rest."
+      ],
+      "summary": "You regain 4 expended sorcery points whenever you finish a short rest.",
+      "unlockLevel": 20,
+      "short": "Regain 4 sorcery points on a short rest.",
+      "facts": {
+        "action": "Passive"
+      }
+    }
+  ],
+  "journeyStages": [
+    {
+      "id": "class",
+      "label": "Class",
+      "browser": "class",
+      "summary": "Review the sorcerer at a glance."
+    },
+    {
+      "id": "features",
+      "label": "Class Features",
+      "browser": "class-features",
+      "summary": "What your class gives you, level by level."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "browser": "inventory",
+      "summary": "Choose your starting kit."
+    },
+    {
+      "id": "subclass",
+      "label": "Sorcerous Origin",
+      "browser": "subclass",
+      "minLevel": 1,
+      "summary": "Choose your sorcerous origin."
+    },
+    {
+      "id": "spells",
+      "label": "Spells",
+      "browser": "spells",
+      "summary": "Choose your spells."
+    }
+  ],
+  "startingEquipment": [
+    {
+      "id": "sorcerer-weapon",
+      "prompt": "Weapon",
+      "options": [
+        {
+          "id": "light-crossbow-bolts",
+          "label": "Light Crossbow and 20 Bolts",
+          "items": [
+            "Light Crossbow",
+            "20 Bolts"
+          ]
+        },
+        {
+          "id": "simple-weapon",
+          "label": "Any Simple Weapon",
+          "items": [
+            "Simple Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sorcerer-focus",
+      "prompt": "Focus",
+      "options": [
+        {
+          "id": "component-pouch",
+          "label": "Component Pouch",
+          "items": [
+            "Component Pouch"
+          ]
+        },
+        {
+          "id": "arcane-focus",
+          "label": "Arcane Focus",
+          "items": [
+            "Crystal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sorcerer-pack",
+      "prompt": "Pack",
+      "options": [
+        {
+          "id": "dungeoneer-pack",
+          "label": "Dungeoneer's Pack",
+          "items": [
+            "Dungeoneer's Pack"
+          ]
+        },
+        {
+          "id": "explorer-pack",
+          "label": "Explorer's Pack",
+          "items": [
+            "Explorer's Pack"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sorcerer-kit",
+      "prompt": "Kit",
+      "options": [
+        {
+          "id": "two-daggers",
+          "label": "Two Daggers",
+          "items": [
+            "2x Daggers"
+          ]
+        }
+      ]
+    }
+  ],
+  "subclassHeading": "Sorcerous Origin",
+  "subclasses": [],
+  "highlights": [
+    {
+      "title": "Combat Role",
+      "body": "Flexible blaster: a short list of strong spells that Metamagic makes faster, farther-reaching or doubled."
+    },
+    {
+      "title": "Core Resources",
+      "body": "Sorcery points (equal to your level) fuel Metamagic or turn into extra spell slots. You know a fixed list of spells."
+    },
+    {
+      "title": "Level Rhythm",
+      "body": "Origin at 1, Font of Magic at 2, Metamagic at 3, 3rd-level spells at 5, more Metamagic at 10 and 17."
+    }
+  ],
+  "notes": []
+}

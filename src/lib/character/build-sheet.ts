@@ -1,5 +1,5 @@
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
-import type { ContentBundle } from "@/lib/content/schema";
+import type { ContentBundle, FeatureFacts } from "@/lib/content/schema";
 import { optionalFeatureActive, type EngineCatalog } from "@/lib/engine/collect";
 import { deriveCharacter, resolveResourceUses, type DerivedCharacter, type DerivedSpell } from "@/lib/engine/derive";
 import { computeArmorClass, mageArmorAvailable, type ArmorClassResult } from "@/lib/engine/armor-class";
@@ -17,6 +17,11 @@ type BuiltAction = {
   description: string;
   source: string;
   classes?: string[];
+  /** Feature'lardan gelen eylemler icin kisa satir ve kural etiketleri. */
+  short?: string;
+  facts?: FeatureFacts;
+  /** Hesaplanan degerlerin nereden geldigi (ustune gelince gosterilir). */
+  formula?: { hit?: string; damage?: string };
 };
 
 type BuiltFeature = {
@@ -25,6 +30,9 @@ type BuiltFeature = {
   kind: "Trait" | "Feature" | "Feat" | "Background";
   summary: string;
   source: string;
+  /** Bir bakista okunan satir ve kural etiketleri (class/subclass feature'lari). */
+  short?: string;
+  facts?: FeatureFacts;
 };
 
 type SpellActionSource = {
@@ -347,9 +355,37 @@ function isActionableFeatureSummary(summary: string) {
   ].some((pattern) => normalized.includes(pattern));
 }
 
-function buildFeatureActions(features: BuiltFeature[]): BuiltAction[] {
-  return features
-    .filter((feature) => feature.kind !== "Background" && isActionableFeatureSummary(feature.summary))
+const FACT_ACTION_CATEGORY: Record<string, BuiltAction["category"]> = {
+  Action: "Action",
+  "Bonus Action": "Bonus Action",
+  Reaction: "Reaction",
+  Special: "Other",
+};
+
+function buildFeatureActions(features: BuiltFeature[], resolveDc: (kind?: "spell" | "ki") => number | null = () => null): BuiltAction[] {
+  // Kural etiketi yazilmis feature'lar metin tahmini yerine etiketlerden kurulur; pasifler listeye girmez.
+  const structured = features
+    .filter((feature) => feature.facts && feature.facts.action !== "Passive" && (feature.facts.action || feature.facts.cost))
+    .map((feature) => {
+      const facts = feature.facts ?? {};
+      const dc = facts.save ? resolveDc(facts.dc) : null;
+      return {
+        id: `feature-action-${feature.id}`,
+        name: feature.name,
+        category: FACT_ACTION_CATEGORY[facts.action ?? ""] ?? ("Other" as const),
+        range: facts.range ?? "-",
+        hit: facts.save ? `${dc ? `DC ${dc} ` : ""}${facts.save}` : "-",
+        damage: "-",
+        notes: `${feature.kind} | ${feature.source}`,
+        description: feature.summary,
+        source: feature.source,
+        short: feature.short,
+        facts,
+        formula: dc && facts.dc ? { hit: facts.dc === "ki" ? "Ki save DC: 8 + proficiency bonus + WIS" : "Spell save DC: 8 + proficiency bonus + spellcasting ability" } : undefined,
+      } satisfies BuiltAction;
+    });
+  const legacy = features
+    .filter((feature) => !feature.facts && feature.kind !== "Background" && isActionableFeatureSummary(feature.summary))
     .map((feature) => ({
       id: `feature-action-${feature.id}`,
       name: feature.name,
@@ -361,6 +397,7 @@ function buildFeatureActions(features: BuiltFeature[]): BuiltAction[] {
       description: feature.summary,
       source: feature.source,
     }));
+  return [...structured, ...legacy];
 }
 
 function formatSigned(value: number) {
@@ -458,6 +495,10 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
         range: "5 ft.",
         hit: formatSigned(draft.proficiencyBonus + martialModifier),
         damage: `${martialArts.die}${formatSigned(martialModifier)} bludgeoning`,
+        formula: {
+          hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${dexterity >= strength ? "DEX" : "STR"} ${formatSigned(martialModifier)}`,
+          damage: `Martial Arts ${martialArts.die} + ${dexterity >= strength ? "DEX" : "STR"} ${formatSigned(martialModifier)}`,
+        },
         notes: "Martial Arts",
         description: "Martial Arts: uses the better of STR or DEX and your Martial Arts die. After you attack with an unarmed strike or monk weapon, you can make one unarmed strike as a bonus action.",
         source: "Martial Arts",
@@ -474,12 +515,30 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
         source: "Core Rules",
       };
   const weaponStats = (weapon: ContentBundle["weapons"][number]) => {
+    const abilityName = (modifier: number) => (modifier === dexterity && (weapon.attackType === "ranged" || weapon.properties.includes("finesse") || martialArts) ? "DEX" : "STR");
     if (!martialArts || !isMonkWeapon(weapon, martialArts.monkWeapons) || !weapon.damage || !weapon.damageType) {
-      return { hit: formatSigned(draft.proficiencyBonus + weaponAbilityModifier(draft, weapon)), damage: weaponDamage(draft, weapon), monk: false };
+      const modifier = weaponAbilityModifier(draft, weapon);
+      return {
+        hit: formatSigned(draft.proficiencyBonus + modifier),
+        damage: weaponDamage(draft, weapon),
+        monk: false,
+        formula: weapon.damage && weapon.damage !== "1"
+          ? { hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${abilityName(modifier)} ${formatSigned(modifier)}`, damage: `${weapon.name} ${weapon.damage} + ${abilityName(modifier)} ${formatSigned(modifier)}` }
+          : undefined,
+      };
     }
     const modifier = weapon.attackType === "ranged" ? dexterity : Math.max(weaponAbilityModifier(draft, weapon), martialModifier);
-    const die = dieAverage(martialArts.die) > dieAverage(weapon.damage) ? martialArts.die : weapon.damage;
-    return { hit: formatSigned(draft.proficiencyBonus + modifier), damage: `${die}${formatSigned(modifier)} ${weapon.damageType}`, monk: true };
+    const useMartialDie = dieAverage(martialArts.die) > dieAverage(weapon.damage);
+    const die = useMartialDie ? martialArts.die : weapon.damage;
+    return {
+      hit: formatSigned(draft.proficiencyBonus + modifier),
+      damage: `${die}${formatSigned(modifier)} ${weapon.damageType}`,
+      monk: true,
+      formula: {
+        hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${abilityName(modifier)} ${formatSigned(modifier)}`,
+        damage: `${useMartialDie ? `Martial Arts ${die}` : `${weapon.name} ${die}`} + ${abilityName(modifier)} ${formatSigned(modifier)}`,
+      },
+    };
   };
   return [
     unarmed,
@@ -490,6 +549,7 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
       range: weaponRange(weapon),
       hit: weaponStats(weapon).hit,
       damage: weaponStats(weapon).damage,
+      formula: weaponStats(weapon).formula,
       notes: weapon.properties.length ? weapon.properties.map((property) => property.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join("-")).join(", ") : "-",
       description: `${weaponStats(weapon).monk ? "Monk weapon (Martial Arts). " : ""}${weapon.specialDescription ?? `${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType} weapon attack.`}`,
       source: "Inventory",
@@ -854,6 +914,8 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
               name: feature.name,
               kind: "Feature" as const,
               summary: feature.summary,
+              short: feature.short,
+              facts: feature.facts,
               source: `${chosenClass.name} level ${level}`,
             })),
           )
@@ -867,6 +929,8 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
         name: feature.name,
         kind: "Feature" as const,
         summary: feature.summary,
+        short: feature.short,
+        facts: feature.facts,
         source: `${currentCuratedSubclass.name}${feature.unlockLevel ? ` level ${feature.unlockLevel}` : ""}`,
       })) ?? [];
 
@@ -1037,8 +1101,26 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
       description: spell.summary,
       source: sourceLabel,
       classes: spell.classes ?? [],
+      formula: (() => {
+        const casting = castingFor(spell.id);
+        const hit = spellHit(spell);
+        if (!casting || hit === "-") {
+          return undefined;
+        }
+        return {
+          hit: hit.startsWith("DC")
+            ? `8 + proficiency ${draft.proficiencyBonus} + ${casting.ability} ${formatSigned(casting.modifier)}`
+            : `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${casting.ability} ${formatSigned(casting.modifier)}`,
+        };
+      })(),
     })),
-    ...buildFeatureActions(builtFeatures),
+    ...buildFeatureActions(builtFeatures, (kind) =>
+      kind === "ki"
+        ? saveDcs.find((entry) => entry.name === "Ki")?.value ?? null
+        : kind === "spell"
+          ? spellcasting.at(0)?.saveDc ?? null
+          : null,
+    ),
   ]);
 
   const movementStats = deriveMovementStats(derived, armorClass.speedPenalty, armorClass.unarmored ? 0 : derived.unarmoredSpeedBonus);

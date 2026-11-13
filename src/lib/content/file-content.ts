@@ -305,11 +305,11 @@ function readGroupedClasses(): ContentBundle["classes"] {
       hitDie: Number.parseInt(entry.hitDie.replace(/[^0-9]/g, ""), 10) || 0,
       primaryAbilities: entry.primaryAbilities,
       savingThrows: entry.savingThrows,
-      featuresByLevel: entry.classFeatures.reduce<Record<string, { id: string; name: string; summary: string }[]>>(
+      featuresByLevel: entry.classFeatures.reduce<Record<string, ContentBundle["classes"][number]["featuresByLevel"][string]>>(
         (accumulator, feature) => {
           const level = String(feature.unlockLevel ?? 1);
           accumulator[level] ??= [];
-          accumulator[level].push({ id: feature.id, name: feature.name, summary: feature.summary });
+          accumulator[level].push({ id: feature.id, name: feature.name, summary: feature.summary, short: feature.short, facts: feature.facts });
           return accumulator;
         },
         {},

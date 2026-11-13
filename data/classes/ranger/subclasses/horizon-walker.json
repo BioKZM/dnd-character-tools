@@ -9,7 +9,11 @@
       "id": "horizon-walker-magic",
       "name": "Horizon Walker Magic",
       "unlockLevel": 3,
-      "summary": "You learn additional spells at certain ranger levels, and they count as ranger spells for you without counting against the number of ranger spells you know."
+      "summary": "You learn additional spells at certain ranger levels, and they count as ranger spells for you without counting against the number of ranger spells you know.",
+      "short": "Learn planar spells that don't count against your known spells.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "detect-portal",
@@ -24,7 +28,13 @@
           "uses": 1,
           "recharge": "short_rest"
         }
-      ]
+      ],
+      "short": "Sense the direction and distance of the nearest planar portal.",
+      "facts": {
+        "action": "Action",
+        "uses": "1 / short rest",
+        "range": "1 mile"
+      }
     },
     {
       "id": "planar-warrior",
@@ -36,7 +46,12 @@
           "type": "note",
           "text": "Planar Warrior: bonus action, mark a creature within 30 ft.; your next hit on it this turn deals +1d8 force and all its damage becomes force (2d8 at 11th)."
         }
-      ]
+      ],
+      "short": "Mark a creature; your next hit deals extra force damage.",
+      "facts": {
+        "action": "Bonus Action",
+        "range": "30 ft."
+      }
     },
     {
       "id": "ethereal-step",
@@ -51,7 +66,13 @@
           "uses": 1,
           "recharge": "short_rest"
         }
-      ]
+      ],
+      "short": "Cast etherealness on yourself without a slot.",
+      "facts": {
+        "action": "Bonus Action",
+        "uses": "1 / short rest",
+        "duration": "Until end of turn"
+      }
     },
     {
       "id": "distant-strike",
@@ -63,7 +84,12 @@
           "type": "note",
           "text": "Distant Strike: teleport up to 10 ft. before each attack; if you attack two different creatures, make a third attack against another creature."
         }
-      ]
+      ],
+      "short": "Teleport 10 feet before each attack; hit two foes for a third attack.",
+      "facts": {
+        "action": "Passive",
+        "range": "10 ft."
+      }
     },
     {
       "id": "spectral-defense",
@@ -75,7 +101,11 @@
           "type": "note",
           "text": "Spectral Defense: reaction when hit by an attack, gain resistance to all of its damage."
         }
-      ]
+      ],
+      "short": "Gain resistance to all damage from one attack.",
+      "facts": {
+        "action": "Reaction"
+      }
     }
   ],
   "expandedSpells": [

@@ -1,0 +1,621 @@
+{
+  "id": "wizard",
+  "name": "Wizard",
+  "sourceUrl": "https://dnd5e.wikidot.com/wizard",
+  "summary": "A scholarly magic-user capable of manipulating the structures of reality. Wizards have the largest spell list in the game and a spellbook that keeps growing.",
+  "multiclassRequirement": "Intelligence 13 or higher.",
+  "hitDie": "d6",
+  "primaryAbilities": [
+    "INT"
+  ],
+  "savingThrows": [
+    "INT",
+    "WIS"
+  ],
+  "spellcastingAbility": "INT",
+  "spellPreparation": {
+    "ability": "INT",
+    "divisor": 1,
+    "note": "Prepared from your spellbook."
+  },
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "INT",
+        "WIS"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Daggers",
+        "Darts",
+        "Slings",
+        "Quarterstaffs",
+        "Light Crossbows"
+      ]
+    }
+  ],
+  "hitPoints": {
+    "Hit Dice": "1d6 per wizard level",
+    "Hit Points at 1st Level": "6 + your Constitution modifier",
+    "Hit Points at Higher Levels": "1d6 (or 4) + your Constitution modifier per wizard level after 1st"
+  },
+  "proficiencies": {
+    "Armor": "None",
+    "Weapons": "Daggers, darts, slings, quarterstaffs, light crossbows",
+    "Tools": "None",
+    "Saving Throws": "Intelligence, Wisdom",
+    "Skills": "Choose two from Arcana, History, Insight, Investigation, Medicine and Religion"
+  },
+  "spellcastingTable": {
+    "title": "The Wizard",
+    "rows": [
+      [
+        "The Wizard",
+        "Spell Slots per Spell Level"
+      ],
+      [
+        "Level",
+        "Proficiency Bonus",
+        "Features",
+        "Cantrips Known",
+        "1st",
+        "2nd",
+        "3rd",
+        "4th",
+        "5th",
+        "6th",
+        "7th",
+        "8th",
+        "9th"
+      ],
+      [
+        "1st",
+        "+2",
+        "Spellcasting, Arcane Recovery",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "2nd",
+        "+2",
+        "Arcane Tradition",
+        "3",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "3rd",
+        "+2",
+        "–",
+        "3",
+        "4",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "4th",
+        "+2",
+        "Ability Score Improvement",
+        "4",
+        "4",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "5th",
+        "+3",
+        "–",
+        "4",
+        "4",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "6th",
+        "+3",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "7th",
+        "+3",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "1",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "8th",
+        "+3",
+        "Ability Score Improvement",
+        "4",
+        "4",
+        "3",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "9th",
+        "+4",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "1",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "10th",
+        "+4",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "11th",
+        "+4",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "12th",
+        "+4",
+        "Ability Score Improvement",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "13th",
+        "+5",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "-",
+        "-"
+      ],
+      [
+        "14th",
+        "+5",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "-",
+        "-"
+      ],
+      [
+        "15th",
+        "+5",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "-"
+      ],
+      [
+        "16th",
+        "+5",
+        "Ability Score Improvement",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "-"
+      ],
+      [
+        "17th",
+        "+6",
+        "–",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "18th",
+        "+6",
+        "Spell Mastery",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "19th",
+        "+6",
+        "Ability Score Improvement",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "20th",
+        "+6",
+        "Signature Spells",
+        "5",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "2",
+        "1",
+        "1"
+      ]
+    ]
+  },
+  "spellcastingNotes": [
+    "You prepare wizard spells from your spellbook after each long rest: your wizard level + your Intelligence modifier, minimum one."
+  ],
+  "classFeatures": [
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "keyFacts": [
+        "You keep a spellbook. Prepare wizard spells from it after each long rest: your wizard level + INT modifier, at least one. Here you pick the spells you prepare; copy new spells into your book in play.",
+        "Spell save DC = 8 + PB + INT; spell attack = PB + INT."
+      ],
+      "summary": "You can cast wizard spells. You keep a spellbook. Prepare wizard spells from it after each long rest: your wizard level + INT modifier, at least one. Here you pick the spells you prepare; copy new spells into your book in play. INT is your spellcasting ability: spell save DC = 8 + proficiency bonus + INT modifier, spell attack = proficiency bonus + INT modifier. You can use an arcane focus as a spellcasting focus. You regain all spell slots on a long rest.",
+      "unlockLevel": 1,
+      "short": "Cast wizard spells using INT.",
+      "facts": {
+        "action": "Special",
+        "dc": "spell"
+      }
+    },
+    {
+      "id": "arcane-recovery",
+      "name": "Arcane Recovery",
+      "keyFacts": [
+        "Slot levels up to half your wizard level (round up).",
+        "No 6th-level or higher slots."
+      ],
+      "summary": "Once per day when you finish a short rest, you can recover expended spell slots with a combined level equal to or less than half your wizard level (rounded up). None of the slots can be 6th level or higher.",
+      "unlockLevel": 1,
+      "short": "Short rest: recover some spell slots once per day.",
+      "facts": {
+        "action": "Special",
+        "uses": "1 per day"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "arcane-recovery",
+          "name": "Arcane Recovery",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ]
+    },
+    {
+      "id": "arcane-tradition",
+      "name": "Arcane Tradition",
+      "keyFacts": [
+        "Subclass features at 2, 6, 10 and 14."
+      ],
+      "summary": "Choose an arcane tradition (school or order of magic). It grants features at 2nd, 6th, 10th and 14th level.",
+      "unlockLevel": 2,
+      "short": "Choose your school of magic.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "ability-score-improvement",
+      "name": "Ability Score Improvement",
+      "keyFacts": [
+        "+2 to one ability or +1 to two, or a feat."
+      ],
+      "milestones": [
+        {
+          "level": 4,
+          "label": "ASI"
+        },
+        {
+          "level": 8,
+          "label": "ASI"
+        },
+        {
+          "level": 12,
+          "label": "ASI"
+        },
+        {
+          "level": 16,
+          "label": "ASI"
+        },
+        {
+          "level": 19,
+          "label": "ASI"
+        }
+      ],
+      "summary": "When you reach 4th level, and again at 8th, 12th, 16th, 19th level, you can increase one ability score by 2, or two ability scores by 1. You can't raise a score above 20 this way. If your DM allows feats, you can take a feat instead.",
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "spell-mastery",
+      "name": "Spell Mastery",
+      "keyFacts": [
+        "One 1st-level and one 2nd-level spell at will."
+      ],
+      "summary": "Choose a 1st-level and a 2nd-level wizard spell in your spellbook. You can cast them at their lowest level without expending a slot when you have them prepared.",
+      "unlockLevel": 18,
+      "short": "Cast one 1st- and one 2nd-level spell at will.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "signature-spells",
+      "name": "Signature Spells",
+      "keyFacts": [
+        "Two 3rd-level spells, each free once per short rest."
+      ],
+      "summary": "Choose two 3rd-level wizard spells as signature spells. They are always prepared, don't count against your prepared spells, and you can cast each once at 3rd level without a slot per short or long rest.",
+      "unlockLevel": 20,
+      "short": "Two 3rd-level spells always ready and free once per rest.",
+      "facts": {
+        "action": "Passive"
+      }
+    }
+  ],
+  "journeyStages": [
+    {
+      "id": "class",
+      "label": "Class",
+      "browser": "class",
+      "summary": "Review the wizard at a glance."
+    },
+    {
+      "id": "features",
+      "label": "Class Features",
+      "browser": "class-features",
+      "summary": "What your class gives you, level by level."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "browser": "inventory",
+      "summary": "Choose your starting kit."
+    },
+    {
+      "id": "subclass",
+      "label": "Arcane Tradition",
+      "browser": "subclass",
+      "minLevel": 2,
+      "summary": "Choose your arcane tradition."
+    },
+    {
+      "id": "spells",
+      "label": "Spells",
+      "browser": "spells",
+      "summary": "Choose your spells."
+    }
+  ],
+  "startingEquipment": [
+    {
+      "id": "wizard-weapon",
+      "prompt": "Weapon",
+      "options": [
+        {
+          "id": "quarterstaff",
+          "label": "Quarterstaff",
+          "items": [
+            "Quarterstaff"
+          ]
+        },
+        {
+          "id": "dagger",
+          "label": "Dagger",
+          "items": [
+            "Dagger"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wizard-focus",
+      "prompt": "Focus",
+      "options": [
+        {
+          "id": "component-pouch",
+          "label": "Component Pouch",
+          "items": [
+            "Component Pouch"
+          ]
+        },
+        {
+          "id": "arcane-focus",
+          "label": "Arcane Focus",
+          "items": [
+            "Wand"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wizard-pack",
+      "prompt": "Pack",
+      "options": [
+        {
+          "id": "scholar-pack",
+          "label": "Scholar's Pack",
+          "items": [
+            "Scholar's Pack"
+          ]
+        },
+        {
+          "id": "explorer-pack",
+          "label": "Explorer's Pack",
+          "items": [
+            "Explorer's Pack"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wizard-kit",
+      "prompt": "Kit",
+      "options": [
+        {
+          "id": "spellbook",
+          "label": "Spellbook",
+          "items": [
+            "Spellbook"
+          ]
+        }
+      ]
+    }
+  ],
+  "subclassHeading": "Arcane Tradition",
+  "subclasses": [],
+  "highlights": [
+    {
+      "title": "Combat Role",
+      "body": "The most versatile caster: control, blasting and utility from the biggest spell list, but fragile in a fight."
+    },
+    {
+      "title": "Core Resources",
+      "body": "Prepare spells daily from your spellbook (level + INT). Arcane Recovery gives back some slots on a short rest."
+    },
+    {
+      "title": "Level Rhythm",
+      "body": "Arcane Tradition at 2, 3rd-level spells at 5, 5th-level at 9, 9th-level at 17, Spell Mastery at 18."
+    }
+  ],
+  "notes": []
+}

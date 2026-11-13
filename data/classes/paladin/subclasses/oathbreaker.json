@@ -1,0 +1,161 @@
+{
+  "id": "oathbreaker",
+  "name": "Oathbreaker",
+  "source": "Dungeon Master's Guide",
+  "sourceUrl": "https://dnd5e.wikidot.com/paladin:oathbreaker",
+  "summary": "An Oathbreaker is a paladin who broke their sacred oath to pursue some dark ambition or serve an evil power. Whatever light burned in the paladin's heart has been extinguished; only darkness remains. Their power now comes from hatred, fear and the undead.",
+  "features": [
+    {
+      "id": "oathbreaker-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "summary": "You gain oath spells at the paladin levels listed: 3rd Hellish Rebuke, Inflict Wounds; 5th Crown of Madness, Darkness; 9th Animate Dead, Bestow Curse; 13th Blight, Confusion; 17th Contagion, Dominate Person. Oath spells are always prepared and don't count against the number of spells you prepare each day.",
+      "short": "Dark spells that are always prepared for free.",
+      "keyFacts": [
+        "Always prepared; they don't count against your prepared spells.",
+        "New pair at paladin levels 3, 5, 9, 13 and 17."
+      ],
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "oathbreaker-restriction",
+      "name": "Oathbreaker's Path",
+      "unlockLevel": 3,
+      "summary": "An Oathbreaker must be evil and serves no tenets, only their own dark ambitions or an evil master. The DM's Guide presents this subclass as an option for villains; ask your DM before taking it.",
+      "short": "Evil alignment only. Ask your DM first.",
+      "grants": [
+        {
+          "type": "note",
+          "text": "Oathbreaker: evil alignment, DM approval needed (Dungeon Master's Guide option)."
+        }
+      ],
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "control-undead",
+      "name": "Channel Divinity: Control Undead",
+      "unlockLevel": 3,
+      "summary": "As an action, you target one undead creature you can see within 30 feet of you. The target must make a Wisdom saving throw. On a failed save, the target must obey your commands for the next 24 hours, or until you use this Channel Divinity option again. An undead whose challenge rating is equal to or greater than your paladin level is immune to this effect.",
+      "short": "Action: an undead within 30 ft. obeys you for 24 hours.",
+      "keyFacts": [
+        "Uses Channel Divinity.",
+        "WIS save; undead with CR at or above your paladin level are immune."
+      ],
+      "grants": [
+        {
+          "type": "note",
+          "text": "Control Undead (Channel Divinity): one undead within 30 ft. makes a WIS save or obeys you for 24 hours; CR at or above your paladin level is immune."
+        }
+      ],
+      "facts": {
+        "action": "Action",
+        "range": "30 ft.",
+        "dc": "spell",
+        "cost": "Channel Divinity"
+      }
+    },
+    {
+      "id": "dreadful-aspect",
+      "name": "Channel Divinity: Dreadful Aspect",
+      "unlockLevel": 3,
+      "summary": "As an action, you channel the darkest emotions and focus them into a burst of magical menace. Each creature of your choice within 30 feet of you must make a Wisdom saving throw if it can see you. On a failed save, the target is frightened of you for 1 minute. If a creature frightened by this effect ends its turn more than 30 feet away from you, it can attempt another Wisdom saving throw to end the effect on it.",
+      "short": "Action: frighten chosen creatures within 30 ft. for 1 minute.",
+      "keyFacts": [
+        "Uses Channel Divinity.",
+        "WIS save; a frightened creature that ends its turn more than 30 ft. away can save again."
+      ],
+      "grants": [
+        {
+          "type": "note",
+          "text": "Dreadful Aspect (Channel Divinity): creatures of your choice within 30 ft. that can see you make a WIS save or are frightened for 1 minute."
+        }
+      ],
+      "facts": {
+        "action": "Action",
+        "range": "30 ft.",
+        "dc": "spell",
+        "cost": "Channel Divinity"
+      }
+    },
+    {
+      "id": "aura-of-hate",
+      "name": "Aura of Hate",
+      "unlockLevel": 7,
+      "summary": "Starting at 7th level, you, as well as any fiends and undead within 10 feet of you, gain a bonus to melee weapon damage rolls equal to your Charisma modifier (minimum of +1). A creature can benefit from this feature from only one paladin at a time. At 18th level, the range of this aura increases to 30 feet.",
+      "short": "You and nearby fiends/undead add CHA to melee damage.",
+      "keyFacts": [
+        "+CHA modifier (min +1) to melee weapon damage.",
+        "10 ft. aura, 30 ft. at 18th level."
+      ],
+      "milestones": [
+        { "level": 7, "label": "10 ft. aura" },
+        { "level": 18, "label": "30 ft. aura" }
+      ],
+      "grants": [
+        {
+          "type": "note",
+          "text": "Aura of Hate: you and fiends/undead within 10 ft. (30 ft. at 18th) add your CHA modifier (min +1) to melee weapon damage."
+        }
+      ],
+      "facts": {
+        "action": "Passive",
+        "range": "10 ft."
+      }
+    },
+    {
+      "id": "supernatural-resistance",
+      "name": "Supernatural Resistance",
+      "unlockLevel": 15,
+      "summary": "At 15th level, you gain resistance to bludgeoning, piercing, and slashing damage from nonmagical weapons.",
+      "short": "Resist bludgeoning, piercing and slashing from nonmagical weapons.",
+      "grants": [
+        { "type": "defense", "kind": "resistance", "against": "nonmagical bludgeoning" },
+        { "type": "defense", "kind": "resistance", "against": "nonmagical piercing" },
+        { "type": "defense", "kind": "resistance", "against": "nonmagical slashing" }
+      ],
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "dread-lord",
+      "name": "Dread Lord",
+      "unlockLevel": 20,
+      "summary": "At 20th level, as an action, you can surround yourself with an aura of gloom that lasts for 1 minute. The aura reduces any bright light in a 30-foot radius around you to dim light. Whenever an enemy that is frightened by you starts its turn in the aura, it takes 4d10 psychic damage. Additionally, you and any creatures of your choosing in the aura are draped in deeper shadow. Creatures that rely on sight have disadvantage on attack rolls against creatures draped in this shadow. While the aura lasts, you can use a bonus action on your turn to cause the shadows in the aura to attack one creature. Make a melee spell attack against the target. If the attack hits, the target takes necrotic damage equal to 3d10 + your Charisma modifier. After activating the aura, you can't do so again until you finish a long rest.",
+      "short": "Action: 1-minute aura of gloom that hurts frightened foes.",
+      "keyFacts": [
+        "Frightened enemies starting their turn in it take 4d10 psychic.",
+        "Bonus action: shadow attack for 3d10 + CHA necrotic.",
+        "Attacks against you and chosen allies in the aura have disadvantage."
+      ],
+      "grants": [
+        {
+          "type": "resource",
+          "id": "dread-lord",
+          "name": "Dread Lord",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "facts": {
+        "action": "Action",
+        "range": "30 ft.",
+        "uses": "1 / long rest"
+      }
+    }
+  ],
+  "expandedSpells": [
+    { "unlockLevel": 3, "spells": ["Hellish Rebuke", "Inflict Wounds"], "uses": "known" },
+    { "unlockLevel": 5, "spells": ["Crown of Madness", "Darkness"], "uses": "known" },
+    { "unlockLevel": 9, "spells": ["Animate Dead", "Bestow Curse"], "uses": "known" },
+    { "unlockLevel": 13, "spells": ["Blight", "Confusion"], "uses": "known" },
+    { "unlockLevel": 17, "spells": ["Contagion", "Dominate Person"], "uses": "known" }
+  ],
+  "notes": [
+    "Dungeon Master's Guide villain option; needs DM approval."
+  ]
+}

@@ -11,7 +11,21 @@ import {
 } from "@/lib/content/class-curated-schema";
 
 const ROOT = path.join(process.cwd(), "data", "classes");
-const ENABLED_CLASS_IDS = ["fighter", "ranger", "warlock", "bard", "monk"] as const;
+const ENABLED_CLASS_IDS = [
+  "artificer",
+  "barbarian",
+  "bard",
+  "cleric",
+  "druid",
+  "fighter",
+  "monk",
+  "paladin",
+  "ranger",
+  "rogue",
+  "sorcerer",
+  "warlock",
+  "wizard",
+] as const;
 const ENABLED_SUBCLASS_IDS_BY_CLASS: Record<string, string[]> = {
   fighter: ["eldritch-knight"],
   ranger: ["horizon-walker"],

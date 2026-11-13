@@ -104,7 +104,11 @@
             ]
           }
         }
-      ]
+      ],
+      "short": "Master chosen weapons; parry with them or empower your shots.",
+      "facts": {
+        "action": "Passive"
+      }
     },
     {
       "id": "one-with-the-blade",
@@ -120,7 +124,12 @@
           "type": "note",
           "text": "Deft Strike (1 ki, once per turn): on a kensei weapon hit, add your Martial Arts die to the damage."
         }
-      ]
+      ],
+      "short": "Kensei weapons count as magical; spend ki for extra damage.",
+      "facts": {
+        "cost": "1 ki for Deft Strike",
+        "uses": "Once per turn"
+      }
     },
     {
       "id": "sharpen-the-blade",
@@ -132,7 +141,13 @@
           "type": "note",
           "text": "Sharpen the Blade (bonus action, 1-3 ki): a kensei weapon gets +1 per ki to attack and damage for 1 minute."
         }
-      ]
+      ],
+      "short": "Spend up to 3 ki to give a kensei weapon +1 to +3.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "1–3 ki",
+        "duration": "1 minute"
+      }
     },
     {
       "id": "unerring-accuracy",
@@ -144,7 +159,12 @@
           "type": "note",
           "text": "Unerring Accuracy: once per turn, reroll a missed attack with a monk weapon."
         }
-      ]
+      ],
+      "short": "Reroll a missed monk weapon attack.",
+      "facts": {
+        "action": "Special",
+        "uses": "Once per turn"
+      }
     }
   ],
   "notes": [

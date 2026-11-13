@@ -27,7 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${montserrat.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${montserrat.variable}`}>
+        {children}
+        <footer className="site-credits">
+          Icons by <a href="https://game-icons.net" target="_blank" rel="noreferrer">game-icons.net</a>, CC BY 3.0.
+        </footer>
+      </body>
     </html>
   );
 }

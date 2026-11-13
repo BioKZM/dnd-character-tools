@@ -108,7 +108,7 @@ for (const file of walkFiles("data/lineages")) {
   }
 }
 
-const withoutGrants = read("data/feats.json").filter((feat) => !feat.grants?.length).length;
+const withoutGrants = read("data/feats.json").filter((feat) => !feat.grants?.length && !feat.choices?.length).length;
 console.log(`audit:data -> ${counts.files} dosya, ${counts.grants} grant, ${handled.size} handler`);
 console.log(`  bilgi: ${withoutGrants} feat henuz grant'siz (sadece metin olarak gorunur)`);
 warnings.forEach((message) => console.log(`  uyari: ${message}`));

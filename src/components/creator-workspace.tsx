@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
+import { FactChips } from "@/components/ui/feature-rules";
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,7 +13,8 @@ import { LanguageChoicePanel } from "@/components/language-choice-panel";
 import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
 import type { DerivedStatDisplay } from "@/lib/character/build-sheet";
 import { OptionChoicePanel } from "@/components/option-choice-panel";
-import { clearCreatorJump, readCreatorJump } from "@/components/level-up-dialog";
+import { clearCreatorJump, readCreatorJump, type LevelUpTask } from "@/components/level-up-dialog";
+import { CreatorFlowFooter, CreatorFlowNav, type CreatorFlowScreen, type CreatorFlowStep } from "@/components/creator-flow-nav";
 import type { EngineCatalog } from "@/lib/engine/collect";
 import { asiAbilityBonuses, featEligibility, featSlots, type FeatCheckContext } from "@/lib/engine/feats";
 import type { ClassDocBlock, ClassDocCollection, ClassDocSection, ClassDocTable } from "@/lib/content/class-docs";
@@ -26,6 +28,10 @@ import type { LineageCollection, ResolvedLineageEntry, SubraceEntry } from "@/li
 import type { ContentBundle } from "@/lib/content/schema";
 import type { SpellReferenceCollection, SpellReferenceEntry } from "@/lib/content/spell-reference";
 import { AppIcon } from "@/components/ui/app-icon";
+import { InspectPanel, PickGrid, PickLayout, PickSection, type PickTile } from "@/components/ui/pick-grid";
+import { GearList } from "@/components/ui/gear-info";
+import { findGearInfo, gearInfosFor } from "@/lib/content/item-info";
+import { backgroundIcon, classIcon, featIcon, featureIcon, pactIcon, raceIcon, schoolIcon, skillIcon, styleIcon } from "@/lib/ui/game-icons";
 import { ClassPortrait } from "@/components/ui/class-portrait";
 import {
   parseWarlockInvocationSummary,
@@ -1073,6 +1079,8 @@ function featureTooltipContent(feature: ClassCuratedFeature, currentLevel: numbe
       <span className="spell-tooltip-head">
         <strong>{feature.name}</strong>
       </span>
+      {feature.short ? <span className="feature-tooltip-short">{feature.short}</span> : null}
+      <FactChips facts={feature.facts} hidePassive />
       {keyFacts.length ? (
         <span className="spell-tooltip-block">
           <span className="spell-tooltip-block-title">Key Facts</span>
@@ -1748,6 +1756,15 @@ function featSourceShort(source: string | undefined) {
     .replace("Fizban's Treasury of Dragons", "Fizban")
     .replace("Planescape - Adventures in the Multiverse", "Planescape")
     .replace("Dragonlance: Shadow of the Dragon Queen", "Dragonlance");
+}
+
+function firstSentence(text: string | null | undefined) {
+  const value = (text ?? "").replace(/\s+/g, " ").trim();
+  if (!value) {
+    return null;
+  }
+  const match = value.match(/^(.{20,220}?[.!?])(\s|$)/);
+  return match ? match[1] : value.length > 220 ? `${value.slice(0, 217)}...` : value;
 }
 
 function backgroundMetaDescription(content: ContentBundle, item: ContentBundle["backgrounds"][number]) {
@@ -2886,7 +2903,9 @@ export function CreatorWorkspace({
   setFighterFightingStyle,
   setRangerAwarenessMode,
   setRangerHideMode,
+  pendingTasks = [],
 }: {
+  pendingTasks?: LevelUpTask[];
   draft: CharacterDraft;
   content: ContentBundle;
   creatorStep: CreatorStep;
@@ -2977,6 +2996,7 @@ export function CreatorWorkspace({
     [classCuratedCollection.entries],
   );
   // Level up'tan gelinirse ilgili sayfa acilir (sessionStorage'daki atlama bir kez kullanilir).
+  const [inspectState, setInspectState] = useState<{ key: string; id: string } | null>(null);
   const [creatorBrowser, setCreatorBrowser] = useState<CreatorBrowser>(() => (readCreatorJump()?.browser as CreatorBrowser | undefined) ?? "lineage");
   useEffect(() => {
     clearCreatorJump();
@@ -2987,6 +3007,8 @@ export function CreatorWorkspace({
   const [selectedSubraceId, setSelectedSubraceId] = useState(initialSubrace?.id ?? "");
   const [lineagePage, setLineagePage] = useState(0);
   const [backgroundPage, setBackgroundPage] = useState(0);
+  const [backgroundQuery, setBackgroundQuery] = useState("");
+  const [backgroundShowAll, setBackgroundShowAll] = useState(false);
   const [lineageDetailTab, setLineageDetailTab] = useState("overview");
   const [subraceDetailTab, setSubraceDetailTab] = useState("overview");
   const [selectedClassFeatureId, setSelectedClassFeatureId] = useState<string | null>(null);
@@ -3000,6 +3022,7 @@ export function CreatorWorkspace({
   const [spellSearchQuery, setSpellSearchQuery] = useState("");
   const [featSearchQuery, setFeatSearchQuery] = useState("");
   const [selectedFeatId, setSelectedFeatId] = useState<string | null>(null);
+  const [featFilter, setFeatFilter] = useState<"fits" | "locked" | "all">("fits");
   const [originCarouselDirection, setOriginCarouselDirection] = useState(1);
   const [fighterJourneyDirection, setFighterJourneyDirection] = useState(1);
   const [fighterProgressionOpen, setFighterProgressionOpen] = useState(false);
@@ -3328,6 +3351,10 @@ export function CreatorWorkspace({
     [content.backgrounds],
   );
   const currentCuratedClass = curatedClassMap.get(draft.classId) ?? null;
+  // Inceleme paneli secimi ekrana bagli: ekran degisince kendiliginden sifirlanir.
+  const inspectKey = `${creatorStep}:${creatorBrowser}`;
+  const inspectId = inspectState?.key === inspectKey ? inspectState.id : null;
+  const setInspectId = (id: string | null) => setInspectState(id ? { key: inspectKey, id } : null);
   const simpleWeaponOptions = useMemo(
     () =>
       content.weapons
@@ -3365,100 +3392,55 @@ export function CreatorWorkspace({
           ? fallbackFighterStartingEquipment
           : [];
 
-    if (currentCuratedClass?.id === "warlock") {
-      return baseEquipment.map((group) => ({
-        ...group,
-        options: group.options.flatMap((option) => {
-          if (option.id === "simple-weapon") {
-            return simpleWeaponOptions;
-          }
-
-          if (option.id === "leather-simple-daggers") {
-            return simpleWeaponOptions.map((weaponOption) => ({
-              id: `leather-${weaponOption.id}-daggers`,
-              label: `Leather Armor, ${weaponOption.label}, and Two Daggers`,
-              items: ["Leather Armor", weaponOption.label, "2x Daggers"],
-            }));
-          }
-
+    // Data'daki soyut secenekler ("simple-weapon", "two-martial"...) her class icin ayni sekilde acilir.
+    const isMelee = (option: { id: string }) => {
+      const weaponId = option.id.replace(/^(simple|martial)-/, "");
+      return content.weapons.some((weapon) => weapon.id === weaponId && weapon.attackType === "melee");
+    };
+    const expand = (option: ClassStartingEquipmentGroup["options"][number]): ClassStartingEquipmentGroup["options"] => {
+      switch (option.id) {
+        case "simple-weapon":
+          return simpleWeaponOptions;
+        case "simple-melee-weapon":
+          return simpleMeleeWeaponOptions;
+        case "martial-weapon":
+          return martialWeaponOptions;
+        case "martial-melee-weapon":
+          return martialWeaponOptions.filter(isMelee);
+        case "leather-simple-daggers":
+          return simpleWeaponOptions.map((weaponOption) => ({
+            id: `leather-${weaponOption.id}-daggers`,
+            label: `Leather Armor, ${weaponOption.label}, and Two Daggers`,
+            items: ["Leather Armor", weaponOption.label, "2x Daggers"],
+          }));
+        case "weapon-shield":
+          return martialWeaponOptions.map((weaponOption) => ({
+            id: `martial-shield-${weaponOption.id}`,
+            label: `${weaponOption.label} and Shield`,
+            items: [weaponOption.label, "Shield"],
+          }));
+        case "two-martial":
+          return martialWeaponOptions.flatMap((firstWeapon) =>
+            martialWeaponOptions.map((secondWeapon) => ({
+              id: `two-martial-${firstWeapon.id}-${secondWeapon.id}`,
+              label: "Two Martial Weapons",
+              items: [firstWeapon.label, secondWeapon.label],
+            })),
+          );
+        case "two-simple-melee":
+          return simpleMeleeWeaponOptions.flatMap((firstWeapon) =>
+            simpleMeleeWeaponOptions.map((secondWeapon) => ({
+              id: `two-simple-melee-${firstWeapon.id}-${secondWeapon.id}`,
+              label: "Two Simple Melee Weapons",
+              items: [firstWeapon.label, secondWeapon.label],
+            })),
+          );
+        default:
           return [option];
-        }),
-      }));
-    }
-
-    if (currentCuratedClass?.id === "fighter") {
-      return baseEquipment.map((group) => {
-        if (group.id !== "fighter-arms") {
-          return group;
-        }
-
-        return {
-          ...group,
-          options: group.options.flatMap((option) => {
-            if (option.id === "weapon-shield") {
-              return martialWeaponOptions.map((weaponOption) => ({
-                id: `martial-shield-${weaponOption.id}`,
-                label: `${weaponOption.label} and Shield`,
-                items: [weaponOption.label, "Shield"],
-              }));
-            }
-
-            if (option.id === "two-martial") {
-              return martialWeaponOptions.flatMap((firstWeapon) =>
-                martialWeaponOptions.map((secondWeapon) => ({
-                  id: `two-martial-${firstWeapon.id}-${secondWeapon.id}`,
-                  label: "Two Martial Weapons",
-                  items: [firstWeapon.label, secondWeapon.label],
-                })),
-              );
-            }
-
-            return [option];
-          }),
-        };
-      });
-    }
-
-    if (currentCuratedClass?.id !== "bard") {
-      if (currentCuratedClass?.id === "ranger") {
-        return baseEquipment.map((group) => {
-          if (group.id !== "ranger-arms") {
-            return group;
-          }
-
-          return {
-            ...group,
-            options: group.options.flatMap((option) => {
-              if (option.id !== "two-simple-melee") {
-                return [option];
-              }
-
-              return simpleMeleeWeaponOptions.flatMap((firstWeapon) =>
-                simpleMeleeWeaponOptions.map((secondWeapon) => ({
-                  id: `two-simple-melee-${firstWeapon.id}-${secondWeapon.id}`,
-                  label: "Two Simple Melee Weapons",
-                  items: [firstWeapon.label, secondWeapon.label],
-                })),
-              );
-            }),
-          };
-        });
       }
-
-      return baseEquipment;
-    }
-
-    return baseEquipment.map((group) => {
-      if (group.id !== "bard-arms") {
-        return group;
-      }
-
-      return {
-        ...group,
-        options: group.options.flatMap((option) => (option.id === "simple-weapon" ? simpleWeaponOptions : [option])),
-      };
-    });
-  }, [currentCuratedClass?.id, currentCuratedClass?.startingEquipment, martialWeaponOptions, simpleMeleeWeaponOptions, simpleWeaponOptions]);
+    };
+    return baseEquipment.map((group) => ({ ...group, options: group.options.flatMap(expand) }));
+  }, [content.weapons, currentCuratedClass?.id, currentCuratedClass?.startingEquipment, martialWeaponOptions, simpleMeleeWeaponOptions, simpleWeaponOptions]);
   const fighterStartingEquipment = classStartingEquipment.length ? classStartingEquipment : fallbackFighterStartingEquipment;
   const currentDocClass = classDocs[draft.classId] ?? null;
   const currentCuratedSubclasses = currentCuratedClass?.subclasses ?? [];
@@ -4143,6 +4125,9 @@ export function CreatorWorkspace({
       ? selectedSubclassFeature.keyFacts
       : [];
   const classOverviewHighlights =
+    (currentCuratedClass?.highlights.length
+      ? currentCuratedClass.highlights.map((item, index) => ({ id: `highlight-${index}`, title: item.title, body: item.body }))
+      : null) ??
     classOverviewHighlightsByClass[currentClass.id as keyof typeof classOverviewHighlightsByClass] ??
     // Yazilmamis bir class icin baska class'in metni gosterilmez; kartlar class verisinden kurulur.
     [
@@ -5133,24 +5118,32 @@ export function CreatorWorkspace({
 
     return (
       <div key={`${keyPrefix}-${group.id}`} className="equipment-choice-group">
-        <strong>{group.prompt}</strong>
+        <div className="pick-section-head">
+          <span className="pick-section-title">
+            <strong>{group.prompt}</strong>
+          </span>
+          <span className={selectedOptionId ? "pick-counter done" : "pick-counter pending"}>{selectedOptionId ? "Done" : "Pick 1"}</span>
+        </div>
+        {directOptions.length ? (
+          <PickGrid
+            label={group.prompt}
+            pageSize={8}
+            columns={Math.min(4, Math.max(2, directOptions.length))}
+            size="sm"
+            items={directOptions.map((option) => {
+              const infos = gearInfosFor(content, option.label, option.items);
+              return {
+                id: option.id,
+                name: option.label,
+                sub: infos.map((info) => info.sub).slice(0, 2).join(" · ") || undefined,
+                icon: infos[0]?.icon ?? "knapsack",
+                selected: selectedOptionId === option.id,
+              };
+            })}
+            onPick={(id) => setFighterEquipmentChoice(group.id, id)}
+          />
+        ) : null}
         <div className="fighter-journey-grid equipment-choice-grid">
-          {directOptions.map((option) => (
-            <button
-              key={`${keyPrefix}-${group.id}-${option.id}`}
-              type="button"
-              className={selectedOptionId === option.id ? "fighter-journey-card active" : "fighter-journey-card"}
-              onClick={() => setFighterEquipmentChoice(group.id, option.id)}
-            >
-              <span className="fighter-journey-card-label">{selectedOptionId === option.id ? "Selected" : "Choose"}</span>
-              <strong>
-                <HoverTooltip
-                  label={option.label}
-                  content={equipmentTooltipContent(content, option.label, option.items)}
-                />
-              </strong>
-            </button>
-          ))}
           {simpleOptions.length ? (
             <div className={selectedSimpleOption ? "fighter-journey-card active equipment-picker-card" : "fighter-journey-card equipment-picker-card"}>
               <span className="fighter-journey-card-label">{selectedSimpleOption ? "Selected" : "Choose"}</span>
@@ -5349,6 +5342,14 @@ export function CreatorWorkspace({
             </div>
           ) : null}
         </div>
+        {(() => {
+          const chosen = group.options.find((option) => option.id === selectedOptionId) ?? null;
+          return chosen ? (
+            <GearList title="What you get" infos={gearInfosFor(content, chosen.label, chosen.items)} />
+          ) : (
+            <p className="pick-note">Pick one to see what is inside.</p>
+          );
+        })()}
       </div>
     );
   };
@@ -5655,6 +5656,115 @@ export function CreatorWorkspace({
     );
   };
 
+  // Tek ASI karti: mod secimi (+2 / +1+1 / feat), sonra ability veya feat izgarasi.
+  const renderAsiLevelCard = (level: number) => {
+    const choice = fighterAsiChoices[level];
+    const mode = choice?.mode ?? null;
+    const plusTwo = choice?.plusTwoAbilityId ?? null;
+    const plusOnes = choice?.plusOneAbilityIds ?? [];
+    const featId = choice?.featId ?? "";
+    const done = mode === "plus-two" ? Boolean(plusTwo) : mode === "split" ? plusOnes.length === 2 : mode === "feat" ? Boolean(featId) : false;
+    const setMode = (next: "plus-two" | "split" | "feat") =>
+      next === "feat"
+        ? setFighterAsiFeatChoice(level, featId)
+        : updateFighterAsiChoice(level, () => ({ mode: next, plusTwoAbilityId: null, plusOneAbilityIds: [], featId: null }));
+    const eligibleFeats = content.feats.filter((feat) => feat.id === featId || checkFeat(feat.id, featId || null).eligible);
+    const chosenFeat = content.feats.find((feat) => feat.id === featId) ?? null;
+    return (
+      <PickSection
+        key={`asi-card-${level}`}
+        title={`Level ${level}`}
+        meta="Ability Score Improvement"
+        picked={done ? 1 : 0}
+        total={1}
+        actions={
+          mode ? (
+            <button type="button" className="pick-filter" onClick={() => clearFighterAsiChoice(level)}>
+              Clear
+            </button>
+          ) : null
+        }
+      >
+        <PickGrid
+          label={`Level ${level} improvement type`}
+          columns={3}
+          size="sm"
+          items={[
+            { id: "plus-two", name: "+2 to one ability", sub: "Best for your main stat", icon: "stars-stack", selected: mode === "plus-two" },
+            { id: "split", name: "+1 to two abilities", sub: "Round two odd scores up", icon: "skills", selected: mode === "split" },
+            { id: "feat", name: "Take a feat", sub: "A new ability instead", icon: "laurels", selected: mode === "feat" },
+          ]}
+          onPick={(id) => setMode(id as "plus-two" | "split" | "feat")}
+        />
+        {mode === "plus-two" || mode === "split" ? (
+          <div className="asi-ability-row">
+            {draft.abilities.map((ability) => {
+              const projected = fighterAsiProjectedScore(ability.id, level);
+              const active = mode === "plus-two" ? plusTwo === ability.id : plusOnes.includes(ability.id);
+              const gain = mode === "plus-two" ? 2 : 1;
+              const capped = projected + gain > 20;
+              const full = mode === "split" && !active && plusOnes.length >= 2;
+              return (
+                <button
+                  key={`asi-${level}-${ability.id}`}
+                  type="button"
+                  className={`asi-ability ${abilityAccentClass(ability.id)}${active ? " selected" : ""}`}
+                  disabled={!active && (capped || full)}
+                  title={capped ? "Can't go above 20" : undefined}
+                  onClick={() =>
+                    updateFighterAsiChoice(level, (current) =>
+                      mode === "plus-two"
+                        ? { mode: "plus-two", plusTwoAbilityId: current?.plusTwoAbilityId === ability.id ? null : ability.id, plusOneAbilityIds: [], featId: null }
+                        : {
+                            mode: "split",
+                            plusTwoAbilityId: null,
+                            plusOneAbilityIds: (current?.plusOneAbilityIds ?? []).includes(ability.id)
+                              ? (current?.plusOneAbilityIds ?? []).filter((entry) => entry !== ability.id)
+                              : [...(current?.plusOneAbilityIds ?? []), ability.id].slice(0, 2),
+                            featId: null,
+                          },
+                    )
+                  }
+                >
+                  <span>{ability.id}</span>
+                  <strong>{active ? `${projected} → ${projected + gain}` : projected}</strong>
+                  <small>{capped && !active ? "max 20" : `+${gain}`}</small>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+        {mode === "feat" ? (
+          <>
+            <PickGrid
+              label={`Level ${level} feat`}
+                                  pageSize={12}
+              columns={4}
+              size="sm"
+              items={eligibleFeats.map((feat) => ({
+                id: feat.id,
+                name: feat.name,
+                sub: featSourceShort(feat.source),
+                icon: featIcon(feat.name),
+                selected: feat.id === featId,
+              }))}
+              onPick={(id) => setFighterAsiFeatChoice(level, id === featId ? "" : id)}
+            />
+            {chosenFeat ? (
+              <p className="pick-note">
+                <strong>{`${chosenFeat.name}: `}</strong>
+                {firstSentence(featBenefitParagraphs(chosenFeat)[0] ?? chosenFeat.summary)}
+                {" More in the Feats tab."}
+              </p>
+            ) : (
+              <p className="pick-note">{`Only feats you qualify for are shown (${content.feats.length - eligibleFeats.length} hidden). The Feats tab shows all of them with reasons.`}</p>
+            )}
+          </>
+        ) : null}
+      </PickSection>
+    );
+  };
+
   const fighterAsiProjectedScore = (abilityId: AbilityId, level: number) => {
     const baseScore = draft.abilities.find((ability) => ability.id === abilityId)?.score ?? 8;
     const racialBonus = previewAbilityBonuses
@@ -5829,121 +5939,116 @@ export function CreatorWorkspace({
       ) : null,
     },
   ];
+  // Tek navigasyon: adimlar + ekranlar. Bekleyen secimler level-up gorevlerinden (pendingTasks) sayilir.
+  const pendingFor = (browser: string) => {
+    const fromTasks = pendingTasks.filter((task) => task.jump.browser === browser).length;
+    if (browser === "skills") {
+      return fromTasks + remainingClassSkillChoices;
+    }
+    if (browser === "abilities") {
+      return fromTasks + (abilityMethod === "point-buy" && pointBuyRemaining > 0 ? 1 : abilityMethod === "standard-array" && !standardArrayValid ? 1 : 0);
+    }
+    if (browser === "custom-background-languages") {
+      return fromTasks + languageChoices.reduce((total, choice) => total + Math.max(0, choice.count - choice.selectedNames.length), 0);
+    }
+    return fromTasks;
+  };
+  const originScreenLabels: Record<(typeof originPageOrder)[number], string> = {
+    identity: "Name & Level",
+    lineage: "Race",
+    background: "Background",
+  };
+  const creatorFlowSteps: CreatorFlowStep[] = [
+    {
+      id: 0,
+      label: "Origin",
+      screens: originPageOrder.map((page) => ({ step: 0, browser: page, label: originScreenLabels[page], pending: pendingFor(page) })),
+    },
+    {
+      id: 1,
+      label: "Class",
+      screens: fighterJourneyStageItems
+        .filter((item) => item.browser)
+        .map((item) => ({ step: 1, browser: item.browser as string, label: item.label, pending: pendingFor(item.browser as string) })),
+    },
+    {
+      id: 2,
+      label: "Abilities",
+      screens: abilitySubmenuItems
+        .filter((entry): entry is Extract<SidebarNavEntry, { type: "item" }> => entry.type === "item")
+        .map((entry) => ({ step: 2, browser: entry.id as string, label: entry.label, pending: pendingFor(entry.id as string) })),
+    },
+    {
+      id: 3,
+      label: "Tools & Gear",
+      screens: gearSubmenuItems
+        .filter((entry): entry is Extract<SidebarNavEntry, { type: "item" }> => entry.type === "item")
+        .map((entry) => ({ step: 3, browser: entry.id as string, label: entry.label, pending: pendingFor(entry.id as string) })),
+    },
+  ];
+  const creatorFlowOrder = creatorFlowSteps.flatMap((step) => step.screens);
+  const creatorFlowIndex = (() => {
+    const exact = creatorFlowOrder.findIndex((screen) => screen.step === creatorStep && screen.browser === creatorBrowser);
+    if (exact >= 0) {
+      return exact;
+    }
+    if (creatorStep === 0) {
+      return creatorFlowOrder.findIndex((screen) => screen.step === 0 && screen.browser === activeOriginPage);
+    }
+    return creatorFlowOrder.findIndex((screen) => screen.step === creatorStep);
+  })();
+  const creatorFlowCurrent = creatorFlowIndex >= 0 ? creatorFlowOrder[creatorFlowIndex] : null;
+  const creatorFlowPrevious = creatorFlowIndex > 0 ? creatorFlowOrder[creatorFlowIndex - 1] : null;
+  const creatorFlowNext =
+    creatorFlowIndex >= 0 && creatorFlowIndex < creatorFlowOrder.length - 1 ? creatorFlowOrder[creatorFlowIndex + 1] : null;
+  const goToCreatorScreen = (screen: CreatorFlowScreen) => {
+    const browser = screen.browser as CreatorBrowser;
+    if (screen.step === 0 && isOriginPage(browser)) {
+      moveCreatorStep(0);
+      navigateOriginPage(browser);
+    } else if (screen.step === 1) {
+      navigateFighterJourney(browser);
+    } else {
+      moveCreatorStep(screen.step as CreatorStep);
+      setCreatorBrowser(browser);
+    }
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+  const creatorFlowSubtitle = [
+    currentStructuredLineage?.name ?? currentLineageGroup.name,
+    `${currentClass.name} ${draft.level}`,
+    selectedJourneySubclass?.name ?? null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  const creatorFlowStats = [
+    { label: "AC", value: previewStats.armorClass.displayValue },
+    { label: "HP", value: String(previewDraft.maxHp) },
+    { label: "Speed", value: previewStats.walkingSpeed.displayValue },
+    ...previewPanelAbilities.map((ability) => ({ label: ability.id, value: String(ability.value) })),
+  ];
+
   return (
     <div className="creator-layout">
       <div className="creator-ambient creator-ambient-left" aria-hidden="true" />
       <div className="creator-ambient creator-ambient-right" aria-hidden="true" />
 
       <div className="creator-workbench creator-workbench-navigation creator-workbench-flat">
-        <aside className="creator-stage-rail" aria-label="Creator primary navigation">
-          <article className="sheet-card creator-stage-rail-card">
-            <div className="creator-stage-rail-head">
-              <span className="mini-heading">Sections</span>
-            </div>
-            <div className="creator-stage-rail-list">
-              {creatorMenu.map((item) => (
-                <button
-                  key={`rail-tab-${item.id}`}
-                  type="button"
-                  className={creatorStep === item.id ? "creator-stage-rail-button active" : "creator-stage-rail-button"}
-                  onClick={() => {
-                    moveCreatorStep(item.id);
-                    if (item.id === 1 && fighterJourneyStageItems.length) {
-                      setCreatorBrowser(fighterJourneyStageItems[0]?.browser ?? "class-features");
-                      return;
-                    }
-                    setCreatorBrowser(defaultBrowserForStep(item.id));
-                  }}
-                >
-                  <span className="creator-stage-rail-icon" aria-hidden="true">
-                    <AppIcon
-                      name={
-                        item.id === 0
-                          ? summaryIcon("lineage")
-                          : item.id === 1
-                            ? summaryIcon("class")
-                            : item.id === 2
-                              ? summaryIcon("abilities")
-                              : summaryIcon("custom-background-tools")
-                      }
-                      className="summary-icon"
-                    />
-                  </span>
-                  <span className="creator-stage-rail-copy">
-                    <strong>{item.label}</strong>
-                    <span>{creatorMenuDescriptions[item.id]}</span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </article>
-        </aside>
         <div className="creator-stage-column">
-          <section className="creator-stage-header-card" aria-label="Creator stage navigation">
-            <div className="creator-stage-header-tabs">
-              {creatorStep === 1 && fighterJourneyStageItems.length ? (
-                <div className="creator-subtabs">
-                  {fighterJourneyStageItems.map((item) => (
-                    <button
-                      key={`fighter-stage-${item.id}`}
-                      type="button"
-                      className={creatorBrowser === item.browser ? "creator-subtab active" : "creator-subtab"}
-                      onClick={() => navigateFighterJourney(item.browser)}
-                    >
-                      <span>{item.label}</span>
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-              {!originCarouselActive && !fighterJourneyActive && activeContextGroups.length ? (
-                <div className="creator-subtabs creator-context-tabs" aria-label="Section content navigation">
-                  {activeContextGroups.map((group) => (
-                    <div key={`context-group-${group.id}`} className="creator-context-group">
-                      <span className="creator-context-label">{group.label}</span>
-                      <div className="creator-context-buttons creator-subtabs">
-                        {group.items.map((item) => (
-                          <button
-                            key={`context-tab-${item.id}`}
-                            type="button"
-                            className={creatorBrowser === item.id ? "creator-subtab active" : "creator-subtab"}
-                            onClick={() => {
-                              moveCreatorStep(item.step);
-                              setCreatorBrowser(item.id);
-                            }}
-                          >
-                            <span>{item.label}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          </section>
+          <CreatorFlowNav
+            steps={creatorFlowSteps}
+            activeStep={creatorStep}
+            activeBrowser={creatorFlowCurrent?.browser ?? null}
+            onNavigate={goToCreatorScreen}
+            title={draft.name.trim() || "Unnamed character"}
+            subtitle={creatorFlowSubtitle}
+            stats={creatorFlowStats}
+          />
           <div className={originCarouselActive ? "creator-main-panel creator-main-panel-clean creator-main-panel-flat origin-carousel-main" : "creator-main-panel creator-main-panel-clean creator-main-panel-flat"}>
           {originCarouselActive ? (
             <section className="origin-carousel-shell" aria-label="Origin setup">
-              <div className="origin-carousel-topline">
-                <div>
-                  <span className="mini-heading creator-section-label">Origin</span>
-                  <h3>{activeOriginPage === "identity" ? "Identity" : activeOriginPage === "lineage" ? "Race" : "Background"}</h3>
-                </div>
-                <div className="origin-carousel-progress" aria-label="Origin pages">
-                  {originPageOrder.map((page, index) => (
-                    <button
-                      key={`origin-page-dot-${page}`}
-                      type="button"
-                      className={activeOriginPage === page ? "origin-progress-dot active" : "origin-progress-dot"}
-                      onClick={() => navigateOriginPage(page)}
-                      aria-label={`Open ${page}`}
-                    >
-                      <span>{index + 1}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               <div className="origin-carousel-window">
                 <AnimatePresence mode="wait" custom={originCarouselDirection}>
                   <motion.section
@@ -5956,196 +6061,221 @@ export function CreatorWorkspace({
                     transition={{ duration: 0.28, ease: "easeOut" }}
                   >
                     {activeOriginPage === "identity" ? (
-                      <div className="origin-focus-card origin-identity-card">
-                        <div className="origin-page-title">
-                          <span>Start Here</span>
-                          <h4>{draft.name.trim() || "Unnamed Character"}</h4>
-                          <p>Name the character and choose the level. The rest of the creator can stay quiet until these basics are set.</p>
+                      <div className="origin-focus-card origin-pick-page">
+                        <div className="fighter-journey-scene-head compact">
+                          <h3>Name & Level</h3>
+                          <p>Start with who you are and how far along your adventure is. You can change both later.</p>
                         </div>
-                        <label className="origin-name-field">
-                          <span>Character Name</span>
-                          <input
-                            type="text"
-                            value={draft.name}
-                            placeholder="Enter character name"
-                            onChange={(event) =>
-                              updateDraft((current) => ({
-                                ...current,
-                                name: event.target.value,
-                              }))
-                            }
-                          />
-                        </label>
-                        <div className="origin-level-focus">
-                          <div className="origin-level-head">
-                            <span>Level</span>
-                            <strong>{draft.level}</strong>
-                          </div>
-                          <div className="level-chooser origin-level-chooser">
-                            {Array.from({ length: 20 }, (_, index) => index + 1).map((level) => (
-                              <button
-                                key={`origin-level-${level}`}
-                                type="button"
-                                className={draft.level === level ? "level-pill active" : "level-pill"}
-                                onClick={() => applyLevelChange(level)}
-                              >
-                                {level}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="origin-mini-summary">
-                          <div>
-                            <span>Race</span>
-                            <strong>{currentStructuredLineage?.name ?? currentLineageGroup.name}</strong>
-                          </div>
-                          <div>
-                            <span>Background</span>
-                            <strong>{selectedBackground?.name ?? currentBackground.name}</strong>
-                          </div>
-                        </div>
+                        <PickLayout
+                          inspect={
+                            <InspectPanel
+                              icon="stars-stack"
+                              kicker="Level"
+                              title={`Level ${draft.level}`}
+                              summary="Your level decides your hit points, proficiency bonus and which class features you have."
+                              rows={[
+                                { label: "Proficiency", value: signedNumber(draft.proficiencyBonus) },
+                                { label: "Hit points", value: `${previewDraft.maxHp} with your current CON` },
+                                { label: "Features", value: `${visibleClassFeatures.filter((feature) => classFeatureUnlockState.get(feature.id)?.acquired ?? true).length} ${currentClass.name.toLowerCase()} features unlocked` },
+                                { label: "Tip", value: "Ask your DM which level the campaign starts at." },
+                              ]}
+                            />
+                          }
+                        >
+                          <PickSection title="Character name">
+                            <input
+                              type="text"
+                              className="pick-search identity-name-input"
+                              value={draft.name}
+                              placeholder="Enter character name"
+                              aria-label="Character name"
+                              onChange={(event) =>
+                                updateDraft((current) => ({
+                                  ...current,
+                                  name: event.target.value,
+                                }))
+                              }
+                            />
+                          </PickSection>
+                          <PickSection title="Level" meta={`proficiency bonus ${signedNumber(draft.proficiencyBonus)}`}>
+                            <div className="identity-level-grid" role="group" aria-label="Character level">
+                              {Array.from({ length: 20 }, (_, index) => index + 1).map((level) => (
+                                <button
+                                  key={`origin-level-${level}`}
+                                  type="button"
+                                  aria-pressed={draft.level === level}
+                                  className={draft.level === level ? "pick-filter active" : "pick-filter"}
+                                  onClick={() => applyLevelChange(level)}
+                                >
+                                  {level}
+                                </button>
+                              ))}
+                            </div>
+                          </PickSection>
+                        </PickLayout>
                       </div>
                     ) : null}
 
                     {activeOriginPage === "lineage" ? (
-                      <div className="origin-focus-card origin-selection-card">
-                        <div className="origin-page-title">
-                          <span>Choose Race</span>
-                          <h4>{currentStructuredLineage?.name ?? currentLineageGroup.name}</h4>
-                          <p>{currentStructuredLineage?.summary ?? currentLineageGroup.summary}</p>
-                        </div>
-                        <div className="origin-choice-grid origin-lineage-grid">
-                          {lineageCards.map((group) => (
-                            <button
-                              type="button"
-                              key={`origin-lineage-${group.id}`}
-                              className={
-                                draft.speciesId === group.subraceId || (!group.subraceId && currentLineageGroup.id === group.lineageId)
-                                  ? "origin-choice-tile active"
-                                  : "origin-choice-tile"
-                              }
-                              onClick={() => selectLineageCard(group)}
-                            >
-                              <span className="origin-choice-icon">
-                                <AppIcon name={group.icon as Parameters<typeof AppIcon>[0]["name"]} className="summary-icon" />
-                              </span>
-                              <strong>{group.name}</strong>
-                            </button>
-                          ))}
-                        </div>
-                        {visibleSubraceOptions.length ? (
-                          <div className="origin-subchoice-strip" aria-label="Subrace choices">
-                            {visibleSubraceOptions.map((item) => (
-                              <button
-                                key={`origin-subrace-${item.id}`}
-                                type="button"
-                                className={
-                                  item.id === "__none__"
-                                    ? !currentStructuredSublineage && !currentSubraceEntry
-                                      ? "origin-subchoice active"
-                                      : "origin-subchoice"
-                                    : (currentStructuredSublineage?.id ?? currentSubraceEntry?.id) === item.id
-                                      ? "origin-subchoice active"
-                                      : "origin-subchoice"
+                      <div className="origin-focus-card origin-selection-card origin-pick-page">
+                        <PickLayout
+                          inspect={
+                            <InspectPanel
+                              icon={raceIcon(currentStructuredLineage?.name ?? currentLineageGroup.name)}
+                              kicker={currentStructuredSublineage?.name ?? currentSubraceEntry?.name ?? "Race"}
+                              title={currentStructuredLineage?.name ?? currentLineageGroup.name}
+                              summary={firstSentence(currentStructuredLineage?.summary ?? currentLineageGroup.summary)}
+                              rows={[
+                                ...(currentStructuredLineage?.facts.size ? [{ label: "Size", value: structuredFactValue(currentStructuredLineage.facts.size) }] : []),
+                                ...(currentStructuredLineage?.facts.speed ? [{ label: "Speed", value: structuredFactValue(currentStructuredLineage.facts.speed) }] : []),
+                                ...(currentStructuredLineage?.facts.languages.values.length
+                                  ? [{ label: "Languages", value: structuredFactValue(currentStructuredLineage.facts.languages) }]
+                                  : []),
+                                ...(currentStructuredLineage?.features ?? []).map((feature) => ({
+                                  label: feature.name,
+                                  value: firstSentence(feature.summary),
+                                })),
+                              ]}
+                              fullText={currentStructuredLineage?.summary ?? currentLineageGroup.summary}
+                            />
+                          }
+                        >
+                          <PickSection title="Race" picked={1} total={1}>
+                            <PickGrid
+                              label="Races"
+                              columns={4}
+                              items={lineageCards.map((group) => ({
+                                id: group.id,
+                                name: group.name,
+                                icon: raceIcon(group.name),
+                                selected: draft.speciesId === group.subraceId || (!group.subraceId && currentLineageGroup.id === group.lineageId),
+                              }))}
+                              onPick={(id) => {
+                                const group = lineageCards.find((entry) => entry.id === id);
+                                if (group) {
+                                  selectLineageCard(group);
                                 }
-                                onClick={() => selectSubrace(item.id)}
-                              >
-                                {item.name}
-                              </button>
-                            ))}
-                          </div>
-                        ) : null}
-                        <div className="origin-info-strip">
-                          {currentStructuredLineage?.facts.size ? (
-                            <div><span>Size</span><strong>{structuredFactValue(currentStructuredLineage.facts.size)}</strong></div>
+                              }}
+                            />
+                          </PickSection>
+                          {visibleSubraceOptions.length ? (
+                            <PickSection title="Subrace">
+                              <PickGrid
+                                label="Subraces"
+                                columns={4}
+                                size="sm"
+                                items={visibleSubraceOptions.map((item) => ({
+                                  id: item.id,
+                                  name: item.id === "__none__" ? "None" : item.name,
+                                  icon: raceIcon(item.name),
+                                  selected:
+                                    item.id === "__none__"
+                                      ? !currentStructuredSublineage && !currentSubraceEntry
+                                      : (currentStructuredSublineage?.id ?? currentSubraceEntry?.id) === item.id,
+                                }))}
+                                onPick={(id) => selectSubrace(id)}
+                              />
+                            </PickSection>
                           ) : null}
-                          {currentStructuredLineage?.facts.speed ? (
-                            <div><span>Speed</span><strong>{structuredFactValue(currentStructuredLineage.facts.speed)}</strong></div>
-                          ) : null}
-                          {currentStructuredLineage?.facts.languages.values.length ? (
-                            <div><span>Languages</span><strong>{structuredFactValue(currentStructuredLineage.facts.languages)}</strong></div>
-                          ) : null}
-                        </div>
-                        <div className="origin-trait-preview">
-                          {(currentStructuredLineage?.features ?? []).slice(0, 3).map((feature) => (
-                            <article key={`origin-lineage-feature-${feature.id}`}>
-                              <strong>{feature.name}</strong>
-                              <span>{feature.summary}</span>
-                            </article>
-                          ))}
-                        </div>
                         {/* Irk / alt irk secimleri (Variant Human skill + feat, High Elf cantrip). Dil secimleri Tools & Gear > Languages'ta. */}
                         {originRaceChoiceGroups.length ? (
                           <div className="creator-stack">
                             {originRaceChoiceGroups.map(({ group, map }) => renderLineageChoiceGroup(group, false, map))}
                           </div>
                         ) : null}
+                        </PickLayout>
                       </div>
                     ) : null}
 
                     {activeOriginPage === "background" ? (
-                      <div className="origin-focus-card origin-selection-card">
-                        <div className="origin-page-title">
-                          <span>Choose Background</span>
-                          <h4>{selectedBackground?.name ?? "Background"}</h4>
-                          <p>{selectedBackground ? backgroundDescription(selectedBackground) : "Choose the life your character had before the adventure."}</p>
-                        </div>
-                        <div className="origin-choice-grid origin-background-grid">
-                          {content.backgrounds.map((item) => (
-                            <button
-                              type="button"
-                              key={`origin-background-${item.id}`}
-                              className={draft.backgroundId === item.id ? "origin-choice-tile active" : "origin-choice-tile"}
-                              onClick={() => selectBackground(item.id)}
+                      <div className="origin-focus-card origin-selection-card origin-pick-page">
+                        {(() => {
+                          const needle = backgroundQuery.trim().toLowerCase();
+                          const core = content.backgrounds.filter(
+                            (item) => item.id === draft.backgroundId || (item.source ?? "").startsWith("Player") || item.id.startsWith("custom"),
+                          );
+                          const list = needle
+                            ? content.backgrounds.filter((item) => item.name.toLowerCase().includes(needle) || item.skillProficiencies.join(" ").toLowerCase().includes(needle))
+                            : backgroundShowAll
+                              ? content.backgrounds
+                              : core;
+                          const focus = content.backgrounds.find((item) => item.id === inspectId) ?? selectedBackground ?? null;
+                          return (
+                            <PickLayout
+                              inspect={
+                                focus ? (
+                                  <InspectPanel
+                                    icon={backgroundIcon(focus.name)}
+                                    kicker={focus.source ?? "Background"}
+                                    title={focus.name}
+                                    summary={firstSentence(backgroundDescription(focus))}
+                                    rows={backgroundMetaDescription(content, focus).map((meta) => ({
+                                      label: meta.split(":")[0].replace(" Proficiencies", ""),
+                                      value: meta.includes(":") ? meta.split(":").slice(1).join(":").trim() : meta,
+                                    }))}
+                                    fullText={backgroundDescription(focus)}
+                                  >
+                                    <GearList
+                                      infos={gearInfosFor(content, "", [...backgroundToolSummary(content, focus), ...backgroundLanguageSummary(content, focus)])}
+                                    />
+                                  </InspectPanel>
+                                ) : (
+                                  <InspectPanel icon="open-book" title="Background" summary="Who you were before adventuring. Gives two skills and a tool or languages." />
+                                )
+                              }
                             >
-                              <span className="origin-choice-icon">
-                                <AppIcon name="background" className="summary-icon" />
-                              </span>
-                              <strong>{item.name}</strong>
-                            </button>
-                          ))}
-                        </div>
-                        {selectedBackground ? (
-                          <div className="origin-info-strip">
-                            {backgroundMetaDescription(content, selectedBackground).slice(0, 3).map((meta) => (
-                              <div key={`origin-background-meta-${meta}`}>
-                                <span>{meta.split(":")[0]}</span>
-                                <strong>{meta.includes(":") ? meta.split(":").slice(1).join(":").trim() : meta}</strong>
-                              </div>
-                            ))}
-                          </div>
-                        ) : null}
-                        {customBackgroundActive ? (
-                          <div className="origin-custom-note">
-                            <strong>Custom background</strong>
-                            <span>Feature, skill, tool, language, and equipment details continue in their focused creator sections.</span>
-                          </div>
-                        ) : null}
+                              <PickSection
+                                title="Background"
+                                meta={needle ? `${list.length} found` : backgroundShowAll ? `all ${content.backgrounds.length}` : "Player's Handbook"}
+                                picked={draft.backgroundId ? 1 : 0}
+                                total={1}
+                                actions={
+                                  <input
+                                    type="search"
+                                    className="pick-search"
+                                    placeholder={`Search ${content.backgrounds.length} backgrounds`}
+                                    aria-label="Search backgrounds"
+                                    value={backgroundQuery}
+                                    onChange={(event) => setBackgroundQuery(event.target.value)}
+                                  />
+                                }
+                              >
+                                <PickGrid
+                                  label="Backgrounds"
+                                  pageSize={16}
+                                  key={`bg-${backgroundQuery}-${backgroundShowAll}`}
+                                  columns={4}
+                                  size="sm"
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={list.map((item) => ({
+                                    id: item.id,
+                                    name: item.name,
+                                    sub: item.skillProficiencies.join(", ") || undefined,
+                                    icon: backgroundIcon(item.name),
+                                    selected: draft.backgroundId === item.id,
+                                  }))}
+                                  onPick={(id) => selectBackground(id)}
+                                />
+                                {!needle ? (
+                                  <button type="button" className="inspect-toggle" onClick={() => setBackgroundShowAll((value) => !value)}>
+                                    {backgroundShowAll ? "Show only Player's Handbook" : `Show all ${content.backgrounds.length} backgrounds`}
+                                  </button>
+                                ) : null}
+                              </PickSection>
+                              {customBackgroundActive ? (
+                                <p className="pick-note">Custom background: pick its skills, tools, languages and gear in the Tools & Gear step.</p>
+                              ) : null}
+                            </PickLayout>
+                          );
+                        })()}
                       </div>
                     ) : null}
                   </motion.section>
                 </AnimatePresence>
               </div>
 
-              <div className="origin-carousel-actions">
-                <button
-                  type="button"
-                  className="sheet-button secondary"
-                  onClick={() => shiftOriginPage(-1)}
-                  disabled={activeOriginPageIndex === 0}
-                >
-                  Previous
-                </button>
-                <span>{`${activeOriginPageIndex + 1} / ${originPageOrder.length}`}</span>
-                <button
-                  type="button"
-                  className="sheet-button"
-                  onClick={() => shiftOriginPage(1)}
-                  disabled={activeOriginPageIndex === originPageOrder.length - 1}
-                >
-                  Next
-                </button>
-              </div>
+
             </section>
           ) : null}
           {fighterJourneyActive ? (
@@ -6175,72 +6305,52 @@ export function CreatorWorkspace({
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
                         <h3>Class</h3>
-                        <p>Choose the class you want to build, then review its core identity and progression before moving deeper into specialization.</p>
+                        <p>How you fight and what you do best. Pick one to see what it is about.</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                      <div className="class-grid creator-class-grid-journey">
-                        {content.classes.map((item) => {
-                          const isActive = draft.classId === item.id;
-                          return (
-                            <button
-                              key={item.id}
-                              type="button"
-                              className={isActive ? "class-grid-card active" : "class-grid-card"}
-                              onClick={() => {
-                                updateDraft((current) => ({
-                                  ...current,
-                                  classId: item.id,
-                                  multiclassIds: current.multiclassIds.filter((entry) => entry !== item.id),
-                                  selectedSubclassOptions: [],
-                                  spellIds: [],
-                                }));
-                                if (item.id === "fighter") {
-                                  setFighterJourneyDirection(0);
-                                  setCreatorBrowser("class");
-                                } else {
-                                  moveCreatorStep(1);
-                                  setCreatorBrowser("class");
-                                }
-                              }}
-                            >
-                              <span className="class-grid-media">
-                                <ClassPortrait classId={item.id} alt={item.name} className="class-grid-portrait" />
-                              </span>
-                              <strong>{item.name}</strong>
-                              <span>{`d${item.hitDie}`}</span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                      <div className="creator-inline-divider" aria-hidden="true" />
-                      <div className="fighter-journey-class-stack">
-                        <div className="fighter-journey-scene-head compact">
-                          <h3>{currentCuratedClass?.name ?? currentClass.name}</h3>
-                          <p>{currentCuratedClass?.summary ?? classDescription(currentClass)}</p>
-                        </div>
-                        <div className="fighter-class-stat-row">
-                          <div className="fighter-class-stat-card">
-                            <span>Base HP</span>
-                            <strong>{currentCuratedClass?.hitPoints["Hit Points at 1st Level"] || `${currentClass.hitDie} + CON modifier`}</strong>
-                          </div>
-                          <div className="fighter-class-stat-card">
-                            <span>Hit Dice</span>
-                            <strong>{currentCuratedClass?.hitPoints["Hit Dice"] || `1d${currentClass.hitDie} per level`}</strong>
-                          </div>
-                        </div>
-                        <div className="class-overview-highlights journey">
-                          {classOverviewHighlights.map((item) => (
-                            <article key={item.id} className="class-overview-highlight">
-                              <strong>{item.title}</strong>
-                              <p>{item.body}</p>
-                            </article>
-                          ))}
-                        </div>
+                      <PickLayout
+                        inspect={
+                          <InspectPanel
+                            icon={classIcon(currentClass.id)}
+                            kicker="Class"
+                            title={currentCuratedClass?.name ?? currentClass.name}
+                            summary={classOverviewHighlights[0]?.body ?? null}
+                            rows={[
+                              { label: "Hit die", value: `d${currentClass.hitDie}` },
+                              { label: "HP at 1st", value: currentCuratedClass?.hitPoints["Hit Points at 1st Level"] || `${currentClass.hitDie} + CON modifier` },
+                              ...classOverviewHighlights.slice(1).map((item) => ({ label: item.title, value: item.body })),
+                            ]}
+                            fullText={currentCuratedClass?.summary ?? classDescription(currentClass)}
+                          />
+                        }
+                      >
+                        <PickGrid
+                          label="Classes"
+                          columns={4}
+                          items={content.classes.map((item) => ({
+                            id: item.id,
+                            name: item.name,
+                            sub: `d${item.hitDie}`,
+                            icon: classIcon(item.id),
+                            selected: draft.classId === item.id,
+                          }))}
+                          onPick={(classId) => {
+                            if (classId === draft.classId) {
+                              return;
+                            }
+                            updateDraft((current) => ({
+                              ...current,
+                              classId,
+                              multiclassIds: current.multiclassIds.filter((entry) => entry !== classId),
+                              selectedSubclassOptions: [],
+                              spellIds: [],
+                            }));
+                            moveCreatorStep(1);
+                            setCreatorBrowser("class");
+                          }}
+                        />
                         {currentCuratedClass?.spellcastingTable.rows.length ? (
-                          <div className="class-table-card creator-subpanel-flat creator-subsection-divider journey-modern">
-                            <div className="identity-detail-head compact">
-                              <span className="mini-heading creator-section-label class-section-label">Progression</span>
-                            </div>
+                          <details className="pick-details">
+                            <summary>{`${currentCuratedClass.name} level table`}</summary>
                             <div className="class-progression-scroll journey-modern">
                               <table className="class-progression-table journey-modern">
                                 <thead>
@@ -6254,7 +6364,7 @@ export function CreatorWorkspace({
                                 </thead>
                                 <tbody>
                                   {classProgressionBodyRows.map((row, rowIndex) => (
-                                    <tr key={`${currentCuratedClass.id}-row-${rowIndex}`}>
+                                    <tr key={`${currentCuratedClass.id}-row-${rowIndex}`} className={rowIndex + 1 === draft.level ? "current-level" : undefined}>
                                       {row.map((cell, cellIndex) => (
                                         <td key={`${currentCuratedClass.id}-cell-${rowIndex}-${cellIndex}`}>{cell}</td>
                                       ))}
@@ -6263,9 +6373,9 @@ export function CreatorWorkspace({
                                 </tbody>
                               </table>
                             </div>
-                          </div>
+                          </details>
                         ) : null}
-                      </div>
+                      </PickLayout>
                     </div>
                   ) : null}
 
@@ -6273,48 +6383,87 @@ export function CreatorWorkspace({
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
                         <h3>Class Features</h3>
-                        <p>{`Core ${currentClass.name} tools unlock over time. Hover a card to inspect the exact rule and how it scales.`}</p>
+                        <p>
+                          {optionChoices.some((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))
+                            ? `What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Click a feature to read it; make your picks below the list.`
+                            : `What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Nothing to pick here; click a feature to read it.`}
+                        </p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                      <div className="fighter-feature-grid">
-                        {visibleClassFeatures.map((feature) => {
+                      {(() => {
+                        const featureLevel = (feature: (typeof visibleClassFeatures)[number]) => {
                           const unlockState = classFeatureUnlockState.get(feature.id);
-                          const isUnlocked = unlockState?.acquired ?? true;
-                          const currentMeta =
-                            isUnlocked && unlockState?.currentSummary && unlockState.currentSummary !== "Unlocked"
-                              ? unlockState.currentSummary
-                              : null;
-                          const nextMeta = isUnlocked ? unlockState?.nextSummary ?? null : null;
-                          const lockedLevel =
-                            typeof unlockState?.unlockLevel === "number"
-                              ? unlockState.unlockLevel
-                              : typeof feature.unlockLevel === "number"
-                                ? feature.unlockLevel
-                                : typeof feature.milestones?.[0]?.level === "number"
-                                  ? feature.milestones[0].level
-                                  : null;
-                          return (
-                            <article key={`fighter-feature-${feature.id}`} className={isUnlocked ? "fighter-feature-card unlocked" : "fighter-feature-card locked"}>
-                              <div className="fighter-feature-card-head">
-                                <HoverTooltip label={feature.name} content={featureTooltipContent(feature, draft.level)} />
-                                {isUnlocked ? (
-                                  <span className="fighter-feature-check" aria-hidden="true">✓</span>
-                                ) : lockedLevel ? (
-                                  <span className="fighter-feature-level">{`Lvl. ${lockedLevel}`}</span>
-                                ) : null}
-                              </div>
-                              {/* Her kartta tek satirlik ozet: bos kart kalmasin, ne ise yaradigi bir bakista gorunsun. */}
-                              {feature.keyFacts?.[0] ? <p className="fighter-feature-fact">{highlightKeywords(feature.keyFacts[0], feature.id)}</p> : null}
-                              {currentMeta || nextMeta ? (
-                                <div className="fighter-feature-meta">
-                                  {currentMeta ? <span>{currentMeta}</span> : null}
-                                  {nextMeta ? <span>{nextMeta}</span> : null}
-                                </div>
-                              ) : null}
-                            </article>
-                          );
-                        })}
-                      </div>
+                          return typeof unlockState?.unlockLevel === "number"
+                            ? unlockState.unlockLevel
+                            : typeof feature.unlockLevel === "number"
+                              ? feature.unlockLevel
+                              : feature.milestones?.[0]?.level ?? 1;
+                        };
+                        const owned = visibleClassFeatures.filter((feature) => classFeatureUnlockState.get(feature.id)?.acquired ?? true);
+                        const later = visibleClassFeatures.filter((feature) => !(classFeatureUnlockState.get(feature.id)?.acquired ?? true));
+                        const focus = owned.find((feature) => feature.id === inspectId) ?? owned[0] ?? null;
+                        const focusState = focus ? classFeatureUnlockState.get(focus.id) : null;
+                        const laterByLevel = later.reduce<Map<number, string[]>>((map, feature) => {
+                          const level = featureLevel(feature);
+                          map.set(level, [...(map.get(level) ?? []), feature.name]);
+                          return map;
+                        }, new Map());
+                        return (
+                          <PickLayout
+                            inspect={
+                              focus ? (
+                                <InspectPanel
+                                  icon={featureIcon(focus.name)}
+                                  kicker={`Level ${featureLevel(focus)}`}
+                                  title={focus.name}
+                                  summary={focus.short ?? focus.keyFacts?.[0] ?? null}
+                                  rows={[
+                                    ...(focusState?.currentSummary && focusState.currentSummary !== "Unlocked"
+                                      ? [{ label: "Now", value: focusState.currentSummary.replace(/^Current:\s*/, "") }]
+                                      : []),
+                                    ...(focusState?.nextSummary ? [{ label: "Grows", value: focusState.nextSummary.replace(/^Next:\s*/, "") }] : []),
+                                    ...(focus.keyFacts ?? []).slice(focus.short ? 0 : 1, 3).map((fact, index) => ({ label: index === 0 ? "Rules" : " ", value: fact })),
+                                  ]}
+                                >
+                                  {focus.facts ? <FactChips facts={focus.facts} /> : null}
+                                </InspectPanel>
+                              ) : (
+                                <InspectPanel icon={classIcon(currentClass.id)} title={currentClass.name} summary="No features yet at this level." />
+                              )
+                            }
+                          >
+                            <PickSection title="You have" meta={`level 1 to ${draft.level}`}>
+                              <PickGrid
+                                label="Unlocked features"
+                                columns={4}
+                                size="sm"
+                                inspectedId={focus?.id ?? null}
+                                onInspect={setInspectId}
+                                items={owned.map((feature) => ({
+                                  id: feature.id,
+                                  name: feature.name.replace(/\s*\(Optional\)/, ""),
+                                  sub: feature.name.includes("(Optional)") ? "Optional rule" : `Level ${featureLevel(feature)}`,
+                                  icon: featureIcon(feature.name),
+                                  owned: true,
+                                }))}
+                              />
+                            </PickSection>
+                            <OptionChoicePanel
+                              content={content}
+                              choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))}
+                              onToggle={toggleOptionChoice}
+                            />
+                            {laterByLevel.size ? (
+                              <p className="pick-later">
+                                <strong>Coming later: </strong>
+                                {[...laterByLevel.entries()]
+                                  .sort((left, right) => left[0] - right[0])
+                                  .map(([level, names]) => `Level ${level}: ${names.join(", ")}`)
+                                  .join(" · ")}
+                              </p>
+                            ) : null}
+                          </PickLayout>
+                        );
+                      })()}
                       {currentClass.id === "ranger" ? (
                         <>
                           <div className="fighter-journey-scene-divider" aria-hidden="true" />
@@ -6586,383 +6735,168 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "fighter-style" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <span className="mini-heading creator-section-label">Fighting Style</span>
                         <h3>Fighting Style</h3>
-                        <p>{`Choose the combat edge that defines your ${currentClass.name} baseline game feel.`}</p>
+                        <p>{`A permanent combat edge. Pick the one that fits how your ${currentClass.name.toLowerCase()} fights.`}</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                      <div className="fighter-journey-split">
-                        <div className="fighter-journey-grid">
-                          <button
-                            type="button"
-                            className={
-                              currentClass.id === "ranger"
-                                ? !draft.rangerChoices?.fightingStyleId
-                                  ? "fighter-journey-card active is-none"
-                                  : "fighter-journey-card dimmed is-none"
-                                : !draft.fighterChoices?.fightingStyleId
-                                  ? "fighter-journey-card active is-none"
-                                  : "fighter-journey-card dimmed is-none"
+                      {(() => {
+                        type StyleOption = (typeof classFightingStyleOptions)[number];
+                        const shortOf = (option: StyleOption) =>
+                          "shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : firstSentence(option.summary) ?? "";
+                        const factsOf = (option: StyleOption) =>
+                          "keyFacts" in option && Array.isArray(option.keyFacts) ? (option.keyFacts as string[]) : [];
+                        const focus =
+                          classFightingStyleOptions.find((option) => option.id === inspectId) ??
+                          classFightingStyleOptions.find((option) => option.id === selectedClassFightingStyleId) ??
+                          null;
+                        const pickStyle = (id: string) => (currentClass.id === "ranger" ? setRangerFightingStyle(id) : chooseFighterStyleJourney(id));
+                        const maneuverFocus =
+                          fighterBattleMasterManeuverOptions.find((option) => option.id === inspectId) ?? null;
+                        const inspectTarget = maneuverFocus ?? focus;
+                        return (
+                          <PickLayout
+                            inspect={
+                              inspectTarget ? (
+                                <InspectPanel
+                                  icon={maneuverFocus ? "stars-stack" : styleIcon(inspectTarget.name)}
+                                  kicker={maneuverFocus ? "Maneuver" : "Fighting Style"}
+                                  title={inspectTarget.name}
+                                  summary={shortOf(inspectTarget as StyleOption)}
+                                  rows={factsOf(inspectTarget as StyleOption).map((fact, index) => ({ label: index === 0 ? "Rules" : " ", value: fact }))}
+                                  fullText={inspectTarget.summary}
+                                  action={
+                                    !maneuverFocus && focus && focus.id !== selectedClassFightingStyleId ? (
+                                      <button type="button" className="sheet-button primary" onClick={() => pickStyle(focus.id)}>
+                                        Choose this style
+                                      </button>
+                                    ) : null
+                                  }
+                                />
+                              ) : (
+                                <InspectPanel icon="crossed-swords" title="Fighting Style" summary="Click a style to read it. You can change it until the game starts." />
+                              )
                             }
-                            onClick={() => (currentClass.id === "ranger" ? setRangerFightingStyle("") : chooseFighterStyleJourney(""))}
                           >
-                            <strong>None</strong>
-                            <span>No style selected yet.</span>
-                          </button>
-                          {classFightingStyleOptions.map((option) => (
-                            <button
-                              key={option.id}
-                              type="button"
-                              className={
-                                selectedClassFightingStyleId === option.id
-                                  ? "fighter-journey-card active"
-                                  : selectedClassFightingStyleId
-                                    ? "fighter-journey-card dimmed"
-                                    : "fighter-journey-card"
-                              }
-                              onClick={() => (currentClass.id === "ranger" ? setRangerFightingStyle(option.id) : chooseFighterStyleJourney(option.id))}
-                            >
-                              <strong>
-                                <HoverTooltip
-                                  label={option.name}
-                                  content={featureTooltipContent({
+                            <PickSection title="Fighting Style" picked={selectedClassFightingStyleId ? 1 : 0} total={1}>
+                              <PickGrid
+                                label="Fighting styles"
+                                columns={4}
+                                size="sm"
+                                inspectedId={inspectId}
+                                onInspect={setInspectId}
+                                items={classFightingStyleOptions.map((option) => ({
+                                  id: option.id,
+                                  name: option.name,
+                                  sub: shortOf(option),
+                                  icon: styleIcon(option.name),
+                                  selected: selectedClassFightingStyleId === option.id,
+                                }))}
+                                onPick={(id) => pickStyle(selectedClassFightingStyleId === id ? "" : id)}
+                              />
+                            </PickSection>
+                            {currentClass.id === "fighter" && selectedFighterFightingStyle?.id === "superior-technique" ? (
+                              <PickSection title="Maneuver" meta="Superior Technique gives one Battle Master maneuver" picked={draft.fighterChoices?.superiorTechniqueManeuverId ? 1 : 0} total={1}>
+                                <PickGrid
+                                  label="Maneuvers"
+                                  columns={4}
+                                  size="sm"
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={fighterBattleMasterManeuverOptions.map((option) => ({
                                     id: option.id,
                                     name: option.name,
-                                    summary: option.summary,
-                                    keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
-                                    unlockLevel: 1,
-                                    currentValueTemplate: undefined,
-                                    tags: [],
-                                    milestones: [], grants: [], choices: [],
-                                  }, draft.level)}
+                                    sub: "shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : undefined,
+                                    icon: "stars-stack",
+                                    selected: draft.fighterChoices?.superiorTechniqueManeuverId === option.id,
+                                  }))}
+                                  onPick={(id) => setSuperiorTechniqueManeuver(id)}
                                 />
-                              </strong>
-                              <span>{"shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : option.summary}</span>
-                            </button>
-                          ))}
-                        </div>
-                        <div className="fighter-journey-detail">
-                          <article className="identity-trait-item class-feature-detail creator-subpanel-flat fighter-journey-detail-card">
-                            <span className="feature-detail-label">Focus</span>
-                            <strong>{selectedClassFightingStyle?.name ?? "None"}</strong>
-                            {selectedClassFightingStyleKeyFacts.length ? (
-                              <div className="feature-key-facts-list structured">
-                                {selectedClassFightingStyleKeyFacts.map((fact, index) => (
-                                  <div key={`${selectedClassFightingStyle?.id ?? "style"}-journey-fact-${index}`} className="feature-key-fact-row">
-                                    <span className="feature-key-fact-dot" aria-hidden="true" />
-                                    <span>{fact}</span>
-                                  </div>
-                                ))}
-                              </div>
+                              </PickSection>
                             ) : null}
-                            <div className="class-feature-detail-body">
-                              <p>{selectedClassFightingStyle?.summary ?? "Leave Fighting Style on None for now, or choose one to define your baseline combat edge."}</p>
-                            </div>
-                          </article>
-                          {currentClass.id === "fighter" && selectedFighterFightingStyle?.id === "superior-technique" ? (
-                            <article className="identity-trait-item class-feature-detail creator-subpanel-flat fighter-journey-detail-card">
-                              <span className="feature-detail-label">Maneuver</span>
-                              {selectedSuperiorTechniqueManeuver ? (
-                                <article className="fighter-feature-card compact unlocked">
-                                  <div className="fighter-feature-card-head">
-                                    <HoverTooltip
-                                      label={selectedSuperiorTechniqueManeuver.name}
-                                      content={featureTooltipContent({
-                                        id: selectedSuperiorTechniqueManeuver.id,
-                                        name: selectedSuperiorTechniqueManeuver.name,
-                                        summary: selectedSuperiorTechniqueManeuver.summary,
-                                        keyFacts: selectedSuperiorTechniqueManeuver.keyFacts ?? [],
-                                        unlockLevel: 1,
-                                        currentValueTemplate: undefined,
-                                        tags: [],
-                                        milestones: [], grants: [], choices: [],
-                                      }, draft.level)}
-                                    />
-                                    <span className="fighter-feature-check" aria-hidden="true">✓</span>
-                                  </div>
-                                  <p>{selectedSuperiorTechniqueManeuver.shortLabel ?? selectedSuperiorTechniqueManeuver.summary}</p>
-                                </article>
-                              ) : (
-                                <div className="list-row">
-                                  <strong>Choose a maneuver</strong>
-                                  <span>Superior Technique grants one Battle Master maneuver.</span>
-                                </div>
-                              )}
-                              <div className="fighter-journey-mini-grid">
-                                {fighterBattleMasterManeuverOptions.map((option) => (
-                                  <button
-                                    key={option.id}
-                                    type="button"
-                                    className={draft.fighterChoices?.superiorTechniqueManeuverId === option.id ? "fighter-journey-mini-card active" : "fighter-journey-mini-card"}
-                                    onClick={() => setSuperiorTechniqueManeuver(option.id)}
-                                  >
-                                    <strong>
-                                      <HoverTooltip
-                                        label={option.name}
-                                        content={featureTooltipContent({
-                                          id: option.id,
-                                          name: option.name,
-                                          summary: option.summary,
-                                          keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
-                                          unlockLevel: 1,
-                                          currentValueTemplate: undefined,
-                                          tags: [],
-                                          milestones: [], grants: [], choices: [],
-                                        }, draft.level)}
-                                      />
-                                    </strong>
-                                    <span>{"shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : option.summary}</span>
-                                  </button>
-                                ))}
-                              </div>
-                            </article>
-                          ) : null}
-                        </div>
-                      </div>
+                          </PickLayout>
+                        );
+                      })()}
                     </div>
                   ) : null}
 
                   {fighterJourneyScene === "fighter-asi" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <span className="mini-heading creator-section-label">ASI</span>
-                        <h3>{fighterAsiFeature?.name ?? "Ability Score Improvement"}</h3>
-                        <p>Choose a +2 bonus, split two +1 bonuses, or take a feat when an ASI level is unlocked.</p>
+                        <h3>Ability Score Improvements</h3>
+                        <p>At these levels you raise your abilities or take a feat instead. Scores can&apos;t go above 20.</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                      <div className="fighter-asi-stack">
-                        {unlockedFighterAsiLevels.length ? unlockedFighterAsiLevels.map((level) => {
-                          const choice = fighterAsiChoices[level];
-                          const selectedMode = choice?.mode ?? null;
-                          const plusTwoAbilityId = choice?.plusTwoAbilityId ?? null;
-                          const plusOneAbilityIds = choice?.plusOneAbilityIds ?? [];
-                          const selectedFeatId = choice?.featId ?? "";
-
-                          return (
-                            <article key={`journey-fighter-asi-tab-${level}`} className="fighter-asi-card">
-                              <div className="fighter-asi-card-head">
-                                <div>
-                                  <span className="mini-heading">Level {level}</span>
-                                  <strong>{fighterAsiFeature?.milestones.find((milestone) => milestone.level === level)?.label ?? "+2 or +1 / +1"}</strong>
-                                </div>
-                                <button type="button" className="fighter-choice-clear" onClick={() => clearFighterAsiChoice(level)}>
-                                  Clear
-                                </button>
-                              </div>
-                              <div className="fighter-asi-mode-row">
-                                <button
-                                  type="button"
-                                  className={selectedMode === "plus-two" ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                  onClick={() =>
-                                    updateFighterAsiChoice(level, () => ({
-                                      mode: "plus-two",
-                                      plusTwoAbilityId: null,
-                                      plusOneAbilityIds: [],
-                                      featId: null,
-                                    }))
-                                  }
-                                >
-                                  +2 to one ability
-                                </button>
-                                <button
-                                  type="button"
-                                  className={selectedMode === "split" ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                  onClick={() =>
-                                    updateFighterAsiChoice(level, () => ({
-                                      mode: "split",
-                                      plusTwoAbilityId: null,
-                                      plusOneAbilityIds: [],
-                                      featId: null,
-                                    }))
-                                  }
-                                >
-                                  +1 / +1 split
-                                </button>
-                                <button
-                                  type="button"
-                                  className={selectedMode === "feat" ? "ability-flex-pick active" : "ability-flex-pick"}
-                                  onClick={() =>
-                                    updateFighterAsiChoice(level, () => ({
-                                      mode: "feat",
-                                      plusTwoAbilityId: null,
-                                      plusOneAbilityIds: [],
-                                      featId: selectedFeatId || null,
-                                    }))
-                                  }
-                                >
-                                  Feat
-                                </button>
-                              </div>
-                              {selectedMode === "feat" ? (
-                                renderAsiFeatPicker(level, selectedFeatId)
-                              ) : (
-                                <div className="ability-flex-assignment-grid fighter-asi-grid">
-                                  {draft.abilities.map((ability) => {
-                                    const projectedScore = fighterAsiProjectedScore(ability.id, level);
-                                    const canTakePlusTwo = projectedScore <= 18;
-                                    const canTakePlusOne =
-                                      projectedScore <= 19 ||
-                                      plusOneAbilityIds.includes(ability.id);
-                                    const splitLocked =
-                                      !plusOneAbilityIds.includes(ability.id) &&
-                                      plusOneAbilityIds.length >= 2;
-
-                                    return (
-                                      <div className="ability-flex-assignment-row fighter-asi-row" key={`journey-fighter-asi-tab-${level}-${ability.id}`}>
-                                        <strong className={abilityAccentClass(ability.id)}>{ability.id}</strong>
-                                        <div className="fighter-asi-row-meta">
-                                          <span>{ability.label}</span>
-                                          <span>{`Current ${previewAbilities.find((entry) => entry.id === ability.id)?.previewScore ?? ability.score}`}</span>
-                                        </div>
-                                        <div className="ability-flex-picks prominent">
-                                          <button
-                                            type="button"
-                                            className={plusTwoAbilityId === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                            disabled={selectedMode !== "plus-two" || !canTakePlusTwo}
-                                            onClick={() =>
-                                              updateFighterAsiChoice(level, (current) => ({
-                                                mode: "plus-two",
-                                                plusTwoAbilityId: current?.plusTwoAbilityId === ability.id ? null : ability.id,
-                                                plusOneAbilityIds: [],
-                                                featId: null,
-                                              }))
-                                            }
-                                          >
-                                            +2
-                                          </button>
-                                          <button
-                                            type="button"
-                                            className={plusOneAbilityIds.includes(ability.id) ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                            disabled={selectedMode !== "split" || !canTakePlusOne || splitLocked}
-                                            onClick={() =>
-                                              updateFighterAsiChoice(level, (current) => {
-                                                const currentIds = current?.plusOneAbilityIds ?? [];
-                                                return {
-                                                  mode: "split",
-                                                  plusTwoAbilityId: null,
-                                                  plusOneAbilityIds: currentIds.includes(ability.id)
-                                                    ? currentIds.filter((entry) => entry !== ability.id)
-                                                    : [...currentIds, ability.id].slice(0, 2),
-                                                  featId: null,
-                                                };
-                                              })
-                                            }
-                                          >
-                                            +1
-                                          </button>
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                            </article>
-                          );
-                        }) : (
-                          <div className="list-row">
-                            <strong>No ASI unlocked yet</strong>
-                            <span>This class gains its first Ability Score Improvement at 4th level.</span>
-                          </div>
-                        )}
-                      </div>
+                      {unlockedFighterAsiLevels.length ? (
+                        <div className="option-choice-stack">{unlockedFighterAsiLevels.map((level) => renderAsiLevelCard(level))}</div>
+                      ) : (
+                        <p className="pick-note">Your first Ability Score Improvement comes at level 4.</p>
+                      )}
                     </div>
                   ) : null}
 
                   {fighterJourneyScene === "fighter-subclass" ? (
                     <div className="fighter-journey-scene">
-                      <div className="fighter-journey-scene-head">
-                        <span className="mini-heading creator-section-label">{visibleSubclassHeading}</span>
+                      <div className="fighter-journey-scene-head compact">
                         <h3>{visibleSubclassHeading}</h3>
-                        <p>{`Choose the ${visibleSubclassHeading.toLowerCase()} that defines your ${currentClass.name} path.`}</p>
+                        <p>{`Pick your ${visibleSubclassHeading.toLowerCase()} first. Its choices open right below it.`}</p>
                       </div>
-                      <OptionChoicePanel
-                        choices={optionChoices.filter((entry) => entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool")}
-                        onToggle={toggleOptionChoice}
-                      />
-                      <div className="fighter-journey-split">
-                        <div className="fighter-journey-grid">
-                          {fighterJourneySubclasses.map((entry) => (
-                            <button
-                              key={entry.id}
-                              type="button"
-                              className={
-                                draft.selectedSubclassOptions.includes(entry.id)
-                                  ? "fighter-journey-card active"
-                                  : draft.selectedSubclassOptions.length
-                                    ? "fighter-journey-card dimmed"
-                                    : "fighter-journey-card"
-                              }
-                              onClick={() => chooseFighterSubclassJourney(entry.id)}
-                            >
-                              <span className="fighter-journey-card-label">{visibleSubclassHeading}</span>
-                              <strong>{entry.name}</strong>
-                              <span>{entry.source}</span>
-                            </button>
-                          ))}
-                        </div>
-                        <div className="fighter-journey-detail">
-                          <article className="identity-trait-item class-feature-detail creator-subpanel-flat fighter-journey-detail-card">
-                            <span className="feature-detail-label">Subclass</span>
-                            <strong>{selectedJourneySubclass?.name ?? "Choose a subclass"}</strong>
-                            {selectedJourneySubclass?.features?.length ? (
-                              <div className="feature-key-facts-list structured">
-                                {selectedJourneySubclass.features.slice(0, 3).map((feature) => (
-                                  <div key={`${selectedJourneySubclass.id}-${feature.id}`} className="feature-key-fact-row">
-                                    <span className="feature-key-fact-dot" aria-hidden="true" />
-                                    <span>{feature.name}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            ) : null}
-                            <div className="class-feature-detail-body">
-                              <p>{selectedJourneySubclass?.summary ?? "Select a Fighter subclass to continue."}</p>
-                            </div>
-                          </article>
-                          {selectedJourneySubclass?.features?.length ? (
-                            <div className="fighter-feature-grid compact">
-                              {selectedJourneySubclass.features.map((feature) => {
-                                const unlockState = subclassFeatureUnlockState.get(feature.id);
-                                const isUnlocked = unlockState?.acquired ?? true;
-                                return (
-                                  <article key={`${selectedJourneySubclass.id}-${feature.id}`} className={isUnlocked ? "fighter-feature-card unlocked compact" : "fighter-feature-card locked compact"}>
-                                    <div className="fighter-feature-card-head">
-                                      <HoverTooltip label={feature.name} content={featureTooltipContent(feature, draft.level)} />
-                                      {isUnlocked ? <span className="fighter-feature-check" aria-hidden="true">✓</span> : null}
-                                    </div>
-                                    <div className="fighter-feature-meta">
-                                      {isUnlocked ? (
-                                        <>
-                                          {unlockState?.currentSummary ? <span>{unlockState.currentSummary}</span> : <span>Unlocked</span>}
-                                          {unlockState?.nextSummary ? <span>{unlockState.nextSummary}</span> : null}
-                                        </>
-                                      ) : (
-                                        <span>{unlockState?.unlockLabel ? `Unlocks at ${unlockState.unlockLabel}` : "Locked"}</span>
-                                      )}
-                                    </div>
-                                  </article>
-                                );
-                              })}
-                            </div>
-                          ) : null}
-                        </div>
-                      </div>
-                      <div className="fighter-journey-footer">
-                        {fighterJourneyPreviousBrowser ? (
-                          <button type="button" className="sheet-button secondary" onClick={() => navigateFighterJourney(fighterJourneyPreviousBrowser)}>
-                            Back
-                          </button>
-                        ) : <span />}
-                        {fighterJourneyNextBrowser ? (
-                          <button
-                            type="button"
-                            className="sheet-button primary"
-                            onClick={() => navigateFighterJourney(fighterJourneyNextBrowser)}
-                            disabled={!fighterJourneyNextBrowser}
+                      {(() => {
+                        const focus =
+                          fighterJourneySubclasses.find((entry) => entry.id === inspectId) ?? selectedJourneySubclass ?? fighterJourneySubclasses[0] ?? null;
+                        const subclassChoices = optionChoices.filter((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool"));
+                        return (
+                          <PickLayout
+                            inspect={
+                              focus ? (
+                                <InspectPanel
+                                  icon={featureIcon(focus.name)}
+                                  kicker={focus.source || visibleSubclassHeading}
+                                  title={focus.name}
+                                  summary={(focus.summary ?? "").split(/(?<=\.)\s/)[0] || null}
+                                  rows={(focus.features ?? []).map((feature) => {
+                                    const unlockState = subclassFeatureUnlockState.get(feature.id);
+                                    const level = unlockState?.unlockLevel ?? feature.unlockLevel ?? null;
+                                    const owned = focus.id === selectedJourneySubclass?.id && (unlockState?.acquired ?? true);
+                                    return {
+                                      label: level ? `Level ${level}` : "Feature",
+                                      value: `${feature.name}${owned ? " ✓" : ""}${feature.short ? `: ${feature.short}` : ""}`,
+                                    };
+                                  })}
+                                  fullText={focus.summary}
+                                />
+                              ) : (
+                                <InspectPanel icon={classIcon(currentClass.id)} title={visibleSubclassHeading} summary="No options are enabled for this class yet." />
+                              )
+                            }
                           >
-                            Next
-                          </button>
-                        ) : null}
-                      </div>
+                            <PickSection
+                              title={visibleSubclassHeading}
+                              picked={draft.selectedSubclassOptions.length ? 1 : 0}
+                              total={1}
+                            >
+                              <PickGrid
+                                label={visibleSubclassHeading}
+                                columns={3}
+                                inspectedId={inspectId}
+                                onInspect={setInspectId}
+                                items={fighterJourneySubclasses.map((entry) => ({
+                                  id: entry.id,
+                                  name: entry.name,
+                                  sub: entry.source,
+                                  icon: featureIcon(entry.name),
+                                  selected: draft.selectedSubclassOptions.includes(entry.id),
+                                }))}
+                                onPick={(subclassId) => {
+                                  if (!draft.selectedSubclassOptions.includes(subclassId)) {
+                                    chooseFighterSubclassJourney(subclassId);
+                                  }
+                                }}
+                              />
+                            </PickSection>
+                            {selectedJourneySubclass && subclassChoices.length ? (
+                              <OptionChoicePanel content={content} choices={subclassChoices} onToggle={toggleOptionChoice} />
+                            ) : null}
+                          </PickLayout>
+                        );
+                      })()}
                     </div>
                   ) : null}
 
@@ -6990,715 +6924,566 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "warlock-invocations" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <span className="mini-heading creator-section-label">Eldritch Invocations</span>
                         <h3>Eldritch Invocations</h3>
-                        <p>{`Choose the invocations your patron teaches you. ${visibleSelectedInvocationCount} / ${warlockInvocationLimit || 0} selected. Locked ones need a higher level, a Pact Boon, or a specific spell.`}</p>
+                        <p>Secrets your patron teaches you. Locked ones need a higher level, a Pact Boon or a spell, and say which.</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
                       {draft.level < 2 ? (
-                        <div className="list-row">
-                          <strong>Invocations locked</strong>
-                          <span>Eldritch Invocations open at Warlock Level 2.</span>
-                        </div>
+                        <p className="pick-note">Eldritch Invocations open at warlock level 2.</p>
                       ) : (
-                        <>
-                          <div className="skill-spell-toolbar">
-                            <button
-                              type="button"
-                              className={showUnavailableOptions ? "table-toggle-button active" : "table-toggle-button"}
-                              onClick={() => setShowUnavailableOptions((current) => !current)}
-                            >
-                              {showUnavailableOptions ? "Hide Locked" : "Show Locked"}
-                            </button>
-                          </div>
-                          {visibleInvocationCards.length ? (
-                                  <div className="warlock-flow-panel">
-                                    <div className="compact-pagination-row centered">
-                                      <button type="button" className="pagination-arrow" onClick={() => setInvocationPage((current) => Math.max(0, current - 1))} disabled={invocationPage === 0}>‹</button>
-                                      <span className="pagination-indicator">{`${invocationPage + 1} / ${invocationPageCount}`}</span>
-                                      <button type="button" className="pagination-arrow" onClick={() => setInvocationPage((current) => Math.min(invocationPageCount - 1, current + 1))} disabled={invocationPage >= invocationPageCount - 1}>›</button>
-                                    </div>
-                                    <div className="compact-option-list graph-list">
-                                      {pagedInvocationCards.map((option) => {
-                                        const parsed = parseWarlockInvocationSummary(option);
-                                        const isUnlocked = warlockInvocationMeetsPrerequisite(parsed.requirement, {
-                                          level: draft.level,
-                                          pactBoonId: draft.pactBoonId,
-                                          spellIds: draft.spellIds,
-                                        });
-                                        return (
-                                          <label className={draft.selectedInvocationIds.includes(option.id) ? `spell-selection-row active${isUnlocked ? "" : " disabled"}` : `spell-selection-row${isUnlocked ? "" : " disabled"}`} key={option.id}>
-                                            <input type="checkbox" className="visually-hidden" checked={draft.selectedInvocationIds.includes(option.id)} disabled={!isUnlocked} onChange={() => toggleInvocationSelection(option.id)} />
-                                            <div className="spell-selection-main">
-                                              <strong className="spell-selection-title">
-                                                <HoverTooltip label={option.name} content={
-                                                  <>
-                                                    <span className="spell-tooltip-head">
-                                                      <span className="spell-tooltip-class">
-                                                        <ClassPortrait classId={currentClass.id} alt={currentClass.name} className="spell-tooltip-portrait" />
-                                                        <span>{currentClass.name}</span>
-                                                      </span>
-                                                      <strong>{option.name}</strong>
-                                                    </span>
-                                                    <span className="spell-tooltip-meta">
-                                                      {parsed.source ? <span>{parsed.source}</span> : null}
-                                                      {parsed.prerequisite ? <span>{`Prerequisite: ${parsed.prerequisite}`}</span> : null}
-                                                    </span>
-                                                    <span className="spell-tooltip-copy">{parsed.description}</span>
-                                                  </>
-                                                } />
-                                              </strong>
-                                            </div>
-                                            <div className="spell-selection-tags important">
-                                              {parsed.prerequisite ? (
-                                                <span className="spell-tooltip-chip tone-utility">
-                                                  <AppIcon name="book" className="spell-tooltip-chip-icon" />
-                                                  Prerequisite
-                                                </span>
-                                              ) : null}
-                                              {damageChipFromText(parsed.description) ? (
-                                                <span className="spell-tooltip-chip tone-danger">
-                                                  <AppIcon name="dice" className="spell-tooltip-chip-icon" />
-                                                  {damageChipFromText(parsed.description)}
-                                                </span>
-                                              ) : null}
-                                            </div>
-                                          </label>
-                                        );
-                                      })}
-                                    </div>
-                                  </div>
+                        (() => {
+                          const cards = visibleInvocationCards.map((option) => {
+                            const parsed = parseWarlockInvocationSummary(option);
+                            const unlocked = warlockInvocationMeetsPrerequisite(parsed.requirement, {
+                              level: draft.level,
+                              pactBoonId: draft.pactBoonId,
+                              spellIds: draft.spellIds,
+                            });
+                            return { option, parsed, unlocked, selected: draft.selectedInvocationIds.includes(option.id) };
+                          });
+                          const focus = cards.find((card) => card.option.id === inspectId) ?? cards.find((card) => card.selected) ?? null;
+                          return (
+                            <PickLayout
+                              inspect={
+                                focus ? (
+                                  <InspectPanel
+                                    icon={featureIcon(focus.option.name)}
+                                    kicker="Invocation"
+                                    title={focus.option.name}
+                                    summary={firstSentence(focus.parsed.description)}
+                                    warning={!focus.unlocked && !focus.selected ? `Needs ${focus.parsed.prerequisite ?? "a prerequisite"}` : null}
+                                    rows={[
+                                      { label: "Needs", value: focus.parsed.prerequisite || "Nothing" },
+                                      ...(focus.parsed.source ? [{ label: "Source", value: focus.parsed.source }] : []),
+                                    ]}
+                                    fullText={focus.parsed.description}
+                                    action={
+                                      focus.unlocked || focus.selected ? (
+                                        <button
+                                          type="button"
+                                          className={focus.selected ? "sheet-button secondary" : "sheet-button primary"}
+                                          onClick={() => toggleInvocationSelection(focus.option.id)}
+                                        >
+                                          {focus.selected ? "Remove" : "Learn"}
+                                        </button>
+                                      ) : null
+                                    }
+                                  />
                                 ) : (
-                                  <div className="list-row">
-                                    <strong>No available invocations</strong>
-                                    <span>Your current level, Pact Boon, or learned spells do not unlock an invocation here yet.</span>
-                                  </div>
+                                  <InspectPanel icon="evil-eyes" title="Eldritch Invocations" summary="Click an invocation to read it. Click again to learn it." />
+                                )
+                              }
+                            >
+                              <PickSection
+                                title="Invocations"
+                                meta={`${visibleSelectedInvocationCount} / ${warlockInvocationLimit || 0} known`}
+                                picked={visibleSelectedInvocationCount}
+                                total={warlockInvocationLimit || 0}
+                                actions={
+                                  <button type="button" className={showUnavailableOptions ? "pick-filter active" : "pick-filter"} onClick={() => setShowUnavailableOptions((current) => !current)}>
+                                    {showUnavailableOptions ? "Hide locked" : "Show locked"}
+                                  </button>
+                                }
+                              >
+                                {cards.length ? (
+                                  <PickGrid
+                                    label="Invocations"
+                                  pageSize={16}
+                                  key={`inv-${showUnavailableOptions}`}
+                                    columns={4}
+                                    size="sm"
+                                    inspectedId={focus?.option.id ?? null}
+                                    onInspect={setInspectId}
+                                    items={cards.map((card) => ({
+                                      id: card.option.id,
+                                      name: card.option.name,
+                                      sub: card.parsed.prerequisite ? card.parsed.prerequisite : "No prerequisite",
+                                      icon: featureIcon(card.option.name),
+                                      selected: card.selected,
+                                      locked: !card.unlocked && !card.selected,
+                                      lockReason: !card.unlocked ? card.parsed.prerequisite ?? undefined : undefined,
+                                    }))}
+                                    onPick={(id) => toggleInvocationSelection(id)}
+                                  />
+                                ) : (
+                                  <p className="pick-note">Nothing unlocked yet at your level, Pact Boon and spells.</p>
                                 )}
-                          <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
-                        </>
+                              </PickSection>
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                            </PickLayout>
+                          );
+                        })()
                       )}
                     </div>
                   ) : null}
                   {fighterJourneyScene === "warlock-pact" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <span className="mini-heading creator-section-label">Pact Boon</span>
                         <h3>Pact Boon</h3>
-                        <p>Choose the gift your patron grants at 3rd level. The choice also gates Pact-specific invocations and Tome cantrip setup.</p>
+                        <p>Your patron&apos;s gift at level 3. It also decides which pact invocations you can learn later.</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
                       {draft.level < 3 ? (
-                        <div className="list-row">
-                          <strong>Pact Boon locked</strong>
-                          <span>Pact Boon opens at Warlock Level 3. Raise the class level to choose a boon.</span>
-                        </div>
+                        <p className="pick-note">Pact Boon opens at warlock level 3.</p>
                       ) : (
-                        <div className="warlock-flow-panel">
-                          <div className="warlock-pact-layout">
-                            <div className="fighter-journey-grid equipment-choice-grid">
-                              {warlockPactBoonOptions.map((option) => (
-                                <button
-                                  type="button"
-                                  key={`journey-pact-${option.id}`}
-                                  className={draft.pactBoonId === option.id ? "fighter-journey-card active pact-boon-card" : "fighter-journey-card pact-boon-card"}
-                                  onClick={() => setPactBoon(option.id)}
-                                >
-                                  <span className="fighter-journey-card-label">{draft.pactBoonId === option.id ? "Selected" : "Choose"}</span>
-                                  <strong>
-                                    <HoverTooltip
-                                      label={option.name}
-                                      content={featureTooltipContent({
-                                        id: option.id,
-                                        name: option.name,
-                                        summary: option.summary,
-                                        keyFacts: "keyFacts" in option && Array.isArray(option.keyFacts) ? option.keyFacts : [],
-                                        currentValueTemplate: undefined,
-                                        tags: [],
-                                        milestones: [], grants: [], choices: [],
-                                      }, draft.level)}
-                                    />
-                                  </strong>
-                                  <span>{"shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : option.summary}</span>
-                                </button>
-                              ))}
-                            </div>
-                            <article className="identity-trait-item class-feature-detail creator-subpanel-flat warlock-pact-detail-card">
-                              <span className="feature-detail-label">Selected Pact</span>
-                              <strong>{selectedPactBoon?.name ?? "No Pact Boon Selected"}</strong>
-                              <p>{
-                                selectedPactBoon && "shortLabel" in selectedPactBoon && typeof selectedPactBoon.shortLabel === "string"
-                                  ? selectedPactBoon.shortLabel
-                                  : selectedPactBoon?.summary ?? "Choose a Pact Boon to review the gift your patron grants."
-                              }</p>
-                              {selectedPactBoonFacts.length ? (
-                                <div className="feature-key-facts-list structured">
-                                  {selectedPactBoonFacts.map((fact, index) => (
-                                    <div key={`${selectedPactBoon?.id ?? "pact"}-pact-fact-${index}`} className="feature-key-fact-row">
-                                      <span className="feature-key-fact-dot" aria-hidden="true" />
-                                      <span>{fact}</span>
-                                    </div>
-                                  ))}
-                                </div>
+                        (() => {
+                          type PactOption = (typeof warlockPactBoonOptions)[number];
+                          const shortOf = (option: PactOption) =>
+                            "shortLabel" in option && typeof option.shortLabel === "string" ? option.shortLabel : firstSentence(option.summary) ?? "";
+                          const factsOf = (option: PactOption) =>
+                            "keyFacts" in option && Array.isArray(option.keyFacts) ? (option.keyFacts as string[]) : [];
+                          const cantripFocus = pactTomeCantripPool.find((spell) => spell.id === inspectId) ?? null;
+                          const focus = warlockPactBoonOptions.find((option) => option.id === inspectId) ?? selectedPactBoon ?? null;
+                          const tomeCount = draft.selectedPactCantripIds.length;
+                          return (
+                            <PickLayout
+                              inspect={
+                                cantripFocus ? (
+                                  <InspectPanel
+                                    icon={schoolIcon(cantripFocus.school)}
+                                    kicker={`Cantrip · ${cantripFocus.school}`}
+                                    title={cantripFocus.name}
+                                    summary={firstSentence(cantripFocus.summary)}
+                                    rows={spellMetaLines(cantripFocus)
+                                      .filter((line) => !line.startsWith("Source"))
+                                      .map((line) => ({ label: line.split(":")[0].replace("Casting Time", "Cast"), value: line.split(":").slice(1).join(":").trim() }))}
+                                    fullText={cantripFocus.summary}
+                                  />
+                                ) : focus ? (
+                                  <InspectPanel
+                                    icon={pactIcon(focus.name)}
+                                    kicker="Pact Boon"
+                                    title={focus.name}
+                                    summary={shortOf(focus)}
+                                    rows={factsOf(focus).map((fact, index) => ({ label: index === 0 ? "Rules" : " ", value: fact }))}
+                                    fullText={focus.summary}
+                                    action={
+                                      focus.id !== draft.pactBoonId ? (
+                                        <button type="button" className="sheet-button primary" onClick={() => setPactBoon(focus.id)}>
+                                          Choose this pact
+                                        </button>
+                                      ) : null
+                                    }
+                                  />
+                                ) : (
+                                  <InspectPanel icon="evil-eyes" title="Pact Boon" summary="Click a pact to read it." />
+                                )
+                              }
+                            >
+                              <PickSection title="Pact Boon" picked={draft.pactBoonId ? 1 : 0} total={1}>
+                                <PickGrid
+                                  label="Pact boons"
+                                  columns={4}
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={warlockPactBoonOptions.map((option) => ({
+                                    id: option.id,
+                                    name: option.name,
+                                    sub: shortOf(option),
+                                    icon: pactIcon(option.name),
+                                    selected: draft.pactBoonId === option.id,
+                                  }))}
+                                  onPick={(id) => setPactBoon(id)}
+                                />
+                              </PickSection>
+                              {draft.pactBoonId === "pact-of-the-tome" ? (
+                                <PickSection title="Book of Shadows cantrips" meta="three cantrips from any class" picked={tomeCount} total={3}>
+                                  <PickGrid
+                                    label="Book of Shadows cantrips"
+                                  pageSize={15}
+                                    columns={5}
+                                    size="sm"
+                                    inspectedId={inspectId}
+                                    onInspect={setInspectId}
+                                    items={pactTomeCantripPool.map((spell) => ({
+                                      id: spell.id,
+                                      name: spell.name,
+                                      sub: spell.school,
+                                      icon: schoolIcon(spell.school),
+                                      selected: draft.selectedPactCantripIds.includes(spell.id),
+                                      dim: !draft.selectedPactCantripIds.includes(spell.id) && tomeCount >= 3,
+                                    }))}
+                                    onPick={(id) => {
+                                      if (draft.selectedPactCantripIds.includes(id) || tomeCount < 3) {
+                                        togglePactCantripSelection(id);
+                                      }
+                                    }}
+                                  />
+                                </PickSection>
                               ) : null}
-                            </article>
-                          </div>
-                          <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                          {draft.pactBoonId === "pact-of-the-tome" ? (
-                            <div className="creator-inline-list">
-                              <div className="list-row">
-                                <strong>Book of Shadows Cantrips</strong>
-                                <span>{`${draft.selectedPactCantripIds.length} / 3 selected`}</span>
-                              </div>
-                              <div className="compact-option-list graph-list">
-                                {pagedPactCantripCards.map((spell) => (
-                                  <label className={draft.selectedPactCantripIds.includes(spell.id) ? "spell-selection-row active" : `spell-selection-row${!draft.selectedPactCantripIds.includes(spell.id) && draft.selectedPactCantripIds.length >= 3 ? " disabled" : ""}`} key={`journey-tome-cantrip-${spell.id}`}>
-                                    <input type="checkbox" className="visually-hidden" checked={draft.selectedPactCantripIds.includes(spell.id)} disabled={!draft.selectedPactCantripIds.includes(spell.id) && draft.selectedPactCantripIds.length >= 3} onChange={() => togglePactCantripSelection(spell.id)} />
-                                    <div className="spell-selection-main">
-                                      <strong className="spell-selection-title">
-                                        <HoverTooltip
-                                          label={spell.name}
-                                          content={spellTooltipContent({
-                                            classId: currentClass.id,
-                                            className: "Book of Shadows",
-                                            title: spell.name,
-                                            spellLevel: spell.level,
-                                            reference: spellReferenceFor(spellReferenceCollection, spell),
-                                            summary: spell.summary,
-                                            meta: ["Cantrip", "Any Class", "Pact of the Tome"],
-                                          })}
-                                        />
-                                      </strong>
-                                    </div>
-                                    <div className="spell-selection-tags important">
-                                      {spellListHintChips(spell, spellReferenceFor(spellReferenceCollection, spell)).map((item) => (
-                                        <span key={`${spell.id}-journey-tome-important-${item}`} className={`spell-tooltip-chip tone-${spellChipTone(item)}`}>
-                                          <AppIcon name={spellChipIcon(item)} className="spell-tooltip-chip-icon" />
-                                          {item}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  </label>
-                                ))}
-                              </div>
-                              <div className="compact-pagination-row centered below-list">
-                                <button type="button" className="pagination-arrow" onClick={() => setPactCantripPage((current) => Math.max(0, current - 1))} disabled={pactCantripPage === 0}>‹</button>
-                                <span className="pagination-indicator">{`${pactCantripPage + 1} / ${pactCantripPageCount}`}</span>
-                                <button type="button" className="pagination-arrow" onClick={() => setPactCantripPage((current) => Math.min(pactCantripPageCount - 1, current + 1))} disabled={pactCantripPage >= pactCantripPageCount - 1}>›</button>
-                              </div>
-                            </div>
-                          ) : null}
-                        </div>
+                            </PickLayout>
+                          );
+                        })()
                       )}
                     </div>
                   ) : null}
 
                   {fighterJourneyScene === "warlock-spells" ? (
                     <div className="fighter-journey-scene">
-                      <div className="fighter-journey-scene-head with-action">
-                        <div className="fighter-journey-scene-head-copy">
-                          <span className="mini-heading creator-section-label">Spellcasting</span>
-                          <h3>{`${currentClass.name} Spellbook`}</h3>
-                          <p>{currentClass.id === "warlock" ? "Choose your warlock spells, review patron additions, and see any Book of Shadows cantrips granted by Pact of the Tome." : `Filter by level, browse a stable tile grid, and track ${currentClass.name.toLowerCase()} spell choices in real time.`}</p>
-                        </div>
-                        <button type="button" className="sheet-button secondary" onClick={() => setFighterProgressionOpen(true)}>
-                          Progression
-                        </button>
+                      <div className="fighter-journey-scene-head compact">
+                        <h3>Spells</h3>
+                        <p>
+                          {currentCuratedClass?.spellPreparation
+                            ? `Choose the ${currentClass.name.toLowerCase()} spells you have prepared today (${currentCuratedClass.spellPreparation.divisor > 1 ? "half your level" : "your level"} + ${currentCuratedClass.spellPreparation.ability}). You can change them after a long rest. Locked ones say why.`
+                            : `Pick the ${currentClass.name.toLowerCase()} spells you know. Locked ones say why. Click any spell to read it.`}
+                        </p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
-                      {currentClass.id !== "warlock" ? (
-                        <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
-                      ) : null}
-                      <div className="fighter-journey-counter-row">
-                        <div className="fighter-journey-counter">
-                          <span>Cantrips</span>
-                          <strong>{classCantripLimit ? `${classSelectedCantrips.length}/${classCantripLimit}` : String(classSelectedCantrips.length)}</strong>
-                        </div>
-                        <div className="fighter-journey-counter">
-                          <span>Known Spells</span>
-                          <strong>{classKnownSpellLimit ? `${classSelectedLeveledSpells.length}/${classKnownSpellLimit}` : String(classSelectedLeveledSpells.length)}</strong>
-                        </div>
-                        <div className="fighter-journey-counter">
-                          <span>Max Level</span>
-                          <strong>{spellSelectionRules.maxSpellLevel ? `Level ${spellSelectionRules.maxSpellLevel}` : "-"}</strong>
-                        </div>
-                        <div className="fighter-journey-counter wide">
-                          <span>Source</span>
-                          <strong>{currentVisibleSubclass?.name ?? currentClass.name}</strong>
-                          <small>{currentClass.id === "warlock" ? "Patron and pact grants are shown as auto-added cards." : "Class and subclass grants stay separate from manual choices."}</small>
-                        </div>
-                      </div>
-                      {currentStructuredSublineage?.id === "high-elf" ? (
-                        <div className="creator-inline-list">
-                          <div className="list-row">
-                            <strong>High Elf Cantrip</strong>
-                            <span>Choose one Wizard cantrip. Intelligence is your spellcasting ability for it.</span>
-                          </div>
-                          <div className={selectedHighElfCantrip ? "fighter-journey-card active equipment-picker-card" : "fighter-journey-card equipment-picker-card"}>
-                            <span className="fighter-journey-card-label">{selectedHighElfCantrip ? "Selected" : "Choose"}</span>
-                            <strong>
-                              {selectedHighElfCantrip ? (
-                                <HoverTooltip
-                                  label={selectedHighElfCantrip.name}
-                                  content={spellTooltipContent({
-                                    classId: "elf",
-                                    className: "High Elf",
-                                    title: selectedHighElfCantrip.name,
-                                    spellLevel: selectedHighElfCantrip.level,
-                                    reference: spellReferenceFor(spellReferenceCollection, selectedHighElfCantrip),
-                                    summary: selectedHighElfCantrip.summary,
-                                    meta: ["Cantrip", selectedHighElfCantrip.school, "High Elf"],
-                                    lines: spellMetaLines(selectedHighElfCantrip),
-                                  })}
+                      {(() => {
+                        type SpellRow = ContentBundle["spells"][number];
+                        const spellLabel = (spell: SpellRow) => (spell.level === 0 ? `Cantrip · ${spell.school}` : `Level ${spell.level} · ${spell.school}`);
+                        const granted: Array<{ id: string; name: string; sub: string; school: string; spell: SpellRow | null; note: string }> = [
+                          ...(currentClass.id === "ranger" && currentVisibleSubclass
+                            ? rangerSubclassMagicEntries.map((entry) => ({
+                                id: `granted-sub-${entry.name}`,
+                                name: entry.name,
+                                sub: `From ${currentVisibleSubclass.name}`,
+                                school: entry.spell?.school ?? "",
+                                spell: entry.spell ?? null,
+                                note: `Always known from ${currentVisibleSubclass.name} (ranger ${entry.unlockLevel}). Doesn't count against spells known.`,
+                              }))
+                            : []),
+                          ...(currentClass.id === "ranger"
+                            ? rangerPrimalAwarenessEntries.map((entry) => ({
+                                id: `granted-primal-${entry.name}`,
+                                name: entry.name,
+                                sub: rangerPrimalAwarenessLabel,
+                                school: entry.spell?.school ?? "",
+                                spell: entry.spell ?? null,
+                                note: `Granted by ${rangerPrimalAwarenessLabel} (ranger ${entry.unlockLevel}). Doesn't count against spells known.`,
+                              }))
+                            : []),
+                          ...(currentClass.id === "warlock" && currentVisibleSubclass
+                            ? subclassSpellEntries.map((entry) => ({
+                                id: `granted-patron-${entry.name}`,
+                                name: entry.name,
+                                sub: "On your list",
+                                school: entry.spell?.school ?? "",
+                                spell: entry.spell ?? null,
+                                note: `${currentVisibleSubclass.name} adds this to your warlock list. Learn it from the grid below.`,
+                              }))
+                            : []),
+                          // Diger class'larin subclass buyuleri (Paladin oath, Cleric domain vb.): her zaman hazir.
+                          ...(currentClass.id !== "warlock" && currentClass.id !== "ranger" && currentVisibleSubclass
+                            ? currentVisibleSubclass.expandedSpells
+                                .filter((entry) => draft.level >= entry.unlockLevel)
+                                .flatMap((entry) =>
+                                  entry.spells.map((spellName) => {
+                                    const spell = content.spells.find((row) => row.name.toLowerCase() === spellName.toLowerCase()) ?? null;
+                                    return {
+                                      id: `granted-subclass-${spellName}`,
+                                      name: spellName,
+                                      sub: `From ${currentVisibleSubclass.name}`,
+                                      school: spell?.school ?? "",
+                                      spell,
+                                      note: `Always prepared from ${currentVisibleSubclass.name} (${currentClass.name.toLowerCase()} ${entry.unlockLevel}). Doesn't count against your prepared spells.`,
+                                    };
+                                  }),
+                                )
+                            : []),
+                          ...(currentClass.id === "warlock" && draft.pactBoonId === "pact-of-the-tome"
+                            ? selectedPactCantripSpells.map((spell) => ({
+                                id: `granted-tome-${spell.id}`,
+                                name: spell.name,
+                                sub: "Book of Shadows",
+                                school: spell.school,
+                                spell,
+                                note: "Cantrip from your Pact of the Tome Book of Shadows.",
+                              }))
+                            : []),
+                        ];
+                        const grantedFocus = granted.find((entry) => entry.id === inspectId) ?? null;
+                        const allSpells = [...content.spells];
+                        const focusSpell: SpellRow | null = grantedFocus
+                          ? grantedFocus.spell
+                          : allSpells.find((spell) => spell.id === inspectId) ??
+                            activeSpellPool.find((spell) => draft.spellIds.includes(spell.id)) ??
+                            null;
+                        const focusReason = focusSpell && !grantedFocus ? classSpellUnavailableReason(focusSpell) : null;
+                        const focusKnown = Boolean(focusSpell && draft.spellIds.includes(focusSpell.id));
+                        const counterMeta = [
+                          classCantripLimit ? `Cantrips ${classSelectedCantrips.length}/${classCantripLimit}` : null,
+                          classKnownSpellLimit ? `Spells ${classSelectedLeveledSpells.length}/${classKnownSpellLimit}` : null,
+                          spellSelectionRules.maxSpellLevel ? `up to level ${spellSelectionRules.maxSpellLevel}` : null,
+                        ]
+                          .filter(Boolean)
+                          .join(" · ");
+                        const leftToPick =
+                          Math.max(0, (classCantripLimit || 0) - classSelectedCantrips.length) +
+                          Math.max(0, (classKnownSpellLimit || 0) - classSelectedLeveledSpells.length);
+                        return (
+                          <PickLayout
+                            inspect={
+                              focusSpell ? (
+                                <InspectPanel
+                                  icon={schoolIcon(focusSpell.school)}
+                                  kicker={spellLabel(focusSpell)}
+                                  title={focusSpell.name}
+                                  summary={firstSentence(focusSpell.summary)}
+                                  warning={grantedFocus ? null : focusReason}
+                                  rows={spellMetaLines(focusSpell)
+                                    .filter((line) => !line.startsWith("Source"))
+                                    .map((line) => ({ label: line.split(":")[0].replace("Casting Time", "Cast"), value: line.split(":").slice(1).join(":").trim() }))}
+                                  fullText={focusSpell.summary}
+                                  action={
+                                    grantedFocus ? (
+                                      <span className="pick-note">{grantedFocus.note}</span>
+                                    ) : !focusReason || focusKnown ? (
+                                      <button
+                                        type="button"
+                                        className={focusKnown ? "sheet-button secondary" : "sheet-button primary"}
+                                        onClick={() => toggleSelection("spellIds", focusSpell.id)}
+                                      >
+                                        {focusKnown ? "Forget" : "Learn"}
+                                      </button>
+                                    ) : null
+                                  }
                                 />
-                              ) : "Choose one Wizard cantrip"}
-                            </strong>
-                            <select
-                              className="equipment-picker-select"
-                              value={selectedHighElfCantripId}
-                              onChange={(event) => setHighElfCantripChoice(event.target.value)}
-                            >
-                              <option value="" disabled>
-                                Choose cantrip
-                              </option>
-                              {highElfCantripPool.map((spell) => (
-                                <option key={`high-elf-cantrip-${spell.id}`} value={spell.id}>
-                                  {spell.name}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-                      ) : null}
-                      {currentClass.id === "ranger" && currentVisibleSubclass && rangerSubclassMagicEntries.length ? (
-                        <div className="creator-inline-list">
-                          <div className="list-row">
-                            <strong>{rangerSubclassMagicSection?.name ?? subclassAutoSpellLabel}</strong>
-                            <span>Auto added from subclass magic</span>
-                          </div>
-                          <div className="fighter-spellbook-grid leveled fixed">
-                            {rangerSubclassMagicEntries.map((entry) => (
-                              <div className="fighter-spell-tile active auto-grant patron-auto" key={`journey-ranger-magic-${entry.unlockLevel}-${entry.name}`}>
-                                <div className="spell-selection-main">
-                                  <strong className="spell-selection-title">
-                                    <HoverTooltip
-                                      label={entry.name}
-                                      content={spellTooltipContent({
-                                        classId: currentClass.id,
-                                        className: rangerSubclassMagicSection?.name ?? currentVisibleSubclass.name,
-                                        title: entry.name,
-                                        reference: spellReferenceFor(spellReferenceCollection, entry.spell ?? { id: entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), name: entry.name }),
-                                        summary: entry.spell?.summary ?? `${entry.name} is granted automatically by your ranger subclass.`,
-                                        spellLevel: entry.spell?.level,
-                                        meta: [`Unlocked at Ranger ${entry.unlockLevel}`, currentVisibleSubclass.name, "Auto Added"],
-                                      })}
-                                    />
-                                  </strong>
-                                  <div className="fighter-spell-tags">
-                                    <span className="fighter-spell-tag tone-support">
-                                      Auto Added
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-                      {currentClass.id === "ranger" && rangerPrimalAwarenessEntries.length ? (
-                        <div className="creator-inline-list">
-                          <div className="list-row">
-                            <strong>{rangerPrimalAwarenessLabel}</strong>
-                            <span>{rangerPrimalAwarenessSourceLabel}</span>
-                          </div>
-                          <div className="fighter-spellbook-grid leveled fixed">
-                            {rangerPrimalAwarenessEntries.map((entry) => (
-                              <div className="fighter-spell-tile active auto-grant pact-tome-auto" key={`journey-ranger-primal-${entry.unlockLevel}-${entry.name}`}>
-                                <div className="spell-selection-main">
-                                  <strong className="spell-selection-title">
-                                    <HoverTooltip
-                                      label={entry.name}
-                                      content={spellTooltipContent({
-                                        classId: currentClass.id,
-                                        className: rangerPrimalAwarenessSection?.name ?? "Primal Awareness",
-                                        title: entry.name,
-                                        reference: spellReferenceFor(spellReferenceCollection, entry.spell ?? { id: entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), name: entry.name }),
-                                        summary: entry.spell?.summary ?? `${entry.name} is granted automatically by Primal Awareness and does not count against the number of ranger spells you know.`,
-                                        spellLevel: entry.spell?.level,
-                                        meta: [`Unlocked at Ranger ${entry.unlockLevel}`, "Primal Awareness", "Auto Added"],
-                                      })}
-                                    />
-                                  </strong>
-                                  <div className="fighter-spell-tags">
-                                    <span className="fighter-spell-tag tone-support">
-                                      Auto Added
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-                      {currentClass.id === "warlock" && currentVisibleSubclass && subclassSpellEntries.length ? (
-                        <div className="creator-inline-list">
-                          <div className="list-row">
-                            <strong>{subclassAutoSpellLabel}</strong>
-                            <span>{subclassAutoSpellSourceLabel}</span>
-                          </div>
-                          <div className="fighter-spellbook-grid leveled fixed">
-                            {subclassSpellEntries.map((entry) => (
-                              <div className="fighter-spell-tile active auto-grant patron-auto" key={`journey-warlock-patron-${entry.unlockLevel}-${entry.name}`}>
-                                <div className="spell-selection-main">
-                                  <strong className="spell-selection-title">
-                                    <HoverTooltip
-                                      label={entry.name}
-                                      content={spellTooltipContent({
-                                        classId: currentClass.id,
-                                        className: currentVisibleSubclass.name,
-                                        title: entry.name,
-                                        reference: spellReferenceFor(spellReferenceCollection, entry.spell ?? { id: entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), name: entry.name }),
-                                        summary:
-                                          entry.spell?.summary ??
-                                          `${entry.name} is added to your warlock spell list by your patron. Pick it in the spell list to learn it.`,
-                                        spellLevel: entry.spell?.level,
-                                        meta: [`Unlocked at Warlock ${entry.unlockLevel}`, currentVisibleSubclass.name, "Patron List"],
-                                      })}
-                                    />
-                                  </strong>
-                                  <div className="fighter-spell-tags">
-                                    <span className="fighter-spell-tag tone-support">
-                                      Patron List
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-                      {currentClass.id === "warlock" && draft.pactBoonId === "pact-of-the-tome" && selectedPactCantripSpells.length ? (
-                        <div className="creator-inline-list">
-                          <div className="list-row">
-                            <strong>Book of Shadows Cantrips</strong>
-                            <span>{`${selectedPactCantripSpells.length} / 3 selected from Pact of the Tome`}</span>
-                          </div>
-                          <div className="fighter-spellbook-grid leveled fixed">
-                            {selectedPactCantripSpells.map((spell) => (
-                              <div className="fighter-spell-tile active auto-grant pact-tome-auto" key={`journey-selected-tome-${spell.id}`}>
-                                <div className="spell-selection-main">
-                                  <strong className="spell-selection-title">
-                                    <HoverTooltip
-                                      label={spell.name}
-                                      content={spellTooltipContent({
-                                        classId: currentClass.id,
-                                        className: "Book of Shadows",
-                                        title: spell.name,
-                                        spellLevel: spell.level,
-                                        reference: spellReferenceFor(spellReferenceCollection, spell),
-                                        summary: spell.summary,
-                                        meta: ["Cantrip", "Pact of the Tome", "Auto Added"],
-                                      })}
-                                    />
-                                  </strong>
-                                </div>
-                                <div className="fighter-spell-tags">
-                                  <span className="fighter-spell-tag tone-support">
-                                    Pact Tome
-                                  </span>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-                      <div className="fighter-spellbook-toolbar">
-                        {spellLevelPages.length ? (
-                          <div className="fighter-spellbook-filters">
-                            <button type="button" className={activeSpellFilter === "all" ? "fighter-filter-pill active" : "fighter-filter-pill"} onClick={() => { setActiveSpellFilter("all"); setSpellListPage(0); }}>All</button>
-                            {spellLevelPages.map((level) => (
-                              <button type="button" key={`journey-warlock-spell-level-${level}`} className={activeSpellFilter === level ? "fighter-filter-pill active" : "fighter-filter-pill"} onClick={() => { setActiveSpellFilter(level); setSpellListPage(0); }}>
-                                {level === 0 ? "Cantrip" : `Level ${level}`}
-                              </button>
-                            ))}
-                          </div>
-                        ) : null}
-                        <div className="skill-spell-search centered">
-                          <AppIcon name="search" className="skill-spell-search-icon" />
-                          <input
-                            type="search"
-                            value={spellSearchQuery}
-                            onChange={(event) => setSpellSearchQuery(event.target.value)}
-                            placeholder="Search warlock spells..."
-                            aria-label="Search warlock spells"
-                          />
-                        </div>
-                      </div>
-                      <div className="fighter-spellbook-section fixed">
-                        <div className="fighter-spellbook-grid leveled fixed">
-                        {pagedSpellCards.length ? pagedSpellCards.map((spell, spellIndex) => {
-                          const unavailableReason = classSpellUnavailableReason(spell);
-                          const isUnlocked = !unavailableReason;
-                          const tags = spellListHintChips(spell, spellReferenceFor(spellReferenceCollection, spell));
-                          return (
-                            <button
-                              type="button"
-                              className={[
-                                "fighter-spell-tile",
-                                draft.spellIds.includes(spell.id) ? "active" : "",
-                                !isUnlocked ? "disabled" : "",
-                              ].filter(Boolean).join(" ")}
-                              key={`journey-warlock-spell-${spell.id}-${spell.level}-${spellIndex}`}
-                              aria-checked={draft.spellIds.includes(spell.id)}
-                              aria-disabled={!isUnlocked}
-                              onClick={() => {
-                                if (!isUnlocked) {
-                                  return;
-                                }
-                                toggleSelection("spellIds", spell.id);
-                              }}
-                            >
-                              <span className="fighter-spell-school">
-                                {spell.level === 0 ? "Cantrip" : `Level ${spell.level}`} · {spell.school}
-                              </span>
-                              {!isUnlocked ? <span className="fighter-spell-disabled-badge" aria-hidden="true">⊘</span> : null}
-                              <strong className="fighter-spell-title">
-                                <HoverTooltip
-                                  label={spell.name}
-                                  content={spellTooltipContent({
-                                    classId: currentClass.id,
-                                    className: currentClass.name,
-                                    title: spell.name,
-                                    spellLevel: spell.level,
-                                    reference: spellReferenceFor(spellReferenceCollection, spell),
-                                    summary: spell.summary,
-                                    meta: [spell.level === 0 ? "Cantrip" : `Level ${spell.level}`, spell.school, spell.castingTime],
-                                    lines: spellMetaLines(spell),
-                                  })}
+                              ) : (
+                                <InspectPanel
+                                  icon="spell-book"
+                                  kicker="Spells"
+                                  title={`${currentClass.name} spells`}
+                                  summary="Click a spell to read it. Click again to learn or forget it."
+                                  rows={counterMeta ? [{ label: "Known", value: counterMeta }] : []}
                                 />
-                              </strong>
-                              <div className="fighter-spell-tags">
-                                {tags.map((item) => (
-                                  <span key={`${spell.id}-journey-warlock-important-${item}`} className={`fighter-spell-tag tone-${spellChipTone(item)}`}>
-                                    {item}
-                                  </span>
-                                ))}
-                              </div>
-                              {!isUnlocked ? (
-                                <span className="fighter-spell-unavailable-row">
-                                  <strong>
-                                    <HoverTooltip
-                                      label={spell.name}
-                                      content={spellTooltipContent({
-                                        classId: currentClass.id,
-                                        className: currentClass.name,
-                                        title: spell.name,
-                                        reference: spellReferenceFor(spellReferenceCollection, spell),
-                                        summary: spell.summary,
-                                        spellLevel: spell.level,
-                                        meta: [spell.level === 0 ? "Cantrip" : `Level ${spell.level}`, spell.school],
-                                      })}
-                                    />
-                                  </strong>
-                                  <span className="fighter-spell-unavailable-divider" aria-hidden="true" />
-                                  <span>
-                                    <HoverTooltip
-                                      label="Unavailable"
-                                      content={<span className="spell-tooltip-copy">{unavailableReason}</span>}
-                                    />
-                                  </span>
-                                </span>
+                              )
+                            }
+                          >
+                            {granted.length ? (
+                              <PickSection title="Granted" meta="always yours, no pick needed">
+                                <PickGrid
+                                  label="Granted spells"
+                                  columns={5}
+                                  size="sm"
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={granted.map((entry) => ({ id: entry.id, name: entry.name, sub: entry.sub, icon: schoolIcon(entry.school), owned: true }))}
+                                />
+                              </PickSection>
+                            ) : null}
+                            {currentStructuredSublineage?.id === "high-elf" ? (
+                              <PickSection title="High Elf cantrip" meta="one wizard cantrip, uses INT" picked={selectedHighElfCantripId ? 1 : 0} total={1}>
+                                <PickGrid
+                                  label="High Elf cantrip"
+                                  pageSize={15}
+                                  columns={5}
+                                  size="sm"
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={highElfCantripPool.map((spell) => ({
+                                    id: spell.id,
+                                    name: spell.name,
+                                    sub: spell.school,
+                                    icon: schoolIcon(spell.school),
+                                    selected: spell.id === selectedHighElfCantripId,
+                                  }))}
+                                  onPick={(spellId) => setHighElfCantripChoice(spellId)}
+                                />
+                              </PickSection>
+                            ) : null}
+                            {currentClass.id !== "warlock" ? (
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                            ) : null}
+                            <PickSection
+                              title={`${currentClass.name} spells`}
+                              meta={counterMeta}
+                              picked={leftToPick ? 0 : 1}
+                              total={leftToPick ? leftToPick : 1}
+                              actions={
+                                <input
+                                  type="search"
+                                  className="pick-search"
+                                  value={spellSearchQuery}
+                                  onChange={(event) => setSpellSearchQuery(event.target.value)}
+                                  placeholder="Search spells"
+                                  aria-label="Search spells"
+                                />
+                              }
+                            >
+                              {spellLevelPages.length ? (
+                                <div className="pick-filters" role="group" aria-label="Spell level">
+                                  <button type="button" className={activeSpellFilter === "all" ? "pick-filter active" : "pick-filter"} onClick={() => setActiveSpellFilter("all")}>
+                                    All
+                                  </button>
+                                  {spellLevelPages.map((level) => (
+                                    <button
+                                      type="button"
+                                      key={`spell-level-filter-${level}`}
+                                      className={activeSpellFilter === level ? "pick-filter active" : "pick-filter"}
+                                      onClick={() => setActiveSpellFilter(level)}
+                                    >
+                                      {level === 0 ? "Cantrips" : `Level ${level}`}
+                                    </button>
+                                  ))}
+                                  <button
+                                    type="button"
+                                    className={showUnavailableOptions ? "pick-filter active" : "pick-filter"}
+                                    onClick={() => setShowUnavailableOptions((value) => !value)}
+                                  >
+                                    {showUnavailableOptions ? "Hide locked" : "Show locked"}
+                                  </button>
+                                </div>
                               ) : null}
-                            </button>
-                          );
-                        }) : <div className="list-row"><strong>No visible spells</strong><span>No spells match the current filter, level, or search.</span></div>}
-                        </div>
-                      </div>
-                      <div className="compact-pagination-row centered below-list">
-                        <div className="pagination-mini-controls">
-                          <button type="button" className="pagination-arrow" onClick={() => setSpellListPage((current) => Math.max(0, current - 1))} disabled={spellListPage === 0}>‹</button>
-                          <span className="pagination-indicator">{`${spellListPage + 1} / ${spellPageCount}`}</span>
-                          <button type="button" className="pagination-arrow" onClick={() => setSpellListPage((current) => Math.min(spellPageCount - 1, current + 1))} disabled={spellListPage >= spellPageCount - 1}>›</button>
-                        </div>
-                      </div>
+                              {activeSpellPool.length ? (
+                                <PickGrid
+                                  label="Spell list"
+                                  pageSize={16}
+                                  key={`spells-${activeSpellFilter}-${spellSearchQuery}-${showUnavailableOptions}`}
+                                  columns={4}
+                                  size="sm"
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={activeSpellPool.map((spell) => {
+                                    const reason = classSpellUnavailableReason(spell);
+                                    const known = draft.spellIds.includes(spell.id);
+                                    return {
+                                      id: spell.id,
+                                      name: spell.name,
+                                      sub: spellLabel(spell),
+                                      icon: schoolIcon(spell.school),
+                                      selected: known,
+                                      locked: Boolean(reason) && !known,
+                                      lockReason: reason ?? undefined,
+                                    };
+                                  })}
+                                  onPick={(spellId) => toggleSelection("spellIds", spellId)}
+                                />
+                              ) : (
+                                <p className="pick-note">No spells match this filter or search.</p>
+                              )}
+                            </PickSection>
+                            {currentClass.id === "warlock" && mysticArcanumOptions.length ? (
+                              <PickSection title="Mystic Arcanum" meta="one spell per level, once per long rest">
+                                {mysticArcanumOptions.map((entry) => (
+                                  <PickSection
+                                    key={`arcanum-${entry.spellLevel}`}
+                                    title={`Level ${entry.spellLevel}`}
+                                    meta={`warlock ${entry.unlockLevel}`}
+                                    picked={entry.selectedSpellId ? 1 : 0}
+                                    total={1}
+                                  >
+                                    <PickGrid
+                                      label={`Mystic Arcanum level ${entry.spellLevel}`}
+                                  pageSize={15}
+                                      columns={5}
+                                      size="sm"
+                                      inspectedId={inspectId}
+                                      onInspect={setInspectId}
+                                      items={entry.spells.map((spell) => ({
+                                        id: spell.id,
+                                        name: spell.name,
+                                        sub: spell.school,
+                                        icon: schoolIcon(spell.school),
+                                        selected: entry.selectedSpellId === spell.id,
+                                      }))}
+                                      onPick={(spellId) => setMysticArcanumSpell(entry.spellLevel, spellId)}
+                                    />
+                                  </PickSection>
+                                ))}
+                              </PickSection>
+                            ) : null}
+                          </PickLayout>
+                        );
+                      })()}
                     </div>
                   ) : null}
 
                   {fighterJourneyScene === "fighter-eldritch" ? (
                     <div className="fighter-journey-scene">
-                      <div className="fighter-journey-scene-head with-action">
-                        <div className="fighter-journey-scene-head-copy">
-                          <span className="mini-heading creator-section-label">Spellcasting</span>
-                          <h3>Eldritch Knight Spellbook</h3>
-                          <p>Filter by level, browse a stable tile grid, and track your cantrip, known spell, and any-school allowances in real time.</p>
-                        </div>
-                        <button type="button" className="sheet-button secondary" onClick={() => setFighterProgressionOpen(true)}>
-                          Progression
-                        </button>
+                      <div className="fighter-journey-scene-head compact">
+                        <h3>Eldritch Knight spells</h3>
+                        <p>{`Wizard spells, mostly ${eldritchKnightSchoolFocusLabel.toLowerCase()}. You also get ${eldritchKnightFlexibleSchoolAllowance} pick${eldritchKnightFlexibleSchoolAllowance === 1 ? "" : "s"} from any school.`}</p>
                       </div>
-                      <div className="fighter-journey-scene-divider" aria-hidden="true" />
                       {fighterJourneySubclassId !== "eldritch-knight" ? (
-                        <div className="list-row">
-                          <strong>Eldritch Knight not selected</strong>
-                          <span>Choose the Eldritch Knight archetype first to unlock spellcasting.</span>
-                        </div>
+                        <p className="pick-note">Choose the Eldritch Knight archetype first to unlock spellcasting.</p>
                       ) : (
-                        <>
-                          <div className="fighter-journey-counter-row">
-                            <div className="fighter-journey-counter">
-                              <span>Cantrips</span>
-                              <strong>{`${eldritchKnightCantripSelections.length}/${eldritchKnightCantripLimit}`}</strong>
-                            </div>
-                            <div className="fighter-journey-counter">
-                              <span>Known Spells</span>
-                              <strong>{`${eldritchKnightLeveledSelections.length}/${eldritchKnightSpellsKnownLimit}`}</strong>
-                            </div>
-                            <div className="fighter-journey-counter">
-                              <span>Any-School Picks</span>
-                              <strong>{`${eldritchKnightOffSchoolSelections.length}/${eldritchKnightFlexibleSchoolAllowance}`}</strong>
-                            </div>
-                            <div className="fighter-journey-counter wide">
-                              <span>School Rule</span>
-                              <strong>{eldritchKnightSchoolFocusLabel}</strong>
-                              <small>{`${eldritchKnightFlexibleSchoolAllowance} any-school pick${eldritchKnightFlexibleSchoolAllowance === 1 ? "" : "s"} available`}</small>
-                            </div>
-                          </div>
-                          <div className="fighter-spellbook-toolbar">
-                            <div className="fighter-spellbook-filters">
-                              <button
-                                type="button"
-                                className={fighterSpellLevelFilter === "all" ? "fighter-filter-pill active" : "fighter-filter-pill"}
-                                onClick={() => setFighterSpellLevelFilter("all")}
-                              >
-                                All
-                              </button>
-                              <button
-                                type="button"
-                                className={fighterSpellLevelFilter === "cantrip" ? "fighter-filter-pill active" : "fighter-filter-pill"}
-                                onClick={() => setFighterSpellLevelFilter("cantrip")}
-                              >
-                                Cantrips
-                              </button>
-                              {fighterJourneySpellLevelOptions.filter((level) => level > 0).map((level) => (
-                                <button
-                                  key={`fighter-level-filter-${level}`}
-                                  type="button"
-                                  className={fighterSpellLevelFilter === level ? "fighter-filter-pill active" : "fighter-filter-pill"}
-                                  onClick={() => setFighterSpellLevelFilter(level)}
-                                >
-                                  {`Level ${level}`}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="fighter-spellbook-section fixed">
-                            <div className="fighter-spellbook-grid leveled fixed">
-                              {fighterJourneyVisibleSpellTiles.map((spell) => {
-                                const isSelected = draft.spellIds.includes(spell.id);
-                                const unavailableReason = eldritchKnightSpellUnavailableReason(spell);
-                                const isUnlocked = !unavailableReason;
-                                const isFocusSchool = ["abjuration", "evocation"].includes(spell.school.toLowerCase());
-                                const tags = spellTileTags(spell);
-
-                                return (
-                                  <button
-                                    key={`journey-spell-${spell.id}`}
-                                    type="button"
-                                    className={[
-                                      "fighter-spell-tile",
-                                      isSelected ? "active" : "",
-                                      isFocusSchool ? "focus-school" : "",
-                                      !isUnlocked ? "disabled" : "",
-                                    ].filter(Boolean).join(" ")}
-                                    aria-disabled={!isUnlocked}
-                                    onClick={() => {
-                                      if (!isUnlocked) {
-                                        return;
-                                      }
-                                      toggleSelection("spellIds", spell.id);
-                                    }}
-                                  >
-                                    <span className="fighter-spell-school">
-                                      {spell.level === 0 ? "Cantrip" : `Level ${spell.level}`} · {spell.school}
-                                    </span>
-                                    {!isUnlocked ? <span className="fighter-spell-disabled-badge" aria-hidden="true">⊘</span> : null}
-                                    <strong className="fighter-spell-title">
-                                      <HoverTooltip
-                                        label={spell.name}
-                                        content={spellTooltipContent({
-                                          classId: currentClass.id,
-                                          className: "Eldritch Knight",
-                                          title: spell.name,
-                                          reference: spellReferenceFor(spellReferenceCollection, spell),
-                                          summary: spell.summary,
-                                          spellLevel: spell.level,
-                                          meta: [spell.level === 0 ? "Cantrip" : `Level ${spell.level}`, spell.school, isFocusSchool ? "Preferred School" : "Wizard Spell"],
-                                        })}
-                                      />
-                                    </strong>
-                                    <div className="fighter-spell-tags">
-                                      {tags.map((tag) => (
-                                        <span key={`${spell.id}-${tag}`} className={`fighter-spell-tag ${spellTagToneClass(tag)}`}>
-                                          {tag}
-                                        </span>
-                                      ))}
-                                    </div>
-                                    {!isUnlocked ? (
-                                      <span className="fighter-spell-unavailable-row">
-                                        <strong>
-                                          <HoverTooltip
-                                            label={spell.name}
-                                            content={spellTooltipContent({
-                                              classId: currentClass.id,
-                                              className: "Eldritch Knight",
-                                              title: spell.name,
-                                              reference: spellReferenceFor(spellReferenceCollection, spell),
-                                              summary: spell.summary,
-                                              spellLevel: spell.level,
-                                              meta: [spell.level === 0 ? "Cantrip" : `Level ${spell.level}`, spell.school, isFocusSchool ? "Preferred School" : "Wizard Spell"],
-                                            })}
-                                          />
-                                        </strong>
-                                        <span className="fighter-spell-unavailable-divider" aria-hidden="true" />
-                                        <strong>
-                                          <HoverTooltip
-                                            label="Unavailable"
-                                            content={spellTooltipContent({
-                                              classId: currentClass.id,
-                                              className: "Eldritch Knight",
-                                              title: "Unavailable",
-                                              reference: null,
-                                              summary: unavailableReason ?? "This spell cannot be selected right now.",
-                                              meta: [],
-                                            })}
-                                          />
-                                        </strong>
-                                      </span>
-                                    ) : null}
+                        (() => {
+                          const focus =
+                            fighterJourneyFilteredSpellPool.find((spell) => spell.id === inspectId) ??
+                            fighterJourneySpellPool.find((spell) => spell.id === inspectId) ??
+                            fighterJourneyFilteredSpellPool.find((spell) => draft.spellIds.includes(spell.id)) ??
+                            null;
+                          const focusReason = focus ? eldritchKnightSpellUnavailableReason(focus) : null;
+                          const focusKnown = Boolean(focus && draft.spellIds.includes(focus.id));
+                          const meta = `Cantrips ${eldritchKnightCantripSelections.length}/${eldritchKnightCantripLimit} · Spells ${eldritchKnightLeveledSelections.length}/${eldritchKnightSpellsKnownLimit} · Any school ${eldritchKnightOffSchoolSelections.length}/${eldritchKnightFlexibleSchoolAllowance}`;
+                          const left =
+                            Math.max(0, eldritchKnightCantripLimit - eldritchKnightCantripSelections.length) +
+                            Math.max(0, eldritchKnightSpellsKnownLimit - eldritchKnightLeveledSelections.length);
+                          return (
+                            <PickLayout
+                              inspect={
+                                focus ? (
+                                  <InspectPanel
+                                    icon={schoolIcon(focus.school)}
+                                    kicker={focus.level === 0 ? `Cantrip · ${focus.school}` : `Level ${focus.level} · ${focus.school}`}
+                                    title={focus.name}
+                                    summary={firstSentence(focus.summary)}
+                                    warning={focusKnown ? null : focusReason}
+                                    rows={spellMetaLines(focus)
+                                      .filter((line) => !line.startsWith("Source"))
+                                      .map((line) => ({ label: line.split(":")[0].replace("Casting Time", "Cast"), value: line.split(":").slice(1).join(":").trim() }))}
+                                    fullText={focus.summary}
+                                    action={
+                                      !focusReason || focusKnown ? (
+                                        <button
+                                          type="button"
+                                          className={focusKnown ? "sheet-button secondary" : "sheet-button primary"}
+                                          onClick={() => toggleSelection("spellIds", focus.id)}
+                                        >
+                                          {focusKnown ? "Forget" : "Learn"}
+                                        </button>
+                                      ) : null
+                                    }
+                                  />
+                                ) : (
+                                  <InspectPanel icon="spell-book" kicker="Spells" title="Eldritch Knight" summary="Click a spell to read it. Click again to learn or forget it." rows={[{ label: "Known", value: meta }]} />
+                                )
+                              }
+                            >
+                              <PickSection title="Wizard spells" meta={meta} picked={left ? 0 : 1} total={left || 1}>
+                                <div className="pick-filters" role="group" aria-label="Spell level">
+                                  <button type="button" className={fighterSpellLevelFilter === "all" ? "pick-filter active" : "pick-filter"} onClick={() => setFighterSpellLevelFilter("all")}>
+                                    All
                                   </button>
-                                );
-                              })}
-                            </div>
-                            <div className="fighter-journey-footer fighter-spellbook-pagination">
-                              <button
-                                type="button"
-                                className="sheet-button secondary"
-                                disabled={fighterSpellPage === 0}
-                                onClick={() => setFighterSpellPage((current) => Math.max(0, current - 1))}
-                              >
-                                Prev
-                              </button>
-                              <span className="fighter-pagination-status">{`${fighterSpellPage + 1} / ${fighterJourneySpellPageCount}`}</span>
-                              <button
-                                type="button"
-                                className="sheet-button secondary"
-                                disabled={fighterSpellPage >= fighterJourneySpellPageCount - 1}
-                                onClick={() => setFighterSpellPage((current) => Math.min(fighterJourneySpellPageCount - 1, current + 1))}
-                              >
-                                Next
-                              </button>
-                            </div>
-                          </div>
-                        </>
+                                  <button type="button" className={fighterSpellLevelFilter === "cantrip" ? "pick-filter active" : "pick-filter"} onClick={() => setFighterSpellLevelFilter("cantrip")}>
+                                    Cantrips
+                                  </button>
+                                  {fighterJourneySpellLevelOptions.filter((level) => level > 0).map((level) => (
+                                    <button
+                                      key={`ek-level-filter-${level}`}
+                                      type="button"
+                                      className={fighterSpellLevelFilter === level ? "pick-filter active" : "pick-filter"}
+                                      onClick={() => setFighterSpellLevelFilter(level)}
+                                    >
+                                      {`Level ${level}`}
+                                    </button>
+                                  ))}
+                                </div>
+                                <PickGrid
+                                  label="Eldritch Knight spells"
+                                  pageSize={16}
+                                  key={`ek-${fighterSpellLevelFilter}`}
+                                  columns={4}
+                                  size="sm"
+                                  inspectedId={inspectId}
+                                  onInspect={setInspectId}
+                                  items={fighterJourneyFilteredSpellPool.map((spell) => {
+                                    const reason = eldritchKnightSpellUnavailableReason(spell);
+                                    const known = draft.spellIds.includes(spell.id);
+                                    return {
+                                      id: spell.id,
+                                      name: spell.name,
+                                      sub: spell.level === 0 ? `Cantrip · ${spell.school}` : `Level ${spell.level} · ${spell.school}`,
+                                      icon: schoolIcon(spell.school),
+                                      selected: known,
+                                      locked: Boolean(reason) && !known,
+                                      lockReason: reason ?? undefined,
+                                    };
+                                  })}
+                                  onPick={(spellId) => toggleSelection("spellIds", spellId)}
+                                />
+                              </PickSection>
+                            </PickLayout>
+                          );
+                        })()
                       )}
                     </div>
                   ) : null}
@@ -9510,153 +9295,17 @@ export function CreatorWorkspace({
 
                 {creatorBrowser === "fighter-asi" ? (
                 <section className="creator-section-block">
-                    {!fighterAsiFeature ? (
-                      <div className="list-row">
-                        <strong>No ASI choice panel</strong>
-                        <span>This class does not expose Ability Score Improvement choices.</span>
-                      </div>
+                  <div className="fighter-journey-scene">
+                    <div className="fighter-journey-scene-head compact">
+                      <h3>Ability Score Improvements</h3>
+                      <p>At these levels you raise your abilities or take a feat instead. Scores can&apos;t go above 20.</p>
+                    </div>
+                    {unlockedFighterAsiLevels.length ? (
+                      <div className="option-choice-stack">{unlockedFighterAsiLevels.map((level) => renderAsiLevelCard(level))}</div>
                     ) : (
-                      <>
-                        <div className="identity-detail-head">
-                          <span className="mini-heading creator-section-label class-section-label">Ability Scores</span>
-                          <h4>{`${fighterAsiFeature.name} Choices`}</h4>
-                        </div>
-                        {fighterAsiFeature.summary ? (
-                          <p className="fighter-choice-intro">{fighterAsiFeature.summary}</p>
-                        ) : null}
-                        <div className="fighter-asi-stack">
-                          {unlockedFighterAsiLevels.length ? unlockedFighterAsiLevels.map((level) => {
-                            const choice = fighterAsiChoices[level];
-                            const selectedMode = choice?.mode ?? null;
-                            const plusTwoAbilityId = choice?.plusTwoAbilityId ?? null;
-                            const plusOneAbilityIds = choice?.plusOneAbilityIds ?? [];
-                            const selectedFeatId = choice?.featId ?? "";
-
-                            return (
-                              <article key={`fighter-asi-${level}`} className="fighter-asi-card">
-                                <div className="fighter-asi-card-head">
-                                  <div>
-                                    <span className="mini-heading">Level {level}</span>
-                                    <strong>{fighterAsiFeature.milestones.find((milestone) => milestone.level === level)?.label ?? "+2 or +1 / +1"}</strong>
-                                  </div>
-                                  <button type="button" className="fighter-choice-clear" onClick={() => clearFighterAsiChoice(level)}>
-                                    Clear
-                                  </button>
-                                </div>
-                                <div className="fighter-asi-mode-row">
-                                  <button
-                                    type="button"
-                                    className={selectedMode === "plus-two" ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                    onClick={() =>
-                                      updateFighterAsiChoice(level, () => ({
-                                        mode: "plus-two",
-                                        plusTwoAbilityId: null,
-                                        plusOneAbilityIds: [],
-                                        featId: null,
-                                      }))
-                                    }
-                                  >
-                                    +2 to one ability
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className={selectedMode === "split" ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                    onClick={() =>
-                                      updateFighterAsiChoice(level, () => ({
-                                        mode: "split",
-                                        plusTwoAbilityId: null,
-                                        plusOneAbilityIds: [],
-                                        featId: null,
-                                      }))
-                                    }
-                                  >
-                                    +1 / +1 split
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className={selectedMode === "feat" ? "ability-flex-pick active" : "ability-flex-pick"}
-                                    onClick={() =>
-                                      updateFighterAsiChoice(level, () => ({
-                                        mode: "feat",
-                                        plusTwoAbilityId: null,
-                                        plusOneAbilityIds: [],
-                                        featId: selectedFeatId || null,
-                                      }))
-                                    }
-                                  >
-                                    Feat
-                                  </button>
-                                </div>
-                                {selectedMode === "feat" ? (
-                                  renderAsiFeatPicker(level, selectedFeatId)
-                                ) : (
-                                  <div className="ability-flex-assignment-grid fighter-asi-grid">
-                                    {draft.abilities.map((ability) => {
-                                      const projectedScore = fighterAsiProjectedScore(ability.id, level);
-                                      const canTakePlusTwo = projectedScore <= 18;
-                                      const canTakePlusOne = projectedScore <= 19 || plusOneAbilityIds.includes(ability.id);
-                                      const splitLocked = !plusOneAbilityIds.includes(ability.id) && plusOneAbilityIds.length >= 2;
-
-                                      return (
-                                        <div className="ability-flex-assignment-row fighter-asi-row" key={`fighter-asi-${level}-${ability.id}`}>
-                                          <strong className={abilityAccentClass(ability.id)}>{ability.id}</strong>
-                                          <div className="fighter-asi-row-meta">
-                                            <span>{ability.label}</span>
-                                            <span>{`Current ${previewAbilities.find((entry) => entry.id === ability.id)?.previewScore ?? ability.score}`}</span>
-                                          </div>
-                                          <div className="ability-flex-picks prominent">
-                                            <button
-                                              type="button"
-                                              className={plusTwoAbilityId === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                                              disabled={selectedMode !== "plus-two" || !canTakePlusTwo}
-                                              onClick={() =>
-                                                updateFighterAsiChoice(level, (current) => ({
-                                                  mode: "plus-two",
-                                                  plusTwoAbilityId: current?.plusTwoAbilityId === ability.id ? null : ability.id,
-                                                  plusOneAbilityIds: [],
-                                                  featId: null,
-                                                }))
-                                              }
-                                            >
-                                              +2
-                                            </button>
-                                            <button
-                                              type="button"
-                                              className={plusOneAbilityIds.includes(ability.id) ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                                              disabled={selectedMode !== "split" || !canTakePlusOne || splitLocked}
-                                              onClick={() =>
-                                                updateFighterAsiChoice(level, (current) => {
-                                                  const currentIds = current?.plusOneAbilityIds ?? [];
-                                                  return {
-                                                    mode: "split",
-                                                    plusTwoAbilityId: null,
-                                                    plusOneAbilityIds: currentIds.includes(ability.id)
-                                                      ? currentIds.filter((entry) => entry !== ability.id)
-                                                      : [...currentIds, ability.id].slice(0, 2),
-                                                    featId: null,
-                                                  };
-                                                })
-                                              }
-                                            >
-                                              +1
-                                            </button>
-                                          </div>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                )}
-                              </article>
-                            );
-                          }) : (
-                            <div className="list-row">
-                              <strong>No ASI unlocked yet</strong>
-                              <span>This class gains its first Ability Score Improvement at 4th level.</span>
-                            </div>
-                          )}
-                        </div>
-                      </>
+                      <p className="pick-note">Your first Ability Score Improvement comes at level 4.</p>
                     )}
+                  </div>
                 </section>
                 ) : null}
 
@@ -9768,113 +9417,112 @@ export function CreatorWorkspace({
                 </section>
                 ) : null}
 
-                {creatorBrowser === "custom-background-tools" ? (
+                {creatorBrowser === "custom-background-tools" || creatorBrowser === "custom-background-languages" ? (
                 <section className="creator-section-block">
-                  <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
-                    <h4>Tools</h4>
-                  </div>
-                  <div className="creator-inline-list">
-                    <div className="list-row">
-                      <strong>{customBackgroundActive ? `${draft.customBackground?.proficiencyIds.length ?? 0} / 2 selected` : "Background tools"}</strong>
-                      <span>{customBackgroundActive ? selectedCustomProficiencyLabels.join(", ") || "Choose tools or languages in any mix of two." : "Granted by your selected background."}</span>
-                    </div>
-                  </div>
-                  {customBackgroundActive ? (
-                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                    {customBackgroundProficiencyChoices.filter((option) => option.kind === "Tool").map((option) => {
-                      const selected = draft.customBackground?.proficiencyIds.includes(option.id) ?? false;
-                      const locked = !selected && (draft.customBackground?.proficiencyIds.length ?? 0) >= 2;
-                      return (
-                        <button
-                          key={`custom-background-prof-${option.id}`}
-                          type="button"
-                          className={selected ? "fighter-journey-card active tool-choice-card" : `fighter-journey-card tool-choice-card${locked ? " disabled" : ""}`}
-                          disabled={locked}
-                          onClick={() => toggleCustomBackgroundProficiency(option.id)}
+                  {(() => {
+                    const isTools = creatorBrowser === "custom-background-tools";
+                    const kind = isTools ? "Tool" : "Language";
+                    const customOptions = customBackgroundProficiencyChoices.filter((option) => option.kind === kind);
+                    const pickedCustom = draft.customBackground?.proficiencyIds ?? [];
+                    const infoForOption = (optionId: string) => {
+                      const [, id] = optionId.split(":");
+                      const tool = content.tools.find((entry) => entry.id === id);
+                      const language = content.languages.find((entry) => entry.id === id);
+                      return isTools ? (tool ? findGearInfo(content, tool.name) : null) : language ? findGearInfo(content, language.name) : null;
+                    };
+                    const grantedNames = selectedBackground
+                      ? isTools
+                        ? backgroundToolSummary(content, selectedBackground)
+                        : backgroundLanguageSummary(content, selectedBackground)
+                      : [];
+                    const grantedInfos = gearInfosFor(content, "", grantedNames);
+                    const focusInfo =
+                      (inspectId ? infoForOption(inspectId) ?? findGearInfo(content, inspectId) : null) ??
+                      (pickedCustom.find((id) => id.startsWith(isTools ? "tool:" : "language:")) ? infoForOption(pickedCustom.find((id) => id.startsWith(isTools ? "tool:" : "language:")) as string) : null) ??
+                      grantedInfos[0] ??
+                      null;
+                    return (
+                      <>
+                        <div className="fighter-journey-scene-head compact">
+                          <h3>{isTools ? "Tools" : "Languages"}</h3>
+                          <p>
+                            {isTools
+                              ? "Tools let you add your proficiency bonus when you use them. Click one to see what it is good for."
+                              : "Languages you can speak, read and write. Click one to see who speaks it."}
+                          </p>
+                        </div>
+                        <PickLayout
+                          inspect={
+                            focusInfo ? (
+                              <InspectPanel icon={focusInfo.icon} kicker={focusInfo.kicker} title={focusInfo.name} summary={focusInfo.summary} rows={focusInfo.rows} />
+                            ) : (
+                              <InspectPanel icon={isTools ? "toolbox" : "talk"} title={isTools ? "Tools" : "Languages"} summary="Click one to read about it." />
+                            )
+                          }
                         >
-                          <span className="fighter-journey-card-label">{option.meta}</span>
-                          <strong>
-                            <HoverTooltip
-                              label={option.label}
-                              content={toolTooltipContent(content.tools.find((tool) => `tool:${tool.id}` === option.id), option.label, option.meta)}
-                            />
-                          </strong>
-                        </button>
-                      );
-                    })}
-                    </div>
-                  ) : hasSelectedBackgroundToolData ? (
-                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                      {renderBackgroundToolCards("background-tool-gear-section")}
-                    </div>
-                  ) : (
-                    <div className="list-row">
-                      <strong>No background tools</strong>
-                      <span>This background does not grant tool proficiencies.</span>
-                    </div>
-                  )}
-                </section>
-                ) : null}
-
-                {creatorBrowser === "custom-background-languages" ? (
-                <section className="creator-section-block">
-                  <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
-                    <h4>Languages</h4>
-                  </div>
-                  <div className="creator-inline-list">
-                    <div className="list-row">
-                      <strong>{customBackgroundActive ? `${draft.customBackground?.proficiencyIds.length ?? 0} / 2 selected` : "Background languages"}</strong>
-                      <span>{customBackgroundActive ? selectedCustomProficiencyLabels.join(", ") || "Choose tools or languages in any mix of two." : "Granted by your selected background."}</span>
-                    </div>
-                  </div>
-                  {customBackgroundActive ? (
-                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                    {customBackgroundProficiencyChoices.filter((option) => option.kind === "Language").map((option) => {
-                      const selected = draft.customBackground?.proficiencyIds.includes(option.id) ?? false;
-                      const locked = !selected && (draft.customBackground?.proficiencyIds.length ?? 0) >= 2;
-                      return (
-                        <button
-                          key={`custom-background-prof-${option.id}`}
-                          type="button"
-                          className={selected ? "fighter-journey-card active tool-choice-card" : `fighter-journey-card tool-choice-card${locked ? " disabled" : ""}`}
-                          disabled={locked}
-                          onClick={() => toggleCustomBackgroundProficiency(option.id)}
-                        >
-                          <span className="fighter-journey-card-label">{option.meta}</span>
-                          <strong>{option.label}</strong>
-                        </button>
-                      );
-                    })}
-                    </div>
-                  ) : backgroundLanguageSummary(content, selectedBackground).length ? (
-                    <div className="fighter-feature-grid compact fighter-equipment-source-grid">
-                      {backgroundLanguageSummary(content, selectedBackground).map((language) => (
-                        <article key={`background-language-${language}`} className="fighter-feature-card compact unlocked">
-                          <div className="fighter-feature-card-head">
-                            <strong>{language}</strong>
-                            <span className="fighter-feature-check" aria-hidden="true">✓</span>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="list-row">
-                      <strong>No background languages</strong>
-                      <span>This background does not grant languages.</span>
-                    </div>
-                  )}
-                  <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} />
+                          {customBackgroundActive ? (
+                            <PickSection
+                              title={`Custom background ${isTools ? "tools" : "languages"}`}
+                              meta="any mix of two tools or languages"
+                              picked={pickedCustom.length}
+                              total={2}
+                            >
+                              <PickGrid
+                                label={isTools ? "Tools" : "Languages"}
+                                columns={4}
+                                size="sm"
+                                inspectedId={inspectId}
+                                onInspect={setInspectId}
+                                items={customOptions.map((option) => {
+                                  const info = infoForOption(option.id);
+                                  const selected = pickedCustom.includes(option.id);
+                                  return {
+                                    id: option.id,
+                                    name: option.label,
+                                    sub: info?.sub,
+                                    icon: info?.icon ?? (isTools ? "toolbox" : "talk"),
+                                    selected,
+                                    dim: !selected && pickedCustom.length >= 2,
+                                  };
+                                })}
+                                onPick={(id) => {
+                                  if (pickedCustom.includes(id) || pickedCustom.length < 2) {
+                                    toggleCustomBackgroundProficiency(id);
+                                  }
+                                }}
+                              />
+                            </PickSection>
+                          ) : (
+                            <PickSection title={`From ${selectedBackground?.name ?? "your background"}`}>
+                              {grantedInfos.length ? (
+                                <PickGrid
+                                  label={`Background ${isTools ? "tools" : "languages"}`}
+                                  columns={4}
+                                  size="sm"
+                                  inspectedId={focusInfo?.name ?? null}
+                                  onInspect={setInspectId}
+                                  items={grantedInfos.map((info) => ({ id: info.name, name: info.name, sub: info.sub, icon: info.icon, owned: true }))}
+                                />
+                              ) : (
+                                <p className="pick-note">{grantedNames.length ? grantedNames.join(", ") : `Your background gives no ${isTools ? "tools" : "languages"}.`}</p>
+                              )}
+                              {isTools && hasSelectedBackgroundToolData && selectedBackground?.toolProficiencies.choices.length ? (
+                                <div className="fighter-feature-grid compact fighter-equipment-source-grid">{renderBackgroundToolCards("background-tool-gear-section")}</div>
+                              ) : null}
+                            </PickSection>
+                          )}
+                          {!isTools ? (
+                            <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} content={content} onInspect={setInspectId} inspectedId={inspectId} knownLanguages={previewDraft.proficiencies.languages} />
+                          ) : null}
+                        </PickLayout>
+                      </>
+                    );
+                  })()}
                 </section>
                 ) : null}
 
                 {creatorBrowser === "custom-background-equipment" ? (
                 <section className="creator-section-block">
-                  <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label class-section-label">Tools & Gear</span>
-                    <h4>Equipment</h4>
-                  </div>
                   <div className="fighter-journey-scene">
                     <div className="fighter-journey-scene-head compact">
                       <h3>Equipment</h3>
@@ -9897,170 +9545,134 @@ export function CreatorWorkspace({
 
                 {creatorBrowser === "feats" ? (
                 <section className="creator-section-block">
-                  <div className="identity-detail-head">
-                    <span className="mini-heading creator-section-label class-section-label">Normal Feats</span>
-                    <h4>Feat Library</h4>
+                  <div className="fighter-journey-scene-head compact">
+                    <h3>Feats</h3>
+                    <p>
+                      {currentFeatSlots.length
+                        ? `You have ${currentFeatSlots.length} feat ${currentFeatSlots.length === 1 ? "slot" : "slots"}: ${currentFeatSlots.map((slot) => slot.label).join(", ")}. Feats you can't take yet are under Locked, with the reason.`
+                        : "Feats come from Ability Score Improvements (level 4, 8, 12...) or a race that grants one. You can still browse them."}
+                    </p>
                   </div>
-                  <div className="feat-browser-toolbar">
-                    <div className="skill-spell-search centered">
-                      <AppIcon name="search" className="skill-spell-search-icon" />
-                      <input
-                        type="search"
-                        value={featSearchQuery}
-                        onChange={(event) => setFeatSearchQuery(event.target.value)}
-                        placeholder="Search feats, sources, prerequisites..."
-                        aria-label="Search feats"
-                      />
-                    </div>
-                    <div className="feat-browser-count">
-                      <strong>{`${usedFeatSlotCount} / ${currentFeatSlots.length}`}</strong>
-                      <span>feat slots</span>
-                    </div>
-                  </div>
-                  <div className="feature-browser-layout feat-browser-layout">
-                    <div className="feature-browser-list feat-browser-list">
-                      {visibleNormalFeats.map((feat) => {
-                        const selected = featContext.featIds.includes(feat.id);
-                        const focused = selectedFeat?.id === feat.id;
-                        const locked = !selected && !checkFeat(feat.id).eligible;
-                        return (
-                          <button
-                            type="button"
-                            key={`feat-card-${feat.id}`}
-                            className={[
-                              "feature-browser-item",
-                              "feat-browser-item",
-                              focused ? "active" : "",
-                              selected ? "acquired" : "",
-                              locked ? "locked" : "",
-                            ].filter(Boolean).join(" ")}
-                            onClick={() => setSelectedFeatId(feat.id)}
-                          >
-                            <strong>{feat.name}</strong>
-                            <span>{featSourceShort(feat.source)}</span>
-                            <span>{feat.prerequisite ? `Req: ${feat.prerequisite}` : "No prerequisite"}</span>
-                            {selected ? <span className="feature-browser-status" aria-hidden="true">✓</span> : null}
-                          </button>
-                        );
-                      })}
-                      {!visibleNormalFeats.length ? (
-                        <div className="list-row">
-                          <strong>No feats found</strong>
-                          <span>Try a different search term.</span>
-                        </div>
-                      ) : null}
-                    </div>
-                    {selectedFeat ? (
-                      <article className="identity-trait-item class-feature-detail creator-subpanel-flat feature-browser-detail feat-detail-panel">
-                        <div className="feature-detail-stack">
-                          <div className="feature-detail-block feature-detail-block-header">
-                            <div className="feat-detail-title-row">
-                              <div>
-                                <strong>{selectedFeat.name}</strong>
-                                <div className="feature-tag-row">
-                                  <span className="feature-tag-pill">{featSourceShort(selectedFeat.source)}</span>
-                                  {selectedFeat.prerequisite ? <span className="feature-tag-pill">Prerequisite</span> : null}
-                                </div>
-                              </div>
-                              {(() => {
-                                const slot = currentFeatSlots.find((entry) => entry.featId === selectedFeat.id);
-                                if (slot) {
+                  {(() => {
+                    const rows = visibleNormalFeats.map((feat) => {
+                      const selected = featContext.featIds.includes(feat.id);
+                      const check = checkFeat(feat.id);
+                      return { feat, selected, check, locked: !selected && !check.eligible };
+                    });
+                    const fits = rows.filter((row) => !row.locked);
+                    const locked = rows.filter((row) => row.locked);
+                    const shown = featFilter === "fits" ? fits : featFilter === "locked" ? locked : rows;
+                    const focus =
+                      (selectedFeatId ? normalFeats.find((feat) => feat.id === selectedFeatId) : null) ??
+                      normalFeats.find((feat) => featContext.featIds.includes(feat.id)) ??
+                      shown[0]?.feat ??
+                      null;
+                    const focusSlot = focus ? currentFeatSlots.find((entry) => entry.featId === focus.id) : null;
+                    const focusCheck = focus ? checkFeat(focus.id, focusSlot ? focus.id : null) : null;
+                    const paragraphs = focus ? featBenefitParagraphs(focus) : [];
+                    return (
+                      <PickLayout
+                        inspect={
+                          focus ? (
+                            <InspectPanel
+                              icon={featIcon(focus.name)}
+                              kicker={featSourceShort(focus.source)}
+                              title={focus.name}
+                              summary={firstSentence(paragraphs[0] ?? focus.summary)}
+                              warning={focusCheck && !focusCheck.eligible && !focusSlot ? `Missing: ${focusCheck.unmet.join(", ")}` : null}
+                              rows={[
+                                { label: "Needs", value: focus.prerequisite || "Nothing" },
+                                ...(featTags(focus).filter((tag) => tag !== "Prerequisite").length
+                                  ? [{ label: "Gives", value: featTags(focus).filter((tag) => tag !== "Prerequisite").join(", ") }]
+                                  : []),
+                                ...(focusCheck?.dmNotes.length ? [{ label: "DM", value: focusCheck.dmNotes.join(" ") }] : []),
+                              ]}
+                              fullText={paragraphs.join("\n\n")}
+                              action={(() => {
+                                if (focusSlot) {
                                   return (
-                                    <button type="button" className="sheet-button secondary active" onClick={() => removeFeatFromSlot(selectedFeat.id)}>
-                                      {`Remove (${slot.label})`}
+                                    <button type="button" className="sheet-button secondary" onClick={() => removeFeatFromSlot(focus.id)}>
+                                      {`Remove from ${focusSlot.label}`}
                                     </button>
                                   );
                                 }
-                                if (featContext.featIds.includes(selectedFeat.id)) {
-                                  return <span className="feature-tag-pill">Granted automatically</span>;
+                                if (featContext.featIds.includes(focus.id)) {
+                                  return <span className="pick-note">Granted automatically.</span>;
                                 }
-                                const check = checkFeat(selectedFeat.id);
-                                return (
-                                  <button
-                                    type="button"
-                                    className="sheet-button secondary"
-                                    disabled={!openFeatSlot || !check.eligible}
-                                    onClick={() => assignFeatToSlot(selectedFeat.id)}
-                                  >
-                                    {!check.eligible ? "Prerequisite not met" : openFeatSlot ? `Take (${openFeatSlot.label})` : "No free feat slot"}
+                                if (!focusCheck?.eligible) {
+                                  return null;
+                                }
+                                return openFeatSlot ? (
+                                  <button type="button" className="sheet-button primary" onClick={() => assignFeatToSlot(focus.id)}>
+                                    {`Take it (${openFeatSlot.label})`}
                                   </button>
+                                ) : (
+                                  <span className="pick-note">No free feat slot right now.</span>
                                 );
                               })()}
-                            </div>
-                            {renderFeatRequirementNotes(selectedFeat.id, currentFeatSlots.some((slot) => slot.featId === selectedFeat.id) ? selectedFeat.id : null)}
-                            {!currentFeatSlots.length ? (
-                              <span className="feat-requirement-hint">Feats come from Ability Score Improvements (level 4, 8, 12...) or a lineage that grants one.</span>
-                            ) : null}
+                            />
+                          ) : (
+                            <InspectPanel icon="laurels" title="Feats" summary="Pick a feat to read it." />
+                          )
+                        }
+                      >
+                        <PickSection
+                          title="Feat library"
+                          meta={`${usedFeatSlotCount} / ${currentFeatSlots.length} slots used`}
+                          actions={
+                            <input
+                              type="search"
+                              className="pick-search"
+                              value={featSearchQuery}
+                              onChange={(event) => setFeatSearchQuery(event.target.value)}
+                              placeholder="Search feats"
+                              aria-label="Search feats"
+                            />
+                          }
+                        >
+                          <div className="pick-filters" role="group" aria-label="Feat filter">
+                            {([
+                              ["fits", `You can take (${fits.length})`],
+                              ["locked", `Locked (${locked.length})`],
+                              ["all", `All (${rows.length})`],
+                            ] as const).map(([id, label]) => (
+                              <button key={`feat-filter-${id}`} type="button" className={featFilter === id ? "pick-filter active" : "pick-filter"} onClick={() => setFeatFilter(id)}>
+                                {label}
+                              </button>
+                            ))}
                           </div>
-                          <div className="feature-detail-block">
-                            <span className="feature-detail-label">At a Glance</span>
-                            <div className="lineage-detail-meta-grid spell-rules-grid">
-                              <div className="lineage-detail-meta-item">
-                                <div className="lineage-detail-meta-head">
-                                  <span className="summary-icon-wrap">
-                                    <AppIcon name="book" className="summary-icon" />
-                                  </span>
-                                </div>
-                                <strong>Source</strong>
-                                <span>{selectedFeat.source ?? "Unknown Source"}</span>
-                              </div>
-                              <div className="lineage-detail-meta-item">
-                                <div className="lineage-detail-meta-head">
-                                  <span className="summary-icon-wrap">
-                                    <AppIcon name="shield" className="summary-icon" />
-                                  </span>
-                                </div>
-                                <strong>Requirement</strong>
-                                <span>{selectedFeat.prerequisite || "None"}</span>
-                              </div>
-                            </div>
-                            <div className="feature-key-facts-list">
-                              {featTags(selectedFeat).map((tag) => (
-                                <span key={`${selectedFeat.id}-tag-${tag}`} className="feature-key-fact-pill">
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
+                          {shown.length ? (
+                            <PickGrid
+                              label="Feats"
+                                  pageSize={16}
+                                  key={`feats-${featFilter}-${featSearchQuery}`}
+                              columns={4}
+                              size="sm"
+                              inspectedId={focus?.id ?? null}
+                              onInspect={setSelectedFeatId}
+                              items={shown.map((row) => ({
+                                id: row.feat.id,
+                                name: row.feat.name,
+                                sub: row.selected ? "Taken" : featSourceShort(row.feat.source),
+                                icon: featIcon(row.feat.name),
+                                selected: row.selected,
+                                locked: row.locked,
+                                lockReason: row.locked ? `Needs ${row.check.unmet[0] ?? "a prerequisite"}` : undefined,
+                              }))}
+                            />
+                          ) : (
+                            <p className="pick-note">No feats here. Try another filter or search.</p>
+                          )}
+                        </PickSection>
+                        {optionChoices.some((entry) => entry.sourceKind === "feat") ? (
+                          <div className="option-choice-stack feat-choice-stack">
+                            <span className="gear-list-title">Choices from your feats</span>
+                            <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind === "feat")} onToggle={toggleOptionChoice} />
                           </div>
-                          <div className="feature-detail-block">
-                            <span className="feature-detail-label">Rules Text</span>
-                            <div className="class-feature-detail-body feat-rules-body">
-                              {featBenefitParagraphs(selectedFeat).map((paragraph, index) => (
-                                <p key={`${selectedFeat.id}-paragraph-${index}`}>{highlightKeywords(paragraph, `${selectedFeat.id}-${index}`)}</p>
-                              ))}
-                            </div>
-                          </div>
-                          {selectedFeat.detailTables?.map((table) => (
-                            <div key={`${selectedFeat.id}-table-${table.title}`} className="feature-detail-block">
-                              <span className="feature-detail-label">{table.title}</span>
-                              <div className="feat-detail-table-wrap">
-                                <table className="feat-detail-table">
-                                  {table.columns.length ? (
-                                    <thead>
-                                      <tr>
-                                        {table.columns.map((column) => (
-                                          <th key={`${selectedFeat.id}-${table.title}-${column}`}>{column}</th>
-                                        ))}
-                                      </tr>
-                                    </thead>
-                                  ) : null}
-                                  <tbody>
-                                    {table.rows.map((row, rowIndex) => (
-                                      <tr key={`${selectedFeat.id}-${table.title}-${rowIndex}`}>
-                                        {row.map((cell, cellIndex) => (
-                                          <td key={`${selectedFeat.id}-${table.title}-${rowIndex}-${cellIndex}`}>{cell}</td>
-                                        ))}
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </article>
-                    ) : null}
-                  </div>
+                        ) : null}
+                      </PickLayout>
+                    );
+                  })()}
                 </section>
                 ) : null}
 
@@ -10069,100 +9681,104 @@ export function CreatorWorkspace({
                   <div className="skill-spell-layout skill-spell-layout-flat">
                       {creatorBrowser !== "spells" ? (
                       <section className="skill-spell-section">
-                        <div className="identity-detail-head compact">
-                          <span className="mini-heading creator-section-label class-section-label">Skills</span>
+                        <div className="fighter-journey-scene-head compact">
+                          <h3>Skills</h3>
+                          <p>{`Skills sit under the ability they use. Lit ones are trained. Your class lets you pick ${skillChoiceCount}; your background already gave ${backgroundSkillLabels.length || "none"}.`}</p>
                         </div>
-                        {/* Feature'lardan gelen skill secimleri (orn. Bard Expertise). */}
-                        <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
-                        <div className="creator-inline-list">
-                          <div className="list-row">
-                            <strong>{`Choose ${skillChoiceCount} class skill${skillChoiceCount === 1 ? "" : "s"}`}</strong>
-                            <span>
-                              {remainingClassSkillChoices > 0
-                                ? `${remainingClassSkillChoices} choice${remainingClassSkillChoices === 1 ? "" : "s"} remaining.`
-                                : "All class skill choices selected."}
-                            </span>
-                          </div>
-                          {backgroundSkillLabels.length ? (
-                            <div className="skill-source-card">
-                              <strong>Background Proficiencies</strong>
-                              <div className="skill-source-chip-row">
-                                {backgroundSkillLabels.map((label) => (
-                                  <span key={`background-skill-${label}`} className="skill-source-chip">
-                                    {label}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          ) : null}
-                          {customBackgroundActive ? (
-                            <div className="skill-source-card">
-                              <strong>{`Custom Background Skills (${draft.customBackground?.skillIds.length ?? 0} / 2)`}</strong>
-                              <div className="skill-choice-grid custom-background-skill-grid">
-                                {Object.keys(skillAbilities).map((skillId) => {
-                                  const selected = draft.customBackground?.skillIds.includes(skillId) ?? false;
-                                  const locked = !selected && (draft.customBackground?.skillIds.length ?? 0) >= 2;
-                                  return (
-                                    <label className={selected ? "selection-card choice-card skill-spell-card active" : `selection-card choice-card skill-spell-card${locked ? " disabled" : ""}`} key={`custom-background-skill-${skillId}`}>
-                                      <input
-                                        type="checkbox"
-                                        checked={selected}
-                                        disabled={locked}
-                                        onChange={() => toggleCustomBackgroundSkill(skillId)}
-                                      />
-                                      <div className="skill-spell-card-head">
-                                        <strong className="skill-spell-card-title">{skillLabel(skillId)}</strong>
-                                        {selected ? <span className="skill-proficiency-star" aria-hidden="true">★</span> : null}
-                                      </div>
-                                      <p className="skill-spell-card-description">{skillDescription(skillId)}</p>
-                                    </label>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          ) : null}
-                        </div>
-                        <div className="creator-inline-divider" aria-hidden="true" />
-                        <div className="skill-choice-grid">
-                        {skillChoiceOptions.map((skillId) => {
-                          const skillEntry = draft.skills.find((skill) => skill.id === skillId);
-                          const skillCopy = skillDescription(skillId, skillEntry?.description);
-                          const isSelected = draft.selectedSkillIds.includes(skillId);
-                          const isPretrained = Boolean(skillEntry?.proficient && !isSelected);
+                        {(() => {
+                          const abilityOrder: AbilityId[] = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
+                          const abilityNames: Record<AbilityId, string> = { STR: "Strength", DEX: "Dexterity", CON: "Constitution", INT: "Intelligence", WIS: "Wisdom", CHA: "Charisma" };
+                          const focusId = inspectId ?? draft.selectedSkillIds[0] ?? skillChoiceOptions[0] ?? null;
+                          const focusEntry = previewDraft.skills.find((skill) => skill.id === focusId) ?? null;
+                          const focusFromBackground = Boolean(focusId && backgroundSkillIds.includes(focusId));
+                          const focusSelected = Boolean(focusId && draft.selectedSkillIds.includes(focusId));
+                          const focusOption = Boolean(focusId && skillChoiceOptions.includes(focusId));
                           return (
-                            <label className={isSelected ? "selection-card choice-card skill-spell-card active" : `selection-card choice-card skill-spell-card${isPretrained ? " disabled" : ""}`} key={skillId}>
-                              <input
-                                type="checkbox"
-                                className="visually-hidden"
-                                checked={isSelected}
-                                disabled={isPretrained}
-                                onChange={() => {
-                                  if (isPretrained) {
-                                    return;
-                                  }
-                                  toggleSkillSelection(skillId);
-                                }}
-                              />
-                              <div className="skill-spell-card-head">
-                                <strong className="skill-spell-card-title">
-                                  {skillLabel(skillId)}
-                                  {(isPretrained || isSelected) ? <span className="skill-proficiency-star" aria-hidden="true">★</span> : null}
-                                </strong>
-                              </div>
-                              {skillCopy ? (
-                                <p className="skill-spell-card-description">{skillCopy}</p>
+                            <PickLayout
+                              inspect={
+                                focusId ? (
+                                  <InspectPanel
+                                    icon={skillIcon(focusId)}
+                                    kicker={abilityNames[skillAbilities[focusId] ?? "DEX"]}
+                                    title={skillLabel(focusId)}
+                                    summary={skillDescription(focusId, focusEntry?.description) || null}
+                                    rows={[
+                                      { label: "Bonus", value: focusEntry ? signedNumber(focusEntry.bonus) : "-" },
+                                      { label: "Trained", value: focusFromBackground ? "Yes, from your background" : focusSelected ? "Yes, class pick" : focusEntry?.proficient ? "Yes" : "No" },
+                                      ...(focusEntry?.breakdown ? [{ label: "Math", value: focusEntry.breakdown }] : []),
+                                    ]}
+                                    warning={!focusOption && !focusFromBackground && !focusEntry?.proficient ? `Not on the ${currentClass.name.toLowerCase()} skill list.` : null}
+                                  />
+                                ) : (
+                                  <InspectPanel icon="skills" title="Skills" summary="Click a skill to read it." />
+                                )
+                              }
+                            >
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
+                              <PickSection title={`${currentClass.name} skills`} meta={`choose ${skillChoiceCount}`} picked={selectedClassSkillCount} total={skillChoiceCount}>
+                                <div className="skill-ability-columns">
+                                  {abilityOrder.map((abilityId) => {
+                                    const ids = Object.keys(skillAbilities).filter((skillId) => skillAbilities[skillId] === abilityId);
+                                    const ability = previewDraft.abilities.find((entry) => entry.id === abilityId);
+                                    return (
+                                      <div key={`skill-col-${abilityId}`} className={`skill-ability-column ${abilityAccentClass(abilityId)}`}>
+                                        <div className="skill-ability-head">
+                                          <span>{abilityId}</span>
+                                          <strong>{ability ? signedNumber(ability.modifier) : "+0"}</strong>
+                                        </div>
+                                        {ids.length ? (
+                                          <PickGrid
+                                            label={`${abilityNames[abilityId]} skills`}
+                                            columns={1}
+                                            size="sm"
+                                            inspectedId={inspectId}
+                                            onInspect={setInspectId}
+                                            items={ids.map((skillId) => {
+                                              const entry = previewDraft.skills.find((skill) => skill.id === skillId);
+                                              const fromBackground = backgroundSkillIds.includes(skillId);
+                                              const selected = draft.selectedSkillIds.includes(skillId);
+                                              const option = skillChoiceOptions.includes(skillId);
+                                              const trained = Boolean(entry?.proficient) || fromBackground || selected;
+                                              return {
+                                                id: skillId,
+                                                name: skillLabel(skillId),
+                                                sub: `${entry ? signedNumber(entry.bonus) : ""}${fromBackground ? " · background" : selected ? " · class" : ""}`,
+                                                icon: skillIcon(skillId),
+                                                selected,
+                                                owned: !selected && trained,
+                                                locked: !trained && !option,
+                                                dim: !trained && option && remainingClassSkillChoices === 0,
+                                              };
+                                            })}
+                                            onPick={(skillId) => toggleSkillSelection(skillId)}
+                                          />
+                                        ) : (
+                                          <p className="pick-note">No skills. CON powers your hit points.</p>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </PickSection>
+                              {customBackgroundActive ? (
+                                <PickSection title="Custom background skills" picked={draft.customBackground?.skillIds.length ?? 0} total={2}>
+                                  <PickGrid
+                                    label="Custom background skills"
+                                    columns={6}
+                                    size="sm"
+                                    items={Object.keys(skillAbilities).map((skillId) => ({
+                                      id: skillId,
+                                      name: skillLabel(skillId),
+                                      icon: skillIcon(skillId),
+                                      selected: draft.customBackground?.skillIds.includes(skillId) ?? false,
+                                    }))}
+                                    onPick={(skillId) => toggleCustomBackgroundSkill(skillId)}
+                                  />
+                                </PickSection>
                               ) : null}
-                              <div className="skill-spell-card-meta">
-                                {isPretrained ? <span>Already proficient</span> : null}
-                                {isSelected ? <span>Selected for class proficiency</span> : null}
-                                {skillEntry?.breakdown && !skillEntry.breakdown.toLowerCase().includes("modifier")
-                                  ? <span>{skillEntry.breakdown}</span>
-                                  : null}
-                              </div>
-                            </label>
+                            </PickLayout>
                           );
-                        })}
-                        </div>
+                        })()}
                       </section>
                       ) : null}
                       {creatorBrowser === "skill-spells" ? <div className="creator-inline-divider" aria-hidden="true" /> : null}
@@ -10672,7 +10288,7 @@ export function CreatorWorkspace({
                                 )
                               ) : null}
                               {openWarlockGroup === "invocations" ? (
-                                <OptionChoicePanel choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                                <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                               ) : null}
                             </div>
                           </div>
@@ -10811,309 +10427,173 @@ export function CreatorWorkspace({
           ) : null}
 
           {creatorStep === 2 && creatorBrowser === "abilities" ? (
-            <div className="creator-stack">
-              <div className="creator-panel creator-panel-wide">
-                <div className="ability-pointbuy-topline">
-                  <span className="mini-heading">Ability Scores</span>
-                  <div className="ability-method-row" role="tablist" aria-label="Ability score method">
-                    {([
-                      ["point-buy", "Point Buy"],
-                      ["standard-array", "Standard Array"],
-                      ["manual", "Manual / Rolled"],
-                    ] as const).map(([method, label]) => (
-                      <button
-                        key={`ability-method-${method}`}
-                        type="button"
-                        role="tab"
-                        aria-selected={abilityMethod === method}
-                        className={abilityMethod === method ? "ability-flex-pick active" : "ability-flex-pick"}
-                        onClick={() => setAbilityMethod(method)}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="ability-topline-meta">
-                    {abilityMethod === "point-buy" ? (
-                      <span>
-                        27 points |{" "}
-                        <span className={pointBuyRemaining < 0 ? "ability-remaining-negative" : undefined}>
-                          {`Remaining ${pointBuyRemaining}`}
-                        </span>
-                      </span>
-                    ) : abilityMethod === "standard-array" ? (
-                      <span className={standardArrayValid ? undefined : "ability-remaining-negative"}>
-                        {standardArrayValid ? "15, 14, 13, 12, 10, 8" : "Each value must be used once"}
-                      </span>
-                    ) : (
-                      <span>Enter your rolled or DM-approved scores (3-18 before bonuses)</span>
-                    )}
-                  </div>
-                </div>
-                {flexibleAbilityBonusSource ? (
-                  <div className="flexible-bonus-panel compact">
-                    <div className="list-row">
-                      <strong>Flexible Ability Score Increase</strong>
-                      <span>{`${flexibleAbilityBonusSource} lets you assign one ${firstFlexLabel} and one ${secondFlexLabel} to different abilities.`}</span>
-                    </div>
-                  </div>
-                ) : null}
-                <div className="ability-pointbuy-grid">
-                  {previewAbilities.map((ability) => {
-                    const canDecrease =
-                      abilityMethod === "point-buy" ? ability.score > 8 : abilityMethod === "manual" ? ability.score > 3 : false;
-                    const canIncrease =
-                      abilityMethod === "point-buy"
-                        ? ability.score < 15 && pointBuyStepCost(ability.score, ability.score + 1) <= pointBuyRemaining
-                        : abilityMethod === "manual"
-                          ? ability.score < 18
-                          : false;
-
-                    return (
-                      <article className="ability-pointbuy-card" key={ability.id}>
-                        <div className="ability-pointbuy-head">
-                          <div className="ability-pointbuy-head-main">
-                            <span className={abilityAccentClass(ability.id)}>{ability.id}</span>
-                          </div>
-                          <strong className={abilityAccentClass(ability.id)}>{ability.label}</strong>
-                        </div>
-                        <div className="ability-pointbuy-statblock">
-                          <button
-                            type="button"
-                            className="ability-pointbuy-spin"
-                            disabled={!canDecrease}
-                            onClick={() => updateAbility(ability.id, ability.score - 1)}
-                            aria-label={`Decrease ${ability.label}`}
-                          >
-                            -
-                          </button>
-                          <div className="ability-pointbuy-core">
-                            <div className="ability-pointbuy-base">
-                              <span className="mini-heading">Score</span>
-                              <strong>{ability.previewScore}</strong>
-                            </div>
-                            <div className="ability-pointbuy-total">
-                              <span className="mini-heading">Mod</span>
-                              <strong>{ability.previewModifier >= 0 ? `+${ability.previewModifier}` : ability.previewModifier}</strong>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            className="ability-pointbuy-spin"
-                            disabled={!canIncrease}
-                            onClick={() => updateAbility(ability.id, ability.score + 1)}
-                            aria-label={`Increase ${ability.label}`}
-                          >
-                            +
-                          </button>
-                        </div>
-                        <div className="ability-pointbuy-controls">
-                          {abilityMethod === "standard-array" ? (
-                            <select
-                              className="equipment-picker-select ability-array-select"
-                              value={ability.score}
-                              aria-label={`${ability.label} standard array value`}
-                              onChange={(event) => assignStandardArrayValue(ability.id, Number(event.target.value))}
-                            >
-                              {STANDARD_ARRAY.map((value) => (
-                                <option key={`array-${ability.id}-${value}`} value={value}>
-                                  {`Base ${value}`}
-                                </option>
-                              ))}
-                            </select>
-                          ) : abilityMethod === "point-buy" ? (
-                            <span>{`Base ${ability.score} | ${pointBuyCost(ability.score)} pts`}</span>
-                          ) : (
-                            <span>{`Base ${ability.score}`}</span>
-                          )}
-                        </div>
-                        {(ability.racialBonus > 0 || ability.flexibleBonus > 0 || ability.classBonus > 0) ? (
-                          <div className="ability-pointbuy-meta">
-                            {ability.racialBonus > 0 ? (
-                              <span className="ability-bonus-badge">{`Racial Bonus +${ability.racialBonus}`}</span>
-                            ) : null}
-                            {ability.flexibleBonus > 0 ? (
-                              <span className="ability-bonus-badge secondary">{`Flexible Bonus +${ability.flexibleBonus}`}</span>
-                            ) : null}
-                            {ability.classBonus > 0 ? (
-                              <span className="ability-bonus-badge secondary">{`Class Bonus +${ability.classBonus}`}</span>
-                            ) : null}
-                          </div>
-                        ) : null}
-                      </article>
-                    );
-                  })}
-                </div>
-                {flexibleAbilityBonusSource ? (
-                  <div className="flexible-bonus-panel compact ability-bonus-assignment-panel">
-                    <div className="list-row">
-                      <strong>Assign Flexible Bonuses</strong>
-                      <span>{`Choose which abilities receive the ${firstFlexLabel} and ${secondFlexLabel} bonuses.`}</span>
-                    </div>
-                    <div className="ability-flex-assignment-grid">
-                      {draft.abilities.map((ability) => (
-                        <div className="ability-flex-assignment-row" key={`flex-assignment-${ability.id}`}>
-                          <strong className={abilityAccentClass(ability.id)}>{ability.id}</strong>
-                          <div className="ability-flex-picks prominent">
-                            <button
-                              type="button"
-                              className={draft.flexibleAbilityBonuses.plusTwo === ability.id ? "ability-flex-pick active plus-two" : "ability-flex-pick plus-two"}
-                              aria-pressed={draft.flexibleAbilityBonuses.plusTwo === ability.id}
-                              onClick={() =>
-                                updateFlexibleAbilityBonus(
-                                  "plusTwo",
-                                  draft.flexibleAbilityBonuses.plusTwo === ability.id ? "" : ability.id,
-                                )
-                              }
-                              disabled={draft.flexibleAbilityBonuses.plusOne === ability.id}
-                            >
-                              {firstFlexLabel}
-                            </button>
-                            <button
-                              type="button"
-                              className={draft.flexibleAbilityBonuses.plusOne === ability.id ? "ability-flex-pick active plus-one" : "ability-flex-pick plus-one"}
-                              aria-pressed={draft.flexibleAbilityBonuses.plusOne === ability.id}
-                              onClick={() =>
-                                updateFlexibleAbilityBonus(
-                                  "plusOne",
-                                  draft.flexibleAbilityBonuses.plusOne === ability.id ? "" : ability.id,
-                                )
-                              }
-                              disabled={draft.flexibleAbilityBonuses.plusTwo === ability.id}
-                            >
-                              {secondFlexLabel}
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
+            <div className="creator-stack ability-screen">
+              <div className="fighter-journey-scene-head compact">
+                <h3>Ability Scores</h3>
+                <p>Six numbers that power everything else. The big number is your final score; the small one is what you set here. Race and level bonuses are added on top.</p>
               </div>
+              {(() => {
+                const keyAbilities: Record<string, AbilityId[]> = {
+                  artificer: ["INT"], barbarian: ["STR", "CON"], bard: ["CHA"], cleric: ["WIS"], druid: ["WIS"], fighter: ["STR", "DEX"],
+                  monk: ["DEX", "WIS"], paladin: ["STR", "CHA"], ranger: ["DEX", "WIS"], rogue: ["DEX"], sorcerer: ["CHA"], warlock: ["CHA"], wizard: ["INT"],
+                };
+                const abilityUses: Record<AbilityId, string> = {
+                  STR: "Melee attacks with heavy weapons, Athletics, jumping and how much you can carry.",
+                  DEX: "Ranged and finesse attacks, AC in light or no armor, initiative, Acrobatics and Stealth.",
+                  CON: "Hit points every level and keeping concentration on spells when you get hit.",
+                  INT: "Arcana, History, Investigation, Nature, Religion; wizard and artificer spells.",
+                  WIS: "Perception, Insight, Survival, Medicine; cleric, druid and ranger spells; monk AC and ki.",
+                  CHA: "Persuasion, Deception, Intimidation, Performance; bard, sorcerer, warlock and paladin spells.",
+                };
+                const keys = keyAbilities[currentClass.id] ?? [];
+                const focus = previewAbilities.find((ability) => ability.id === inspectId) ?? previewAbilities.find((ability) => keys.includes(ability.id as AbilityId)) ?? previewAbilities[0];
+                return (
+                  <PickLayout
+                    inspect={
+                      <InspectPanel
+                        icon="stars-stack"
+                        kicker={keys.includes(focus.id as AbilityId) ? `Key ability for ${currentClass.name}` : "Ability"}
+                        title={focus.label}
+                        summary={abilityUses[focus.id as AbilityId]}
+                        rows={[
+                          { label: "Final", value: `${focus.previewScore} (${signedNumber(focus.previewModifier)})` },
+                          { label: "Set here", value: abilityMethod === "point-buy" ? `${focus.score} (${pointBuyCost(focus.score)} points)` : String(focus.score) },
+                          ...(focus.racialBonus ? [{ label: "Race", value: `+${focus.racialBonus}` }] : []),
+                          ...(focus.flexibleBonus ? [{ label: "Flexible", value: `+${focus.flexibleBonus}` }] : []),
+                          ...(focus.classBonus ? [{ label: "Level ups", value: `+${focus.classBonus}` }] : []),
+                          { label: "Modifier", value: "Score 10-11 is +0; every 2 points above adds +1, below subtracts 1." },
+                        ]}
+                      />
+                    }
+                  >
+                    <PickSection
+                      title="Method"
+                      meta={
+                        abilityMethod === "point-buy"
+                          ? "spend 27 points, scores 8 to 15"
+                          : abilityMethod === "standard-array"
+                            ? "use 15, 14, 13, 12, 10, 8 once each"
+                            : "type rolled or DM-approved scores"
+                      }
+                      actions={
+                        abilityMethod === "point-buy" ? (
+                          <span className={pointBuyRemaining === 0 ? "pick-counter done" : "pick-counter pending"}>
+                            {pointBuyRemaining < 0 ? `${-pointBuyRemaining} points over` : `${pointBuyRemaining} points left`}
+                          </span>
+                        ) : abilityMethod === "standard-array" ? (
+                          <span className={standardArrayValid ? "pick-counter done" : "pick-counter pending"}>{standardArrayValid ? "Done" : "Use each value once"}</span>
+                        ) : null
+                      }
+                    >
+                      <div className="pick-filters" role="tablist" aria-label="Ability score method">
+                        {([
+                          ["point-buy", "Point Buy"],
+                          ["standard-array", "Standard Array"],
+                          ["manual", "Manual / Rolled"],
+                        ] as const).map(([method, label]) => (
+                          <button
+                            key={`ability-method-${method}`}
+                            type="button"
+                            role="tab"
+                            aria-selected={abilityMethod === method}
+                            className={abilityMethod === method ? "pick-filter active" : "pick-filter"}
+                            onClick={() => setAbilityMethod(method)}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                    </PickSection>
+                    {flexibleAbilityBonusSource ? (
+                      <p className="pick-note">{`${flexibleAbilityBonusSource}: put ${firstFlexLabel} on one ability and ${secondFlexLabel} on another with the small buttons under each score.`}</p>
+                    ) : null}
+                    <div className="ability-tiles">
+                      {previewAbilities.map((ability) => {
+                        const canDecrease = abilityMethod === "point-buy" ? ability.score > 8 : abilityMethod === "manual" ? ability.score > 3 : false;
+                        const canIncrease =
+                          abilityMethod === "point-buy"
+                            ? ability.score < 15 && pointBuyStepCost(ability.score, ability.score + 1) <= pointBuyRemaining
+                            : abilityMethod === "manual"
+                              ? ability.score < 18
+                              : false;
+                        const isKey = keys.includes(ability.id as AbilityId);
+                        const bonuses = [
+                          ability.racialBonus ? `+${ability.racialBonus} race` : null,
+                          ability.flexibleBonus ? `+${ability.flexibleBonus} flexible` : null,
+                          ability.classBonus ? `+${ability.classBonus} level` : null,
+                        ].filter(Boolean);
+                        return (
+                          <div key={ability.id} className={`ability-tile ${abilityAccentClass(ability.id)}${focus.id === ability.id ? " inspected" : ""}${isKey ? " key" : ""}`}>
+                            <button type="button" className="ability-tile-main" onClick={() => setInspectId(ability.id)}>
+                              <span className="ability-tile-id">{ability.id}</span>
+                              <strong className="ability-tile-score">{ability.previewScore}</strong>
+                              <span className="ability-tile-mod">{signedNumber(ability.previewModifier)}</span>
+                              {isKey ? <span className="ability-tile-key">Key</span> : null}
+                            </button>
+                            {abilityMethod === "standard-array" ? (
+                              <select
+                                className="equipment-picker-select ability-array-select"
+                                value={ability.score}
+                                aria-label={`${ability.label} standard array value`}
+                                onChange={(event) => assignStandardArrayValue(ability.id, Number(event.target.value))}
+                              >
+                                {STANDARD_ARRAY.map((value) => (
+                                  <option key={`array-${ability.id}-${value}`} value={value}>
+                                    {value}
+                                  </option>
+                                ))}
+                              </select>
+                            ) : (
+                              <div className="ability-tile-stepper">
+                                <button type="button" disabled={!canDecrease} onClick={() => updateAbility(ability.id, ability.score - 1)} aria-label={`Lower ${ability.label}`}>
+                                  −
+                                </button>
+                                <span>{ability.score}</span>
+                                <button type="button" disabled={!canIncrease} onClick={() => updateAbility(ability.id, ability.score + 1)} aria-label={`Raise ${ability.label}`}>
+                                  +
+                                </button>
+                              </div>
+                            )}
+                            <span className="ability-tile-note">{bonuses.length ? bonuses.join(" · ") : abilityMethod === "point-buy" ? `${pointBuyCost(ability.score)} pts` : "no bonus"}</span>
+                            {flexibleAbilityBonusSource ? (
+                              <div className="ability-tile-flex">
+                                <button
+                                  type="button"
+                                  className={draft.flexibleAbilityBonuses.plusTwo === ability.id ? "pick-filter active" : "pick-filter"}
+                                  aria-pressed={draft.flexibleAbilityBonuses.plusTwo === ability.id}
+                                  disabled={draft.flexibleAbilityBonuses.plusOne === ability.id}
+                                  onClick={() => updateFlexibleAbilityBonus("plusTwo", draft.flexibleAbilityBonuses.plusTwo === ability.id ? "" : ability.id)}
+                                >
+                                  {firstFlexLabel}
+                                </button>
+                                <button
+                                  type="button"
+                                  className={draft.flexibleAbilityBonuses.plusOne === ability.id ? "pick-filter active" : "pick-filter"}
+                                  aria-pressed={draft.flexibleAbilityBonuses.plusOne === ability.id}
+                                  disabled={draft.flexibleAbilityBonuses.plusTwo === ability.id}
+                                  onClick={() => updateFlexibleAbilityBonus("plusOne", draft.flexibleAbilityBonuses.plusOne === ability.id ? "" : ability.id)}
+                                >
+                                  {secondFlexLabel}
+                                </button>
+                              </div>
+                            ) : null}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </PickLayout>
+                );
+              })()}
             </div>
           ) : null}
+          <CreatorFlowFooter
+            previous={creatorFlowPrevious}
+            next={creatorFlowNext}
+            pendingHere={creatorFlowCurrent?.pending ?? 0}
+            onNavigate={goToCreatorScreen}
+          />
         </div>
         </div>
-
-        <aside className="creator-preview-sidebar">
-          <article className="sheet-card creator-preview-card">
-            <div className="lineage-preview-head">
-              <span className="mini-heading">Preview</span>
-              <h4>{draft.name || currentClass.name}</h4>
-              <p>{`Level ${draft.level} ${currentClass.name}${selectedJourneySubclass ? ` • ${selectedJourneySubclass.name}` : ""}`}</p>
-            </div>
-
-            <div className="lineage-ability-board">
-              <div className="lineage-ability-row labels">
-                {previewPanelAbilities.map((ability) => (
-                  <span key={ability.id} className={abilityAccentClass(ability.id)}>{ability.id}</span>
-                ))}
-              </div>
-              <div className="lineage-ability-row values">
-                {previewPanelAbilities.map((ability) => (
-                  <strong key={ability.id}>{ability.value}</strong>
-                ))}
-              </div>
-            </div>
-
-            <div className="lineage-preview-section">
-              <div className="lineage-preview-list">
-                {previewPanelStats.map((stat) => (
-                  <div key={stat.label} className="list-row lineage-preview-stat-row">
-                    <div className="lineage-preview-stat-head">
-                      <span className="summary-icon-wrap">
-                        <AppIcon name={iconForLineageStat(stat.label)} className="summary-icon" />
-                      </span>
-                      <strong>
-                        <HoverTooltip
-                          label={stat.label}
-                          content={
-                            <span className="spell-tooltip-block">
-                              <span className="spell-tooltip-head">
-                                <strong>{stat.label}</strong>
-                                <span>{stat.value}</span>
-                              </span>
-                              <span className="spell-tooltip-line-list">
-                                {stat.breakdown.map((line) => (
-                                  <span key={`${stat.label}-${line}`} className="spell-tooltip-line-item">
-                                    <span className="spell-tooltip-line-dot" aria-hidden="true" />
-                                    <span>{line}</span>
-                                  </span>
-                                ))}
-                              </span>
-                            </span>
-                          }
-                        />
-                      </strong>
-                    </div>
-                    <span>{stat.value}</span>
-                  </div>
-                ))}
-                <AnimatePresence initial={false}>
-                  {fighterJourneySubclassId === "eldritch-knight"
-                    ? previewPanelArcaneStats.map((stat) => (
-                        <motion.div
-                          key={stat.label}
-                          className="list-row lineage-preview-stat-row lineage-preview-arcane-row"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          transition={{ duration: 0.22, ease: "easeOut" }}
-                        >
-                          <div className="lineage-preview-stat-head">
-                            <span className="summary-icon-wrap">
-                              <AppIcon name="book" className="summary-icon" />
-                            </span>
-                            <strong>{stat.label}</strong>
-                          </div>
-                          <span>{stat.value}</span>
-                        </motion.div>
-                      ))
-                    : null}
-                </AnimatePresence>
-              </div>
-            </div>
-
-            {fighterJourneySubclassId === "eldritch-knight" ? (
-              <div className="lineage-preview-section">
-                <span className="mini-heading">Spellbook</span>
-                <div className="lineage-preview-list">
-                  <div className="list-row">
-                    <strong>Known Spells</strong>
-                    <span>{`${eldritchKnightLeveledSelections.length}/${eldritchKnightSpellsKnownLimit}`}</span>
-                  </div>
-                  <div className="list-row">
-                    <strong>Cantrips</strong>
-                    <span>{`${eldritchKnightCantripSelections.length}/${eldritchKnightCantripLimit}`}</span>
-                  </div>
-                  <div className="list-row">
-                    <strong>Any-School Picks</strong>
-                    <span>{`${eldritchKnightOffSchoolSelections.length}/${eldritchKnightFlexibleSchoolAllowance}`}</span>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
-            <div className="lineage-preview-section">
-              <span className="mini-heading">Proficiencies</span>
-              <div className="lineage-preview-list">
-                {previewPanelProficiencies.map((item) => (
-                  <div key={item.label} className="list-row">
-                    <strong>{item.label}</strong>
-                    <span>
-                      {item.tooltip ? (
-                        <HoverTooltip label={item.value} content={item.tooltip} />
-                      ) : (
-                        item.value
-                      )}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </article>
-        </aside>
-
       </div>
 
       <AnimatePresence>

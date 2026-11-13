@@ -1,0 +1,673 @@
+{
+  "id": "druid",
+  "name": "Druid",
+  "sourceUrl": "https://dnd5e.wikidot.com/druid",
+  "summary": "A priest of the Old Faith who wields the powers of nature and can take animal forms. Druids control the battlefield with nature spells, heal, and shapeshift to scout or fight.",
+  "multiclassRequirement": "Wisdom 13 or higher.",
+  "hitDie": "d8",
+  "primaryAbilities": [
+    "WIS"
+  ],
+  "savingThrows": [
+    "INT",
+    "WIS"
+  ],
+  "spellcastingAbility": "WIS",
+  "spellPreparation": {
+    "ability": "WIS",
+    "divisor": 1
+  },
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "INT",
+        "WIS"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "armor",
+      "values": [
+        "Light Armor",
+        "Medium Armor",
+        "Shields"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Clubs",
+        "Daggers",
+        "Darts",
+        "Javelins",
+        "Maces",
+        "Quarterstaffs",
+        "Scimitars",
+        "Sickles",
+        "Slings",
+        "Spears"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "tool",
+      "values": [
+        "Herbalism Kit"
+      ]
+    }
+  ],
+  "hitPoints": {
+    "Hit Dice": "1d8 per druid level",
+    "Hit Points at 1st Level": "8 + your Constitution modifier",
+    "Hit Points at Higher Levels": "1d8 (or 5) + your Constitution modifier per druid level after 1st"
+  },
+  "proficiencies": {
+    "Armor": "Light armor, medium armor, shields (druids will not wear armor or use shields made of metal)",
+    "Weapons": "Clubs, daggers, darts, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears",
+    "Tools": "Herbalism kit",
+    "Saving Throws": "Intelligence, Wisdom",
+    "Skills": "Choose two from Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion and Survival"
+  },
+  "spellcastingTable": {
+    "title": "The Druid",
+    "rows": [
+      [
+        "The Druid",
+        "Spell Slots per Spell Level"
+      ],
+      [
+        "Level",
+        "Proficiency Bonus",
+        "Features",
+        "Cantrips Known",
+        "1st",
+        "2nd",
+        "3rd",
+        "4th",
+        "5th",
+        "6th",
+        "7th",
+        "8th",
+        "9th"
+      ],
+      [
+        "1st",
+        "+2",
+        "Druidic, Spellcasting",
+        "2",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "2nd",
+        "+2",
+        "Wild Shape, Druid Circle",
+        "2",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "3rd",
+        "+2",
+        "–",
+        "2",
+        "4",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "4th",
+        "+2",
+        "Ability Score Improvement",
+        "3",
+        "4",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "5th",
+        "+3",
+        "–",
+        "3",
+        "4",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "6th",
+        "+3",
+        "–",
+        "3",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "7th",
+        "+3",
+        "–",
+        "3",
+        "4",
+        "3",
+        "3",
+        "1",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "8th",
+        "+3",
+        "Ability Score Improvement",
+        "3",
+        "4",
+        "3",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "9th",
+        "+4",
+        "–",
+        "3",
+        "4",
+        "3",
+        "3",
+        "3",
+        "1",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "10th",
+        "+4",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "11th",
+        "+4",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "12th",
+        "+4",
+        "Ability Score Improvement",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "13th",
+        "+5",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "-",
+        "-"
+      ],
+      [
+        "14th",
+        "+5",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "-",
+        "-"
+      ],
+      [
+        "15th",
+        "+5",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "-"
+      ],
+      [
+        "16th",
+        "+5",
+        "Ability Score Improvement",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "-"
+      ],
+      [
+        "17th",
+        "+6",
+        "–",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "18th",
+        "+6",
+        "Timeless Body, Beast Spells",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "19th",
+        "+6",
+        "Ability Score Improvement",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "20th",
+        "+6",
+        "Archdruid",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "2",
+        "1",
+        "1"
+      ]
+    ]
+  },
+  "spellcastingNotes": [
+    "You prepare druid spells after each long rest: your druid level + your Wisdom modifier, minimum one."
+  ],
+  "classFeatures": [
+    {
+      "id": "druidic",
+      "name": "Druidic",
+      "keyFacts": [
+        "Druidic language and hidden messages."
+      ],
+      "summary": "You know Druidic, the secret language of druids. You can speak it and use it to leave hidden messages that other druids notice.",
+      "unlockLevel": 1,
+      "short": "You speak the secret druid language.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "language",
+          "values": [
+            "Druidic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "keyFacts": [
+        "Prepare druid spells after each long rest: your druid level + WIS modifier, at least one. You can cast prepared ritual spells as rituals.",
+        "Spell save DC = 8 + PB + WIS; spell attack = PB + WIS."
+      ],
+      "summary": "You can cast druid spells. Prepare druid spells after each long rest: your druid level + WIS modifier, at least one. You can cast prepared ritual spells as rituals. WIS is your spellcasting ability: spell save DC = 8 + proficiency bonus + WIS modifier, spell attack = proficiency bonus + WIS modifier. You can use a druidic focus as a spellcasting focus. You regain all spell slots on a long rest.",
+      "unlockLevel": 1,
+      "short": "Cast druid spells using WIS.",
+      "facts": {
+        "action": "Special",
+        "dc": "spell"
+      }
+    },
+    {
+      "id": "wild-shape",
+      "name": "Wild Shape",
+      "keyFacts": [
+        "2 uses per short rest.",
+        "Max beast CR grows with level."
+      ],
+      "summary": "As an action, you magically assume the shape of a beast you have seen before. You can use this twice per short or long rest and stay transformed for half your druid level in hours. The beast's challenge rating is limited by your level (no flying or swimming speed at first). You keep your mind and gain the beast's hit points; when they drop to 0 you revert.",
+      "unlockLevel": 2,
+      "short": "Action: turn into a beast you have seen.",
+      "facts": {
+        "action": "Action",
+        "uses": "2 per short rest"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "wild-shape",
+          "name": "Wild Shape",
+          "uses": 2,
+          "recharge": "short_rest"
+        }
+      ],
+      "milestones": [
+        {
+          "level": 2,
+          "label": "CR 1/4, no fly/swim"
+        },
+        {
+          "level": 4,
+          "label": "CR 1/2, no fly"
+        },
+        {
+          "level": 8,
+          "label": "CR 1"
+        }
+      ]
+    },
+    {
+      "id": "druid-circle",
+      "name": "Druid Circle",
+      "keyFacts": [
+        "Subclass features at 2, 6, 10 and 14."
+      ],
+      "summary": "Choose a circle of druids to identify with. It grants features at 2nd, 6th, 10th and 14th level.",
+      "unlockLevel": 2,
+      "short": "Choose your druid circle.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "ability-score-improvement",
+      "name": "Ability Score Improvement",
+      "keyFacts": [
+        "+2 to one ability or +1 to two, or a feat."
+      ],
+      "milestones": [
+        {
+          "level": 4,
+          "label": "ASI"
+        },
+        {
+          "level": 8,
+          "label": "ASI"
+        },
+        {
+          "level": 12,
+          "label": "ASI"
+        },
+        {
+          "level": 16,
+          "label": "ASI"
+        },
+        {
+          "level": 19,
+          "label": "ASI"
+        }
+      ],
+      "summary": "When you reach 4th level, and again at 8th, 12th, 16th, 19th level, you can increase one ability score by 2, or two ability scores by 1. You can't raise a score above 20 this way. If your DM allows feats, you can take a feat instead.",
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "timeless-body",
+      "name": "Timeless Body",
+      "keyFacts": [
+        "Age 1 year per 10."
+      ],
+      "summary": "The primal magic you wield causes you to age more slowly: for every 10 years that pass, your body ages only 1 year.",
+      "unlockLevel": 18,
+      "short": "You age ten times slower.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "beast-spells",
+      "name": "Beast Spells",
+      "keyFacts": [
+        "Cast druid spells in beast form (no costly material components)."
+      ],
+      "summary": "You can cast many of your druid spells in any shape you assume using Wild Shape, performing somatic and verbal components in beast form.",
+      "unlockLevel": 18,
+      "short": "Cast spells while in Wild Shape.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "archdruid",
+      "name": "Archdruid",
+      "keyFacts": [
+        "Unlimited Wild Shape uses.",
+        "Ignore most spell components."
+      ],
+      "summary": "You can use Wild Shape an unlimited number of times, and you can ignore verbal, somatic and non-costly material components of druid spells.",
+      "unlockLevel": 20,
+      "short": "Unlimited Wild Shape.",
+      "facts": {
+        "action": "Passive"
+      }
+    }
+  ],
+  "journeyStages": [
+    {
+      "id": "class",
+      "label": "Class",
+      "browser": "class",
+      "summary": "Review the druid at a glance."
+    },
+    {
+      "id": "features",
+      "label": "Class Features",
+      "browser": "class-features",
+      "summary": "What your class gives you, level by level."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "browser": "inventory",
+      "summary": "Choose your starting kit."
+    },
+    {
+      "id": "subclass",
+      "label": "Druid Circle",
+      "browser": "subclass",
+      "minLevel": 2,
+      "summary": "Choose your druid circle."
+    },
+    {
+      "id": "spells",
+      "label": "Spells",
+      "browser": "spells",
+      "summary": "Choose your spells."
+    }
+  ],
+  "startingEquipment": [
+    {
+      "id": "druid-shield",
+      "prompt": "Shield or weapon",
+      "options": [
+        {
+          "id": "wooden-shield",
+          "label": "Wooden Shield",
+          "items": [
+            "Shield"
+          ]
+        },
+        {
+          "id": "simple-weapon",
+          "label": "Any Simple Weapon",
+          "items": [
+            "Simple Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "druid-melee",
+      "prompt": "Melee",
+      "options": [
+        {
+          "id": "scimitar",
+          "label": "Scimitar",
+          "items": [
+            "Scimitar"
+          ]
+        },
+        {
+          "id": "simple-melee-weapon",
+          "label": "Any Simple Melee Weapon",
+          "items": [
+            "Simple Melee Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "druid-kit",
+      "prompt": "Kit",
+      "options": [
+        {
+          "id": "leather-explorer-focus",
+          "label": "Leather Armor, Explorer's Pack and Druidic Focus",
+          "items": [
+            "Leather Armor",
+            "Explorer's Pack",
+            "Sprig of Mistletoe"
+          ]
+        }
+      ]
+    }
+  ],
+  "subclassHeading": "Druid Circle",
+  "subclasses": [],
+  "highlights": [
+    {
+      "title": "Combat Role",
+      "body": "Battlefield controller and healer who can also turn into animals to scout, tank or travel."
+    },
+    {
+      "title": "Core Resources",
+      "body": "Prepare spells daily from the druid list (level + WIS). Wild Shape has two uses per short rest."
+    },
+    {
+      "title": "Level Rhythm",
+      "body": "Wild Shape and circle at 2, stronger beasts at 4 and 8, 3rd-level spells at 5, Archdruid at 20."
+    }
+  ],
+  "notes": []
+}

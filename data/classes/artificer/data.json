@@ -1,0 +1,1186 @@
+{
+  "id": "artificer",
+  "name": "Artificer",
+  "sourceUrl": "https://dnd5e.wikidot.com/artificer",
+  "summary": "A master of invention who uses ingenuity and magic to unlock extraordinary capabilities in objects. Artificers are half-casters who infuse their gear with magic and support the party.",
+  "multiclassRequirement": "Intelligence 13 or higher.",
+  "hitDie": "d8",
+  "primaryAbilities": [
+    "INT"
+  ],
+  "savingThrows": [
+    "CON",
+    "INT"
+  ],
+  "spellcastingAbility": "INT",
+  "spellPreparation": {
+    "ability": "INT",
+    "divisor": 2
+  },
+  "startingGrants": [
+    {
+      "type": "proficiency",
+      "category": "save",
+      "values": [
+        "CON",
+        "INT"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "armor",
+      "values": [
+        "Light Armor",
+        "Medium Armor",
+        "Shields"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "weapon",
+      "values": [
+        "Simple Weapons"
+      ]
+    },
+    {
+      "type": "proficiency",
+      "category": "tool",
+      "values": [
+        "Thieves' Tools",
+        "Tinker's Tools"
+      ]
+    }
+  ],
+  "hitPoints": {
+    "Hit Dice": "1d8 per artificer level",
+    "Hit Points at 1st Level": "8 + your Constitution modifier",
+    "Hit Points at Higher Levels": "1d8 (or 5) + your Constitution modifier per artificer level after 1st"
+  },
+  "proficiencies": {
+    "Armor": "Light armor, medium armor, shields",
+    "Weapons": "Simple weapons",
+    "Tools": "Thieves' tools, tinker's tools, one type of artisan's tools",
+    "Saving Throws": "Constitution, Intelligence",
+    "Skills": "Choose two from Arcana, History, Investigation, Medicine, Nature, Perception and Sleight of Hand"
+  },
+  "spellcastingTable": {
+    "title": "The Artificer",
+    "rows": [
+      [
+        "The Artificer",
+        "Spell Slots per Spell Level"
+      ],
+      [
+        "Level",
+        "Proficiency Bonus",
+        "Features",
+        "Infusions Known",
+        "Infused Items",
+        "Cantrips Known",
+        "1st",
+        "2nd",
+        "3rd",
+        "4th",
+        "5th"
+      ],
+      [
+        "1st",
+        "+2",
+        "Magical Tinkering, Spellcasting",
+        "–",
+        "–",
+        "2",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "2nd",
+        "+2",
+        "Infuse Item",
+        "4",
+        "2",
+        "2",
+        "2",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "3rd",
+        "+2",
+        "Artificer Specialist, The Right Tool for the Job",
+        "4",
+        "2",
+        "2",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "4th",
+        "+2",
+        "Ability Score Improvement",
+        "4",
+        "2",
+        "2",
+        "3",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "5th",
+        "+3",
+        "–",
+        "4",
+        "2",
+        "2",
+        "4",
+        "2",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "6th",
+        "+3",
+        "Tool Expertise",
+        "6",
+        "3",
+        "2",
+        "4",
+        "2",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "7th",
+        "+3",
+        "Flash of Genius",
+        "6",
+        "3",
+        "2",
+        "4",
+        "3",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "8th",
+        "+3",
+        "Ability Score Improvement",
+        "6",
+        "3",
+        "2",
+        "4",
+        "3",
+        "-",
+        "-",
+        "-"
+      ],
+      [
+        "9th",
+        "+4",
+        "–",
+        "6",
+        "3",
+        "2",
+        "4",
+        "3",
+        "2",
+        "-",
+        "-"
+      ],
+      [
+        "10th",
+        "+4",
+        "Magic Item Adept",
+        "8",
+        "4",
+        "3",
+        "4",
+        "3",
+        "2",
+        "-",
+        "-"
+      ],
+      [
+        "11th",
+        "+4",
+        "Spell-Storing Item",
+        "8",
+        "4",
+        "3",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-"
+      ],
+      [
+        "12th",
+        "+4",
+        "Ability Score Improvement",
+        "8",
+        "4",
+        "3",
+        "4",
+        "3",
+        "3",
+        "-",
+        "-"
+      ],
+      [
+        "13th",
+        "+5",
+        "–",
+        "8",
+        "4",
+        "3",
+        "4",
+        "3",
+        "3",
+        "1",
+        "-"
+      ],
+      [
+        "14th",
+        "+5",
+        "Magic Item Savant",
+        "10",
+        "5",
+        "4",
+        "4",
+        "3",
+        "3",
+        "1",
+        "-"
+      ],
+      [
+        "15th",
+        "+5",
+        "–",
+        "10",
+        "5",
+        "4",
+        "4",
+        "3",
+        "3",
+        "2",
+        "-"
+      ],
+      [
+        "16th",
+        "+5",
+        "Ability Score Improvement",
+        "10",
+        "5",
+        "4",
+        "4",
+        "3",
+        "3",
+        "2",
+        "-"
+      ],
+      [
+        "17th",
+        "+6",
+        "–",
+        "10",
+        "5",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "1"
+      ],
+      [
+        "18th",
+        "+6",
+        "Magic Item Master",
+        "12",
+        "6",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "1"
+      ],
+      [
+        "19th",
+        "+6",
+        "Ability Score Improvement",
+        "12",
+        "6",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2"
+      ],
+      [
+        "20th",
+        "+6",
+        "Soul of Artifice",
+        "12",
+        "6",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3",
+        "2"
+      ]
+    ]
+  },
+  "spellcastingNotes": [
+    "You prepare artificer spells after each long rest: half your artificer level (rounded down) + your Intelligence modifier, minimum one."
+  ],
+  "classFeatures": [
+    {
+      "id": "magical-tinkering",
+      "name": "Magical Tinkering",
+      "keyFacts": [
+        "Light, sound, smell, message or image on a Tiny object.",
+        "Up to INT modifier objects at once."
+      ],
+      "summary": "With thieves' or artisan's tools in hand, you can touch a Tiny nonmagical object and give it a small magical property: it sheds light, plays a recorded message, emits a sound or smell, or shows a picture. You can keep a number of such objects equal to your INT modifier.",
+      "unlockLevel": 1,
+      "short": "Give small objects tiny magical effects.",
+      "facts": {
+        "action": "Action"
+      }
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "keyFacts": [
+        "Prepare artificer spells after each long rest: half your artificer level (rounded down) + INT modifier, at least one.",
+        "Spell save DC = 8 + PB + INT; spell attack = PB + INT."
+      ],
+      "summary": "You can cast artificer spells. Prepare artificer spells after each long rest: half your artificer level (rounded down) + INT modifier, at least one. INT is your spellcasting ability: spell save DC = 8 + proficiency bonus + INT modifier, spell attack = proficiency bonus + INT modifier. You must have thieves' tools or artisan's tools (or an infused item) in hand as your focus. You regain all spell slots on a long rest.",
+      "unlockLevel": 1,
+      "short": "Cast artificer spells using INT.",
+      "facts": {
+        "action": "Special",
+        "dc": "spell"
+      }
+    },
+    {
+      "id": "infuse-item",
+      "name": "Infuse Item",
+      "keyFacts": [
+        "Infusions known: 4 / 6 / 8 / 10 / 12.",
+        "Infused items at once: 2 / 3 / 4 / 5 / 6."
+      ],
+      "summary": "You learn artificer infusions and can imbue nonmagical items with them after a long rest. You learn 4 infusions at 2nd level (6 at 6th, 8 at 10th, 10 at 14th, 12 at 18th) and can have 2 infused items at once (3 at 6th, 4 at 10th, 5 at 14th, 6 at 18th).",
+      "unlockLevel": 2,
+      "short": "Turn mundane items into magic ones.",
+      "facts": {
+        "action": "Passive"
+      },
+      "choices": [
+        {
+          "id": "artificer-infusions-2",
+          "label": "Infusions (2nd level)",
+          "count": 4,
+          "min": 4,
+          "minLevel": 2,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "enhanced-arcane-focus",
+                "name": "Enhanced Arcane Focus",
+                "summary": "A rod, staff or wand gives +1 to spell attacks (+2 at 10th) and ignores half cover."
+              },
+              {
+                "id": "enhanced-defense",
+                "name": "Enhanced Defense",
+                "summary": "Armor or a shield gives +1 AC (+2 at 10th)."
+              },
+              {
+                "id": "enhanced-weapon",
+                "name": "Enhanced Weapon",
+                "summary": "A simple or martial weapon gets +1 to attack and damage (+2 at 10th)."
+              },
+              {
+                "id": "homunculus-servant",
+                "name": "Homunculus Servant",
+                "summary": "Create a tiny homunculus that fights alongside you and can deliver touch spells."
+              },
+              {
+                "id": "repeating-shot",
+                "name": "Repeating Shot",
+                "summary": "A ranged weapon gets +1 to hit and damage, ignores loading and makes its own ammunition."
+              },
+              {
+                "id": "replicate-magic-item",
+                "name": "Replicate Magic Item",
+                "summary": "Make a common or uncommon magic item from the artificer list (bag of holding, goggles of night...)."
+              },
+              {
+                "id": "returning-weapon",
+                "name": "Returning Weapon",
+                "summary": "A thrown weapon gets +1 to hit and damage and flies back to your hand."
+              },
+              {
+                "id": "boots-of-the-winding-path",
+                "name": "Boots of the Winding Path",
+                "summary": "Bonus action: teleport back to a space you occupied this turn.",
+                "minLevel": 6
+              },
+              {
+                "id": "radiant-weapon",
+                "name": "Radiant Weapon",
+                "summary": "+1 weapon that sheds light and can blind an attacker as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "repulsion-shield",
+                "name": "Repulsion Shield",
+                "summary": "+1 shield that can push an attacker 15 ft. away as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "resistant-armor",
+                "name": "Resistant Armor",
+                "summary": "Armor grants resistance to one damage type.",
+                "minLevel": 6
+              },
+              {
+                "id": "spell-refueling-ring",
+                "name": "Spell-Refueling Ring",
+                "summary": "Once per day, regain one spell slot of 3rd level or lower.",
+                "minLevel": 6
+              },
+              {
+                "id": "arcane-propulsion-armor",
+                "name": "Arcane Propulsion Armor",
+                "summary": "Armor adds 5 ft. speed and turns your gauntlets into force-damage weapons.",
+                "minLevel": 14
+              },
+              {
+                "id": "helm-of-awareness",
+                "name": "Helm of Awareness",
+                "summary": "Advantage on initiative and you can't be surprised.",
+                "minLevel": 10
+              },
+              {
+                "id": "mind-sharpener",
+                "name": "Mind Sharpener",
+                "summary": "Armor or robes help you keep concentration (turn a failed save into a success).",
+                "minLevel": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "artificer-infusions-6",
+          "label": "Infusions (6th level)",
+          "count": 2,
+          "min": 2,
+          "minLevel": 6,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "enhanced-arcane-focus",
+                "name": "Enhanced Arcane Focus",
+                "summary": "A rod, staff or wand gives +1 to spell attacks (+2 at 10th) and ignores half cover."
+              },
+              {
+                "id": "enhanced-defense",
+                "name": "Enhanced Defense",
+                "summary": "Armor or a shield gives +1 AC (+2 at 10th)."
+              },
+              {
+                "id": "enhanced-weapon",
+                "name": "Enhanced Weapon",
+                "summary": "A simple or martial weapon gets +1 to attack and damage (+2 at 10th)."
+              },
+              {
+                "id": "homunculus-servant",
+                "name": "Homunculus Servant",
+                "summary": "Create a tiny homunculus that fights alongside you and can deliver touch spells."
+              },
+              {
+                "id": "repeating-shot",
+                "name": "Repeating Shot",
+                "summary": "A ranged weapon gets +1 to hit and damage, ignores loading and makes its own ammunition."
+              },
+              {
+                "id": "replicate-magic-item",
+                "name": "Replicate Magic Item",
+                "summary": "Make a common or uncommon magic item from the artificer list (bag of holding, goggles of night...)."
+              },
+              {
+                "id": "returning-weapon",
+                "name": "Returning Weapon",
+                "summary": "A thrown weapon gets +1 to hit and damage and flies back to your hand."
+              },
+              {
+                "id": "boots-of-the-winding-path",
+                "name": "Boots of the Winding Path",
+                "summary": "Bonus action: teleport back to a space you occupied this turn.",
+                "minLevel": 6
+              },
+              {
+                "id": "radiant-weapon",
+                "name": "Radiant Weapon",
+                "summary": "+1 weapon that sheds light and can blind an attacker as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "repulsion-shield",
+                "name": "Repulsion Shield",
+                "summary": "+1 shield that can push an attacker 15 ft. away as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "resistant-armor",
+                "name": "Resistant Armor",
+                "summary": "Armor grants resistance to one damage type.",
+                "minLevel": 6
+              },
+              {
+                "id": "spell-refueling-ring",
+                "name": "Spell-Refueling Ring",
+                "summary": "Once per day, regain one spell slot of 3rd level or lower.",
+                "minLevel": 6
+              },
+              {
+                "id": "arcane-propulsion-armor",
+                "name": "Arcane Propulsion Armor",
+                "summary": "Armor adds 5 ft. speed and turns your gauntlets into force-damage weapons.",
+                "minLevel": 14
+              },
+              {
+                "id": "helm-of-awareness",
+                "name": "Helm of Awareness",
+                "summary": "Advantage on initiative and you can't be surprised.",
+                "minLevel": 10
+              },
+              {
+                "id": "mind-sharpener",
+                "name": "Mind Sharpener",
+                "summary": "Armor or robes help you keep concentration (turn a failed save into a success).",
+                "minLevel": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "artificer-infusions-10",
+          "label": "Infusions (10th level)",
+          "count": 2,
+          "min": 2,
+          "minLevel": 10,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "enhanced-arcane-focus",
+                "name": "Enhanced Arcane Focus",
+                "summary": "A rod, staff or wand gives +1 to spell attacks (+2 at 10th) and ignores half cover."
+              },
+              {
+                "id": "enhanced-defense",
+                "name": "Enhanced Defense",
+                "summary": "Armor or a shield gives +1 AC (+2 at 10th)."
+              },
+              {
+                "id": "enhanced-weapon",
+                "name": "Enhanced Weapon",
+                "summary": "A simple or martial weapon gets +1 to attack and damage (+2 at 10th)."
+              },
+              {
+                "id": "homunculus-servant",
+                "name": "Homunculus Servant",
+                "summary": "Create a tiny homunculus that fights alongside you and can deliver touch spells."
+              },
+              {
+                "id": "repeating-shot",
+                "name": "Repeating Shot",
+                "summary": "A ranged weapon gets +1 to hit and damage, ignores loading and makes its own ammunition."
+              },
+              {
+                "id": "replicate-magic-item",
+                "name": "Replicate Magic Item",
+                "summary": "Make a common or uncommon magic item from the artificer list (bag of holding, goggles of night...)."
+              },
+              {
+                "id": "returning-weapon",
+                "name": "Returning Weapon",
+                "summary": "A thrown weapon gets +1 to hit and damage and flies back to your hand."
+              },
+              {
+                "id": "boots-of-the-winding-path",
+                "name": "Boots of the Winding Path",
+                "summary": "Bonus action: teleport back to a space you occupied this turn.",
+                "minLevel": 6
+              },
+              {
+                "id": "radiant-weapon",
+                "name": "Radiant Weapon",
+                "summary": "+1 weapon that sheds light and can blind an attacker as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "repulsion-shield",
+                "name": "Repulsion Shield",
+                "summary": "+1 shield that can push an attacker 15 ft. away as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "resistant-armor",
+                "name": "Resistant Armor",
+                "summary": "Armor grants resistance to one damage type.",
+                "minLevel": 6
+              },
+              {
+                "id": "spell-refueling-ring",
+                "name": "Spell-Refueling Ring",
+                "summary": "Once per day, regain one spell slot of 3rd level or lower.",
+                "minLevel": 6
+              },
+              {
+                "id": "arcane-propulsion-armor",
+                "name": "Arcane Propulsion Armor",
+                "summary": "Armor adds 5 ft. speed and turns your gauntlets into force-damage weapons.",
+                "minLevel": 14
+              },
+              {
+                "id": "helm-of-awareness",
+                "name": "Helm of Awareness",
+                "summary": "Advantage on initiative and you can't be surprised.",
+                "minLevel": 10
+              },
+              {
+                "id": "mind-sharpener",
+                "name": "Mind Sharpener",
+                "summary": "Armor or robes help you keep concentration (turn a failed save into a success).",
+                "minLevel": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "artificer-infusions-14",
+          "label": "Infusions (14th level)",
+          "count": 2,
+          "min": 2,
+          "minLevel": 14,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "enhanced-arcane-focus",
+                "name": "Enhanced Arcane Focus",
+                "summary": "A rod, staff or wand gives +1 to spell attacks (+2 at 10th) and ignores half cover."
+              },
+              {
+                "id": "enhanced-defense",
+                "name": "Enhanced Defense",
+                "summary": "Armor or a shield gives +1 AC (+2 at 10th)."
+              },
+              {
+                "id": "enhanced-weapon",
+                "name": "Enhanced Weapon",
+                "summary": "A simple or martial weapon gets +1 to attack and damage (+2 at 10th)."
+              },
+              {
+                "id": "homunculus-servant",
+                "name": "Homunculus Servant",
+                "summary": "Create a tiny homunculus that fights alongside you and can deliver touch spells."
+              },
+              {
+                "id": "repeating-shot",
+                "name": "Repeating Shot",
+                "summary": "A ranged weapon gets +1 to hit and damage, ignores loading and makes its own ammunition."
+              },
+              {
+                "id": "replicate-magic-item",
+                "name": "Replicate Magic Item",
+                "summary": "Make a common or uncommon magic item from the artificer list (bag of holding, goggles of night...)."
+              },
+              {
+                "id": "returning-weapon",
+                "name": "Returning Weapon",
+                "summary": "A thrown weapon gets +1 to hit and damage and flies back to your hand."
+              },
+              {
+                "id": "boots-of-the-winding-path",
+                "name": "Boots of the Winding Path",
+                "summary": "Bonus action: teleport back to a space you occupied this turn.",
+                "minLevel": 6
+              },
+              {
+                "id": "radiant-weapon",
+                "name": "Radiant Weapon",
+                "summary": "+1 weapon that sheds light and can blind an attacker as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "repulsion-shield",
+                "name": "Repulsion Shield",
+                "summary": "+1 shield that can push an attacker 15 ft. away as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "resistant-armor",
+                "name": "Resistant Armor",
+                "summary": "Armor grants resistance to one damage type.",
+                "minLevel": 6
+              },
+              {
+                "id": "spell-refueling-ring",
+                "name": "Spell-Refueling Ring",
+                "summary": "Once per day, regain one spell slot of 3rd level or lower.",
+                "minLevel": 6
+              },
+              {
+                "id": "arcane-propulsion-armor",
+                "name": "Arcane Propulsion Armor",
+                "summary": "Armor adds 5 ft. speed and turns your gauntlets into force-damage weapons.",
+                "minLevel": 14
+              },
+              {
+                "id": "helm-of-awareness",
+                "name": "Helm of Awareness",
+                "summary": "Advantage on initiative and you can't be surprised.",
+                "minLevel": 10
+              },
+              {
+                "id": "mind-sharpener",
+                "name": "Mind Sharpener",
+                "summary": "Armor or robes help you keep concentration (turn a failed save into a success).",
+                "minLevel": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "artificer-infusions-18",
+          "label": "Infusions (18th level)",
+          "count": 2,
+          "min": 2,
+          "minLevel": 18,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "enhanced-arcane-focus",
+                "name": "Enhanced Arcane Focus",
+                "summary": "A rod, staff or wand gives +1 to spell attacks (+2 at 10th) and ignores half cover."
+              },
+              {
+                "id": "enhanced-defense",
+                "name": "Enhanced Defense",
+                "summary": "Armor or a shield gives +1 AC (+2 at 10th)."
+              },
+              {
+                "id": "enhanced-weapon",
+                "name": "Enhanced Weapon",
+                "summary": "A simple or martial weapon gets +1 to attack and damage (+2 at 10th)."
+              },
+              {
+                "id": "homunculus-servant",
+                "name": "Homunculus Servant",
+                "summary": "Create a tiny homunculus that fights alongside you and can deliver touch spells."
+              },
+              {
+                "id": "repeating-shot",
+                "name": "Repeating Shot",
+                "summary": "A ranged weapon gets +1 to hit and damage, ignores loading and makes its own ammunition."
+              },
+              {
+                "id": "replicate-magic-item",
+                "name": "Replicate Magic Item",
+                "summary": "Make a common or uncommon magic item from the artificer list (bag of holding, goggles of night...)."
+              },
+              {
+                "id": "returning-weapon",
+                "name": "Returning Weapon",
+                "summary": "A thrown weapon gets +1 to hit and damage and flies back to your hand."
+              },
+              {
+                "id": "boots-of-the-winding-path",
+                "name": "Boots of the Winding Path",
+                "summary": "Bonus action: teleport back to a space you occupied this turn.",
+                "minLevel": 6
+              },
+              {
+                "id": "radiant-weapon",
+                "name": "Radiant Weapon",
+                "summary": "+1 weapon that sheds light and can blind an attacker as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "repulsion-shield",
+                "name": "Repulsion Shield",
+                "summary": "+1 shield that can push an attacker 15 ft. away as a reaction.",
+                "minLevel": 6
+              },
+              {
+                "id": "resistant-armor",
+                "name": "Resistant Armor",
+                "summary": "Armor grants resistance to one damage type.",
+                "minLevel": 6
+              },
+              {
+                "id": "spell-refueling-ring",
+                "name": "Spell-Refueling Ring",
+                "summary": "Once per day, regain one spell slot of 3rd level or lower.",
+                "minLevel": 6
+              },
+              {
+                "id": "arcane-propulsion-armor",
+                "name": "Arcane Propulsion Armor",
+                "summary": "Armor adds 5 ft. speed and turns your gauntlets into force-damage weapons.",
+                "minLevel": 14
+              },
+              {
+                "id": "helm-of-awareness",
+                "name": "Helm of Awareness",
+                "summary": "Advantage on initiative and you can't be surprised.",
+                "minLevel": 10
+              },
+              {
+                "id": "mind-sharpener",
+                "name": "Mind Sharpener",
+                "summary": "Armor or robes help you keep concentration (turn a failed save into a success).",
+                "minLevel": 2
+              }
+            ]
+          }
+        }
+      ],
+      "milestones": [
+        {
+          "level": 2,
+          "label": "4 known, 2 items"
+        },
+        {
+          "level": 6,
+          "label": "6 known, 3 items"
+        },
+        {
+          "level": 10,
+          "label": "8 known, 4 items"
+        },
+        {
+          "level": 14,
+          "label": "10 known, 5 items"
+        },
+        {
+          "level": 18,
+          "label": "12 known, 6 items"
+        }
+      ]
+    },
+    {
+      "id": "artificer-specialist",
+      "name": "Artificer Specialist",
+      "keyFacts": [
+        "Subclass features at 3, 5, 9 and 15."
+      ],
+      "summary": "Choose your specialty. It grants features at 3rd, 5th, 9th and 15th level.",
+      "unlockLevel": 3,
+      "short": "Choose your artificer specialty.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "right-tool",
+      "name": "The Right Tool for the Job",
+      "keyFacts": [
+        "Create one set of artisan's tools over 1 hour."
+      ],
+      "summary": "With thieves' or artisan's tools in hand, you can spend 1 hour (or a short rest) to magically create one set of artisan's tools.",
+      "unlockLevel": 3,
+      "short": "Conjure any artisan's tools in an hour.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "ability-score-improvement",
+      "name": "Ability Score Improvement",
+      "keyFacts": [
+        "+2 to one ability or +1 to two, or a feat."
+      ],
+      "milestones": [
+        {
+          "level": 4,
+          "label": "ASI"
+        },
+        {
+          "level": 8,
+          "label": "ASI"
+        },
+        {
+          "level": 12,
+          "label": "ASI"
+        },
+        {
+          "level": 16,
+          "label": "ASI"
+        },
+        {
+          "level": 19,
+          "label": "ASI"
+        }
+      ],
+      "summary": "When you reach 4th level, and again at 8th, 12th, 16th, 19th level, you can increase one ability score by 2, or two ability scores by 1. You can't raise a score above 20 this way. If your DM allows feats, you can take a feat instead.",
+      "unlockLevel": 4,
+      "short": "Raise one ability by 2, two by 1, or take a feat.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "tool-expertise",
+      "name": "Tool Expertise",
+      "keyFacts": [
+        "Double proficiency bonus on tool checks."
+      ],
+      "summary": "Your proficiency bonus is doubled for any ability check you make that uses your proficiency with a tool.",
+      "unlockLevel": 6,
+      "short": "Double proficiency with tools.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "flash-of-genius",
+      "name": "Flash of Genius",
+      "keyFacts": [
+        "Reaction, 30 ft.",
+        "Uses: INT modifier per long rest."
+      ],
+      "summary": "When you or another creature you can see within 30 feet makes an ability check or a saving throw, you can use your reaction to add your INT modifier to the roll. Uses equal to your INT modifier (minimum 1) per long rest.",
+      "unlockLevel": 7,
+      "short": "Reaction: add your INT to an ally's check or save.",
+      "facts": {
+        "action": "Reaction",
+        "range": "30 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "flash-of-genius",
+          "name": "Flash of Genius",
+          "uses": "INT",
+          "recharge": "long_rest"
+        }
+      ]
+    },
+    {
+      "id": "magic-item-adept",
+      "name": "Magic Item Adept",
+      "keyFacts": [
+        "4 attuned items.",
+        "Craft common/uncommon items 4× faster for half the gold."
+      ],
+      "summary": "You can attune to up to four magic items at once, and crafting common or uncommon magic items takes you a quarter of the time and half the gold.",
+      "unlockLevel": 10,
+      "short": "Attune to 4 items; craft faster and cheaper.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "spell-storing-item",
+      "name": "Spell-Storing Item",
+      "keyFacts": [
+        "1st or 2nd level spell, 2 × INT uses."
+      ],
+      "summary": "After a long rest, store a 1st- or 2nd-level artificer spell in a weapon or focus. A creature holding it can cast the spell from it a number of times equal to twice your INT modifier.",
+      "unlockLevel": 11,
+      "short": "Store a spell in an item for anyone to use.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "magic-item-savant",
+      "name": "Magic Item Savant",
+      "keyFacts": [
+        "5 attuned items, no requirements."
+      ],
+      "summary": "You can attune to up to five magic items at once, and you ignore class, race, spell and level requirements on attuning to or using a magic item.",
+      "unlockLevel": 14,
+      "short": "Attune to 5 items, ignore their requirements.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "magic-item-master",
+      "name": "Magic Item Master",
+      "keyFacts": [
+        "6 attuned items."
+      ],
+      "summary": "You can attune to up to six magic items at once.",
+      "unlockLevel": 18,
+      "short": "Attune to 6 items.",
+      "facts": {
+        "action": "Passive"
+      }
+    },
+    {
+      "id": "soul-of-artifice",
+      "name": "Soul of Artifice",
+      "keyFacts": [
+        "+1 to all saves per attuned item.",
+        "End an infusion to stay at 1 HP."
+      ],
+      "summary": "You gain +1 to all saving throws per magic item you are attuned to. If you drop to 0 hit points but don't die, you can end one infusion to drop to 1 hit point instead.",
+      "unlockLevel": 20,
+      "short": "+1 to saves per attuned item; cheat death.",
+      "facts": {
+        "action": "Reaction"
+      }
+    }
+  ],
+  "journeyStages": [
+    {
+      "id": "class",
+      "label": "Class",
+      "browser": "class",
+      "summary": "Review the artificer at a glance."
+    },
+    {
+      "id": "features",
+      "label": "Class Features",
+      "browser": "class-features",
+      "summary": "What your class gives you, level by level."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "browser": "inventory",
+      "summary": "Choose your starting kit."
+    },
+    {
+      "id": "subclass",
+      "label": "Artificer Specialist",
+      "browser": "subclass",
+      "minLevel": 3,
+      "summary": "Choose your artificer specialist."
+    },
+    {
+      "id": "spells",
+      "label": "Spells",
+      "browser": "spells",
+      "summary": "Choose your spells."
+    }
+  ],
+  "startingEquipment": [
+    {
+      "id": "artificer-weapon-1",
+      "prompt": "First simple weapon",
+      "options": [
+        {
+          "id": "simple-weapon",
+          "label": "Any Simple Weapon",
+          "items": [
+            "Simple Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artificer-weapon-2",
+      "prompt": "Second simple weapon",
+      "options": [
+        {
+          "id": "simple-weapon",
+          "label": "Any Simple Weapon",
+          "items": [
+            "Simple Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artificer-crossbow",
+      "prompt": "Crossbow",
+      "options": [
+        {
+          "id": "light-crossbow-bolts",
+          "label": "Light Crossbow and 20 Bolts",
+          "items": [
+            "Light Crossbow",
+            "20 Bolts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artificer-armor",
+      "prompt": "Armor",
+      "options": [
+        {
+          "id": "studded-leather",
+          "label": "Studded Leather Armor",
+          "items": [
+            "Studded Leather Armor"
+          ]
+        },
+        {
+          "id": "scale-mail",
+          "label": "Scale Mail",
+          "items": [
+            "Scale Mail"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artificer-kit",
+      "prompt": "Kit",
+      "options": [
+        {
+          "id": "tools-dungeoneer",
+          "label": "Thieves' Tools and Dungeoneer's Pack",
+          "items": [
+            "Thieves' Tools",
+            "Dungeoneer's Pack"
+          ]
+        }
+      ]
+    }
+  ],
+  "subclassHeading": "Artificer Specialist",
+  "subclasses": [],
+  "highlights": [
+    {
+      "title": "Combat Role",
+      "body": "Half-caster support and tinkerer: infuses the party's gear, buffs with spells and fights from medium armor."
+    },
+    {
+      "title": "Core Resources",
+      "body": "Prepared spells (half level + INT) and infusions you swap after each long rest."
+    },
+    {
+      "title": "Level Rhythm",
+      "body": "Spells at 1, infusions at 2, specialist at 3, Tool Expertise at 6, Flash of Genius at 7, Spell-Storing Item at 11."
+    }
+  ],
+  "notes": []
+}

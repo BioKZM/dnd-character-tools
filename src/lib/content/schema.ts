@@ -1,10 +1,27 @@
 import { z } from "zod";
-import { featConditionSchema, grantSchema } from "@/lib/engine/grants";
+import { featConditionSchema, optionChoiceSchema, grantSchema } from "@/lib/engine/grants";
+
+export const featureFactsSchema = z
+  .object({
+    action: z.string().optional(),
+    cost: z.string().optional(),
+    uses: z.string().optional(),
+    range: z.string().optional(),
+    save: z.string().optional(),
+    dc: z.enum(["spell", "ki"]).optional(),
+    duration: z.string().optional(),
+  })
+  .partial();
+
+export type FeatureFacts = z.infer<typeof featureFactsSchema>;
 
 export const featureSchema = z.object({
   id: z.string(),
   name: z.string(),
   summary: z.string(),
+  /** Bir bakista okunan tek satir; yoksa summary kullanilir. */
+  short: z.string().optional(),
+  facts: featureFactsSchema.optional(),
 });
 
 export const spellSchema = z.object({
@@ -104,6 +121,8 @@ export const languageSchema = z.object({
   name: z.string(),
   category: z.enum(["standard", "exotic", "setting"]),
   variants: z.array(z.string()).default([]),
+  speakers: z.string().optional(),
+  script: z.string().optional(),
 });
 
 export const toolSchema = z.object({
@@ -112,6 +131,7 @@ export const toolSchema = z.object({
   category: z.enum(["artisan-tools", "gaming-sets", "musical-instruments", "vehicles", "kits"]),
   cost: z.string().optional(),
   weight: z.string().optional(),
+  summary: z.string().optional(),
 });
 
 export const itemSchema = z.object({
@@ -133,6 +153,7 @@ export const itemSchema = z.object({
   capacity: z.string().optional(),
   contents: z.array(z.string()).optional(),
   description: z.array(z.string()).optional(),
+  summary: z.string().optional(),
   source: z.string().optional(),
   setting: z.string().optional(),
 });
@@ -187,6 +208,8 @@ export const featSchema = z.object({
   /** Makinenin kontrol ettigi on kosullar. Bos ise feat herkese acik. */
   requires: z.array(featConditionSchema).default([]),
   grants: z.array(grantSchema).default([]),
+  /** Feat'in oyuncu secimleri (half-feat ability'si, Skilled skill'leri, Magic Initiate buyuleri...). */
+  choices: z.array(optionChoiceSchema).default([]),
   detailParagraphs: z.array(z.string()).default([]),
   detailTables: z
     .array(

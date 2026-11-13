@@ -4,7 +4,7 @@ import type { ClassCuratedCollection } from "@/lib/content/class-curated-schema"
 import type { ClassOptionCollection, ClassOptionEntry } from "@/lib/content/class-options-schema";
 import type { ContentBundle } from "@/lib/content/schema";
 import type { LineageCatalog, LineageGrant } from "@/lib/data/lineages/schema";
-import type { Grant, OptionChoice } from "@/lib/engine/grants";
+import type { AbilityId, Grant, OptionChoice } from "@/lib/engine/grants";
 
 /** deriveCharacter'in ihtiyac duydugu tum veri. */
 export type EngineCatalog = {
@@ -286,6 +286,26 @@ function choiceGrants(host: ChoiceHost, draft: CharacterDraft, content: ContentB
     if (choice.from.kind === "tool") {
       return picked.length ? [{ type: "proficiency" as const, category: "tool" as const, values: picked }] : [];
     }
+    if (choice.from.kind === "ability") {
+      const amount = choice.from.amount;
+      return picked.flatMap((ability): Grant[] => [
+        { type: "ability" as const, ability: ability as AbilityId, amount },
+        ...(choice.grantAs === "ability_save" ? [{ type: "proficiency" as const, category: "save" as const, values: [ability] }] : []),
+      ]);
+    }
+    if (choice.from.kind === "option") {
+      const options = choice.from.options;
+      return picked.flatMap((id): Grant[] => {
+        const option = options.find((entry) => entry.id === id);
+        if (!option) {
+          return [];
+        }
+        return option.grants.length ? option.grants : [{ type: "note" as const, text: `${option.name}: ${option.summary}` }];
+      });
+    }
+    if (choice.from.kind === "language") {
+      return picked.length ? [{ type: "proficiency" as const, category: "language" as const, values: picked }] : [];
+    }
     if (choice.from.kind === "skill") {
       return choice.grantAs === "expertise"
         ? picked.map((skill) => ({ type: "expertise" as const, skill }))
@@ -318,6 +338,10 @@ function optionSource(
   ];
 }
 
+const ABILITY_NAMES: Record<AbilityId, string> = {
+  STR: "Strength", DEX: "Dexterity", CON: "Constitution", INT: "Intelligence", WIS: "Wisdom", CHA: "Charisma",
+};
+
 const SKILL_NAMES: Record<string, string> = {
   acrobatics: "Acrobatics", "animal-handling": "Animal Handling", arcana: "Arcana", athletics: "Athletics",
   deception: "Deception", history: "History", insight: "Insight", intimidation: "Intimidation",
@@ -330,9 +354,26 @@ const SKILL_NAMES: Record<string, string> = {
 export function choiceCandidates(choice: OptionChoice, draft: CharacterDraft, content: ContentBundle): ChoiceCandidate[] {
   if (choice.from.kind === "skill") {
     const proficientOnly = choice.from.proficientOnly;
+    const only = choice.from.options;
     return Object.entries(SKILL_NAMES)
+      .filter(([id]) => !only || only.includes(id))
       .filter(([id]) => !proficientOnly || draft.skills.some((skill) => skill.id === id && skill.proficient))
       .map(([id, name]) => ({ id, name, tags: [] }));
+  }
+  if (choice.from.kind === "ability") {
+    const amount = choice.from.amount;
+    return choice.from.options.map((id) => ({ id, name: ABILITY_NAMES[id], tags: [`+${amount}`] }));
+  }
+  if (choice.from.kind === "option") {
+    return choice.from.options
+      .filter((option) => !option.minLevel || draft.level >= option.minLevel)
+      .map((option) => ({ id: option.id, name: option.name, tags: option.minLevel ? [`Level ${option.minLevel}+`] : [], summary: option.summary }));
+  }
+  if (choice.from.kind === "language") {
+    const only = choice.from.options;
+    return content.languages
+      .filter((language) => !only || only.includes(language.name) || only.includes(language.id))
+      .map((language) => ({ id: language.name, name: language.name, tags: language.speakers ? [language.speakers] : [] }));
   }
   if (choice.from.kind === "tool") {
     return choice.from.options.map((name) => ({ id: name, name, tags: ["Tool"] }));
@@ -362,6 +403,7 @@ export function choiceCandidates(choice: OptionChoice, draft: CharacterDraft, co
       if (filter.minLevel !== undefined && spell.level < filter.minLevel) return false;
       if (maxLevel !== undefined && spell.level > maxLevel) return false;
       if (filter.tags.some((tag) => !(spell.tags ?? []).includes(tag))) return false;
+      if (filter.schools.length && !filter.schools.includes(spell.school)) return false;
       if (filter.classes.length && !filter.classes.some((className) => (spell.classes ?? []).includes(className))) return false;
       return true;
     })
@@ -412,6 +454,8 @@ function selectedClassOptions(catalog: EngineCatalog, draft: CharacterDraft) {
 export type AvailableChoice = {
   choice: OptionChoice;
   sourceName: string;
+  /** Secimin geldigi yer: feat secimleri Feats ekraninda, digerleri kendi ekranlarinda gosterilir. */
+  sourceKind: "option" | "feature" | "feat";
   candidates: ChoiceCandidate[];
   selectedIds: string[];
 };
@@ -430,9 +474,15 @@ function unlockedFeatureChoiceHosts(catalog: EngineCatalog, draft: CharacterDraf
 
 /** Creator'da gosterilecek acik secimler: secili opsiyonlar ve acilmis feature'lar. */
 export function availableChoices(draft: CharacterDraft, catalog: EngineCatalog): AvailableChoice[] {
+  const featHosts = collectGrantSources(draft, catalog)
+    .filter((source) => source.kind === "feat")
+    .map((source) => catalog.content.feats.find((feat) => feat.id === source.id))
+    .filter((feat): feat is ContentBundle["feats"][number] => Boolean(feat?.choices.length))
+    .map((feat) => ({ name: feat.name, choices: feat.choices, kind: "feat" as const }));
   const hosts = [
-    ...selectedClassOptions(catalog, draft).map(({ option }) => ({ name: option.name, choices: option.choices })),
-    ...unlockedFeatureChoiceHosts(catalog, draft).map((feature) => ({ name: feature.name, choices: feature.choices })),
+    ...selectedClassOptions(catalog, draft).map(({ option }) => ({ name: option.name, choices: option.choices, kind: "option" as const })),
+    ...unlockedFeatureChoiceHosts(catalog, draft).map((feature) => ({ name: feature.name, choices: feature.choices, kind: "feature" as const })),
+    ...featHosts,
   ];
   return hosts.flatMap((host) =>
     host.choices.filter((choice) => !choice.minLevel || draft.level >= choice.minLevel).map((choice) => {
@@ -441,6 +491,7 @@ export function availableChoices(draft: CharacterDraft, catalog: EngineCatalog):
       return {
         choice,
         sourceName: host.name,
+        sourceKind: host.kind,
         candidates,
         selectedIds: (draft.choices?.[choice.id] ?? []).filter((id) => allowed.has(id)).slice(0, choice.count),
       };
@@ -534,7 +585,7 @@ function classOptionSources(catalog: EngineCatalog, draft: CharacterDraft): Gran
   );
 }
 
-function featSource(content: ContentBundle, featId: string, showAsFeature: boolean): GrantSource[] {
+function featSource(content: ContentBundle, featId: string, showAsFeature: boolean, draft?: CharacterDraft): GrantSource[] {
   const feat = content.feats.find((entry) => entry.id === featId);
   if (!feat) {
     return [];
@@ -546,7 +597,7 @@ function featSource(content: ContentBundle, featId: string, showAsFeature: boole
       name: feat.name,
       summary: feat.summary,
       showAsFeature,
-      grants: feat.grants,
+      grants: draft ? [...feat.grants, ...choiceGrants(feat, draft, content)] : feat.grants,
     },
   ];
 }
@@ -593,7 +644,7 @@ export function collectGrantSources(draft: CharacterDraft, catalog: EngineCatalo
       return;
     }
     featIds.add(featId);
-    sources.push(...featSource(catalog.content, featId, false));
+    sources.push(...featSource(catalog.content, featId, false, draft));
   });
 
   // Background / invocation / feature'lardan gelen feat'ler (orn. Lorehold Student -> Strixhaven Initiate).
@@ -601,7 +652,7 @@ export function collectGrantSources(draft: CharacterDraft, catalog: EngineCatalo
     sources.at(index)?.grants.forEach((grant) => {
       if (grant.type === "feat" && !featIds.has(grant.featId)) {
         featIds.add(grant.featId);
-        sources.push(...featSource(catalog.content, grant.featId, false));
+        sources.push(...featSource(catalog.content, grant.featId, false, draft));
       }
     });
   }
