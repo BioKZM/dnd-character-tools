@@ -1,0 +1,157 @@
+{
+  "id": "celestial",
+  "name": "The Celestial",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A pact with a being of the upper planes that grants healing light.",
+  "features": [
+    {
+      "id": "celestial-expanded",
+      "name": "Expanded Spell List",
+      "unlockLevel": 1,
+      "short": "Healing and radiant spells join your warlock list.",
+      "summary": "The Celestial adds these spells to the warlock spell list for you; learn them like other warlock spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "celestial-bonus-cantrips",
+      "name": "Bonus Cantrips",
+      "unlockLevel": 1,
+      "short": "Learn Light and Sacred Flame.",
+      "summary": "You learn the Light and Sacred Flame cantrips. They count as warlock cantrips for you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "light",
+          "uses": "at_will"
+        },
+        {
+          "type": "spell",
+          "spellId": "sacred-flame",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "healing-light",
+      "name": "Healing Light",
+      "unlockLevel": 1,
+      "short": "Bonus action: heal with a pool of d6s.",
+      "summary": "You have a pool of d6s equal to 1 + your warlock level. As a bonus action, spend up to CHA-modifier dice from the pool to heal a creature within 60 ft. by the total. The pool refills on a long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "range": "60 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "healing-light",
+          "name": "Healing Light (d6)",
+          "uses": "1+LEVEL",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "radiant-soul",
+      "name": "Radiant Soul",
+      "unlockLevel": 6,
+      "short": "Resist radiant; add CHA to one fire or radiant damage roll.",
+      "summary": "You have resistance to radiant damage. When you cast a spell that deals radiant or fire damage, add your CHA modifier to one damage roll against one target.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "radiant"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "celestial-resilience",
+      "name": "Celestial Resilience",
+      "unlockLevel": 10,
+      "short": "You and allies gain temp HP after a rest.",
+      "summary": "When you finish a short or long rest, you gain temporary hit points equal to your warlock level + CHA, and up to five creatures gain half your warlock level + CHA.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "searing-vengeance",
+      "name": "Searing Vengeance",
+      "unlockLevel": 14,
+      "short": "Rise from a death save with half HP and blind nearby foes.",
+      "summary": "When you make a death saving throw at the start of your turn, you can instead spring up with half your hit points and deal 2d8 + CHA radiant damage to creatures of your choice within 30 ft., blinding them. Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "searing-vengeance",
+          "name": "Searing Vengeance",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Cure Wounds",
+        "Guiding Bolt"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Flaming Sphere",
+        "Lesser Restoration"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Daylight",
+        "Revivify"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Guardian of Faith",
+        "Wall of Fire"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Flame Strike",
+        "Greater Restoration"
+      ],
+      "uses": "list"
+    }
+  ],
+  "notes": []
+}

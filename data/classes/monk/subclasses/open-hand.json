@@ -1,0 +1,71 @@
+{
+  "id": "open-hand",
+  "name": "Way of the Open Hand",
+  "source": "Player's Handbook",
+  "summary": "Masters of unarmed combat who topple, push and heal.",
+  "features": [
+    {
+      "id": "open-hand-technique",
+      "name": "Open Hand Technique",
+      "unlockLevel": 3,
+      "short": "Flurry hits can knock prone, push 15 ft. or stop reactions.",
+      "summary": "When you hit with a Flurry of Blows attack, you can impose one effect: the target makes a DEX save or is knocked prone, makes a STR save or is pushed 15 ft., or can't take reactions until the end of your next turn.",
+      "facts": {
+        "action": "Passive",
+        "save": "DEX / STR",
+        "dc": "ki"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "wholeness-of-body",
+      "name": "Wholeness of Body",
+      "unlockLevel": 6,
+      "short": "Action: heal three times your monk level.",
+      "summary": "As an action, you regain hit points equal to three times your monk level. Once per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "wholeness-of-body",
+          "name": "Wholeness of Body",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "tranquility",
+      "name": "Tranquility",
+      "unlockLevel": 11,
+      "short": "After a long rest, you're under a Sanctuary effect.",
+      "summary": "At the end of a long rest, you gain the effect of a Sanctuary spell until the start of your next long rest (DC 8 + WIS + PB). It ends if you attack or cast a spell that affects an enemy.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "quivering-palm",
+      "name": "Quivering Palm",
+      "unlockLevel": 17,
+      "short": "Set lethal vibrations; trigger them to drop a foe to 0 HP.",
+      "summary": "When you hit with an unarmed strike, you can spend 3 ki to start vibrations that last a number of days equal to your monk level. As an action you end them: the target makes a CON save, dropping to 0 hit points on a failure or taking 10d10 necrotic on a success.",
+      "facts": {
+        "action": "Passive",
+        "cost": "3 ki",
+        "save": "CON",
+        "dc": "ki"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

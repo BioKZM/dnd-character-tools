@@ -1,0 +1,108 @@
+{
+  "id": "stars",
+  "name": "Circle of Stars",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Druids who read the night sky and take a radiant starry form.",
+  "features": [
+    {
+      "id": "star-map",
+      "name": "Star Map",
+      "unlockLevel": 2,
+      "short": "Learn Guidance; cast Guiding Bolt for free.",
+      "summary": "You create a star map that works as a spellcasting focus. You know Guidance and always have Guiding Bolt prepared, and you can cast Guiding Bolt without a slot PB times per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "guidance",
+          "uses": "at_will"
+        },
+        {
+          "type": "spell",
+          "spellId": "guiding-bolt",
+          "uses": "known"
+        },
+        {
+          "type": "resource",
+          "id": "star-map",
+          "name": "Free Guiding Bolt",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "starry-form",
+      "name": "Starry Form",
+      "unlockLevel": 2,
+      "short": "Spend Wild Shape: Archer, Chalice or Dragon constellation.",
+      "summary": "As a bonus action, expend Wild Shape to take a starry form for 10 minutes. Archer: bonus action ranged spell attack for 1d8 + WIS radiant. Chalice: healing spells heal a second creature 1d8 + WIS. Dragon: treat 9 or lower as 10 on INT/WIS checks and concentration saves.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "1 Wild Shape",
+        "duration": "10 minutes"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 2,
+          "label": "1d8"
+        },
+        {
+          "level": 10,
+          "label": "2d8"
+        }
+      ]
+    },
+    {
+      "id": "cosmic-omen",
+      "name": "Cosmic Omen",
+      "unlockLevel": 6,
+      "short": "After a long rest, roll for Weal (add d6) or Woe (subtract d6) reactions.",
+      "summary": "After a long rest, roll a die: even gives Weal (reaction: add 1d6 to a creature's roll), odd gives Woe (reaction: subtract 1d6). Uses: PB per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "cosmic-omen",
+          "name": "Cosmic Omen",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "twinkling-constellations",
+      "name": "Twinkling Constellations",
+      "unlockLevel": 10,
+      "short": "Starry form gets stronger; Dragon form gives flight.",
+      "summary": "Your Archer and Chalice dice become 2d8, the Dragon gives a 20 ft. flying speed with hover, and you can change constellation at the start of each turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "full-of-stars",
+      "name": "Full of Stars",
+      "unlockLevel": 14,
+      "short": "Resist bludgeoning, piercing and slashing in starry form.",
+      "summary": "While in your starry form, you have resistance to bludgeoning, piercing and slashing damage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

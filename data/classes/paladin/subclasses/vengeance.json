@@ -1,0 +1,137 @@
+{
+  "id": "vengeance",
+  "name": "Oath of Vengeance",
+  "source": "Player's Handbook",
+  "summary": "Avengers who hunt down those guilty of grievous sins.",
+  "features": [
+    {
+      "id": "vengeance-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "short": "Oath spells that are always prepared for free.",
+      "summary": "You always have your oath spells prepared once you reach the listed paladin levels. They don't count against the number of spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "abjure-enemy",
+      "name": "Channel Divinity: Abjure Enemy",
+      "unlockLevel": 3,
+      "short": "Frighten a creature and stop it from moving.",
+      "summary": "As an action, choose a creature within 60 ft.: it makes a WIS save (fiends and undead at disadvantage) or is frightened for 1 minute with speed 0; on a success its speed is halved.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "60 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "vow-of-enmity",
+      "name": "Channel Divinity: Vow of Enmity",
+      "unlockLevel": 3,
+      "short": "Bonus action: advantage on attacks against one creature for a minute.",
+      "summary": "As a bonus action, utter a vow against a creature within 10 ft.: you have advantage on attack rolls against it for 1 minute.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "Channel Divinity",
+        "range": "10 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "relentless-avenger",
+      "name": "Relentless Avenger",
+      "unlockLevel": 7,
+      "short": "Opportunity attack hits let you chase the target.",
+      "summary": "When you hit a creature with an opportunity attack, you can move up to half your speed immediately after, without provoking opportunity attacks.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "soul-of-vengeance",
+      "name": "Soul of Vengeance",
+      "unlockLevel": 15,
+      "short": "Reaction: attack your Vow of Enmity target when it attacks.",
+      "summary": "When a creature under your Vow of Enmity makes an attack, you can use your reaction to make a melee weapon attack against it if it is within range.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "avenging-angel",
+      "name": "Avenging Angel",
+      "unlockLevel": 20,
+      "short": "Grow wings (60 ft. fly) and a frightening aura.",
+      "summary": "As an action, for 1 hour you gain wings with a 60 ft. flying speed and emanate a 30 ft. aura of menace that can frighten enemies (WIS save); attacks against frightened creatures have advantage. Once per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "avenging-angel",
+          "name": "Avenging Angel",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Bane",
+        "Hunter's Mark"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Hold Person",
+        "Misty Step"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Haste",
+        "Protection from Energy"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Banishment",
+        "Dimension Door"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Hold Monster",
+        "Scrying"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

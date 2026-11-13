@@ -1,0 +1,92 @@
+{
+  "id": "shadow",
+  "name": "Shadow Magic",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Sorcerers touched by the Shadowfell who wield darkness.",
+  "features": [
+    {
+      "id": "eyes-of-the-dark",
+      "name": "Eyes of the Dark",
+      "unlockLevel": 1,
+      "short": "Darkvision 120 ft.; cast Darkness with sorcery points.",
+      "summary": "You have darkvision out to 120 ft. From 3rd level, you learn Darkness and can cast it by spending 2 sorcery points, seeing through it yourself.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "range": 120
+        },
+        {
+          "type": "spell",
+          "spellId": "darkness",
+          "uses": "known",
+          "minLevel": 3
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "strength-of-the-grave",
+      "name": "Strength of the Grave",
+      "unlockLevel": 1,
+      "short": "At 0 HP, a CHA save can leave you at 1 HP.",
+      "summary": "When damage reduces you to 0 hit points (not radiant or a crit), you can make a CHA save (DC 5 + damage taken) to drop to 1 hit point instead. Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "strength-of-the-grave",
+          "name": "Strength of the Grave",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "hound-of-ill-omen",
+      "name": "Hound of Ill Omen",
+      "unlockLevel": 6,
+      "short": "Spend 3 sorcery points to summon a shadow hound against a foe.",
+      "summary": "As a bonus action, spend 3 sorcery points to summon a hound of shadow that hunts one creature within 120 ft. The target has disadvantage on saves against your spells while the hound is within 5 ft. of it.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "3 sorcery points"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "shadow-walk",
+      "name": "Shadow Walk",
+      "unlockLevel": 14,
+      "short": "Bonus action: teleport 120 ft. between shadows.",
+      "summary": "While in dim light or darkness, as a bonus action you can teleport up to 120 ft. to another unoccupied space you can see that is also in dim light or darkness.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "umbral-form",
+      "name": "Umbral Form",
+      "unlockLevel": 18,
+      "short": "Spend 6 sorcery points: resist most damage and move through objects.",
+      "summary": "As a bonus action, spend 6 sorcery points to become shadowy for 1 minute: resistance to all damage except force and radiant, and you can move through creatures and objects as difficult terrain.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "6 sorcery points"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

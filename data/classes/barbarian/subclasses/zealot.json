@@ -1,0 +1,80 @@
+{
+  "id": "zealot",
+  "name": "Path of the Zealot",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A barbarian fueled by a god of battle, so devoted death can't easily stop them.",
+  "features": [
+    {
+      "id": "divine-fury",
+      "name": "Divine Fury",
+      "unlockLevel": 3,
+      "short": "First hit each turn while raging adds radiant or necrotic damage.",
+      "summary": "While raging, the first creature you hit on each of your turns takes extra damage equal to 1d6 + half your barbarian level, radiant or necrotic (choose when you gain this feature).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "warrior-of-the-gods",
+      "name": "Warrior of the Gods",
+      "unlockLevel": 3,
+      "short": "Raising you from the dead needs no material components.",
+      "summary": "If a spell, such as Raise Dead, has the sole effect of restoring you to life, the caster doesn't need material components to cast it on you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "fanatical-focus",
+      "name": "Fanatical Focus",
+      "unlockLevel": 6,
+      "short": "Reroll a failed save once per rage.",
+      "summary": "If you fail a saving throw while raging, you can reroll it and must use the new roll. Once per rage.",
+      "facts": {
+        "action": "Passive",
+        "uses": "1 per rage"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "zealous-presence",
+      "name": "Zealous Presence",
+      "unlockLevel": 10,
+      "short": "Bonus action: up to 10 allies gain advantage on attacks and saves.",
+      "summary": "As a bonus action, you unleash a battle cry. Up to ten creatures of your choice within 60 ft. gain advantage on attack rolls and saving throws until the start of your next turn. Once per long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "range": "60 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "zealous-presence",
+          "name": "Zealous Presence",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "rage-beyond-death",
+      "name": "Rage beyond Death",
+      "unlockLevel": 14,
+      "short": "While raging, 0 hit points don't knock you out.",
+      "summary": "While raging, having 0 hit points doesn't knock you unconscious. You still make death saves; you die only if the rage ends while you are at 0 hit points and have three failures.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

@@ -1,0 +1,82 @@
+{
+  "id": "abjuration",
+  "name": "School of Abjuration",
+  "source": "Player's Handbook",
+  "summary": "Wizards of protective magic who shield themselves with an arcane ward.",
+  "features": [
+    {
+      "id": "abjuration-savant",
+      "name": "Abjuration Savant",
+      "unlockLevel": 2,
+      "short": "Copy abjuration spells for half the time and gold.",
+      "summary": "The gold and time you must spend to copy a abjuration spell into your spellbook is halved.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "arcane-ward",
+      "name": "Arcane Ward",
+      "unlockLevel": 2,
+      "short": "Casting abjuration spells builds a damage-absorbing ward.",
+      "summary": "When you cast an abjuration spell of 1st level or higher, you create (once per long rest) a ward with hit points equal to twice your wizard level + INT. It absorbs damage you take, and casting more abjuration spells recharges it by twice the spell level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "projected-ward",
+      "name": "Projected Ward",
+      "unlockLevel": 6,
+      "short": "Reaction: your ward absorbs damage for an ally.",
+      "summary": "When a creature within 30 ft. takes damage, you can use your reaction to have your Arcane Ward absorb that damage.",
+      "facts": {
+        "action": "Reaction",
+        "range": "30 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "improved-abjuration",
+      "name": "Improved Abjuration",
+      "unlockLevel": 10,
+      "short": "Add PB to ability checks made by your abjuration spells.",
+      "summary": "When you cast an abjuration spell that requires an ability check (like Counterspell or Dispel Magic), add your proficiency bonus to that check.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "spell-resistance",
+      "name": "Spell Resistance",
+      "unlockLevel": 14,
+      "short": "Advantage on saves against spells; resist spell damage.",
+      "summary": "You have advantage on saving throws against spells, and resistance against the damage of spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "save_advantage",
+          "against": "spells"
+        },
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "damage from spells"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

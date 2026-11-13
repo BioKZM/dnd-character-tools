@@ -1,0 +1,168 @@
+{
+  "id": "knowledge",
+  "name": "Knowledge Domain",
+  "source": "Player's Handbook",
+  "summary": "Clerics of gods of lore who seek and share secrets.",
+  "features": [
+    {
+      "id": "knowledge-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "blessings-of-knowledge",
+      "name": "Blessings of Knowledge",
+      "unlockLevel": 1,
+      "short": "Two languages and two knowledge skills with double proficiency.",
+      "summary": "You learn two languages of your choice. You become proficient in two of Arcana, History, Nature or Religion, and your proficiency bonus is doubled for checks with them.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Blessings of Knowledge: double proficiency on the two chosen knowledge skills."
+        }
+      ],
+      "choices": [
+        {
+          "id": "knowledge-languages",
+          "label": "Two languages",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "language"
+          }
+        },
+        {
+          "id": "knowledge-skills",
+          "label": "Two knowledge skills (double proficiency)",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "arcana",
+              "history",
+              "nature",
+              "religion"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "knowledge-of-the-ages",
+      "name": "Channel Divinity: Knowledge of the Ages",
+      "unlockLevel": 2,
+      "short": "Gain proficiency with any skill or tool for 10 minutes.",
+      "summary": "As an action, choose one skill or tool. For 10 minutes you have proficiency with it.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "duration": "10 minutes"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "read-thoughts",
+      "name": "Channel Divinity: Read Thoughts",
+      "unlockLevel": 6,
+      "short": "Read a creature's surface thoughts, then cast Suggestion on it.",
+      "summary": "As an action, choose a creature within 60 ft. It makes a WIS save; on a failure you read its surface thoughts for 1 minute and can end the effect to cast Suggestion on it without a slot (it fails automatically).",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "60 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "knowledge-potent-spellcasting",
+      "name": "Potent Spellcasting",
+      "unlockLevel": 8,
+      "short": "Add WIS to cleric cantrip damage.",
+      "summary": "You add your Wisdom modifier to the damage you deal with any cleric cantrip.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "visions-of-the-past",
+      "name": "Visions of the Past",
+      "unlockLevel": 17,
+      "short": "Meditate to see the history of an object or area.",
+      "summary": "After at least 1 minute of meditation, you receive visions of an object's past owners or of events in your surroundings. Once per short or long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "visions-of-the-past",
+          "name": "Visions of the Past",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Command",
+        "Identify"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Augury",
+        "Suggestion"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Nondetection",
+        "Speak with Dead"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Arcane Eye",
+        "Confusion"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Legend Lore",
+        "Scrying"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

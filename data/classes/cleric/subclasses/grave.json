@@ -1,0 +1,161 @@
+{
+  "id": "grave",
+  "name": "Grave Domain",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Clerics who guard the line between life and death.",
+  "features": [
+    {
+      "id": "grave-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "circle-of-mortality",
+      "name": "Circle of Mortality",
+      "unlockLevel": 1,
+      "short": "Max healing on dying creatures; Spare the Dying as a bonus action.",
+      "summary": "When you heal a creature at 0 hit points, use the maximum of each die. You learn Spare the Dying, which has a range of 30 ft. and can be cast as a bonus action.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "spare-the-dying",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "eyes-of-the-grave",
+      "name": "Eyes of the Grave",
+      "unlockLevel": 1,
+      "short": "Action: sense undead within 60 ft.",
+      "summary": "As an action, you know the location of any undead within 60 ft. that isn't behind total cover or protected from divination. Uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Action",
+        "range": "60 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "eyes-of-the-grave",
+          "name": "Eyes of the Grave",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "path-to-the-grave",
+      "name": "Channel Divinity: Path to the Grave",
+      "unlockLevel": 2,
+      "short": "Curse a creature: the next hit against it deals double damage.",
+      "summary": "As an action, curse a creature within 30 ft. until the end of your next turn: the next time you or an ally hits it, it has vulnerability to all of that attack's damage.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "sentinel-at-deaths-door",
+      "name": "Sentinel at Death's Door",
+      "unlockLevel": 6,
+      "short": "Reaction: turn a critical hit into a normal hit.",
+      "summary": "When you or a creature within 30 ft. suffers a critical hit, you can use your reaction to turn it into a normal hit. Uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Reaction",
+        "range": "30 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "sentinel-at-deaths-door",
+          "name": "Sentinel at Death's Door",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "grave-potent-spellcasting",
+      "name": "Potent Spellcasting",
+      "unlockLevel": 8,
+      "short": "Add WIS to cleric cantrip damage.",
+      "summary": "You add your Wisdom modifier to the damage you deal with any cleric cantrip.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "keeper-of-souls",
+      "name": "Keeper of Souls",
+      "unlockLevel": 17,
+      "short": "When an enemy dies nearby, heal someone.",
+      "summary": "When an enemy you can see dies within 60 ft., you or one creature within 60 ft. regains hit points equal to the enemy's number of Hit Dice. Once per turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Bane",
+        "False Life"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Gentle Repose",
+        "Ray of Enfeeblement"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Revivify",
+        "Vampiric Touch"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Blight",
+        "Death Ward"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Antilife Shell",
+        "Raise Dead"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,293 @@
+{
+  "id": "totem-warrior",
+  "name": "Path of the Totem Warrior",
+  "source": "Player's Handbook",
+  "summary": "A barbarian guided by animal spirits that grant different powers at each step.",
+  "features": [
+    {
+      "id": "spirit-seeker",
+      "name": "Spirit Seeker",
+      "unlockLevel": 3,
+      "short": "Cast Beast Sense and Speak with Animals as rituals.",
+      "summary": "You can cast Beast Sense and Speak with Animals, but only as rituals.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "beast-sense",
+          "uses": "ritual"
+        },
+        {
+          "type": "spell",
+          "spellId": "speak-with-animals",
+          "uses": "ritual"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "totem-spirit",
+      "name": "Totem Spirit",
+      "unlockLevel": 3,
+      "short": "Choose an animal spirit that empowers your rage.",
+      "summary": "Choose a totem animal. Its spirit grants you a benefit while you rage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "totem-warrior-spirit",
+          "label": "Totem Spirit",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "bear",
+                "name": "Bear",
+                "summary": "While raging, resistance to all damage except psychic.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totem Spirit (Bear): While raging, resistance to all damage except psychic."
+                  },
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "all damage except psychic (while raging)"
+                  }
+                ]
+              },
+              {
+                "id": "eagle",
+                "name": "Eagle",
+                "summary": "While raging, opportunity attacks against you have disadvantage and you can Dash as a bonus action.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totem Spirit (Eagle): While raging, opportunity attacks against you have disadvantage and you can Dash as a bonus action."
+                  }
+                ]
+              },
+              {
+                "id": "elk",
+                "name": "Elk",
+                "summary": "While raging and not in heavy armor, +15 ft. walking speed.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totem Spirit (Elk): While raging and not in heavy armor, +15 ft. walking speed."
+                  }
+                ]
+              },
+              {
+                "id": "tiger",
+                "name": "Tiger",
+                "summary": "While raging, add 10 ft. to long jump and 3 ft. to high jump.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totem Spirit (Tiger): While raging, add 10 ft. to long jump and 3 ft. to high jump."
+                  }
+                ]
+              },
+              {
+                "id": "wolf",
+                "name": "Wolf",
+                "summary": "While raging, friends have advantage on melee attacks against enemies within 5 ft. of you.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totem Spirit (Wolf): While raging, friends have advantage on melee attacks against enemies within 5 ft. of you."
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "aspect-of-the-beast",
+      "name": "Aspect of the Beast",
+      "unlockLevel": 6,
+      "short": "Choose a second animal for a lasting benefit.",
+      "summary": "Choose a totem animal (it can be a different one). You gain a benefit that works all the time.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "totem-warrior-aspect",
+          "label": "Aspect of the Beast",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "bear",
+                "name": "Bear",
+                "summary": "Double carrying capacity; advantage on STR checks to push, pull, lift or break.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Aspect of the Beast (Bear): Double carrying capacity; advantage on STR checks to push, pull, lift or break."
+                  }
+                ]
+              },
+              {
+                "id": "eagle",
+                "name": "Eagle",
+                "summary": "See up to 1 mile clearly; dim light doesn't hurt your Perception.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Aspect of the Beast (Eagle): See up to 1 mile clearly; dim light doesn't hurt your Perception."
+                  }
+                ]
+              },
+              {
+                "id": "elk",
+                "name": "Elk",
+                "summary": "Your group travels at double speed (with up to 10 companions).",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Aspect of the Beast (Elk): Your group travels at double speed (with up to 10 companions)."
+                  }
+                ]
+              },
+              {
+                "id": "tiger",
+                "name": "Tiger",
+                "summary": "Gain two skill proficiencies from Athletics, Acrobatics, Stealth and Survival.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Aspect of the Beast (Tiger): Gain two skill proficiencies from Athletics, Acrobatics, Stealth and Survival."
+                  }
+                ]
+              },
+              {
+                "id": "wolf",
+                "name": "Wolf",
+                "summary": "Track at a fast pace and move stealthily at a normal pace.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Aspect of the Beast (Wolf): Track at a fast pace and move stealthily at a normal pace."
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "spirit-walker",
+      "name": "Spirit Walker",
+      "unlockLevel": 10,
+      "short": "Cast Commune with Nature as a ritual.",
+      "summary": "You can cast Commune with Nature, but only as a ritual.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "commune-with-nature",
+          "uses": "ritual"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "totemic-attunement",
+      "name": "Totemic Attunement",
+      "unlockLevel": 14,
+      "short": "Choose a third animal for a powerful rage benefit.",
+      "summary": "Choose a totem animal (it can be a different one). You gain a strong benefit while raging.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "totem-warrior-attunement",
+          "label": "Totemic Attunement",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "bear",
+                "name": "Bear",
+                "summary": "While raging, enemies within 5 ft. have disadvantage attacking anyone but you.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totemic Attunement (Bear): While raging, enemies within 5 ft. have disadvantage attacking anyone but you."
+                  }
+                ]
+              },
+              {
+                "id": "eagle",
+                "name": "Eagle",
+                "summary": "While raging, you can fly at your walking speed (you fall at the end of your turn).",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totemic Attunement (Eagle): While raging, you can fly at your walking speed (you fall at the end of your turn)."
+                  }
+                ]
+              },
+              {
+                "id": "elk",
+                "name": "Elk",
+                "summary": "While raging, bonus action to knock a Large or smaller creature prone and deal 1d12 + STR.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totemic Attunement (Elk): While raging, bonus action to knock a Large or smaller creature prone and deal 1d12 + STR."
+                  }
+                ]
+              },
+              {
+                "id": "tiger",
+                "name": "Tiger",
+                "summary": "While raging, after moving 20 ft. toward a target, make an extra melee attack as a bonus action.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totemic Attunement (Tiger): While raging, after moving 20 ft. toward a target, make an extra melee attack as a bonus action."
+                  }
+                ]
+              },
+              {
+                "id": "wolf",
+                "name": "Wolf",
+                "summary": "While raging, knock a Large or smaller creature prone with a melee hit (bonus action).",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Totemic Attunement (Wolf): While raging, knock a Large or smaller creature prone with a melee hit (bonus action)."
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

@@ -1,0 +1,87 @@
+{
+  "id": "wild-magic",
+  "name": "Path of Wild Magic",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A barbarian whose rage releases unpredictable surges of magic.",
+  "features": [
+    {
+      "id": "magic-awareness",
+      "name": "Magic Awareness",
+      "unlockLevel": 3,
+      "short": "Action: sense spells and magic items within 60 ft.",
+      "summary": "As an action, you sense the location of any spell or magic item within 60 ft. that isn't behind total cover, and learn the school of any spell. Uses: PB per long rest.",
+      "facts": {
+        "action": "Action",
+        "range": "60 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "magic-awareness",
+          "name": "Magic Awareness",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "wild-surge",
+      "name": "Wild Surge",
+      "unlockLevel": 3,
+      "short": "When you rage, roll for a random magical effect.",
+      "summary": "When you enter your rage, roll on the Wild Magic table: effects include a burst of necrotic damage, teleporting, a magic weapon, an exploding light, flowers, and more. Effects that need saves use DC 8 + PB + CON.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "bolstering-magic",
+      "name": "Bolstering Magic",
+      "unlockLevel": 6,
+      "short": "Touch someone: +1d3 to attacks/checks or restore a low slot.",
+      "summary": "As an action, touch a creature: it adds 1d3 to attack rolls and ability checks for 10 minutes, or recovers an expended spell slot of a level you roll on 1d3. Uses: PB per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "bolstering-magic",
+          "name": "Bolstering Magic",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "unstable-backlash",
+      "name": "Unstable Backlash",
+      "unlockLevel": 10,
+      "short": "When hurt or forced to save while raging, reroll your surge.",
+      "summary": "When you are imperiled while raging (you take damage or fail a save), you can use your reaction to roll on the Wild Magic table, replacing your current effect.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "controlled-surge",
+      "name": "Controlled Surge",
+      "unlockLevel": 14,
+      "short": "Roll twice on the surge table and pick the effect.",
+      "summary": "Whenever you roll on the Wild Magic table, roll twice and choose which result to use. If both are the same, choose any effect on the table.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

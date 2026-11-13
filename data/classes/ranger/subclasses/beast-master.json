@@ -1,0 +1,58 @@
+{
+  "id": "beast-master",
+  "name": "Beast Master",
+  "source": "Player's Handbook",
+  "summary": "A ranger bonded with an animal companion.",
+  "features": [
+    {
+      "id": "rangers-companion",
+      "name": "Ranger's Companion",
+      "unlockLevel": 3,
+      "short": "Gain a beast companion that fights alongside you.",
+      "summary": "You gain a beast companion (CR 1/4 or lower, or a primal beast of land, sea or sky with the Tasha's variant). It adds your proficiency bonus to AC, attacks, damage and proficient saves and skills, and has hit points that grow with your level. You command it on your turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "exceptional-training",
+      "name": "Exceptional Training",
+      "unlockLevel": 7,
+      "short": "Your companion can Dash, Disengage or Help as a bonus action.",
+      "summary": "On any turn your companion doesn't attack, you can use a bonus action to have it take the Dash, Disengage or Help action. Its attacks count as magical.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "bestial-fury",
+      "name": "Bestial Fury",
+      "unlockLevel": 11,
+      "short": "Your companion attacks twice.",
+      "summary": "When you command your companion to take the Attack action, it can make two attacks.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "share-spells",
+      "name": "Share Spells",
+      "unlockLevel": 15,
+      "short": "Spells targeting you can also affect your companion.",
+      "summary": "When you cast a spell targeting yourself, you can also affect your companion if it is within 30 ft. of you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

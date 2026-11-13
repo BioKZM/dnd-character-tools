@@ -1,0 +1,70 @@
+{
+  "id": "war-magic",
+  "name": "War Magic",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Battle wizards who blend evocation and abjuration.",
+  "features": [
+    {
+      "id": "arcane-deflection",
+      "name": "Arcane Deflection",
+      "unlockLevel": 2,
+      "short": "Reaction: +2 AC or +4 to a save, then only cantrips next turn.",
+      "summary": "When you are hit by an attack or fail a saving throw, you can use your reaction to gain +2 AC against that attack or +4 to that save. Until the end of your next turn, you can only cast cantrips.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "tactical-wit",
+      "name": "Tactical Wit",
+      "unlockLevel": 2,
+      "short": "Add INT to initiative.",
+      "summary": "You can give yourself a bonus to initiative rolls equal to your Intelligence modifier.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "power-surge",
+      "name": "Power Surge",
+      "unlockLevel": 6,
+      "short": "Store power surges to add damage to spells.",
+      "summary": "You can store power surges (max INT modifier; you start each long rest with one). You gain one when you end a spell with Dispel Magic or Counterspell. Once per turn, spend one to add half your wizard level as force damage to a spell's target.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "durable-magic",
+      "name": "Durable Magic",
+      "unlockLevel": 10,
+      "short": "+2 AC and saves while concentrating.",
+      "summary": "While you maintain concentration on a spell, you have a +2 bonus to AC and all saving throws.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "deflecting-shroud",
+      "name": "Deflecting Shroud",
+      "unlockLevel": 14,
+      "short": "Arcane Deflection also blasts up to three creatures.",
+      "summary": "When you use Arcane Deflection, up to three creatures of your choice within 60 ft. take force damage equal to half your wizard level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

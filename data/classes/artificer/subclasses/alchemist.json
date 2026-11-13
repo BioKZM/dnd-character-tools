@@ -1,0 +1,186 @@
+{
+  "id": "alchemist",
+  "name": "Alchemist",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "An expert at combining reagents to produce mystical effects: healing draughts, acid and poison.",
+  "features": [
+    {
+      "id": "alchemist-tools",
+      "name": "Tool Proficiency",
+      "unlockLevel": 3,
+      "short": "Proficiency with alchemist's supplies.",
+      "summary": "You gain proficiency with alchemist's supplies. If you already have it, you gain proficiency with another artisan's tool of your choice.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Alchemist's Supplies"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "alchemist-spells",
+      "name": "Alchemist Spells",
+      "unlockLevel": 3,
+      "short": "Healing and acid spells that are always prepared.",
+      "summary": "You always have certain spells prepared after you reach particular levels in this class. They don't count against the number of artificer spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "experimental-elixir",
+      "name": "Experimental Elixir",
+      "unlockLevel": 3,
+      "short": "After a long rest, brew a random magic elixir.",
+      "summary": "Whenever you finish a long rest, you can produce an elixir in an empty flask. Roll for its effect: healing, swiftness, resilience (+1 AC), boldness, flight or transformation. You can make more by spending spell slots. An elixir lasts until drunk or until your next long rest.",
+      "facts": {
+        "action": "Action",
+        "uses": "1 per long rest (2 at 6th, 3 at 15th)"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "experimental-elixir",
+          "name": "Experimental Elixir",
+          "uses": "1 (2 at 6, 3 at 15)",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "1 elixir"
+        },
+        {
+          "level": 6,
+          "label": "2 elixirs"
+        },
+        {
+          "level": 15,
+          "label": "3 elixirs"
+        }
+      ]
+    },
+    {
+      "id": "alchemical-savant",
+      "name": "Alchemical Savant",
+      "unlockLevel": 5,
+      "short": "Add INT to healing, acid, fire, necrotic and poison spell rolls.",
+      "summary": "When you cast a spell using alchemist's supplies as the focus, add your Intelligence modifier (minimum +1) to one roll of the spell that restores hit points or deals acid, fire, necrotic or poison damage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "restorative-reagents",
+      "name": "Restorative Reagents",
+      "unlockLevel": 9,
+      "short": "Elixirs grant temp HP; cast Lesser Restoration for free.",
+      "summary": "A creature that drinks your experimental elixir gains temporary hit points equal to 2d6 + your Intelligence modifier. You can cast Lesser Restoration without a slot a number of times equal to your Intelligence modifier per long rest.",
+      "facts": {
+        "action": "Passive",
+        "uses": "INT per long rest"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "restorative-reagents",
+          "name": "Free Lesser Restoration",
+          "uses": "INT",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "chemical-mastery",
+      "name": "Chemical Mastery",
+      "unlockLevel": 15,
+      "short": "Resist acid and poison; free Greater Restoration and Heal.",
+      "summary": "You gain resistance to acid and poison damage and immunity to the poisoned condition. Once per long rest each, you can cast Greater Restoration and Heal without a slot or material components.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "acid"
+        },
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "poison"
+        },
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "poisoned"
+        },
+        {
+          "type": "resource",
+          "id": "chemical-mastery",
+          "name": "Greater Restoration / Heal",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Healing Word",
+        "Ray of Sickness"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Flaming Sphere",
+        "Melf's Acid Arrow"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Gaseous Form",
+        "Mass Healing Word"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Blight",
+        "Death Ward"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Cloudkill",
+        "Raise Dead"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

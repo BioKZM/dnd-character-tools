@@ -1,0 +1,137 @@
+{
+  "id": "samurai",
+  "name": "Samurai",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A disciplined warrior whose fighting spirit can't be broken.",
+  "features": [
+    {
+      "id": "samurai-proficiency",
+      "name": "Bonus Proficiency",
+      "unlockLevel": 3,
+      "short": "One of History, Insight, Performance or Persuasion.",
+      "summary": "You gain proficiency in one of the listed skills (or one language).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "samurai-skill",
+          "label": "Skill",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "history",
+              "insight",
+              "performance",
+              "persuasion"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighting-spirit",
+      "name": "Fighting Spirit",
+      "unlockLevel": 3,
+      "short": "Bonus action: advantage on attacks and temp HP.",
+      "summary": "As a bonus action, you gain advantage on weapon attack rolls until the end of the turn and 5 temporary hit points (10 at 10th, 15 at 15th). Three uses per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "fighting-spirit",
+          "name": "Fighting Spirit",
+          "uses": 3,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "5 temp HP"
+        },
+        {
+          "level": 10,
+          "label": "10"
+        },
+        {
+          "level": 15,
+          "label": "15"
+        }
+      ]
+    },
+    {
+      "id": "elegant-courtier",
+      "name": "Elegant Courtier",
+      "unlockLevel": 7,
+      "short": "Add WIS to Persuasion; WIS save proficiency.",
+      "summary": "When you make a Charisma (Persuasion) check, add your Wisdom modifier. You gain proficiency in Wisdom saving throws (or Intelligence or Charisma if you already have it).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "save",
+          "values": [
+            "WIS"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "tireless-spirit",
+      "name": "Tireless Spirit",
+      "unlockLevel": 10,
+      "short": "Regain a Fighting Spirit use at initiative if you have none.",
+      "summary": "When you roll initiative and have no uses of Fighting Spirit left, you regain one.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "rapid-strike",
+      "name": "Rapid Strike",
+      "unlockLevel": 15,
+      "short": "Trade advantage for an extra attack.",
+      "summary": "If you have advantage on a weapon attack against a creature on your turn, you can forgo it to make an additional attack against that creature as part of the same action. Once per turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "strength-before-death",
+      "name": "Strength before Death",
+      "unlockLevel": 18,
+      "short": "At 0 HP, take an extra turn before falling.",
+      "summary": "When you take damage that reduces you to 0 hit points and doesn't kill you outright, you can use your reaction to delay falling unconscious and take an extra turn immediately. Once per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "strength-before-death",
+          "name": "Strength before Death",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

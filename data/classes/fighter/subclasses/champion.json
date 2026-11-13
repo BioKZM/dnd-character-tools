@@ -1,0 +1,189 @@
+{
+  "id": "champion",
+  "name": "Champion",
+  "source": "Player's Handbook",
+  "summary": "A simple, durable warrior who lands devastating critical hits.",
+  "features": [
+    {
+      "id": "improved-critical",
+      "name": "Improved Critical",
+      "unlockLevel": 3,
+      "short": "Critical hit on 19 or 20.",
+      "summary": "Your weapon attacks score a critical hit on a roll of 19 or 20.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Weapon attacks crit on 19-20 (18-20 from 15th level)."
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "remarkable-athlete",
+      "name": "Remarkable Athlete",
+      "unlockLevel": 7,
+      "short": "Half proficiency on STR, DEX and CON checks; longer jumps.",
+      "summary": "Add half your proficiency bonus (rounded up) to any Strength, Dexterity or Constitution check that doesn't already use it. Your running long jump grows by feet equal to your STR modifier.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "additional-fighting-style",
+      "name": "Additional Fighting Style",
+      "unlockLevel": 10,
+      "short": "Choose a second fighting style.",
+      "summary": "You choose a second Fighting Style option.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "champion-fighting-style",
+          "label": "Second Fighting Style",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "archery",
+                "name": "Archery",
+                "summary": "+2 ranged attack rolls",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "+2 to attack rolls with ranged weapons."
+                  }
+                ]
+              },
+              {
+                "id": "blind-fighting",
+                "name": "Blind Fighting",
+                "summary": "10 ft blindsight",
+                "grants": [
+                  {
+                    "type": "sense",
+                    "sense": "blindsight",
+                    "range": 10
+                  }
+                ]
+              },
+              {
+                "id": "defense",
+                "name": "Defense",
+                "summary": "+1 AC while armored",
+                "grants": [
+                  {
+                    "type": "ac",
+                    "bonus": 1,
+                    "condition": "while wearing armor"
+                  }
+                ]
+              },
+              {
+                "id": "dueling",
+                "name": "Dueling",
+                "summary": "+2 one-handed weapon damage",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "+2 damage with a one-handed melee weapon and no other weapon."
+                  }
+                ]
+              },
+              {
+                "id": "great-weapon-fighting",
+                "name": "Great Weapon Fighting",
+                "summary": "Reroll 1s and 2s on heavy swings",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Reroll 1s and 2s on damage dice with two-handed or versatile melee weapons."
+                  }
+                ]
+              },
+              {
+                "id": "interception",
+                "name": "Interception",
+                "summary": "Reaction damage reduction",
+                "grants": []
+              },
+              {
+                "id": "protection",
+                "name": "Protection",
+                "summary": "Reaction: disadvantage on an attack",
+                "grants": []
+              },
+              {
+                "id": "thrown-weapon-fighting",
+                "name": "Thrown Weapon Fighting",
+                "summary": "Draw freely and deal +2 damage",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "+2 damage with thrown weapons; draw a thrown weapon as part of the attack."
+                  }
+                ]
+              },
+              {
+                "id": "two-weapon-fighting",
+                "name": "Two-Weapon Fighting",
+                "summary": "Add ability mod to off-hand damage",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Add your ability modifier to the damage of the off-hand attack."
+                  }
+                ]
+              },
+              {
+                "id": "unarmed-fighting",
+                "name": "Unarmed Fighting",
+                "summary": "Improved unarmed damage and grapple pressure",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Unarmed strikes deal 1d6 (1d8 with free hands) + STR; 1d4 to a grappled creature each turn."
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "superior-critical",
+      "name": "Superior Critical",
+      "unlockLevel": 15,
+      "short": "Critical hit on 18 to 20.",
+      "summary": "Your weapon attacks score a critical hit on a roll of 18-20.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "survivor",
+      "name": "Survivor",
+      "unlockLevel": 18,
+      "short": "Regain 5 + CON HP each turn while below half.",
+      "summary": "At the start of each of your turns, you regain 5 + CON modifier hit points if you have no more than half your hit points left (and at least 1).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

@@ -1,0 +1,78 @@
+{
+  "id": "evocation",
+  "name": "School of Evocation",
+  "source": "Player's Handbook",
+  "summary": "Blasters who shape fire, lightning and force.",
+  "features": [
+    {
+      "id": "evocation-savant",
+      "name": "Evocation Savant",
+      "unlockLevel": 2,
+      "short": "Copy evocation spells for half the time and gold.",
+      "summary": "The gold and time you must spend to copy a evocation spell into your spellbook is halved.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "sculpt-spells",
+      "name": "Sculpt Spells",
+      "unlockLevel": 2,
+      "short": "Protect allies from your area evocation spells.",
+      "summary": "When you cast an evocation spell that affects other creatures you can see, you can choose a number of them equal to 1 + the spell's level: they automatically succeed on their saves and take no damage if they would take half.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "potent-cantrip",
+      "name": "Potent Cantrip",
+      "unlockLevel": 6,
+      "short": "Creatures that save against your cantrips still take half damage.",
+      "summary": "When a creature succeeds on a saving throw against your cantrip, it takes half the cantrip's damage (if any) but suffers no other effect.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "empowered-evocation",
+      "name": "Empowered Evocation",
+      "unlockLevel": 10,
+      "short": "Add INT to one damage roll of wizard evocation spells.",
+      "summary": "You can add your Intelligence modifier to one damage roll of any wizard evocation spell you cast.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "overchannel",
+      "name": "Overchannel",
+      "unlockLevel": 14,
+      "short": "Maximize damage of a 1st-5th level spell (painful when repeated).",
+      "summary": "When you cast a wizard spell of 1st through 5th level that deals damage, you can deal maximum damage. The first use per long rest is free; later uses before a rest deal necrotic damage to you that grows each time.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "overchannel",
+          "name": "Overchannel",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

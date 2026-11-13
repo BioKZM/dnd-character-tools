@@ -1,0 +1,96 @@
+{
+  "id": "chronurgy",
+  "name": "Chronurgy Magic",
+  "source": "Explorer's Guide to Wildemount",
+  "summary": "Wizards who manipulate time itself.",
+  "features": [
+    {
+      "id": "chronal-shift",
+      "name": "Chronal Shift",
+      "unlockLevel": 2,
+      "short": "Reaction: force a reroll on any roll you see.",
+      "summary": "When you or a creature you can see makes an attack roll, ability check or saving throw, you can use your reaction to force a reroll after seeing the result. Two uses per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "chronal-shift",
+          "name": "Chronal Shift",
+          "uses": 2,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "temporal-awareness",
+      "name": "Temporal Awareness",
+      "unlockLevel": 2,
+      "short": "Add INT to initiative.",
+      "summary": "You can add your Intelligence modifier to your initiative rolls.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "momentary-stasis",
+      "name": "Momentary Stasis",
+      "unlockLevel": 6,
+      "short": "Action: freeze a Large or smaller creature in time.",
+      "summary": "As an action, a Large or smaller creature within 60 ft. makes a CON save or is incapacitated with speed 0 until the end of your next turn or until it takes damage. Uses: INT modifier per long rest.",
+      "facts": {
+        "action": "Action",
+        "save": "CON",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "momentary-stasis",
+          "name": "Momentary Stasis",
+          "uses": "INT",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "arcane-abeyance",
+      "name": "Arcane Abeyance",
+      "unlockLevel": 10,
+      "short": "Store a 4th-level-or-lower spell in a bead for later.",
+      "summary": "When you cast a spell of 4th level or lower, you can condense it into a bead for 1 hour; a creature holding it can release the spell as an action using your spell DC and attack. Once per short or long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "arcane-abeyance",
+          "name": "Arcane Abeyance",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "convergent-future",
+      "name": "Convergent Future",
+      "unlockLevel": 14,
+      "short": "Reaction: decide whether a roll succeeds or fails, at a cost.",
+      "summary": "When you or a creature you can see makes a roll, you can use your reaction to decide it succeeds or fails instead. Each use gives you a level of exhaustion that only a long rest removes.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

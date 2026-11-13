@@ -1,0 +1,495 @@
+{
+  "id": "four-elements",
+  "name": "Way of the Four Elements",
+  "source": "Player's Handbook",
+  "summary": "Monks who bend fire, water, earth and air with ki.",
+  "features": [
+    {
+      "id": "disciple-of-the-elements",
+      "name": "Disciple of the Elements",
+      "unlockLevel": 3,
+      "short": "Learn elemental disciplines that spend ki on spell-like effects.",
+      "summary": "You know Elemental Attunement (minor elemental tricks) and one other discipline. You learn another at 6th, 11th and 17th level. Spell disciplines use your ki save DC; you can spend extra ki to raise the spell's level, up to a cap based on your level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Elemental Attunement: minor elemental effects at will (light a candle, chill a drink...)."
+        }
+      ],
+      "choices": [
+        {
+          "id": "four-elements-discipline-3",
+          "label": "Elemental Discipline",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "fangs-of-the-fire-snake",
+                "name": "Fangs of the Fire Snake",
+                "summary": "1 ki: your unarmed strikes reach 10 ft. this turn and deal fire; +1 ki for +1d10 fire.",
+                "grants": []
+              },
+              {
+                "id": "fist-of-four-thunders",
+                "name": "Fist of Four Thunders",
+                "summary": "2 ki: cast Thunderwave.",
+                "grants": []
+              },
+              {
+                "id": "fist-of-unbroken-air",
+                "name": "Fist of Unbroken Air",
+                "summary": "2+ ki: blast of air, 3d10 bludgeoning and push (STR save).",
+                "grants": []
+              },
+              {
+                "id": "rush-of-the-gale-spirits",
+                "name": "Rush of the Gale Spirits",
+                "summary": "2 ki: cast Gust of Wind.",
+                "grants": []
+              },
+              {
+                "id": "shape-the-flowing-river",
+                "name": "Shape the Flowing River",
+                "summary": "1 ki: reshape water and ice within 120 ft.",
+                "grants": []
+              },
+              {
+                "id": "sweeping-cinder-strike",
+                "name": "Sweeping Cinder Strike",
+                "summary": "2 ki: cast Burning Hands.",
+                "grants": []
+              },
+              {
+                "id": "water-whip",
+                "name": "Water Whip",
+                "summary": "2+ ki: 3d10 bludgeoning and pull or knock prone (DEX save).",
+                "grants": []
+              },
+              {
+                "id": "clench-of-the-north-wind",
+                "name": "Clench of the North Wind",
+                "summary": "3 ki: cast Hold Person.",
+                "grants": [],
+                "minLevel": 6
+              },
+              {
+                "id": "gong-of-the-summit",
+                "name": "Gong of the Summit",
+                "summary": "3 ki: cast Shatter.",
+                "grants": [],
+                "minLevel": 6
+              },
+              {
+                "id": "eternal-mountain-defense",
+                "name": "Eternal Mountain Defense",
+                "summary": "5 ki: cast Stoneskin on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "flames-of-the-phoenix",
+                "name": "Flames of the Phoenix",
+                "summary": "4 ki: cast Fireball.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "mist-stance",
+                "name": "Mist Stance",
+                "summary": "4 ki: cast Gaseous Form on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "ride-the-wind",
+                "name": "Ride the Wind",
+                "summary": "4 ki: cast Fly on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "breath-of-winter",
+                "name": "Breath of Winter",
+                "summary": "6 ki: cast Cone of Cold.",
+                "grants": [],
+                "minLevel": 17
+              },
+              {
+                "id": "river-of-hungry-flame",
+                "name": "River of Hungry Flame",
+                "summary": "5 ki: cast Wall of Fire.",
+                "grants": [],
+                "minLevel": 17
+              },
+              {
+                "id": "wave-of-rolling-earth",
+                "name": "Wave of Rolling Earth",
+                "summary": "6 ki: cast Wall of Stone.",
+                "grants": [],
+                "minLevel": 17
+              }
+            ]
+          }
+        },
+        {
+          "id": "four-elements-discipline-6",
+          "label": "Another discipline (6th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "fangs-of-the-fire-snake",
+                "name": "Fangs of the Fire Snake",
+                "summary": "1 ki: your unarmed strikes reach 10 ft. this turn and deal fire; +1 ki for +1d10 fire.",
+                "grants": []
+              },
+              {
+                "id": "fist-of-four-thunders",
+                "name": "Fist of Four Thunders",
+                "summary": "2 ki: cast Thunderwave.",
+                "grants": []
+              },
+              {
+                "id": "fist-of-unbroken-air",
+                "name": "Fist of Unbroken Air",
+                "summary": "2+ ki: blast of air, 3d10 bludgeoning and push (STR save).",
+                "grants": []
+              },
+              {
+                "id": "rush-of-the-gale-spirits",
+                "name": "Rush of the Gale Spirits",
+                "summary": "2 ki: cast Gust of Wind.",
+                "grants": []
+              },
+              {
+                "id": "shape-the-flowing-river",
+                "name": "Shape the Flowing River",
+                "summary": "1 ki: reshape water and ice within 120 ft.",
+                "grants": []
+              },
+              {
+                "id": "sweeping-cinder-strike",
+                "name": "Sweeping Cinder Strike",
+                "summary": "2 ki: cast Burning Hands.",
+                "grants": []
+              },
+              {
+                "id": "water-whip",
+                "name": "Water Whip",
+                "summary": "2+ ki: 3d10 bludgeoning and pull or knock prone (DEX save).",
+                "grants": []
+              },
+              {
+                "id": "clench-of-the-north-wind",
+                "name": "Clench of the North Wind",
+                "summary": "3 ki: cast Hold Person.",
+                "grants": [],
+                "minLevel": 6
+              },
+              {
+                "id": "gong-of-the-summit",
+                "name": "Gong of the Summit",
+                "summary": "3 ki: cast Shatter.",
+                "grants": [],
+                "minLevel": 6
+              },
+              {
+                "id": "eternal-mountain-defense",
+                "name": "Eternal Mountain Defense",
+                "summary": "5 ki: cast Stoneskin on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "flames-of-the-phoenix",
+                "name": "Flames of the Phoenix",
+                "summary": "4 ki: cast Fireball.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "mist-stance",
+                "name": "Mist Stance",
+                "summary": "4 ki: cast Gaseous Form on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "ride-the-wind",
+                "name": "Ride the Wind",
+                "summary": "4 ki: cast Fly on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "breath-of-winter",
+                "name": "Breath of Winter",
+                "summary": "6 ki: cast Cone of Cold.",
+                "grants": [],
+                "minLevel": 17
+              },
+              {
+                "id": "river-of-hungry-flame",
+                "name": "River of Hungry Flame",
+                "summary": "5 ki: cast Wall of Fire.",
+                "grants": [],
+                "minLevel": 17
+              },
+              {
+                "id": "wave-of-rolling-earth",
+                "name": "Wave of Rolling Earth",
+                "summary": "6 ki: cast Wall of Stone.",
+                "grants": [],
+                "minLevel": 17
+              }
+            ]
+          },
+          "minLevel": 6
+        },
+        {
+          "id": "four-elements-discipline-11",
+          "label": "Another discipline (11th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "fangs-of-the-fire-snake",
+                "name": "Fangs of the Fire Snake",
+                "summary": "1 ki: your unarmed strikes reach 10 ft. this turn and deal fire; +1 ki for +1d10 fire.",
+                "grants": []
+              },
+              {
+                "id": "fist-of-four-thunders",
+                "name": "Fist of Four Thunders",
+                "summary": "2 ki: cast Thunderwave.",
+                "grants": []
+              },
+              {
+                "id": "fist-of-unbroken-air",
+                "name": "Fist of Unbroken Air",
+                "summary": "2+ ki: blast of air, 3d10 bludgeoning and push (STR save).",
+                "grants": []
+              },
+              {
+                "id": "rush-of-the-gale-spirits",
+                "name": "Rush of the Gale Spirits",
+                "summary": "2 ki: cast Gust of Wind.",
+                "grants": []
+              },
+              {
+                "id": "shape-the-flowing-river",
+                "name": "Shape the Flowing River",
+                "summary": "1 ki: reshape water and ice within 120 ft.",
+                "grants": []
+              },
+              {
+                "id": "sweeping-cinder-strike",
+                "name": "Sweeping Cinder Strike",
+                "summary": "2 ki: cast Burning Hands.",
+                "grants": []
+              },
+              {
+                "id": "water-whip",
+                "name": "Water Whip",
+                "summary": "2+ ki: 3d10 bludgeoning and pull or knock prone (DEX save).",
+                "grants": []
+              },
+              {
+                "id": "clench-of-the-north-wind",
+                "name": "Clench of the North Wind",
+                "summary": "3 ki: cast Hold Person.",
+                "grants": [],
+                "minLevel": 6
+              },
+              {
+                "id": "gong-of-the-summit",
+                "name": "Gong of the Summit",
+                "summary": "3 ki: cast Shatter.",
+                "grants": [],
+                "minLevel": 6
+              },
+              {
+                "id": "eternal-mountain-defense",
+                "name": "Eternal Mountain Defense",
+                "summary": "5 ki: cast Stoneskin on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "flames-of-the-phoenix",
+                "name": "Flames of the Phoenix",
+                "summary": "4 ki: cast Fireball.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "mist-stance",
+                "name": "Mist Stance",
+                "summary": "4 ki: cast Gaseous Form on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "ride-the-wind",
+                "name": "Ride the Wind",
+                "summary": "4 ki: cast Fly on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "breath-of-winter",
+                "name": "Breath of Winter",
+                "summary": "6 ki: cast Cone of Cold.",
+                "grants": [],
+                "minLevel": 17
+              },
+              {
+                "id": "river-of-hungry-flame",
+                "name": "River of Hungry Flame",
+                "summary": "5 ki: cast Wall of Fire.",
+                "grants": [],
+                "minLevel": 17
+              },
+              {
+                "id": "wave-of-rolling-earth",
+                "name": "Wave of Rolling Earth",
+                "summary": "6 ki: cast Wall of Stone.",
+                "grants": [],
+                "minLevel": 17
+              }
+            ]
+          },
+          "minLevel": 11
+        },
+        {
+          "id": "four-elements-discipline-17",
+          "label": "Another discipline (17th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "fangs-of-the-fire-snake",
+                "name": "Fangs of the Fire Snake",
+                "summary": "1 ki: your unarmed strikes reach 10 ft. this turn and deal fire; +1 ki for +1d10 fire.",
+                "grants": []
+              },
+              {
+                "id": "fist-of-four-thunders",
+                "name": "Fist of Four Thunders",
+                "summary": "2 ki: cast Thunderwave.",
+                "grants": []
+              },
+              {
+                "id": "fist-of-unbroken-air",
+                "name": "Fist of Unbroken Air",
+                "summary": "2+ ki: blast of air, 3d10 bludgeoning and push (STR save).",
+                "grants": []
+              },
+              {
+                "id": "rush-of-the-gale-spirits",
+                "name": "Rush of the Gale Spirits",
+                "summary": "2 ki: cast Gust of Wind.",
+                "grants": []
+              },
+              {
+                "id": "shape-the-flowing-river",
+                "name": "Shape the Flowing River",
+                "summary": "1 ki: reshape water and ice within 120 ft.",
+                "grants": []
+              },
+              {
+                "id": "sweeping-cinder-strike",
+                "name": "Sweeping Cinder Strike",
+                "summary": "2 ki: cast Burning Hands.",
+                "grants": []
+              },
+              {
+                "id": "water-whip",
+                "name": "Water Whip",
+                "summary": "2+ ki: 3d10 bludgeoning and pull or knock prone (DEX save).",
+                "grants": []
+              },
+              {
+                "id": "clench-of-the-north-wind",
+                "name": "Clench of the North Wind",
+                "summary": "3 ki: cast Hold Person.",
+                "grants": [],
+                "minLevel": 6
+              },
+              {
+                "id": "gong-of-the-summit",
+                "name": "Gong of the Summit",
+                "summary": "3 ki: cast Shatter.",
+                "grants": [],
+                "minLevel": 6
+              },
+              {
+                "id": "eternal-mountain-defense",
+                "name": "Eternal Mountain Defense",
+                "summary": "5 ki: cast Stoneskin on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "flames-of-the-phoenix",
+                "name": "Flames of the Phoenix",
+                "summary": "4 ki: cast Fireball.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "mist-stance",
+                "name": "Mist Stance",
+                "summary": "4 ki: cast Gaseous Form on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "ride-the-wind",
+                "name": "Ride the Wind",
+                "summary": "4 ki: cast Fly on yourself.",
+                "grants": [],
+                "minLevel": 11
+              },
+              {
+                "id": "breath-of-winter",
+                "name": "Breath of Winter",
+                "summary": "6 ki: cast Cone of Cold.",
+                "grants": [],
+                "minLevel": 17
+              },
+              {
+                "id": "river-of-hungry-flame",
+                "name": "River of Hungry Flame",
+                "summary": "5 ki: cast Wall of Fire.",
+                "grants": [],
+                "minLevel": 17
+              },
+              {
+                "id": "wave-of-rolling-earth",
+                "name": "Wave of Rolling Earth",
+                "summary": "6 ki: cast Wall of Stone.",
+                "grants": [],
+                "minLevel": 17
+              }
+            ]
+          },
+          "minLevel": 17
+        }
+      ]
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

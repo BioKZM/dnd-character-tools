@@ -1,0 +1,519 @@
+{
+  "id": "arcane-trickster",
+  "name": "Arcane Trickster",
+  "source": "Player's Handbook",
+  "summary": "A rogue who adds enchantment and illusion magic to their tricks.",
+  "features": [
+    {
+      "id": "arcane-trickster-spellcasting",
+      "name": "Spellcasting",
+      "unlockLevel": 3,
+      "short": "Cast wizard spells, mostly enchantment and illusion, using INT.",
+      "summary": "You learn wizard cantrips and spells using Intelligence. Most of your spells must be enchantment or illusion; some picks can come from any school. Your spell slots grow as you level (the same table as the Eldritch Knight). Pick your spells below as they unlock.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "arcane-trickster-cantrips",
+          "label": "Wizard cantrips",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "level": 0
+            }
+          },
+          "grantUses": "at_will"
+        },
+        {
+          "id": "arcane-trickster-cantrip-10",
+          "label": "Another wizard cantrip (10th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "level": 0
+            }
+          },
+          "grantUses": "at_will",
+          "minLevel": 10
+        },
+        {
+          "id": "arcane-trickster-spell-1",
+          "label": "Enchantment or illusion spells (rogue 3, up to level 1)",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [
+                "enchantment",
+                "illusion"
+              ],
+              "maxLevel": 1,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known"
+        },
+        {
+          "id": "arcane-trickster-spell-2",
+          "label": "Spell from any school (rogue 3, up to level 1)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "maxLevel": 1,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known"
+        },
+        {
+          "id": "arcane-trickster-spell-3",
+          "label": "Enchantment or illusion spell (rogue 4, up to level 1)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [
+                "enchantment",
+                "illusion"
+              ],
+              "maxLevel": 1,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 4
+        },
+        {
+          "id": "arcane-trickster-spell-4",
+          "label": "Enchantment or illusion spell (rogue 7, up to level 2)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [
+                "enchantment",
+                "illusion"
+              ],
+              "maxLevel": 2,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 7
+        },
+        {
+          "id": "arcane-trickster-spell-5",
+          "label": "Spell from any school (rogue 8, up to level 2)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "maxLevel": 2,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 8
+        },
+        {
+          "id": "arcane-trickster-spell-6",
+          "label": "Enchantment or illusion spell (rogue 10, up to level 2)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [
+                "enchantment",
+                "illusion"
+              ],
+              "maxLevel": 2,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 10
+        },
+        {
+          "id": "arcane-trickster-spell-7",
+          "label": "Enchantment or illusion spell (rogue 11, up to level 2)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [
+                "enchantment",
+                "illusion"
+              ],
+              "maxLevel": 2,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 11
+        },
+        {
+          "id": "arcane-trickster-spell-8",
+          "label": "Enchantment or illusion spell (rogue 13, up to level 3)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [
+                "enchantment",
+                "illusion"
+              ],
+              "maxLevel": 3,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 13
+        },
+        {
+          "id": "arcane-trickster-spell-9",
+          "label": "Spell from any school (rogue 14, up to level 3)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "maxLevel": 3,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 14
+        },
+        {
+          "id": "arcane-trickster-spell-10",
+          "label": "Enchantment or illusion spell (rogue 16, up to level 3)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [
+                "enchantment",
+                "illusion"
+              ],
+              "maxLevel": 3,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 16
+        },
+        {
+          "id": "arcane-trickster-spell-11",
+          "label": "Enchantment or illusion spell (rogue 19, up to level 4)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [
+                "enchantment",
+                "illusion"
+              ],
+              "maxLevel": 4,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 19
+        },
+        {
+          "id": "arcane-trickster-spell-12",
+          "label": "Spell from any school (rogue 20, up to level 4)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "maxLevel": 4,
+              "minLevel": 1
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 20
+        }
+      ]
+    },
+    {
+      "id": "mage-hand-legerdemain",
+      "name": "Mage Hand Legerdemain",
+      "unlockLevel": 3,
+      "short": "Your invisible Mage Hand can pick pockets and locks.",
+      "summary": "You learn Mage Hand, and you can make the hand invisible. You can use it to stow or retrieve objects in someone's container, use thieves' tools at range, and control it with Cunning Action's bonus action.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "mage-hand",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "magical-ambush",
+      "name": "Magical Ambush",
+      "unlockLevel": 9,
+      "short": "Spells cast while hidden impose disadvantage on saves.",
+      "summary": "If you are hidden from a creature when you cast a spell on it, it has disadvantage on any saving throw against the spell this turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "versatile-trickster",
+      "name": "Versatile Trickster",
+      "unlockLevel": 13,
+      "short": "Bonus action: your Mage Hand gives you advantage.",
+      "summary": "As a bonus action, you can designate a creature within 5 ft. of your spectral hand; you have advantage on attack rolls against it until the end of the turn.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "spell-thief",
+      "name": "Spell Thief",
+      "unlockLevel": 17,
+      "short": "Reaction: steal knowledge of a spell cast at you.",
+      "summary": "When a creature casts a spell targeting you or including you in its area, you can use your reaction to force an INT/WIS/CHA save (its spellcasting ability). On a failure, you negate the spell's effect on you and steal its knowledge for 8 hours if it's of a level you can cast. Once per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "spell-thief",
+          "name": "Spell Thief",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": [],
+  "spellcasting": {
+    "progressionBands": [
+      {
+        "fromLevel": 3,
+        "toLevel": 3,
+        "cantripsKnown": 2,
+        "spellsKnown": 3,
+        "spellSlots": {
+          "1": 2
+        }
+      },
+      {
+        "fromLevel": 4,
+        "toLevel": 6,
+        "cantripsKnown": 2,
+        "spellsKnown": 4,
+        "spellSlots": {
+          "1": 3
+        }
+      },
+      {
+        "fromLevel": 7,
+        "toLevel": 7,
+        "cantripsKnown": 2,
+        "spellsKnown": 5,
+        "spellSlots": {
+          "1": 4,
+          "2": 2
+        }
+      },
+      {
+        "fromLevel": 8,
+        "toLevel": 9,
+        "cantripsKnown": 2,
+        "spellsKnown": 6,
+        "spellSlots": {
+          "1": 4,
+          "2": 2
+        }
+      },
+      {
+        "fromLevel": 10,
+        "toLevel": 10,
+        "cantripsKnown": 3,
+        "spellsKnown": 7,
+        "spellSlots": {
+          "1": 4,
+          "2": 3
+        }
+      },
+      {
+        "fromLevel": 11,
+        "toLevel": 12,
+        "cantripsKnown": 3,
+        "spellsKnown": 8,
+        "spellSlots": {
+          "1": 4,
+          "2": 3
+        }
+      },
+      {
+        "fromLevel": 13,
+        "toLevel": 13,
+        "cantripsKnown": 3,
+        "spellsKnown": 9,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 2
+        }
+      },
+      {
+        "fromLevel": 14,
+        "toLevel": 15,
+        "cantripsKnown": 3,
+        "spellsKnown": 10,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 2
+        }
+      },
+      {
+        "fromLevel": 16,
+        "toLevel": 18,
+        "cantripsKnown": 3,
+        "spellsKnown": 11,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 3
+        }
+      },
+      {
+        "fromLevel": 19,
+        "toLevel": 19,
+        "cantripsKnown": 3,
+        "spellsKnown": 12,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 3,
+          "4": 1
+        }
+      },
+      {
+        "fromLevel": 20,
+        "toLevel": 20,
+        "cantripsKnown": 3,
+        "spellsKnown": 13,
+        "spellSlots": {
+          "1": 4,
+          "2": 3,
+          "3": 3,
+          "4": 1
+        }
+      }
+    ],
+    "ability": "Intelligence",
+    "saveDcFormula": "8 + proficiency bonus + Intelligence modifier",
+    "attackModifierFormula": "proficiency bonus + Intelligence modifier",
+    "schoolFocus": [
+      "Enchantment",
+      "Illusion"
+    ],
+    "unrestrictedSpellLevels": [
+      3,
+      8,
+      14,
+      20
+    ],
+    "cantripsKnownByLevel": {},
+    "spellsKnownByLevel": {},
+    "notes": []
+  }
+}

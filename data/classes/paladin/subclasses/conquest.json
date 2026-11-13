@@ -1,0 +1,146 @@
+{
+  "id": "conquest",
+  "name": "Oath of Conquest",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Tyrants of the battlefield who rule through fear.",
+  "features": [
+    {
+      "id": "conquest-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "short": "Oath spells that are always prepared for free.",
+      "summary": "You always have your oath spells prepared once you reach the listed paladin levels. They don't count against the number of spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "conquering-presence",
+      "name": "Channel Divinity: Conquering Presence",
+      "unlockLevel": 3,
+      "short": "Frighten creatures within 30 ft.",
+      "summary": "As an action, each creature of your choice within 30 ft. makes a WIS save or is frightened of you for 1 minute, repeating the save each turn.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "conquest-guided-strike",
+      "name": "Channel Divinity: Guided Strike",
+      "unlockLevel": 3,
+      "short": "+10 to one attack roll.",
+      "summary": "When you make an attack roll, you can use Channel Divinity to gain a +10 bonus to it, after seeing the roll.",
+      "facts": {
+        "action": "Special",
+        "cost": "Channel Divinity"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "aura-of-conquest",
+      "name": "Aura of Conquest",
+      "unlockLevel": 7,
+      "short": "Frightened enemies near you can't move and take psychic damage.",
+      "summary": "A creature frightened of you has speed 0 while within 10 ft. of you and takes psychic damage equal to half your paladin level when it starts its turn there. The range becomes 30 ft. at 18th level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 7,
+          "label": "10 ft."
+        },
+        {
+          "level": 18,
+          "label": "30 ft."
+        }
+      ]
+    },
+    {
+      "id": "scornful-rebuke",
+      "name": "Scornful Rebuke",
+      "unlockLevel": 15,
+      "short": "Creatures that hit you take psychic damage equal to CHA.",
+      "summary": "Whenever a creature hits you with an attack, it takes psychic damage equal to your Charisma modifier (minimum 1), if you aren't incapacitated.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "invincible-conqueror",
+      "name": "Invincible Conqueror",
+      "unlockLevel": 20,
+      "short": "Resist all damage, extra attack and crits on 19-20.",
+      "summary": "As an action, for 1 minute you have resistance to all damage, can make an extra attack as part of the Attack action, and score critical hits on 19 or 20. Once per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "invincible-conqueror",
+          "name": "Invincible Conqueror",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Armor of Agathys",
+        "Command"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Hold Person",
+        "Spiritual Weapon"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Bestow Curse",
+        "Fear"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Dominate Beast",
+        "Stoneskin"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Cloudkill",
+        "Dominate Person"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

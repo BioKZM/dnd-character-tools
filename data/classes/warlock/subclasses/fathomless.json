@@ -1,0 +1,187 @@
+{
+  "id": "fathomless",
+  "name": "The Fathomless",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A pact with a power of the deep sea.",
+  "features": [
+    {
+      "id": "fathomless-expanded",
+      "name": "Expanded Spell List",
+      "unlockLevel": 1,
+      "short": "Water and storm spells join your warlock list.",
+      "summary": "The Fathomless adds these spells to the warlock spell list for you; learn them like other warlock spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "tentacle-of-the-deeps",
+      "name": "Tentacle of the Deeps",
+      "unlockLevel": 1,
+      "short": "Bonus action: summon a tentacle that lashes for 1d8 cold.",
+      "summary": "As a bonus action, summon a 10 ft. spectral tentacle within 60 ft. for 1 minute. When you summon it and as a bonus action later, it makes a melee spell attack: 1d8 cold damage (2d8 at 10th) and the target's speed drops by 10 ft. Uses: PB per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "tentacle-of-the-deeps",
+          "name": "Tentacle of the Deeps",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 1,
+          "label": "1d8"
+        },
+        {
+          "level": 10,
+          "label": "2d8"
+        }
+      ]
+    },
+    {
+      "id": "gift-of-the-sea",
+      "name": "Gift of the Sea",
+      "unlockLevel": 1,
+      "short": "Swim 40 ft. and breathe underwater.",
+      "summary": "You gain a swimming speed of 40 ft. and can breathe underwater.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "speed",
+          "mode": "swim",
+          "op": "set",
+          "value": 40
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "oceanic-soul",
+      "name": "Oceanic Soul",
+      "unlockLevel": 6,
+      "short": "Resist cold; talk to anything underwater.",
+      "summary": "You gain resistance to cold damage. While fully submerged, any creature also submerged can understand your speech and you can understand theirs.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "cold"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "guardian-coil",
+      "name": "Guardian Coil",
+      "unlockLevel": 6,
+      "short": "Reaction: your tentacle reduces damage to an ally.",
+      "summary": "When you or a creature within 10 ft. of your tentacle takes damage, you can use your reaction to reduce it by 1d8 (2d8 at 10th).",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "grasping-tentacles",
+      "name": "Grasping Tentacles",
+      "unlockLevel": 10,
+      "short": "Cast Evard's Black Tentacles once for free; damage can't break your concentration.",
+      "summary": "You learn Evard's Black Tentacles; it counts as a warlock spell and doesn't count against spells known. Once per long rest you can cast it without a slot, gaining temporary hit points equal to your warlock level, and damage can't break your concentration on it.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "evards-black-tentacles",
+          "uses": "known"
+        },
+        {
+          "type": "resource",
+          "id": "grasping-tentacles",
+          "name": "Grasping Tentacles",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "fathomless-plunge",
+      "name": "Fathomless Plunge",
+      "unlockLevel": 14,
+      "short": "Teleport yourself and allies to a body of water within 1 mile.",
+      "summary": "As an action, you and up to five willing creatures within 30 ft. teleport to a body of water you have seen within 1 mile. Once per short or long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "fathomless-plunge",
+          "name": "Fathomless Plunge",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Create or Destroy Water",
+        "Thunderwave"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Gust of Wind",
+        "Silence"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Lightning Bolt",
+        "Sleet Storm"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Control Water",
+        "Summon Elemental"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Bigby's Hand",
+        "Cone of Cold"
+      ],
+      "uses": "list"
+    }
+  ],
+  "notes": []
+}

@@ -821,7 +821,15 @@
   ],
   "subclassHeading": "Monastic Tradition",
   "subclasses": [
-    "kensei"
+    "astral-self",
+    "drunken-master",
+    "four-elements",
+    "kensei",
+    "long-death",
+    "mercy",
+    "open-hand",
+    "shadow",
+    "sun-soul"
   ],
   "notes": [
     "unearthed arcana rows were skipped",

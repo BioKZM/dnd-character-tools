@@ -639,7 +639,14 @@
   ],
   "subclassHeading": "Otherworldly Patron",
   "subclasses": [
-    "great-old-one"
+    "archfey",
+    "celestial",
+    "fathomless",
+    "fiend",
+    "genie",
+    "great-old-one",
+    "hexblade",
+    "undead"
   ],
   "notes": [
     "unearthed arcana rows were skipped",

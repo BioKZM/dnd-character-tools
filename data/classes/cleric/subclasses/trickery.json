@@ -1,0 +1,136 @@
+{
+  "id": "trickery",
+  "name": "Trickery Domain",
+  "source": "Player's Handbook",
+  "summary": "Clerics of trickster gods who deceive and confuse.",
+  "features": [
+    {
+      "id": "trickery-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "blessing-of-the-trickster",
+      "name": "Blessing of the Trickster",
+      "unlockLevel": 1,
+      "short": "Give a creature advantage on Stealth for an hour.",
+      "summary": "As an action, touch a willing creature other than yourself: it has advantage on Dexterity (Stealth) checks for 1 hour, or until you use this feature again.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "invoke-duplicity",
+      "name": "Channel Divinity: Invoke Duplicity",
+      "unlockLevel": 2,
+      "short": "Create an illusory duplicate you can cast spells through.",
+      "summary": "As an action, create an illusory duplicate of yourself within 30 ft. for 1 minute (concentration). You can move it as a bonus action, cast spells as though you were in its space, and you have advantage on attacks against creatures within 5 ft. of both you and it.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "duration": "1 minute"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "cloak-of-shadows",
+      "name": "Channel Divinity: Cloak of Shadows",
+      "unlockLevel": 6,
+      "short": "Turn invisible until your next turn.",
+      "summary": "As an action, you become invisible until the end of your next turn, or until you attack or cast a spell.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "trickery-divine-strike",
+      "name": "Divine Strike",
+      "unlockLevel": 8,
+      "short": "Once per turn, weapon hits deal +1d8 poison (2d8 at 14th).",
+      "summary": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 poison damage. At 14th level the extra damage becomes 2d8.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 8,
+          "label": "1d8"
+        },
+        {
+          "level": 14,
+          "label": "2d8"
+        }
+      ]
+    },
+    {
+      "id": "improved-duplicity",
+      "name": "Improved Duplicity",
+      "unlockLevel": 17,
+      "short": "Create up to four duplicates.",
+      "summary": "Invoke Duplicity creates up to four duplicates instead of one, and you can move any number of them with one bonus action.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Charm Person",
+        "Disguise Self"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Mirror Image",
+        "Pass without Trace"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Blink",
+        "Dispel Magic"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Dimension Door",
+        "Polymorph"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Dominate Person",
+        "Modify Memory"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

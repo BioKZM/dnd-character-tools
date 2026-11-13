@@ -1,0 +1,107 @@
+{
+  "id": "glamour",
+  "name": "College of Glamour",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Bards touched by the Feywild who beguile crowds with otherworldly grace.",
+  "features": [
+    {
+      "id": "mantle-of-inspiration",
+      "name": "Mantle of Inspiration",
+      "unlockLevel": 3,
+      "short": "Bonus action: allies gain temp HP and move without provoking.",
+      "summary": "As a bonus action, expend a Bardic Inspiration to grant up to CHA-modifier creatures within 60 ft. 5 temporary hit points (8 at 5th, 11 at 10th, 14 at 15th). Each can immediately use its reaction to move up to its speed without provoking opportunity attacks.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "1 Bardic Inspiration",
+        "range": "60 ft."
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "5 temp HP"
+        },
+        {
+          "level": 5,
+          "label": "8"
+        },
+        {
+          "level": 10,
+          "label": "11"
+        },
+        {
+          "level": 15,
+          "label": "14"
+        }
+      ]
+    },
+    {
+      "id": "enthralling-performance",
+      "name": "Enthralling Performance",
+      "unlockLevel": 3,
+      "short": "After a 1-minute performance, charm listeners.",
+      "summary": "If you perform for at least 1 minute, choose up to CHA-modifier humanoids who watched: each makes a WIS save or is charmed by you for 1 hour, idolizing you. Once per short or long rest.",
+      "facts": {
+        "action": "Passive",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "enthralling-performance",
+          "name": "Enthralling Performance",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "mantle-of-majesty",
+      "name": "Mantle of Majesty",
+      "unlockLevel": 6,
+      "short": "Bonus action: cast Command each turn for a minute.",
+      "summary": "As a bonus action, you cast Command without a slot and take on unearthly beauty for 1 minute (concentration). During it you can cast Command as a bonus action each turn without a slot; charmed creatures fail the save. Once per long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "duration": "1 minute"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "mantle-of-majesty",
+          "name": "Mantle of Majesty",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "unbreakable-majesty",
+      "name": "Unbreakable Majesty",
+      "unlockLevel": 14,
+      "short": "Attackers must save or pick another target.",
+      "summary": "As a bonus action, for 1 minute, a creature that attacks you for the first time on a turn makes a CHA save; on a failure it must choose a new target or lose the attack, and has disadvantage on saves against your spells. Once per short or long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "save": "CHA",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "unbreakable-majesty",
+          "name": "Unbreakable Majesty",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

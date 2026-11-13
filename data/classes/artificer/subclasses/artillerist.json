@@ -1,0 +1,143 @@
+{
+  "id": "artillerist",
+  "name": "Artillerist",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "An artificer specialized in hurling energy and building magical cannons.",
+  "features": [
+    {
+      "id": "artillerist-tools",
+      "name": "Tool Proficiency",
+      "unlockLevel": 3,
+      "short": "Proficiency with woodcarver's tools.",
+      "summary": "You gain proficiency with woodcarver's tools.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Woodcarver's Tools"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "artillerist-spells",
+      "name": "Artillerist Spells",
+      "unlockLevel": 3,
+      "short": "Blast spells that are always prepared.",
+      "summary": "You always have certain spells prepared after you reach particular levels in this class. They don't count against the number of artificer spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "eldritch-cannon",
+      "name": "Eldritch Cannon",
+      "unlockLevel": 3,
+      "short": "Create a small cannon: flamethrower, force ballista or protector.",
+      "summary": "As an action, you create a Small or Tiny eldritch cannon for 1 hour. Choose flamethrower (15 ft. cone, 2d8 fire, DEX save), force ballista (ranged spell attack, 2d8 force, push 5 ft.) or protector (1d8 + INT temp HP to creatures within 10 ft.). As a bonus action you make it act. Once per long rest for free, or by spending a spell slot.",
+      "facts": {
+        "action": "Action",
+        "save": "DEX",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "eldritch-cannon",
+          "name": "Eldritch Cannon",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "arcane-firearm",
+      "name": "Arcane Firearm",
+      "unlockLevel": 5,
+      "short": "Add 1d8 to one damage roll of your artificer spells.",
+      "summary": "You carve a wand, staff or rod into an arcane firearm. When you cast an artificer spell through it, add 1d8 to one of the spell's damage rolls.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "explosive-cannon",
+      "name": "Explosive Cannon",
+      "unlockLevel": 9,
+      "short": "Cannon damage +1d8; detonate it for 3d8 force.",
+      "summary": "Your cannon's damage rolls increase by 1d8. As an action, you can detonate it: each creature within 20 ft. makes a DEX save, taking 3d8 force damage on a failure, half on a success.",
+      "facts": {
+        "action": "Action",
+        "save": "DEX",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "fortified-position",
+      "name": "Fortified Position",
+      "unlockLevel": 15,
+      "short": "Run two cannons; allies near them get half cover.",
+      "summary": "You and your allies have half cover while within 10 ft. of a cannon you create. You can have two cannons at once, creating both with one action, and activate both with one bonus action.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Shield",
+        "Thunderwave"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Scorching Ray",
+        "Shatter"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Fireball",
+        "Wind Wall"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Ice Storm",
+        "Wall of Fire"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Cone of Cold",
+        "Wall of Force"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

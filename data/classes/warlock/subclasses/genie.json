@@ -1,0 +1,310 @@
+{
+  "id": "genie",
+  "name": "The Genie",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A pact with a noble genie, granting a vessel and elemental magic.",
+  "features": [
+    {
+      "id": "genie-expanded",
+      "name": "Expanded Spell List",
+      "unlockLevel": 1,
+      "short": "Choose your genie kind; its spells join your list.",
+      "summary": "Choose a kind of genie: dao, djinni, efreeti or marid. Its spells and the common genie spells are added to the warlock spell list for you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "genie-kind",
+          "label": "Genie kind",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "dao",
+                "name": "Dao",
+                "summary": "Bludgeoning resistance and Genie's Wrath damage; adds Sanctuary, Spike Growth, Meld into Stone, Stone Shape, Wall of Stone to your list.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "sanctuary",
+                    "uses": "list",
+                    "minLevel": 1
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "spike-growth",
+                    "uses": "list",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "meld-into-stone",
+                    "uses": "list",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "stone-shape",
+                    "uses": "list",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "wall-of-stone",
+                    "uses": "list",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "bludgeoning"
+                  }
+                ]
+              },
+              {
+                "id": "djinni",
+                "name": "Djinni",
+                "summary": "Thunder resistance and Genie's Wrath damage; adds Thunderwave, Gust of Wind, Wind Wall, Greater Invisibility, Seeming to your list.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "thunderwave",
+                    "uses": "list",
+                    "minLevel": 1
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "gust-of-wind",
+                    "uses": "list",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "wind-wall",
+                    "uses": "list",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "greater-invisibility",
+                    "uses": "list",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "seeming",
+                    "uses": "list",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "thunder"
+                  }
+                ]
+              },
+              {
+                "id": "efreeti",
+                "name": "Efreeti",
+                "summary": "Fire resistance and Genie's Wrath damage; adds Burning Hands, Scorching Ray, Fireball, Fire Shield, Flame Strike to your list.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "burning-hands",
+                    "uses": "list",
+                    "minLevel": 1
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "scorching-ray",
+                    "uses": "list",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "fireball",
+                    "uses": "list",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "fire-shield",
+                    "uses": "list",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "flame-strike",
+                    "uses": "list",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "fire"
+                  }
+                ]
+              },
+              {
+                "id": "marid",
+                "name": "Marid",
+                "summary": "Cold resistance and Genie's Wrath damage; adds Fog Cloud, Blur, Sleet Storm, Control Water, Cone of Cold to your list.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "fog-cloud",
+                    "uses": "list",
+                    "minLevel": 1
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "blur",
+                    "uses": "list",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "sleet-storm",
+                    "uses": "list",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "control-water",
+                    "uses": "list",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "cone-of-cold",
+                    "uses": "list",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "cold"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "genies-vessel",
+      "name": "Genie's Vessel",
+      "unlockLevel": 1,
+      "short": "A vessel you can rest inside; once per turn add PB damage.",
+      "summary": "Your patron gives you a magical vessel (your focus). Bottled Respite: as an action, vanish into it for up to twice your PB in hours (once per long rest). Genie's Wrath: once per turn on a hit, deal extra damage equal to your proficiency bonus of your genie's type.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "bottled-respite",
+          "name": "Bottled Respite",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "elemental-gift",
+      "name": "Elemental Gift",
+      "unlockLevel": 6,
+      "short": "Resistance by genie kind; bonus action flight for 10 minutes.",
+      "summary": "You gain resistance to your genie's damage type. As a bonus action, you can gain a 30 ft. flying speed with hover for 10 minutes. Uses: PB per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "elemental-gift",
+          "name": "Elemental Gift (flight)",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "sanctuary-vessel",
+      "name": "Sanctuary Vessel",
+      "unlockLevel": 10,
+      "short": "Bring allies into your vessel; resting inside heals more.",
+      "summary": "When you enter your vessel, you can bring up to five willing creatures within 30 ft. A creature that stays inside for 10 minutes gains the benefit of a short rest and extra healing.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "limited-wish",
+      "name": "Limited Wish",
+      "unlockLevel": 14,
+      "short": "Cast any 6th-level-or-lower spell with a 1-action casting time.",
+      "summary": "As an action, you can entreat your patron to grant the effect of any spell of 6th level or lower from any class with a casting time of 1 action, without components. You can't do this again until you finish 1d4 long rests.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "limited-wish",
+          "name": "Limited Wish",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Detect Evil and Good"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Phantasmal Force"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Create Food and Water"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Phantasmal Killer"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Creation"
+      ],
+      "uses": "list"
+    }
+  ],
+  "notes": []
+}

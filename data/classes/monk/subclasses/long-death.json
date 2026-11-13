@@ -1,0 +1,64 @@
+{
+  "id": "long-death",
+  "name": "Way of the Long Death",
+  "source": "Sword Coast Adventurer's Guide",
+  "summary": "Monks obsessed with the mechanics of dying.",
+  "features": [
+    {
+      "id": "touch-of-death",
+      "name": "Touch of Death",
+      "unlockLevel": 3,
+      "short": "Gain temp HP when you drop a creature to 0.",
+      "summary": "When you reduce a creature within 5 ft. to 0 hit points, you gain temporary hit points equal to your Wisdom modifier + monk level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "hour-of-reaping",
+      "name": "Hour of Reaping",
+      "unlockLevel": 6,
+      "short": "Action: frighten every creature within 30 ft.",
+      "summary": "As an action, each creature within 30 ft. that can see you makes a WIS save or is frightened of you until the end of your next turn.",
+      "facts": {
+        "action": "Action",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "ki"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "mastery-of-death",
+      "name": "Mastery of Death",
+      "unlockLevel": 11,
+      "short": "Spend 1 ki to drop to 1 HP instead of 0.",
+      "summary": "When you are reduced to 0 hit points, you can spend 1 ki point to have 1 hit point instead.",
+      "facts": {
+        "action": "Passive",
+        "cost": "1 ki"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "touch-of-the-long-death",
+      "name": "Touch of the Long Death",
+      "unlockLevel": 17,
+      "short": "Spend up to 10 ki for 2d10 necrotic per point.",
+      "summary": "As an action, touch a creature and spend 1 to 10 ki points. It makes a CON save, taking 2d10 necrotic damage per ki point on a failure, half on a success.",
+      "facts": {
+        "action": "Action",
+        "save": "CON",
+        "dc": "ki"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

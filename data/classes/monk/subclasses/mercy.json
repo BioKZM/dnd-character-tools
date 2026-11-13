@@ -1,0 +1,117 @@
+{
+  "id": "mercy",
+  "name": "Way of Mercy",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Masked monks who heal with one hand and harm with the other.",
+  "features": [
+    {
+      "id": "implements-of-mercy",
+      "name": "Implements of Mercy",
+      "unlockLevel": 3,
+      "short": "Insight, Medicine and the herbalism kit.",
+      "summary": "You gain proficiency in Insight and Medicine and with the herbalism kit.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "skill",
+          "values": [
+            "insight",
+            "medicine"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Herbalism Kit"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "hand-of-healing",
+      "name": "Hand of Healing",
+      "unlockLevel": 3,
+      "short": "Spend 1 ki to heal a Martial Arts die + WIS.",
+      "summary": "As an action, spend 1 ki to touch a creature and restore hit points equal to a roll of your Martial Arts die + WIS. You can replace one Flurry of Blows strike with this, without spending the ki.",
+      "facts": {
+        "action": "Action",
+        "cost": "1 ki"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "hand-of-harm",
+      "name": "Hand of Harm",
+      "unlockLevel": 3,
+      "short": "Spend 1 ki on a hit for extra necrotic damage.",
+      "summary": "When you hit with an unarmed strike, you can spend 1 ki to deal extra necrotic damage equal to your Martial Arts die + WIS. Once per turn.",
+      "facts": {
+        "action": "Passive",
+        "cost": "1 ki"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "physicians-touch",
+      "name": "Physician's Touch",
+      "unlockLevel": 6,
+      "short": "Healing also cures; harm also poisons.",
+      "summary": "Hand of Healing can also end one disease or the blinded, deafened, paralyzed, poisoned or stunned condition. Hand of Harm can also poison the target until the end of your next turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "flurry-of-healing-and-harm",
+      "name": "Flurry of Healing and Harm",
+      "unlockLevel": 11,
+      "short": "Free Hand of Healing in Flurry; free Hand of Harm once per turn.",
+      "summary": "You can replace each Flurry of Blows strike with Hand of Healing without spending ki, and use Hand of Harm with a Flurry strike without ki, once per turn. Free uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "flurry-of-healing-and-harm",
+          "name": "Free Healing/Harm",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "hand-of-ultimate-mercy",
+      "name": "Hand of Ultimate Mercy",
+      "unlockLevel": 17,
+      "short": "Spend 5 ki to bring back a creature that died within 24 hours.",
+      "summary": "As an action, spend 5 ki to touch a creature that died within the last 24 hours. It returns to life with 4d10 + WIS hit points, cured of most conditions. Once per long rest.",
+      "facts": {
+        "action": "Action",
+        "cost": "5 ki"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "hand-of-ultimate-mercy",
+          "name": "Hand of Ultimate Mercy",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

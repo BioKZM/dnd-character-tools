@@ -1,0 +1,66 @@
+{
+  "id": "astral-self",
+  "name": "Way of the Astral Self",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Monks who summon spectral arms and a visage of their astral self.",
+  "features": [
+    {
+      "id": "arms-of-the-astral-self",
+      "name": "Arms of the Astral Self",
+      "unlockLevel": 3,
+      "short": "Spend 1 ki to summon spectral arms that strike with WIS.",
+      "summary": "As a bonus action, spend 1 ki to summon astral arms for 10 minutes. Creatures within 10 ft. make a DEX save or take two Martial Arts dice of force damage. The arms have 10 ft. reach, use WIS for attacks and damage, deal force damage, and let you use WIS for STR checks and saves.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "1 ki",
+        "save": "DEX",
+        "dc": "ki",
+        "duration": "10 minutes"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "visage-of-the-astral-self",
+      "name": "Visage of the Astral Self",
+      "unlockLevel": 6,
+      "short": "Spend 1 ki for a mask: darkvision 120 ft. and booming voice.",
+      "summary": "As a bonus action, spend 1 ki to summon an astral visage for 10 minutes: you see normally in darkness out to 120 ft., gain advantage on Insight and Intimidation, and can whisper or boom your voice.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "1 ki",
+        "duration": "10 minutes"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "body-of-the-astral-self",
+      "name": "Body of the Astral Self",
+      "unlockLevel": 11,
+      "short": "With arms and visage active, deflect damage and hit harder.",
+      "summary": "While both your arms and visage are summoned, you can use your reaction to reduce acid, cold, fire, force, lightning or thunder damage by 1d10 + WIS, and once per turn your arms deal an extra Martial Arts die of damage.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "awakened-astral-self",
+      "name": "Awakened Astral Self",
+      "unlockLevel": 17,
+      "short": "Spend 5 ki for full astral armor: +2 AC and three arm attacks.",
+      "summary": "As a bonus action, spend 5 ki to summon arms, visage and armor for 10 minutes: +2 AC, and when you take the Attack action you can make three attacks with your astral arms.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "5 ki",
+        "duration": "10 minutes"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

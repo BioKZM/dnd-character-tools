@@ -1,0 +1,79 @@
+{
+  "id": "assassin",
+  "name": "Assassin",
+  "source": "Player's Handbook",
+  "summary": "A killer for hire who strikes before the fight begins.",
+  "features": [
+    {
+      "id": "assassin-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 3,
+      "short": "Disguise kit and poisoner's kit.",
+      "summary": "You gain proficiency with the disguise kit and the poisoner's kit.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Disguise Kit",
+            "Poisoner's Kit"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "assassinate",
+      "name": "Assassinate",
+      "unlockLevel": 3,
+      "short": "Advantage against creatures that haven't acted; surprise hits crit.",
+      "summary": "You have advantage on attack rolls against any creature that hasn't taken a turn in the combat yet. Any hit you score against a surprised creature is a critical hit.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "infiltration-expertise",
+      "name": "Infiltration Expertise",
+      "unlockLevel": 9,
+      "short": "Spend a week and 25 gp to build a false identity.",
+      "summary": "You can spend seven days and 25 gp to establish a false identity with documentation, acquaintances and disguises.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "impostor",
+      "name": "Impostor",
+      "unlockLevel": 13,
+      "short": "Mimic someone's speech, writing and behavior.",
+      "summary": "After studying a person's speech, handwriting and behavior for at least 3 hours, you can unerringly mimic them; casual observers can't see through it, and wary ones check against your Deception with disadvantage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "death-strike",
+      "name": "Death Strike",
+      "unlockLevel": 17,
+      "short": "Surprised targets take double damage (CON save).",
+      "summary": "When you attack and hit a surprised creature, it must make a CON save (DC 8 + DEX + PB). On a failure, double the damage of your attack.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

@@ -1,0 +1,231 @@
+{
+  "id": "arcana",
+  "name": "Arcana Domain",
+  "source": "Sword Coast Adventurer's Guide",
+  "summary": "Clerics of magic itself who blend divine and arcane power.",
+  "features": [
+    {
+      "id": "arcana-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "arcane-initiate",
+      "name": "Arcane Initiate",
+      "unlockLevel": 1,
+      "short": "Arcana proficiency and two wizard cantrips.",
+      "summary": "You gain proficiency in Arcana and learn two wizard cantrips, which count as cleric cantrips for you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "skill",
+          "values": [
+            "arcana"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "arcana-wizard-cantrips",
+          "label": "Two wizard cantrips",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "level": 0
+            }
+          },
+          "grantUses": "at_will"
+        }
+      ]
+    },
+    {
+      "id": "arcane-abjuration",
+      "name": "Channel Divinity: Arcane Abjuration",
+      "unlockLevel": 2,
+      "short": "Turn a celestial, elemental, fey or fiend; later banish it.",
+      "summary": "As an action, a celestial, elemental, fey or fiend within 30 ft. makes a WIS save or is turned for 1 minute. From 5th level, low-CR creatures are banished for 1 minute instead.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "spell-breaker",
+      "name": "Spell Breaker",
+      "unlockLevel": 6,
+      "short": "Healing an ally also ends a spell on them.",
+      "summary": "When you restore hit points to an ally with a spell of 1st level or higher, you can also end one spell of your choice on that creature of a level no higher than the slot you used.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "arcana-potent-spellcasting",
+      "name": "Potent Spellcasting",
+      "unlockLevel": 8,
+      "short": "Add WIS to cleric cantrip damage.",
+      "summary": "You add your Wisdom modifier to the damage you deal with any cleric cantrip.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "arcane-mastery",
+      "name": "Arcane Mastery",
+      "unlockLevel": 17,
+      "short": "Add one wizard spell of each level 6 to 9 as domain spells.",
+      "summary": "You choose four wizard spells, one each of 6th, 7th, 8th and 9th level. You always have them prepared as domain spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "arcana-mastery-6",
+          "label": "Wizard spell, level 6",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "level": 6
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 17
+        },
+        {
+          "id": "arcana-mastery-7",
+          "label": "Wizard spell, level 7",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "level": 7
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 17
+        },
+        {
+          "id": "arcana-mastery-8",
+          "label": "Wizard spell, level 8",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "level": 8
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 17
+        },
+        {
+          "id": "arcana-mastery-9",
+          "label": "Wizard spell, level 9",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Wizard"
+              ],
+              "schools": [],
+              "level": 9
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 17
+        }
+      ]
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Detect Magic",
+        "Magic Missile"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Magic Weapon",
+        "Nystul's Magic Aura"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Dispel Magic",
+        "Magic Circle"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Arcane Eye",
+        "Leomund's Secret Chest"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Planar Binding",
+        "Teleportation Circle"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

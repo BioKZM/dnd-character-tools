@@ -330,6 +330,10 @@ export function resolveResourceUses(
     return Math.max(1, context.modifiers[token as AbilityId]);
   }
   // "5*LEVEL" (Lay on Hands havuzu), "1+CHA" (Divine Sense), "HALF_LEVEL".
+  const pbMultiple = token.match(/^(\d+)\s*\*\s*PB$/);
+  if (pbMultiple) {
+    return Number(pbMultiple[1]) * context.proficiencyBonus;
+  }
   const multiple = token.match(/^(\d+)\s*\*\s*LEVEL$/);
   if (multiple) {
     return Number(multiple[1]) * context.level;

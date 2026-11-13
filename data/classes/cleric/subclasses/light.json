@@ -1,0 +1,155 @@
+{
+  "id": "light",
+  "name": "Light Domain",
+  "source": "Player's Handbook",
+  "summary": "Clerics of sun and fire who burn away darkness.",
+  "features": [
+    {
+      "id": "light-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "light-bonus-cantrip",
+      "name": "Bonus Cantrip",
+      "unlockLevel": 1,
+      "short": "Learn the Light cantrip.",
+      "summary": "You gain the Light cantrip if you don't already know it.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "light",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "warding-flare",
+      "name": "Warding Flare",
+      "unlockLevel": 1,
+      "short": "Reaction: impose disadvantage on an attack against you.",
+      "summary": "When a creature within 30 ft. attacks you, you can use your reaction to impose disadvantage on the attack roll with a flash of light (creatures that can't be blinded are immune). Uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Reaction",
+        "range": "30 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "warding-flare",
+          "name": "Warding Flare",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "radiance-of-the-dawn",
+      "name": "Channel Divinity: Radiance of the Dawn",
+      "unlockLevel": 2,
+      "short": "Dispel magical darkness; 2d10 + level radiant in 30 ft.",
+      "summary": "As an action, dispel magical darkness within 30 ft. Each hostile creature within 30 ft. makes a CON save, taking 2d10 + your cleric level radiant damage on a failure, half on a success.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "CON",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "improved-flare",
+      "name": "Improved Flare",
+      "unlockLevel": 6,
+      "short": "Warding Flare can protect allies too.",
+      "summary": "You can use Warding Flare when a creature within 30 ft. attacks a creature other than you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "light-potent-spellcasting",
+      "name": "Potent Spellcasting",
+      "unlockLevel": 8,
+      "short": "Add WIS to cleric cantrip damage.",
+      "summary": "You add your Wisdom modifier to the damage you deal with any cleric cantrip.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "corona-of-light",
+      "name": "Corona of Light",
+      "unlockLevel": 17,
+      "short": "Bright aura: enemies have disadvantage against fire and radiant spells.",
+      "summary": "As an action, you emit bright light in a 60 ft. radius for 1 minute. Enemies in it have disadvantage on saves against spells that deal fire or radiant damage.",
+      "facts": {
+        "action": "Action",
+        "duration": "1 minute"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Burning Hands",
+        "Faerie Fire"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Flaming Sphere",
+        "Scorching Ray"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Daylight",
+        "Fireball"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Guardian of Faith",
+        "Wall of Fire"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Flame Strike",
+        "Scrying"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

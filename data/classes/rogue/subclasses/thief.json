@@ -1,0 +1,70 @@
+{
+  "id": "thief",
+  "name": "Thief",
+  "source": "Player's Handbook",
+  "summary": "A burglar and treasure hunter with quick hands.",
+  "features": [
+    {
+      "id": "fast-hands",
+      "name": "Fast Hands",
+      "unlockLevel": 3,
+      "short": "Bonus action: Sleight of Hand, thieves' tools or Use an Object.",
+      "summary": "You can use the bonus action granted by Cunning Action to make a Dexterity (Sleight of Hand) check, use thieves' tools to disarm a trap or open a lock, or take the Use an Object action.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "second-story-work",
+      "name": "Second-Story Work",
+      "unlockLevel": 3,
+      "short": "Climb at full speed; longer running jumps.",
+      "summary": "Climbing costs you no extra movement, and your running jump distance increases by feet equal to your Dexterity modifier.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "supreme-sneak",
+      "name": "Supreme Sneak",
+      "unlockLevel": 9,
+      "short": "Advantage on Stealth if you move at half speed.",
+      "summary": "You have advantage on Dexterity (Stealth) checks if you move no more than half your speed on that turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "use-magic-device",
+      "name": "Use Magic Device",
+      "unlockLevel": 13,
+      "short": "Ignore class, race and level requirements on magic items.",
+      "summary": "You ignore all class, race and level requirements on the use of magic items.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "thiefs-reflexes",
+      "name": "Thief's Reflexes",
+      "unlockLevel": 17,
+      "short": "Take two turns in the first round of combat.",
+      "summary": "You can take two turns during the first round of any combat: your first at your normal initiative and your second at your initiative minus 10.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

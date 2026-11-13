@@ -604,7 +604,16 @@
     }
   ],
   "subclassHeading": "Primal Path",
-  "subclasses": [],
+  "subclasses": [
+    "ancestral-guardian",
+    "battlerager",
+    "beast",
+    "berserker",
+    "storm-herald",
+    "totem-warrior",
+    "wild-magic",
+    "zealot"
+  ],
   "highlights": [
     {
       "title": "Combat Role",

@@ -841,7 +841,15 @@
     }
   ],
   "subclassHeading": "Sorcerous Origin",
-  "subclasses": [],
+  "subclasses": [
+    "aberrant-mind",
+    "clockwork-soul",
+    "divine-soul",
+    "draconic",
+    "shadow",
+    "storm",
+    "wild-magic"
+  ],
   "highlights": [
     {
       "title": "Combat Role",

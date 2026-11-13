@@ -1,0 +1,129 @@
+{
+  "id": "cavalier",
+  "name": "Cavalier",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A mounted defender who marks foes and protects allies.",
+  "features": [
+    {
+      "id": "cavalier-proficiency",
+      "name": "Bonus Proficiency",
+      "unlockLevel": 3,
+      "short": "One of Animal Handling, History, Insight, Performance or Persuasion.",
+      "summary": "You gain proficiency in one of the listed skills (or one language).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "cavalier-skill",
+          "label": "Skill",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "animal-handling",
+              "history",
+              "insight",
+              "performance",
+              "persuasion"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "born-to-the-saddle",
+      "name": "Born to the Saddle",
+      "unlockLevel": 3,
+      "short": "Mount and dismount cheaply; hard to knock off.",
+      "summary": "You have advantage on saves to avoid falling off your mount, land on your feet if you fall less than 10 ft., and mounting or dismounting costs only 5 ft. of movement.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "unwavering-mark",
+      "name": "Unwavering Mark",
+      "unlockLevel": 3,
+      "short": "Mark a creature you hit; punish it for attacking others.",
+      "summary": "When you hit with a melee weapon, you mark the target until the end of your next turn. It has disadvantage attacking anyone but you; if it damages someone else, you can make a bonus-action attack against it with advantage and extra damage equal to half your level. Bonus attack uses: STR modifier per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "unwavering-mark",
+          "name": "Unwavering Mark",
+          "uses": "STR",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "warding-maneuver",
+      "name": "Warding Maneuver",
+      "unlockLevel": 7,
+      "short": "Reaction: +1d8 AC to an ally, resistance if still hit.",
+      "summary": "When you or a creature within 5 ft. is hit, you can use your reaction to add 1d8 to the target's AC; if the attack still hits, the target has resistance to its damage. Uses: CON modifier per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "warding-maneuver",
+          "name": "Warding Maneuver",
+          "uses": "CON",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "hold-the-line",
+      "name": "Hold the Line",
+      "unlockLevel": 10,
+      "short": "Opportunity attacks when foes move near you; hits stop them.",
+      "summary": "Creatures provoke opportunity attacks from you when they move 5 ft. or more within your reach, and a hit reduces the creature's speed to 0 until the end of the turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "ferocious-charger",
+      "name": "Ferocious Charger",
+      "unlockLevel": 15,
+      "short": "Charge 10 ft. and knock targets prone.",
+      "summary": "If you move at least 10 ft. in a straight line before hitting a creature, it must make a STR save or be knocked prone. Once per turn.",
+      "facts": {
+        "action": "Passive",
+        "save": "STR"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "vigilant-defender",
+      "name": "Vigilant Defender",
+      "unlockLevel": 18,
+      "short": "A special reaction on every other creature's turn.",
+      "summary": "You can make one opportunity attack on every turn except your own, without using your reaction.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

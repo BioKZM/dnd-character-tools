@@ -1,0 +1,141 @@
+{
+  "id": "undead",
+  "name": "The Undead",
+  "source": "Van Richten's Guide to Ravenloft",
+  "summary": "A pact with a deathless being that grants a dreadful form.",
+  "features": [
+    {
+      "id": "undead-expanded",
+      "name": "Expanded Spell List",
+      "unlockLevel": 1,
+      "short": "Death-themed spells join your warlock list.",
+      "summary": "The Undead adds these spells to the warlock spell list for you; learn them like other warlock spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "form-of-dread",
+      "name": "Form of Dread",
+      "unlockLevel": 1,
+      "short": "Bonus action: temp HP, immune to fear, and frightening hits.",
+      "summary": "As a bonus action, you transform for 1 minute: gain 1d10 + warlock level temporary hit points, can't be frightened, and once per turn a creature you hit with an attack must make a WIS save or be frightened of you until the end of your next turn. Uses: PB per long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "duration": "1 minute"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "form-of-dread",
+          "name": "Form of Dread",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "grave-touched",
+      "name": "Grave Touched",
+      "unlockLevel": 6,
+      "short": "No need to eat, drink or breathe; necrotic damage and +1 die in dread form.",
+      "summary": "You don't need to eat, drink or breathe. Once per turn when you hit with an attack, you can change its damage to necrotic; in your Form of Dread you also roll one extra damage die.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "necrotic-husk",
+      "name": "Necrotic Husk",
+      "unlockLevel": 10,
+      "short": "Resist necrotic; once per long rest, survive dropping to 0 HP.",
+      "summary": "You have resistance to necrotic damage (immunity while in Form of Dread). When you drop to 0 hit points, you can drop to 1 instead and deal 2d10 + warlock level necrotic damage to creatures within 30 ft. Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "necrotic"
+        },
+        {
+          "type": "resource",
+          "id": "necrotic-husk",
+          "name": "Necrotic Husk",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "spirit-projection",
+      "name": "Spirit Projection",
+      "unlockLevel": 14,
+      "short": "Project your spirit for an hour with special benefits.",
+      "summary": "As an action, your spirit leaves your body for up to 1 hour (concentration): it has resistance to physical damage, can cast conjuration and necromancy spells without components, and can fly at your speed. Once per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "spirit-projection",
+          "name": "Spirit Projection",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Bane",
+        "False Life"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Blindness/Deafness",
+        "Phantasmal Force"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Phantom Steed",
+        "Speak with Dead"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Death Ward",
+        "Greater Invisibility"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Antilife Shell",
+        "Cloudkill"
+      ],
+      "uses": "list"
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,178 @@
+{
+  "id": "fey-wanderer",
+  "name": "Fey Wanderer",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A ranger touched by the Feywild who beguiles and confounds.",
+  "features": [
+    {
+      "id": "fey-wanderer-magic",
+      "name": "Fey Wanderer Magic",
+      "unlockLevel": 3,
+      "short": "Extra ranger spells you always know.",
+      "summary": "You learn an additional spell at the listed ranger levels. They count as ranger spells for you but don't count against the number of ranger spells you know.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "dreadful-strikes",
+      "name": "Dreadful Strikes",
+      "unlockLevel": 3,
+      "short": "Once per turn per creature, +1d4 psychic (1d6 at 11th).",
+      "summary": "When you hit a creature with a weapon, you can deal an extra 1d4 psychic damage, once per turn per creature. At 11th level this becomes 1d6.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "1d4"
+        },
+        {
+          "level": 11,
+          "label": "1d6"
+        }
+      ]
+    },
+    {
+      "id": "otherworldly-glamour",
+      "name": "Otherworldly Glamour",
+      "unlockLevel": 3,
+      "short": "Add WIS to CHA checks; one social skill.",
+      "summary": "Whenever you make a Charisma check, you gain a bonus equal to your Wisdom modifier (minimum +1). You gain proficiency in Deception, Performance or Persuasion.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "fey-wanderer-skill",
+          "label": "Deception, Performance or Persuasion",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "deception",
+              "performance",
+              "persuasion"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "beguiling-twist",
+      "name": "Beguiling Twist",
+      "unlockLevel": 7,
+      "short": "Advantage against charm and fear; redirect them to others.",
+      "summary": "You have advantage on saves against being charmed or frightened. When you or a creature within 120 ft. succeeds on such a save, you can use your reaction to force another creature within 120 ft. to make a WIS save or be charmed or frightened by you for 1 minute.",
+      "facts": {
+        "action": "Reaction",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "save_advantage",
+          "against": "charmed"
+        },
+        {
+          "type": "defense",
+          "kind": "save_advantage",
+          "against": "frightened"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "fey-reinforcements",
+      "name": "Fey Reinforcements",
+      "unlockLevel": 11,
+      "short": "Cast Summon Fey once per long rest without a slot.",
+      "summary": "You always know Summon Fey and can cast it once per long rest without a slot or material components, optionally without concentration (lasting 1 minute).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "summon-fey",
+          "uses": "known"
+        },
+        {
+          "type": "resource",
+          "id": "fey-reinforcements",
+          "name": "Fey Reinforcements",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "misty-wanderer",
+      "name": "Misty Wanderer",
+      "unlockLevel": 15,
+      "short": "Cast Misty Step for free and bring an ally along.",
+      "summary": "You can cast Misty Step without a slot WIS-modifier times per long rest, and bring one willing creature within 5 ft. with you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "misty-wanderer",
+          "name": "Misty Wanderer",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Charm Person"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Misty Step"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Dispel Magic"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Dimension Door"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Mislead"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

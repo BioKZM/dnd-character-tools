@@ -1,0 +1,156 @@
+{
+  "id": "hexblade",
+  "name": "The Hexblade",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A pact with a sentient weapon from the Shadowfell; a melee warlock.",
+  "features": [
+    {
+      "id": "hexblade-expanded",
+      "name": "Expanded Spell List",
+      "unlockLevel": 1,
+      "short": "Smites and battle spells join your warlock list.",
+      "summary": "The Hexblade adds these spells to the warlock spell list for you; learn them like other warlock spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "hexblades-curse",
+      "name": "Hexblade's Curse",
+      "unlockLevel": 1,
+      "short": "Bonus action: curse a target for bonus damage and crits on 19-20.",
+      "summary": "As a bonus action, curse a creature within 30 ft. for 1 minute: add your proficiency bonus to damage rolls against it, crit on 19 or 20 against it, and regain warlock level + CHA hit points if it dies. Once per short or long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "range": "30 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "hexblades-curse",
+          "name": "Hexblade's Curse",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "hex-warrior",
+      "name": "Hex Warrior",
+      "unlockLevel": 1,
+      "short": "Medium armor, shields, martial weapons; CHA for your pact weapon.",
+      "summary": "You gain proficiency with medium armor, shields and martial weapons. After a long rest, choose a one-handed weapon you are proficient with: you can use CHA instead of STR or DEX for its attack and damage rolls (also your pact weapon).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Medium Armor",
+            "Shields"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "weapon",
+          "values": [
+            "Martial Weapons"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "accursed-specter",
+      "name": "Accursed Specter",
+      "unlockLevel": 6,
+      "short": "Raise a slain humanoid as a specter servant.",
+      "summary": "When you slay a humanoid, you can cause its spirit to rise as a specter that serves you until your next long rest, with temporary hit points equal to half your warlock level. Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "accursed-specter",
+          "name": "Accursed Specter",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "armor-of-hexes",
+      "name": "Armor of Hexes",
+      "unlockLevel": 10,
+      "short": "Reaction: your cursed target misses you half the time.",
+      "summary": "If the target of your Hexblade's Curse hits you, you can use your reaction to roll a d6; on a 4 or higher the attack misses.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "master-of-hexes",
+      "name": "Master of Hexes",
+      "unlockLevel": 14,
+      "short": "Move your curse to a new creature when the target dies.",
+      "summary": "When the creature cursed by Hexblade's Curse dies, you can apply the curse to another creature within 30 ft. (without regaining hit points).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Shield",
+        "Wrathful Smite"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Blur",
+        "Branding Smite"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Blink",
+        "Elemental Weapon"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Phantasmal Killer",
+        "Staggering Smite"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Banishing Smite",
+        "Cone of Cold"
+      ],
+      "uses": "list"
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,74 @@
+{
+  "id": "valor",
+  "name": "College of Valor",
+  "source": "Player's Handbook",
+  "summary": "Skalds who fight in the front line and inspire heroic deeds.",
+  "features": [
+    {
+      "id": "valor-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 3,
+      "short": "Medium armor, shields and martial weapons.",
+      "summary": "You gain proficiency with medium armor, shields and martial weapons.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Medium Armor",
+            "Shields"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "weapon",
+          "values": [
+            "Martial Weapons"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "combat-inspiration",
+      "name": "Combat Inspiration",
+      "unlockLevel": 3,
+      "short": "Your inspiration can boost damage or AC.",
+      "summary": "A creature with your Bardic Inspiration die can add it to a weapon damage roll it just made, or to its AC against one attack (as a reaction, after seeing the roll).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "valor-extra-attack",
+      "name": "Extra Attack",
+      "unlockLevel": 6,
+      "short": "Attack twice with the Attack action.",
+      "summary": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "battle-magic",
+      "name": "Battle Magic",
+      "unlockLevel": 14,
+      "short": "After casting an action spell, attack as a bonus action.",
+      "summary": "When you use your action to cast a bard spell, you can make one weapon attack as a bonus action.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

@@ -16,6 +16,7 @@ import { OptionChoicePanel } from "@/components/option-choice-panel";
 import { clearCreatorJump, readCreatorJump, type LevelUpTask } from "@/components/level-up-dialog";
 import { CreatorFlowFooter, CreatorFlowNav, CreatorSummaryPanel, type CreatorFlowScreen, type CreatorFlowStep } from "@/components/creator-flow-nav";
 import type { EngineCatalog } from "@/lib/engine/collect";
+import { deriveCharacter } from "@/lib/engine/derive";
 import { asiAbilityBonuses, featEligibility, featSlots, type FeatCheckContext } from "@/lib/engine/feats";
 import type { ClassDocBlock, ClassDocCollection, ClassDocSection, ClassDocTable } from "@/lib/content/class-docs";
 
@@ -3050,6 +3051,19 @@ export function CreatorWorkspace({
   const [spellListPage, setSpellListPage] = useState(0);
   const [spellSearchQuery, setSpellSearchQuery] = useState("");
   const [creatorSideTarget, setCreatorSideTarget] = useState<HTMLElement | null>(null);
+  // Subclass, feature ve secimlerden gelen buyuler (motorun hesabi): spell ekranindaki "Granted" listesi.
+  const derivedGrantedSpells = useMemo(() => {
+    try {
+      const seen = new Set<string>();
+      return deriveCharacter(draft, engineCatalog).spells.filter((entry) => {
+        if ((entry.uses !== "known" && entry.uses !== "at_will") || seen.has(entry.spellId)) return false;
+        seen.add(entry.spellId);
+        return true;
+      });
+    } catch {
+      return [];
+    }
+  }, [draft, engineCatalog]);
   const [equipOpenFamily, setEquipOpenFamily] = useState<Record<string, string>>({});
   const [equipSlot, setEquipSlot] = useState<Record<string, number>>({});
   const [equipFocus, setEquipFocus] = useState<{ groupId: string; optionId: string } | null>(null);
@@ -6507,7 +6521,7 @@ export function CreatorWorkspace({
                       <div className="fighter-journey-scene-head compact">
                         <h3>Class Features</h3>
                         <p>
-                          {optionChoices.some((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))
+                          {optionChoices.some((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))
                             ? `What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Click a feature to read it; make your picks below the list.`
                             : `What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Nothing to pick here; click a feature to read it.`}
                         </p>
@@ -6573,7 +6587,7 @@ export function CreatorWorkspace({
                             <OptionChoicePanel
                               title={`${currentClass.name} feature choices`}
                               content={content}
-                              choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))}
+                              choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))}
                               onToggle={toggleOptionChoice}
                             />
                             {laterByLevel.size ? (
@@ -6841,7 +6855,7 @@ export function CreatorWorkspace({
                       {(() => {
                         const focus =
                           fighterJourneySubclasses.find((entry) => entry.id === inspectId) ?? selectedJourneySubclass ?? fighterJourneySubclasses[0] ?? null;
-                        const subclassChoices = optionChoices.filter((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool"));
+                        const subclassChoices = optionChoices.filter((entry) => entry.sourceKind === "subclass");
                         return (
                           <PickLayout
                             inspect={
@@ -7015,7 +7029,7 @@ export function CreatorWorkspace({
                                   <p className="pick-note">Nothing unlocked yet at your level, Pact Boon and spells.</p>
                                 )}
                               </PickSection>
-                              <OptionChoicePanel title="Extra spell choices" content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel title="Extra spell choices" content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                             </PickLayout>
                           );
                         })()
@@ -7167,23 +7181,22 @@ export function CreatorWorkspace({
                                 note: `${currentVisibleSubclass.name} adds this to your warlock list. Learn it from the grid below.`,
                               }))
                             : []),
-                          // Diger class'larin subclass buyuleri (Paladin oath, Cleric domain vb.): her zaman hazir.
-                          ...(currentClass.id !== "warlock" && currentClass.id !== "ranger" && currentVisibleSubclass
-                            ? currentVisibleSubclass.expandedSpells
-                                .filter((entry) => draft.level >= entry.unlockLevel)
-                                .flatMap((entry) =>
-                                  entry.spells.map((spellName) => {
-                                    const spell = content.spells.find((row) => row.name.toLowerCase() === spellName.toLowerCase()) ?? null;
-                                    return {
-                                      id: `granted-subclass-${spellName}`,
-                                      name: spellName,
-                                      sub: `From ${currentVisibleSubclass.name}`,
-                                      school: spell?.school ?? "",
-                                      spell,
-                                      note: `Always prepared from ${currentVisibleSubclass.name} (${currentClass.name.toLowerCase()} ${entry.unlockLevel}). Doesn't count against your prepared spells.`,
-                                    };
-                                  }),
-                                )
+                          // Diger class'larin subclass / secim buyuleri (oath, domain, Land arazisi, Divine Soul...): motorun
+                          // topladigi "known" buyuler, her zaman hazir ve sayaca girmez.
+                          ...(currentClass.id !== "warlock" && currentClass.id !== "ranger"
+                            ? derivedGrantedSpells
+                                .filter((entry) => !draft.spellIds.includes(entry.spellId) && entry.spellId !== selectedHighElfCantripId)
+                                .map((entry) => {
+                                  const spell = content.spells.find((row) => row.id === entry.spellId) ?? null;
+                                  return {
+                                    id: `granted-derived-${entry.spellId}`,
+                                    name: spell?.name ?? entry.spellId,
+                                    sub: `From ${entry.source}`,
+                                    school: spell?.school ?? "",
+                                    spell,
+                                    note: `Granted by ${entry.source}. ${entry.uses === "at_will" ? "Cast it at will." : "Always prepared; doesn't count against your spells."}`,
+                                  };
+                                })
                             : []),
                           ...(currentClass.id === "warlock" && draft.pactBoonId === "pact-of-the-tome"
                             ? selectedPactCantripSpells.map((spell) => ({
@@ -7303,7 +7316,7 @@ export function CreatorWorkspace({
                               </PickSection>
                             ) : null}
                             {currentClass.id !== "warlock" ? (
-                              <OptionChoicePanel title="Extra spell choices" content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel title="Extra spell choices" content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                             ) : null}
                             <PickTabs
                               label="Spell groups"
@@ -9814,7 +9827,7 @@ export function CreatorWorkspace({
                                 )
                               }
                             >
-                              <OptionChoicePanel title="Extra skill choices" content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel title="Extra skill choices" content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
                               {(() => {
                                 const otherTrained = Object.keys(skillAbilities).filter((skillId) => {
                                   const entry = previewDraft.skills.find((skill) => skill.id === skillId);
@@ -10445,7 +10458,7 @@ export function CreatorWorkspace({
                                 )
                               ) : null}
                               {openWarlockGroup === "invocations" ? (
-                                <OptionChoicePanel title="Extra spell choices" content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                                <OptionChoicePanel title="Extra spell choices" content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                               ) : null}
                             </div>
                           </div>

@@ -1,0 +1,87 @@
+{
+  "id": "drunken-master",
+  "name": "Way of the Drunken Master",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Monks who move with the unpredictable sway of a drunkard.",
+  "features": [
+    {
+      "id": "drunken-master-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 3,
+      "short": "Performance and brewer's supplies.",
+      "summary": "You gain proficiency in Performance and with brewer's supplies.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "skill",
+          "values": [
+            "performance"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Brewer's Supplies"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "drunken-technique",
+      "name": "Drunken Technique",
+      "unlockLevel": 3,
+      "short": "Flurry of Blows grants Disengage and +10 ft. speed.",
+      "summary": "Whenever you use Flurry of Blows, you gain the benefit of the Disengage action and your walking speed increases by 10 ft. until the end of the turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "tipsy-sway",
+      "name": "Tipsy Sway",
+      "unlockLevel": 6,
+      "short": "Stand up for 5 ft.; redirect a missed attack.",
+      "summary": "Standing up from prone costs only 5 ft. of movement. When a creature misses you in melee, you can spend 1 ki point as a reaction to make it hit another creature within 5 ft. of you.",
+      "facts": {
+        "action": "Reaction",
+        "cost": "1 ki"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "drunkards-luck",
+      "name": "Drunkard's Luck",
+      "unlockLevel": 11,
+      "short": "Spend 2 ki to cancel disadvantage.",
+      "summary": "When you make an ability check, attack roll or saving throw with disadvantage, you can spend 2 ki points to cancel the disadvantage.",
+      "facts": {
+        "action": "Passive",
+        "cost": "2 ki"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "intoxicated-frenzy",
+      "name": "Intoxicated Frenzy",
+      "unlockLevel": 17,
+      "short": "Flurry of Blows can make up to five attacks.",
+      "summary": "When you use Flurry of Blows, you can make up to three additional attacks (five total), as long as each targets a different creature.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

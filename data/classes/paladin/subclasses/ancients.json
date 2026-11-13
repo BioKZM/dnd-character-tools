@@ -1,0 +1,163 @@
+{
+  "id": "ancients",
+  "name": "Oath of the Ancients",
+  "source": "Player's Handbook",
+  "summary": "Green knights who protect light, life and beauty.",
+  "features": [
+    {
+      "id": "ancients-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "short": "Oath spells that are always prepared for free.",
+      "summary": "You always have your oath spells prepared once you reach the listed paladin levels. They don't count against the number of spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "natures-wrath",
+      "name": "Channel Divinity: Nature's Wrath",
+      "unlockLevel": 3,
+      "short": "Spectral vines restrain a creature.",
+      "summary": "As an action, spectral vines reach for a creature within 10 ft.: it makes a STR or DEX save (its choice) or is restrained, repeating the save each turn.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "10 ft.",
+        "save": "STR / DEX",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "turn-the-faithless",
+      "name": "Channel Divinity: Turn the Faithless",
+      "unlockLevel": 3,
+      "short": "Turn fey and fiends within 30 ft.",
+      "summary": "As an action, each fey or fiend within 30 ft. that can hear you makes a WIS save or is turned for 1 minute.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "aura-of-warding",
+      "name": "Aura of Warding",
+      "unlockLevel": 7,
+      "short": "You and allies within 10 ft. resist spell damage.",
+      "summary": "You and friendly creatures within 10 ft. have resistance to damage from spells. The range becomes 30 ft. at 18th level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "damage from spells"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 7,
+          "label": "10 ft."
+        },
+        {
+          "level": 18,
+          "label": "30 ft."
+        }
+      ]
+    },
+    {
+      "id": "undying-sentinel",
+      "name": "Undying Sentinel",
+      "unlockLevel": 15,
+      "short": "Drop to 1 HP instead of 0 once per long rest; you don't age.",
+      "summary": "When you are reduced to 0 hit points and not killed outright, you can drop to 1 hit point instead. Once per long rest. You also suffer none of the drawbacks of old age.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "undying-sentinel",
+          "name": "Undying Sentinel",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "elder-champion",
+      "name": "Elder Champion",
+      "unlockLevel": 20,
+      "short": "Transform: regenerate, cast faster and weaken enemy saves.",
+      "summary": "As an action, you transform for 1 minute: regain 10 hit points at the start of each turn, cast 1-action paladin spells as a bonus action, and enemies within 10 ft. have disadvantage on saves against your spells and Channel Divinity. Once per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "elder-champion",
+          "name": "Elder Champion",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Ensnaring Strike",
+        "Speak with Animals"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Misty Step",
+        "Moonbeam"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Plant Growth",
+        "Protection from Energy"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Ice Storm",
+        "Stoneskin"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Commune with Nature",
+        "Tree Stride"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

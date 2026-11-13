@@ -1,0 +1,388 @@
+{
+  "id": "rune-knight",
+  "name": "Rune Knight",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A warrior who carves giant runes into gear and grows to giant size.",
+  "features": [
+    {
+      "id": "rune-knight-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 3,
+      "short": "Smith's tools and the Giant language.",
+      "summary": "You gain proficiency with smith's tools and learn Giant.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Smith's Tools"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "language",
+          "values": [
+            "Giant"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "rune-carver",
+      "name": "Rune Carver",
+      "unlockLevel": 3,
+      "short": "Inscribe runes with passive bonuses and a power.",
+      "summary": "You learn two runes and inscribe them on your gear; each gives a passive benefit and can be invoked once per short or long rest. You learn another rune at 7th, 10th and 15th level. Save DC = 8 + PB + CON.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "rune-knight-runes-3",
+          "label": "Runes",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "cloud-rune",
+                "name": "Cloud Rune",
+                "summary": "Advantage on Sleight of Hand and Deception; reaction to redirect an attack to another creature.",
+                "grants": []
+              },
+              {
+                "id": "fire-rune",
+                "name": "Fire Rune",
+                "summary": "Double proficiency with tools; on a hit, restrain the target in fiery shackles (+2d6 fire per turn).",
+                "grants": []
+              },
+              {
+                "id": "frost-rune",
+                "name": "Frost Rune",
+                "summary": "Advantage on Animal Handling and Intimidation; bonus action +2 to STR and CON checks and saves.",
+                "grants": []
+              },
+              {
+                "id": "stone-rune",
+                "name": "Stone Rune",
+                "summary": "Advantage on Insight; darkvision 120 ft.; reaction to charm a creature into a trance.",
+                "grants": [
+                  {
+                    "type": "sense",
+                    "sense": "darkvision",
+                    "range": 120
+                  }
+                ]
+              },
+              {
+                "id": "hill-rune",
+                "name": "Hill Rune",
+                "summary": "Advantage on saves against poison; resistance to poison; bonus action resistance to physical damage.",
+                "grants": [
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "poison"
+                  }
+                ],
+                "minLevel": 7
+              },
+              {
+                "id": "storm-rune",
+                "name": "Storm Rune",
+                "summary": "Advantage on Arcana; can't be surprised; bonus action to grant advantage or disadvantage with a reaction.",
+                "grants": [],
+                "minLevel": 7
+              }
+            ]
+          }
+        },
+        {
+          "id": "rune-knight-runes-7",
+          "label": "Another rune (7th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "cloud-rune",
+                "name": "Cloud Rune",
+                "summary": "Advantage on Sleight of Hand and Deception; reaction to redirect an attack to another creature.",
+                "grants": []
+              },
+              {
+                "id": "fire-rune",
+                "name": "Fire Rune",
+                "summary": "Double proficiency with tools; on a hit, restrain the target in fiery shackles (+2d6 fire per turn).",
+                "grants": []
+              },
+              {
+                "id": "frost-rune",
+                "name": "Frost Rune",
+                "summary": "Advantage on Animal Handling and Intimidation; bonus action +2 to STR and CON checks and saves.",
+                "grants": []
+              },
+              {
+                "id": "stone-rune",
+                "name": "Stone Rune",
+                "summary": "Advantage on Insight; darkvision 120 ft.; reaction to charm a creature into a trance.",
+                "grants": [
+                  {
+                    "type": "sense",
+                    "sense": "darkvision",
+                    "range": 120
+                  }
+                ]
+              },
+              {
+                "id": "hill-rune",
+                "name": "Hill Rune",
+                "summary": "Advantage on saves against poison; resistance to poison; bonus action resistance to physical damage.",
+                "grants": [
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "poison"
+                  }
+                ],
+                "minLevel": 7
+              },
+              {
+                "id": "storm-rune",
+                "name": "Storm Rune",
+                "summary": "Advantage on Arcana; can't be surprised; bonus action to grant advantage or disadvantage with a reaction.",
+                "grants": [],
+                "minLevel": 7
+              }
+            ]
+          },
+          "minLevel": 7
+        },
+        {
+          "id": "rune-knight-runes-10",
+          "label": "Another rune (10th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "cloud-rune",
+                "name": "Cloud Rune",
+                "summary": "Advantage on Sleight of Hand and Deception; reaction to redirect an attack to another creature.",
+                "grants": []
+              },
+              {
+                "id": "fire-rune",
+                "name": "Fire Rune",
+                "summary": "Double proficiency with tools; on a hit, restrain the target in fiery shackles (+2d6 fire per turn).",
+                "grants": []
+              },
+              {
+                "id": "frost-rune",
+                "name": "Frost Rune",
+                "summary": "Advantage on Animal Handling and Intimidation; bonus action +2 to STR and CON checks and saves.",
+                "grants": []
+              },
+              {
+                "id": "stone-rune",
+                "name": "Stone Rune",
+                "summary": "Advantage on Insight; darkvision 120 ft.; reaction to charm a creature into a trance.",
+                "grants": [
+                  {
+                    "type": "sense",
+                    "sense": "darkvision",
+                    "range": 120
+                  }
+                ]
+              },
+              {
+                "id": "hill-rune",
+                "name": "Hill Rune",
+                "summary": "Advantage on saves against poison; resistance to poison; bonus action resistance to physical damage.",
+                "grants": [
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "poison"
+                  }
+                ],
+                "minLevel": 7
+              },
+              {
+                "id": "storm-rune",
+                "name": "Storm Rune",
+                "summary": "Advantage on Arcana; can't be surprised; bonus action to grant advantage or disadvantage with a reaction.",
+                "grants": [],
+                "minLevel": 7
+              }
+            ]
+          },
+          "minLevel": 10
+        },
+        {
+          "id": "rune-knight-runes-15",
+          "label": "Another rune (15th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "cloud-rune",
+                "name": "Cloud Rune",
+                "summary": "Advantage on Sleight of Hand and Deception; reaction to redirect an attack to another creature.",
+                "grants": []
+              },
+              {
+                "id": "fire-rune",
+                "name": "Fire Rune",
+                "summary": "Double proficiency with tools; on a hit, restrain the target in fiery shackles (+2d6 fire per turn).",
+                "grants": []
+              },
+              {
+                "id": "frost-rune",
+                "name": "Frost Rune",
+                "summary": "Advantage on Animal Handling and Intimidation; bonus action +2 to STR and CON checks and saves.",
+                "grants": []
+              },
+              {
+                "id": "stone-rune",
+                "name": "Stone Rune",
+                "summary": "Advantage on Insight; darkvision 120 ft.; reaction to charm a creature into a trance.",
+                "grants": [
+                  {
+                    "type": "sense",
+                    "sense": "darkvision",
+                    "range": 120
+                  }
+                ]
+              },
+              {
+                "id": "hill-rune",
+                "name": "Hill Rune",
+                "summary": "Advantage on saves against poison; resistance to poison; bonus action resistance to physical damage.",
+                "grants": [
+                  {
+                    "type": "defense",
+                    "kind": "resistance",
+                    "against": "poison"
+                  }
+                ],
+                "minLevel": 7
+              },
+              {
+                "id": "storm-rune",
+                "name": "Storm Rune",
+                "summary": "Advantage on Arcana; can't be surprised; bonus action to grant advantage or disadvantage with a reaction.",
+                "grants": [],
+                "minLevel": 7
+              }
+            ]
+          },
+          "minLevel": 15
+        }
+      ]
+    },
+    {
+      "id": "giants-might",
+      "name": "Giant's Might",
+      "unlockLevel": 3,
+      "short": "Bonus action: grow Large, advantage on STR, +1d6 damage.",
+      "summary": "As a bonus action, you become Large for 1 minute: advantage on Strength checks and saves, and once per turn your weapon or unarmed attacks deal an extra 1d6 damage. Uses: PB per long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "duration": "1 minute"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "giants-might",
+          "name": "Giant's Might",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "+1d6"
+        },
+        {
+          "level": 10,
+          "label": "+1d8"
+        },
+        {
+          "level": 18,
+          "label": "+1d10, Huge"
+        }
+      ]
+    },
+    {
+      "id": "runic-shield",
+      "name": "Runic Shield",
+      "unlockLevel": 7,
+      "short": "Reaction: force an attacker to reroll.",
+      "summary": "When a creature within 60 ft. is hit by an attack, you can use your reaction to force the attacker to reroll and use the new roll. Uses: PB per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "runic-shield",
+          "name": "Runic Shield",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "great-stature",
+      "name": "Great Stature",
+      "unlockLevel": 10,
+      "short": "Grow 3d4 inches; Giant's Might bonus becomes 1d8.",
+      "summary": "You grow 3d4 inches taller, and the extra damage from Giant's Might becomes 1d8.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "master-of-runes",
+      "name": "Master of Runes",
+      "unlockLevel": 15,
+      "short": "Invoke each rune twice per rest.",
+      "summary": "You can invoke each rune you know twice, instead of once, between rests.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "runic-juggernaut",
+      "name": "Runic Juggernaut",
+      "unlockLevel": 18,
+      "short": "Giant's Might makes you Huge with 1d10 extra damage.",
+      "summary": "Giant's Might's extra damage becomes 1d10, you can become Huge, and your reach increases by 5 ft. while transformed.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

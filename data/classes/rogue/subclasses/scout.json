@@ -1,0 +1,94 @@
+{
+  "id": "scout",
+  "name": "Scout",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A skirmisher and explorer who stays one step ahead.",
+  "features": [
+    {
+      "id": "skirmisher",
+      "name": "Skirmisher",
+      "unlockLevel": 3,
+      "short": "Reaction: move half speed away when an enemy approaches.",
+      "summary": "When an enemy ends its turn within 5 ft. of you, you can use your reaction to move up to half your speed without provoking opportunity attacks.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "survivalist",
+      "name": "Survivalist",
+      "unlockLevel": 3,
+      "short": "Nature and Survival with double proficiency.",
+      "summary": "You gain proficiency in Nature and Survival, with double your proficiency bonus for checks with them.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "skill",
+          "values": [
+            "nature",
+            "survival"
+          ]
+        },
+        {
+          "type": "expertise",
+          "skill": "nature"
+        },
+        {
+          "type": "expertise",
+          "skill": "survival"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "superior-mobility",
+      "name": "Superior Mobility",
+      "unlockLevel": 9,
+      "short": "+10 ft. to your speeds.",
+      "summary": "Your walking speed increases by 10 ft. (and your climbing and swimming speeds, if you have them).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "speed",
+          "mode": "walk",
+          "op": "add",
+          "value": 10
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "ambush-master",
+      "name": "Ambush Master",
+      "unlockLevel": 13,
+      "short": "Advantage on initiative; your first target is easier to hit.",
+      "summary": "You have advantage on initiative rolls. The first creature you hit in the first round becomes easier to hit: others have advantage on attacks against it until your next turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "sudden-strike",
+      "name": "Sudden Strike",
+      "unlockLevel": 17,
+      "short": "Bonus action attack that can Sneak Attack a second target.",
+      "summary": "If you take the Attack action, you can make one additional attack as a bonus action. It can benefit from Sneak Attack even if you already used it this turn, but not against the same target.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

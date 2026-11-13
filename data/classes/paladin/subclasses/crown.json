@@ -1,0 +1,148 @@
+{
+  "id": "crown",
+  "name": "Oath of the Crown",
+  "source": "Sword Coast Adventurer's Guide",
+  "summary": "Paladins sworn to the ideals of civilization and the law.",
+  "features": [
+    {
+      "id": "crown-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "short": "Oath spells that are always prepared for free.",
+      "summary": "You always have your oath spells prepared once you reach the listed paladin levels. They don't count against the number of spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "champion-challenge",
+      "name": "Channel Divinity: Champion Challenge",
+      "unlockLevel": 3,
+      "short": "Force creatures within 30 ft. to stay near you.",
+      "summary": "As a bonus action, each creature of your choice within 30 ft. makes a WIS save or can't willingly move more than 30 ft. away from you.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "turn-the-tide",
+      "name": "Channel Divinity: Turn the Tide",
+      "unlockLevel": 3,
+      "short": "Bonus action: heal allies at half HP or less.",
+      "summary": "As a bonus action, each creature of your choice within 30 ft. that can hear you and has no more than half its hit points regains 1d6 + CHA hit points.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "divine-allegiance",
+      "name": "Divine Allegiance",
+      "unlockLevel": 7,
+      "short": "Reaction: take the damage meant for an adjacent ally.",
+      "summary": "When a creature within 5 ft. takes damage, you can use your reaction to take that damage instead.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "unyielding-spirit",
+      "name": "Unyielding Spirit",
+      "unlockLevel": 15,
+      "short": "Advantage on saves against paralysis and stun.",
+      "summary": "You have advantage on saving throws to avoid becoming paralyzed or stunned.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "save_advantage",
+          "against": "paralyzed"
+        },
+        {
+          "type": "defense",
+          "kind": "save_advantage",
+          "against": "stunned"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "exalted-champion",
+      "name": "Exalted Champion",
+      "unlockLevel": 20,
+      "short": "Resist physical damage; allies gain advantage on death and WIS saves.",
+      "summary": "As an action, for 1 hour you have resistance to nonmagical bludgeoning, piercing and slashing, and you and allies within 30 ft. have advantage on death saves and WIS saves. Once per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "exalted-champion",
+          "name": "Exalted Champion",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Command",
+        "Compelled Duel"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Warding Bond",
+        "Zone of Truth"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Aura of Vitality",
+        "Spirit Guardians"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Banishment",
+        "Guardian of Faith"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Circle of Power",
+        "Geas"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

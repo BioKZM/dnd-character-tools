@@ -1073,7 +1073,14 @@
   ],
   "subclassHeading": "Ranger Archetype",
   "subclasses": [
-    "horizon-walker"
+    "beast-master",
+    "drakewarden",
+    "fey-wanderer",
+    "gloom-stalker",
+    "horizon-walker",
+    "hunter",
+    "monster-slayer",
+    "swarmkeeper"
   ],
   "notes": [
     "unearthed arcana rows were skipped",

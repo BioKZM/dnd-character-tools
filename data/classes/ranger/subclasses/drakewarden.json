@@ -1,0 +1,112 @@
+{
+  "id": "drakewarden",
+  "name": "Drakewarden",
+  "source": "Fizban's Treasury of Dragons",
+  "summary": "A ranger bonded with a growing drake companion.",
+  "features": [
+    {
+      "id": "draconic-gift",
+      "name": "Draconic Gift",
+      "unlockLevel": 3,
+      "short": "Learn Thaumaturgy and one language.",
+      "summary": "You learn the Thaumaturgy cantrip and one language of your choice (often Draconic).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "thaumaturgy",
+          "uses": "at_will"
+        }
+      ],
+      "choices": [
+        {
+          "id": "drakewarden-language",
+          "label": "Language",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "language"
+          }
+        }
+      ]
+    },
+    {
+      "id": "drake-companion",
+      "name": "Drake Companion",
+      "unlockLevel": 3,
+      "short": "Summon a drake companion of a chosen damage type.",
+      "summary": "As an action, summon a drake that acts on your turn and obeys you. Choose its essence (acid, cold, fire, lightning or poison); it resists that damage and adds 1d6 of it to its bite. Once per long rest for free, or by spending a spell slot.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "drake-companion",
+          "name": "Drake Companion",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "bond-of-fang-and-scale",
+      "name": "Bond of Fang and Scale",
+      "unlockLevel": 7,
+      "short": "Your drake grows Medium; ride it and fly; share resistance.",
+      "summary": "Your drake grows to Medium, gains wings (fly 40 ft.) and you can ride it if you are Medium or smaller. Its bite deals extra 1d6 of its type, and you gain resistance to that damage type.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "drakes-breath",
+      "name": "Drake's Breath",
+      "unlockLevel": 11,
+      "short": "Exhale (or have your drake exhale) a 30 ft. cone.",
+      "summary": "As an action, you or your drake exhale a 30 ft. cone: each creature makes a DEX save, taking 8d6 damage of the chosen type on a failure, half on a success. Once per long rest (or by spending a 3rd-level slot).",
+      "facts": {
+        "action": "Action",
+        "save": "DEX",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "drakes-breath",
+          "name": "Drake's Breath",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "perfected-bond",
+      "name": "Perfected Bond",
+      "unlockLevel": 15,
+      "short": "Your drake grows Large; it can shield you.",
+      "summary": "Your drake grows to Large and its bite deals extra 1d6 more. When you or the drake take damage, the drake can use its reaction to give resistance against it. Uses: PB per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "perfected-bond",
+          "name": "Perfected Bond",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

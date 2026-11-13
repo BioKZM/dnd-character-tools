@@ -1,0 +1,428 @@
+{
+  "id": "arcane-archer",
+  "name": "Arcane Archer",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "An elven-style archer who weaves magic into arrows.",
+  "features": [
+    {
+      "id": "arcane-archer-lore",
+      "name": "Arcane Archer Lore",
+      "unlockLevel": 3,
+      "short": "Arcana or Nature, and Prestidigitation or Druidcraft.",
+      "summary": "You gain proficiency in Arcana or Nature, and you learn the Prestidigitation or Druidcraft cantrip.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "arcane-archer-skill",
+          "label": "Arcana or Nature",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "arcana",
+              "nature"
+            ]
+          }
+        },
+        {
+          "id": "arcane-archer-cantrip",
+          "label": "Cantrip",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "prestidigitation",
+                "name": "Prestidigitation",
+                "summary": "Minor magical tricks.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "prestidigitation",
+                    "uses": "at_will"
+                  }
+                ]
+              },
+              {
+                "id": "druidcraft",
+                "name": "Druidcraft",
+                "summary": "Minor nature tricks.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "druidcraft",
+                    "uses": "at_will"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "arcane-shot",
+      "name": "Arcane Shot",
+      "unlockLevel": 3,
+      "short": "Twice per short rest, add a magical effect to an arrow hit.",
+      "summary": "You learn two Arcane Shot options and can use one when you hit with a ranged attack from a shortbow or longbow, once per turn. You have two uses per short or long rest. You learn more options at 7th, 10th, 15th and 18th level, and damage increases at 18th. Save DC = 8 + PB + INT.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "arcane-shot",
+          "name": "Arcane Shot",
+          "uses": 2,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": [
+        {
+          "id": "arcane-archer-shots-3",
+          "label": "Arcane Shots",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "banishing-arrow",
+                "name": "Banishing Arrow",
+                "summary": "CHA save or the target is banished to the Feywild until the end of its next turn (later +2d6 force).",
+                "grants": []
+              },
+              {
+                "id": "beguiling-arrow",
+                "name": "Beguiling Arrow",
+                "summary": "+2d6 psychic; WIS save or charmed by an ally of your choice.",
+                "grants": []
+              },
+              {
+                "id": "bursting-arrow",
+                "name": "Bursting Arrow",
+                "summary": "Explodes: 2d6 force to everything within 10 ft. of the target.",
+                "grants": []
+              },
+              {
+                "id": "enfeebling-arrow",
+                "name": "Enfeebling Arrow",
+                "summary": "+2d6 necrotic; CON save or the target deals half damage with weapons.",
+                "grants": []
+              },
+              {
+                "id": "grasping-arrow",
+                "name": "Grasping Arrow",
+                "summary": "+2d6 poison; brambles slow the target and hurt it as it moves.",
+                "grants": []
+              },
+              {
+                "id": "piercing-arrow",
+                "name": "Piercing Arrow",
+                "summary": "Pierce in a 30 ft. line; each creature makes a DEX save against 1d6 + weapon damage.",
+                "grants": []
+              },
+              {
+                "id": "seeking-arrow",
+                "name": "Seeking Arrow",
+                "summary": "Ignore cover, hit a creature you've seen in the last minute; +1d6 force, reveals its location.",
+                "grants": []
+              },
+              {
+                "id": "shadow-arrow",
+                "name": "Shadow Arrow",
+                "summary": "+2d6 psychic; WIS save or the target can't see beyond 5 ft.",
+                "grants": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "arcane-archer-shots-7",
+          "label": "Another Arcane Shot (7th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "banishing-arrow",
+                "name": "Banishing Arrow",
+                "summary": "CHA save or the target is banished to the Feywild until the end of its next turn (later +2d6 force).",
+                "grants": []
+              },
+              {
+                "id": "beguiling-arrow",
+                "name": "Beguiling Arrow",
+                "summary": "+2d6 psychic; WIS save or charmed by an ally of your choice.",
+                "grants": []
+              },
+              {
+                "id": "bursting-arrow",
+                "name": "Bursting Arrow",
+                "summary": "Explodes: 2d6 force to everything within 10 ft. of the target.",
+                "grants": []
+              },
+              {
+                "id": "enfeebling-arrow",
+                "name": "Enfeebling Arrow",
+                "summary": "+2d6 necrotic; CON save or the target deals half damage with weapons.",
+                "grants": []
+              },
+              {
+                "id": "grasping-arrow",
+                "name": "Grasping Arrow",
+                "summary": "+2d6 poison; brambles slow the target and hurt it as it moves.",
+                "grants": []
+              },
+              {
+                "id": "piercing-arrow",
+                "name": "Piercing Arrow",
+                "summary": "Pierce in a 30 ft. line; each creature makes a DEX save against 1d6 + weapon damage.",
+                "grants": []
+              },
+              {
+                "id": "seeking-arrow",
+                "name": "Seeking Arrow",
+                "summary": "Ignore cover, hit a creature you've seen in the last minute; +1d6 force, reveals its location.",
+                "grants": []
+              },
+              {
+                "id": "shadow-arrow",
+                "name": "Shadow Arrow",
+                "summary": "+2d6 psychic; WIS save or the target can't see beyond 5 ft.",
+                "grants": []
+              }
+            ]
+          },
+          "minLevel": 7
+        },
+        {
+          "id": "arcane-archer-shots-10",
+          "label": "Another Arcane Shot (10th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "banishing-arrow",
+                "name": "Banishing Arrow",
+                "summary": "CHA save or the target is banished to the Feywild until the end of its next turn (later +2d6 force).",
+                "grants": []
+              },
+              {
+                "id": "beguiling-arrow",
+                "name": "Beguiling Arrow",
+                "summary": "+2d6 psychic; WIS save or charmed by an ally of your choice.",
+                "grants": []
+              },
+              {
+                "id": "bursting-arrow",
+                "name": "Bursting Arrow",
+                "summary": "Explodes: 2d6 force to everything within 10 ft. of the target.",
+                "grants": []
+              },
+              {
+                "id": "enfeebling-arrow",
+                "name": "Enfeebling Arrow",
+                "summary": "+2d6 necrotic; CON save or the target deals half damage with weapons.",
+                "grants": []
+              },
+              {
+                "id": "grasping-arrow",
+                "name": "Grasping Arrow",
+                "summary": "+2d6 poison; brambles slow the target and hurt it as it moves.",
+                "grants": []
+              },
+              {
+                "id": "piercing-arrow",
+                "name": "Piercing Arrow",
+                "summary": "Pierce in a 30 ft. line; each creature makes a DEX save against 1d6 + weapon damage.",
+                "grants": []
+              },
+              {
+                "id": "seeking-arrow",
+                "name": "Seeking Arrow",
+                "summary": "Ignore cover, hit a creature you've seen in the last minute; +1d6 force, reveals its location.",
+                "grants": []
+              },
+              {
+                "id": "shadow-arrow",
+                "name": "Shadow Arrow",
+                "summary": "+2d6 psychic; WIS save or the target can't see beyond 5 ft.",
+                "grants": []
+              }
+            ]
+          },
+          "minLevel": 10
+        },
+        {
+          "id": "arcane-archer-shots-15",
+          "label": "Another Arcane Shot (15th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "banishing-arrow",
+                "name": "Banishing Arrow",
+                "summary": "CHA save or the target is banished to the Feywild until the end of its next turn (later +2d6 force).",
+                "grants": []
+              },
+              {
+                "id": "beguiling-arrow",
+                "name": "Beguiling Arrow",
+                "summary": "+2d6 psychic; WIS save or charmed by an ally of your choice.",
+                "grants": []
+              },
+              {
+                "id": "bursting-arrow",
+                "name": "Bursting Arrow",
+                "summary": "Explodes: 2d6 force to everything within 10 ft. of the target.",
+                "grants": []
+              },
+              {
+                "id": "enfeebling-arrow",
+                "name": "Enfeebling Arrow",
+                "summary": "+2d6 necrotic; CON save or the target deals half damage with weapons.",
+                "grants": []
+              },
+              {
+                "id": "grasping-arrow",
+                "name": "Grasping Arrow",
+                "summary": "+2d6 poison; brambles slow the target and hurt it as it moves.",
+                "grants": []
+              },
+              {
+                "id": "piercing-arrow",
+                "name": "Piercing Arrow",
+                "summary": "Pierce in a 30 ft. line; each creature makes a DEX save against 1d6 + weapon damage.",
+                "grants": []
+              },
+              {
+                "id": "seeking-arrow",
+                "name": "Seeking Arrow",
+                "summary": "Ignore cover, hit a creature you've seen in the last minute; +1d6 force, reveals its location.",
+                "grants": []
+              },
+              {
+                "id": "shadow-arrow",
+                "name": "Shadow Arrow",
+                "summary": "+2d6 psychic; WIS save or the target can't see beyond 5 ft.",
+                "grants": []
+              }
+            ]
+          },
+          "minLevel": 15
+        },
+        {
+          "id": "arcane-archer-shots-18",
+          "label": "Another Arcane Shot (18th)",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "banishing-arrow",
+                "name": "Banishing Arrow",
+                "summary": "CHA save or the target is banished to the Feywild until the end of its next turn (later +2d6 force).",
+                "grants": []
+              },
+              {
+                "id": "beguiling-arrow",
+                "name": "Beguiling Arrow",
+                "summary": "+2d6 psychic; WIS save or charmed by an ally of your choice.",
+                "grants": []
+              },
+              {
+                "id": "bursting-arrow",
+                "name": "Bursting Arrow",
+                "summary": "Explodes: 2d6 force to everything within 10 ft. of the target.",
+                "grants": []
+              },
+              {
+                "id": "enfeebling-arrow",
+                "name": "Enfeebling Arrow",
+                "summary": "+2d6 necrotic; CON save or the target deals half damage with weapons.",
+                "grants": []
+              },
+              {
+                "id": "grasping-arrow",
+                "name": "Grasping Arrow",
+                "summary": "+2d6 poison; brambles slow the target and hurt it as it moves.",
+                "grants": []
+              },
+              {
+                "id": "piercing-arrow",
+                "name": "Piercing Arrow",
+                "summary": "Pierce in a 30 ft. line; each creature makes a DEX save against 1d6 + weapon damage.",
+                "grants": []
+              },
+              {
+                "id": "seeking-arrow",
+                "name": "Seeking Arrow",
+                "summary": "Ignore cover, hit a creature you've seen in the last minute; +1d6 force, reveals its location.",
+                "grants": []
+              },
+              {
+                "id": "shadow-arrow",
+                "name": "Shadow Arrow",
+                "summary": "+2d6 psychic; WIS save or the target can't see beyond 5 ft.",
+                "grants": []
+              }
+            ]
+          },
+          "minLevel": 18
+        }
+      ]
+    },
+    {
+      "id": "magic-arrow",
+      "name": "Magic Arrow",
+      "unlockLevel": 7,
+      "short": "Your arrows count as magical.",
+      "summary": "Whenever you fire a nonmagical arrow from a shortbow or longbow, it becomes magical for overcoming resistance.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "curving-shot",
+      "name": "Curving Shot",
+      "unlockLevel": 7,
+      "short": "Bonus action: redirect a missed magic arrow.",
+      "summary": "When you miss with a magic arrow, you can use a bonus action to reroll the attack against a different target within 60 ft. of the original.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "ever-ready-shot",
+      "name": "Ever-Ready Shot",
+      "unlockLevel": 15,
+      "short": "Regain one Arcane Shot if you have none at initiative.",
+      "summary": "If you have no uses of Arcane Shot when you roll initiative, you regain one.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

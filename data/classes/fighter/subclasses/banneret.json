@@ -1,0 +1,87 @@
+{
+  "id": "banneret",
+  "name": "Banneret (Purple Dragon Knight)",
+  "source": "Sword Coast Adventurer's Guide",
+  "summary": "An inspiring leader who rallies allies on the battlefield.",
+  "features": [
+    {
+      "id": "rallying-cry",
+      "name": "Rallying Cry",
+      "unlockLevel": 3,
+      "short": "When you Second Wind, heal up to three allies.",
+      "summary": "When you use Second Wind, you can choose up to three creatures within 60 ft.; each regains hit points equal to your fighter level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "royal-envoy",
+      "name": "Royal Envoy",
+      "unlockLevel": 7,
+      "short": "Persuasion with double proficiency, plus one social skill.",
+      "summary": "You gain proficiency in Persuasion with double your proficiency bonus, and proficiency in one of Animal Handling, Insight, Intimidation or Performance.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "skill",
+          "values": [
+            "persuasion"
+          ]
+        },
+        {
+          "type": "expertise",
+          "skill": "persuasion"
+        }
+      ],
+      "choices": [
+        {
+          "id": "banneret-skill",
+          "label": "Social skill",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "animal-handling",
+              "insight",
+              "intimidation",
+              "performance"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "inspiring-surge",
+      "name": "Inspiring Surge",
+      "unlockLevel": 10,
+      "short": "Action Surge lets an ally attack too.",
+      "summary": "When you use Action Surge, you can choose one creature within 60 ft. to make a weapon attack with its reaction (two creatures at 18th level).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "bulwark",
+      "name": "Bulwark",
+      "unlockLevel": 15,
+      "short": "Share Indomitable's reroll with an ally.",
+      "summary": "When you use Indomitable to reroll an INT, WIS or CHA save and you aren't incapacitated, one ally within 60 ft. that failed the same save can also reroll it.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

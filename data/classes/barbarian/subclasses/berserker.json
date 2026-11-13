@@ -1,0 +1,65 @@
+{
+  "id": "berserker",
+  "name": "Path of the Berserker",
+  "source": "Player's Handbook",
+  "summary": "A barbarian who channels rage into pure violence, at a cost to their body.",
+  "features": [
+    {
+      "id": "frenzy",
+      "name": "Frenzy",
+      "unlockLevel": 3,
+      "short": "While raging, attack again as a bonus action; exhaustion after.",
+      "summary": "When you rage, you can go into a frenzy. For the rage's duration you can make a single melee weapon attack as a bonus action on each of your turns. When the rage ends, you suffer one level of exhaustion.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "mindless-rage",
+      "name": "Mindless Rage",
+      "unlockLevel": 6,
+      "short": "Can't be charmed or frightened while raging.",
+      "summary": "You can't be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the rage's duration.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "While raging: immune to charmed and frightened."
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "intimidating-presence",
+      "name": "Intimidating Presence",
+      "unlockLevel": 10,
+      "short": "Action: frighten a creature with your menace.",
+      "summary": "As an action, you frighten a creature within 30 ft. that can see or hear you (WIS save, DC 8 + PB + CHA). You can extend the effect with your action on later turns. Once it saves, it is immune for 24 hours.",
+      "facts": {
+        "action": "Action",
+        "range": "30 ft.",
+        "save": "WIS"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "retaliation",
+      "name": "Retaliation",
+      "unlockLevel": 14,
+      "short": "Reaction: hit back when a nearby creature damages you.",
+      "summary": "When you take damage from a creature within 5 ft. of you, you can use your reaction to make a melee weapon attack against it.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

@@ -26,13 +26,8 @@ const ENABLED_CLASS_IDS = [
   "warlock",
   "wizard",
 ] as const;
-const ENABLED_SUBCLASS_IDS_BY_CLASS: Record<string, string[]> = {
-  fighter: ["eldritch-knight"],
-  ranger: ["horizon-walker"],
-  warlock: ["great-old-one"],
-  bard: ["whispers"],
-  monk: ["kensei"],
-};
+// Butun subclass dosyalari acik; liste data.json'daki "subclasses" alanindan gelir.
+const ENABLED_SUBCLASS_IDS_BY_CLASS: Record<string, string[]> = {};
 
 function readClassJsonFile<T>(relativePath: string): T {
   const absolutePath = path.join(ROOT, relativePath);

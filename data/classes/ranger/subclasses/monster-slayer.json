@@ -1,0 +1,138 @@
+{
+  "id": "monster-slayer",
+  "name": "Monster Slayer",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A ranger who hunts vampires, dragons and other supernatural threats.",
+  "features": [
+    {
+      "id": "monster-slayer-magic",
+      "name": "Monster Slayer Magic",
+      "unlockLevel": 3,
+      "short": "Extra ranger spells you always know.",
+      "summary": "You learn an additional spell at the listed ranger levels. They count as ranger spells for you but don't count against the number of ranger spells you know.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "hunters-sense",
+      "name": "Hunter's Sense",
+      "unlockLevel": 3,
+      "short": "Action: learn a creature's immunities, resistances and vulnerabilities.",
+      "summary": "As an action, choose a creature within 60 ft.: you learn whether it has any damage immunities, resistances or vulnerabilities, and what they are. Uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Action",
+        "range": "60 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "hunters-sense",
+          "name": "Hunter's Sense",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "slayers-prey",
+      "name": "Slayer's Prey",
+      "unlockLevel": 3,
+      "short": "Bonus action: mark a creature to deal +1d6 once per turn.",
+      "summary": "As a bonus action, designate a creature within 60 ft.: the first time each turn you hit it with a weapon attack, it takes an extra 1d6 damage. Lasts until you rest or choose another target.",
+      "facts": {
+        "action": "Bonus Action",
+        "range": "60 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "supernatural-defense",
+      "name": "Supernatural Defense",
+      "unlockLevel": 7,
+      "short": "Add 1d6 to saves and grapple escapes against your prey.",
+      "summary": "Whenever the target of your Slayer's Prey forces you to make a save, or you try to escape its grapple, add 1d6 to the roll.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "magic-users-nemesis",
+      "name": "Magic-User's Nemesis",
+      "unlockLevel": 11,
+      "short": "Reaction: foil a spell or teleport (WIS save).",
+      "summary": "When you see a creature within 60 ft. casting a spell or teleporting, you can use your reaction to force a WIS save; on a failure the spell or teleport fails and is wasted. Once per short or long rest.",
+      "facts": {
+        "action": "Reaction",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "magic-users-nemesis",
+          "name": "Magic-User's Nemesis",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "slayers-counter",
+      "name": "Slayer's Counter",
+      "unlockLevel": 15,
+      "short": "Reaction: attack your prey when it forces a save; auto-succeed if you hit.",
+      "summary": "When your Slayer's Prey target forces you to make a save, you can use your reaction to make a weapon attack against it. On a hit, you automatically succeed on the save.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Protection from Evil and Good"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Zone of Truth"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Magic Circle"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Banishment"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Hold Monster"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,77 @@
+{
+  "id": "spirits",
+  "name": "College of Spirits",
+  "source": "Van Richten's Guide to Ravenloft",
+  "summary": "Storytellers who channel spirits through tales told from beyond.",
+  "features": [
+    {
+      "id": "guiding-whispers",
+      "name": "Guiding Whispers",
+      "unlockLevel": 3,
+      "short": "Learn Guidance; it reaches 60 ft.",
+      "summary": "You learn the Guidance cantrip, which doesn't count against your cantrips known. For you it has a range of 60 ft.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "guidance",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "spiritual-focus",
+      "name": "Spiritual Focus",
+      "unlockLevel": 3,
+      "short": "Use a candle, crystal ball or similar as a focus; +1d6 later.",
+      "summary": "You can use a candle, crystal ball, skull, spirit board or tarokka deck as a spellcasting focus. From 6th level, when you cast a bard spell that deals damage or restores hit points through it, roll a d6 and add it to one roll.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "tales-from-beyond",
+      "name": "Tales from Beyond",
+      "unlockLevel": 3,
+      "short": "Spend inspiration to draw a random spirit tale.",
+      "summary": "As a bonus action, expend a Bardic Inspiration and roll your die on the Spirit Tales table. You can tell the tale (an action) to a creature within 30 ft., producing effects like damage, healing, teleporting or frightening.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "1 Bardic Inspiration"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "spirit-session",
+      "name": "Spirit Session",
+      "unlockLevel": 6,
+      "short": "A ritual with allies teaches you a temporary divination or necromancy spell.",
+      "summary": "During a 1-hour ritual with willing creatures, you temporarily learn one divination or necromancy spell of a level up to the number of participants, which counts as a bard spell until your next long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "mystical-connection",
+      "name": "Mystical Connection",
+      "unlockLevel": 14,
+      "short": "Roll twice on the Spirit Tales table and choose.",
+      "summary": "Whenever you roll on the Spirit Tales table, you can roll the die twice and choose which result to use.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

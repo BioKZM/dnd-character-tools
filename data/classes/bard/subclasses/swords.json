@@ -1,0 +1,110 @@
+{
+  "id": "swords",
+  "name": "College of Swords",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Blade-juggling showfighters who weave flourishes into every attack.",
+  "features": [
+    {
+      "id": "swords-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 3,
+      "short": "Medium armor and scimitars.",
+      "summary": "You gain proficiency with medium armor and the scimitar. You can use a simple or martial melee weapon you are proficient with as a spellcasting focus.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Medium Armor"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "weapon",
+          "values": [
+            "Scimitar"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "swords-fighting-style",
+      "name": "Fighting Style",
+      "unlockLevel": 3,
+      "short": "Choose Dueling or Two-Weapon Fighting.",
+      "summary": "You adopt a style of fighting as your specialty.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "swords-fighting-style",
+          "label": "Fighting Style",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "dueling",
+                "name": "Dueling",
+                "summary": "When you wield a melee weapon in one hand and no other weapons, +2 to damage rolls with it.",
+                "grants": []
+              },
+              {
+                "id": "two-weapon-fighting",
+                "name": "Two-Weapon Fighting",
+                "summary": "Add your ability modifier to the damage of your off-hand attack.",
+                "grants": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "blade-flourish",
+      "name": "Blade Flourish",
+      "unlockLevel": 3,
+      "short": "Faster when attacking; spend inspiration on Defensive, Slashing or Mobile flourish.",
+      "summary": "When you take the Attack action, your walking speed increases by 10 ft. until the end of the turn. Once per turn on a weapon hit, you can spend a Bardic Inspiration die for a flourish: Defensive (add the die to damage and AC), Slashing (damage the target and another nearby creature) or Mobile (damage and push the target).",
+      "facts": {
+        "action": "Passive",
+        "cost": "1 Bardic Inspiration"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "swords-extra-attack",
+      "name": "Extra Attack",
+      "unlockLevel": 6,
+      "short": "Attack twice with the Attack action.",
+      "summary": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "masters-flourish",
+      "name": "Master's Flourish",
+      "unlockLevel": 14,
+      "short": "Use a d6 for a flourish instead of spending inspiration.",
+      "summary": "Whenever you use a Blade Flourish option, you can roll a d6 and use it instead of expending a Bardic Inspiration die.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

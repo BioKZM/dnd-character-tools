@@ -1,0 +1,86 @@
+{
+  "id": "shadow",
+  "name": "Way of Shadow",
+  "source": "Player's Handbook",
+  "summary": "Ninja-like monks who move through darkness.",
+  "features": [
+    {
+      "id": "shadow-arts",
+      "name": "Shadow Arts",
+      "unlockLevel": 3,
+      "short": "Spend 2 ki to cast Darkness, Darkvision, Pass without Trace or Silence.",
+      "summary": "You can spend 2 ki points to cast Darkness, Darkvision, Pass without Trace or Silence without material components. You also learn Minor Illusion.",
+      "facts": {
+        "action": "Passive",
+        "cost": "2 ki"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "minor-illusion",
+          "uses": "at_will"
+        },
+        {
+          "type": "spell",
+          "spellId": "darkness",
+          "uses": "known"
+        },
+        {
+          "type": "spell",
+          "spellId": "darkvision",
+          "uses": "known"
+        },
+        {
+          "type": "spell",
+          "spellId": "pass-without-trace",
+          "uses": "known"
+        },
+        {
+          "type": "spell",
+          "spellId": "silence",
+          "uses": "known"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "shadow-step",
+      "name": "Shadow Step",
+      "unlockLevel": 6,
+      "short": "Bonus action: teleport between shadows, then attack with advantage.",
+      "summary": "While in dim light or darkness, as a bonus action you teleport up to 60 ft. to another dim or dark space you can see. Your next melee attack before the end of the turn has advantage.",
+      "facts": {
+        "action": "Bonus Action",
+        "range": "60 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "cloak-of-shadows",
+      "name": "Cloak of Shadows",
+      "unlockLevel": 11,
+      "short": "Action: become invisible in dim light or darkness.",
+      "summary": "As an action while in dim light or darkness, you become invisible until you attack, cast a spell or are in bright light.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "opportunist",
+      "name": "Opportunist",
+      "unlockLevel": 17,
+      "short": "Reaction: attack a creature that was just hit by someone else.",
+      "summary": "When a creature within 5 ft. is hit by an attack made by someone other than you, you can use your reaction to make a melee attack against it.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

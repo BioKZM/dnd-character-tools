@@ -1,0 +1,76 @@
+{
+  "id": "beast",
+  "name": "Path of the Beast",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A barbarian whose rage transforms them with a bestial bite, claws or tail.",
+  "features": [
+    {
+      "id": "form-of-the-beast",
+      "name": "Form of the Beast",
+      "unlockLevel": 3,
+      "short": "When you rage, grow a bite, claws or a tail as a natural weapon.",
+      "summary": "When you enter your rage, choose a natural weapon: Bite (1d8 piercing, heal PB once per turn when below half HP), Claws (1d6 slashing, extra claw attack once per turn) or Tail (1d8 piercing, reach; reaction +1d8 AC against one attack).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "bestial-soul",
+      "name": "Bestial Soul",
+      "unlockLevel": 6,
+      "short": "Natural weapons count as magical; swim, climb or leap.",
+      "summary": "Your natural weapons count as magical. After a rest, choose: swimming speed and water breathing, climbing speed and wall walking, or long jumps.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "infectious-fury",
+      "name": "Infectious Fury",
+      "unlockLevel": 10,
+      "short": "Your hits can force a target to attack its ally or take 2d12 psychic.",
+      "summary": "While in your beast form, when you hit a creature with a natural weapon, it makes a WIS save or must use its reaction to attack another creature, or takes 2d12 psychic damage. Uses: Constitution modifier per long rest.",
+      "facts": {
+        "action": "Passive",
+        "uses": "CON per long rest",
+        "save": "WIS"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "infectious-fury",
+          "name": "Infectious Fury",
+          "uses": "CON",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "call-the-hunt",
+      "name": "Call the Hunt",
+      "unlockLevel": 14,
+      "short": "When you rage, empower allies with extra damage and gain temp HP.",
+      "summary": "When you rage, choose up to a number of willing creatures within 30 ft. equal to your Constitution modifier. You gain 5 temp HP per creature, and each can deal an extra 1d6 damage once per turn while your rage lasts. Uses: PB per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "call-the-hunt",
+          "name": "Call the Hunt",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

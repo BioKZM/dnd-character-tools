@@ -2318,6 +2318,8 @@ export function PartyRoomDashboard({
           jump:
             entry.sourceKind === "feat"
               ? { step: 2, browser: "feats" }
+              : entry.sourceKind === "subclass"
+              ? { step: 1, browser: "subclass" }
               : entry.choice.from.kind === "option"
               ? { step: 1, browser: "class-features" }
               : entry.choice.from.kind === "language"
