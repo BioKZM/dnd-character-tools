@@ -30,6 +30,7 @@ export function PickGrid({
   inspectedId,
   label,
   size = "md",
+  pageSize,
 }: {
   items: PickTile[];
   columns?: number;
@@ -38,10 +39,17 @@ export function PickGrid({
   inspectedId?: string | null;
   label: string;
   size?: "sm" | "md";
+  /** Verilirse uzun listeler sayfalanir (sayfa basina bu kadar kart). */
+  pageSize?: number;
 }) {
+  const [rawPage, setPage] = useState(0);
+  const pageCount = pageSize ? Math.max(1, Math.ceil(items.length / pageSize)) : 1;
+  const page = Math.min(rawPage, pageCount - 1);
+  const shown = pageSize ? items.slice(page * pageSize, page * pageSize + pageSize) : items;
   return (
+    <div className="pick-grid-wrap">
     <div className={`pick-grid pick-grid-${size}`} style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }} aria-label={label} role="group">
-      {items.map((item) => {
+      {shown.map((item) => {
         const classes = [
           "pick-tile",
           item.selected ? "selected" : "",
@@ -81,6 +89,32 @@ export function PickGrid({
           </button>
         );
       })}
+    </div>
+    {pageCount > 1 ? (
+      <nav className="pick-pager" aria-label={`${label} pages`}>
+        <button type="button" className="pick-filter" disabled={page === 0} onClick={() => setPage(page - 1)}>
+          Previous
+        </button>
+        <span className="pick-pager-dots">
+          {Array.from({ length: pageCount }, (_, index) => (
+            <button
+              key={`${label}-page-${index}`}
+              type="button"
+              className={index === page ? "pick-pager-dot active" : "pick-pager-dot"}
+              aria-label={`Page ${index + 1}`}
+              aria-current={index === page ? "page" : undefined}
+              onClick={() => setPage(index)}
+            >
+              {pageCount <= 12 ? index + 1 : ""}
+            </button>
+          ))}
+        </span>
+        <span className="pick-pager-count">{`${page * (pageSize ?? 0) + 1}-${Math.min(items.length, (page + 1) * (pageSize ?? 0))} of ${items.length}`}</span>
+        <button type="button" className="pick-filter" disabled={page >= pageCount - 1} onClick={() => setPage(page + 1)}>
+          Next
+        </button>
+      </nav>
+    ) : null}
     </div>
   );
 }

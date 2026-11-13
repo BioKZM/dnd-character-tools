@@ -37,6 +37,7 @@ export function LanguageChoicePanel({
           <PickSection key={choice.id} title={choice.label} meta={choice.sourceName} picked={choice.selectedNames.length} total={choice.count}>
             <PickGrid
               label={choice.label}
+              pageSize={12}
               columns={4}
               size="sm"
               inspectedId={inspectedId}

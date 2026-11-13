@@ -177,6 +177,8 @@ export const optionChoiceSchema = z
               minLevel: z.number().int().nonnegative().optional(),
               tags: z.array(z.string()).default([]),
               classes: z.array(z.string()).default([]),
+              /** Okullardan biri (OR): Fey Touched "Divination" veya "Enchantment". */
+              schools: z.array(z.string()).default([]),
             })
             .strict(),
         })
@@ -204,6 +206,23 @@ export const optionChoiceSchema = z
           kind: z.literal("skill"),
           /** true: sadece karakterin zaten proficient oldugu skill'ler (Expertise icin). */
           proficientOnly: z.boolean().default(false),
+          /** Verilirse sadece bu skill'ler secilebilir (orn. Squat Nimbleness: acrobatics, athletics). */
+          options: z.array(z.string().min(1)).optional(),
+        })
+        .strict(),
+      /** Half-feat'ler: listedeki ability'lerden birine +amount (20'yi gecmez). */
+      z
+        .object({
+          kind: z.literal("ability"),
+          options: z.array(abilityIdSchema).min(1),
+          amount: z.number().int().positive().default(1),
+        })
+        .strict(),
+      /** Dil secimi; options yoksa butun diller. */
+      z
+        .object({
+          kind: z.literal("language"),
+          options: z.array(z.string().min(1)).optional(),
         })
         .strict(),
     ]),
@@ -211,7 +230,7 @@ export const optionChoiceSchema = z
     /** Buyu secimlerinde: secilen buyu nasil eklenir. */
     grantUses: spellUsesSchema.optional(),
     /** Skill secimlerinde: secilen skill'e ne verilir. */
-    grantAs: z.enum(["proficiency", "expertise", "monk_weapon"]).optional(),
+    grantAs: z.enum(["proficiency", "expertise", "monk_weapon", "ability_save"]).optional(),
     note: z.string().optional(),
   })
   .strict();

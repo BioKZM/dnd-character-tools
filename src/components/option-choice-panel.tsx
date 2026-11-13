@@ -9,8 +9,6 @@ import { GearCard } from "@/components/ui/gear-info";
 import { findGearInfo, type GearInfo } from "@/lib/content/item-info";
 import type { ContentBundle } from "@/lib/content/schema";
 
-const VISIBLE_LIMIT = 24;
-
 /**
  * Secilen opsiyonlarin ve acilmis feature'larin `choices` alanlari icin genel secim paneli.
  * Data'ya yeni bir secim eklendiginde ekstra UI kodu gerekmez.
@@ -48,6 +46,12 @@ function candidateIcon(kind: string, candidate: AvailableChoice["candidates"][nu
   if (kind === "skill") {
     return skillIcon(candidate.id);
   }
+  if (kind === "ability") {
+    return "stars-stack";
+  }
+  if (kind === "language") {
+    return "talk";
+  }
   return schoolIcon(candidate.tags.join(" "));
 }
 
@@ -75,7 +79,6 @@ function ChoiceBlock({
   content?: ContentBundle;
 }) {
   const [query, setQuery] = useState("");
-  const [showAll, setShowAll] = useState(false);
   const [inspected, setInspected] = useState<string | null>(null);
   const { choice, selectedIds, sourceName } = entry;
   const kind = choice.from.kind;
@@ -83,7 +86,7 @@ function ChoiceBlock({
   const candidates = [...entry.candidates]
     .filter((candidate) => !needle || candidate.name.toLowerCase().includes(needle) || selectedIds.includes(candidate.id))
     .sort((left, right) => Number(selectedIds.includes(right.id)) - Number(selectedIds.includes(left.id)));
-  const visible = showAll || needle ? candidates : candidates.slice(0, VISIBLE_LIMIT);
+  const visible = candidates;
   const full = selectedIds.length >= choice.count;
   const tiles: PickTile[] = visible.map((candidate) => ({
     id: candidate.id,
@@ -130,15 +133,10 @@ function ChoiceBlock({
       }
     >
       {tiles.length ? (
-        <PickGrid items={tiles} columns={5} size="sm" label={choice.label} onPick={pick} onInspect={setInspected} inspectedId={inspected} />
+        <PickGrid key={needle} items={tiles} columns={kind === "ability" ? 6 : 5} size="sm" pageSize={15} label={choice.label} onPick={pick} onInspect={setInspected} inspectedId={inspected} />
       ) : (
         <p className="pick-note">Nothing matches this choice at your current level.</p>
       )}
-      {!showAll && !needle && candidates.length > VISIBLE_LIMIT ? (
-        <button type="button" className="inspect-toggle" onClick={() => setShowAll(true)}>
-          {`Show all ${candidates.length}`}
-        </button>
-      ) : null}
       {focusGear ? (
         <GearCard key={focusGear.id} info={focusGear} defaultOpen />
       ) : focus?.summary ? (

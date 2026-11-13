@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { featConditionSchema, grantSchema } from "@/lib/engine/grants";
+import { featConditionSchema, optionChoiceSchema, grantSchema } from "@/lib/engine/grants";
 
 export const featureFactsSchema = z
   .object({
@@ -208,6 +208,8 @@ export const featSchema = z.object({
   /** Makinenin kontrol ettigi on kosullar. Bos ise feat herkese acik. */
   requires: z.array(featConditionSchema).default([]),
   grants: z.array(grantSchema).default([]),
+  /** Feat'in oyuncu secimleri (half-feat ability'si, Skilled skill'leri, Magic Initiate buyuleri...). */
+  choices: z.array(optionChoiceSchema).default([]),
   detailParagraphs: z.array(z.string()).default([]),
   detailTables: z
     .array(

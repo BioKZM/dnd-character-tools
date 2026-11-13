@@ -6,11 +6,55 @@
     "source": "Eberron - Rising from the Last War",
     "prerequisite": "No other dragonmark",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "CON",
+        "amount": 1
+      },
+      {
+        "type": "note",
+        "text": "When you cast the 1st-level spell with this feat you can spend a Hit Die to gain temporary HP; roll for a flaw."
+      }
+    ],
     "requires": [
       {
         "kind": "campaign",
         "text": "No other dragonmark (Eberron)"
+      }
+    ],
+    "choices": [
+      {
+        "id": "aberrant-dragonmark-cantrip",
+        "label": "Sorcerer cantrip",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 0,
+            "classes": [
+              "Sorcerer"
+            ]
+          }
+        },
+        "grantUses": "known"
+      },
+      {
+        "id": "aberrant-dragonmark-spell",
+        "label": "1st-level sorcerer spell (once per long rest)",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 1,
+            "classes": [
+              "Sorcerer"
+            ]
+          }
+        },
+        "grantUses": "long_rest"
       }
     ]
   },
@@ -40,7 +84,12 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High Sorcery(Nuitari) Feat",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Ambition's Price: when you deal damage with a spell, you can take damage to add necrotic damage. Learn one 2nd-level enchantment or necromancy spell (once per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -61,7 +110,12 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High Sorcery(Lunitari) Feat",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Magical Balance: when you roll a 9 or lower on a d20 for an ability check or attack, you can treat it as a 10 (PB times per long rest). Learn one 2nd-level divination or transmutation spell."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -82,7 +136,12 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Initiate of High SorceryFeat",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Protective Ward: reaction when an ally within 30 ft. takes damage, spend a spell slot to reduce it. Learn one 2nd-level abjuration or divination spell."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -103,7 +162,12 @@
     "source": "Planescape - Adventures in the Multiverse.",
     "prerequisite": "4th Level,Scion of the Outer Planes(Lawful Outer Plane) Feat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Stasis Strike: once per turn when you hit, deal extra force damage and the target may be unable to take reactions (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -114,6 +178,26 @@
         "ids": [
           "scion-of-the-outer-planes"
         ]
+      }
+    ],
+    "choices": [
+      {
+        "id": "agent-of-order-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -142,7 +226,74 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "You can use artisan's tools as a spellcasting focus for these spells. INT is your spellcasting ability for them."
+      }
+    ],
+    "choices": [
+      {
+        "id": "artificer-initiate-cantrip",
+        "label": "Artificer cantrip",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 0,
+            "classes": [
+              "Artificer"
+            ]
+          }
+        },
+        "grantUses": "known"
+      },
+      {
+        "id": "artificer-initiate-spell",
+        "label": "1st-level artificer spell (once per long rest)",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 1,
+            "classes": [
+              "Artificer"
+            ]
+          }
+        },
+        "grantUses": "long_rest"
+      },
+      {
+        "id": "artificer-initiate-tool",
+        "label": "Artisan's tools",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "tool",
+          "options": [
+            "Alchemist's Supplies",
+            "Brewer's Supplies",
+            "Calligrapher's Supplies",
+            "Carpenter's Tools",
+            "Cartographer's Tools",
+            "Cobbler's Tools",
+            "Cook's Utensils",
+            "Glassblower's Tools",
+            "Jeweler's Tools",
+            "Leatherworker's Tools",
+            "Mason's Tools",
+            "Painter's Supplies",
+            "Potter's Tools",
+            "Smith's Tools",
+            "Tinker's Tools",
+            "Weaver's Tools",
+            "Woodcarver's Tools"
+          ]
+        }
+      }
+    ]
   },
   {
     "id": "athlete",
@@ -151,7 +302,28 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Standing up from prone costs only 5 ft.; climbing costs no extra movement; running long and high jumps need only 5 ft. of run-up."
+      }
+    ],
+    "choices": [
+      {
+        "id": "athlete-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "baleful-scion",
@@ -160,7 +332,12 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Evil Outer Plane) Feat.",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Grasp of Avarice: once per turn when you hit, deal extra necrotic damage and regain hit points (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -172,6 +349,26 @@
           "scion-of-the-outer-planes"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "baleful-scion-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -181,7 +378,12 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Halfling",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Reaction: when an ally within 30 ft. rolls a 1 on a d20, they can reroll it. You can't use Lucky that turn."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -199,7 +401,12 @@
     "source": "The Book of Many Things",
     "prerequisite": "4th Level, Spellcasting Feature",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Card Focus: use a card deck as a spellcasting focus. Hidden Ace: after a long rest, imbue a card with a 1st-level-or-higher spell and cast it as a bonus action later."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -218,7 +425,12 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "After the Dash action, bonus action melee attack (+5 damage) or shove (push 10 ft.) if you moved 10 ft. in a straight line first."
+      }
+    ]
   },
   {
     "id": "chef",
@@ -227,7 +439,35 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "proficiency",
+        "category": "tool",
+        "values": [
+          "Cook's Utensils"
+        ]
+      },
+      {
+        "type": "note",
+        "text": "Short rest cooking: allies who spend Hit Dies regain 1d8 extra HP. Long rest: PB treats that give temporary HP equal to your PB."
+      }
+    ],
+    "choices": [
+      {
+        "id": "chef-ability",
+        "label": "+1 to CON or WIS",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "CON",
+            "WIS"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "cohort-of-chaos",
@@ -236,7 +476,12 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Chaotic Outer Plane) Feat.",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Chaotic Flare: when you roll a 1 or 20 on an attack, you can trigger a random chaos effect (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -248,6 +493,26 @@
           "scion-of-the-outer-planes"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "cohort-of-chaos-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -257,7 +522,12 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Ignore the loading property of crossbows; no disadvantage on ranged attacks within 5 ft.; after attacking with a one-handed weapon, bonus action hand crossbow attack."
+      }
+    ]
   },
   {
     "id": "cruel",
@@ -266,7 +536,19 @@
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "resource",
+        "id": "cruelty-dice",
+        "name": "Cruelty dice (d6)",
+        "uses": "PB",
+        "recharge": "long_rest"
+      },
+      {
+        "type": "note",
+        "text": "Spend a cruelty die: add it to weapon damage, heal that much on a critical hit, or add it to an Intimidation check."
+      }
+    ]
   },
   {
     "id": "crusher",
@@ -275,7 +557,28 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Once per turn when you deal bludgeoning damage, move the target 5 ft. On a critical hit, attacks against it have advantage until your next turn."
+      }
+    ],
+    "choices": [
+      {
+        "id": "crusher-ability",
+        "label": "+1 to STR or CON",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "defensive-duelist",
@@ -284,7 +587,12 @@
     "source": "Player's Handbook",
     "prerequisite": "Dexterity 13 or higher",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Reaction while wielding a finesse weapon you're proficient with: add your proficiency bonus to AC against one melee attack."
+      }
+    ],
     "requires": [
       {
         "kind": "ability",
@@ -302,7 +610,12 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level, Dragonlance Campaign",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn one cantrip and one 1st-level spell tied to your god's alignment; cast the spell once per long rest. You can use a holy symbol as a focus."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -321,7 +634,12 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dragonborn",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Instead of your breath weapon, roar: creatures of your choice within 30 ft. make a WIS save or are frightened for 1 minute."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -329,6 +647,23 @@
           "dragonborn"
         ],
         "label": "Dragonborn"
+      }
+    ],
+    "choices": [
+      {
+        "id": "dragon-fear-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -339,7 +674,20 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dragonborn",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "ac_base",
+        "base": 13,
+        "abilities": [
+          "DEX"
+        ],
+        "shield": true
+      },
+      {
+        "type": "note",
+        "text": "Retractable claws: your unarmed strikes deal 1d4 + STR slashing damage."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -347,6 +695,23 @@
           "dragonborn"
         ],
         "label": "Dragonborn"
+      }
+    ],
+    "choices": [
+      {
+        "id": "dragon-hide-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -357,7 +722,26 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Elf (drow)",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "spell",
+        "spellId": "detect-magic",
+        "uses": "at_will",
+        "ability": "CHA"
+      },
+      {
+        "type": "spell",
+        "spellId": "levitate",
+        "uses": "long_rest",
+        "ability": "CHA"
+      },
+      {
+        "type": "spell",
+        "spellId": "dispel-magic",
+        "uses": "long_rest",
+        "ability": "CHA"
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -375,7 +759,17 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "ac",
+        "bonus": 1,
+        "condition": "while wielding a separate melee weapon in each hand"
+      },
+      {
+        "type": "note",
+        "text": "Two-weapon fighting works with non-light one-handed weapons; draw or stow two weapons at once."
+      }
+    ]
   },
   {
     "id": "dungeon-delver",
@@ -461,7 +855,12 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Spellcasting or Pact Magic feature",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn one Eldritch Invocation you qualify for (no Pact Boon or level prerequisites). You can swap it when you level up."
+      }
+    ],
     "requires": [
       {
         "kind": "spellcasting",
@@ -476,7 +875,12 @@
     "source": "Player's Handbook",
     "prerequisite": "The ability to cast at least one spell",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Pick acid, cold, fire, lightning or thunder: your spells ignore resistance to it, and 1s on its damage dice count as 2s."
+      }
+    ],
     "requires": [
       {
         "kind": "spellcasting",
@@ -487,11 +891,16 @@
   {
     "id": "elven-accuracy",
     "name": "Elven Accuracy",
-    "summary": ", { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });",
+    "summary": "Your elven precision lets you reroll one die when you have advantage.",
     "source": "",
     "prerequisite": "Elf or Half-Elf",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "When you have advantage on an attack roll using DEX, INT, WIS or CHA, you can reroll one of the dice once."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -505,6 +914,24 @@
         ],
         "label": "Elf or Half-Elf"
       }
+    ],
+    "choices": [
+      {
+        "id": "elven-accuracy-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "DEX",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -514,7 +941,17 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Fire Strike) Feat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "defense",
+        "kind": "resistance",
+        "against": "fire"
+      },
+      {
+        "type": "note",
+        "text": "Searing Ignition: when you use Fire Strike, creatures of your choice within 5 ft. of the target make a DEX save or take fire damage and are blinded until your next turn."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -526,16 +963,38 @@
           "strike-of-the-giants"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "ember-of-the-fire-giant-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "WIS"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
     "id": "fade-away",
     "name": "Fade Away",
-    "summary": ", { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });",
+    "summary": "Your people are clever, with a knack for illusion magic. You can turn invisible for a moment after getting hit.",
     "source": "",
     "prerequisite": "Gnome",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Reaction after taking damage: turn invisible until the end of your next turn or until you attack, deal damage or force a save. Once per short or long rest."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -544,16 +1003,50 @@
         ],
         "label": "Gnome"
       }
+    ],
+    "choices": [
+      {
+        "id": "fade-away-ability",
+        "label": "+1 to DEX or INT",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "DEX",
+            "INT"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
     "id": "fey-teleportation",
     "name": "Fey Teleportation",
-    "summary": ", { \"refreshTime\": 30, \"renderVisibleOnly\": false, \"refreshVisibleOnly\": true, \"sizes\": [ [ 160, 600 ] ], \"report\": { \"enabled\": true, \"wording\": \"Report Ad\", \"position\": \"bottom-right\" }, \"mediaQuery\": \"(min-width: 1000px)\" });",
+    "summary": "Your study of high elven lore unlocked fey magic: you can cast Misty Step once per rest and you speak Sylvan.",
     "source": "",
     "prerequisite": "Elf (High)",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "proficiency",
+        "category": "language",
+        "values": [
+          "Sylvan"
+        ]
+      },
+      {
+        "type": "spell",
+        "spellId": "misty-step",
+        "uses": "long_rest",
+        "ability": "INT"
+      },
+      {
+        "type": "note",
+        "text": "Misty Step from this feat comes back on a short rest too."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -561,6 +1054,22 @@
           "high-elf"
         ],
         "label": "Elf (High)"
+      }
+    ],
+    "choices": [
+      {
+        "id": "fey-teleportation-ability",
+        "label": "+1 to INT or CHA",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "INT",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -576,7 +1085,41 @@
         "type": "spell",
         "spellId": "misty-step",
         "uses": "long_rest",
-        "note": "also castable with spell slots; +1 INT/WIS/CHA and a 1st-level divination or enchantment spell are chosen in the creator (not wired yet)"
+        "note": "also castable with spell slots"
+      }
+    ],
+    "choices": [
+      {
+        "id": "fey-touched-ability",
+        "label": "+1 to INT or WIS or CHA",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      },
+      {
+        "id": "fey-touched-spell",
+        "label": "1st-level divination or enchantment spell (once per long rest)",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 1,
+            "schools": [
+              "Divination",
+              "Enchantment"
+            ]
+          }
+        },
+        "grantUses": "long_rest"
       }
     ]
   },
@@ -587,7 +1130,12 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Proficiency with a martial weapon",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn one Fighting Style option from the fighter list (ask your DM or note it on the sheet). You can swap it when you gain an ASI."
+      }
+    ],
     "requires": [
       {
         "kind": "proficiency",
@@ -603,7 +1151,12 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Tiefling",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Reroll 1s on fire damage from your spells. When you cast a fire spell, wreathe yourself in flames: creatures that hit you in melee take 1d4 fire damage."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -611,6 +1164,22 @@
           "tiefling"
         ],
         "label": "Tiefling"
+      }
+    ],
+    "choices": [
+      {
+        "id": "flames-of-phlegethos-ability",
+        "label": "+1 to INT or CHA",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "INT",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -621,7 +1190,12 @@
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "Spellcasting feature from a class that prepares spells",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Bonus action: swap one prepared spell for another from your list, once per short or long rest."
+      }
+    ],
     "requires": [
       {
         "kind": "spellcasting",
@@ -636,7 +1210,17 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Frost Strike) Feat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "defense",
+        "kind": "resistance",
+        "against": "cold"
+      },
+      {
+        "type": "note",
+        "text": "Frigid Retaliation: reaction when hit within 30 ft.; the attacker makes a CON save or takes cold damage and its speed drops to 0."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -648,6 +1232,23 @@
           "strike-of-the-giants"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "fury-of-the-frost-giant-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "WIS"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -657,7 +1258,12 @@
     "source": "Fizban's Treasury of Dragons",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Chromatic Infusion: bonus action, a weapon deals +1d4 acid, cold, fire, lightning or poison damage for 1 minute (once per long rest). Reactive Resistance: reaction for resistance to that damage (PB times per long rest)."
+      }
+    ]
   },
   {
     "id": "gift-of-the-gem-dragon",
@@ -666,7 +1272,29 @@
     "source": "Fizban's Treasury of Dragons",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Telekinetic Reprisal: reaction when hit within 10 ft.; the attacker makes a STR save or takes 2d8 force damage and is pushed 10 ft. (PB times per long rest)."
+      }
+    ],
+    "choices": [
+      {
+        "id": "gift-of-the-gem-dragon-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "gift-of-the-metallic-dragon",
@@ -675,7 +1303,17 @@
     "source": "Fizban's Treasury of Dragons",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "spell",
+        "spellId": "cure-wounds",
+        "uses": "long_rest"
+      },
+      {
+        "type": "note",
+        "text": "Protective Wings: reaction when an ally within 5 ft. is hit, add your PB to its AC (PB times per long rest)."
+      }
+    ]
   },
   {
     "id": "grappler",
@@ -684,7 +1322,12 @@
     "source": "Player's Handbook",
     "prerequisite": "Strength 13 or higher",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Advantage on attacks against a creature you are grappling; you can try to pin it (both restrained)."
+      }
+    ],
     "requires": [
       {
         "kind": "ability",
@@ -716,7 +1359,12 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Cloud Strike) Feat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Cloudy Escape: reaction when hit; you take half damage and teleport up to 30 ft. to a space you can see (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -728,6 +1376,23 @@
           "strike-of-the-giants"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "guile-of-the-cloud-giant-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -737,7 +1402,24 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "DEX",
+        "amount": 1
+      },
+      {
+        "type": "proficiency",
+        "category": "weapon",
+        "values": [
+          "Firearms"
+        ]
+      },
+      {
+        "type": "note",
+        "text": "Ignore the loading property of firearms; no disadvantage on ranged attacks within 5 ft."
+      }
+    ]
   },
   {
     "id": "healer",
@@ -746,7 +1428,12 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Stabilize with a healer's kit and the creature regains 1 HP. Action, 1 kit use: a creature regains 1d6 + 4 + its max Hit Dice HP (once per creature per rest)."
+      }
+    ]
   },
   {
     "id": "heavily-armored",
@@ -887,7 +1574,12 @@
     "source": "Player's Handbook",
     "prerequisite": "Charisma 13 or higher",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "10-minute speech: up to six creatures gain temporary HP equal to your level + CHA modifier (once per short or long rest each)."
+      }
+    ],
     "requires": [
       {
         "kind": "ability",
@@ -924,7 +1616,17 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Stone Strike) Feat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "sense",
+        "sense": "darkvision",
+        "range": 60
+      },
+      {
+        "type": "note",
+        "text": "Cavernous Sight: darkvision 60 ft. Stone Throw: bonus action ranged attack (60 ft.) that knocks a creature prone on a failed STR save (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -936,6 +1638,23 @@
           "strike-of-the-giants"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "keenness-of-the-stone-giant-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "WIS"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -945,7 +1664,12 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Commanding Rally: bonus action, an ally within 60 ft. can use its reaction to make a weapon attack (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -956,6 +1680,23 @@
         "ids": [
           "squire-of-solamnia"
         ]
+      }
+    ],
+    "choices": [
+      {
+        "id": "knight-of-the-crown-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -966,7 +1707,12 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Bolstering Rally: bonus action, an ally within 30 ft. gains temporary HP (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -977,6 +1723,23 @@
         "ids": [
           "squire-of-solamnia"
         ]
+      }
+    ],
+    "choices": [
+      {
+        "id": "knight-of-the-rose-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -987,7 +1750,12 @@
     "source": "Dragonlance: Shadow of the Dragon Queen",
     "prerequisite": "4th Level,Squire of SolamniaFeat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Demoralizing Strike: when you hit, the target makes a WIS save or is frightened of you until your next turn (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -999,6 +1767,23 @@
           "squire-of-solamnia"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "knight-of-the-sword-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -1008,7 +1793,31 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "proficiency",
+        "category": "armor",
+        "values": [
+          "Light Armor"
+        ]
+      }
+    ],
+    "choices": [
+      {
+        "id": "lightly-armored-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "linguist",
@@ -1025,7 +1834,18 @@
       },
       {
         "type": "note",
-        "text": "Learn three languages of your choice; create written ciphers."
+        "text": "You can create written ciphers; others need an INT check (DC = your INT score + PB) to decode them."
+      }
+    ],
+    "choices": [
+      {
+        "id": "linguist-languages",
+        "label": "Three languages",
+        "count": 3,
+        "min": 3,
+        "from": {
+          "kind": "language"
+        }
       }
     ]
   },
@@ -1053,7 +1873,12 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Reaction attack when a creature within 5 ft. casts a spell; creatures you damage have disadvantage on concentration saves; advantage on saves against spells cast within 5 ft."
+      }
+    ]
   },
   {
     "id": "magic-initiate",
@@ -1062,7 +1887,56 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Pick both cantrips and the spell from the same class: bard, cleric, druid, sorcerer, warlock or wizard. That class's ability is your spellcasting ability for them."
+      }
+    ],
+    "choices": [
+      {
+        "id": "magic-initiate-cantrips",
+        "label": "Two cantrips (same class)",
+        "count": 2,
+        "min": 2,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 0,
+            "classes": [
+              "Bard",
+              "Cleric",
+              "Druid",
+              "Sorcerer",
+              "Warlock",
+              "Wizard"
+            ]
+          }
+        },
+        "grantUses": "known"
+      },
+      {
+        "id": "magic-initiate-spell",
+        "label": "1st-level spell (once per long rest)",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 1,
+            "classes": [
+              "Bard",
+              "Cleric",
+              "Druid",
+              "Sorcerer",
+              "Warlock",
+              "Wizard"
+            ]
+          }
+        },
+        "grantUses": "long_rest"
+      }
+    ]
   },
   {
     "id": "martial-adept",
@@ -1071,7 +1945,19 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "resource",
+        "id": "martial-adept-die",
+        "name": "Superiority die (d6)",
+        "uses": 1,
+        "recharge": "short_rest"
+      },
+      {
+        "type": "note",
+        "text": "Learn two Battle Master maneuvers. Their save DC is 8 + PB + STR or DEX."
+      }
+    ]
   },
   {
     "id": "medium-armor-master",
@@ -1080,7 +1966,12 @@
     "source": "Player's Handbook",
     "prerequisite": "Proficiency with medium armor",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Medium armor doesn't give disadvantage on Stealth, and you can add up to +3 DEX to AC in it instead of +2."
+      }
+    ],
     "requires": [
       {
         "kind": "proficiency",
@@ -1096,7 +1987,19 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "Spellcasting or Pact Magic feature",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "resource",
+        "id": "metamagic-adept-points",
+        "name": "Sorcery points",
+        "uses": 2,
+        "recharge": "long_rest"
+      },
+      {
+        "type": "note",
+        "text": "Learn two Metamagic options from the sorcerer list; spend these sorcery points on them."
+      }
+    ],
     "requires": [
       {
         "kind": "spellcasting",
@@ -1131,12 +2034,37 @@
     "source": "Player's Handbook",
     "prerequisite": "Proficiency with light armor",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "proficiency",
+        "category": "armor",
+        "values": [
+          "Medium Armor",
+          "Shields"
+        ]
+      }
+    ],
     "requires": [
       {
         "kind": "proficiency",
         "category": "armor",
         "value": "light"
+      }
+    ],
+    "choices": [
+      {
+        "id": "moderately-armored-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -1147,7 +2075,12 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "While mounted: advantage on melee attacks against unmounted creatures smaller than your mount; redirect attacks to yourself; your mount takes no damage on successful DEX saves."
+      }
+    ]
   },
   {
     "id": "mystic-conflux",
@@ -1156,7 +2089,12 @@
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn Detect Magic and Identify (cast as rituals); you can attune to one extra magic item (up to four)."
+      }
+    ]
   },
   {
     "id": "observant",
@@ -1165,7 +2103,28 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "+5 to passive Perception and passive Investigation; you can read lips in a language you understand."
+      }
+    ],
+    "choices": [
+      {
+        "id": "observant-ability",
+        "label": "+1 to INT or WIS",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "INT",
+            "WIS"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "orcish-fury",
@@ -1174,7 +2133,12 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Half-orc",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Once per short or long rest, add one extra weapon damage die to a hit. After using Relentless Endurance, make one weapon attack as a reaction."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -1182,6 +2146,22 @@
           "half-orc"
         ],
         "label": "Half-Orc"
+      }
+    ],
+    "choices": [
+      {
+        "id": "orcish-fury-ability",
+        "label": "+1 to STR or CON",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -1192,7 +2172,12 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(The Outlands) Feat.",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn Misty Step and Tongues; cast each once per long rest without a slot. You can speak with any creature that knows a language."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -1203,6 +2188,26 @@
         "ids": [
           "scion-of-the-outer-planes"
         ]
+      }
+    ],
+    "choices": [
+      {
+        "id": "outlands-envoy-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -1213,7 +2218,28 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Once per turn, reroll one piercing damage die. On a critical hit with piercing damage, roll one extra damage die."
+      }
+    ],
+    "choices": [
+      {
+        "id": "piercer-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "planar-wanderer",
@@ -1222,7 +2248,12 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer PlanesFeat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Planar Adaptation: resistance to one damage type tied to your current plane. Portal Cracker: advantage on checks to identify or open portals."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -1234,6 +2265,26 @@
           "scion-of-the-outer-planes"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "planar-wanderer-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -1243,7 +2294,19 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "proficiency",
+        "category": "tool",
+        "values": [
+          "Poisoner's Kit"
+        ]
+      },
+      {
+        "type": "note",
+        "text": "Your attacks ignore resistance to poison damage. Spend an hour to make PB doses of poison (2d8 poison damage, CON save DC 14 or poisoned)."
+      }
+    ]
   },
   {
     "id": "polearm-master",
@@ -1252,7 +2315,12 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Bonus action butt-end attack (1d4 bludgeoning) with a glaive, halberd, quarterstaff or spear; opportunity attack when a creature enters your reach."
+      }
+    ]
   },
   {
     "id": "prodigy",
@@ -1273,6 +2341,39 @@
         ],
         "label": "Half-Elf, Half-Orc or Human"
       }
+    ],
+    "choices": [
+      {
+        "id": "prodigy-skill",
+        "label": "One skill",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "skill",
+          "proficientOnly": false
+        },
+        "grantAs": "proficiency"
+      },
+      {
+        "id": "prodigy-language",
+        "label": "One language",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "language"
+        }
+      },
+      {
+        "id": "prodigy-expertise",
+        "label": "Expertise in a skill you're proficient in",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "skill",
+          "proficientOnly": true
+        },
+        "grantAs": "expertise"
+      }
     ]
   },
   {
@@ -1282,7 +2383,12 @@
     "source": "Plane Shift - Kaladesh",
     "prerequisite": "Intelligence 13 or higher",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Spend 10 minutes and 1 gp of materials to craft simple tools or replace mundane items; one short rest of tinkering repairs equipment."
+      }
+    ],
     "requires": [
       {
         "kind": "ability",
@@ -1300,7 +2406,17 @@
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "ability",
+        "ability": "CON",
+        "amount": 1
+      },
+      {
+        "type": "note",
+        "text": "When you regain hit points from a spell, potion or Hit Die, add your CON modifier (minimum +1). Advantage on death saves."
+      }
+    ]
   },
   {
     "id": "resilient",
@@ -1309,7 +2425,28 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "choices": [
+      {
+        "id": "resilient-ability",
+        "label": "+1 to an ability, and proficiency in its saving throws",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        },
+        "grantAs": "ability_save"
+      }
+    ]
   },
   {
     "id": "revenant-blade",
@@ -1318,7 +2455,12 @@
     "source": "Eberron - Rising from the Last War",
     "prerequisite": "Elf",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Double-bladed scimitar: +1 AC while wielding it with two hands, it counts as finesse for you, and its bonus-action attack uses 1d8."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -1331,6 +2473,22 @@
         ],
         "label": "Elf"
       }
+    ],
+    "choices": [
+      {
+        "id": "revenant-blade-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -1340,7 +2498,12 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "4th Level,Scion of the Outer Planes(Good Outer Plane) Feat.",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Soothe Pain: reaction when you or an ally within 30 ft. takes damage, reduce it by 1d10 + your PB (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -1352,6 +2515,26 @@
           "scion-of-the-outer-planes"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "righteous-heritor-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -1361,7 +2544,12 @@
     "source": "Player's Handbook",
     "prerequisite": "Intelligence or Wisdom of 13 or higher",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "You get a ritual book with two 1st-level ritual spells from one class; you can cast them as rituals and copy new rituals into the book."
+      }
+    ],
     "requires": [
       {
         "kind": "ability",
@@ -1380,7 +2568,12 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "Spellcasting Feature or Rune Carver Background",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn Comprehend Languages; prepare runic spells after a long rest (number = PB) and cast each once without a slot."
+      }
+    ],
     "requires": [
       {
         "kind": "anyOf",
@@ -1406,7 +2599,12 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Once per turn when you roll damage for a melee weapon attack, reroll the weapon's damage dice and use either total."
+      }
+    ]
   },
   {
     "id": "scion-of-the-outer-planes",
@@ -1415,7 +2613,12 @@
     "source": "Planescape - Adventures in the Multiverse",
     "prerequisite": "Planescape Campaign.",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Pick an Outer Plane alignment: you gain resistance to the matching damage type and a related cantrip."
+      }
+    ],
     "requires": [
       {
         "kind": "campaign",
@@ -1430,7 +2633,12 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Halfling",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Reaction when a creature hits you: it must reroll the attack. Once per combat (short or long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -1438,6 +2646,23 @@
           "halfling"
         ],
         "label": "Halfling"
+      }
+    ],
+    "choices": [
+      {
+        "id": "second-chance-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "DEX",
+            "CON",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -1462,7 +2687,12 @@
     "source": "Plane Shift - Kaladesh",
     "prerequisite": "Intelligence 13 or higher",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Build a small mechanical servo companion over time; it can deliver touch spells and help with tasks."
+      }
+    ],
     "requires": [
       {
         "kind": "ability",
@@ -1485,7 +2715,41 @@
         "type": "spell",
         "spellId": "invisibility",
         "uses": "long_rest",
-        "note": "also castable with spell slots; +1 INT/WIS/CHA and a 1st-level illusion or necromancy spell are chosen in the creator (not wired yet)"
+        "note": "also castable with spell slots"
+      }
+    ],
+    "choices": [
+      {
+        "id": "shadow-touched-ability",
+        "label": "+1 to INT or WIS or CHA",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      },
+      {
+        "id": "shadow-touched-spell",
+        "label": "1st-level illusion or necromancy spell (once per long rest)",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 1,
+            "schools": [
+              "Illusion",
+              "Necromancy"
+            ]
+          }
+        },
+        "grantUses": "long_rest"
       }
     ]
   },
@@ -1510,7 +2774,12 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Bonus action shove after attacking; add your shield's AC bonus to DEX saves against single-target effects; on a successful DEX save for half damage, take none."
+      }
+    ]
   },
   {
     "id": "skill-expert",
@@ -1519,7 +2788,49 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "choices": [
+      {
+        "id": "skill-expert-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX",
+            "CON",
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      },
+      {
+        "id": "skill-expert-skill",
+        "label": "One skill proficiency",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "skill",
+          "proficientOnly": false
+        },
+        "grantAs": "proficiency"
+      },
+      {
+        "id": "skill-expert-expertise",
+        "label": "Expertise in one skill",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "skill",
+          "proficientOnly": true
+        },
+        "grantAs": "expertise"
+      }
+    ]
   },
   {
     "id": "skilled",
@@ -1528,7 +2839,21 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "choices": [
+      {
+        "id": "skilled-skills",
+        "label": "Three skills",
+        "count": 3,
+        "min": 3,
+        "from": {
+          "kind": "skill",
+          "proficientOnly": false
+        },
+        "grantAs": "proficiency",
+        "note": "Skilled also allows tools instead of skills; ask your DM and add them on the sheet."
+      }
+    ]
   },
   {
     "id": "skulker",
@@ -1560,7 +2885,28 @@
     "source": "Tasha's Cauldron of Everything",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Once per turn, slashing damage reduces the target's speed by 10 ft. On a critical hit, it has disadvantage on attacks until your next turn."
+      }
+    ],
+    "choices": [
+      {
+        "id": "slasher-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "soul-of-the-storm-giant",
@@ -1569,7 +2915,12 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Storm Strike) Feat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Maelstrom Aura: bonus action, 10 ft. aura for 1 minute: resistance to lightning and thunder; enemies there have disadvantage on attacks against you (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -1581,6 +2932,23 @@
           "strike-of-the-giants"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "soul-of-the-storm-giant-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "WIS"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -1590,11 +2958,39 @@
     "source": "Player's Handbook",
     "prerequisite": "The ability to cast at least one spell",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Spells with attack rolls have double range and ignore half and three-quarters cover."
+      }
+    ],
     "requires": [
       {
         "kind": "spellcasting",
         "mode": "any"
+      }
+    ],
+    "choices": [
+      {
+        "id": "spell-sniper-cantrip",
+        "label": "One attack-roll cantrip",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 0,
+            "classes": [
+              "Bard",
+              "Cleric",
+              "Druid",
+              "Sorcerer",
+              "Warlock",
+              "Wizard"
+            ]
+          }
+        },
+        "grantUses": "known"
       }
     ]
   },
@@ -1605,7 +3001,12 @@
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "You can cast two leveled spells in one turn if one of them is 2nd level or lower."
+      }
+    ]
   },
   {
     "id": "squat-nimbleness",
@@ -1614,7 +3015,18 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Dwarf or a Small race",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "speed",
+        "mode": "walk",
+        "op": "add",
+        "value": 5
+      },
+      {
+        "type": "note",
+        "text": "Advantage on checks to escape a grapple."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -1624,6 +3036,37 @@
           "halfling"
         ],
         "label": "Dwarf or a Small race"
+      }
+    ],
+    "choices": [
+      {
+        "id": "squat-nimbleness-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
+      },
+      {
+        "id": "squat-nimbleness-skill",
+        "label": "Acrobatics or Athletics",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "skill",
+          "proficientOnly": false,
+          "options": [
+            "acrobatics",
+            "athletics"
+          ]
+        },
+        "grantAs": "proficiency"
       }
     ]
   },
@@ -1672,7 +3115,12 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "Martial Weapon Proficiency or Giant Foundling Background",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Pick a giant type: once per turn when you hit with a melee or thrown weapon, add its strike effect (PB times per long rest)."
+      }
+    ],
     "requires": [
       {
         "kind": "anyOf",
@@ -1713,7 +3161,12 @@
     "source": "Strixhaven: A Curriculum of Chaos",
     "prerequisite": "4th Level, Strixhaven Initiate Feat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Learn Find Familiar as a ritual; your familiar can take your college mascot's form, and you can swap places with it."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -1734,7 +3187,32 @@
     "source": "Mordenkainen's Tome of Foes",
     "prerequisite": "Gnome (Deep Gnome)",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "spell",
+        "spellId": "nondetection",
+        "uses": "at_will",
+        "ability": "INT"
+      },
+      {
+        "type": "spell",
+        "spellId": "blindness-deafness",
+        "uses": "long_rest",
+        "ability": "INT"
+      },
+      {
+        "type": "spell",
+        "spellId": "blur",
+        "uses": "long_rest",
+        "ability": "INT"
+      },
+      {
+        "type": "spell",
+        "spellId": "disguise-self",
+        "uses": "long_rest",
+        "ability": "INT"
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -1753,7 +3231,35 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "proficiency",
+        "category": "weapon",
+        "values": [
+          "Improvised Weapons"
+        ]
+      },
+      {
+        "type": "note",
+        "text": "Unarmed strikes deal 1d4; when you hit with an unarmed strike or improvised weapon, bonus action to grapple."
+      }
+    ],
+    "choices": [
+      {
+        "id": "tavern-brawler-ability",
+        "label": "+1 to STR or CON",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "telekinetic",
@@ -1772,6 +3278,23 @@
       {
         "type": "note",
         "text": "Bonus action: shove a creature within 30 feet 5 feet (STR save)."
+      }
+    ],
+    "choices": [
+      {
+        "id": "telekinetic-ability",
+        "label": "+1 to INT or WIS or CHA",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
       }
     ]
   },
@@ -1793,6 +3316,23 @@
         "type": "note",
         "text": "Telepathy 60 feet."
       }
+    ],
+    "choices": [
+      {
+        "id": "telepathic-ability",
+        "label": "+1 to INT or WIS or CHA",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "INT",
+            "WIS",
+            "CHA"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -1802,7 +3342,28 @@
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "You throw better, including weapons not built for it. See the full rules for ranges and extra effects."
+      }
+    ],
+    "choices": [
+      {
+        "id": "thrown-arms-master-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
+      }
+    ]
   },
   {
     "id": "tough",
@@ -1825,7 +3386,12 @@
     "source": "Plane Shift - Ixalan",
     "prerequisite": "Vampire (Ixalan)",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Ixalan vampire feat: bonus effects from Bloodthirst; see full text."
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -1843,7 +3409,12 @@
     "source": "Bigby Presents - Glory of the Giants",
     "prerequisite": "4th Level,Strike of the Giants(Hill Strike) Feat",
     "isRacialFeat": false,
-    "grants": [],
+    "grants": [
+      {
+        "type": "note",
+        "text": "Bulwark: when an effect would knock you prone or move you, you can make a CON save to resist; when you regain hit points from a Hit Die or spell you add your CON modifier + PB."
+      }
+    ],
     "requires": [
       {
         "kind": "level",
@@ -1855,6 +3426,23 @@
           "strike-of-the-giants"
         ]
       }
+    ],
+    "choices": [
+      {
+        "id": "vigor-of-the-hill-giant-ability",
+        "label": "+1 to an ability",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "CON",
+            "WIS"
+          ],
+          "amount": 1
+        }
+      }
     ]
   },
   {
@@ -1864,7 +3452,12 @@
     "source": "Tal'Dorei Campaign Setting Reborn",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [
+      {
+        "type": "note",
+        "text": "Bonus action: take 1d6 necrotic damage for a blood boon (1 hour): +1d6 to one attack or save, or extra necrotic damage."
+      }
+    ]
   },
   {
     "id": "war-caster",
@@ -1898,7 +3491,33 @@
     "source": "Player's Handbook",
     "prerequisite": "",
     "isRacialFeat": false,
-    "grants": []
+    "grants": [],
+    "choices": [
+      {
+        "id": "weapon-master-ability",
+        "label": "+1 to STR or DEX",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "ability",
+          "options": [
+            "STR",
+            "DEX"
+          ],
+          "amount": 1
+        }
+      },
+      {
+        "id": "weapon-master-weapons",
+        "label": "Four weapons",
+        "count": 4,
+        "min": 4,
+        "from": {
+          "kind": "weapon",
+          "filter": {}
+        }
+      }
+    ]
   },
   {
     "id": "wood-elf-magic",
@@ -1907,7 +3526,20 @@
     "source": "Xanathar's Guide to Everything",
     "prerequisite": "Elf (Wood)",
     "isRacialFeat": true,
-    "grants": [],
+    "grants": [
+      {
+        "type": "spell",
+        "spellId": "longstrider",
+        "uses": "long_rest",
+        "ability": "WIS"
+      },
+      {
+        "type": "spell",
+        "spellId": "pass-without-trace",
+        "uses": "long_rest",
+        "ability": "WIS"
+      }
+    ],
     "requires": [
       {
         "kind": "lineage",
@@ -1915,6 +3547,24 @@
           "wood-elf"
         ],
         "label": "Elf (Wood)"
+      }
+    ],
+    "choices": [
+      {
+        "id": "wood-elf-magic-cantrip",
+        "label": "Druid cantrip",
+        "count": 1,
+        "min": 1,
+        "from": {
+          "kind": "spell",
+          "filter": {
+            "level": 0,
+            "classes": [
+              "Druid"
+            ]
+          }
+        },
+        "grantUses": "known"
       }
     ]
   }

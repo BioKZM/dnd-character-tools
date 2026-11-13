@@ -961,7 +961,8 @@ function finalAbilityBonuses(engine: EngineCatalog, draft: CharacterDraft, deriv
 function finalAbilitiesForDraft(engine: EngineCatalog, draft: CharacterDraft, derived?: DerivedCharacter) {
   const bonuses = finalAbilityBonuses(engine, draft, derived);
   const abilities = draft.abilities.map((ability) => {
-    const score = ability.score + (bonuses.get(ability.id) ?? 0);
+    // Irk, ASI ve feat bonuslari skoru 20'nin ustune cikaramaz.
+    const score = Math.min(Math.max(20, ability.score), ability.score + (bonuses.get(ability.id) ?? 0));
     return {
       ...ability,
       label: abilityLabels[ability.id],
@@ -2285,7 +2286,9 @@ export function PartyRoomDashboard({
           label: `${entry.sourceName}: ${entry.choice.label}`,
           detail: `${entry.selectedIds.length} / ${entry.choice.min ?? entry.choice.count} chosen.`,
           jump:
-            entry.choice.from.kind === "skill"
+            entry.sourceKind === "feat"
+              ? { step: 2, browser: "feats" }
+              : entry.choice.from.kind === "skill"
               ? { step: 2, browser: "skills" }
               : entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool"
                 ? { step: 1, browser: "subclass" }

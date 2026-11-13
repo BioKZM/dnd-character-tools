@@ -5779,6 +5779,7 @@ export function CreatorWorkspace({
           <>
             <PickGrid
               label={`Level ${level} feat`}
+                                  pageSize={12}
               columns={4}
               size="sm"
               items={eligibleFeats.map((feat) => ({
@@ -6282,6 +6283,8 @@ export function CreatorWorkspace({
                               >
                                 <PickGrid
                                   label="Backgrounds"
+                                  pageSize={16}
+                                  key={`bg-${backgroundQuery}-${backgroundShowAll}`}
                                   columns={4}
                                   size="sm"
                                   inspectedId={inspectId}
@@ -6870,7 +6873,7 @@ export function CreatorWorkspace({
                       {(() => {
                         const focus =
                           fighterJourneySubclasses.find((entry) => entry.id === inspectId) ?? selectedJourneySubclass ?? fighterJourneySubclasses[0] ?? null;
-                        const subclassChoices = optionChoices.filter((entry) => entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool");
+                        const subclassChoices = optionChoices.filter((entry) => entry.sourceKind !== "feat" && (entry.choice.from.kind === "weapon" || entry.choice.from.kind === "tool"));
                         return (
                           <PickLayout
                             inspect={
@@ -7016,6 +7019,8 @@ export function CreatorWorkspace({
                                 {cards.length ? (
                                   <PickGrid
                                     label="Invocations"
+                                  pageSize={16}
+                                  key={`inv-${showUnavailableOptions}`}
                                     columns={4}
                                     size="sm"
                                     inspectedId={focus?.option.id ?? null}
@@ -7035,7 +7040,7 @@ export function CreatorWorkspace({
                                   <p className="pick-note">Nothing unlocked yet at your level, Pact Boon and spells.</p>
                                 )}
                               </PickSection>
-                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                             </PickLayout>
                           );
                         })()
@@ -7115,6 +7120,7 @@ export function CreatorWorkspace({
                                 <PickSection title="Book of Shadows cantrips" meta="three cantrips from any class" picked={tomeCount} total={3}>
                                   <PickGrid
                                     label="Book of Shadows cantrips"
+                                  pageSize={15}
                                     columns={5}
                                     size="sm"
                                     inspectedId={inspectId}
@@ -7267,6 +7273,7 @@ export function CreatorWorkspace({
                               <PickSection title="High Elf cantrip" meta="one wizard cantrip, uses INT" picked={selectedHighElfCantripId ? 1 : 0} total={1}>
                                 <PickGrid
                                   label="High Elf cantrip"
+                                  pageSize={15}
                                   columns={5}
                                   size="sm"
                                   inspectedId={inspectId}
@@ -7283,7 +7290,7 @@ export function CreatorWorkspace({
                               </PickSection>
                             ) : null}
                             {currentClass.id !== "warlock" ? (
-                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                             ) : null}
                             <PickSection
                               title={`${currentClass.name} spells`}
@@ -7328,6 +7335,8 @@ export function CreatorWorkspace({
                               {activeSpellPool.length ? (
                                 <PickGrid
                                   label="Spell list"
+                                  pageSize={16}
+                                  key={`spells-${activeSpellFilter}-${spellSearchQuery}-${showUnavailableOptions}`}
                                   columns={4}
                                   size="sm"
                                   inspectedId={inspectId}
@@ -7363,6 +7372,7 @@ export function CreatorWorkspace({
                                   >
                                     <PickGrid
                                       label={`Mystic Arcanum level ${entry.spellLevel}`}
+                                  pageSize={15}
                                       columns={5}
                                       size="sm"
                                       inspectedId={inspectId}
@@ -7459,6 +7469,8 @@ export function CreatorWorkspace({
                                 </div>
                                 <PickGrid
                                   label="Eldritch Knight spells"
+                                  pageSize={16}
+                                  key={`ek-${fighterSpellLevelFilter}`}
                                   columns={4}
                                   size="sm"
                                   inspectedId={inspectId}
@@ -9642,6 +9654,8 @@ export function CreatorWorkspace({
                           {shown.length ? (
                             <PickGrid
                               label="Feats"
+                                  pageSize={16}
+                                  key={`feats-${featFilter}-${featSearchQuery}`}
                               columns={4}
                               size="sm"
                               inspectedId={focus?.id ?? null}
@@ -9660,6 +9674,12 @@ export function CreatorWorkspace({
                             <p className="pick-note">No feats here. Try another filter or search.</p>
                           )}
                         </PickSection>
+                        {optionChoices.some((entry) => entry.sourceKind === "feat") ? (
+                          <div className="option-choice-stack feat-choice-stack">
+                            <span className="gear-list-title">Choices from your feats</span>
+                            <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind === "feat")} onToggle={toggleOptionChoice} />
+                          </div>
+                        ) : null}
                       </PickLayout>
                     );
                   })()}
@@ -9704,7 +9724,7 @@ export function CreatorWorkspace({
                                 )
                               }
                             >
-                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
+                              <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "skill")} onToggle={toggleOptionChoice} />
                               <PickSection title={`${currentClass.name} skills`} meta={`choose ${skillChoiceCount}`} picked={selectedClassSkillCount} total={skillChoiceCount}>
                                 <div className="skill-ability-columns">
                                   {abilityOrder.map((abilityId) => {
@@ -10278,7 +10298,7 @@ export function CreatorWorkspace({
                                 )
                               ) : null}
                               {openWarlockGroup === "invocations" ? (
-                                <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
+                                <OptionChoicePanel content={content} choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.choice.from.kind === "spell")} onToggle={toggleOptionChoice} />
                               ) : null}
                             </div>
                           </div>
