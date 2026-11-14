@@ -6363,6 +6363,147 @@ export function CreatorWorkspace({
     );
   };
 
+  // Irk sayfasindaki secimler (High Elf cantrip, Variant Human skill/feat): ikon izgarasi, detay sagdaki panelde.
+  const raceChoiceSpell = (option: LineageChoiceOption) => {
+    const grant = option.grants.find((entry) => entry.type === "spell_grant");
+    const spellName = (grant && grant.type === "spell_grant" ? grant.spellName : option.label).toLowerCase();
+    return content.spells.find((spell) => spell.name.toLowerCase() === spellName) ?? null;
+  };
+  const raceChoiceIcon = (option: LineageChoiceOption): GameIconName => {
+    const spell = raceChoiceSpell(option);
+    if (spell) {
+      return schoolIcon(spell.school);
+    }
+    const skillGrant = option.grants.find((entry) => entry.type === "skill_proficiency");
+    if (skillGrant && skillGrant.type === "skill_proficiency" && skillGrant.values[0]) {
+      return skillIcon(skillGrant.values[0].toLowerCase().replace(/\s+/g, "-"));
+    }
+    return featIcon(option.label);
+  };
+  const raceChoiceFocus = (() => {
+    if (!inspectId?.startsWith("rc|")) {
+      return null;
+    }
+    const [, groupId, optionId] = inspectId.split("|");
+    const maps = [currentStructuredChoiceGroupMap, currentStructuredSublineageChoiceGroupMap];
+    for (const map of maps) {
+      const raw = map.get(groupId);
+      if (raw) {
+        const group = resolvedLineageChoiceGroup(raw);
+        const option = group.options.find((entry) => entry.id === optionId);
+        if (option) {
+          return { group, option };
+        }
+      }
+    }
+    return null;
+  })();
+  const renderRaceChoiceSection = (
+    group: LineageChoiceGroup,
+    choiceGroupMap: Map<string, LineageChoiceGroup>,
+    nested = false,
+  ): ReactNode => {
+    const resolvedGroup = resolvedLineageChoiceGroup(group);
+    const selectedValues = draft.lineageChoices?.[resolvedGroup.id] ?? [];
+    const multi = resolvedGroup.type === "multi-select";
+    const total = Math.max(1, resolvedGroup.maxSelections);
+    const selectedOptions = resolvedGroup.options.filter((option) => selectedValues.includes(option.id));
+    return (
+      <div key={resolvedGroup.id} className={nested ? "race-choice-section nested" : "race-choice-section"}>
+        <PickSection title={resolvedGroup.name} picked={Math.min(selectedValues.length, total)} total={total}>
+          <PickGrid
+            label={resolvedGroup.name}
+            columns={4}
+            size="sm"
+            pageSize={resolvedGroup.options.length > 16 ? 16 : undefined}
+            inspectedId={raceChoiceFocus?.group.id === resolvedGroup.id ? raceChoiceFocus.option.id : undefined}
+            items={resolvedGroup.options.map((option) => {
+              const spell = raceChoiceSpell(option);
+              const atMax = multi && !selectedValues.includes(option.id) && selectedValues.length >= total;
+              return {
+                id: option.id,
+                name: option.label,
+                sub: spell ? spell.school : undefined,
+                icon: raceChoiceIcon(option),
+                selected: selectedValues.includes(option.id),
+                dim: atMax,
+              };
+            })}
+            onInspect={(id) => setInspectId(`rc|${resolvedGroup.id}|${id}`)}
+            onPick={(id) => {
+              const isSelected = selectedValues.includes(id);
+              if (multi) {
+                if (!isSelected && selectedValues.length >= total) {
+                  return;
+                }
+                setLineageChoiceSelection(resolvedGroup.id, id, true);
+                return;
+              }
+              setLineageChoiceSelection(resolvedGroup.id, isSelected ? "__none__" : id, false);
+            }}
+          />
+        </PickSection>
+        {selectedOptions.flatMap((option) =>
+          option.childChoiceGroupIds
+            .map((childGroupId) => choiceGroupMap.get(childGroupId))
+            .filter((entry): entry is LineageChoiceGroup => Boolean(entry))
+            .map((childGroup) => renderRaceChoiceSection(childGroup, choiceGroupMap, true)),
+        )}
+      </div>
+    );
+  };
+  const renderRaceChoiceInspect = (): ReactNode => {
+    if (!raceChoiceFocus) {
+      return null;
+    }
+    const { group, option } = raceChoiceFocus;
+    const spell = raceChoiceSpell(option);
+    const feat = spell ? null : content.feats.find((entry) => entry.name.toLowerCase() === option.label.toLowerCase()) ?? null;
+    const featParagraphs = feat ? featBenefitParagraphs(feat) : [];
+    const isSelected = (draft.lineageChoices?.[group.id] ?? []).includes(option.id);
+    const multi = group.type === "multi-select";
+    const pick = () => setLineageChoiceSelection(group.id, isSelected && !multi ? "__none__" : option.id, multi);
+    const spellText = spell ? [cleanImportedText(spell.summary), ...(spell.detailLines ?? []).map(cleanImportedText), spell.atHigherLevels ? `At higher levels. ${cleanImportedText(spell.atHigherLevels)}` : ""].filter(Boolean) : [];
+    return (
+      <InspectPanel
+        icon={raceChoiceIcon(option)}
+        kicker={group.name}
+        title={option.label}
+        summary={spell ? firstSentence(cleanImportedText(spell.summary)) : feat ? firstSentence(featParagraphs[0] ?? feat.summary) : structuredChoiceOptionSummary(option) || null}
+        rows={
+          spell
+            ? [
+                { label: "Spell", value: `${spell.level === 0 ? "Cantrip" : `Level ${spell.level}`} · ${spell.school}` },
+                { label: "Casting", value: spell.castingTime },
+                { label: "Range", value: spell.range },
+                { label: "Duration", value: spell.duration },
+                ...(spell.components ? [{ label: "Components", value: spell.components }] : []),
+              ]
+            : feat
+              ? [{ label: "Needs", value: feat.prerequisite || "Nothing" }, ...(featGivesLine(feat) ? [{ label: "Gives", value: featGivesLine(feat) }] : [])]
+              : []
+        }
+        blocks={!feat && option.details.length ? option.details.map((detail) => ({ title: detail.title, items: [{ text: cleanImportedText(detail.body) }] })) : undefined}
+        fullText={spell ? spellText.join("\n\n") : feat ? featParagraphs.join("\n\n") : null}
+        action={
+          isSelected ? (
+            <button type="button" className="inspect-chosen as-button" onClick={pick}>
+              {`✓ Chosen · remove`}
+            </button>
+          ) : (
+            <button type="button" className="inspect-choose" onClick={pick}>
+              {`Choose ${option.label}`}
+            </button>
+          )
+        }
+      >
+        <button type="button" className="race-choice-back" onClick={() => setInspectId(null)}>
+          {`← Back to ${currentStructuredLineage?.name ?? currentLineageGroup.name}`}
+        </button>
+      </InspectPanel>
+    );
+  };
+
   const previewPanelAbilities = previewAbilities.map((ability) => ({
     id: ability.id,
     value: ability.previewScore,
@@ -6677,7 +6818,7 @@ export function CreatorWorkspace({
                       <div className="origin-focus-card origin-selection-card origin-pick-page">
                         <PickLayout
                           inspect={
-                            <InspectPanel
+                            raceChoiceFocus ? renderRaceChoiceInspect() : <InspectPanel
                               icon={raceIcon(currentStructuredLineage?.name ?? currentLineageGroup.name)}
                               kicker={currentStructuredSublineage?.name ?? currentSubraceEntry?.name ?? "Race"}
                               title={currentStructuredLineage?.name ?? currentLineageGroup.name}
@@ -6709,6 +6850,7 @@ export function CreatorWorkspace({
                               }))}
                               onPick={(id) => {
                                 const group = lineageCards.find((entry) => entry.id === id);
+                                setInspectId(null);
                                 if (group) {
                                   selectLineageCard(group);
                                 }
@@ -6730,14 +6872,17 @@ export function CreatorWorkspace({
                                       ? !currentStructuredSublineage && !currentSubraceEntry
                                       : (currentStructuredSublineage?.id ?? currentSubraceEntry?.id) === item.id,
                                 }))}
-                                onPick={(id) => selectSubrace(id)}
+                                onPick={(id) => {
+                                  setInspectId(null);
+                                  selectSubrace(id);
+                                }}
                               />
                             </PickSection>
                           ) : null}
                         {/* Irk / alt irk secimleri (Variant Human skill + feat, High Elf cantrip). Dil secimleri Tools & Gear > Languages'ta. */}
                         {originRaceChoiceGroups.length ? (
                           <div className="creator-stack">
-                            {originRaceChoiceGroups.map(({ group, map }) => renderLineageChoiceGroup(group, false, map))}
+                            {originRaceChoiceGroups.map(({ group, map }) => renderRaceChoiceSection(group, map))}
                           </div>
                         ) : null}
                         </PickLayout>

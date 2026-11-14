@@ -10669,3 +10669,12 @@ button.cs-stat:hover { border-color: #3a4150; }
 .skill-row { min-width: 0; }
 .skill-row-name { overflow-wrap: normal; word-break: normal; }
 @media (max-width: 700px) { .skill-legend { grid-template-columns: minmax(0, 1fr); } .asi-feat-screen .asi-ability-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } .asi-mode-seg { grid-template-columns: 1fr; } }
+
+/* Irk sayfasi secimleri (High Elf cantrip vb.) */
+.race-choice-section { display: grid; gap: 14px; }
+.race-choice-section.nested { padding-left: 14px; border-left: 2px solid rgba(214, 178, 94, 0.25); }
+.race-choice-back {
+  margin-top: 12px; background: none; border: 0; padding: 0; cursor: pointer;
+  color: var(--text-soft, #9aa0ab); font: inherit; font-size: 0.82rem; text-align: left;
+}
+.race-choice-back:hover { color: var(--gold, #d6b25e); }
