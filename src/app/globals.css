@@ -10742,3 +10742,27 @@ button.cs-stat:hover { border-color: #3a4150; }
   .feat-two-pane { grid-template-columns: minmax(0, 1fr); }
 }
 .feat-detail-action:empty { display: none; }
+
+/* ===== Subclass agaci: yollar sutun, level'lar yukaridan asagi ===== */
+.subclass-tree.vertical { display: grid; gap: 6px; overflow: visible; }
+.stv-scroll { overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; scrollbar-color: #3a404b transparent; }
+.stv-grid { display: grid; gap: 8px 8px; align-items: stretch; }
+.stv-corner { position: sticky; left: 0; z-index: 2; display: flex; align-items: flex-end; padding: 0 4px 6px; background: var(--panel-bg, #121318); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6b707a; }
+.stv-path { display: grid; gap: 8px; align-content: space-between; padding: 10px; border-radius: 12px; border: 1px solid #1f232b; background: #0f1217; }
+.stv-path.selected { border-color: #d6b25e; background: linear-gradient(180deg, rgba(214, 178, 94, 0.14), #0f1217); }
+.stv-path.selected .st-path-icon { border-color: #d6b25e; color: #f1dca4; }
+.stv-path .st-path-text small { white-space: normal; }
+.stv-path .st-choose { justify-self: start; }
+.stv-level { position: sticky; left: 0; z-index: 1; display: grid; place-content: center; justify-items: center; border-radius: 10px; background: #12151b; border: 1px solid #1f232b; font-size: 1.05rem; font-weight: 700; color: #8a909b; line-height: 1.1; }
+.stv-level small { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.stv-level.reached { color: #f1dca4; border-color: rgba(214, 178, 94, 0.45); }
+.stv-cell { display: grid; gap: 6px; align-content: start; padding: 6px; border-radius: 12px; border: 1px dashed #1f232b; min-height: 56px; }
+.stv-cell.selected { border-color: rgba(214, 178, 94, 0.3); background: rgba(214, 178, 94, 0.03); }
+.stv-cell.selected .st-node { border-color: rgba(214, 178, 94, 0.45); }
+.stv-cell.selected.reached .st-node svg { color: #f1dca4; }
+.stv-cell:not(.selected) .st-node { opacity: 0.85; }
+.stv-hint { margin: 0; font-size: 0.78rem; color: #7d8594; }
+.stv-grid { position: relative; }
+.stv-level, .stv-corner { box-shadow: -8px 0 0 #121318, 8px 0 0 #121318; }
+.stv-corner { background: #121318; }
+.stv-grid { width: max-content; min-width: 100%; }

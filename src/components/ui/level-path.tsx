@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { GameIcon } from "@/components/ui/game-icon";
 import type { GameIconName } from "@/lib/ui/game-icons";
 
@@ -112,7 +112,7 @@ export type TreePath = {
   features: Array<{ id: string; level: number; name: string; icon: GameIconName }>;
 };
 
-/** Subclass karsilastirmasi: her yol bir satir, sutunlar subclass level'lari. Feature'a tikla: sagda okunur. */
+/** Subclass karsilastirmasi: her yol bir sutun, satirlar subclass level'lari (yukaridan asagi). Feature'a tikla: sagda okunur. */
 export function SubclassTree({
   paths,
   levels,
@@ -130,50 +130,79 @@ export function SubclassTree({
   onChoose: (pathId: string) => void;
   heading: ReactNode;
 }) {
-  const columns = `minmax(150px, 0.9fr) repeat(${levels.length}, minmax(0, 1fr))`;
+  const columns = `56px repeat(${paths.length}, minmax(168px, 1fr))`;
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const selectedId = paths.find((path) => path.selected)?.id ?? null;
+  // Secili yol gorunur alanda degilse yatayda ona kaydir (sayfayi dikeyde oynatmadan).
+  useEffect(() => {
+    const box = scrollRef.current;
+    if (!box) {
+      return;
+    }
+    const place = () => {
+      const target = box.querySelector<HTMLElement>(".stv-path.selected");
+      const right = target ? target.offsetLeft + target.offsetWidth : 0;
+      box.scrollLeft = right > box.clientWidth ? right - box.clientWidth + 8 : 0;
+    };
+    place();
+    // Panel genisligi ilk boyamadan sonra oturuyor; o an bir kez daha yerlestir.
+    const observer = new ResizeObserver(place);
+    observer.observe(box);
+    const stop = window.setTimeout(() => observer.disconnect(), 1500);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(stop);
+    };
+  }, [selectedId]);
   return (
-    <div className="subclass-tree" role="group" aria-label="Subclass paths">
-      <div className="st-row st-head" style={{ gridTemplateColumns: columns }}>
-        <span className="st-head-cell">{heading}</span>
-        {levels.map((lv) => (
-          <span key={`st-lv-${lv}`} className={lv <= level ? "st-head-cell reached" : "st-head-cell"}>{levels.length > 4 ? `Lv ${lv}` : `Level ${lv}`}</span>
-        ))}
-      </div>
-      {paths.map((path) => (
-        <div key={path.id} className={path.selected ? "st-row selected" : "st-row"} style={{ gridTemplateColumns: columns }}>
-          <div className="st-path">
-            <button type="button" className="st-path-head" onClick={() => onInspect(`path:${path.id}`)}>
-              <span className="st-path-icon">
-                <GameIcon name={path.icon} />
-              </span>
-              <span className="st-path-text">
-                <strong>{path.name}</strong>
-                {path.line ? <small>{path.line}</small> : null}
-              </span>
-            </button>
-            <button type="button" className={path.selected ? "st-choose on" : "st-choose"} onClick={() => onChoose(path.id)} aria-pressed={Boolean(path.selected)}>
-              {path.selected ? "✓ Your path" : "Choose"}
-            </button>
-          </div>
+    <div className="subclass-tree vertical" role="group" aria-label="Subclass paths">
+      <div className="stv-scroll" ref={scrollRef}>
+        <div className="stv-grid" style={{ gridTemplateColumns: columns, width: `max(100%, ${64 + paths.length * 176}px)` }}>
+          <span className="stv-corner">{heading}</span>
+          {paths.map((path) => (
+            <div key={`head-${path.id}`} className={path.selected ? "stv-path selected" : "stv-path"}>
+              <button type="button" className="st-path-head" onClick={() => onInspect(`path:${path.id}`)}>
+                <span className="st-path-icon">
+                  <GameIcon name={path.icon} />
+                </span>
+                <span className="st-path-text">
+                  <strong>{path.name}</strong>
+                  {path.line ? <small>{path.line}</small> : null}
+                </span>
+              </button>
+              <button type="button" className={path.selected ? "st-choose on" : "st-choose"} onClick={() => onChoose(path.id)} aria-pressed={Boolean(path.selected)}>
+                {path.selected ? "✓ Your path" : "Choose"}
+              </button>
+            </div>
+          ))}
           {levels.map((lv) => (
-            <div key={`${path.id}-${lv}`} className={lv <= level ? "st-cell reached" : "st-cell"}>
-              {path.features
-                .filter((feature) => feature.level === lv)
-                .map((feature) => (
-                  <button
-                    key={feature.id}
-                    type="button"
-                    className={inspectedId === `${path.id}:${feature.id}` ? "st-node picked" : "st-node"}
-                    onClick={() => onInspect(`${path.id}:${feature.id}`)}
-                  >
-                    <GameIcon name={feature.icon} />
-                    <span>{feature.name}</span>
-                  </button>
-                ))}
+            <div key={`row-${lv}`} className="stv-row" style={{ display: "contents" }}>
+              <span className={lv <= level ? "stv-level reached" : "stv-level"}>
+                <small>Lv</small>
+                {lv}
+              </span>
+              {paths.map((path) => (
+                <div key={`${path.id}-${lv}`} className={`stv-cell${lv <= level ? " reached" : ""}${path.selected ? " selected" : ""}`}>
+                  {path.features
+                    .filter((feature) => feature.level === lv)
+                    .map((feature) => (
+                      <button
+                        key={feature.id}
+                        type="button"
+                        className={inspectedId === `${path.id}:${feature.id}` ? "st-node picked" : "st-node"}
+                        onClick={() => onInspect(`${path.id}:${feature.id}`)}
+                      >
+                        <GameIcon name={feature.icon} />
+                        <span>{feature.name}</span>
+                      </button>
+                    ))}
+                </div>
+              ))}
             </div>
           ))}
         </div>
-      ))}
+      </div>
+      {paths.length > 5 ? <p className="stv-hint">{`${paths.length} paths · scroll sideways to see them all`}</p> : null}
     </div>
   );
 }

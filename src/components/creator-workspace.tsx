@@ -6576,6 +6576,8 @@ export function CreatorWorkspace({
                 { label: "Range", value: spell.range },
                 { label: "Duration", value: spell.duration },
                 ...(spell.components ? [{ label: "Components", value: spell.components }] : []),
+                ...(spell.classes?.length ? [{ label: "Spell lists", value: spell.classes.join(", ") }] : []),
+                ...(spell.source ? [{ label: "Book", value: spell.source }] : []),
               ]
             : feat
               ? [{ label: "Needs", value: feat.prerequisite || "Nothing" }, ...(featGivesLine(feat) ? [{ label: "Gives", value: featGivesLine(feat) }] : [])]
@@ -7710,7 +7712,7 @@ export function CreatorWorkspace({
                           >
                             <PickSection
                               title={visibleSubclassHeading}
-                              meta="Each row is a path; columns are the levels its features arrive. Click anything to read it."
+                              meta="Each column is a path; read down to see what it gives at each level. Click anything to read it."
                               picked={draft.selectedSubclassOptions.length ? 1 : 0}
                               total={1}
                             >
@@ -7719,7 +7721,7 @@ export function CreatorWorkspace({
                               ) : null}
                               {paths.length ? (
                                 <SubclassTree
-                                  heading="Path"
+                                  heading=""
                                   levels={treeLevels}
                                   level={draft.level}
                                   inspectedId={focusFeature ? `${focus?.id}:${focusFeature.feature.id}` : focus ? `path:${focus.id}` : null}
