@@ -89,14 +89,11 @@ export function CreatorFlowFooter({
   next,
   pendingHere,
   onNavigate,
-  position,
 }: {
   previous: CreatorFlowScreen | null;
   next: CreatorFlowScreen | null;
   pendingHere: number;
   onNavigate: (screen: CreatorFlowScreen) => void;
-  /** "Class · 3 / 5" gibi konum etiketi. */
-  position?: string;
 }) {
   return (
     <footer className="creator-flow-footer">
@@ -111,12 +108,7 @@ export function CreatorFlowFooter({
       ) : (
         <span />
       )}
-      <span className="creator-flow-note-wrap">
-        {position ? <small className="creator-flow-position">{position}</small> : null}
-        <span className={pendingHere ? "creator-flow-note pending" : "creator-flow-note"}>
-          {pendingHere ? `${pendingHere} ${pendingHere === 1 ? "pick" : "picks"} left on this screen. You can skip and come back.` : "This screen is done."}
-        </span>
-      </span>
+      <span className="creator-flow-spacer" />
       {next ? (
         <button type="button" className={pendingHere ? "creator-nav-button next" : "creator-nav-button next ready"} onClick={() => onNavigate(next)}>
           <span className="creator-nav-button-text">
@@ -129,6 +121,18 @@ export function CreatorFlowFooter({
         <span className="creator-flow-finish">All steps visited. Open the sheet to play.</span>
       )}
     </footer>
+  );
+}
+
+/** Ekranin en ustunde: nerede oldugun ve bu ekranda kac secim kaldigi. */
+export function CreatorScreenStatus({ position, pending }: { position?: string; pending: number }) {
+  return (
+    <div className="creator-screen-status">
+      <span className="creator-screen-position">{position ?? ""}</span>
+      <span className={pending ? "creator-screen-pill pending" : "creator-screen-pill done"}>
+        {pending ? `${pending} ${pending === 1 ? "pick" : "picks"} left here` : "✓ All picked here"}
+      </span>
+    </div>
   );
 }
 

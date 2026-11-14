@@ -14,7 +14,7 @@ import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
 import type { DerivedStatDisplay } from "@/lib/character/build-sheet";
 import { OptionChoicePanel } from "@/components/option-choice-panel";
 import { clearCreatorJump, readCreatorJump, type LevelUpTask } from "@/components/level-up-dialog";
-import { CreatorFlowFooter, CreatorFlowNav, CreatorSummaryPanel, type CreatorFlowScreen, type CreatorFlowStep } from "@/components/creator-flow-nav";
+import { CreatorFlowFooter, CreatorFlowNav, CreatorScreenStatus, CreatorSummaryPanel, type CreatorFlowScreen, type CreatorFlowStep } from "@/components/creator-flow-nav";
 import type { EngineCatalog } from "@/lib/engine/collect";
 import { deriveCharacter } from "@/lib/engine/derive";
 import { asiAbilityBonuses, featEligibility, featSlots, type FeatCheckContext } from "@/lib/engine/feats";
@@ -3027,7 +3027,7 @@ export function CreatorWorkspace({
   );
   // Level up'tan gelinirse ilgili sayfa acilir (sessionStorage'daki atlama bir kez kullanilir).
   const [inspectState, setInspectState] = useState<{ key: string; id: string } | null>(null);
-  const [creatorBrowser, setCreatorBrowser] = useState<CreatorBrowser>(() => (readCreatorJump()?.browser as CreatorBrowser | undefined) ?? "lineage");
+  const [creatorBrowser, setCreatorBrowser] = useState<CreatorBrowser>(() => (readCreatorJump()?.browser as CreatorBrowser | undefined) ?? "identity");
   useEffect(() => {
     clearCreatorJump();
   }, []);
@@ -3051,6 +3051,7 @@ export function CreatorWorkspace({
   const [spellListPage, setSpellListPage] = useState(0);
   const [spellSearchQuery, setSpellSearchQuery] = useState("");
   const [creatorSideTarget, setCreatorSideTarget] = useState<HTMLElement | null>(null);
+  const [inspectWide, setInspectWide] = useState(false);
   // Subclass, feature ve secimlerden gelen buyuler (motorun hesabi): spell ekranindaki "Granted" listesi.
   const derivedGrantedSpells = useMemo(() => {
     try {
@@ -4640,7 +4641,8 @@ export function CreatorWorkspace({
   const isOriginPage = (value: CreatorBrowser): value is (typeof originPageOrder)[number] =>
     (originPageOrder as readonly CreatorBrowser[]).includes(value);
   const originCarouselActive = isOriginCarouselStep(creatorStep);
-  const activeOriginPage = isOriginPage(creatorBrowser) ? creatorBrowser : "lineage";
+  // Creator her zaman Name & Level ile baslar.
+  const activeOriginPage = isOriginPage(creatorBrowser) ? creatorBrowser : "identity";
   const activeOriginPageIndex = originPageOrder.indexOf(activeOriginPage);
   const navigateOriginPage = (page: (typeof originPageOrder)[number]) => {
     const nextIndex = originPageOrder.indexOf(page);
@@ -6140,7 +6142,7 @@ export function CreatorWorkspace({
   const creatorSummaryLines = [
     [currentStructuredLineage?.name ?? currentLineageGroup.name, `${currentClass.name} ${draft.level}`].join(" · "),
     selectedJourneySubclass?.name ?? null,
-    selectedBackground?.name ? `${selectedBackground.name} background` : null,
+    selectedBackground?.name ? (/background$/i.test(selectedBackground.name) ? selectedBackground.name : `${selectedBackground.name} background`) : null,
   ].filter((line): line is string => Boolean(line));
   const creatorFlowActiveStep = creatorFlowSteps.find((step) => step.id === creatorStep) ?? null;
   const creatorFlowScreenIndex = creatorFlowActiveStep?.screens.findIndex((screen) => screen.browser === creatorFlowCurrent?.browser) ?? -1;
@@ -6168,8 +6170,8 @@ export function CreatorWorkspace({
             activeBrowser={creatorFlowCurrent?.browser ?? null}
             onNavigate={goToCreatorScreen}
           />
-          <div className="creator-stage-body">
-          <aside className="creator-side">
+          <div className={inspectWide ? "creator-stage-body inspect-wide" : "creator-stage-body"}>
+          <aside className="creator-side creator-side-left">
             <CreatorSummaryPanel
               icon={classIcon(draft.classId)}
               name={draft.name.trim() || "Unnamed character"}
@@ -6180,10 +6182,20 @@ export function CreatorWorkspace({
               activeBrowser={creatorFlowCurrent?.browser ?? null}
               onNavigate={goToCreatorScreen}
             />
+          </aside>
+          {/* Sag sutun: secilen seyin aciklamasi. "Wider" ile genisler, sayfa disina tasmaz. */}
+          <aside className={inspectWide ? "creator-inspect-col wide" : "creator-inspect-col"} aria-label="Details">
+            <div className="creator-inspect-bar">
+              <span>Details</span>
+              <button type="button" onClick={() => setInspectWide((value) => !value)} aria-pressed={inspectWide}>
+                {inspectWide ? "Narrower" : "Wider"}
+              </button>
+            </div>
             <div className="creator-side-inspect" ref={setCreatorSideTarget} />
           </aside>
           <CreatorSideContext.Provider value={creatorSideTarget}>
           <div className={originCarouselActive ? "creator-main-panel creator-main-panel-clean creator-main-panel-flat origin-carousel-main" : "creator-main-panel creator-main-panel-clean creator-main-panel-flat"}>
+          <CreatorScreenStatus position={creatorFlowPosition} pending={creatorFlowCurrent?.pending ?? 0} />
           {originCarouselActive ? (
             <section className="origin-carousel-shell" aria-label="Origin setup">
               <div className="origin-carousel-window">
@@ -6234,17 +6246,27 @@ export function CreatorWorkspace({
                               }
                             />
                           </PickSection>
-                          <PickSection title="Level" meta={`proficiency bonus ${signedNumber(draft.proficiencyBonus)}`}>
+                          <PickSection
+                            title="Level"
+                            actions={
+                              <span className="pick-stat-chip">
+                                <small>Proficiency bonus</small>
+                                <b>{signedNumber(draft.proficiencyBonus)}</b>
+                              </span>
+                            }
+                          >
                             <div className="identity-level-grid" role="group" aria-label="Character level">
                               {Array.from({ length: 20 }, (_, index) => index + 1).map((level) => (
                                 <button
                                   key={`origin-level-${level}`}
                                   type="button"
                                   aria-pressed={draft.level === level}
-                                  className={draft.level === level ? "pick-filter active" : "pick-filter"}
+                                  aria-label={`Level ${level}`}
+                                  className={draft.level === level ? "level-tile active" : "level-tile"}
                                   onClick={() => applyLevelChange(level)}
                                 >
-                                  {level}
+                                  <b>{level}</b>
+                                  <small>{`PB +${Math.floor((level - 1) / 4) + 2}`}</small>
                                 </button>
                               ))}
                             </div>
@@ -6363,18 +6385,27 @@ export function CreatorWorkspace({
                             >
                               <PickSection
                                 title="Background"
-                                meta={needle ? `${list.length} found` : backgroundShowAll ? `all ${content.backgrounds.length}` : "Player's Handbook"}
-                                picked={draft.backgroundId ? 1 : 0}
-                                total={1}
+                                badge={`${list.length} / ${content.backgrounds.length}`}
+                                meta={needle ? "matching your search" : backgroundShowAll ? "all books" : "Player's Handbook"}
                                 actions={
-                                  <input
-                                    type="search"
-                                    className="pick-search"
-                                    placeholder={`Search ${content.backgrounds.length} backgrounds`}
-                                    aria-label="Search backgrounds"
-                                    value={backgroundQuery}
-                                    onChange={(event) => setBackgroundQuery(event.target.value)}
-                                  />
+                                  <>
+                                    <div className="pick-segment" role="group" aria-label="Which books">
+                                      <button type="button" className={!backgroundShowAll ? "active" : ""} aria-pressed={!backgroundShowAll} onClick={() => setBackgroundShowAll(false)}>
+                                        Player&apos;s Handbook
+                                      </button>
+                                      <button type="button" className={backgroundShowAll ? "active" : ""} aria-pressed={backgroundShowAll} onClick={() => setBackgroundShowAll(true)}>
+                                        All books
+                                      </button>
+                                    </div>
+                                    <input
+                                      type="search"
+                                      className="pick-search"
+                                      placeholder="Search backgrounds"
+                                      aria-label="Search backgrounds"
+                                      value={backgroundQuery}
+                                      onChange={(event) => setBackgroundQuery(event.target.value)}
+                                    />
+                                  </>
                                 }
                               >
                                 <PickGrid
@@ -6394,11 +6425,6 @@ export function CreatorWorkspace({
                                   }))}
                                   onPick={(id) => selectBackground(id)}
                                 />
-                                {!needle ? (
-                                  <button type="button" className="inspect-toggle" onClick={() => setBackgroundShowAll((value) => !value)}>
-                                    {backgroundShowAll ? "Show only Player's Handbook" : `Show all ${content.backgrounds.length} backgrounds`}
-                                  </button>
-                                ) : null}
                               </PickSection>
                               {customBackgroundActive ? (
                                 <p className="pick-note">Custom background: pick its skills, tools, languages and gear in the Tools & Gear step.</p>
@@ -10761,7 +10787,6 @@ export function CreatorWorkspace({
             next={creatorFlowNext}
             pendingHere={creatorFlowCurrent?.pending ?? 0}
             onNavigate={goToCreatorScreen}
-            position={creatorFlowPosition}
           />
         </div>
           </CreatorSideContext.Provider>

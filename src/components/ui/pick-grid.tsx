@@ -127,6 +127,7 @@ export function PickSection({
   total,
   children,
   actions,
+  badge,
 }: {
   title: string;
   meta?: string;
@@ -134,6 +135,8 @@ export function PickSection({
   total?: number;
   children: ReactNode;
   actions?: ReactNode;
+  /** Basligin yaninda kutu icinde sayi (or. "16 / 94"). */
+  badge?: string;
 }) {
   const left = total !== undefined && picked !== undefined ? Math.max(0, total - picked) : null;
   return (
@@ -141,6 +144,7 @@ export function PickSection({
       <div className="pick-section-head">
         <span className="pick-section-title">
           <strong>{title}</strong>
+          {badge ? <b className="pick-section-badge">{badge}</b> : null}
           {meta ? <span>{meta}</span> : null}
         </span>
         <span className="pick-section-side">
