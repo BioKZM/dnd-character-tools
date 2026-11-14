@@ -227,6 +227,8 @@ export function PickTabs({ tabs, active, onChange, label }: { tabs: PickTab[]; a
 }
 
 export type InspectRow = { label: string; value: ReactNode };
+/** Kendi basligi olan bolum (or. "Core Resources"); her madde ayri satir, istege bagli etiketle (or. "Lv 5"). */
+export type InspectBlock = { title: string; items: Array<{ tag?: string; text: string }> };
 
 export function InspectPanel({
   icon,
@@ -234,6 +236,7 @@ export function InspectPanel({
   title,
   summary,
   rows = [],
+  blocks = [],
   warning,
   fullText,
   children,
@@ -244,6 +247,7 @@ export function InspectPanel({
   title: string;
   summary?: string | null;
   rows?: InspectRow[];
+  blocks?: InspectBlock[];
   warning?: string | null;
   fullText?: string | null;
   children?: ReactNode;
@@ -278,11 +282,29 @@ export function InspectPanel({
           ))}
         </dl>
       ) : null}
+      {blocks
+        .filter((block) => block.items.length)
+        .map((block) => (
+          <section key={block.title} className="inspect-block">
+            <h4>{block.title}</h4>
+            <ul>
+              {block.items.map((item, index) => (
+                <li key={`${block.title}-${index}`} className={item.tag ? "tagged" : undefined}>
+                  {item.tag ? <b>{item.tag}</b> : null}
+                  <span>
+                    <Keywordize>{item.text}</Keywordize>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       {children}
       {showFull ? (
         <div className="inspect-full">
-          <button type="button" className="inspect-toggle" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
-            {open ? "Hide full rules" : "Show full rules"}
+          <button type="button" className={open ? "inspect-toggle open" : "inspect-toggle"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+            <GameIcon name="scroll-unfurled" />
+            <span>{open ? "Hide full rules" : "Show full rules"}</span>
           </button>
           {open ? (
             <p>

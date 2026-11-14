@@ -29,6 +29,7 @@ import type { LineageCollection, ResolvedLineageEntry, SubraceEntry } from "@/li
 import type { ContentBundle } from "@/lib/content/schema";
 import type { SpellReferenceCollection, SpellReferenceEntry } from "@/lib/content/spell-reference";
 import { AppIcon } from "@/components/ui/app-icon";
+import { LevelPath, SubclassTree, type PathNode } from "@/components/ui/level-path";
 import { CreatorSideContext, InspectPanel, PathCards, PickGrid, PickLayout, PickSection, PickTabs, type PickTile } from "@/components/ui/pick-grid";
 import { GearCard, GearList } from "@/components/ui/gear-info";
 import { GameIcon } from "@/components/ui/game-icon";
@@ -356,6 +357,53 @@ const beastMasterPrimalFormNames = [
   "Beast of the Sea",
   "Beast of the Sky",
 ] as const;
+
+/** Class ozet kartinin metnini maddelere boler: "X at 5" -> [Lv 5] X; digerleri cumle cumle. */
+function highlightItems(body: string): Array<{ tag?: string; text: string }> {
+  const text = body.trim();
+  const capital = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
+  const parts = text.replace(/\.$/, "").split(/,\s*(?:and\s+)?/);
+  if (parts.length > 1) {
+    const levelled = parts.map((part) => {
+      const atLevel = part.match(/^(.*?)\s+(at|from)\s+(\d+(?:\s+and\s+\d+)?)$/i);
+      if (atLevel) {
+        return { tag: `Lv ${atLevel[3].replace(/\s+and\s+/, " & ")}${atLevel[2].toLowerCase() === "from" ? "+" : ""}`, text: capital(atLevel[1]) };
+      }
+      const forLevel = part.match(/(?:^|\s)(\d+)\s+for\s+(.+)$/i);
+      return forLevel ? { tag: `Lv ${forLevel[1]}`, text: capital(forLevel[2]) } : null;
+    });
+    if (levelled.every(Boolean)) {
+      return levelled as Array<{ tag: string; text: string }>;
+    }
+  }
+  return text
+    .split(/(?<=[.!?])\s+(?=[A-Z])/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean)
+    .map((sentence) => ({ text: sentence }));
+}
+
+/** Level tablosu satiri: Features sutunu cip, diger sutunlar "Rages 2", buyu slotlari tek satir. */
+function levelTableRows(header: string[], body: string[][]) {
+  const empty = (cell: string | undefined) => !cell || /^[-–—]$/.test(cell.trim());
+  const featureIndex = header.findIndex((cell) => /^features?$/i.test(cell.trim()));
+  const slotIndexes = header.map((cell, index) => (/^\d(st|nd|rd|th)$/i.test(cell.trim()) ? index : -1)).filter((index) => index >= 0);
+  return body.map((row, rowIndex) => {
+    const features = featureIndex >= 0 && !empty(row[featureIndex]) ? row[featureIndex].split(/,\s*(?![^()]*\))/).map((name) => name.trim()).filter(Boolean) : [];
+    const stats = header
+      .map((label, index) => ({ label: label.trim(), value: (row[index] ?? "").trim(), index }))
+      .filter((cell) => cell.index > 1 && cell.index !== featureIndex && !slotIndexes.includes(cell.index) && !empty(cell.value))
+      .map((cell) => ({ label: cell.label, value: cell.value }));
+    const slots = slotIndexes.filter((index) => !empty(row[index])).map((index) => `${header[index].trim()} ${row[index].trim()}`);
+    return {
+      level: Number.parseInt(row[0] ?? "", 10) || rowIndex + 1,
+      proficiency: (row[1] ?? "").trim(),
+      features,
+      stats,
+      slots,
+    };
+  });
+}
 
 const classOverviewHighlightsByClass = {
   fighter: [
@@ -6480,8 +6528,8 @@ export function CreatorWorkspace({
                             rows={[
                               { label: "Hit die", value: `d${currentClass.hitDie}` },
                               { label: "HP at 1st", value: currentCuratedClass?.hitPoints["Hit Points at 1st Level"] || `${currentClass.hitDie} + CON modifier` },
-                              ...classOverviewHighlights.slice(1).map((item) => ({ label: item.title, value: item.body })),
                             ]}
+                            blocks={classOverviewHighlights.slice(1).map((item) => ({ title: item.title, items: highlightItems(item.body) }))}
                             fullText={currentCuratedClass?.summary ?? classDescription(currentClass)}
                           />
                         }
@@ -6512,31 +6560,53 @@ export function CreatorWorkspace({
                           }}
                         />
                         {currentCuratedClass?.spellcastingTable.rows.length ? (
-                          <details className="pick-details">
-                            <summary>{`${currentCuratedClass.name} level table`}</summary>
-                            <div className="class-progression-scroll journey-modern">
-                              <table className="class-progression-table journey-modern">
-                                <thead>
-                                  {classProgressionHeaderRow.length ? (
-                                    <tr>
-                                      {classProgressionHeaderRow.map((cell, cellIndex) => (
-                                        <th key={`${currentCuratedClass.id}-head-${cellIndex}`}>{cell}</th>
-                                      ))}
-                                    </tr>
-                                  ) : null}
-                                </thead>
-                                <tbody>
-                                  {classProgressionBodyRows.map((row, rowIndex) => (
-                                    <tr key={`${currentCuratedClass.id}-row-${rowIndex}`} className={rowIndex + 1 === draft.level ? "current-level" : undefined}>
-                                      {row.map((cell, cellIndex) => (
-                                        <td key={`${currentCuratedClass.id}-cell-${rowIndex}-${cellIndex}`}>{cell}</td>
-                                      ))}
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
+                          <section className="level-table-section">
+                            <div className="fighter-journey-scene-head compact">
+                              <h3>Level Table</h3>
+                              <p>{`What every ${currentCuratedClass.name.toLowerCase()} level gives you. Your level is highlighted.`}</p>
                             </div>
-                          </details>
+                            <ol className="level-table" aria-label={`${currentCuratedClass.name} level table`}>
+                              {levelTableRows(classTableHeaderRow, classTableBodyRows).map((row) => (
+                                <li
+                                  key={`${currentCuratedClass.id}-lt-${row.level}`}
+                                  className={row.level === draft.level ? "lt-row current" : row.level < draft.level ? "lt-row owned" : "lt-row future"}
+                                >
+                                  <span className="lt-level">
+                                    <strong>{row.level}</strong>
+                                    {row.proficiency ? <small>{`PB ${row.proficiency}`}</small> : null}
+                                  </span>
+                                  <span className="lt-body">
+                                    <span className="lt-features">
+                                      {row.features.length ? (
+                                        row.features.map((name) => (
+                                          <span key={name} className="lt-chip">
+                                            {name}
+                                          </span>
+                                        ))
+                                      ) : (
+                                        <span className="lt-none">No new feature</span>
+                                      )}
+                                    </span>
+                                    {row.stats.length || row.slots.length ? (
+                                      <span className="lt-stats">
+                                        {row.stats.map((stat) => (
+                                          <span key={stat.label}>
+                                            {stat.label} <b>{stat.value}</b>
+                                          </span>
+                                        ))}
+                                        {row.slots.length ? (
+                                          <span>
+                                            Slots <b>{row.slots.join(" · ")}</b>
+                                          </span>
+                                        ) : null}
+                                      </span>
+                                    ) : null}
+                                  </span>
+                                  {row.level === draft.level ? <span className="lt-you">You</span> : null}
+                                </li>
+                              ))}
+                            </ol>
+                          </section>
                         ) : null}
                       </PickLayout>
                     </div>
@@ -6561,70 +6631,157 @@ export function CreatorWorkspace({
                               ? feature.unlockLevel
                               : feature.milestones?.[0]?.level ?? 1;
                         };
-                        const owned = visibleClassFeatures.filter((feature) => classFeatureUnlockState.get(feature.id)?.acquired ?? true);
-                        const later = visibleClassFeatures.filter((feature) => !(classFeatureUnlockState.get(feature.id)?.acquired ?? true));
-                        const focus = owned.find((feature) => feature.id === inspectId) ?? owned[0] ?? null;
-                        const focusState = focus ? classFeatureUnlockState.get(focus.id) : null;
-                        const laterByLevel = later.reduce<Map<number, string[]>>((map, feature) => {
+                        const featureChoices = optionChoices.filter(
+                          (entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"),
+                        );
+                        const choiceSources = new Set(optionChoices.map((entry) => entry.sourceName.toLowerCase()));
+                        const isChoiceFeature = (name: string) =>
+                          choiceSources.has(name.toLowerCase()) ||
+                          /fighting style|expertise|metamagic|eldritch invocations|pact boon|magical secrets|favored enemy|natural explorer|favored foe|deft explorer|artificer infusions|wild shape/i.test(name);
+                        const subclassHostFeature = visibleClassFeatures.find(
+                          (feature) => feature.name.toLowerCase() === visibleSubclassHeading.toLowerCase() || feature.id === subclassMatchSlug(visibleSubclassHeading),
+                        );
+                        const subclassPickLevel = subclassHostFeature ? featureLevel(subclassHostFeature) : subclassUnlockLevel;
+                        const pathSubclass = selectedJourneySubclass;
+                        const nodes: PathNode[] = [];
+                        visibleClassFeatures.forEach((feature) => {
+                          if (feature.id === subclassHostFeature?.id) {
+                            return;
+                          }
                           const level = featureLevel(feature);
-                          map.set(level, [...(map.get(level) ?? []), feature.name]);
-                          return map;
-                        }, new Map());
-                        return (
-                          <PickLayout
-                            inspect={
-                              focus ? (
+                          const name = feature.name.replace(/\s*\(Optional\)/, "");
+                          if (feature.id === "ability-score-improvement") {
+                            const levels = feature.milestones?.length ? feature.milestones.map((entry) => entry.level) : [level];
+                            levels.forEach((lv) => nodes.push({ id: `asi@${lv}`, lane: "choices", level: lv, name: "ASI or feat", icon: "stars-stack", diamond: true }));
+                            return;
+                          }
+                          const choice = isChoiceFeature(feature.name);
+                          nodes.push({ id: `f:${feature.id}`, lane: choice ? "choices" : "class", level, name, icon: featureIcon(feature.name), diamond: choice });
+                          (feature.milestones ?? [])
+                            .filter((entry) => entry.level > level)
+                            .forEach((entry) =>
+                              nodes.push({ id: `f:${feature.id}@${entry.level}`, lane: choice ? "choices" : "class", level: entry.level, name, note: entry.label, icon: featureIcon(feature.name), minor: true }),
+                            );
+                        });
+                        nodes.push({
+                          id: "subclass-pick",
+                          lane: "choices",
+                          level: subclassPickLevel,
+                          name: pathSubclass ? pathSubclass.name : visibleSubclassHeading,
+                          note: pathSubclass ? visibleSubclassHeading : "Pick on the next screen",
+                          icon: pathSubclass ? subclassIcon(pathSubclass.name) : "tied-scroll",
+                          diamond: true,
+                        });
+                        (pathSubclass?.features ?? []).forEach((feature) => {
+                          const level = subclassFeatureUnlockState.get(feature.id)?.unlockLevel ?? ("unlockLevel" in feature && typeof feature.unlockLevel === "number" ? feature.unlockLevel : subclassPickLevel);
+                          nodes.push({ id: `s:${feature.id}`, lane: "subclass", level, name: feature.name, icon: featureIcon(feature.name) });
+                        });
+                        const firstOwned = nodes.find((node) => node.level <= draft.level && !node.minor) ?? nodes[0] ?? null;
+                        const focusNode = nodes.find((node) => node.id === inspectId) ?? firstOwned;
+                        const focusLevel = focusNode?.level ?? 1;
+                        const reached = focusLevel <= draft.level;
+                        const status = reached ? "You have this" : focusLevel === draft.level + 1 ? "Next level" : `Unlocks at level ${focusLevel}`;
+                        const renderInspect = () => {
+                          if (!focusNode) {
+                            return <InspectPanel icon={classIcon(currentClass.id)} title={currentClass.name} summary="No features yet at this level." />;
+                          }
+                          if (focusNode.id.startsWith("asi@")) {
+                            const asi = visibleClassFeatures.find((feature) => feature.id === "ability-score-improvement");
+                            return (
+                              <InspectPanel
+                                icon="stars-stack"
+                                kicker={`Level ${focusLevel} · choice`}
+                                title="Ability Score Improvement"
+                                summary={asi?.short ?? "Raise one ability by 2 or two abilities by 1, or take a feat instead."}
+                                rows={[
+                                  { label: "Status", value: reached ? "Pick it on the Feats screen" : status },
+                                ]}
+                                fullText={asi?.summary ?? null}
+                              />
+                            );
+                          }
+                          if (focusNode.id === "subclass-pick") {
+                            return (
+                              <InspectPanel
+                                icon={focusNode.icon}
+                                kicker={`Level ${focusLevel} · choice`}
+                                title={visibleSubclassHeading}
+                                summary={
+                                  pathSubclass
+                                    ? `You follow ${pathSubclass.name}. Its features fill the right lane of the path.`
+                                    : `Your ${visibleSubclassHeading.toLowerCase()} adds its own features at set levels. Compare them on the next screen.`
+                                }
+                                rows={[{ label: "Status", value: reached ? (pathSubclass ? "Chosen" : "Still to pick") : status }]}
+                                fullText={subclassHostFeature?.summary ?? null}
+                              />
+                            );
+                          }
+                          if (focusNode.id.startsWith("s:")) {
+                            const feature = pathSubclass?.features.find((entry) => `s:${entry.id}` === focusNode.id);
+                            if (feature) {
+                              return (
                                 <InspectPanel
-                                  icon={featureIcon(focus.name)}
-                                  kicker={`Level ${featureLevel(focus)}`}
-                                  title={focus.name}
-                                  summary={focus.short ?? focus.keyFacts?.[0] ?? null}
-                                  rows={[
-                                    ...(focusState?.currentSummary && focusState.currentSummary !== "Unlocked"
-                                      ? [{ label: "Now", value: focusState.currentSummary.replace(/^Current:\s*/, "") }]
-                                      : []),
-                                    ...(focusState?.nextSummary ? [{ label: "Grows", value: focusState.nextSummary.replace(/^Next:\s*/, "") }] : []),
-                                    ...(focus.keyFacts ?? []).slice(focus.short ? 0 : 1, 3).map((fact, index) => ({ label: index === 0 ? "Rules" : " ", value: fact })),
-                                  ]}
+                                  icon={featureIcon(feature.name)}
+                                  kicker={`Level ${focusLevel} · ${pathSubclass?.name ?? visibleSubclassHeading}`}
+                                  title={feature.name}
+                                  summary={feature.short ?? null}
+                                  rows={[{ label: "Status", value: status }]}
+                                  fullText={feature.summary ?? null}
                                 >
-                                  {focus.facts ? <FactChips facts={focus.facts} /> : null}
+                                  {"facts" in feature && feature.facts ? <FactChips facts={feature.facts as never} /> : null}
                                 </InspectPanel>
-                              ) : (
-                                <InspectPanel icon={classIcon(currentClass.id)} title={currentClass.name} summary="No features yet at this level." />
-                              )
+                              );
                             }
-                          >
-                            <PickSection title="You have" meta={`level 1 to ${draft.level}`}>
-                              <PickGrid
-                                label="Unlocked features"
-                                columns={4}
-                                size="sm"
-                                inspectedId={focus?.id ?? null}
+                          }
+                          const [featureId, growthLevel] = focusNode.id.replace(/^f:/, "").split("@");
+                          const focus = visibleClassFeatures.find((feature) => feature.id === featureId);
+                          if (!focus) {
+                            return <InspectPanel icon={classIcon(currentClass.id)} title={currentClass.name} summary="Pick a node on the path to read it." />;
+                          }
+                          const focusState = classFeatureUnlockState.get(focus.id);
+                          const growth = growthLevel ? focus.milestones?.find((entry) => entry.level === Number(growthLevel)) : null;
+                          return (
+                            <InspectPanel
+                              icon={featureIcon(focus.name)}
+                              kicker={growth ? `Level ${growth.level} · gets stronger` : `Level ${featureLevel(focus)}${focusNode.diamond ? " · choice" : ""}`}
+                              title={focus.name}
+                              summary={focus.short ?? focus.keyFacts?.[0] ?? null}
+                              rows={[
+                                { label: "Status", value: status },
+                                ...(growth ? [{ label: `At ${growth.level}`, value: growth.label }] : []),
+                                ...(!growth && focusState?.currentSummary && focusState.currentSummary !== "Unlocked" && reached
+                                  ? [{ label: "Now", value: focusState.currentSummary.replace(/^Current:\s*/, "") }]
+                                  : []),
+                                ...(!growth && focusState?.nextSummary && reached ? [{ label: "Grows", value: focusState.nextSummary.replace(/^Next:\s*/, "") }] : []),
+                              ]}
+                              blocks={(focus.keyFacts ?? []).length > (focus.short ? 0 : 1) ? [{ title: "Rules", items: (focus.keyFacts ?? []).slice(focus.short ? 0 : 1, 4).map((fact) => ({ text: fact })) }] : []}
+                              fullText={focus.summary ?? null}
+                            >
+                              {focus.facts ? <FactChips facts={focus.facts} /> : null}
+                            </InspectPanel>
+                          );
+                        };
+                        return (
+                          <PickLayout inspect={renderInspect()}>
+                            <PickSection title={`${currentClass.name} path`} meta={`you are level ${draft.level}`}>
+                              <LevelPath
+                                level={draft.level}
+                                inspectedId={focusNode?.id ?? null}
                                 onInspect={setInspectId}
-                                items={owned.map((feature) => ({
-                                  id: feature.id,
-                                  name: feature.name.replace(/\s*\(Optional\)/, ""),
-                                  sub: feature.name.includes("(Optional)") ? "Optional rule" : `Level ${featureLevel(feature)}`,
-                                  icon: featureIcon(feature.name),
-                                  owned: true,
-                                }))}
+                                nodes={nodes}
+                                lanes={[
+                                  { id: "class", title: currentClass.name, hint: "class features" },
+                                  { id: "choices", title: "Choices", hint: "picks you make" },
+                                  { id: "subclass", title: pathSubclass?.name ?? visibleSubclassHeading, hint: pathSubclass ? visibleSubclassHeading : "not chosen yet" },
+                                ]}
                               />
                             </PickSection>
                             <OptionChoicePanel
                               title={`${currentClass.name} feature choices`}
                               content={content}
-                              choices={optionChoices.filter((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))}
+                              choices={featureChoices}
                               onToggle={toggleOptionChoice}
                             />
-                            {laterByLevel.size ? (
-                              <p className="pick-later">
-                                <strong>Coming later: </strong>
-                                {[...laterByLevel.entries()]
-                                  .sort((left, right) => left[0] - right[0])
-                                  .map(([level, names]) => `Level ${level}: ${names.join(", ")}`)
-                                  .join(" · ")}
-                              </p>
-                            ) : null}
                           </PickLayout>
                         );
                       })()}
@@ -6879,28 +7036,79 @@ export function CreatorWorkspace({
                         <p>{`Pick your ${visibleSubclassHeading.toLowerCase()} first. Its choices open right below it.`}</p>
                       </div>
                       {(() => {
-                        const focus =
-                          fighterJourneySubclasses.find((entry) => entry.id === inspectId) ?? selectedJourneySubclass ?? fighterJourneySubclasses[0] ?? null;
+                        const featureLevelOf = (feature: { unlockLevel?: unknown }) => (typeof feature.unlockLevel === "number" ? feature.unlockLevel : null);
+                        const paths = fighterJourneySubclasses.map((entry) => {
+                          const features = (entry.features ?? []).map((feature) => ({ feature, level: featureLevelOf(feature as { unlockLevel?: unknown }) }));
+                          const firstLevel = Math.min(...features.map((item) => item.level ?? 99), 99);
+                          return {
+                            entry,
+                            features: features.map((item) => ({ ...item, level: item.level ?? (firstLevel === 99 ? subclassUnlockLevel : firstLevel) })),
+                          };
+                        });
+                        const treeLevels = [...new Set(paths.flatMap((path) => path.features.map((item) => item.level)))].sort((left, right) => left - right);
+                        const [focusPathId, focusFeatureId] = (inspectId ?? "").startsWith("path:")
+                          ? [(inspectId ?? "").slice(5), null]
+                          : (inspectId ?? "").includes(":")
+                            ? [(inspectId ?? "").split(":")[0], (inspectId ?? "").split(":").slice(1).join(":")]
+                            : [inspectId ?? "", null];
+                        const focusPath = paths.find((path) => path.entry.id === focusPathId) ?? paths.find((path) => path.entry.id === selectedJourneySubclass?.id) ?? paths[0] ?? null;
+                        const focus = focusPath?.entry ?? null;
+                        const focusFeature = focusFeatureId ? focusPath?.features.find((item) => item.feature.id === focusFeatureId) ?? null : null;
+                        const focusChosen = focus ? draft.selectedSubclassOptions.includes(focus.id) : false;
                         const subclassChoices = optionChoices.filter((entry) => entry.sourceKind === "subclass");
+                        const offPaths = (currentDocClass?.subclasses ?? []).filter(
+                          (doc) => !fighterJourneySubclasses.some((entry) => subclassMatchSlug(entry.name) === subclassMatchSlug(doc.name)),
+                        );
+                        const chooseAction = focus ? (
+                          focusChosen ? (
+                            <span className="inspect-chosen">{`✓ ${focus.name} is your path`}</span>
+                          ) : (
+                            <button type="button" className="inspect-choose" onClick={() => chooseFighterSubclassJourney(focus.id)}>
+                              {`Choose ${focus.name}`}
+                            </button>
+                          )
+                        ) : null;
                         return (
                           <PickLayout
                             inspect={
-                              focus ? (
+                              focus && focusFeature ? (
                                 <InspectPanel
-                                  icon={featureIcon(focus.name)}
+                                  icon={featureIcon(focusFeature.feature.name)}
+                                  kicker={`${focus.name} · Level ${focusFeature.level}`}
+                                  title={focusFeature.feature.name}
+                                  summary={focusFeature.feature.short ?? null}
+                                  rows={[
+                                    {
+                                      label: "Status",
+                                      value: focusChosen
+                                        ? focusFeature.level <= draft.level
+                                          ? "You have this"
+                                          : `Unlocks at level ${focusFeature.level}`
+                                        : `Comes with ${focus.name} at level ${focusFeature.level}`,
+                                    },
+                                  ]}
+                                  fullText={focusFeature.feature.summary ?? null}
+                                  action={chooseAction}
+                                >
+                                  {"facts" in focusFeature.feature && focusFeature.feature.facts ? <FactChips facts={focusFeature.feature.facts as never} /> : null}
+                                </InspectPanel>
+                              ) : focus ? (
+                                <InspectPanel
+                                  icon={subclassIcon(focus.name)}
                                   kicker={focus.source || visibleSubclassHeading}
                                   title={focus.name}
                                   summary={(focus.summary ?? "").split(/(?<=\.)\s/)[0] || null}
-                                  rows={(focus.features ?? []).map((feature) => {
-                                    const unlockState = subclassFeatureUnlockState.get(feature.id);
-                                    const level = unlockState?.unlockLevel ?? feature.unlockLevel ?? null;
-                                    const owned = focus.id === selectedJourneySubclass?.id && (unlockState?.acquired ?? true);
-                                    return {
-                                      label: level ? `Level ${level}${owned ? " ✓" : ""}` : "Feature",
-                                      value: `${feature.name}${feature.short ? `: ${feature.short}` : ""}`,
-                                    };
-                                  })}
+                                  blocks={[
+                                    {
+                                      title: "What it unlocks",
+                                      items: (focusPath?.features ?? []).map((item) => ({
+                                        tag: `Lv ${item.level}`,
+                                        text: `${item.feature.name}${item.feature.short ? `: ${item.feature.short}` : ""}`,
+                                      })),
+                                    },
+                                  ]}
                                   fullText={focus.summary}
+                                  action={chooseAction}
                                 />
                               ) : (
                                 <InspectPanel icon={classIcon(currentClass.id)} title={visibleSubclassHeading} summary="No options are enabled for this class yet." />
@@ -6909,34 +7117,42 @@ export function CreatorWorkspace({
                           >
                             <PickSection
                               title={visibleSubclassHeading}
+                              meta="Each row is a path; columns are the levels its features arrive. Click anything to read it."
                               picked={draft.selectedSubclassOptions.length ? 1 : 0}
                               total={1}
                             >
                               {!fighterJourneySubclasses.length && !(currentDocClass?.subclasses ?? []).length ? (
                                 <p className="pick-later">{`No ${visibleSubclassHeading.toLowerCase()} is enabled in this campaign yet. They are coming in a later update; you can keep building without one.`}</p>
                               ) : null}
-                              <PathCards
-                                label={visibleSubclassHeading}
-                                onInspect={setInspectId}
-                                items={[
-                                  ...fighterJourneySubclasses.map((entry) => ({
-                                    id: entry.id,
-                                    name: entry.name,
-                                    line: entry.source,
-                                    icon: subclassIcon(entry.name),
-                                    selected: draft.selectedSubclassOptions.includes(entry.id),
-                                  })),
-                                  // Kampanyada henuz acik olmayanlar da gorunur ki oyuncu neler oldugunu bilsin.
-                                  ...(currentDocClass?.subclasses ?? [])
-                                    .filter((doc) => !fighterJourneySubclasses.some((entry) => subclassMatchSlug(entry.name) === subclassMatchSlug(doc.name)))
-                                    .map((doc) => ({ id: `off-${doc.id}`, name: doc.name, line: "Not in this campaign yet", icon: subclassIcon(doc.name), disabled: true })),
-                                ]}
-                                onPick={(subclassId) => {
-                                  if (!draft.selectedSubclassOptions.includes(subclassId)) {
-                                    chooseFighterSubclassJourney(subclassId);
-                                  }
-                                }}
-                              />
+                              {paths.length ? (
+                                <SubclassTree
+                                  heading="Path"
+                                  levels={treeLevels}
+                                  level={draft.level}
+                                  inspectedId={focusFeature ? `${focus?.id}:${focusFeature.feature.id}` : focus ? `path:${focus.id}` : null}
+                                  onInspect={setInspectId}
+                                  onChoose={(subclassId) => {
+                                    setInspectId(`path:${subclassId}`);
+                                    if (!draft.selectedSubclassOptions.includes(subclassId)) {
+                                      chooseFighterSubclassJourney(subclassId);
+                                    }
+                                  }}
+                                  paths={paths.map((path) => ({
+                                    id: path.entry.id,
+                                    name: path.entry.name,
+                                    line: path.entry.source,
+                                    icon: subclassIcon(path.entry.name),
+                                    selected: draft.selectedSubclassOptions.includes(path.entry.id),
+                                    features: path.features.map((item) => ({ id: item.feature.id, level: item.level, name: item.feature.name, icon: featureIcon(item.feature.name) })),
+                                  }))}
+                                />
+                              ) : null}
+                              {offPaths.length ? (
+                                <p className="pick-later">
+                                  <strong>Not in this campaign yet: </strong>
+                                  {offPaths.map((doc) => doc.name).join(", ")}
+                                </p>
+                              ) : null}
                             </PickSection>
                             {selectedJourneySubclass && subclassChoices.length ? (
                               <OptionChoicePanel title={`${selectedJourneySubclass.name} choices`} content={content} choices={subclassChoices} onToggle={toggleOptionChoice} />
