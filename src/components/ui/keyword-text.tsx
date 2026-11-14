@@ -8,6 +8,15 @@ import { AppIcon } from "@/components/ui/app-icon";
  */
 
 type IconName = Parameters<typeof AppIcon>[0]["name"];
+/** Tooltip'lerdeki stat ikonlari; karakter paneli ve ability kartlari da ayni ikonlari kullanir. */
+export const ABILITY_ICONS: Record<string, IconName> = { STR: "sword", DEX: "feather", CON: "heart", INT: "book", WIS: "eye", CHA: "feat" };
+
+/** Tek bir stat icin ikon (renk ability-accent sinifindan gelir). */
+export function AbilityIcon({ id, className }: { id: string; className?: string }) {
+  const name = ABILITY_ICONS[id.toUpperCase()];
+  return name ? <AppIcon name={name} className={className ? `ability-icon ${className}` : "ability-icon"} /> : null;
+}
+
 type KeywordRule = { pattern: string; kind: string; icon?: IconName; caseSensitive?: boolean };
 
 const RULES: KeywordRule[] = [

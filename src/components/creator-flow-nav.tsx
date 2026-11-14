@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { GameIcon } from "@/components/ui/game-icon";
+import { AbilityIcon } from "@/components/ui/keyword-text";
 import type { GameIconName } from "@/lib/ui/game-icons";
 
 // Creator'in tek navigasyonu: ustte adimlar (Origin, Class, Abilities, Gear),
@@ -20,7 +21,8 @@ export type CreatorFlowStep = {
   screens: CreatorFlowScreen[];
 };
 
-type SummaryStat = { label: string; value: string };
+type SummaryStat = { label: string; value: string; icon?: GameIconName; tip?: string };
+export type SummaryIdentity = { key: string; icon: GameIconName; label: string; value: string; missing?: boolean };
 
 export function CreatorFlowNav({
   steps,
@@ -129,8 +131,9 @@ export function CreatorScreenStatus({ position, pending }: { position?: string; 
   return (
     <div className="creator-screen-status">
       <span className="creator-screen-position">{position ?? ""}</span>
-      <span className={pending ? "creator-screen-pill pending" : "creator-screen-pill done"}>
-        {pending ? `${pending} ${pending === 1 ? "pick" : "picks"} left here` : "✓ All picked here"}
+      <span className={pending ? "creator-screen-pill pending" : "creator-screen-pill done"} title={pending ? "Choices still open on this screen" : "Nothing left to choose here"}>
+        <i aria-hidden="true" />
+        {pending ? `${pending} to choose here` : "All set here"}
       </span>
     </div>
   );
@@ -140,7 +143,7 @@ export function CreatorScreenStatus({ position, pending }: { position?: string; 
 export function CreatorSummaryPanel({
   icon,
   name,
-  lines,
+  identity,
   stats,
   abilities,
   steps,
@@ -149,9 +152,9 @@ export function CreatorSummaryPanel({
 }: {
   icon: GameIconName;
   name: string;
-  lines: string[];
+  identity: SummaryIdentity[];
   stats: SummaryStat[];
-  abilities: Array<{ id: string; value: number }>;
+  abilities: Array<{ id: string; value: number; name?: string }>;
   steps: CreatorFlowStep[];
   activeBrowser: string | null;
   onNavigate: (screen: CreatorFlowScreen) => void;
@@ -165,25 +168,44 @@ export function CreatorSummaryPanel({
         <span className="creator-summary-portrait">
           <GameIcon name={icon} />
         </span>
-        <span className="creator-summary-name">
-          <strong>{name}</strong>
-          <span>{lines.join(" · ")}</span>
-        </span>
-        <span className="creator-summary-stats">
-          {stats.map((stat) => (
-            <span key={`sum-stat-${stat.label}`}>
-              <small>{stat.label}</small>
-              <strong>{stat.value}</strong>
+        <strong className="creator-summary-title">{name}</strong>
+      </div>
+      <ul className="creator-summary-identity">
+        {identity.map((row) => (
+          <li key={`sum-id-${row.key}`} className={row.missing ? "missing" : undefined}>
+            <span className="creator-summary-identity-icon">
+              <GameIcon name={row.icon} />
             </span>
-          ))}
-        </span>
+            <span className="creator-summary-identity-text">
+              <small>{row.label}</small>
+              <strong>{row.value}</strong>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className="creator-summary-stats">
+        {stats.map((stat) => (
+          <span key={`sum-stat-${stat.label}`} className="creator-summary-stat" tabIndex={0} aria-label={`${stat.label} ${stat.value}`}>
+            {stat.icon ? <GameIcon name={stat.icon} /> : <small>{stat.label}</small>}
+            <strong>{stat.value}</strong>
+            {stat.tip ? (
+              <span className="creator-summary-tip" role="tooltip">
+                <b>{stat.label}</b>
+                {stat.tip}
+              </span>
+            ) : null}
+          </span>
+        ))}
       </div>
       <div className="creator-summary-abilities">
         {abilities.map((ability) => {
           const mod = Math.floor((ability.value - 10) / 2);
           return (
-            <span key={`sum-ab-${ability.id}`} className={`ability-accent ability-accent-${ability.id.toLowerCase()}`}>
-              <small>{ability.id}</small>
+            <span key={`sum-ab-${ability.id}`} className={`ability-accent ability-accent-${ability.id.toLowerCase()}`} title={ability.name}>
+              <small>
+                <AbilityIcon id={ability.id} />
+                {ability.id}
+              </small>
               <strong>{ability.value}</strong>
               <em>{mod >= 0 ? `+${mod}` : mod}</em>
             </span>

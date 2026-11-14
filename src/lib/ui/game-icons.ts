@@ -6,6 +6,9 @@ export type GameIconName = keyof typeof GAME_ICONS;
 
 const FALLBACK: GameIconName = "star-swirl";
 
+// Arayuzde dogrudan kullanilan ikonlar (build-game-icons bu dosyadaki isimleri tarar).
+export const UI_ICON_NAMES = ["round-star", "checked-shield", "heart-plus", "run", "tied-scroll", "laurels", "stars-stack"] as const;
+
 function pick(name: string): GameIconName {
   return (name in GAME_ICONS ? name : FALLBACK) as GameIconName;
 }
