@@ -14,7 +14,7 @@ import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
 import type { DerivedStatDisplay } from "@/lib/character/build-sheet";
 import { OptionChoicePanel } from "@/components/option-choice-panel";
 import { clearCreatorJump, readCreatorJump, type LevelUpTask } from "@/components/level-up-dialog";
-import { CreatorFlowFooter, CreatorFlowNav, CreatorScreenStatus, CreatorSummaryPanel, type CreatorFlowScreen, type CreatorFlowStep, type SummaryIdentity } from "@/components/creator-flow-nav";
+import { CreatorFlowFooter, CreatorFlowNav, CreatorScreenTabs, CreatorSummaryPanel, type CreatorFlowScreen, type CreatorFlowStep, type SummaryIdentity } from "@/components/creator-flow-nav";
 import type { EngineCatalog } from "@/lib/engine/collect";
 import { deriveCharacter } from "@/lib/engine/derive";
 import { asiAbilityBonuses, featEligibility, featSlots, type FeatCheckContext } from "@/lib/engine/feats";
@@ -30,6 +30,7 @@ import type { ContentBundle } from "@/lib/content/schema";
 import type { SpellReferenceCollection, SpellReferenceEntry } from "@/lib/content/spell-reference";
 import { AppIcon } from "@/components/ui/app-icon";
 import { LevelPath, SubclassTree, type PathNode } from "@/components/ui/level-path";
+import { ChoiceDetail, ChoicePicker, ChoiceSlot, type ChoiceRow } from "@/components/ui/choice-picker";
 import { CreatorSideContext, InspectPanel, PathCards, PickGrid, PickLayout, PickSection, PickTabs, type PickTile } from "@/components/ui/pick-grid";
 import { GearCard, GearList } from "@/components/ui/gear-info";
 import { GameIcon } from "@/components/ui/game-icon";
@@ -3099,7 +3100,9 @@ export function CreatorWorkspace({
   const [spellListPage, setSpellListPage] = useState(0);
   const [spellSearchQuery, setSpellSearchQuery] = useState("");
   const [creatorSideTarget, setCreatorSideTarget] = useState<HTMLElement | null>(null);
-  const [inspectWide, setInspectWide] = useState(false);
+  const [raceSlotOpen, setRaceSlotOpen] = useState<string | null>(null);
+  const [raceChoiceQuery, setRaceChoiceQuery] = useState("");
+  const [raceGridOpen, setRaceGridOpen] = useState(false);
   // Subclass, feature ve secimlerden gelen buyuler (motorun hesabi): spell ekranindaki "Granted" listesi.
   const derivedGrantedSpells = useMemo(() => {
     try {
@@ -5936,6 +5939,66 @@ export function CreatorWorkspace({
   };
 
   /** ASI & Feats: tek ekran. Ustte slotlar, altta secili slotun secimi; feat modunda solda liste, aciklama sagda. */
+  // Feat'in bu karaktere etkisi ve kisa etiketi: ASI ekrani ve irk feat slotu birlikte kullanir.
+  const heroName = draft.name.trim() || "you";
+  const heroTitle = draft.name.trim() || "You";
+  const abilityScoreNow = (id: string) => previewAbilities.find((ability) => ability.id === id)?.previewScore ?? 10;
+  const speedNow = Number.parseInt(String(previewStats.walkingSpeed.displayValue), 10) || 30;
+  const titleCase = (id: string) => id.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
+  /** Feat'in bu karaktere somut etkisi: "Speed 30 → 40 ft." gibi. */
+  const featForHero = (feat: (typeof normalFeats)[number]) => {
+    const lines: string[] = [];
+    (feat.grants ?? []).forEach((raw) => {
+      const grant = raw as Record<string, unknown>;
+      if (grant.type === "ability" && grant.ability) {
+        const now = abilityScoreNow(String(grant.ability));
+        lines.push(`${String(grant.ability)} ${now} → ${Math.min(20, now + Number(grant.amount ?? 1))}`);
+      } else if (grant.type === "initiative" && grant.bonus) {
+        lines.push(`Initiative ${signedNumber(previewDraft.initiative)} → ${signedNumber(previewDraft.initiative + Number(grant.bonus))}`);
+      } else if (grant.type === "hp" && grant.perLevel) {
+        lines.push(`Hit points ${previewDraft.maxHp} → ${previewDraft.maxHp + Number(grant.perLevel) * draft.level} (+${grant.perLevel} each level)`);
+      } else if (grant.type === "speed" && grant.value) {
+        lines.push(`Speed ${speedNow} → ${speedNow + Number(grant.value)} ft.`);
+      } else if (grant.type === "resource" && grant.name) {
+        lines.push(`${grant.uses ?? ""} ${String(grant.name)}${grant.recharge === "long_rest" ? " per long rest" : grant.recharge === "short_rest" ? " per short rest" : ""}`.trim());
+      } else if (grant.type === "spell" && grant.spellId) {
+        lines.push(`Learn ${titleCase(String(grant.spellId))}${grant.uses === "at_will" ? " (at will)" : ""}`);
+      } else if (grant.type === "proficiency" && Array.isArray(grant.values)) {
+        lines.push(`Proficiency: ${(grant.values as string[]).join(", ")}`);
+      } else if (grant.type === "sense" && grant.sense) {
+        lines.push(`${titleCase(String(grant.sense))} ${grant.range ?? ""} ft.`.replace(" ft.", grant.range ? " ft." : ""));
+      } else if (grant.type === "ac" && grant.bonus) {
+        lines.push(`+${grant.bonus} AC${grant.condition ? ` ${String(grant.condition)}` : ""}`);
+      } else if (grant.type === "ac_base" && grant.base) {
+        lines.push(`AC ${grant.base} + DEX without armor`);
+      } else if (grant.type === "defense" && grant.against) {
+        lines.push(`${grant.kind === "save_advantage" ? "Advantage on saves against" : "Resistance to"} ${String(grant.against)}`);
+      } else if (grant.type === "note" && typeof grant.text === "string") {
+        String(grant.text)
+          .split(/;\s+/)
+          .map((part) => part.trim().replace(/\.$/, ""))
+          .filter(Boolean)
+          .forEach((part) => lines.push(part.charAt(0).toUpperCase() + part.slice(1)));
+      }
+    });
+    (feat.choices ?? []).forEach((choice) => lines.push(`You pick: ${choice.label}`));
+    return lines.slice(0, 6);
+  };
+  /** Listede sagdaki kisa etiket: "+10 ft.", "+5 init", "+1 CON". */
+  const featTag = (feat: (typeof normalFeats)[number]) => {
+    for (const raw of feat.grants ?? []) {
+      const grant = raw as Record<string, unknown>;
+      if (grant.type === "speed" && grant.value) return `+${grant.value} ft.`;
+      if (grant.type === "initiative" && grant.bonus) return `+${grant.bonus} init`;
+      if (grant.type === "hp" && grant.perLevel) return `+${Number(grant.perLevel) * draft.level} HP`;
+      if (grant.type === "ability" && grant.ability) return `+${grant.amount ?? 1} ${String(grant.ability)}`;
+      if (grant.type === "resource" && grant.uses) return `${grant.uses} / day`;
+      if (grant.type === "ac" && grant.bonus) return `+${grant.bonus} AC`;
+    }
+    const abilityChoice = (feat.choices ?? []).find((choice) => choice.from.kind === "ability");
+    return abilityChoice ? "+1 ability" : null;
+  };
+
   const renderAsiFeatScreen = () => {
     const slots = currentFeatSlots;
     const slotDone = (slot: (typeof slots)[number]) => {
@@ -6004,68 +6067,9 @@ export function CreatorWorkspace({
     const paragraphs = focusFeat ? featBenefitParagraphs(focusFeat) : [];
     const slotTitle = active ? (active.kind === "lineage" ? `${active.label} bonus feat` : `Level ${active.level} improvement`) : "";
 
-    const heroName = draft.name.trim() || "you";
-    const heroTitle = draft.name.trim() || "You";
     const asiLevel = active?.kind === "asi" && active.level ? active.level : null;
     const focusIsRaise = asiLevel !== null && (selectedFeatId === "__raise__" || (!selectedFeatId && activeMode !== "feat"));
     const focusFeatShown = focusIsRaise ? null : focusFeat;
-    const abilityScoreNow = (id: string) => previewAbilities.find((ability) => ability.id === id)?.previewScore ?? 10;
-    const speedNow = Number.parseInt(String(previewStats.walkingSpeed.displayValue), 10) || 30;
-    const titleCase = (id: string) => id.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
-    /** Feat'in bu karaktere somut etkisi: "Speed 30 → 40 ft." gibi. */
-    const featForHero = (feat: (typeof normalFeats)[number]) => {
-      const lines: string[] = [];
-      (feat.grants ?? []).forEach((raw) => {
-        const grant = raw as Record<string, unknown>;
-        if (grant.type === "ability" && grant.ability) {
-          const now = abilityScoreNow(String(grant.ability));
-          lines.push(`${String(grant.ability)} ${now} → ${Math.min(20, now + Number(grant.amount ?? 1))}`);
-        } else if (grant.type === "initiative" && grant.bonus) {
-          lines.push(`Initiative ${signedNumber(previewDraft.initiative)} → ${signedNumber(previewDraft.initiative + Number(grant.bonus))}`);
-        } else if (grant.type === "hp" && grant.perLevel) {
-          lines.push(`Hit points ${previewDraft.maxHp} → ${previewDraft.maxHp + Number(grant.perLevel) * draft.level} (+${grant.perLevel} each level)`);
-        } else if (grant.type === "speed" && grant.value) {
-          lines.push(`Speed ${speedNow} → ${speedNow + Number(grant.value)} ft.`);
-        } else if (grant.type === "resource" && grant.name) {
-          lines.push(`${grant.uses ?? ""} ${String(grant.name)}${grant.recharge === "long_rest" ? " per long rest" : grant.recharge === "short_rest" ? " per short rest" : ""}`.trim());
-        } else if (grant.type === "spell" && grant.spellId) {
-          lines.push(`Learn ${titleCase(String(grant.spellId))}${grant.uses === "at_will" ? " (at will)" : ""}`);
-        } else if (grant.type === "proficiency" && Array.isArray(grant.values)) {
-          lines.push(`Proficiency: ${(grant.values as string[]).join(", ")}`);
-        } else if (grant.type === "sense" && grant.sense) {
-          lines.push(`${titleCase(String(grant.sense))} ${grant.range ?? ""} ft.`.replace(" ft.", grant.range ? " ft." : ""));
-        } else if (grant.type === "ac" && grant.bonus) {
-          lines.push(`+${grant.bonus} AC${grant.condition ? ` ${String(grant.condition)}` : ""}`);
-        } else if (grant.type === "ac_base" && grant.base) {
-          lines.push(`AC ${grant.base} + DEX without armor`);
-        } else if (grant.type === "defense" && grant.against) {
-          lines.push(`${grant.kind === "save_advantage" ? "Advantage on saves against" : "Resistance to"} ${String(grant.against)}`);
-        } else if (grant.type === "note" && typeof grant.text === "string") {
-          String(grant.text)
-            .split(/;\s+/)
-            .map((part) => part.trim().replace(/\.$/, ""))
-            .filter(Boolean)
-            .forEach((part) => lines.push(part.charAt(0).toUpperCase() + part.slice(1)));
-        }
-      });
-      (feat.choices ?? []).forEach((choice) => lines.push(`You pick: ${choice.label}`));
-      return lines.slice(0, 6);
-    };
-    /** Listede sagdaki kisa etiket: "+10 ft.", "+5 init", "+1 CON". */
-    const featTag = (feat: (typeof normalFeats)[number]) => {
-      for (const raw of feat.grants ?? []) {
-        const grant = raw as Record<string, unknown>;
-        if (grant.type === "speed" && grant.value) return `+${grant.value} ft.`;
-        if (grant.type === "initiative" && grant.bonus) return `+${grant.bonus} init`;
-        if (grant.type === "hp" && grant.perLevel) return `+${Number(grant.perLevel) * draft.level} HP`;
-        if (grant.type === "ability" && grant.ability) return `+${grant.amount ?? 1} ${String(grant.ability)}`;
-        if (grant.type === "resource" && grant.uses) return `${grant.uses} / day`;
-        if (grant.type === "ac" && grant.bonus) return `+${grant.bonus} AC`;
-      }
-      const abilityChoice = (feat.choices ?? []).find((choice) => choice.from.kind === "ability");
-      return abilityChoice ? "+1 ability" : null;
-    };
-
     // Sag panel: bu ekranin genel aciklamasi. Feat detayi ortada.
     const inspect = active ? (
       <InspectPanel
@@ -6496,113 +6500,232 @@ export function CreatorWorkspace({
     }
     return null;
   })();
-  const renderRaceChoiceSection = (
-    group: LineageChoiceGroup,
-    choiceGroupMap: Map<string, LineageChoiceGroup>,
-    nested = false,
-  ): ReactNode => {
-    const resolvedGroup = resolvedLineageChoiceGroup(group);
-    const selectedValues = draft.lineageChoices?.[resolvedGroup.id] ?? [];
-    const multi = resolvedGroup.type === "multi-select";
-    const total = Math.max(1, resolvedGroup.maxSelections);
-    const selectedOptions = resolvedGroup.options.filter((option) => selectedValues.includes(option.id));
-    return (
-      <div key={resolvedGroup.id} className={nested ? "race-choice-section nested" : "race-choice-section"}>
-        <PickSection title={resolvedGroup.name} picked={Math.min(selectedValues.length, total)} total={total}>
-          <PickGrid
-            label={resolvedGroup.name}
-            columns={4}
-            size="sm"
-            pageSize={resolvedGroup.options.length > 16 ? 16 : undefined}
-            inspectedId={raceChoiceFocus?.group.id === resolvedGroup.id ? raceChoiceFocus.option.id : undefined}
-            items={resolvedGroup.options.map((option) => {
-              const spell = raceChoiceSpell(option);
-              const atMax = multi && !selectedValues.includes(option.id) && selectedValues.length >= total;
-              return {
-                id: option.id,
-                name: option.label,
-                sub: spell ? spell.school : undefined,
-                icon: raceChoiceIcon(option),
-                selected: selectedValues.includes(option.id),
-                dim: atMax,
-              };
-            })}
-            onInspect={(id) => setInspectId(`rc|${resolvedGroup.id}|${id}`)}
-            onPick={(id) => {
-              const isSelected = selectedValues.includes(id);
-              if (multi) {
-                if (!isSelected && selectedValues.length >= total) {
-                  return;
-                }
-                setLineageChoiceSelection(resolvedGroup.id, id, true);
-                return;
-              }
-              setLineageChoiceSelection(resolvedGroup.id, isSelected ? "__none__" : id, false);
-            }}
-          />
-        </PickSection>
-        {selectedOptions.flatMap((option) =>
-          option.childChoiceGroupIds
-            .map((childGroupId) => choiceGroupMap.get(childGroupId))
-            .filter((entry): entry is LineageChoiceGroup => Boolean(entry))
-            .map((childGroup) => renderRaceChoiceSection(childGroup, choiceGroupMap, true)),
-        )}
-      </div>
-    );
+  // Irkin verdigi secimler duz bir slot listesi: kok gruplar + secilen seceneklerin alt gruplari.
+  const raceChoiceSlotList = (() => {
+    const out: Array<{ group: LineageChoiceGroup; depth: number }> = [];
+    const walk = (group: LineageChoiceGroup, map: Map<string, LineageChoiceGroup>, depth: number) => {
+      const resolved = resolvedLineageChoiceGroup(group);
+      out.push({ group: resolved, depth });
+      const chosen = draft.lineageChoices?.[resolved.id] ?? [];
+      resolved.options
+        .filter((option) => chosen.includes(option.id))
+        .forEach((option) =>
+          option.childChoiceGroupIds.forEach((childId) => {
+            const child = map.get(childId);
+            if (child) {
+              walk(child, map, depth + 1);
+            }
+          }),
+        );
+    };
+    originRaceChoiceGroups.forEach(({ group, map }) => walk(group, map, 0));
+    return out;
+  })();
+  const raceChoicesLeft = raceChoiceSlotList.reduce(
+    (total, { group }) => total + Math.max(0, Math.max(1, group.maxSelections) - (draft.lineageChoices?.[group.id] ?? []).length),
+    0,
+  );
+  const raceChoiceKind = (group: LineageChoiceGroup): "spell" | "feat" | "skill" | "other" => {
+    if (group.id.endsWith("-feat-choice")) return "feat";
+    if (group.options.some((option) => option.grants.some((grant) => grant.type === "skill_proficiency"))) return "skill";
+    if (group.options.some((option) => raceChoiceSpell(option))) return "spell";
+    return "other";
   };
-  const renderRaceChoiceInspect = (): ReactNode => {
-    if (!raceChoiceFocus) {
-      return null;
+  const raceSkillId = (option: LineageChoiceOption) => {
+    const grant = option.grants.find((entry) => entry.type === "skill_proficiency");
+    return grant && grant.type === "skill_proficiency" && grant.values[0] ? grant.values[0].toLowerCase().replace(/\s+/g, "-") : null;
+  };
+  /** Skill zaten baska yerden geliyorsa kaynagin adi (background / class). */
+  const raceSkillOwner = (skillId: string | null) => {
+    if (!skillId) return null;
+    if (backgroundSkillIds.includes(skillId)) return selectedBackground?.name ?? "Background";
+    if (draft.selectedSkillIds.includes(skillId)) return currentClass.name;
+    return null;
+  };
+  const openRaceSlot = (group: LineageChoiceGroup) => {
+    if (raceSlotOpen === group.id) {
+      setRaceSlotOpen(null);
+      return;
     }
-    const { group, option } = raceChoiceFocus;
-    const spell = raceChoiceSpell(option);
-    const feat = spell ? null : content.feats.find((entry) => entry.name.toLowerCase() === option.label.toLowerCase()) ?? null;
-    const featParagraphs = feat ? featBenefitParagraphs(feat) : [];
-    const isSelected = (draft.lineageChoices?.[group.id] ?? []).includes(option.id);
+    const chosen = draft.lineageChoices?.[group.id] ?? [];
+    const first = chosen[0] ?? group.options.find((option) => !raceSkillOwner(raceSkillId(option)))?.id ?? group.options[0]?.id;
+    setRaceSlotOpen(group.id);
+    setRaceChoiceQuery("");
+    setInspectId(first ? `rc|${group.id}|${first}` : null);
+  };
+  const renderRaceChoicePicker = (group: LineageChoiceGroup): ReactNode => {
+    const chosen = draft.lineageChoices?.[group.id] ?? [];
     const multi = group.type === "multi-select";
-    const pick = () => setLineageChoiceSelection(group.id, isSelected && !multi ? "__none__" : option.id, multi);
-    const spellText = spell ? [cleanImportedText(spell.summary), ...(spell.detailLines ?? []).map(cleanImportedText), spell.atHigherLevels ? `At higher levels. ${cleanImportedText(spell.atHigherLevels)}` : ""].filter(Boolean) : [];
+    const total = Math.max(1, group.maxSelections);
+    const kind = raceChoiceKind(group);
+    const needle = raceChoiceQuery.trim().toLowerCase();
+    const matches = (label: string) => !needle || label.toLowerCase().includes(needle);
+    const abilityMod = (id: string) => previewDraft.abilities.find((ability) => ability.id === id)?.modifier ?? 0;
+    const rows: ChoiceRow[] = group.options
+      .filter((option) => matches(option.label))
+      .map((option) => {
+        const mine = chosen.includes(option.id);
+        if (kind === "skill") {
+          const skillId = raceSkillId(option);
+          const ability = skillId ? skillAbilities[skillId] : undefined;
+          const owner = mine ? null : raceSkillOwner(skillId);
+          return {
+            id: option.id,
+            name: option.label,
+            icon: raceChoiceIcon(option),
+            mine,
+            owned: Boolean(owner),
+            tag: owner ? `From ${owner}` : ability ?? null,
+            tagStyle: owner || !ability ? undefined : { color: `var(--kw-${ability.toLowerCase()})`, fontWeight: 700 },
+          };
+        }
+        if (kind === "feat") {
+          const feat = content.feats.find((entry) => entry.id === option.id);
+          return { id: option.id, name: option.label, icon: raceChoiceIcon(option), mine, tag: feat ? featTag(feat) : null, tagStyle: { color: "#d6b25e" } };
+        }
+        const spell = raceChoiceSpell(option);
+        return { id: option.id, name: option.label, icon: raceChoiceIcon(option), mine, tag: spell ? spell.school : null };
+      });
+    const optionIds = new Set(group.options.map((option) => option.id));
+    const lockedFeats =
+      kind === "feat"
+        ? content.feats.filter((feat) => !optionIds.has(feat.id) && !feat.id.startsWith("custom") && matches(feat.name))
+        : [];
+    const lockedRows: ChoiceRow[] = lockedFeats.map((feat) => ({ id: `locked:${feat.id}`, name: feat.name, icon: featIcon(feat.name), locked: true, tag: "Locked" }));
+    const focusOption = raceChoiceFocus && raceChoiceFocus.group.id === group.id ? raceChoiceFocus.option : null;
+    const lockedFocus = inspectId?.startsWith(`rc|${group.id}|locked:`) ? content.feats.find((feat) => `rc|${group.id}|locked:${feat.id}` === inspectId) ?? null : null;
+    const focusId = lockedFocus ? `locked:${lockedFocus.id}` : focusOption?.id ?? null;
+
+    let detail: ReactNode = <p className="choice-picker-empty">Pick something from the list.</p>;
+    if (lockedFocus) {
+      const check = checkFeat(lockedFocus.id, null);
+      const paragraphs = featBenefitParagraphs(lockedFocus);
+      detail = (
+        <ChoiceDetail
+          icon={featIcon(lockedFocus.name)}
+          name={lockedFocus.name}
+          source={featSourceShort(lockedFocus.source)}
+          pitch={<Keywordize>{firstSentence(paragraphs[0] ?? lockedFocus.summary)}</Keywordize>}
+          warning={`Not at level 1: ${check.unmet.join(", ") || lockedFocus.prerequisite || "needs a prerequisite"}.`}
+          rules={paragraphs.map((paragraph, index) => <p key={`lf-${index}`}><Keywordize>{paragraph}</Keywordize></p>)}
+        />
+      );
+    } else if (focusOption) {
+      const isMine = chosen.includes(focusOption.id);
+      const atMax = multi && !isMine && chosen.length >= total;
+      const take = () => {
+        if (atMax) return;
+        setLineageChoiceSelection(group.id, isMine && !multi ? "__none__" : focusOption.id, multi);
+        if (!isMine && (!multi || chosen.length + 1 >= total)) {
+          setRaceSlotOpen(null);
+        }
+      };
+      const skillId = kind === "skill" ? raceSkillId(focusOption) : null;
+      const owner = isMine ? null : raceSkillOwner(skillId);
+      const action = isMine ? (
+        <button type="button" className="choice-take on" onClick={take}>{multi ? "✓ Yours · remove" : "✓ Yours · remove"}</button>
+      ) : owner ? null : atMax ? (
+        <span className="choice-take-note">{`You already picked ${total}. Remove one first.`}</span>
+      ) : (
+        <button type="button" className="choice-take" onClick={take}>{`Take ${focusOption.label}`}</button>
+      );
+      if (kind === "skill" && skillId) {
+        const ability = skillAbilities[skillId];
+        const mod = ability ? abilityMod(ability) : 0;
+        detail = (
+          <ChoiceDetail
+            icon={raceChoiceIcon(focusOption)}
+            name={focusOption.label}
+            source={ability ? `${ability} skill` : null}
+            pitch={structuredChoiceOptionSummary(focusOption) || null}
+            warning={owner ? `Already proficient from ${owner}. Pick a different skill.` : null}
+            forTitle={`For ${heroTitle}`}
+            forLines={owner ? [] : [`${focusOption.label} ${signedNumber(mod)} → ${signedNumber(mod + draft.proficiencyBonus)}`]}
+            action={action}
+          />
+        );
+      } else if (kind === "feat") {
+        const feat = content.feats.find((entry) => entry.id === focusOption.id) ?? null;
+        const paragraphs = feat ? featBenefitParagraphs(feat) : [];
+        detail = (
+          <ChoiceDetail
+            icon={raceChoiceIcon(focusOption)}
+            name={focusOption.label}
+            source={feat ? featSourceShort(feat.source) : null}
+            pitch={feat ? <Keywordize>{firstSentence(paragraphs[0] ?? feat.summary)}</Keywordize> : null}
+            forTitle={`For ${heroTitle}`}
+            forLines={feat ? featForHero(feat) : []}
+            rules={paragraphs.length ? paragraphs.map((paragraph, index) => <p key={`fp-${index}`}><Keywordize>{paragraph}</Keywordize></p>) : null}
+            action={action}
+          />
+        );
+      } else {
+        const spell = raceChoiceSpell(focusOption);
+        const spellText = spell ? [cleanImportedText(spell.summary), ...(spell.detailLines ?? []).map(cleanImportedText), spell.atHigherLevels ? `At higher levels. ${cleanImportedText(spell.atHigherLevels)}` : ""].filter(Boolean) : [];
+        detail = (
+          <ChoiceDetail
+            icon={raceChoiceIcon(focusOption)}
+            name={focusOption.label}
+            source={spell ? `${spell.level === 0 ? "Cantrip" : `Level ${spell.level}`} · ${spell.school}${spell.source ? ` · ${spell.source}` : ""}` : null}
+            pitch={spell ? <Keywordize>{firstSentence(cleanImportedText(spell.summary))}</Keywordize> : structuredChoiceOptionSummary(focusOption) || null}
+            facts={
+              spell
+                ? [
+                    { label: "Casting", value: spell.castingTime },
+                    { label: "Range", value: spell.range },
+                    { label: "Duration", value: spell.duration },
+                    ...(spell.classes?.length ? [{ label: "Lists", value: spell.classes.join(", ") }] : []),
+                  ]
+                : []
+            }
+            rules={spellText.length > 1 ? spellText.map((line, index) => <p key={`sp-${index}`}><Keywordize>{line}</Keywordize></p>) : null}
+            action={action}
+          />
+        );
+      }
+    }
     return (
-      <InspectPanel
-        icon={raceChoiceIcon(option)}
-        kicker={group.name}
-        title={option.label}
-        summary={spell ? firstSentence(cleanImportedText(spell.summary)) : feat ? firstSentence(featParagraphs[0] ?? feat.summary) : structuredChoiceOptionSummary(option) || null}
-        rows={
-          spell
-            ? [
-                { label: "Spell", value: `${spell.level === 0 ? "Cantrip" : `Level ${spell.level}`} · ${spell.school}` },
-                { label: "Casting", value: spell.castingTime },
-                { label: "Range", value: spell.range },
-                { label: "Duration", value: spell.duration },
-                ...(spell.components ? [{ label: "Components", value: spell.components }] : []),
-                ...(spell.classes?.length ? [{ label: "Spell lists", value: spell.classes.join(", ") }] : []),
-                ...(spell.source ? [{ label: "Book", value: spell.source }] : []),
-              ]
-            : feat
-              ? [{ label: "Needs", value: feat.prerequisite || "Nothing" }, ...(featGivesLine(feat) ? [{ label: "Gives", value: featGivesLine(feat) }] : [])]
-              : []
-        }
-        blocks={!feat && option.details.length ? option.details.map((detail) => ({ title: detail.title, items: [{ text: cleanImportedText(detail.body) }] })) : undefined}
-        fullText={spell ? spellText.join("\n\n") : feat ? featParagraphs.join("\n\n") : null}
-        action={
-          isSelected ? (
-            <button type="button" className="inspect-chosen as-button" onClick={pick}>
-              {`✓ Chosen · remove`}
-            </button>
-          ) : (
-            <button type="button" className="inspect-choose" onClick={pick}>
-              {`Choose ${option.label}`}
-            </button>
-          )
-        }
-      >
-        <button type="button" className="race-choice-back" onClick={() => setInspectId(null)}>
-          {`← Back to ${currentStructuredLineage?.name ?? currentLineageGroup.name}`}
-        </button>
-      </InspectPanel>
+      <ChoicePicker
+        label={group.name}
+        rows={rows}
+        lockedRows={lockedRows}
+        lockedTitle={`Not available at level 1`}
+        focusId={focusId}
+        onFocus={(id) => setInspectId(`rc|${group.id}|${id}`)}
+        query={group.options.length > 8 || lockedRows.length ? raceChoiceQuery : undefined}
+        onQuery={group.options.length > 8 || lockedRows.length ? setRaceChoiceQuery : undefined}
+        searchPlaceholder={`Search ${group.options.length + lockedFeats.length} ${kind === "feat" ? "feats" : kind === "skill" ? "skills" : kind === "spell" ? "spells" : "options"}`}
+        detail={detail}
+      />
     );
   };
+  const renderRaceChoiceSlots = (title: string): ReactNode => (
+    <section className="race-gives" aria-label={title}>
+      <h3 className="section-title">{title}</h3>
+      <div className="choice-slots">
+        {raceChoiceSlotList.map(({ group, depth }) => {
+          const chosen = draft.lineageChoices?.[group.id] ?? [];
+          const total = Math.max(1, group.maxSelections);
+          const picked = group.options.filter((option) => chosen.includes(option.id));
+          const open = raceSlotOpen === group.id;
+          return (
+            <div key={`slot-${group.id}`} className={depth ? "choice-slot-wrap nested" : "choice-slot-wrap"}>
+              <ChoiceSlot
+                icon={picked[0] ? raceChoiceIcon(picked[0]) : null}
+                kind={total > 1 ? `${group.name} · ${picked.length} of ${total}` : group.name}
+                value={picked.length ? picked.map((option) => option.label).join(", ") : "Not chosen"}
+                missing={picked.length < total}
+                open={open}
+                action={open ? "Close" : picked.length ? "Change" : "Choose"}
+                onClick={() => openRaceSlot(group)}
+              />
+              {open ? renderRaceChoicePicker(group) : null}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
 
   const previewPanelAbilities = previewAbilities.map((ability) => ({
     id: ability.id,
@@ -6696,6 +6819,9 @@ export function CreatorWorkspace({
       // Baslangic ekipmani: secim yapilmamis her grup bir eksik.
       return fromTasks + classStartingEquipment.filter((group) => !draft.fighterChoices?.equipmentChoiceIds?.[group.id]).length;
     }
+    if (browser === "lineage") {
+      return fromTasks + raceChoicesLeft;
+    }
     if (browser === "custom-background-languages") {
       return fromTasks + languageChoices.reduce((total, choice) => total + Math.max(0, choice.count - choice.selectedNames.length), 0);
     }
@@ -6766,7 +6892,12 @@ export function CreatorWorkspace({
     }
   };
   const creatorSummaryIdentity: SummaryIdentity[] = [
-    { key: "race", icon: raceIcon(currentStructuredLineage?.name ?? currentLineageGroup.name), label: "Race", value: currentStructuredLineage?.name ?? currentLineageGroup.name },
+    {
+      key: "race",
+      icon: raceIcon(currentStructuredLineage?.name ?? currentLineageGroup.name),
+      label: "Race",
+      value: currentStructuredSublineage?.name ?? currentSubraceEntry?.name ?? currentStructuredLineage?.name ?? currentLineageGroup.name,
+    },
     { key: "class", icon: classIcon(currentClass.id), label: "Class", value: `${currentClass.name} · Level ${draft.level}` },
     {
       key: "subclass",
@@ -6784,11 +6915,6 @@ export function CreatorWorkspace({
     },
   ];
   const creatorFlowActiveStep = creatorFlowSteps.find((step) => step.id === creatorStep) ?? null;
-  const creatorFlowScreenIndex = creatorFlowActiveStep?.screens.findIndex((screen) => screen.browser === creatorFlowCurrent?.browser) ?? -1;
-  const creatorFlowPosition =
-    creatorFlowActiveStep && creatorFlowScreenIndex >= 0
-      ? `${creatorFlowActiveStep.label} · ${creatorFlowScreenIndex + 1} of ${creatorFlowActiveStep.screens.length}`
-      : undefined;
   const creatorFlowStats = [
     { label: "Armor Class", value: previewStats.armorClass.displayValue, icon: "checked-shield" as GameIconName, tip: "How hard you are to hit. An attack must meet or beat this number." },
     { label: "Hit Points", value: String(previewDraft.maxHp), icon: "heart-plus" as GameIconName, tip: "How much damage you can take before you drop to 0 and start dying." },
@@ -6809,7 +6935,7 @@ export function CreatorWorkspace({
             activeBrowser={creatorFlowCurrent?.browser ?? null}
             onNavigate={goToCreatorScreen}
           />
-          <div className={inspectWide ? "creator-stage-body inspect-wide" : "creator-stage-body"}>
+          <div className="creator-stage-body">
           <aside className="creator-side creator-side-left">
             <CreatorSummaryPanel
               icon={classIcon(draft.classId)}
@@ -6817,24 +6943,15 @@ export function CreatorWorkspace({
               identity={creatorSummaryIdentity}
               stats={creatorFlowStats.slice(0, 3)}
               abilities={previewPanelAbilities}
-              steps={creatorFlowSteps}
-              activeBrowser={creatorFlowCurrent?.browser ?? null}
-              onNavigate={goToCreatorScreen}
             />
           </aside>
-          {/* Sag sutun: secilen seyin aciklamasi. "Wider" ile genisler, sayfa disina tasmaz. */}
-          <aside className={inspectWide ? "creator-inspect-col wide" : "creator-inspect-col"} aria-label="Details">
-            <div className="creator-inspect-bar">
-              <span>Details</span>
-              <button type="button" onClick={() => setInspectWide((value) => !value)} aria-pressed={inspectWide}>
-                {inspectWide ? "Narrower" : "Wider"}
-              </button>
-            </div>
+          {/* Sag sutun: ekranin ana seciminin (race, class, background) ozeti. */}
+          <aside className="creator-inspect-col" aria-label="Details">
             <div className="creator-side-inspect" ref={setCreatorSideTarget} />
           </aside>
           <CreatorSideContext.Provider value={creatorSideTarget}>
           <div className={originCarouselActive ? "creator-main-panel creator-main-panel-clean creator-main-panel-flat origin-carousel-main" : "creator-main-panel creator-main-panel-clean creator-main-panel-flat"}>
-          <CreatorScreenStatus position={creatorFlowPosition} pending={creatorFlowCurrent?.pending ?? 0} />
+          <CreatorScreenTabs step={creatorFlowActiveStep} activeBrowser={creatorFlowCurrent?.browser ?? null} onNavigate={goToCreatorScreen} />
           {originCarouselActive ? (
             <section className="origin-carousel-shell" aria-label="Origin setup">
               <div className="origin-carousel-window">
@@ -6850,33 +6967,29 @@ export function CreatorWorkspace({
                   >
                     {activeOriginPage === "identity" ? (
                       <div className="origin-focus-card origin-pick-page">
-                        <div className="fighter-journey-scene-head compact">
-                          <h3>Name & Level</h3>
-                          <p>Start with who you are and how far along your adventure is. You can change both later.</p>
-                        </div>
                         <PickLayout
                           inspect={
                             <InspectPanel
-                              icon="stars-stack"
-                              kicker="Level"
+                              icon={classIcon(draft.classId)}
                               title={`Level ${draft.level}`}
-                              summary="Your level decides your hit points, proficiency bonus and which class features you have."
                               rows={[
                                 { label: "Proficiency", value: signedNumber(draft.proficiencyBonus) },
-                                { label: "Hit points", value: `${previewDraft.maxHp} with your current CON` },
-                                { label: "Features", value: `${visibleClassFeatures.filter((feature) => classFeatureUnlockState.get(feature.id)?.acquired ?? true).length} ${currentClass.name.toLowerCase()} features unlocked` },
-                                { label: "Tip", value: "Ask your DM which level the campaign starts at." },
+                                { label: "Hit points", value: String(previewDraft.maxHp) },
+                                { label: "Hit dice", value: `${draft.level}d${currentClass.hitDie}` },
+                                { label: "Features", value: `${visibleClassFeatures.filter((feature) => classFeatureUnlockState.get(feature.id)?.acquired ?? true).length} unlocked` },
                               ]}
                             />
                           }
                         >
-                          <PickSection title="Character name">
+                          <h2 className="screen-title">Who are you?</h2>
+                          <div className="identity-field">
+                            <label className="field-label" htmlFor="creator-name-input">Name</label>
                             <input
+                              id="creator-name-input"
                               type="text"
-                              className="pick-search identity-name-input"
+                              className="identity-name-input v2"
                               value={draft.name}
-                              placeholder="Enter character name"
-                              aria-label="Character name"
+                              placeholder="Your hero's name"
                               onChange={(event) =>
                                 updateDraft((current) => ({
                                   ...current,
@@ -6884,110 +6997,135 @@ export function CreatorWorkspace({
                                 }))
                               }
                             />
-                          </PickSection>
-                          <PickSection
-                            title="Level"
-                            actions={
-                              <span className="pick-stat-chip">
-                                <small>Proficiency bonus</small>
-                                <b>{signedNumber(draft.proficiencyBonus)}</b>
-                              </span>
-                            }
-                          >
-                            <div className="identity-level-grid" role="group" aria-label="Character level">
+                          </div>
+                          <div className="identity-field">
+                            <span className="field-label">Level</span>
+                            <div className="level-strip" role="group" aria-label="Character level">
                               {Array.from({ length: 20 }, (_, index) => index + 1).map((level) => (
                                 <button
                                   key={`origin-level-${level}`}
                                   type="button"
                                   aria-pressed={draft.level === level}
                                   aria-label={`Level ${level}`}
-                                  className={draft.level === level ? "level-tile active" : "level-tile"}
+                                  className={draft.level === level ? "level-cell on" : level < draft.level ? "level-cell past" : "level-cell"}
                                   onClick={() => applyLevelChange(level)}
                                 >
-                                  <b>{level}</b>
-                                  <small>{`PB +${Math.floor((level - 1) / 4) + 2}`}</small>
+                                  {level}
                                 </button>
                               ))}
                             </div>
-                          </PickSection>
+                            <div className="level-bands" aria-hidden="true">
+                              {[2, 3, 4, 5, 6].map((bonus) => (
+                                <span key={`pb-band-${bonus}`} className={draft.proficiencyBonus === bonus ? "on" : undefined}>{`+${bonus}`}</span>
+                              ))}
+                            </div>
+                            <span className="field-hint">Proficiency bonus by level</span>
+                          </div>
                         </PickLayout>
                       </div>
                     ) : null}
 
-                    {activeOriginPage === "lineage" ? (
+                    {activeOriginPage === "lineage" ? (() => {
+                      const raceName = currentStructuredLineage?.name ?? currentLineageGroup.name;
+                      const subName = currentStructuredSublineage?.name ?? currentSubraceEntry?.name ?? null;
+                      const shownName = subName ?? raceName;
+                      return (
                       <div className="origin-focus-card origin-selection-card origin-pick-page">
                         <PickLayout
                           inspect={
-                            raceChoiceFocus ? renderRaceChoiceInspect() : <InspectPanel
-                              icon={raceIcon(currentStructuredLineage?.name ?? currentLineageGroup.name)}
-                              kicker={currentStructuredSublineage?.name ?? currentSubraceEntry?.name ?? "Race"}
-                              title={currentStructuredLineage?.name ?? currentLineageGroup.name}
-                              summary={firstSentence(currentStructuredLineage?.summary ?? currentLineageGroup.summary)}
+                            <InspectPanel
+                              icon={raceIcon(raceName)}
+                              kicker={subName ? raceName : undefined}
+                              title={shownName}
+                              summary={firstSentence(currentStructuredSublineage?.summary ?? currentStructuredLineage?.summary ?? currentLineageGroup.summary)}
                               rows={[
                                 ...(currentStructuredLineage?.facts.size ? [{ label: "Size", value: structuredFactValue(currentStructuredLineage.facts.size) }] : []),
                                 ...(currentStructuredLineage?.facts.speed ? [{ label: "Speed", value: structuredFactValue(currentStructuredLineage.facts.speed) }] : []),
                                 ...(currentStructuredLineage?.facts.languages.values.length
                                   ? [{ label: "Languages", value: structuredFactValue(currentStructuredLineage.facts.languages) }]
                                   : []),
-                                ...(currentStructuredLineage?.features ?? []).map((feature) => ({
-                                  label: feature.name,
-                                  value: firstSentence(feature.summary),
-                                })),
+                              ]}
+                              blocks={[
+                                {
+                                  title: "Traits",
+                                  items: [...(currentStructuredLineage?.features ?? []), ...(currentStructuredSublineage?.features ?? [])].map((feature) => ({
+                                    tag: feature.name,
+                                    text: firstSentence(feature.summary) ?? "",
+                                  })),
+                                },
                               ]}
                               fullText={currentStructuredLineage?.summary ?? currentLineageGroup.summary}
                             />
                           }
                         >
-                          <PickSection title="Race" picked={1} total={1}>
-                            <PickGrid
-                              label="Races"
-                              columns={4}
-                              items={lineageCards.map((group) => ({
-                                id: group.id,
-                                name: group.name,
-                                icon: raceIcon(group.name),
-                                selected: draft.speciesId === group.subraceId || (!group.subraceId && currentLineageGroup.id === group.lineageId),
-                              }))}
-                              onPick={(id) => {
-                                const group = lineageCards.find((entry) => entry.id === id);
-                                setInspectId(null);
-                                if (group) {
-                                  selectLineageCard(group);
-                                }
-                              }}
-                            />
-                          </PickSection>
-                          {visibleSubraceOptions.length ? (
-                            <PickSection title="Subrace">
+                          <h2 className="screen-title">Choose your race</h2>
+                          {raceGridOpen ? (
+                            <div className="race-grid-pick">
                               <PickGrid
-                                label="Subraces"
+                                label="Races"
                                 columns={4}
-                                size="sm"
-                                items={visibleSubraceOptions.map((item) => ({
-                                  id: item.id,
-                                  name: item.id === "__none__" ? "None" : item.name,
-                                  icon: raceIcon(item.name),
-                                  selected:
-                                    item.id === "__none__"
-                                      ? !currentStructuredSublineage && !currentSubraceEntry
-                                      : (currentStructuredSublineage?.id ?? currentSubraceEntry?.id) === item.id,
+                                items={lineageCards.map((group) => ({
+                                  id: group.id,
+                                  name: group.name,
+                                  icon: raceIcon(group.name),
+                                  selected: draft.speciesId === group.subraceId || (!group.subraceId && currentLineageGroup.id === group.lineageId),
                                 }))}
                                 onPick={(id) => {
+                                  const group = lineageCards.find((entry) => entry.id === id);
                                   setInspectId(null);
-                                  selectSubrace(id);
+                                  setRaceSlotOpen(null);
+                                  setRaceGridOpen(false);
+                                  if (group) {
+                                    selectLineageCard(group);
+                                  }
                                 }}
                               />
-                            </PickSection>
-                          ) : null}
-                        {/* Irk / alt irk secimleri (Variant Human skill + feat, High Elf cantrip). Dil secimleri Tools & Gear > Languages'ta. */}
-                        {originRaceChoiceGroups.length ? (
-                          <div className="creator-stack">
-                            {originRaceChoiceGroups.map(({ group, map }) => renderRaceChoiceSection(group, map))}
-                          </div>
-                        ) : null}
+                              <button type="button" className="race-summary-change" onClick={() => setRaceGridOpen(false)}>
+                                {`Keep ${raceName}`}
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="race-summary">
+                              <span className="race-summary-icon" aria-hidden="true">
+                                <GameIcon name={raceIcon(raceName)} />
+                              </span>
+                              <strong className="race-summary-name">{raceName}</strong>
+                              {visibleSubraceOptions.length ? (
+                                <div className="pick-segment race-summary-subs" role="group" aria-label="Subrace">
+                                  {visibleSubraceOptions.map((item) => {
+                                    const on =
+                                      item.id === "__none__"
+                                        ? !currentStructuredSublineage && !currentSubraceEntry
+                                        : (currentStructuredSublineage?.id ?? currentSubraceEntry?.id) === item.id;
+                                    return (
+                                      <button
+                                        key={`sub-${item.id}`}
+                                        type="button"
+                                        className={on ? "active" : undefined}
+                                        aria-pressed={on}
+                                        onClick={() => {
+                                          setInspectId(null);
+                                          setRaceSlotOpen(null);
+                                          selectSubrace(item.id);
+                                        }}
+                                      >
+                                        {item.id === "__none__" ? "Standard" : item.name.replace(` ${raceName}`, "").replace(`${raceName} `, "") || item.name}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              ) : null}
+                              <button type="button" className="race-summary-change" onClick={() => setRaceGridOpen(true)}>
+                                Change race
+                              </button>
+                            </div>
+                          )}
+                          {/* Irkin verdigi secimler (Variant Human skill + feat, High Elf cantrip): slot + liste/detay. Dil secimleri Tools & Gear > Languages'ta. */}
+                          {raceChoiceSlotList.length ? renderRaceChoiceSlots(`${shownName} gives you`) : null}
                         </PickLayout>
                       </div>
-                    ) : null}
+                      );
+                    })() : null}
 
                     {activeOriginPage === "background" ? (
                       <div className="origin-focus-card origin-selection-card origin-pick-page">

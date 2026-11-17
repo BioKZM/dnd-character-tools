@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { GameIcon } from "@/components/ui/game-icon";
 import { AbilityIcon } from "@/components/ui/keyword-text";
 import type { GameIconName } from "@/lib/ui/game-icons";
@@ -24,20 +25,26 @@ export type CreatorFlowStep = {
 type SummaryStat = { label: string; value: string; icon?: GameIconName; tip?: string };
 export type SummaryIdentity = { key: string; icon: GameIconName; label: string; value: string; missing?: boolean };
 
+const noopSubscribe = () => () => {};
+
 export function CreatorFlowNav({
   steps,
   activeStep,
-  activeBrowser,
   onNavigate,
 }: {
   steps: CreatorFlowStep[];
   activeStep: number;
-  activeBrowser: string | null;
+  activeBrowser?: string | null;
   onNavigate: (screen: CreatorFlowScreen) => void;
 }) {
-  const current = steps.find((step) => step.id === activeStep) ?? steps[0];
-  return (
-    <section className="creator-flow" aria-label="Creator steps">
+  // Adimlar ustteki sabit uygulama cubuguna tasinir (campaign-shell'deki slot). Slot yoksa yerinde durur.
+  const slot = useSyncExternalStore(
+    noopSubscribe,
+    () => document.getElementById("creator-steps-slot"),
+    () => null,
+  );
+  const list = (
+    <nav className="creator-flow" aria-label="Creator steps">
       <ol className="creator-flow-steps">
         {steps.map((step, index) => {
           const pending = step.screens.reduce((total, screen) => total + screen.pending, 0);
@@ -48,41 +55,53 @@ export function CreatorFlowNav({
                 type="button"
                 className={`creator-flow-step ${state}`}
                 aria-current={step.id === activeStep ? "step" : undefined}
+                title={pending && step.id !== activeStep ? `${pending} still to pick` : undefined}
                 onClick={() => step.screens[0] && onNavigate(step.screens[0])}
               >
                 <span className="creator-flow-dot" aria-hidden="true">
                   {state === "done" ? "✓" : index + 1}
                 </span>
-                <span className="creator-flow-step-label">
-                  {step.label}
-                  {pending && step.id !== activeStep ? <small>{`${pending} to pick`}</small> : null}
-                </span>
+                <span className="creator-flow-step-label">{step.label}</span>
               </button>
               {index < steps.length - 1 ? <span className="creator-flow-bar" aria-hidden="true" /> : null}
             </li>
           );
         })}
       </ol>
-      <div className="creator-flow-row">
-        <div className="creator-flow-screens" role="tablist" aria-label={`${current?.label ?? ""} screens`}>
-          {current && current.screens.length > 1
-            ? current.screens.map((screen) => (
-                <button
-                  key={`flow-screen-${screen.browser}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={screen.browser === activeBrowser}
-                  className={screen.browser === activeBrowser ? "creator-flow-screen active" : "creator-flow-screen"}
-                  onClick={() => onNavigate(screen)}
-                >
-                  <i className={screen.pending ? "pending" : "ok"} aria-hidden="true" />
-                  {screen.label}
-                </button>
-              ))
-            : null}
-        </div>
-      </div>
-    </section>
+    </nav>
+  );
+  return slot ? createPortal(list, slot) : list;
+}
+
+/** Ortadaki kartin basinda: aktif adimin ekranlari (Name & Level · Race · Background). Biten tik, eksik altin nokta. */
+export function CreatorScreenTabs({
+  step,
+  activeBrowser,
+  onNavigate,
+}: {
+  step: CreatorFlowStep | null;
+  activeBrowser: string | null;
+  onNavigate: (screen: CreatorFlowScreen) => void;
+}) {
+  if (!step || step.screens.length < 2) {
+    return null;
+  }
+  return (
+    <div className="creator-screen-tabs" role="tablist" aria-label={`${step.label} screens`}>
+      {step.screens.map((screen) => (
+        <button
+          key={`screen-tab-${screen.browser}`}
+          type="button"
+          role="tab"
+          aria-selected={screen.browser === activeBrowser}
+          className={screen.browser === activeBrowser ? "creator-screen-tab active" : "creator-screen-tab"}
+          onClick={() => onNavigate(screen)}
+        >
+          {screen.label}
+          {screen.pending ? <i className="pending" aria-label={`${screen.pending} to pick`} /> : <b aria-label="done">✓</b>}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -126,42 +145,20 @@ export function CreatorFlowFooter({
   );
 }
 
-/** Ekranin en ustunde: nerede oldugun ve bu ekranda kac secim kaldigi. */
-export function CreatorScreenStatus({ position, pending }: { position?: string; pending: number }) {
-  return (
-    <div className="creator-screen-status">
-      <span className="creator-screen-position">{position ?? ""}</span>
-      <span className={pending ? "creator-screen-pill pending" : "creator-screen-pill done"} title={pending ? "Choices still open on this screen" : "Nothing left to choose here"}>
-        <i aria-hidden="true" />
-        {pending ? `${pending} to choose here` : "All set here"}
-      </span>
-    </div>
-  );
-}
-
-/** Sagda sabit, kompakt karakter ozeti: kim oldugu, renkli statlar ve nelerin kaldigi. */
+/** Solda sabit karakter ozeti: kim oldugu, ikonlu kimlik satirlari, renkli statlar. Durum yazisi yok (stepper soyler). */
 export function CreatorSummaryPanel({
   icon,
   name,
   identity,
   stats,
   abilities,
-  steps,
-  activeBrowser,
-  onNavigate,
 }: {
   icon: GameIconName;
   name: string;
   identity: SummaryIdentity[];
   stats: SummaryStat[];
   abilities: Array<{ id: string; value: number; name?: string }>;
-  steps: CreatorFlowStep[];
-  activeBrowser: string | null;
-  onNavigate: (screen: CreatorFlowScreen) => void;
 }) {
-  const [todoOpen, setTodoOpen] = useState(false);
-  const left = steps.flatMap((step) => step.screens.filter((screen) => screen.pending > 0).map((screen) => ({ step, screen })));
-  const total = left.reduce((sum, entry) => sum + entry.screen.pending, 0);
   return (
     <section className="creator-summary" aria-label="Character summary">
       <div className="creator-summary-id">
@@ -176,8 +173,7 @@ export function CreatorSummaryPanel({
             <span className="creator-summary-identity-icon">
               <GameIcon name={row.icon} />
             </span>
-            <span className="creator-summary-identity-text">
-              <small>{row.label}</small>
+            <span className="creator-summary-identity-text" title={row.label}>
               <strong>{row.value}</strong>
             </span>
           </li>
@@ -211,31 +207,6 @@ export function CreatorSummaryPanel({
             </span>
           );
         })}
-      </div>
-      <div className="creator-summary-todo">
-        <button type="button" className="creator-summary-todo-toggle" aria-expanded={todoOpen} onClick={() => setTodoOpen((value) => !value)} disabled={!left.length}>
-          <span className={total ? "pending" : "done"}>{total ? `Still to pick: ${total}` : "Everything picked"}</span>
-          {left.length ? <i aria-hidden="true">{todoOpen ? "▴" : "▾"}</i> : null}
-        </button>
-        {todoOpen && left.length ? (
-          <ul>
-            {left.map(({ step, screen }) => (
-              <li key={`todo-${screen.step}-${screen.browser}`}>
-                <button
-                  type="button"
-                  className={screen.browser === activeBrowser ? "creator-summary-todo-item active" : "creator-summary-todo-item"}
-                  onClick={() => onNavigate(screen)}
-                >
-                  <span>
-                    <small>{step.label}</small>
-                    {screen.label}
-                  </span>
-                  <b>{screen.pending}</b>
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : null}
       </div>
     </section>
   );

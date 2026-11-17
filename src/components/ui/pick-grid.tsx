@@ -151,7 +151,7 @@ export function PickSection({
           {actions}
           {left !== null ? (
             <span className={left ? "pick-counter pending" : "pick-counter done"}>
-              {left ? `Pick ${left}` : total ? "Done" : ""}
+              {left ? `Pick ${left}` : total ? "✓" : ""}
             </span>
           ) : null}
         </span>

@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Alegreya, Figtree } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+// Stil v2: basliklar Alegreya (kitap hissi), metin ve sayilar Figtree.
+const figtree = Figtree({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
-const montserrat = Montserrat({
+const alegreya = Alegreya({
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
@@ -27,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${montserrat.variable}`}>
+      <body className={`${figtree.variable} ${alegreya.variable}`}>
         {children}
         <footer className="site-credits">
           Icons by <a href="https://game-icons.net" target="_blank" rel="noreferrer">game-icons.net</a>, CC BY 3.0.
