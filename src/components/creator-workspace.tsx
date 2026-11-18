@@ -3103,6 +3103,8 @@ export function CreatorWorkspace({
   const [raceSlotOpen, setRaceSlotOpen] = useState<string | null>(null);
   const [raceChoiceQuery, setRaceChoiceQuery] = useState("");
   const [raceGridOpen, setRaceGridOpen] = useState(false);
+  const [backgroundPickerOpen, setBackgroundPickerOpen] = useState(false);
+  const [gearSlotOpen, setGearSlotOpen] = useState<string | null>(null);
   // Subclass, feature ve secimlerden gelen buyuler (motorun hesabi): spell ekranindaki "Granted" listesi.
   const derivedGrantedSpells = useMemo(() => {
     try {
@@ -4663,8 +4665,6 @@ export function CreatorWorkspace({
       { type: "divider", id: "gear-proficiencies", label: "Proficiencies" },
       { type: "item", id: "custom-background-tools", label: "Tools", step: 3 },
       { type: "item", id: "custom-background-languages", label: "Languages", step: 3 },
-      { type: "divider", id: "gear-equipment", label: "Equipment" },
-      { type: "item", id: "custom-background-equipment", label: "Equipment", step: 3 },
     ],
     [],
   );
@@ -5278,9 +5278,12 @@ export function CreatorWorkspace({
             {selectedOptionId ? "✓" : ""}
           </span>
           <strong>{group.prompt}</strong>
-          <span className={chosen ? "choice-group-value" : "choice-group-value pending"}>
-            {chosen ? (selectedFamily?.picked ? `${selectedFamily.label.replace(/^Any /, "")}: ${selectedFamily.picked.map((id) => selectedFamily.weapons.find((weapon) => weapon.id === id)?.label ?? id).join(" + ")}` : chosen.label) : "Pick 1"}
-          </span>
+          {/* Secilen kart zaten altin cerceveli; deger sadece acilir listeden secilen silahi soyler. */}
+          {!chosen || selectedFamily?.picked ? (
+            <span className={chosen ? "choice-group-value" : "choice-group-value pending"}>
+              {chosen && selectedFamily?.picked ? `${selectedFamily.label.replace(/^Any /, "")}: ${selectedFamily.picked.map((id) => selectedFamily.weapons.find((weapon) => weapon.id === id)?.label ?? id).join(" + ")}` : "Pick 1"}
+            </span>
+          ) : null}
         </div>
         <div className="equip-options" role="group" aria-label={group.prompt}>
           {directOptions.map((option) => {
@@ -6248,8 +6251,7 @@ export function CreatorWorkspace({
     return (
       <section className="creator-section-block asi-feat-screen">
         <div className="fighter-journey-scene-head compact">
-          <h3>ASI &amp; Feats</h3>
-          <p>Each slot is one choice. On a level slot you either raise your abilities or take a feat instead; a race slot is always a feat.</p>
+          <h3>Improve or take a feat</h3>
         </div>
         <PickLayout inspect={inspect}>
           {slots.length ? (
@@ -6822,6 +6824,17 @@ export function CreatorWorkspace({
     if (browser === "lineage") {
       return fromTasks + raceChoicesLeft;
     }
+    if (browser === "custom-background-tools") {
+      return (
+        fromTasks +
+        (customBackgroundActive || !selectedBackground
+          ? 0
+          : selectedBackground.toolProficiencies.choices.reduce(
+              (total, choice) => total + Math.max(0, choice.count - (draft.backgroundToolChoiceIds?.[choice.id] ?? []).length),
+              0,
+            ))
+      );
+    }
     if (browser === "custom-background-languages") {
       return fromTasks + languageChoices.reduce((total, choice) => total + Math.max(0, choice.count - choice.selectedNames.length), 0);
     }
@@ -6854,7 +6867,7 @@ export function CreatorWorkspace({
     },
     {
       id: 3,
-      label: "Tools & Gear",
+      label: "Tools & Languages",
       screens: gearSubmenuItems
         .filter((entry): entry is Extract<SidebarNavEntry, { type: "item" }> => entry.type === "item")
         .map((entry) => ({ step: 3, browser: entry.id as string, label: entry.label, pending: pendingFor(entry.id as string) })),
@@ -7139,76 +7152,154 @@ export function CreatorWorkspace({
                             : backgroundShowAll
                               ? content.backgrounds
                               : core;
-                          const focus = content.backgrounds.find((item) => item.id === inspectId) ?? selectedBackground ?? null;
+                          const pickerOpen = backgroundPickerOpen || !selectedBackground;
+                          const focus = pickerOpen
+                            ? list.find((item) => item.id === inspectId) ?? list.find((item) => item.id === draft.backgroundId) ?? list[0] ?? null
+                            : selectedBackground;
+                          const factsFor = (item: ContentBundle["backgrounds"][number]) =>
+                            backgroundMetaDescription(content, item).map((meta) => ({
+                              label: meta.split(":")[0].replace(" Proficiencies", "").replace("Skill", "Skills").replace("Tool", "Tools"),
+                              value: meta.includes(":") ? meta.split(":").slice(1).join(":").trim() : meta,
+                            }));
+                          const goTo = (browser: string) => {
+                            const screen = creatorFlowOrder.find((entry) => entry.browser === browser);
+                            if (screen) goToCreatorScreen(screen);
+                          };
+                          const toolChoicesLeft = pendingFor("custom-background-tools");
+                          const languagesLeft = pendingFor("custom-background-languages");
                           return (
                             <PickLayout
                               inspect={
-                                focus ? (
+                                selectedBackground ? (
                                   <InspectPanel
-                                    icon={backgroundIcon(focus.name)}
-                                    kicker={focus.source ?? "Background"}
-                                    title={focus.name}
-                                    summary={firstSentence(backgroundDescription(focus))}
-                                    rows={backgroundMetaDescription(content, focus).map((meta) => ({
-                                      label: meta.split(":")[0].replace(" Proficiencies", ""),
-                                      value: meta.includes(":") ? meta.split(":").slice(1).join(":").trim() : meta,
-                                    }))}
-                                    fullText={backgroundDescription(focus)}
-                                  >
-                                    <GearList
-                                      infos={gearInfosFor(content, "", [...backgroundToolSummary(content, focus), ...backgroundLanguageSummary(content, focus)])}
-                                    />
-                                  </InspectPanel>
+                                    icon={backgroundIcon(selectedBackground.name)}
+                                    kicker={selectedBackground.source ?? undefined}
+                                    title={selectedBackground.name}
+                                    summary={firstSentence(backgroundDescription(selectedBackground))}
+                                    rows={factsFor(selectedBackground)}
+                                    fullText={backgroundDescription(selectedBackground)}
+                                  />
                                 ) : (
                                   <InspectPanel icon="open-book" title="Background" summary="Who you were before adventuring. Gives two skills and a tool or languages." />
                                 )
                               }
                             >
-                              <PickSection
-                                title="Background"
-                                badge={`${list.length} / ${content.backgrounds.length}`}
-                                meta={needle ? "matching your search" : backgroundShowAll ? "all books" : "Player's Handbook"}
-                                actions={
-                                  <>
+                              <h2 className="screen-title">Choose your background</h2>
+                              {selectedBackground && !pickerOpen ? (
+                                <div className="race-summary">
+                                  <span className="race-summary-icon" aria-hidden="true">
+                                    <GameIcon name={backgroundIcon(selectedBackground.name)} />
+                                  </span>
+                                  <strong className="race-summary-name">{selectedBackground.name}</strong>
+                                  <button
+                                    type="button"
+                                    className="race-summary-change"
+                                    onClick={() => {
+                                      setBackgroundPickerOpen(true);
+                                      setInspectId(selectedBackground.id);
+                                    }}
+                                  >
+                                    Change background
+                                  </button>
+                                </div>
+                              ) : (
+                                <div className="choice-picker-wrap">
+                                  <div className="choice-picker-toolbar">
                                     <div className="pick-segment" role="group" aria-label="Which books">
                                       <button type="button" className={!backgroundShowAll ? "active" : ""} aria-pressed={!backgroundShowAll} onClick={() => setBackgroundShowAll(false)}>
                                         Player&apos;s Handbook
                                       </button>
                                       <button type="button" className={backgroundShowAll ? "active" : ""} aria-pressed={backgroundShowAll} onClick={() => setBackgroundShowAll(true)}>
-                                        All books
+                                        {`All books · ${content.backgrounds.length}`}
                                       </button>
                                     </div>
-                                    <input
-                                      type="search"
-                                      className="pick-search"
-                                      placeholder="Search backgrounds"
-                                      aria-label="Search backgrounds"
-                                      value={backgroundQuery}
-                                      onChange={(event) => setBackgroundQuery(event.target.value)}
-                                    />
-                                  </>
-                                }
-                              >
-                                <PickGrid
-                                  label="Backgrounds"
-                                  pageSize={16}
-                                  key={`bg-${backgroundQuery}-${backgroundShowAll}`}
-                                  columns={4}
-                                  size="sm"
-                                  inspectedId={inspectId}
-                                  onInspect={setInspectId}
-                                  items={list.map((item) => ({
-                                    id: item.id,
-                                    name: item.name,
-                                    sub: item.skillProficiencies.join(", ") || undefined,
-                                    icon: backgroundIcon(item.name),
-                                    selected: draft.backgroundId === item.id,
-                                  }))}
-                                  onPick={(id) => selectBackground(id)}
-                                />
-                              </PickSection>
-                              {customBackgroundActive ? (
-                                <p className="pick-note">Custom background: pick its skills, tools, languages and gear in the Tools & Gear step.</p>
+                                    {selectedBackground ? (
+                                      <button type="button" className="race-summary-change" onClick={() => setBackgroundPickerOpen(false)}>
+                                        {`Keep ${selectedBackground.name}`}
+                                      </button>
+                                    ) : null}
+                                  </div>
+                                  <ChoicePicker
+                                    label="Backgrounds"
+                                    rows={list.map((item) => ({
+                                      id: item.id,
+                                      name: item.name,
+                                      icon: backgroundIcon(item.name),
+                                      mine: draft.backgroundId === item.id,
+                                      tag: backgroundShowAll || needle ? featSourceShort(item.source) : null,
+                                    }))}
+                                    focusId={focus?.id ?? null}
+                                    onFocus={setInspectId}
+                                    query={backgroundQuery}
+                                    onQuery={setBackgroundQuery}
+                                    searchPlaceholder={`Search ${list.length} backgrounds`}
+                                    detail={
+                                      focus ? (
+                                        <ChoiceDetail
+                                          icon={backgroundIcon(focus.name)}
+                                          name={focus.name}
+                                          source={focus.source ?? null}
+                                          pitch={firstSentence(backgroundDescription(focus))}
+                                          facts={factsFor(focus)}
+                                          rules={<p>{backgroundDescription(focus)}</p>}
+                                          action={
+                                            draft.backgroundId === focus.id ? (
+                                              <button type="button" className="choice-take on" onClick={() => setBackgroundPickerOpen(false)}>
+                                                ✓ Your background
+                                              </button>
+                                            ) : (
+                                              <button
+                                                type="button"
+                                                className="choice-take"
+                                                onClick={() => {
+                                                  selectBackground(focus.id);
+                                                  setBackgroundPickerOpen(false);
+                                                }}
+                                              >
+                                                {`Take ${focus.name}`}
+                                              </button>
+                                            )
+                                          }
+                                        />
+                                      ) : (
+                                        <p className="choice-picker-empty">Pick a background from the list.</p>
+                                      )
+                                    }
+                                  />
+                                </div>
+                              )}
+                              {selectedBackground && !pickerOpen && !customBackgroundActive ? (
+                                <section className="race-gives" aria-label={`${selectedBackground.name} gives you`}>
+                                  <h3 className="section-title">{`${selectedBackground.name} gives you`}</h3>
+                                  <div className="choice-slots">
+                                    {selectedBackground.skillProficiencies.length ? (
+                                      <ChoiceSlot auto icon={skillIcon(selectedBackground.skillProficiencies[0].toLowerCase().replace(/\s+/g, "-"))} kind="Skills" value={selectedBackground.skillProficiencies.join(", ")} />
+                                    ) : null}
+                                    {selectedBackground.toolProficiencies.fixed.length || selectedBackground.toolProficiencies.choices.length ? (
+                                      <ChoiceSlot
+                                        icon={toolIcon(selectedBackground.toolProficiencies.fixed[0] ?? "tools")}
+                                        kind="Tools"
+                                        value={backgroundToolSummary(content, selectedBackground, draft.backgroundToolChoiceIds ?? {}).join(", ")}
+                                        missing={toolChoicesLeft > 0}
+                                        action={toolChoicesLeft ? "Choose in Tools" : "Tools"}
+                                        onClick={() => goTo("custom-background-tools")}
+                                      />
+                                    ) : null}
+                                    {selectedBackground.languages.fixed.length || selectedBackground.languages.choices.length ? (
+                                      <ChoiceSlot
+                                        icon="talk"
+                                        kind="Languages"
+                                        value={backgroundLanguageSummary(content, selectedBackground).join(", ")}
+                                        missing={languagesLeft > 0}
+                                        action={languagesLeft ? "Choose in Languages" : "Languages"}
+                                        onClick={() => goTo("custom-background-languages")}
+                                      />
+                                    ) : null}
+                                  </div>
+                                </section>
+                              ) : null}
+                              {customBackgroundActive && !pickerOpen ? (
+                                <p className="pick-note">Custom background: pick its skills, tools, languages and gear in the next steps.</p>
                               ) : null}
                             </PickLayout>
                           );
@@ -7248,8 +7339,7 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "fighter-class" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <h3>Class</h3>
-                        <p>How you fight and what you do best. Pick one to see what it is about.</p>
+                        <h3>Choose your class</h3>
                       </div>
                       <PickLayout
                         inspect={
@@ -7267,80 +7357,72 @@ export function CreatorWorkspace({
                           />
                         }
                       >
-                        <PickGrid
-                          label="Classes"
-                          columns={4}
-                          items={content.classes.map((item) => ({
-                            id: item.id,
-                            name: item.name,
-                            sub: `d${item.hitDie}`,
-                            icon: classIcon(item.id),
-                            selected: draft.classId === item.id,
-                          }))}
-                          onPick={(classId) => {
-                            if (classId === draft.classId) {
-                              return;
-                            }
-                            updateDraft((current) => ({
-                              ...current,
-                              classId,
-                              multiclassIds: current.multiclassIds.filter((entry) => entry !== classId),
-                              selectedSubclassOptions: [],
-                              spellIds: [],
-                            }));
-                            moveCreatorStep(1);
-                            setCreatorBrowser("class");
-                          }}
-                        />
-                        {currentCuratedClass?.spellcastingTable.rows.length ? (
-                          <section className="level-table-section">
-                            <div className="fighter-journey-scene-head compact">
-                              <h3>Level Table</h3>
-                              <p>{`What every ${currentCuratedClass.name.toLowerCase()} level gives you. Your level is highlighted.`}</p>
-                            </div>
-                            <ol className="level-table" aria-label={`${currentCuratedClass.name} level table`}>
-                              {levelTableRows(classTableHeaderRow, classTableBodyRows).map((row) => (
-                                <li
-                                  key={`${currentCuratedClass.id}-lt-${row.level}`}
-                                  className={row.level === draft.level ? "lt-row current" : row.level < draft.level ? "lt-row owned" : "lt-row future"}
-                                >
-                                  <span className="lt-level">
-                                    <strong>{row.level}</strong>
-                                    {row.proficiency ? <small>{`PB ${row.proficiency}`}</small> : null}
-                                  </span>
-                                  <span className="lt-body">
-                                    <span className="lt-features">
-                                      {row.features.length ? (
-                                        row.features.map((name) => (
-                                          <span key={name} className="lt-chip">
-                                            {name}
-                                          </span>
-                                        ))
-                                      ) : (
-                                        <span className="lt-none">No new feature</span>
-                                      )}
-                                    </span>
-                                    {row.stats.length || row.slots.length ? (
-                                      <span className="lt-stats">
-                                        {row.stats.map((stat) => (
-                                          <span key={stat.label}>
-                                            {stat.label} <b>{stat.value}</b>
-                                          </span>
-                                        ))}
-                                        {row.slots.length ? (
-                                          <span>
-                                            Slots <b>{row.slots.join(" · ")}</b>
-                                          </span>
-                                        ) : null}
-                                      </span>
-                                    ) : null}
-                                  </span>
-                                  {row.level === draft.level ? <span className="lt-you">You</span> : null}
-                                </li>
-                              ))}
-                            </ol>
-                          </section>
-                        ) : null}
+                        {(() => {
+                            const focusClass = content.classes.find((item) => `class:${item.id}` === inspectId) ?? currentClass;
+                            return (
+                              <div className="choice-picker-wrap">
+                                <ChoicePicker
+                                  label="Classes"
+                                  rows={content.classes.map((item) => ({
+                                    id: item.id,
+                                    name: item.name,
+                                    icon: classIcon(item.id),
+                                    mine: draft.classId === item.id,
+                                    tag: `d${item.hitDie}`,
+                                  }))}
+                                  focusId={focusClass.id}
+                                  onFocus={(id) => setInspectId(`class:${id}`)}
+                                  detail={
+                                    <ChoiceDetail
+                                      icon={classIcon(focusClass.id)}
+                                      name={focusClass.name}
+                                      source={focusClass.source ?? null}
+                                      pitch={(() => {
+                                        // Ingilizce kisa tanim: curated highlight > el yazimi ozet > curated summary.
+                                        const curated = curatedClassMap.get(focusClass.id);
+                                        const line =
+                                          curated?.highlights[0]?.body ??
+                                          classOverviewHighlightsByClass[focusClass.id as keyof typeof classOverviewHighlightsByClass]?.[0]?.body ??
+                                          firstSentence(curated?.summary ?? "") ??
+                                          null;
+                                        return line ? <Keywordize>{line}</Keywordize> : null;
+                                      })()}
+                                      facts={[
+                                        { label: "Hit die", value: `d${focusClass.hitDie}` },
+                                        ...(focusClass.primaryAbilities.length ? [{ label: "Best with", value: focusClass.primaryAbilities.join(" or ") }] : []),
+                                        ...(focusClass.savingThrows.length ? [{ label: "Saves", value: focusClass.savingThrows.join(", ") }] : []),
+                                      ]}
+                                      action={
+                                        draft.classId === focusClass.id ? (
+                                          <span className="choice-take on">✓ Your class</span>
+                                        ) : (
+                                          <button
+                                            type="button"
+                                            className="choice-take"
+                                            onClick={() => {
+                                              const classId = focusClass.id;
+                                              updateDraft((current) => ({
+                                                ...current,
+                                                classId,
+                                                multiclassIds: current.multiclassIds.filter((entry) => entry !== classId),
+                                                selectedSubclassOptions: [],
+                                                spellIds: [],
+                                              }));
+                                              setInspectId(null);
+                                              moveCreatorStep(1);
+                                              setCreatorBrowser("class");
+                                            }}
+                                          >
+                                            {`Become a ${focusClass.name}`}
+                                          </button>
+                                        )
+                                      }
+                                    />
+                                  }
+                                />
+                              </div>
+                            );
+                          })()}
                       </PickLayout>
                     </div>
                   ) : null}
@@ -7348,12 +7430,10 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "fighter-features" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <h3>Class Features</h3>
-                        <p>
-                          {optionChoices.some((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language"))
-                            ? `What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Click a feature to read it; make your picks below the list.`
-                            : `What a level ${draft.level} ${currentClass.name.toLowerCase()} can do. Nothing to pick here; click a feature to read it.`}
-                        </p>
+                        <h3>{`What a level ${draft.level} ${currentClass.name.toLowerCase()} can do`}</h3>
+                        {optionChoices.some((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language")) ? (
+                          <p>Your picks are below the path.</p>
+                        ) : null}
                       </div>
                       {(() => {
                         const featureLevel = (feature: (typeof visibleClassFeatures)[number]) => {
@@ -7496,7 +7576,7 @@ export function CreatorWorkspace({
                         };
                         return (
                           <PickLayout inspect={renderInspect()}>
-                            <PickSection title={`${currentClass.name} path`} meta={`you are level ${draft.level}`}>
+                            <div className="class-path-block">
                               <LevelPath
                                 level={draft.level}
                                 inspectedId={focusNode?.id ?? null}
@@ -7508,7 +7588,53 @@ export function CreatorWorkspace({
                                   { id: "subclass", title: pathSubclass?.name ?? visibleSubclassHeading, hint: pathSubclass ? visibleSubclassHeading : "not chosen yet" },
                                 ]}
                               />
-                            </PickSection>
+                            </div>
+                        {currentCuratedClass?.spellcastingTable.rows.length ? (
+                          <details className="level-table-section level-table-details">
+                            <summary>{`${currentCuratedClass.name} level table`}</summary>
+                            <ol className="level-table" aria-label={`${currentCuratedClass.name} level table`}>
+                              {levelTableRows(classTableHeaderRow, classTableBodyRows).map((row) => (
+                                <li
+                                  key={`${currentCuratedClass.id}-lt-${row.level}`}
+                                  className={row.level === draft.level ? "lt-row current" : row.level < draft.level ? "lt-row owned" : "lt-row future"}
+                                >
+                                  <span className="lt-level">
+                                    <strong>{row.level}</strong>
+                                  </span>
+                                  <span className="lt-body">
+                                    <span className="lt-features">
+                                      {row.features.length ? (
+                                        row.features.map((name) => (
+                                          <span key={name} className="lt-chip">
+                                            {name}
+                                          </span>
+                                        ))
+                                      ) : (
+                                        <span className="lt-none">No new feature</span>
+                                      )}
+                                    </span>
+                                    {row.stats.length || row.slots.length ? (
+                                      <span className="lt-stats">
+                                        {row.stats.map((stat) => (
+                                          <span key={stat.label}>
+                                            {stat.label} <b>{stat.value}</b>
+                                          </span>
+                                        ))}
+                                        {row.slots.length ? (
+                                          <span>
+                                            Slots <b>{row.slots.join(" · ")}</b>
+                                          </span>
+                                        ) : null}
+                                      </span>
+                                    ) : null}
+                                  </span>
+                                  {row.level === draft.level ? <span className="lt-you">You</span> : null}
+                                </li>
+                              ))}
+                            </ol>
+                          </details>
+                        ) : null}
+
                             <OptionChoicePanel
                               title={`${currentClass.name} feature choices`}
                               content={content}
@@ -7765,8 +7891,7 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "fighter-subclass" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <h3>{visibleSubclassHeading}</h3>
-                        <p>{`Pick your ${visibleSubclassHeading.toLowerCase()} first. Its choices open right below it.`}</p>
+                        <h3>{`Choose your ${visibleSubclassHeading.toLowerCase()}`}</h3>
                       </div>
                       {(() => {
                         const featureLevelOf = (feature: { unlockLevel?: unknown }) => (typeof feature.unlockLevel === "number" ? feature.unlockLevel : null);
@@ -7848,12 +7973,7 @@ export function CreatorWorkspace({
                               )
                             }
                           >
-                            <PickSection
-                              title={visibleSubclassHeading}
-                              meta="Each column is a path; read down to see what it gives at each level. Click anything to read it."
-                              picked={draft.selectedSubclassOptions.length ? 1 : 0}
-                              total={1}
-                            >
+                            <PickSection title="" picked={draft.selectedSubclassOptions.length ? 1 : 0} total={1}>
                               {!fighterJourneySubclasses.length && !(currentDocClass?.subclasses ?? []).length ? (
                                 <p className="pick-later">{`No ${visibleSubclassHeading.toLowerCase()} is enabled in this campaign yet. They are coming in a later update; you can keep building without one.`}</p>
                               ) : null}
@@ -7899,9 +8019,8 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "fighter-equipment" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <span className="mini-heading creator-section-label">Equipment</span>
-                        <h3>Starting Equipment</h3>
-                        <p>{`Choose the ${currentClass.name.toLowerCase()} kit you start with. Items land in the sheet's Inventory, where you can equip, add or remove them.`}</p>
+                        <h3>Pick your starting gear</h3>
+                        <p>It lands in the sheet&apos;s Inventory.</p>
                       </div>
                       <div className="fighter-journey-scene-divider" aria-hidden="true" />
                       <article className="fighter-equipment-section">
@@ -10518,19 +10637,18 @@ export function CreatorWorkspace({
                     return (
                       <>
                         <div className="fighter-journey-scene-head compact">
-                          <h3>{isTools ? "Tools" : "Languages"}</h3>
-                          <p>
-                            {isTools
-                              ? "Tools let you add your proficiency bonus when you use them. Click one to see what it is good for."
-                              : "Languages you can speak, read and write. Click one to see who speaks it."}
-                          </p>
+                          <h3>{isTools ? "Your tools" : "Your languages"}</h3>
                         </div>
                         <PickLayout
                           inspect={
                             focusInfo ? (
                               <InspectPanel icon={focusInfo.icon} kicker={focusInfo.kicker} title={focusInfo.name} summary={focusInfo.summary} rows={focusInfo.rows} />
                             ) : (
-                              <InspectPanel icon={isTools ? "toolbox" : "talk"} title={isTools ? "Tools" : "Languages"} summary="Click one to read about it." />
+                              <InspectPanel
+                                icon={isTools ? "toolbox" : "talk"}
+                                title={isTools ? "Tools" : "Languages"}
+                                summary={isTools ? "Add your proficiency bonus when you use a tool you know." : "Languages you can speak, read and write."}
+                              />
                             )
                           }
                         >
@@ -10568,76 +10686,109 @@ export function CreatorWorkspace({
                             </PickSection>
                           ) : (
                             isTools && selectedBackground && hasSelectedBackgroundToolData ? (
-                              <>
-                                {selectedBackground.toolProficiencies.fixed.length ? (
-                                  <PickSection title={`From ${selectedBackground.name}`} meta="already yours">
-                                    <PickGrid
-                                      label="Background tools"
-                                      columns={4}
-                                      size="sm"
-                                      inspectedId={inspectId}
-                                      onInspect={setInspectId}
-                                      items={selectedBackground.toolProficiencies.fixed.map((toolName) => {
-                                        const tool = content.tools.find((entry) => entry.id === toolIdFromValue(content, toolName));
-                                        const info = findGearInfo(content, tool?.name ?? toolName);
-                                        return {
-                                          id: tool ? `tool:${tool.id}` : toolName,
-                                          name: tool?.name ?? toolName,
-                                          sub: info?.sub || tool?.category?.replace(/-/g, " "),
-                                          icon: info?.icon ?? toolIcon(toolName),
-                                          owned: true,
-                                        };
-                                      })}
+                              <section className="race-gives" aria-label="Tools">
+                                <div className="choice-slots">
+                                  {selectedBackground.toolProficiencies.fixed.length ? (
+                                    <ChoiceSlot
+                                      auto
+                                      icon={toolIcon(selectedBackground.toolProficiencies.fixed[0])}
+                                      kind={`From ${selectedBackground.name}`}
+                                      value={selectedBackground.toolProficiencies.fixed
+                                        .map((toolName) => content.tools.find((entry) => entry.id === toolIdFromValue(content, toolName))?.name ?? toolName)
+                                        .join(", ")}
                                     />
-                                  </PickSection>
-                                ) : null}
-                                {selectedBackground.toolProficiencies.choices.map((choice) => {
-                                  const selectedValues = draft.backgroundToolChoiceIds?.[choice.id] ?? [];
-                                  return (
-                                    <PickSection key={`bg-tool-choice-${choice.id}`} title={choice.label.replace(/\s*\(.*\)\s*$/, "")} meta={`from ${selectedBackground.name}`} picked={selectedValues.length} total={choice.count}>
-                                      <PickGrid
-                                        label={choice.label}
-                                        columns={4}
-                                        size="sm"
-                                        pageSize={16}
-                                        inspectedId={inspectId}
-                                        onInspect={setInspectId}
-                                        items={toolChoiceOptions(content, choice.options).map((optionId) => {
-                                          const tool = content.tools.find((entry) => entry.id === optionId);
-                                          const label = tool?.name ?? toolCategoryLabels[optionId] ?? optionId;
-                                          const info = findGearInfo(content, label);
-                                          const isSelected = selectedValues.includes(optionId);
-                                          return {
-                                            id: `tool:${optionId}`,
-                                            name: label,
-                                            sub: info?.sub || tool?.category?.replace(/-/g, " "),
-                                            icon: info?.icon ?? toolIcon(label),
-                                            selected: isSelected,
-                                            dim: !isSelected && choice.count > 1 && selectedValues.length >= choice.count,
-                                          };
-                                        })}
-                                        onPick={(id) => {
-                                          const optionId = id.replace(/^tool:/, "");
-                                          if (choice.count > 1 && !selectedValues.includes(optionId) && selectedValues.length >= choice.count) {
-                                            return;
-                                          }
-                                          setBackgroundToolChoice(choice.id, optionId, choice.count);
-                                        }}
-                                      />
-                                    </PickSection>
-                                  );
-                                })}
-                                {!selectedBackground.toolProficiencies.fixed.length && !selectedBackground.toolProficiencies.choices.length ? (
-                                  <PickSection title={`From ${selectedBackground.name}`}>
-                                    <p className="pick-note">Your background gives no tools.</p>
-                                  </PickSection>
-                                ) : null}
-                              </>
-                            ) : (
+                                  ) : null}
+                                  {selectedBackground.toolProficiencies.choices.map((choice) => {
+                                    const selectedValues = draft.backgroundToolChoiceIds?.[choice.id] ?? [];
+                                    const options = toolChoiceOptions(content, choice.options);
+                                    const labelOf = (optionId: string) => content.tools.find((entry) => entry.id === optionId)?.name ?? toolCategoryLabels[optionId] ?? optionId;
+                                    const slotKey = `tool-choice:${choice.id}`;
+                                    const open = gearSlotOpen === slotKey;
+                                    const focusId = inspectId?.startsWith("tool:") && options.includes(inspectId.slice(5)) ? inspectId.slice(5) : null;
+                                    const needle = raceChoiceQuery.trim().toLowerCase();
+                                    const focusLabel = focusId ? labelOf(focusId) : null;
+                                    const focusInfo = focusLabel ? findGearInfo(content, focusLabel) : null;
+                                    const focusMine = focusId ? selectedValues.includes(focusId) : false;
+                                    const full = selectedValues.length >= choice.count;
+                                    const take = () => {
+                                      if (!focusId || (choice.count > 1 && !focusMine && full)) return;
+                                      setBackgroundToolChoice(choice.id, focusId, choice.count);
+                                      if (!focusMine && selectedValues.length + 1 >= choice.count) setGearSlotOpen(null);
+                                    };
+                                    return (
+                                      <div key={slotKey} className="choice-slot-wrap">
+                                        <ChoiceSlot
+                                          icon={selectedValues[0] ? toolIcon(labelOf(selectedValues[0])) : null}
+                                          kind={`${choice.label.replace(/\s*\(.*\)\s*$/, "")}${choice.count > 1 ? ` · ${selectedValues.length} of ${choice.count}` : ""} · ${selectedBackground.name}`}
+                                          value={selectedValues.length ? selectedValues.map(labelOf).join(", ") : "Not chosen"}
+                                          missing={selectedValues.length < choice.count}
+                                          open={open}
+                                          action={open ? "Close" : selectedValues.length ? "Change" : "Choose"}
+                                          onClick={() => {
+                                            if (open) {
+                                              setGearSlotOpen(null);
+                                              return;
+                                            }
+                                            setGearSlotOpen(slotKey);
+                                            setRaceChoiceQuery("");
+                                            setInspectId(`tool:${selectedValues[0] ?? options[0]}`);
+                                          }}
+                                        />
+                                        {open ? (
+                                          <ChoicePicker
+                                            label={choice.label}
+                                            rows={options
+                                              .filter((optionId) => !needle || labelOf(optionId).toLowerCase().includes(needle))
+                                              .map((optionId) => ({
+                                                id: optionId,
+                                                name: labelOf(optionId),
+                                                icon: findGearInfo(content, labelOf(optionId))?.icon ?? toolIcon(labelOf(optionId)),
+                                                mine: selectedValues.includes(optionId),
+                                              }))}
+                                            focusId={focusId}
+                                            onFocus={(id) => setInspectId(`tool:${id}`)}
+                                            query={options.length > 8 ? raceChoiceQuery : undefined}
+                                            onQuery={options.length > 8 ? setRaceChoiceQuery : undefined}
+                                            searchPlaceholder={`Search ${options.length} tools`}
+                                            detail={
+                                              focusId && focusLabel ? (
+                                                <ChoiceDetail
+                                                  icon={focusInfo?.icon ?? toolIcon(focusLabel)}
+                                                  name={focusLabel}
+                                                  source={focusInfo?.kicker ?? null}
+                                                  pitch={focusInfo?.summary ? <Keywordize>{firstSentence(focusInfo.summary) ?? focusInfo.summary}</Keywordize> : null}
+                                                  facts={focusInfo?.rows ?? []}
+                                                  action={
+                                                    focusMine ? (
+                                                      <button type="button" className="choice-take on" onClick={take}>
+                                                        ✓ Yours · remove
+                                                      </button>
+                                                    ) : choice.count > 1 && full ? (
+                                                      <span className="choice-take-note">{`You already picked ${choice.count}. Remove one first.`}</span>
+                                                    ) : (
+                                                      <button type="button" className="choice-take" onClick={take}>{`Take ${focusLabel}`}</button>
+                                                    )
+                                                  }
+                                                />
+                                              ) : (
+                                                <p className="choice-picker-empty">Pick a tool from the list.</p>
+                                              )
+                                            }
+                                          />
+                                        ) : null}
+                                      </div>
+                                    );
+                                  })}
+                                  {!selectedBackground.toolProficiencies.fixed.length && !selectedBackground.toolProficiencies.choices.length ? (
+                                    <ChoiceSlot auto icon="toolbox" kind={`From ${selectedBackground.name}`} value="No tools" />
+                                  ) : null}
+                                </div>
+                              </section>
+                            ) : isTools ? (
                             <PickSection title={`From ${selectedBackground?.name ?? "your background"}`}>
                               {grantedInfos.length ? (
                                 <PickGrid
-                                  label={`Background ${isTools ? "tools" : "languages"}`}
+                                  label="Background tools"
                                   columns={4}
                                   size="sm"
                                   inspectedId={focusInfo?.name ?? null}
@@ -10645,10 +10796,10 @@ export function CreatorWorkspace({
                                   items={grantedInfos.map((info) => ({ id: info.name, name: info.name, sub: info.sub, icon: info.icon, owned: true }))}
                                 />
                               ) : (
-                                <p className="pick-note">{grantedNames.length ? grantedNames.join(", ") : `Your background gives no ${isTools ? "tools" : "languages"}.`}</p>
+                                <p className="pick-note">{grantedNames.length ? grantedNames.join(", ") : "Your background gives no tools."}</p>
                               )}
                             </PickSection>
-                            )
+                            ) : null
                           )}
                           {!isTools ? (
                             <LanguageChoicePanel choices={languageChoices} onToggle={toggleLanguageChoice} content={content} onInspect={setInspectId} inspectedId={inspectId} knownLanguages={previewDraft.proficiencies.languages} />
@@ -10690,8 +10841,7 @@ export function CreatorWorkspace({
                       {creatorBrowser !== "spells" ? (
                       <section className="skill-spell-section">
                         <div className="fighter-journey-scene-head compact">
-                          <h3>Skills</h3>
-                          <p>Skills come from your background, your class and your race. Background and race skills are already trained; the class ones are yours to pick.</p>
+                          <h3>Train your skills</h3>
                         </div>
                         {(() => {
                           const abilityOrder: AbilityId[] = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
@@ -10740,11 +10890,6 @@ export function CreatorWorkspace({
                                               : "All picked"
                                             : "No skill picks"}
                                         </strong>
-                                        <span>
-                                          {skillChoiceCount
-                                            ? `Your class lets you train ${skillChoiceCount}. Click a dashed skill below.`
-                                            : "Your skills all come from your background and race."}
-                                        </span>
                                       </span>
                                       {skillChoiceCount ? (
                                         <span className="skill-pickbar-slots" aria-label={`${selectedClassSkillCount} of ${skillChoiceCount} picked`}>
@@ -10763,29 +10908,6 @@ export function CreatorWorkspace({
                                           })}
                                         </span>
                                       ) : null}
-                                    </div>
-                                    <div className="skill-legend" aria-label="What the tiles mean">
-                                      <span className="skill-legend-item">
-                                        <i className="skill-legend-swatch trained" aria-hidden="true" />
-                                        <span>
-                                          <strong>Trained</strong>
-                                          <small>{`Adds your proficiency (${proficiencyText})`}</small>
-                                        </span>
-                                      </span>
-                                      <span className="skill-legend-item">
-                                        <i className="skill-legend-swatch pickable" aria-hidden="true" />
-                                        <span>
-                                          <strong>Can pick</strong>
-                                          <small>On your class list, click to train</small>
-                                        </span>
-                                      </span>
-                                      <span className="skill-legend-item">
-                                        <i className="skill-legend-swatch plain" aria-hidden="true" />
-                                        <span>
-                                          <strong>Untrained</strong>
-                                          <small>Just the ability modifier</small>
-                                        </span>
-                                      </span>
                                     </div>
                                     <div className="skill-board">
                                       {abilityOrder.map((abilityId) => {
@@ -11526,8 +11648,8 @@ export function CreatorWorkspace({
           {creatorStep === 2 && creatorBrowser === "abilities" ? (
             <div className="creator-stack ability-screen">
               <div className="fighter-journey-scene-head compact">
-                <h3>Ability Scores</h3>
-                <p>Six numbers that power everything you do. Set your base scores below; race and level bonuses are added on top automatically.</p>
+                <h3>Set your ability scores</h3>
+                <p>Race and level bonuses are added on top automatically.</p>
               </div>
               {(() => {
                 const keyAbilities: Record<string, AbilityId[]> = {
@@ -11558,7 +11680,6 @@ export function CreatorWorkspace({
                           ...(focus.racialBonus ? [{ label: "Race", value: `+${focus.racialBonus}` }] : []),
                           ...(focus.flexibleBonus ? [{ label: "Flexible", value: `+${focus.flexibleBonus}` }] : []),
                           ...(focus.classBonus ? [{ label: "Level ups", value: `+${focus.classBonus}` }] : []),
-                          { label: "Modifier", value: "Score 10-11 is +0; every 2 points above adds +1, below subtracts 1." },
                         ]}
                       />
                     }
@@ -11738,6 +11859,7 @@ export function CreatorWorkspace({
             previous={creatorFlowPrevious}
             next={creatorFlowNext}
             pendingHere={creatorFlowCurrent?.pending ?? 0}
+            firstPending={creatorFlowOrder.find((screen) => screen.pending > 0) ?? null}
             onNavigate={goToCreatorScreen}
           />
         </div>

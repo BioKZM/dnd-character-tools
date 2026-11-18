@@ -11018,3 +11018,99 @@ body { font-family: var(--font-body), "Segoe UI", sans-serif; }
 .creator-inspect-col .inspect-toggle { justify-self: start; width: auto; padding: 0; border: 0; background: none; color: var(--v2-muted); font-size: 0.86rem; }
 .creator-inspect-col .inspect-toggle:hover { color: var(--v2-gold); background: none; }
 .creator-inspect-col .inspect-toggle svg { width: 15px; height: 15px; }
+
+/* --- Sheet Inventory (stil v2): para seridi + Equipped / Carried / Pack gruplari --- */
+.inv-v2 { display: grid; gap: 24px; }
+.inv-coins { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.inv-coin { display: flex; align-items: center; gap: 8px; min-width: 0; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #232a36; background: var(--v2-surface); cursor: text; }
+.inv-coin:focus-within { border-color: var(--v2-gold); }
+.inv-coin i { flex: none; width: 14px; height: 14px; border-radius: 50%; background: var(--coin, #9aa3b2); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25); }
+.inv-coin input { flex: 1; min-width: 0; width: 100%; padding: 0; border: 0; background: none; color: var(--v2-text); font: inherit; font-size: 1rem; font-weight: 700; font-variant-numeric: tabular-nums; outline: none; -moz-appearance: textfield; appearance: textfield; }
+.inv-coin input::-webkit-outer-spin-button, .inv-coin input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.inv-coin span { flex: none; font-size: var(--t-small); font-weight: 700; color: var(--v2-muted); }
+.coin-gp { --coin: #d6b25e; }
+.coin-sp { --coin: #c3c9d3; }
+.coin-cp { --coin: #c27a4a; }
+.coin-ep { --coin: #8fb3a3; }
+.coin-pp { --coin: #a9c6e8; }
+.inv-group { display: grid; gap: 10px; }
+.inv-group h3 { display: flex; align-items: baseline; gap: 8px; margin: 0; font-family: var(--font-heading); font-size: var(--t-sub); font-weight: 700; color: var(--v2-text); }
+.inv-group h3 span { font-family: var(--font-body); font-size: var(--t-small); font-weight: 600; color: var(--v2-muted); }
+.inv-group ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.inv-row { border-radius: 12px; border: 1px solid #1f2530; background: var(--v2-surface); }
+.inv-row.equipped { border-color: rgba(214, 178, 94, 0.35); }
+.inv-row.open { border-color: #3a4252; }
+.inv-row-main { display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 6px; }
+.inv-row-name { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; padding: 4px; border: 0; border-radius: 9px; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.inv-row-name:disabled { cursor: default; }
+.inv-row-name:not(:disabled):hover strong { color: #f1dca4; }
+.inv-row-icon { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid #3a4252; background: #151922; color: #f1dca4; }
+.inv-row-icon svg { width: 20px; height: 20px; }
+.inv-row.equipped .inv-row-icon, .inv-effect.on .inv-row-icon { border-color: var(--v2-gold); background: radial-gradient(circle at 50% 30%, rgba(214, 178, 94, 0.2), #151922 70%); }
+.inv-row-text { display: grid; gap: 1px; min-width: 0; }
+.inv-row-text strong { font-size: 0.94rem; font-weight: 600; color: var(--v2-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.inv-row-text small { font-size: var(--t-small); color: var(--v2-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.inv-qty { flex: none; display: inline-flex; align-items: center; border-radius: 10px; border: 1px solid #262d39; background: #10141b; }
+.inv-qty button { width: 30px; height: 32px; border: 0; background: none; color: var(--v2-muted); font: inherit; font-size: 1rem; cursor: pointer; }
+.inv-qty button:hover:not(:disabled) { color: var(--v2-text); }
+.inv-qty button:disabled { opacity: 0.35; cursor: default; }
+.inv-qty span { min-width: 22px; text-align: center; font-size: 0.9rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--v2-text); }
+.inv-equip { flex: none; min-width: 84px; height: 34px; padding: 0 12px; border-radius: 10px; border: 1px solid #2f3644; background: none; color: var(--v2-soft); font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer; }
+.inv-equip:hover { border-color: var(--v2-gold); color: #f1dca4; }
+.inv-equip.on { border-color: #6b5c36; color: var(--v2-gold); }
+.inv-equip-spacer { flex: none; width: 84px; }
+.inv-remove { flex: none; width: 32px; height: 32px; border: 0; border-radius: 9px; background: none; color: #6d7482; font: inherit; font-size: 1.25rem; line-height: 1; cursor: pointer; }
+.inv-remove:hover { background: rgba(239, 138, 122, 0.1); color: #ef8a7a; }
+.inv-detail { display: grid; gap: 10px; padding: 4px 16px 14px 60px; }
+.inv-detail p { margin: 0; font-size: var(--t-body); line-height: 1.55; color: var(--v2-soft); }
+.inv-detail dl { display: grid; margin: 0; }
+.inv-detail dl > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 7px 0; border-top: 1px solid var(--v2-line); }
+.inv-detail dt { font-size: 0.84rem; color: var(--v2-muted); }
+.inv-detail dd { margin: 0; font-size: 0.86rem; font-weight: 600; color: var(--v2-text); }
+.inv-effect { display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 10px; border-radius: 12px; border: 1px dashed #2f3644; }
+.inv-effect .inv-row-text { flex: 1; }
+.inv-empty { display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 12px; border: 1px dashed #2f3644; color: var(--v2-muted); }
+.inv-empty svg { width: 28px; height: 28px; flex: none; color: #6b5c36; }
+.inv-empty p { margin: 0; font-size: var(--t-body); }
+.inv-add { display: flex; gap: 8px; }
+.inv-add input { flex: 1; min-width: 0; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #2f3644; background: #0d1117; color: var(--v2-text); font: inherit; font-size: 0.92rem; outline: none; }
+.inv-add input:focus { border-color: var(--v2-gold); }
+.inv-add-button { flex: none; height: 44px; padding: 0 20px; border-radius: 12px; border: 1px solid var(--v2-gold); background: var(--v2-gold); color: #0d1015; font: inherit; font-size: 0.9rem; font-weight: 700; cursor: pointer; }
+.inv-add-button:disabled { opacity: 0.4; cursor: default; }
+@media (max-width: 720px) {
+  .inv-coins { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .inv-row-main { flex-wrap: wrap; }
+  .inv-row-name { flex-basis: 100%; }
+  .inv-equip-spacer { display: none; }
+  .inv-detail { padding-left: 16px; }
+}
+.choice-picker-wrap { display: grid; gap: 10px; }
+.choice-picker-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.choice-picker-toolbar .race-summary-change { margin-left: auto; }
+
+/* --- Stil v2 tur 2: creator geneli --- */
+/* Ekran basligi ustundeki tekrar eden kucuk etiketler ("Equipment" ustunde "Starting Equipment" gibi) */
+.creator-main-panel-flat .fighter-journey-scene-head .mini-heading.creator-section-label { display: none; }
+/* Buyuk harfli kucuk etiketler: cumle duzeni, sakin gri */
+.creator-main-panel-flat :is(.ability-method-label, .feat-detail-for > span, .skill-pickbar-text small, .feat-slot-text small, .equip-group-head small, .lane-hint, .level-path-lane small),
+.creator-inspect-col :is(.inspect-block h4, .inspect-title span) {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.creator-main-panel-flat .ability-method-label { font-size: 0.86rem; font-weight: 600; color: var(--v2-soft); }
+.creator-main-panel-flat .feat-detail-for > span { font-size: 0.82rem; font-weight: 600; color: var(--v2-muted); }
+.creator-main-panel-flat .skill-pickbar-text small, .creator-main-panel-flat .feat-slot-text small { font-size: var(--t-small); font-weight: 500; color: var(--v2-muted); }
+.creator-main-panel-flat .feat-detail-head strong { font-family: var(--font-heading); font-variant: normal; font-size: 1.5rem; letter-spacing: 0; }
+.creator-main-panel-flat .feat-detail-for li::before { content: "◆"; width: auto; height: auto; top: 1px; left: 0; border-radius: 0; background: none; font-size: 0.7rem; color: var(--v2-gold); }
+.creator-main-panel-flat .feat-detail-for li { padding-left: 20px; }
+/* Skill secim seridi: kesikli altin kutu yerine sakin satir */
+.creator-main-panel-flat .skill-pickbar { border-style: solid; border-color: #232a36; background: var(--v2-surface); }
+.creator-main-panel-flat .skill-pickbar:not(.done) { border-color: rgba(214, 178, 94, 0.45); }
+/* Class ozeti */
+.race-summary-meta { font-size: var(--t-body); color: var(--v2-muted); font-variant-numeric: tabular-nums; }
+.class-path-block { display: grid; gap: 12px; }
+.level-table-details { border-top: 1px solid var(--v2-line); padding-top: 16px; }
+.level-table-details > summary { cursor: pointer; font-size: 0.92rem; font-weight: 600; color: var(--v2-muted); }
+.level-table-details > summary:hover { color: var(--v2-text); }
+.level-table-details[open] > summary { margin-bottom: 12px; }
+.level-table-details .lt-level small { display: none; }

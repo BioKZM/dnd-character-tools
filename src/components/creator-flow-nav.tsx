@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
 import { GameIcon } from "@/components/ui/game-icon";
 import { AbilityIcon } from "@/components/ui/keyword-text";
 import type { GameIconName } from "@/lib/ui/game-icons";
@@ -109,11 +110,14 @@ export function CreatorFlowFooter({
   previous,
   next,
   pendingHere,
+  firstPending = null,
   onNavigate,
 }: {
   previous: CreatorFlowScreen | null;
   next: CreatorFlowScreen | null;
   pendingHere: number;
+  /** Son ekranda: hala eksik secimi olan ilk ekran (varsa oraya goturur, yoksa sheet'e). */
+  firstPending?: CreatorFlowScreen | null;
   onNavigate: (screen: CreatorFlowScreen) => void;
 }) {
   return (
@@ -139,7 +143,23 @@ export function CreatorFlowFooter({
           <span aria-hidden="true">→</span>
         </button>
       ) : (
-        <span className="creator-flow-finish">All steps visited. Open the sheet to play.</span>
+        firstPending ? (
+          <button type="button" className="creator-nav-button next" onClick={() => onNavigate(firstPending)}>
+            <span className="creator-nav-button-text">
+              <small>Still to pick</small>
+              {firstPending.label}
+            </span>
+            <span aria-hidden="true">→</span>
+          </button>
+        ) : (
+          <Link className="creator-nav-button next ready" href="/campaign/sheet">
+            <span className="creator-nav-button-text">
+              <small>All set</small>
+              Open the sheet
+            </span>
+            <span aria-hidden="true">→</span>
+          </Link>
+        )
       )}
     </footer>
   );

@@ -139,8 +139,11 @@ export function PickSection({
   badge?: string;
 }) {
   const left = total !== undefined && picked !== undefined ? Math.max(0, total - picked) : null;
+  // Basliksiz bolum: tamamlanmissa bas satiri hic cizme (durum zaten ekran sekmesinde).
+  const showHead = Boolean(title || meta || actions || badge || left);
   return (
     <section className="pick-section">
+      {showHead ? (
       <div className="pick-section-head">
         <span className="pick-section-title">
           <strong>{title}</strong>
@@ -156,6 +159,7 @@ export function PickSection({
           ) : null}
         </span>
       </div>
+      ) : null}
       {children}
     </section>
   );
