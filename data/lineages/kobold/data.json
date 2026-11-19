@@ -61,7 +61,13 @@
       "name": "Grovel, Cower, and Beg",
       "category": "trait",
       "summary": "As an action, cower pathetically. Until the end of your next turn, allies attacking enemies within 10 feet of you have advantage. Once per short or long rest.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Action",
+        "recharge": "short_rest",
+        "range": "10 ft.",
+        "short": "Allies get advantage against enemies within 10 ft. of you until the end of your next turn."
+      }
     },
     {
       "id": "pack-tactics",

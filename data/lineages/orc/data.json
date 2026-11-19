@@ -66,7 +66,12 @@
       "name": "Aggressive",
       "category": "trait",
       "summary": "As a bonus action, you can move up to your speed toward a hostile creature you can see.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Bonus Action",
+        "range": "Your speed",
+        "short": "Move up to your speed toward a hostile creature you can see."
+      }
     },
     {
       "id": "menacing",

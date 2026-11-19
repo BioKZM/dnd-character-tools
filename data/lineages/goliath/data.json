@@ -62,7 +62,14 @@
       "name": "Stone's Endurance",
       "category": "trait",
       "summary": "When you take damage, you can use your reaction to roll a d12, add your CON modifier and reduce the damage by that total. Once per short or long rest.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Reaction",
+        "recharge": "short_rest",
+        "range": "Self",
+        "damage": "Reduce 1d12 {mod:CON}",
+        "short": "When you take damage, reduce it by 1d12 {mod:CON}."
+      }
     },
     {
       "id": "powerful-build",

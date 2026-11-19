@@ -1175,6 +1175,50 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
         },
       ]
     : [];
+  // Diger irk aksiyonlari: lineage data'sinda "action" alani olan ozellikler (Hidden Step, Stone's Endurance...).
+  const raceLineage =
+    engine.lineages?.entries.find((entry) => entry.id === draft.speciesId) ??
+    engine.lineages?.entries.find((entry) => entry.sublineages.some((sub) => sub.id === draft.speciesId)) ??
+    null;
+  const raceSublineage = raceLineage?.sublineages.find((sub) => sub.id === draft.speciesId) ?? null;
+  const fillRaceText = (text: string) =>
+    text
+      .replace(/\{level\}/g, String(draft.level))
+      .replace(/\{halfLevel\}/g, String(Math.max(1, Math.ceil(draft.level / 2))))
+      .replace(/\{mod:([A-Z]{3})\}/g, (_, ability: AbilityId) => formatSigned(abilityModifiers[ability] ?? 0))
+      .replace(/\{atk:([A-Z]{3})\}/g, (_, ability: AbilityId) => formatSigned((abilityModifiers[ability] ?? 0) + draft.proficiencyBonus))
+      .replace(/\{dc:([A-Z]{3})\}/g, (_, ability: AbilityId) => String(8 + (abilityModifiers[ability] ?? 0) + draft.proficiencyBonus))
+      .replace(/\+\s*\+/g, "+")
+      .replace(/\+\s*-/g, "-");
+  const raceFeatureActions = [...(raceLineage?.features ?? []), ...(raceSublineage?.features ?? [])]
+    .filter((feature) => feature.action && (!feature.action.minLevel || draft.level >= feature.action.minLevel))
+    .map((feature) => {
+      const action = feature.action!;
+      const uses = action.usesProficiency ? draft.proficiencyBonus : action.uses;
+      return {
+        built: {
+          id: `race-${feature.id}`,
+          name: feature.name,
+          category: action.category,
+          range: action.range ? fillRaceText(action.range) : "-",
+          hit: action.hit ? fillRaceText(action.hit) : "-",
+          damage: action.damage ? fillRaceText(action.damage) : "-",
+          notes: `${raceSublineage?.name ?? raceLineage?.name ?? "Race"}${action.recharge ? ` | ${uses} per ${action.recharge === "short_rest" ? "short or long" : "long"} rest` : ""}`,
+          short: action.short ? fillRaceText(action.short) : undefined,
+          description: feature.summary,
+          source: raceSublineage?.name ?? raceLineage?.name ?? "Race",
+        } satisfies BuiltAction,
+        resource: action.recharge
+          ? { id: `race-${feature.id}`, name: feature.name, total: uses, recharge: action.recharge, source: feature.name }
+          : null,
+      };
+    });
+  raceActions.push(...raceFeatureActions.map((entry) => entry.built));
+  // Level'i gelmemis olanlar dahil: hicbirinin metinden tahmin edilen kopyasi listeye girmesin.
+  const raceActionNames = new Set([
+    ...raceActions.map((action) => action.name.toLowerCase()),
+    ...[...(raceLineage?.features ?? []), ...(raceSublineage?.features ?? [])].filter((feature) => feature.action).map((feature) => feature.name.toLowerCase()),
+  ]);
   const builtActions = uniqueById<BuiltAction>([
     ...inventoryWeaponActions(content, draft, martialArts),
     ...raceActions,
@@ -1208,7 +1252,8 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
         : kind === "spell"
           ? spellcasting.at(0)?.saveDc ?? null
           : null,
-    ),
+      // Irk aksiyonu olarak zaten kurulanlarin metinden tahmin edilen kopyasi gelmesin.
+    ).filter((action) => !raceActionNames.has(action.name.toLowerCase())),
   ]);
 
   const movementStats = deriveMovementStats(derived, armorClass.speedPenalty, armorClass.unarmored ? 0 : derived.unarmoredSpeedBonus);
@@ -1304,6 +1349,7 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
         }),
       })),
       ...(breath ? [{ id: "breath-weapon", name: "Breath Weapon", total: 1, recharge: "short_rest" as const, source: "Breath Weapon" }] : []),
+      ...raceFeatureActions.flatMap((entry) => (entry.resource ? [entry.resource] : [])),
     ],
     derivedStats: {
       walkingSpeed: movementStats.walkingSpeed,

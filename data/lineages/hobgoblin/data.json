@@ -78,7 +78,13 @@
       "name": "Saving Face",
       "category": "trait",
       "summary": "When you miss an attack or fail a check or save, gain a bonus to the roll equal to the number of allies you can see within 30 feet (max +5). Once per short or long rest.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Other",
+        "recharge": "short_rest",
+        "damage": "+1 per ally in 30 ft. (max +5)",
+        "short": "Turn a miss or failed check or save into a bonus equal to nearby allies (max +5)."
+      }
     }
   ],
   "choiceGroups": [

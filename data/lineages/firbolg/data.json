@@ -69,7 +69,13 @@
       "name": "Hidden Step",
       "category": "trait",
       "summary": "As a bonus action, you turn invisible until the start of your next turn or until you attack, deal damage or force a save. Once per short or long rest.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Bonus Action",
+        "recharge": "short_rest",
+        "range": "Self",
+        "short": "Turn invisible until the start of your next turn or until you attack or cast."
+      }
     },
     {
       "id": "powerful-build",

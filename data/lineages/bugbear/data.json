@@ -90,7 +90,12 @@
       "name": "Surprise Attack",
       "category": "trait",
       "summary": "If you hit a surprised creature on your first turn in combat, it takes an extra 2d6 damage. Once per combat.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Other",
+        "damage": "+2d6",
+        "short": "Extra 2d6 damage on a hit against a surprised creature, once per combat."
+      }
     }
   ],
   "choiceGroups": [],

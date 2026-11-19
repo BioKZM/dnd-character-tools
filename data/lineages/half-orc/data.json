@@ -76,7 +76,13 @@
       "name": "Relentless Endurance",
       "category": "trait",
       "summary": "When you drop to 0 hit points but aren't killed outright, you drop to 1 hit point instead. Once per long rest.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Other",
+        "recharge": "long_rest",
+        "range": "Self",
+        "short": "Drop to 1 hit point instead of 0."
+      }
     },
     {
       "id": "savage-attacks",

@@ -61,14 +61,25 @@
       "name": "Fury of the Small",
       "category": "trait",
       "summary": "When you damage a creature bigger than you, you can deal extra damage equal to your level. Once per short or long rest.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Other",
+        "recharge": "short_rest",
+        "damage": "+{level}",
+        "short": "Add {level} damage when you hit a creature larger than you."
+      }
     },
     {
       "id": "nimble-escape",
       "name": "Nimble Escape",
       "category": "trait",
       "summary": "You can take the Disengage or Hide action as a bonus action on each of your turns.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Bonus Action",
+        "range": "Self",
+        "short": "Disengage or Hide as a bonus action."
+      }
     }
   ],
   "choiceGroups": [],

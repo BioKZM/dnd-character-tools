@@ -22,7 +22,10 @@
       "description": "Your base walking speed is 30 feet."
     },
     "languages": {
-      "values": ["Common", "Elvish"],
+      "values": [
+        "Common",
+        "Elvish"
+      ],
       "description": "You can speak, read, and write Common and Elvish."
     },
     "abilityScoreBonuses": [
@@ -30,13 +33,27 @@
         "type": "choice",
         "count": 1,
         "amount": 2,
-        "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+        "restrictedTo": [
+          "STR",
+          "DEX",
+          "CON",
+          "INT",
+          "WIS",
+          "CHA"
+        ]
       },
       {
         "type": "choice",
         "count": 1,
         "amount": 1,
-        "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+        "restrictedTo": [
+          "STR",
+          "DEX",
+          "CON",
+          "INT",
+          "WIS",
+          "CHA"
+        ]
       }
     ]
   },
@@ -70,7 +87,14 @@
       "id": "fey-step",
       "name": "Fey Step",
       "category": "trait",
-      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Your season adds a rider to the teleport: Autumn can charm up to two nearby creatures that fail a Wisdom save; Winter can frighten one nearby creature that fails a Wisdom save; Spring lets a willing creature you touch teleport instead of you; Summer deals fire damage equal to your proficiency bonus to chosen creatures within 5 feet after you arrive."
+      "summary": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Your season adds a rider to the teleport: Autumn can charm up to two nearby creatures that fail a Wisdom save; Winter can frighten one nearby creature that fails a Wisdom save; Spring lets a willing creature you touch teleport instead of you; Summer deals fire damage equal to your proficiency bonus to chosen creatures within 5 feet after you arrive.",
+      "action": {
+        "category": "Bonus Action",
+        "recharge": "long_rest",
+        "range": "30 ft.",
+        "short": "Teleport up to 30 feet to a space you can see.",
+        "usesProficiency": true
+      }
     },
     {
       "id": "keen-senses",
@@ -80,7 +104,9 @@
       "grants": [
         {
           "type": "skill_proficiency",
-          "values": ["perception"]
+          "values": [
+            "perception"
+          ]
         }
       ]
     },

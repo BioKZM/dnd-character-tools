@@ -72,6 +72,8 @@ export function lineageGrantToGrant(grant: LineageGrant, characterLevel: number)
       return { type: "hp", perLevel: grant.amount };
     case "armor_class_bonus":
       return { type: "ac", bonus: grant.amount, condition: grant.condition };
+    case "ac_base":
+      return { type: "ac_base", base: grant.base, abilities: grant.abilities, shield: grant.shield };
     case "movement":
       return { type: "speed", mode: grant.mode, op: grant.operation === "set" ? "set" : "add", value: grant.value };
     case "spell_grant":

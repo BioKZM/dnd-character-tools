@@ -73,7 +73,14 @@
       "name": "Healing Hands",
       "category": "trait",
       "summary": "As an action, touch a creature to restore hit points equal to your level. Once per long rest.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Action",
+        "recharge": "long_rest",
+        "range": "Touch",
+        "damage": "Heal {level} HP",
+        "short": "Touch a creature and restore {level} hit points."
+      }
     },
     {
       "id": "light-bearer",
@@ -118,7 +125,15 @@
           "name": "Radiant Soul",
           "category": "trait",
           "summary": "From 3rd level, as an action you sprout spectral wings for 1 minute: you fly at 30 feet, and once per turn one attack or spell deals extra radiant damage equal to your level. Once per long rest.",
-          "choiceGroupIds": []
+          "choiceGroupIds": [],
+          "action": {
+            "category": "Action",
+            "recharge": "long_rest",
+            "minLevel": 3,
+            "range": "Self",
+            "damage": "+{level} radiant",
+            "short": "Spectral wings for 1 minute: fly 30 ft., +{level} radiant damage once per turn."
+          }
         }
       ],
       "choiceGroups": []
@@ -148,7 +163,15 @@
           "name": "Radiant Consumption",
           "category": "trait",
           "summary": "From 3rd level, as an action you blaze with light for 1 minute: you and creatures within 10 feet take radiant damage equal to half your level each turn, and once per turn you deal extra radiant damage equal to your level. Once per long rest.",
-          "choiceGroupIds": []
+          "choiceGroupIds": [],
+          "action": {
+            "category": "Action",
+            "recharge": "long_rest",
+            "minLevel": 3,
+            "range": "10 ft. aura",
+            "damage": "+{level} radiant",
+            "short": "Blaze for 1 minute: {halfLevel} radiant to you and nearby creatures each turn, +{level} radiant once per turn."
+          }
         }
       ],
       "choiceGroups": []
@@ -178,7 +201,16 @@
           "name": "Necrotic Shroud",
           "category": "trait",
           "summary": "From 3rd level, as an action you turn ghostly for 1 minute: nearby creatures must make a CHA save or be frightened of you, and once per turn you deal extra necrotic damage equal to your level. Once per long rest.",
-          "choiceGroupIds": []
+          "choiceGroupIds": [],
+          "action": {
+            "category": "Action",
+            "recharge": "long_rest",
+            "minLevel": 3,
+            "range": "10 ft.",
+            "hit": "DC {dc:CHA} CHA",
+            "damage": "+{level} necrotic",
+            "short": "Turn ghostly for 1 minute: nearby creatures save or are frightened, +{level} necrotic once per turn."
+          }
         }
       ],
       "choiceGroups": []

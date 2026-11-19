@@ -62,7 +62,14 @@
       "name": "Bite",
       "category": "trait",
       "summary": "Your fanged maw is a natural weapon you can make unarmed strikes with: 1d6 + STR piercing damage on a hit.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Attack",
+        "range": "5 ft.",
+        "hit": "{atk:STR}",
+        "damage": "1d6 {mod:STR} piercing",
+        "short": "Bite with your fanged maw."
+      }
     },
     {
       "id": "cunning-artisan",
@@ -92,14 +99,32 @@
       "name": "Natural Armor",
       "category": "trait",
       "summary": "Without armor, your AC is 13 + your DEX modifier. A shield still works.",
-      "choiceGroupIds": []
+      "choiceGroupIds": [],
+      "grants": [
+        {
+          "type": "ac_base",
+          "base": 13,
+          "abilities": [
+            "DEX"
+          ],
+          "shield": true
+        }
+      ]
     },
     {
       "id": "hungry-jaws",
       "name": "Hungry Jaws",
       "category": "trait",
-      "summary": "As a bonus action, make a special bite attack. On a hit you gain temporary hit points equal to your CON modifier (minimum 1). Once per short or long rest.",
-      "choiceGroupIds": []
+      "summary": "As a bonus action, make a special bite attack. If it lands, you gain temporary hit points equal to your CON modifier (minimum 1). Once per short or long rest.",
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Bonus Action",
+        "recharge": "short_rest",
+        "range": "5 ft.",
+        "hit": "{atk:STR}",
+        "damage": "1d6 {mod:STR} piercing",
+        "short": "Special bite; if it lands, gain temporary HP equal to your CON modifier (min 1)."
+      }
     }
   ],
   "choiceGroups": [
