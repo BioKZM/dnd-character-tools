@@ -1,0 +1,90 @@
+{
+  "id": "inquisitive",
+  "name": "Inquisitive",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A detective who roots out lies and spots weaknesses.",
+  "features": [
+    {
+      "id": "ear-for-deceit",
+      "name": "Ear for Deceit",
+      "unlockLevel": 3,
+      "short": "Treat Insight rolls below 8 as 8 to spot lies.",
+      "summary": "When you make a Wisdom (Insight) check to determine whether a creature is lying, treat a d20 roll of 7 or lower as an 8.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "eye-for-detail",
+      "name": "Eye for Detail",
+      "unlockLevel": 3,
+      "short": "Bonus action: Perception or Investigation.",
+      "summary": "You can use a bonus action to make a Wisdom (Perception) check to spot a hidden creature or object, or an Intelligence (Investigation) check to uncover or decipher clues.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "insightful-fighting",
+      "name": "Insightful Fighting",
+      "unlockLevel": 3,
+      "short": "Bonus action: read a foe to Sneak Attack without advantage.",
+      "summary": "As a bonus action, make a Wisdom (Insight) check contested by a creature's Deception. On a success, you can use Sneak Attack against it even without advantage (but not with disadvantage) for 1 minute.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "steady-eye",
+      "name": "Steady Eye",
+      "unlockLevel": 9,
+      "short": "Advantage on Perception and Investigation if you move at half speed.",
+      "summary": "You have advantage on Wisdom (Perception) and Intelligence (Investigation) checks if you move no more than half your speed on that turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "unerring-eye",
+      "name": "Unerring Eye",
+      "unlockLevel": 13,
+      "short": "Action: sense illusions and shapechangers within 30 ft.",
+      "summary": "As an action, you sense the presence of illusions, shapechangers not in their original form, and other magic designed to deceive within 30 ft. Uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "unerring-eye",
+          "name": "Unerring Eye",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "eye-for-weakness",
+      "name": "Eye for Weakness",
+      "unlockLevel": 17,
+      "short": "Sneak Attack deals +3d6 against your Insightful Fighting target.",
+      "summary": "While Insightful Fighting applies to a creature, your Sneak Attack damage against it increases by 3d6.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

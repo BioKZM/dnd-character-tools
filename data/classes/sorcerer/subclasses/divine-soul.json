@@ -1,0 +1,159 @@
+{
+  "id": "divine-soul",
+  "name": "Divine Soul",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Sorcerers whose power comes from a divine source.",
+  "features": [
+    {
+      "id": "divine-magic",
+      "name": "Divine Magic",
+      "unlockLevel": 1,
+      "short": "Choose sorcerer spells from the cleric list too; an affinity spell.",
+      "summary": "When you learn a sorcerer spell, you can choose it from the cleric list as well. Choose an affinity (good, evil, law, chaos or neutrality); you learn its spell, which doesn't count against your spells known.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "divine-soul-affinity",
+          "label": "Divine affinity",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "good",
+                "name": "Good",
+                "summary": "Cure Wounds",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "cure-wounds",
+                    "uses": "known"
+                  }
+                ]
+              },
+              {
+                "id": "evil",
+                "name": "Evil",
+                "summary": "Inflict Wounds",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "inflict-wounds",
+                    "uses": "known"
+                  }
+                ]
+              },
+              {
+                "id": "law",
+                "name": "Law",
+                "summary": "Bless",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "bless",
+                    "uses": "known"
+                  }
+                ]
+              },
+              {
+                "id": "chaos",
+                "name": "Chaos",
+                "summary": "Bane",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "bane",
+                    "uses": "known"
+                  }
+                ]
+              },
+              {
+                "id": "neutrality",
+                "name": "Neutrality",
+                "summary": "Protection from Evil and Good",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "protection-from-evil-and-good",
+                    "uses": "known"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "favored-by-the-gods",
+      "name": "Favored by the Gods",
+      "unlockLevel": 1,
+      "short": "Add 2d4 to a failed save or missed attack.",
+      "summary": "If you fail a saving throw or miss with an attack roll, you can roll 2d4 and add it to the total, possibly changing the outcome. Once per short or long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "favored-by-the-gods",
+          "name": "Favored by the Gods",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "empowered-healing",
+      "name": "Empowered Healing",
+      "unlockLevel": 6,
+      "short": "Spend 1 sorcery point to reroll healing dice.",
+      "summary": "When you or an ally within 5 ft. rolls dice to restore hit points with a spell, you can spend 1 sorcery point to reroll any number of those dice once.",
+      "facts": {
+        "action": "Passive",
+        "cost": "1 sorcery point"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "otherworldly-wings",
+      "name": "Otherworldly Wings",
+      "unlockLevel": 14,
+      "short": "Bonus action: wings with a 30 ft. flying speed.",
+      "summary": "As a bonus action, you manifest spectral wings (feathered or bat-like), gaining a flying speed of 30 ft. until you dismiss them.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "unearthly-recovery",
+      "name": "Unearthly Recovery",
+      "unlockLevel": 18,
+      "short": "Bonus action below half HP: heal half your maximum.",
+      "summary": "As a bonus action when you have fewer than half your hit points left, you regain hit points equal to half your maximum. Once per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "unearthly-recovery",
+          "name": "Unearthly Recovery",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

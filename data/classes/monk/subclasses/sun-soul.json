@@ -1,0 +1,69 @@
+{
+  "id": "sun-soul",
+  "name": "Way of the Sun Soul",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Monks who hurl bolts of radiant energy.",
+  "features": [
+    {
+      "id": "radiant-sun-bolt",
+      "name": "Radiant Sun Bolt",
+      "unlockLevel": 3,
+      "short": "Ranged radiant attacks that work with Martial Arts.",
+      "summary": "You gain a ranged spell attack (30 ft.) dealing radiant damage equal to your Martial Arts die + DEX. You can use it in place of attacks from the Attack action, and spend 1 ki to make two of them as a bonus action.",
+      "facts": {
+        "action": "Passive",
+        "range": "30 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "searing-arc-strike",
+      "name": "Searing Arc Strike",
+      "unlockLevel": 6,
+      "short": "After attacking, spend 2 ki to cast Burning Hands.",
+      "summary": "Immediately after you take the Attack action, you can spend 2 ki points to cast Burning Hands as a bonus action, spending extra ki to raise its level.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "2 ki"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "burning-hands",
+          "uses": "known"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "searing-sunburst",
+      "name": "Searing Sunburst",
+      "unlockLevel": 11,
+      "short": "Action: a 20 ft. orb of light, 2d6 radiant (more with ki).",
+      "summary": "As an action, create an orb of light at a point within 150 ft.; creatures in a 20 ft. sphere make a CON save or take 2d6 radiant damage. Each extra ki point (up to 3) adds 2d6.",
+      "facts": {
+        "action": "Action",
+        "range": "150 ft.",
+        "save": "CON",
+        "dc": "ki"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "sun-shield",
+      "name": "Sun Shield",
+      "unlockLevel": 17,
+      "short": "Glow with light; melee attackers take radiant damage.",
+      "summary": "You shed bright light in a 30 ft. radius. When a creature hits you with a melee attack, you can use your reaction to deal radiant damage equal to 5 + WIS.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

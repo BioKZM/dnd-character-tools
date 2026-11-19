@@ -1,0 +1,78 @@
+{
+  "id": "conjuration",
+  "name": "School of Conjuration",
+  "source": "Player's Handbook",
+  "summary": "Wizards who summon creatures and objects and teleport.",
+  "features": [
+    {
+      "id": "conjuration-savant",
+      "name": "Conjuration Savant",
+      "unlockLevel": 2,
+      "short": "Copy conjuration spells for half the time and gold.",
+      "summary": "The gold and time you must spend to copy a conjuration spell into your spellbook is halved.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "minor-conjuration",
+      "name": "Minor Conjuration",
+      "unlockLevel": 2,
+      "short": "Action: conjure a small object for an hour.",
+      "summary": "As an action, you conjure an inanimate object of up to 3 ft. and 10 lb. that you have seen, in your hand or on the ground within 10 ft. It lasts 1 hour or until it takes damage.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "benign-transposition",
+      "name": "Benign Transposition",
+      "unlockLevel": 6,
+      "short": "Action: teleport 30 ft. or swap places with an ally.",
+      "summary": "As an action, you teleport up to 30 ft. or swap places with a willing Small or Medium creature within 30 ft. Recharges after a long rest or when you cast a conjuration spell of 1st level or higher.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "benign-transposition",
+          "name": "Benign Transposition",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "focused-conjuration",
+      "name": "Focused Conjuration",
+      "unlockLevel": 10,
+      "short": "Damage can't break concentration on conjuration spells.",
+      "summary": "While concentrating on a conjuration spell, taking damage can't break your concentration.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "durable-summons",
+      "name": "Durable Summons",
+      "unlockLevel": 14,
+      "short": "Your summoned creatures gain 30 temp HP.",
+      "summary": "Any creature you summon or create with a conjuration spell has 30 temporary hit points.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

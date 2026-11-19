@@ -119,6 +119,8 @@ export type CharacterDraft = {
   currency: { cp: number; sp: number; ep: number; gp: number; pp: number };
   /** Acik sureli etkiler (orn. "mage-armor"). */
   activeEffects: string[];
+  /** Su an concentration gerektiren buyu (combat gorunumunden). */
+  concentration?: string | null;
   selectedInvocationIds: string[];
   mysticArcanumSelections: Partial<Record<6 | 7 | 8 | 9, string>>;
   rangerChoices: RangerChoices;

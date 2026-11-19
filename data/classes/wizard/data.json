@@ -602,7 +602,21 @@
     }
   ],
   "subclassHeading": "Arcane Tradition",
-  "subclasses": [],
+  "subclasses": [
+    "abjuration",
+    "bladesinging",
+    "chronurgy",
+    "conjuration",
+    "divination",
+    "enchantment",
+    "evocation",
+    "graviturgy",
+    "illusion",
+    "necromancy",
+    "scribes",
+    "transmutation",
+    "war-magic"
+  ],
   "highlights": [
     {
       "title": "Combat Role",

@@ -1,0 +1,144 @@
+{
+  "id": "redemption",
+  "name": "Oath of Redemption",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Pacifist knights who believe anyone can be redeemed.",
+  "features": [
+    {
+      "id": "redemption-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "short": "Oath spells that are always prepared for free.",
+      "summary": "You always have your oath spells prepared once you reach the listed paladin levels. They don't count against the number of spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "emissary-of-peace",
+      "name": "Channel Divinity: Emissary of Peace",
+      "unlockLevel": 3,
+      "short": "Bonus action: +5 to Persuasion for 10 minutes.",
+      "summary": "As a bonus action, you gain a +5 bonus to Charisma (Persuasion) checks for 10 minutes.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "Channel Divinity",
+        "duration": "10 minutes"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "rebuke-the-violent",
+      "name": "Channel Divinity: Rebuke the Violent",
+      "unlockLevel": 3,
+      "short": "Reaction: an attacker takes the same radiant damage it dealt.",
+      "summary": "Immediately after an attacker within 30 ft. damages another creature, you can use your reaction to make it make a WIS save, taking radiant damage equal to the damage it dealt (half on a success).",
+      "facts": {
+        "action": "Reaction",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "aura-of-the-guardian",
+      "name": "Aura of the Guardian",
+      "unlockLevel": 7,
+      "short": "Reaction: take damage meant for an ally within 10 ft.",
+      "summary": "When a creature within 10 ft. takes damage, you can use your reaction to take that damage instead (it can't be reduced). The range becomes 30 ft. at 18th level.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 7,
+          "label": "10 ft."
+        },
+        {
+          "level": 18,
+          "label": "30 ft."
+        }
+      ]
+    },
+    {
+      "id": "protective-spirit",
+      "name": "Protective Spirit",
+      "unlockLevel": 15,
+      "short": "Heal 1d6 + half level each turn while below half HP.",
+      "summary": "At the end of each of your turns, if you are below half your hit points and not incapacitated, you regain 1d6 + half your paladin level hit points.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "emissary-of-redemption",
+      "name": "Emissary of Redemption",
+      "unlockLevel": 20,
+      "short": "Resist all damage from creatures; reflect damage back.",
+      "summary": "You have resistance to all damage dealt by other creatures, and whenever a creature damages you, it takes radiant damage equal to half the amount. Both stop working against a creature you attack or affect with a harmful spell, until you rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Resistance to all damage from creatures (until you attack them); attackers take half the damage as radiant."
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Sanctuary",
+        "Sleep"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Calm Emotions",
+        "Hold Person"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Counterspell",
+        "Hypnotic Pattern"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Otiluke's Resilient Sphere",
+        "Stoneskin"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Hold Monster",
+        "Wall of Force"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

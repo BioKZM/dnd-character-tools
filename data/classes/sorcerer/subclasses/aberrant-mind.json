@@ -1,0 +1,150 @@
+{
+  "id": "aberrant-mind",
+  "name": "Aberrant Mind",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Sorcerers changed by an alien influence, gifted with psionic power.",
+  "features": [
+    {
+      "id": "psionic-spells",
+      "name": "Psionic Spells",
+      "unlockLevel": 1,
+      "short": "Learn extra psionic spells you can swap for divination or enchantment.",
+      "summary": "You learn additional spells at the listed sorcerer levels; they don't count against your spells known. You can replace one with a divination or enchantment spell when you level up.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "telepathic-speech",
+      "name": "Telepathic Speech",
+      "unlockLevel": 1,
+      "short": "Bonus action: telepathic link with a creature for minutes.",
+      "summary": "As a bonus action, choose a creature within 30 ft.: you can speak telepathically with each other while within miles equal to your CHA modifier, for minutes equal to your sorcerer level.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "psionic-sorcery",
+      "name": "Psionic Sorcery",
+      "unlockLevel": 6,
+      "short": "Cast psionic spells with sorcery points, without components.",
+      "summary": "When you cast a 1st-level or higher Psionic Spell, you can spend sorcery points equal to its level instead of a slot; then it needs no verbal or somatic components (and no material ones without a cost).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "psychic-defenses",
+      "name": "Psychic Defenses",
+      "unlockLevel": 6,
+      "short": "Resist psychic; advantage against charm and fear.",
+      "summary": "You gain resistance to psychic damage and advantage on saves against being charmed or frightened.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "psychic"
+        },
+        {
+          "type": "defense",
+          "kind": "save_advantage",
+          "against": "charmed"
+        },
+        {
+          "type": "defense",
+          "kind": "save_advantage",
+          "against": "frightened"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "revelation-in-flesh",
+      "name": "Revelation in Flesh",
+      "unlockLevel": 14,
+      "short": "Spend sorcery points to fly, swim, see invisible or squeeze.",
+      "summary": "As a bonus action, spend 1+ sorcery points to transform for 10 minutes, choosing per point: see invisible within 60 ft., fly at your walking speed, swim at double speed and breathe water, or squeeze through 1-inch spaces.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "warping-implosion",
+      "name": "Warping Implosion",
+      "unlockLevel": 18,
+      "short": "Teleport and pull nearby creatures in for 3d10 force.",
+      "summary": "As an action, you teleport up to 120 ft. Each creature within 30 ft. of where you left makes a STR save or takes 3d10 force damage and is pulled toward that space. Once per long rest (or 5 sorcery points).",
+      "facts": {
+        "action": "Action",
+        "save": "STR",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "warping-implosion",
+          "name": "Warping Implosion",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Arms of Hadar",
+        "Dissonant Whispers",
+        "Mind Sliver"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Calm Emotions",
+        "Detect Thoughts"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Hunger of Hadar",
+        "Sending"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Evard's Black Tentacles",
+        "Summon Aberration"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Rary's Telepathic Bond",
+        "Telekinesis"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

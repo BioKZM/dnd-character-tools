@@ -1,0 +1,94 @@
+{
+  "id": "bladesinging",
+  "name": "Bladesinging",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Elegant warrior-wizards who dance with a blade.",
+  "features": [
+    {
+      "id": "training-in-war-and-song",
+      "name": "Training in War and Song",
+      "unlockLevel": 2,
+      "short": "Light armor, one melee weapon, Performance.",
+      "summary": "You gain proficiency with light armor, one one-handed melee weapon of your choice, and the Performance skill.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Light Armor"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "skill",
+          "values": [
+            "performance"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "bladesong",
+      "name": "Bladesong",
+      "unlockLevel": 2,
+      "short": "Bonus action: +INT AC, +10 speed, advantage on Acrobatics and concentration.",
+      "summary": "As a bonus action, while not wearing medium/heavy armor or a shield, you start the Bladesong for 1 minute: add your INT modifier to AC, +10 ft. walking speed, advantage on Dexterity (Acrobatics) checks, and add INT to concentration saves. Uses: PB per long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "duration": "1 minute"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "bladesong",
+          "name": "Bladesong",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "bladesinging-extra-attack",
+      "name": "Extra Attack",
+      "unlockLevel": 6,
+      "short": "Attack twice; replace one attack with a cantrip.",
+      "summary": "You can attack twice when you take the Attack action, and you can cast a cantrip in place of one of those attacks.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "song-of-defense",
+      "name": "Song of Defense",
+      "unlockLevel": 10,
+      "short": "Reaction in Bladesong: spend a slot to reduce damage.",
+      "summary": "While your Bladesong is active, when you take damage you can use your reaction to expend a spell slot and reduce the damage by five times the slot's level.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "song-of-victory",
+      "name": "Song of Victory",
+      "unlockLevel": 14,
+      "short": "In Bladesong, add INT to melee weapon damage.",
+      "summary": "While your Bladesong is active, you add your Intelligence modifier to the damage of your melee weapon attacks.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

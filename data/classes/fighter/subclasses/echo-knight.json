@@ -1,0 +1,106 @@
+{
+  "id": "echo-knight",
+  "name": "Echo Knight",
+  "source": "Explorer's Guide to Wildemount",
+  "summary": "A warrior who fights alongside a shadowy echo from another timeline.",
+  "features": [
+    {
+      "id": "manifest-echo",
+      "name": "Manifest Echo",
+      "unlockLevel": 3,
+      "short": "Bonus action: summon an echo you can attack from and swap with.",
+      "summary": "As a bonus action, create an echo of yourself within 15 ft. (AC 14 + PB, 1 hit point). You can make attacks from its space, swap places with it for 15 ft. of movement, and make opportunity attacks from it.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "unleash-incarnation",
+      "name": "Unleash Incarnation",
+      "unlockLevel": 3,
+      "short": "Make an extra attack from your echo.",
+      "summary": "When you take the Attack action, you can make one additional melee attack from your echo's position. Uses: CON modifier per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "unleash-incarnation",
+          "name": "Unleash Incarnation",
+          "uses": "CON",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "echo-avatar",
+      "name": "Echo Avatar",
+      "unlockLevel": 7,
+      "short": "See and hear through your echo, up to 1,000 ft. away.",
+      "summary": "As an action, you can temporarily see and hear through your echo for up to 10 minutes; it can move up to 1,000 ft. away while you do.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "shadow-martyr",
+      "name": "Shadow Martyr",
+      "unlockLevel": 10,
+      "short": "Reaction: teleport your echo to take an attack for an ally.",
+      "summary": "When a creature you can see within 5 ft. of your echo is attacked, you can teleport your echo between them; the attack hits the echo. Once per short or long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "shadow-martyr",
+          "name": "Shadow Martyr",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "reclaim-potential",
+      "name": "Reclaim Potential",
+      "unlockLevel": 15,
+      "short": "When your echo is destroyed, gain temp HP.",
+      "summary": "When your echo is destroyed by damage, you gain 2d6 + CON temporary hit points if you have none. Uses: CON modifier per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "reclaim-potential",
+          "name": "Reclaim Potential",
+          "uses": "CON",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "legion-of-one",
+      "name": "Legion of One",
+      "unlockLevel": 18,
+      "short": "Create two echoes; regain an Unleash use at initiative.",
+      "summary": "You can create two echoes at once, and if you have no uses of Unleash Incarnation when you roll initiative, you regain one.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

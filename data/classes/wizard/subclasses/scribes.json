@@ -1,0 +1,86 @@
+{
+  "id": "scribes",
+  "name": "Order of Scribes",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Wizards devoted to their awakened spellbook.",
+  "features": [
+    {
+      "id": "wizardly-quill",
+      "name": "Wizardly Quill",
+      "unlockLevel": 2,
+      "short": "A magic quill that copies spells fast.",
+      "summary": "As a bonus action you conjure a magical quill. Copying spells with it takes 2 minutes per spell level, and it can erase text.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "awakened-spellbook",
+      "name": "Awakened Spellbook",
+      "unlockLevel": 2,
+      "short": "Swap damage types; ritual-cast quickly.",
+      "summary": "Your spellbook is sentient. When you cast a wizard spell, you can replace its damage type with a type from another spell of the same level in your book. Once per long rest you can cast a ritual at its normal casting time.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "manifest-mind",
+      "name": "Manifest Mind",
+      "unlockLevel": 6,
+      "short": "Project your spellbook's mind and cast spells from it.",
+      "summary": "As a bonus action, you manifest your spellbook's mind as a spectral object within 60 ft. You can see and hear through it, and cast spells as though from its space PB times per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "manifest-mind",
+          "name": "Manifest Mind casts",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "master-scrivener",
+      "name": "Master Scrivener",
+      "unlockLevel": 10,
+      "short": "Create a magic scroll of a spell after a long rest.",
+      "summary": "When you finish a long rest, you can create one magic scroll of a 1st- or 2nd-level spell from your book; it is cast as one level higher. It lasts until your next long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "one-with-the-word",
+      "name": "One with the Word",
+      "unlockLevel": 14,
+      "short": "Advantage on Arcana; sacrifice spells to avoid damage.",
+      "summary": "You have advantage on Intelligence (Arcana) checks. When you take damage while your spellbook's mind is manifested, you can use your reaction to prevent it by removing spells from your book. Once per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "one-with-the-word",
+          "name": "One with the Word",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

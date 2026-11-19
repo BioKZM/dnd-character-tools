@@ -634,7 +634,17 @@
     }
   ],
   "subclassHeading": "Roguish Archetype",
-  "subclasses": [],
+  "subclasses": [
+    "arcane-trickster",
+    "assassin",
+    "inquisitive",
+    "mastermind",
+    "phantom",
+    "scout",
+    "soulknife",
+    "swashbuckler",
+    "thief"
+  ],
   "highlights": [
     {
       "title": "Combat Role",

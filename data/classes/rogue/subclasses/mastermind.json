@@ -1,0 +1,89 @@
+{
+  "id": "mastermind",
+  "name": "Mastermind",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A schemer who manipulates others and directs allies in battle.",
+  "features": [
+    {
+      "id": "master-of-intrigue",
+      "name": "Master of Intrigue",
+      "unlockLevel": 3,
+      "short": "Disguise and forgery kits, a gaming set, two languages.",
+      "summary": "You gain proficiency with the disguise kit, the forgery kit and one gaming set, and you learn two languages. You can unerringly mimic speech patterns and accents you have heard for at least a minute.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Disguise Kit",
+            "Forgery Kit"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "mastermind-languages",
+          "label": "Two languages",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "language"
+          }
+        }
+      ]
+    },
+    {
+      "id": "master-of-tactics",
+      "name": "Master of Tactics",
+      "unlockLevel": 3,
+      "short": "Help as a bonus action, at 30 ft. range.",
+      "summary": "You can use the Help action as a bonus action. When you Help an ally attack a creature, the target can be within 30 ft. of you if it can see or hear you.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "insightful-manipulator",
+      "name": "Insightful Manipulator",
+      "unlockLevel": 9,
+      "short": "Study someone for a minute to compare their mind to yours.",
+      "summary": "If you spend 1 minute observing or talking to a creature outside combat, you learn whether it is equal, superior or inferior in two characteristics like INT, WIS, CHA or class levels.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "misdirection",
+      "name": "Misdirection",
+      "unlockLevel": 13,
+      "short": "Reaction: redirect an attack to an adjacent creature.",
+      "summary": "When you are targeted by an attack while a creature within 5 ft. gives you cover, you can use your reaction to have the attack target that creature instead.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "soul-of-deceit",
+      "name": "Soul of Deceit",
+      "unlockLevel": 17,
+      "short": "Your mind can't be read; magic can't detect your lies.",
+      "summary": "Your thoughts can't be read by telepathy unless you allow it, you can present false thoughts, and magic that would determine whether you are lying always shows you as truthful.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

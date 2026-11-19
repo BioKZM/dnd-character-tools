@@ -1,0 +1,86 @@
+{
+  "id": "phantom",
+  "name": "Phantom",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A rogue who walks with the dead and steals from their souls.",
+  "features": [
+    {
+      "id": "whispers-of-the-dead",
+      "name": "Whispers of the Dead",
+      "unlockLevel": 3,
+      "short": "After a rest, gain proficiency in one skill or tool.",
+      "summary": "Whenever you finish a short or long rest, you gain proficiency in one skill or tool of your choice until you change it with this feature.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "wails-from-the-grave",
+      "name": "Wails from the Grave",
+      "unlockLevel": 3,
+      "short": "After Sneak Attack, half the dice hit a second creature as necrotic.",
+      "summary": "Immediately after you deal Sneak Attack damage, you can target a second creature within 30 ft. of the first; roll half your Sneak Attack dice (rounded up) as necrotic damage against it. Uses: PB per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "wails-from-the-grave",
+          "name": "Wails from the Grave",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "tokens-of-the-departed",
+      "name": "Tokens of the Departed",
+      "unlockLevel": 9,
+      "short": "Collect soul trinkets for advantage, free wails and answers.",
+      "summary": "When a creature you can see dies within 30 ft., you can make a soul trinket as a reaction (max PB at once). While holding one you have advantage on death saves and CON saves, can destroy it to use Wails from the Grave for free, and can ask its spirit a question.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "ghost-walk",
+      "name": "Ghost Walk",
+      "unlockLevel": 13,
+      "short": "Bonus action: become spectral, fly 10 ft. and pass through objects.",
+      "summary": "As a bonus action, you assume a spectral form for 10 minutes: flying speed 10 ft., hover, attacks against you have disadvantage, and you can move through creatures and objects. Once per long rest (or destroy a soul trinket).",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "ghost-walk",
+          "name": "Ghost Walk",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "deaths-friend",
+      "name": "Death's Friend",
+      "unlockLevel": 17,
+      "short": "Wails hit both targets; always have a soul trinket after a rest.",
+      "summary": "Wails from the Grave deals necrotic damage to both the first and second creature, and if you have no soul trinkets at the end of a long rest, one appears.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

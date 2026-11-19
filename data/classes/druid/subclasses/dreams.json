@@ -1,0 +1,83 @@
+{
+  "id": "dreams",
+  "name": "Circle of Dreams",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Druids tied to the Feywild who heal and protect travelers.",
+  "features": [
+    {
+      "id": "balm-of-the-summer-court",
+      "name": "Balm of the Summer Court",
+      "unlockLevel": 2,
+      "short": "Bonus action: heal with a pool of d6s equal to your level.",
+      "summary": "You have a pool of d6s equal to your druid level. As a bonus action, spend up to half your level in dice to heal a creature within 120 ft. by the total, plus 1 temporary hit point per die. The pool refills on a long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "range": "120 ft."
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "balm-of-the-summer-court",
+          "name": "Balm of the Summer Court (d6)",
+          "uses": "LEVEL",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "hearth-of-moonlight-and-shadow",
+      "name": "Hearth of Moonlight and Shadow",
+      "unlockLevel": 6,
+      "short": "Rest in a warded, hidden 30 ft. sphere.",
+      "summary": "During a rest, you ward a 30 ft. sphere: creatures in it get +5 to Stealth and Perception checks, and light inside isn't visible from outside.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "hidden-paths",
+      "name": "Hidden Paths",
+      "unlockLevel": 10,
+      "short": "Bonus action: teleport 60 ft. (or teleport an ally 30 ft.).",
+      "summary": "As a bonus action, teleport up to 60 ft. to a space you can see, or as an action teleport a willing creature you touch up to 30 ft. Uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "hidden-paths",
+          "name": "Hidden Paths",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "walker-in-dreams",
+      "name": "Walker in Dreams",
+      "unlockLevel": 14,
+      "short": "After a short rest, cast Dream, Scrying or Teleportation Circle.",
+      "summary": "When you finish a short rest, you can cast Dream, Scrying or Teleportation Circle (to the last place you took a long rest) without a slot. Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "walker-in-dreams",
+          "name": "Walker in Dreams",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

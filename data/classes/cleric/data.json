@@ -690,7 +690,22 @@
     }
   ],
   "subclassHeading": "Divine Domain",
-  "subclasses": [],
+  "subclasses": [
+    "arcana",
+    "death",
+    "forge",
+    "grave",
+    "knowledge",
+    "life",
+    "light",
+    "nature",
+    "order",
+    "peace",
+    "tempest",
+    "trickery",
+    "twilight",
+    "war"
+  ],
   "highlights": [
     {
       "title": "Combat Role",

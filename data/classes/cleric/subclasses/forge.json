@@ -1,0 +1,190 @@
+{
+  "id": "forge",
+  "name": "Forge Domain",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Clerics of smith gods who craft and protect.",
+  "features": [
+    {
+      "id": "forge-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "forge-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 1,
+      "short": "Heavy armor and smith's tools.",
+      "summary": "You gain proficiency with heavy armor and smith's tools.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Heavy Armor"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Smith's Tools"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "blessing-of-the-forge",
+      "name": "Blessing of the Forge",
+      "unlockLevel": 1,
+      "short": "After a long rest, make armor or a weapon +1.",
+      "summary": "At the end of a long rest, touch one nonmagical suit of armor or simple/martial weapon: until your next long rest it becomes magical, with +1 to AC or to attack and damage rolls.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "blessing-of-the-forge",
+          "name": "Blessing of the Forge",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "artisans-blessing",
+      "name": "Channel Divinity: Artisan's Blessing",
+      "unlockLevel": 2,
+      "short": "Craft a metal item worth up to 100 gp.",
+      "summary": "You conduct an hour-long ritual that crafts a nonmagical item containing metal, worth no more than 100 gp, using metal of equal value.",
+      "facts": {
+        "action": "Passive",
+        "cost": "Channel Divinity"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "soul-of-the-forge",
+      "name": "Soul of the Forge",
+      "unlockLevel": 6,
+      "short": "Resist fire; +1 AC in heavy armor.",
+      "summary": "You gain resistance to fire damage. While wearing heavy armor, you gain a +1 bonus to AC.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "fire"
+        },
+        {
+          "type": "ac",
+          "bonus": 1,
+          "condition": "while wearing heavy armor"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "forge-divine-strike",
+      "name": "Divine Strike",
+      "unlockLevel": 8,
+      "short": "Once per turn, weapon hits deal +1d8 fire (2d8 at 14th).",
+      "summary": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 fire damage. At 14th level the extra damage becomes 2d8.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 8,
+          "label": "1d8"
+        },
+        {
+          "level": 14,
+          "label": "2d8"
+        }
+      ]
+    },
+    {
+      "id": "saint-of-forge-and-fire",
+      "name": "Saint of Forge and Fire",
+      "unlockLevel": 17,
+      "short": "Immune to fire; resist nonmagical weapons in heavy armor.",
+      "summary": "You gain immunity to fire damage. While wearing heavy armor, you have resistance to bludgeoning, piercing and slashing damage from nonmagical attacks.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "immunity",
+          "against": "fire"
+        },
+        {
+          "type": "note",
+          "text": "In heavy armor: resistance to nonmagical bludgeoning, piercing and slashing."
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Identify",
+        "Searing Smite"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Heat Metal",
+        "Magic Weapon"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Elemental Weapon",
+        "Protection from Energy"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Fabricate",
+        "Wall of Fire"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Animate Objects",
+        "Creation"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

@@ -7,7 +7,8 @@ export const lineageAbilityBonusRuleSchema = z.discriminatedUnion("type", [
     .object({
       type: z.literal("fixed"),
       ability: lineageAbilityIdSchema,
-      amount: z.number().int().positive(),
+      // Eksi de olabilir (Volo's Kobold STR -2, Orc INT -2).
+      amount: z.number().int().refine((value) => value !== 0),
     })
     .strict(),
   z
@@ -130,6 +131,15 @@ export const lineageGrantSchema = z.discriminatedUnion("type", [
     .strict(),
   z
     .object({
+      // Zirhsiz AC tabani (Lizardfolk Natural Armor: 13 + DEX, kalkan serbest).
+      type: z.literal("ac_base"),
+      base: z.number().int().positive(),
+      abilities: z.array(lineageAbilityIdSchema).default([]),
+      shield: z.boolean().default(true),
+    })
+    .strict(),
+  z
+    .object({
       type: z.literal("armor_class_bonus"),
       amount: z.number().int().positive(),
       condition: z.string().min(1).optional(),
@@ -181,6 +191,27 @@ export const lineageFeatureOptionSchema = z
   })
   .strict();
 
+/**
+ * Combat ekraninda kullanilabilir irk ozelligi (Hidden Step, Stone's Endurance...).
+ * hit / damage metninde yer tutucular: {level}, {halfLevel}, {mod:CON}, {atk:STR} (mod + proficiency), {dc:CHA} (8 + mod + proficiency).
+ */
+export const lineageFeatureActionSchema = z
+  .object({
+    category: z.enum(["Attack", "Action", "Bonus Action", "Reaction", "Other"]),
+    /** Dinlenmede yenilenen kullanim; yoksa sinirsiz. */
+    recharge: z.enum(["short_rest", "long_rest"]).optional(),
+    uses: z.number().int().positive().default(1),
+    /** Kullanim sayisi proficiency bonus kadar (MotM irklari: Fey Step). */
+    usesProficiency: z.boolean().optional(),
+    /** Bu level'dan once acilmaz (Aasimar donusumleri 3. level). */
+    minLevel: z.number().int().positive().optional(),
+    range: z.string().min(1).optional(),
+    hit: z.string().min(1).optional(),
+    damage: z.string().min(1).optional(),
+    short: z.string().min(1).optional(),
+  })
+  .strict();
+
 export const lineageFeatureSchema = z
   .object({
     id: z.string().min(1),
@@ -191,6 +222,7 @@ export const lineageFeatureSchema = z
     options: z.array(lineageFeatureOptionSchema).default([]),
     grants: z.array(lineageGrantSchema).default([]),
     choiceGroupIds: z.array(z.string().min(1)).default([]),
+    action: lineageFeatureActionSchema.optional(),
   })
   .strict();
 

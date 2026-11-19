@@ -1,0 +1,197 @@
+{
+  "id": "armorer",
+  "name": "Armorer",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "An artificer who turns a suit of armor into a second skin of arcane power.",
+  "features": [
+    {
+      "id": "armorer-tools",
+      "name": "Tools of the Trade",
+      "unlockLevel": 3,
+      "short": "Heavy armor and smith's tools proficiency.",
+      "summary": "You gain proficiency with heavy armor and with smith's tools.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Heavy Armor"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Smith's Tools"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "armorer-spells",
+      "name": "Armorer Spells",
+      "unlockLevel": 3,
+      "short": "Defensive and blast spells that are always prepared.",
+      "summary": "You always have certain spells prepared after you reach particular levels in this class. They don't count against the number of artificer spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "arcane-armor",
+      "name": "Arcane Armor",
+      "unlockLevel": 3,
+      "short": "Your armor has no STR requirement and works as a focus.",
+      "summary": "As an action, you turn a suit of armor you wear into Arcane Armor. It ignores any Strength requirement, works as a spellcasting focus, covers your whole body, can replace missing limbs, and you can don or doff it as an action.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "armor-model",
+      "name": "Armor Model",
+      "unlockLevel": 3,
+      "short": "Choose Guardian (melee tank) or Infiltrator (stealthy blaster).",
+      "summary": "Choose a model for your Arcane Armor. You can change it after a short or long rest using smith's tools.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "armorer-model",
+          "label": "Armor Model",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "guardian",
+                "name": "Guardian",
+                "summary": "Thunder Gauntlets (1d8 thunder, target has disadvantage against others) and Defensive Field: bonus action temp HP equal to your level, PB times per long rest.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Guardian: Thunder Gauntlets 1d8 thunder melee; Defensive Field gives temp HP equal to your artificer level (PB per long rest)."
+                  },
+                  {
+                    "type": "resource",
+                    "id": "defensive-field",
+                    "name": "Defensive Field",
+                    "uses": "PB",
+                    "recharge": "long_rest"
+                  }
+                ]
+              },
+              {
+                "id": "infiltrator",
+                "name": "Infiltrator",
+                "summary": "Lightning Launcher (1d6 lightning, 90/300 ft., +1d6 once per turn), +5 ft. speed, advantage on Stealth.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Infiltrator: Lightning Launcher 1d6 lightning ranged (90/300 ft.), once per turn +1d6; advantage on Stealth."
+                  },
+                  {
+                    "type": "speed",
+                    "mode": "walk",
+                    "op": "add",
+                    "value": 5
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "armorer-extra-attack",
+      "name": "Extra Attack",
+      "unlockLevel": 5,
+      "short": "Attack twice with the Attack action.",
+      "summary": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "armor-modifications",
+      "name": "Armor Modifications",
+      "unlockLevel": 9,
+      "short": "Armor counts as four items for infusions.",
+      "summary": "Your Arcane Armor counts as separate items for your infusions: armor, boots, helmet and the special weapon. Each can bear one infusion, and you can infuse two more items than normal as long as they are part of the armor.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "perfected-armor",
+      "name": "Perfected Armor",
+      "unlockLevel": 15,
+      "short": "Guardian pulls foes in; Infiltrator lights them up.",
+      "summary": "Guardian: when a Huge or smaller creature ends its turn within 30 ft., you can use your reaction to pull it up to 25 ft. toward you and attack it with your gauntlets. Infiltrator: creatures hit by your Lightning Launcher glimmer, take extra damage from the next attack and can't be invisible.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Magic Missile",
+        "Thunderwave"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Mirror Image",
+        "Shatter"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Hypnotic Pattern",
+        "Lightning Bolt"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Fire Shield",
+        "Greater Invisibility"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Passwall",
+        "Wall of Force"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

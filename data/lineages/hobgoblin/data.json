@@ -1,0 +1,378 @@
+{
+  "id": "hobgoblin",
+  "name": "Hobgoblin",
+  "category": "monstrous",
+  "summary": "Disciplined, militaristic goblinoids. Hobgoblins value order, rank and honor, and they fight best when their allies are close by.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Hobgoblins mature like humans and live about as long."
+    },
+    "alignment": {
+      "summary": "Hobgoblins are mostly lawful evil."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Hobgoblins are about the size of humans."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Goblin"
+      ],
+      "description": "You can speak, read, and write Common and Goblin."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "INT",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "martial-training",
+      "name": "Martial Training",
+      "category": "proficiency",
+      "summary": "You are proficient with two martial weapons of your choice and with light armor.",
+      "grants": [
+        {
+          "type": "armor_training",
+          "values": [
+            "Light Armor"
+          ]
+        }
+      ],
+      "choiceGroupIds": [
+        "hobgoblin-martial-weapons"
+      ]
+    },
+    {
+      "id": "saving-face",
+      "name": "Saving Face",
+      "category": "trait",
+      "summary": "When you miss an attack or fail a check or save, gain a bonus to the roll equal to the number of allies you can see within 30 feet (max +5). Once per short or long rest.",
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Other",
+        "recharge": "short_rest",
+        "damage": "+1 per ally in 30 ft. (max +5)",
+        "short": "Turn a miss or failed check or save into a bonus equal to nearby allies (max +5)."
+      }
+    }
+  ],
+  "choiceGroups": [
+    {
+      "id": "hobgoblin-martial-weapons",
+      "name": "Hobgoblin Martial Weapons",
+      "type": "multi-select",
+      "minSelections": 2,
+      "maxSelections": 2,
+      "options": [
+        {
+          "id": "battleaxe",
+          "label": "Battleaxe",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Battleaxe"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "flail",
+          "label": "Flail",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Flail"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "glaive",
+          "label": "Glaive",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Glaive"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "greataxe",
+          "label": "Greataxe",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Greataxe"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "greatsword",
+          "label": "Greatsword",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Greatsword"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "halberd",
+          "label": "Halberd",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Halberd"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lance",
+          "label": "Lance",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Lance"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "longsword",
+          "label": "Longsword",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Longsword"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "maul",
+          "label": "Maul",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Maul"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "morningstar",
+          "label": "Morningstar",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Morningstar"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pike",
+          "label": "Pike",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Pike"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rapier",
+          "label": "Rapier",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Rapier"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scimitar",
+          "label": "Scimitar",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Scimitar"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "shortsword",
+          "label": "Shortsword",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Shortsword"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "trident",
+          "label": "Trident",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Trident"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "war-pick",
+          "label": "War Pick",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "War Pick"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "warhammer",
+          "label": "Warhammer",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Warhammer"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "whip",
+          "label": "Whip",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Whip"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blowgun",
+          "label": "Blowgun",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Blowgun"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hand-crossbow",
+          "label": "Hand Crossbow",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Hand Crossbow"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "heavy-crossbow",
+          "label": "Heavy Crossbow",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Heavy Crossbow"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "longbow",
+          "label": "Longbow",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Longbow"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "net",
+          "label": "Net",
+          "grants": [
+            {
+              "type": "weapon_proficiency",
+              "values": [
+                "Net"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sublineages": []
+}

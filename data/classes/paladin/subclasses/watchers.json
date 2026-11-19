@@ -1,0 +1,148 @@
+{
+  "id": "watchers",
+  "name": "Oath of the Watchers",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Guardians against threats from beyond the material world.",
+  "features": [
+    {
+      "id": "watchers-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "short": "Oath spells that are always prepared for free.",
+      "summary": "You always have your oath spells prepared once you reach the listed paladin levels. They don't count against the number of spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "watchers-will",
+      "name": "Channel Divinity: Watcher's Will",
+      "unlockLevel": 3,
+      "short": "Allies gain advantage on INT, WIS and CHA saves.",
+      "summary": "As an action, choose up to CHA-modifier creatures within 30 ft.: for 1 minute they have advantage on Intelligence, Wisdom and Charisma saving throws.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "duration": "1 minute"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "abjure-the-extraplanar",
+      "name": "Channel Divinity: Abjure the Extraplanar",
+      "unlockLevel": 3,
+      "short": "Turn aberrations, celestials, elementals, fey and fiends.",
+      "summary": "As an action, each aberration, celestial, elemental, fey or fiend within 30 ft. that can hear you makes a WIS save or is turned for 1 minute.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "aura-of-the-sentinel",
+      "name": "Aura of the Sentinel",
+      "unlockLevel": 7,
+      "short": "You and allies within 10 ft. add PB to initiative.",
+      "summary": "When you and creatures of your choice within 10 ft. roll initiative, you all gain a bonus equal to your proficiency bonus. The range becomes 30 ft. at 18th level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 7,
+          "label": "10 ft."
+        },
+        {
+          "level": 18,
+          "label": "30 ft."
+        }
+      ]
+    },
+    {
+      "id": "vigilant-rebuke",
+      "name": "Vigilant Rebuke",
+      "unlockLevel": 15,
+      "short": "Reaction: when an ally succeeds on a mental save, deal 2d8 + CHA force.",
+      "summary": "When you or a creature within 30 ft. succeeds on an INT, WIS or CHA save, you can use your reaction to deal 2d8 + CHA force damage to the creature that forced the save.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "mortal-bulwark",
+      "name": "Mortal Bulwark",
+      "unlockLevel": 20,
+      "short": "Truesight, advantage against extraplanar foes, banish on a hit.",
+      "summary": "As a bonus action, for 1 minute you gain truesight 120 ft., advantage on attacks against aberrations, celestials, elementals, fey and fiends, and can banish such a creature you hit (CHA save). Once per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "mortal-bulwark",
+          "name": "Mortal Bulwark",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Alarm",
+        "Detect Magic"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Moonbeam",
+        "See Invisibility"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Counterspell",
+        "Nondetection"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Aura of Purity",
+        "Banishment"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Hold Monster",
+        "Scrying"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

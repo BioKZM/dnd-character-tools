@@ -1,0 +1,96 @@
+{
+  "id": "divination",
+  "name": "School of Divination",
+  "source": "Player's Handbook",
+  "summary": "Seers who glimpse the future and bend it with portents.",
+  "features": [
+    {
+      "id": "divination-savant",
+      "name": "Divination Savant",
+      "unlockLevel": 2,
+      "short": "Copy divination spells for half the time and gold.",
+      "summary": "The gold and time you must spend to copy a divination spell into your spellbook is halved.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "portent",
+      "name": "Portent",
+      "unlockLevel": 2,
+      "short": "After a long rest, roll two d20s to replace any rolls later.",
+      "summary": "When you finish a long rest, roll two d20s and record the numbers. You can replace any attack roll, saving throw or ability check made by you or a creature you can see with one of these rolls, once per roll, before it is made. At 14th level you roll three.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "portent",
+          "name": "Portent dice",
+          "uses": "2 (3 at 14)",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 2,
+          "label": "2 dice"
+        },
+        {
+          "level": 14,
+          "label": "3 dice"
+        }
+      ]
+    },
+    {
+      "id": "expert-divination",
+      "name": "Expert Divination",
+      "unlockLevel": 6,
+      "short": "Casting divination spells refunds a lower slot.",
+      "summary": "When you cast a divination spell of 2nd level or higher using a slot, you regain one expended slot of a lower level (no higher than 5th).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "the-third-eye",
+      "name": "The Third Eye",
+      "unlockLevel": 10,
+      "short": "Action: darkvision, ethereal sight, read languages or see invisible.",
+      "summary": "As an action, choose one benefit until your next rest: darkvision 60 ft., see into the Ethereal Plane 60 ft., read any language, or see invisible creatures within 10 ft. Once per short or long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "the-third-eye",
+          "name": "The Third Eye",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "greater-portent",
+      "name": "Greater Portent",
+      "unlockLevel": 14,
+      "short": "Roll three portent dice.",
+      "summary": "You roll three d20s for your Portent feature instead of two.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

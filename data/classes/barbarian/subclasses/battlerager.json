@@ -1,0 +1,58 @@
+{
+  "id": "battlerager",
+  "name": "Path of the Battlerager",
+  "source": "Sword Coast Adventurer's Guide",
+  "summary": "A spiked-armor brawler (traditionally dwarven) who turns their body into a weapon.",
+  "features": [
+    {
+      "id": "battlerager-armor",
+      "name": "Battlerager Armor",
+      "unlockLevel": 3,
+      "short": "Spiked armor: bonus action attack while raging; grapple damage.",
+      "summary": "While wearing spiked armor and raging, you can use a bonus action to make a melee attack with the spikes (1d4 piercing). Creatures you grapple take 3 piercing damage when you start or complete the grapple.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "reckless-abandon",
+      "name": "Reckless Abandon",
+      "unlockLevel": 6,
+      "short": "Gain temp HP equal to CON when you attack recklessly while raging.",
+      "summary": "When you use Reckless Attack while raging, you gain temporary hit points equal to your Constitution modifier (minimum 1).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "battlerager-charge",
+      "name": "Battlerager Charge",
+      "unlockLevel": 10,
+      "short": "Dash as a bonus action while raging.",
+      "summary": "You can take the Dash action as a bonus action while raging.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "spiked-retribution",
+      "name": "Spiked Retribution",
+      "unlockLevel": 14,
+      "short": "Creatures that hit you in melee take 3 piercing.",
+      "summary": "When a creature within 5 ft. hits you with a melee attack while you rage in spiked armor, it takes 3 piercing damage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

@@ -1,0 +1,78 @@
+{
+  "id": "swashbuckler",
+  "name": "Swashbuckler",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A charming duelist who fights one-on-one with flair.",
+  "features": [
+    {
+      "id": "fancy-footwork",
+      "name": "Fancy Footwork",
+      "unlockLevel": 3,
+      "short": "Creatures you attack can't make opportunity attacks against you.",
+      "summary": "During your turn, if you make a melee attack against a creature, that creature can't make opportunity attacks against you for the rest of your turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "rakish-audacity",
+      "name": "Rakish Audacity",
+      "unlockLevel": 3,
+      "short": "Add CHA to initiative; Sneak Attack in a one-on-one duel.",
+      "summary": "You add your Charisma modifier to initiative rolls. You can Sneak Attack a creature without advantage if you are within 5 ft. of it, no other creature is within 5 ft. of you, and you don't have disadvantage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "panache",
+      "name": "Panache",
+      "unlockLevel": 9,
+      "short": "Charm or taunt a creature with a Persuasion contest.",
+      "summary": "As an action, make a Charisma (Persuasion) check contested by a creature's Insight. A hostile creature has disadvantage attacking anyone but you for 1 minute; a non-hostile one is charmed.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "elegant-maneuver",
+      "name": "Elegant Maneuver",
+      "unlockLevel": 13,
+      "short": "Bonus action: advantage on your next Acrobatics or Athletics check.",
+      "summary": "You can use a bonus action to gain advantage on the next Dexterity (Acrobatics) or Strength (Athletics) check you make this turn.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "master-duelist",
+      "name": "Master Duelist",
+      "unlockLevel": 17,
+      "short": "Reroll a missed attack with advantage.",
+      "summary": "If you miss with an attack roll, you can roll it again with advantage. Once per short or long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "master-duelist",
+          "name": "Master Duelist",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

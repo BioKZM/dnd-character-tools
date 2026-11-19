@@ -22,7 +22,9 @@
       "description": "You also have a climbing speed equal to your walking speed."
     },
     "languages": {
-      "values": ["Common"],
+      "values": [
+        "Common"
+      ],
       "description": "You can speak, read, and write Common and one other language that you and your DM agree is appropriate."
     },
     "abilityScoreBonuses": [
@@ -30,13 +32,27 @@
         "type": "choice",
         "count": 1,
         "amount": 2,
-        "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+        "restrictedTo": [
+          "STR",
+          "DEX",
+          "CON",
+          "INT",
+          "WIS",
+          "CHA"
+        ]
       },
       {
         "type": "choice",
         "count": 1,
         "amount": 1,
-        "restrictedTo": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+        "restrictedTo": [
+          "STR",
+          "DEX",
+          "CON",
+          "INT",
+          "WIS",
+          "CHA"
+        ]
       }
     ]
   },
@@ -58,7 +74,14 @@
       "id": "cat-s-claws",
       "name": "Cat's Claws",
       "category": "trait",
-      "summary": "You can use your claws to make unarmed strikes, dealing 1d6 + your Strength modifier slashing damage on a hit."
+      "summary": "You can use your claws to make unarmed strikes, dealing 1d6 + your Strength modifier slashing damage on a hit.",
+      "action": {
+        "category": "Attack",
+        "range": "5 ft.",
+        "hit": "{atk:STR}",
+        "damage": "1d6 {mod:STR} slashing",
+        "short": "Rake with your claws."
+      }
     },
     {
       "id": "cat-s-talent",
@@ -68,7 +91,10 @@
       "grants": [
         {
           "type": "skill_proficiency",
-          "values": ["perception", "stealth"]
+          "values": [
+            "perception",
+            "stealth"
+          ]
         }
       ]
     },
@@ -76,7 +102,12 @@
       "id": "feline-agility",
       "name": "Feline Agility",
       "category": "trait",
-      "summary": "When you move on your turn in combat, you can double your speed until the end of the turn. Once you use this trait, you can't use it again until you move 0 feet on one of your turns."
+      "summary": "When you move on your turn in combat, you can double your speed until the end of the turn. Once you use this trait, you can't use it again until you move 0 feet on one of your turns.",
+      "action": {
+        "category": "Other",
+        "range": "Self",
+        "short": "Double your speed until the end of the turn. Recharges when you spend a turn not moving."
+      }
     },
     {
       "id": "climbing-speed",

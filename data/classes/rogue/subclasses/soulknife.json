@@ -1,0 +1,113 @@
+{
+  "id": "soulknife",
+  "name": "Soulknife",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A psionic rogue who manifests blades of psychic energy.",
+  "features": [
+    {
+      "id": "soulknife-psionic-power",
+      "name": "Psionic Power",
+      "unlockLevel": 3,
+      "short": "Psionic dice for skill boosts and telepathy.",
+      "summary": "You have Psionic Energy dice equal to twice your proficiency bonus (d6, growing with level). Psi-Bolstered Knack: add a die to a failed check you are proficient in. Psychic Whispers: telepathy with a few creatures for hours. You regain one die as a bonus action once per short rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "soulknife-psionic-energy",
+          "name": "Psionic Energy Dice",
+          "uses": "2*PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "d6"
+        },
+        {
+          "level": 5,
+          "label": "d8"
+        },
+        {
+          "level": 11,
+          "label": "d10"
+        },
+        {
+          "level": 17,
+          "label": "d12"
+        }
+      ]
+    },
+    {
+      "id": "psychic-blades",
+      "name": "Psychic Blades",
+      "unlockLevel": 3,
+      "short": "Manifest a psychic blade (1d6) and a bonus-action second one (1d4).",
+      "summary": "When you take the Attack action, you can manifest a psychic blade: a simple melee weapon with finesse and thrown (60 ft.) that deals 1d6 psychic damage. Afterward you can attack with a second blade as a bonus action for 1d4 psychic.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "soul-blades",
+      "name": "Soul Blades",
+      "unlockLevel": 9,
+      "short": "Spend dice to improve blade attacks or teleport.",
+      "summary": "Homing Strikes: when a psychic blade attack misses, roll a Psionic die and add it, possibly turning it into a hit. Psychic Teleportation: as a bonus action, spend a die to throw a blade and teleport to it (10 ft. per point rolled).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "psychic-veil",
+      "name": "Psychic Veil",
+      "unlockLevel": 13,
+      "short": "Action: become invisible for an hour.",
+      "summary": "As an action, you become invisible for 1 hour or until you dismiss it, damage a creature or force a save. Once per long rest (or spend a die).",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "psychic-veil",
+          "name": "Psychic Veil",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "rend-mind",
+      "name": "Rend Mind",
+      "unlockLevel": 17,
+      "short": "Sneak Attack with a blade can stun the target.",
+      "summary": "When you deal Sneak Attack damage with a psychic blade, the target makes a WIS save (DC 8 + DEX + PB) or is stunned for 1 minute, repeating the save each turn. Once per long rest (or spend three dice).",
+      "facts": {
+        "action": "Passive",
+        "save": "WIS"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "rend-mind",
+          "name": "Rend Mind",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

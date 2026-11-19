@@ -27,6 +27,9 @@ export function CampaignShell({
             {resolvedDescription ? <p>{resolvedDescription}</p> : null}
           </div>
 
+          {/* Creator adimlari buraya tasinir (CreatorFlowNav portal). */}
+          <div id="creator-steps-slot" className="campaign-topbar-steps" />
+
           <nav className="campaign-nav">
             <CharacterSwitcher />
             <Link href="/campaign/characters">

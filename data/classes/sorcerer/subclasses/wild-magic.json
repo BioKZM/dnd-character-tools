@@ -1,0 +1,79 @@
+{
+  "id": "wild-magic",
+  "name": "Wild Magic",
+  "source": "Player's Handbook",
+  "summary": "Sorcerers whose chaotic magic can surge unpredictably.",
+  "features": [
+    {
+      "id": "wild-magic-surge",
+      "name": "Wild Magic Surge",
+      "unlockLevel": 1,
+      "short": "Your leveled spells can trigger random surges.",
+      "summary": "Immediately after you cast a sorcerer spell of 1st level or higher, the DM can have you roll a d20; on a 1, roll on the Wild Magic Surge table for a random magical effect.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "tides-of-chaos",
+      "name": "Tides of Chaos",
+      "unlockLevel": 1,
+      "short": "Gain advantage on one roll; the DM may trigger a surge to recharge it.",
+      "summary": "You can gain advantage on one attack roll, ability check or saving throw. Once used, you regain it after a long rest, or when the DM has you roll on the surge table.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "tides-of-chaos",
+          "name": "Tides of Chaos",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "bend-luck",
+      "name": "Bend Luck",
+      "unlockLevel": 6,
+      "short": "Reaction, 2 sorcery points: add or subtract 1d4 from a roll.",
+      "summary": "When another creature you can see makes an attack roll, ability check or saving throw, you can use your reaction and spend 2 sorcery points to roll 1d4 and add or subtract it from their roll.",
+      "facts": {
+        "action": "Reaction",
+        "cost": "2 sorcery points"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "controlled-chaos",
+      "name": "Controlled Chaos",
+      "unlockLevel": 14,
+      "short": "Roll twice on the surge table and pick.",
+      "summary": "Whenever you roll on the Wild Magic Surge table, you can roll twice and use either number.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "spell-bombardment",
+      "name": "Spell Bombardment",
+      "unlockLevel": 18,
+      "short": "When a damage die rolls max, roll it again.",
+      "summary": "When you roll damage for a spell and roll the highest number possible on any die, choose one of those dice, roll it again and add the result. Once per turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

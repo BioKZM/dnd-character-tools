@@ -1,0 +1,152 @@
+{
+  "id": "swarmkeeper",
+  "name": "Swarmkeeper",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A ranger accompanied by a swarm of nature spirits.",
+  "features": [
+    {
+      "id": "swarmkeeper-magic",
+      "name": "Swarmkeeper Magic",
+      "unlockLevel": 3,
+      "short": "Extra ranger spells you always know.",
+      "summary": "You learn an additional spell at the listed ranger levels. They count as ranger spells for you but don't count against the number of ranger spells you know.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "gathered-swarm",
+      "name": "Gathered Swarm",
+      "unlockLevel": 3,
+      "short": "Once per turn, your swarm adds 1d6 damage, pushes or moves you.",
+      "summary": "Once on each of your turns when you hit a creature, your swarm can: deal an extra 1d6 piercing, push the target 15 ft. (STR save), or move you 5 ft. without provoking.",
+      "facts": {
+        "action": "Passive",
+        "save": "STR",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "1d6"
+        },
+        {
+          "level": 11,
+          "label": "1d8"
+        }
+      ]
+    },
+    {
+      "id": "swarmkeeper-magic-cantrip",
+      "name": "Swarmkeeper Magic",
+      "unlockLevel": 3,
+      "short": "Learn Mage Hand (made of your swarm).",
+      "summary": "You learn the Mage Hand cantrip; the hand looks like your swarm.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "mage-hand",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "writhing-tide",
+      "name": "Writhing Tide",
+      "unlockLevel": 7,
+      "short": "Bonus action: fly 10 ft. and hover for a minute.",
+      "summary": "As a bonus action, your swarm lifts you: you gain a flying speed of 10 ft. and can hover for 1 minute. Uses: PB per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "writhing-tide",
+          "name": "Writhing Tide",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "mighty-swarm",
+      "name": "Mighty Swarm",
+      "unlockLevel": 11,
+      "short": "Swarm damage becomes 1d8; pushes knock prone; moving gives cover.",
+      "summary": "Gathered Swarm deals 1d8 instead of 1d6, a push can also knock the target prone, and when you move yourself you gain half cover until your next turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "swarming-dispersal",
+      "name": "Swarming Dispersal",
+      "unlockLevel": 15,
+      "short": "Reaction: resist damage and teleport 30 ft.",
+      "summary": "When you take damage, you can use your reaction to gain resistance to it and teleport up to 30 ft. to an unoccupied space you can see. Uses: PB per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "swarming-dispersal",
+          "name": "Swarming Dispersal",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Faerie Fire"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Web"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Gaseous Form"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Arcane Eye"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Insect Plague"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

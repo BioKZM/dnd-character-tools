@@ -1,0 +1,145 @@
+{
+  "id": "archfey",
+  "name": "The Archfey",
+  "source": "Player's Handbook",
+  "summary": "A patron lord or lady of the fey: capricious, beautiful and dangerous.",
+  "features": [
+    {
+      "id": "archfey-expanded",
+      "name": "Expanded Spell List",
+      "unlockLevel": 1,
+      "short": "Fey spells join your warlock list.",
+      "summary": "The Archfey adds these spells to the warlock spell list for you; learn them like other warlock spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "fey-presence",
+      "name": "Fey Presence",
+      "unlockLevel": 1,
+      "short": "Action: charm or frighten creatures in a 10 ft. cube.",
+      "summary": "As an action, each creature in a 10 ft. cube originating from you makes a WIS save or is charmed or frightened by you (your choice) until the end of your next turn. Once per short or long rest.",
+      "facts": {
+        "action": "Action",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "fey-presence",
+          "name": "Fey Presence",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "misty-escape",
+      "name": "Misty Escape",
+      "unlockLevel": 6,
+      "short": "Reaction when hurt: turn invisible and teleport 60 ft.",
+      "summary": "When you take damage, you can use your reaction to turn invisible and teleport up to 60 ft. You stay invisible until the start of your next turn or until you attack or cast a spell. Once per short or long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "misty-escape",
+          "name": "Misty Escape",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "beguiling-defenses",
+      "name": "Beguiling Defenses",
+      "unlockLevel": 10,
+      "short": "Immune to charm; turn charm attempts back on the caster.",
+      "summary": "You are immune to being charmed. When another creature tries to charm you, you can use your reaction to try to turn it back (WIS save or the creature is charmed by you for 1 minute).",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "charmed"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "dark-delirium",
+      "name": "Dark Delirium",
+      "unlockLevel": 14,
+      "short": "Action: trap a creature in an illusory realm.",
+      "summary": "As an action, choose a creature within 60 ft.: it makes a WIS save or is charmed or frightened by you for 1 minute (concentration), lost in a misty illusory realm until it takes damage. Once per short or long rest.",
+      "facts": {
+        "action": "Action",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "dark-delirium",
+          "name": "Dark Delirium",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Faerie Fire",
+        "Sleep"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Calm Emotions",
+        "Phantasmal Force"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Blink",
+        "Plant Growth"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Dominate Beast",
+        "Greater Invisibility"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Dominate Person",
+        "Seeming"
+      ],
+      "uses": "list"
+    }
+  ],
+  "notes": []
+}

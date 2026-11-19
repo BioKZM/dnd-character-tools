@@ -1,0 +1,101 @@
+{
+  "id": "orc",
+  "name": "Orc",
+  "category": "monstrous",
+  "summary": "Fierce raiders driven by strength and fury. Orcs charge into battle and keep pressing toward the enemy.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Orcs mature at 12 and live up to about 50 years."
+    },
+    "alignment": {
+      "summary": "Orcs are mostly chaotic evil."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Orcs are usually over 6 feet tall and weigh 230 to 280 pounds."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Orc"
+      ],
+      "description": "You can speak, read, and write Common and Orc."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 1
+      },
+      {
+        "type": "fixed",
+        "ability": "INT",
+        "amount": -2
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "aggressive",
+      "name": "Aggressive",
+      "category": "trait",
+      "summary": "As a bonus action, you can move up to your speed toward a hostile creature you can see.",
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Bonus Action",
+        "range": "Your speed",
+        "short": "Move up to your speed toward a hostile creature you can see."
+      }
+    },
+    {
+      "id": "menacing",
+      "name": "Menacing",
+      "category": "proficiency",
+      "summary": "You are proficient in the Intimidation skill.",
+      "grants": [
+        {
+          "type": "skill_proficiency",
+          "values": [
+            "intimidation"
+          ]
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "category": "passive",
+      "summary": "You count as one size larger when working out your carrying capacity and the weight you can push, drag or lift.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

@@ -1,0 +1,84 @@
+{
+  "id": "illusion",
+  "name": "School of Illusion",
+  "source": "Player's Handbook",
+  "summary": "Wizards who deceive the senses and make illusions real.",
+  "features": [
+    {
+      "id": "illusion-savant",
+      "name": "Illusion Savant",
+      "unlockLevel": 2,
+      "short": "Copy illusion spells for half the time and gold.",
+      "summary": "The gold and time you must spend to copy a illusion spell into your spellbook is halved.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "improved-minor-illusion",
+      "name": "Improved Minor Illusion",
+      "unlockLevel": 2,
+      "short": "Minor Illusion makes sound and image together.",
+      "summary": "You learn Minor Illusion (or another wizard cantrip if you know it). When you cast it, you can create both a sound and an image with a single casting.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "minor-illusion",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "malleable-illusions",
+      "name": "Malleable Illusions",
+      "unlockLevel": 6,
+      "short": "Change your lasting illusions with an action.",
+      "summary": "When you cast an illusion spell with a duration of 1 minute or longer, you can use your action to change its nature (within the spell's normal parameters) while you can see it.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "illusory-self",
+      "name": "Illusory Self",
+      "unlockLevel": 10,
+      "short": "Reaction: an illusory duplicate makes an attack miss.",
+      "summary": "When a creature makes an attack roll against you, you can use your reaction to interpose an illusory duplicate; the attack automatically misses. Once per short or long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "illusory-self",
+          "name": "Illusory Self",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "illusory-reality",
+      "name": "Illusory Reality",
+      "unlockLevel": 14,
+      "short": "Make one inanimate, nonmagical object from an illusion real.",
+      "summary": "When you cast an illusion spell of 1st level or higher, you can choose one inanimate, nonmagical object that is part of the illusion and make it real for 1 minute. It can't deal damage or directly harm anyone.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

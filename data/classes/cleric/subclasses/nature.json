@@ -1,0 +1,192 @@
+{
+  "id": "nature",
+  "name": "Nature Domain",
+  "source": "Player's Handbook",
+  "summary": "Clerics of the wild who command beasts and plants.",
+  "features": [
+    {
+      "id": "nature-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "acolyte-of-nature",
+      "name": "Acolyte of Nature",
+      "unlockLevel": 1,
+      "short": "Learn a druid cantrip and a nature skill.",
+      "summary": "You learn one druid cantrip and gain proficiency in Animal Handling, Nature or Survival.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "nature-druid-cantrip",
+          "label": "Druid cantrip",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Druid"
+              ],
+              "schools": [],
+              "level": 0
+            }
+          },
+          "grantUses": "at_will"
+        },
+        {
+          "id": "nature-skill",
+          "label": "Nature skill",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "animal-handling",
+              "nature",
+              "survival"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "nature-proficiency",
+      "name": "Bonus Proficiency",
+      "unlockLevel": 1,
+      "short": "Heavy armor.",
+      "summary": "You gain proficiency with heavy armor.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Heavy Armor"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "charm-animals-and-plants",
+      "name": "Channel Divinity: Charm Animals and Plants",
+      "unlockLevel": 2,
+      "short": "Charm beasts and plants within 30 ft.",
+      "summary": "As an action, each beast or plant creature that can see you within 30 ft. makes a WIS save or is charmed by you for 1 minute or until it takes damage.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "dampen-elements",
+      "name": "Dampen Elements",
+      "unlockLevel": 6,
+      "short": "Reaction: give resistance to acid, cold, fire, lightning or thunder damage.",
+      "summary": "When you or a creature within 30 ft. takes acid, cold, fire, lightning or thunder damage, you can use your reaction to grant resistance against that instance.",
+      "facts": {
+        "action": "Reaction",
+        "range": "30 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "nature-divine-strike",
+      "name": "Divine Strike",
+      "unlockLevel": 8,
+      "short": "Once per turn, weapon hits deal +1d8 cold, fire or lightning (your choice) (2d8 at 14th).",
+      "summary": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 cold, fire or lightning (your choice) damage. At 14th level the extra damage becomes 2d8.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 8,
+          "label": "1d8"
+        },
+        {
+          "level": 14,
+          "label": "2d8"
+        }
+      ]
+    },
+    {
+      "id": "master-of-nature",
+      "name": "Master of Nature",
+      "unlockLevel": 17,
+      "short": "Command charmed beasts and plants as a bonus action.",
+      "summary": "While creatures are charmed by your Charm Animals and Plants, you can take a bonus action to verbally command what each will do on its next turn.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Animal Friendship",
+        "Speak with Animals"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Barkskin",
+        "Spike Growth"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Plant Growth",
+        "Wind Wall"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Dominate Beast",
+        "Grasping Vine"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Insect Plague",
+        "Tree Stride"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

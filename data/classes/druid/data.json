@@ -654,7 +654,15 @@
     }
   ],
   "subclassHeading": "Druid Circle",
-  "subclasses": [],
+  "subclasses": [
+    "dreams",
+    "land",
+    "moon",
+    "shepherd",
+    "spores",
+    "stars",
+    "wildfire"
+  ],
   "highlights": [
     {
       "title": "Combat Role",

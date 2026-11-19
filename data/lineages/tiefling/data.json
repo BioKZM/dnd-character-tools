@@ -1,0 +1,104 @@
+{
+  "id": "tiefling",
+  "name": "Tiefling",
+  "category": "standard",
+  "summary": "Tieflings carry an infernal bloodline: horns, tails, unusual skin and eyes, and a spark of hellish magic. Distrusted by many, they often make their own way.",
+  "source": {
+    "book": "Player's Handbook"
+  },
+  "facts": {
+    "age": {
+      "summary": "Tieflings mature at the same rate as humans but live a few years longer."
+    },
+    "alignment": {
+      "summary": "Tieflings aren't born evil, but many lean toward chaos."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Tieflings are about the same size and build as humans."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Infernal"
+      ],
+      "description": "You can speak, read, and write Common and Infernal."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "CHA",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "INT",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "hellish-resistance",
+      "name": "Hellish Resistance",
+      "category": "trait",
+      "summary": "You have resistance to fire damage.",
+      "grants": [
+        {
+          "type": "damage_resistance",
+          "damageType": "fire"
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "infernal-legacy",
+      "name": "Infernal Legacy",
+      "category": "trait",
+      "summary": "You know the thaumaturgy cantrip. At 3rd level you can cast hellish rebuke as a 2nd-level spell once per long rest, and at 5th level darkness once per long rest. Charisma is your spellcasting ability for them.",
+      "grants": [
+        {
+          "type": "spell_grant",
+          "spellName": "Thaumaturgy",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": true
+        },
+        {
+          "type": "spell_grant",
+          "spellName": "Hellish Rebuke",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": false,
+          "unlockLevel": 3
+        },
+        {
+          "type": "spell_grant",
+          "spellName": "Darkness",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": false,
+          "unlockLevel": 5
+        }
+      ],
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

@@ -1,0 +1,579 @@
+{
+  "id": "land",
+  "name": "Circle of the Land",
+  "source": "Player's Handbook",
+  "summary": "Mystics tied to a particular land, who recover magic quickly.",
+  "features": [
+    {
+      "id": "land-bonus-cantrip",
+      "name": "Bonus Cantrip",
+      "unlockLevel": 2,
+      "short": "Learn one extra druid cantrip.",
+      "summary": "You learn one additional druid cantrip of your choice.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "land-cantrip",
+          "label": "Druid cantrip",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [
+                "Druid"
+              ],
+              "schools": [],
+              "level": 0
+            }
+          },
+          "grantUses": "at_will"
+        }
+      ]
+    },
+    {
+      "id": "natural-recovery",
+      "name": "Natural Recovery",
+      "unlockLevel": 2,
+      "short": "Short rest: recover spell slots worth half your level.",
+      "summary": "During a short rest, you recover expended spell slots with a combined level up to half your druid level (rounded up), none of 6th level or higher. Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "natural-recovery",
+          "name": "Natural Recovery",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "circle-spells",
+      "name": "Circle Spells",
+      "unlockLevel": 3,
+      "short": "Choose your land; its spells are always prepared.",
+      "summary": "Your connection to a land grants you spells. They are always prepared at the listed druid levels and don't count against the spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "land-terrain",
+          "label": "Your land",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "arctic",
+                "name": "Arctic",
+                "summary": "Always-prepared circle spells. 3: Hold Person, Spike Growth; 5: Sleet Storm, Slow; 7: Freedom of Movement, Ice Storm; 9: Commune with Nature, Cone of Cold.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "hold-person",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "spike-growth",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "sleet-storm",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "slow",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "freedom-of-movement",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "ice-storm",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "commune-with-nature",
+                    "uses": "known",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "cone-of-cold",
+                    "uses": "known",
+                    "minLevel": 9
+                  }
+                ]
+              },
+              {
+                "id": "coast",
+                "name": "Coast",
+                "summary": "Always-prepared circle spells. 3: Mirror Image, Misty Step; 5: Water Breathing, Water Walk; 7: Control Water, Freedom of Movement; 9: Conjure Elemental, Scrying.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "mirror-image",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "misty-step",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "water-breathing",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "water-walk",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "control-water",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "freedom-of-movement",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "conjure-elemental",
+                    "uses": "known",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "scrying",
+                    "uses": "known",
+                    "minLevel": 9
+                  }
+                ]
+              },
+              {
+                "id": "desert",
+                "name": "Desert",
+                "summary": "Always-prepared circle spells. 3: Blur, Silence; 5: Create Food and Water, Protection from Energy; 7: Blight, Hallucinatory Terrain; 9: Insect Plague, Wall of Stone.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "blur",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "silence",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "create-food-and-water",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "protection-from-energy",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "blight",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "hallucinatory-terrain",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "insect-plague",
+                    "uses": "known",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "wall-of-stone",
+                    "uses": "known",
+                    "minLevel": 9
+                  }
+                ]
+              },
+              {
+                "id": "forest",
+                "name": "Forest",
+                "summary": "Always-prepared circle spells. 3: Barkskin, Spider Climb; 5: Call Lightning, Plant Growth; 7: Divination, Freedom of Movement; 9: Commune with Nature, Tree Stride.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "barkskin",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "spider-climb",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "call-lightning",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "plant-growth",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "divination",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "freedom-of-movement",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "commune-with-nature",
+                    "uses": "known",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "tree-stride",
+                    "uses": "known",
+                    "minLevel": 9
+                  }
+                ]
+              },
+              {
+                "id": "grassland",
+                "name": "Grassland",
+                "summary": "Always-prepared circle spells. 3: Invisibility, Pass without Trace; 5: Daylight, Haste; 7: Divination, Freedom of Movement; 9: Dream, Insect Plague.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "invisibility",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "pass-without-trace",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "daylight",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "haste",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "divination",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "freedom-of-movement",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "dream",
+                    "uses": "known",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "insect-plague",
+                    "uses": "known",
+                    "minLevel": 9
+                  }
+                ]
+              },
+              {
+                "id": "mountain",
+                "name": "Mountain",
+                "summary": "Always-prepared circle spells. 3: Spider Climb, Spike Growth; 5: Lightning Bolt, Meld into Stone; 7: Stone Shape, Stoneskin; 9: Passwall, Wall of Stone.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "spider-climb",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "spike-growth",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "lightning-bolt",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "meld-into-stone",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "stone-shape",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "stoneskin",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "passwall",
+                    "uses": "known",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "wall-of-stone",
+                    "uses": "known",
+                    "minLevel": 9
+                  }
+                ]
+              },
+              {
+                "id": "swamp",
+                "name": "Swamp",
+                "summary": "Always-prepared circle spells. 3: Darkness, Melf's Acid Arrow; 5: Water Walk, Stinking Cloud; 7: Freedom of Movement, Locate Creature; 9: Insect Plague, Scrying.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "darkness",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "melfs-acid-arrow",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "water-walk",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "stinking-cloud",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "freedom-of-movement",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "locate-creature",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "insect-plague",
+                    "uses": "known",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "scrying",
+                    "uses": "known",
+                    "minLevel": 9
+                  }
+                ]
+              },
+              {
+                "id": "underdark",
+                "name": "Underdark",
+                "summary": "Always-prepared circle spells. 3: Spider Climb, Web; 5: Gaseous Form, Stinking Cloud; 7: Greater Invisibility, Stone Shape; 9: Cloudkill, Insect Plague.",
+                "grants": [
+                  {
+                    "type": "spell",
+                    "spellId": "spider-climb",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "web",
+                    "uses": "known",
+                    "minLevel": 3
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "gaseous-form",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "stinking-cloud",
+                    "uses": "known",
+                    "minLevel": 5
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "greater-invisibility",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "stone-shape",
+                    "uses": "known",
+                    "minLevel": 7
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "cloudkill",
+                    "uses": "known",
+                    "minLevel": 9
+                  },
+                  {
+                    "type": "spell",
+                    "spellId": "insect-plague",
+                    "uses": "known",
+                    "minLevel": 9
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "lands-stride",
+      "name": "Land's Stride",
+      "unlockLevel": 6,
+      "short": "Ignore nonmagical difficult terrain; resist magic plants.",
+      "summary": "Moving through nonmagical difficult terrain costs no extra movement, and nonmagical plants don't slow or hurt you. You have advantage on saves against magically created plants that impede movement.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "natures-ward",
+      "name": "Nature's Ward",
+      "unlockLevel": 10,
+      "short": "Immune to poison and disease; elementals and fey can't charm or frighten you.",
+      "summary": "You can't be charmed or frightened by elementals or fey, and you are immune to poison and disease.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "immunity",
+          "against": "poison"
+        },
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "poisoned"
+        },
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "disease"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "natures-sanctuary",
+      "name": "Nature's Sanctuary",
+      "unlockLevel": 14,
+      "short": "Beasts and plants must save before attacking you.",
+      "summary": "When a beast or plant creature attacks you, it must make a WIS save against your spell DC or choose another target (or the attack misses).",
+      "facts": {
+        "action": "Passive",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

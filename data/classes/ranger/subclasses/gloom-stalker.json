@@ -1,0 +1,132 @@
+{
+  "id": "gloom-stalker",
+  "name": "Gloom Stalker",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A ranger at home in darkness who strikes first from the shadows.",
+  "features": [
+    {
+      "id": "gloom-stalker-magic",
+      "name": "Gloom Stalker Magic",
+      "unlockLevel": 3,
+      "short": "Extra ranger spells you always know.",
+      "summary": "You learn an additional spell at the listed ranger levels. They count as ranger spells for you but don't count against the number of ranger spells you know.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "dread-ambusher",
+      "name": "Dread Ambusher",
+      "unlockLevel": 3,
+      "short": "Add WIS to initiative; extra attack and speed on your first turn.",
+      "summary": "You add your Wisdom modifier to initiative rolls. On your first turn of combat, your walking speed increases by 10 ft., and if you take the Attack action you can make one extra weapon attack that deals an additional 1d8 damage on a hit.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "umbral-sight",
+      "name": "Umbral Sight",
+      "unlockLevel": 3,
+      "short": "Darkvision 60 ft.; invisible to creatures relying on darkvision.",
+      "summary": "You gain darkvision out to 60 ft. (or +30 ft. if you already have it). While in darkness, you are invisible to any creature that relies on darkvision to see you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "range": 60
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "iron-mind",
+      "name": "Iron Mind",
+      "unlockLevel": 7,
+      "short": "Proficiency in WIS saves.",
+      "summary": "You gain proficiency in Wisdom saving throws (or Intelligence or Charisma if you already have it).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "save",
+          "values": [
+            "WIS"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "stalkers-flurry",
+      "name": "Stalker's Flurry",
+      "unlockLevel": 11,
+      "short": "Once per turn, a miss lets you attack again.",
+      "summary": "Once on each of your turns when you miss with a weapon attack, you can make another weapon attack as part of the same action.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "shadowy-dodge",
+      "name": "Shadowy Dodge",
+      "unlockLevel": 15,
+      "short": "Reaction: give an attacker disadvantage.",
+      "summary": "When a creature attacks you without advantage, you can use your reaction to impose disadvantage on the roll.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Disguise Self"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Rope Trick"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Fear"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Greater Invisibility"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Seeming"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

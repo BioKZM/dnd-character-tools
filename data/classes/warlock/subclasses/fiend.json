@@ -1,0 +1,127 @@
+{
+  "id": "fiend",
+  "name": "The Fiend",
+  "source": "Player's Handbook",
+  "summary": "A pact with a being of the lower planes, fueled by destruction.",
+  "features": [
+    {
+      "id": "fiend-expanded",
+      "name": "Expanded Spell List",
+      "unlockLevel": 1,
+      "short": "Fiery spells join your warlock list.",
+      "summary": "The Fiend adds these spells to the warlock spell list for you; learn them like other warlock spells.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "dark-ones-blessing",
+      "name": "Dark One's Blessing",
+      "unlockLevel": 1,
+      "short": "Drop a hostile creature to 0 HP: gain temp HP.",
+      "summary": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to your CHA modifier + warlock level (minimum 1).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "dark-ones-own-luck",
+      "name": "Dark One's Own Luck",
+      "unlockLevel": 6,
+      "short": "Add 1d10 to an ability check or save.",
+      "summary": "When you make an ability check or saving throw, you can add a d10 to the roll, after seeing it but before the outcome. Once per short or long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "dark-ones-own-luck",
+          "name": "Dark One's Own Luck",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "fiendish-resilience",
+      "name": "Fiendish Resilience",
+      "unlockLevel": 10,
+      "short": "After a rest, choose one damage type to resist.",
+      "summary": "When you finish a short or long rest, choose one damage type; you have resistance to it until you choose another. Magical and silvered weapons ignore this.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "hurl-through-hell",
+      "name": "Hurl Through Hell",
+      "unlockLevel": 14,
+      "short": "On a hit, send the target through the lower planes for 10d10 psychic.",
+      "summary": "When you hit a creature with an attack, you can send it through the lower planes until the end of your next turn. When it returns, a non-fiend takes 10d10 psychic damage. Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "hurl-through-hell",
+          "name": "Hurl Through Hell",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Burning Hands",
+        "Command"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Blindness/Deafness",
+        "Scorching Ray"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Fireball",
+        "Stinking Cloud"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Fire Shield",
+        "Wall of Fire"
+      ],
+      "uses": "list"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Flame Strike",
+        "Hallow"
+      ],
+      "uses": "list"
+    }
+  ],
+  "notes": []
+}

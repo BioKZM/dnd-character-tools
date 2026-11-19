@@ -6,6 +6,9 @@ export type GameIconName = keyof typeof GAME_ICONS;
 
 const FALLBACK: GameIconName = "star-swirl";
 
+// Arayuzde dogrudan kullanilan ikonlar (build-game-icons bu dosyadaki isimleri tarar).
+export const UI_ICON_NAMES = ["round-star", "checked-shield", "heart-plus", "run", "tied-scroll", "laurels", "stars-stack"] as const;
+
 function pick(name: string): GameIconName {
   return (name in GAME_ICONS ? name : FALLBACK) as GameIconName;
 }
@@ -40,6 +43,16 @@ export function raceIcon(idOrName: string): GameIconName {
   return byKeywords(
     idOrName,
     [
+      [/aasimar/, "angel-wings"],
+      [/firbolg/, "deku-tree"],
+      [/goliath/, "giant"],
+      [/kenku/, "raven"],
+      [/lizardfolk|lizard/, "lizardman"],
+      [/triton/, "wave-crest"],
+      [/bugbear/, "bear-head"],
+      [/goblin/, "goblin-head"],
+      [/kobold/, "lizard-tongue"],
+      [/yuan-ti|yuan ti/, "cobra"],
       [/eladrin|fey|fairy/, "fairy"],
       [/elf|drow/, "elf-ear"],
       [/tabaxi|cat/, "cat"],
@@ -269,5 +282,39 @@ export function pactIcon(name: string): GameIconName {
       [/talisman/, "holy-symbol"],
     ],
     "evil-eyes",
+  );
+}
+
+/** Subclass (yol / oath / patron) ikonu: isimden anahtar kelimeyle (once ozel, sonra genel). */
+export function subclassIcon(name: string): GameIconName {
+  return byKeywords(
+    name,
+    [
+      [/kensei|samurai|swashbuckler/, "katana"],
+      [/twilight|fey wanderer|archfey/, "fairy"],
+      [/storm herald/, "battle-axe"],
+      [/oathbreaker|death|necromancy|grave|undead|long death|phantom/, "skull-crossed-bones"],
+      [/inquisitive|knowledge|divination/, "magnifying-glass"],
+      [/mastermind|aberrant|enchantment|soulknife|psi warrior/, "brain"],
+      [/thief/, "robber-hand"],
+      [/assassin|shadow|gloom|trickster|trickery/, "hood"],
+      [/scout|hunter|beast master|monster slayer|arcane archer|swarmkeeper/, "bow-arrow"],
+      [/old one|fiend|hexblade|archfey|fathomless|genie/, "evil-eyes"],
+      [/whisper|lore|glamour|eloquence|creation|swords|valor|spirits|illusion/, "drama-masks"],
+      [/horizon|conjuration|chronurgy|graviturgy/, "magic-portal"],
+      [/abjuration|warding|devotion|crown|redemption|watchers|order|peace/, "magic-shield"],
+      [/evocation|war magic|light|sun soul|wildfire|draconic|storm|tempest/, "fireball"],
+      [/eldritch knight|bladesinging|arcana|scribes/, "spell-book"],
+      [/transmutation|alchemist|clockwork/, "cauldron"],
+      [/open hand|astral|drunken|four elements|mercy/, "fist"],
+      [/life|celestial|divine soul|dreams|shepherd/, "heart-plus"],
+      [/forge|armorer|artillerist|battle smith/, "anvil"],
+      [/nature|land|moon|spores|stars|ancients|fey wanderer/, "oak-leaf"],
+      [/twilight|fey/, "fairy"],
+      [/drake|dragon/, "dragon-head"],
+      [/battle master|champion|banneret|cavalier|rune|echo|conquest|glory|vengeance|war domain|^war$/, "crossed-swords"],
+      [/berserker|totem|zealot|storm herald|wild magic|beast|ancestral|battlerager/, "battle-axe"],
+    ],
+    "laurels",
   );
 }

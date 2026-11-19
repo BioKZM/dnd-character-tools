@@ -1,0 +1,120 @@
+{
+  "id": "storm",
+  "name": "Storm Sorcery",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Sorcerers born of storms who move on the wind.",
+  "features": [
+    {
+      "id": "wind-speaker",
+      "name": "Wind Speaker",
+      "unlockLevel": 1,
+      "short": "Learn Primordial and its dialects.",
+      "summary": "You can speak, read and write Primordial (including Aquan, Auran, Ignan and Terran).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "language",
+          "values": [
+            "Primordial"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "tempestuous-magic",
+      "name": "Tempestuous Magic",
+      "unlockLevel": 1,
+      "short": "After casting a leveled spell, fly 10 ft. as a bonus action.",
+      "summary": "Immediately before or after you cast a spell of 1st level or higher, you can use a bonus action to fly up to 10 ft. without provoking opportunity attacks.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "heart-of-the-storm",
+      "name": "Heart of the Storm",
+      "unlockLevel": 6,
+      "short": "Resist lightning and thunder; leveled spells zap nearby foes.",
+      "summary": "You gain resistance to lightning and thunder damage. When you cast a leveled spell that deals lightning or thunder damage, creatures of your choice within 10 ft. take lightning or thunder damage equal to half your sorcerer level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "lightning"
+        },
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "thunder"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "storm-guide",
+      "name": "Storm Guide",
+      "unlockLevel": 6,
+      "short": "Control rain and wind around you.",
+      "summary": "You can stop rain falling in a 20 ft. sphere around you, and change the direction of the wind around you each round.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "storms-fury",
+      "name": "Storm's Fury",
+      "unlockLevel": 14,
+      "short": "Reaction: melee attackers take lightning damage and are pushed.",
+      "summary": "When a creature hits you with a melee attack, you can use your reaction to deal lightning damage equal to your sorcerer level and push it up to 20 ft. (STR save negates the push).",
+      "facts": {
+        "action": "Reaction",
+        "save": "STR",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "wind-soul",
+      "name": "Wind Soul",
+      "unlockLevel": 18,
+      "short": "Immune to lightning and thunder; fly 60 ft.; share flight.",
+      "summary": "You gain immunity to lightning and thunder damage and a 60 ft. flying speed. As an action, you can give up to 3 + CHA creatures a 30 ft. flying speed for 1 hour (once per short or long rest).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "immunity",
+          "against": "lightning"
+        },
+        {
+          "type": "defense",
+          "kind": "immunity",
+          "against": "thunder"
+        },
+        {
+          "type": "speed",
+          "mode": "fly",
+          "op": "set",
+          "value": 60
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

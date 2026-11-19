@@ -40,7 +40,67 @@
         }
       ]
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "acolyte-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I look up to a hero of my faith and keep pointing to their deeds as an example.",
+          "I can find common ground even with my worst enemies and always push for peace.",
+          "I see omens everywhere; the gods are always trying to tell us something.",
+          "No hardship can shake my cheerful, hopeful outlook.",
+          "I quote scripture and sayings for every occasion, not always correctly.",
+          "I swing between accepting other faiths and condemning them.",
+          "I enjoy fine food, comfort and high society; roughing it is not for me.",
+          "Years in the temple left me with little idea how to deal with ordinary people."
+        ]
+      },
+      {
+        "id": "acolyte-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Tradition. The old rites of worship and sacrifice must be kept alive. (Lawful)",
+          "Charity. I always help those in need, whatever it costs me. (Good)",
+          "Change. I must help bring about the changes the gods are working in the world. (Chaotic)",
+          "Power. One day I want to reach the top of my faith's hierarchy. (Lawful)",
+          "Faith. My god will guide me; if I work hard, things will turn out well. (Lawful)",
+          "Aspiration. I try to live up to my god's teachings and earn their favor. (Any)"
+        ]
+      },
+      {
+        "id": "acolyte-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "I would die to recover a long-lost relic of my faith.",
+          "Someday I'll get even with the corrupt temple leaders who branded me a heretic.",
+          "I owe my life to the priest who took me in when my parents died.",
+          "Everything I do is for the common people.",
+          "I'll do anything to protect the temple I served in.",
+          "I protect a sacred text that my enemies want to destroy as heresy."
+        ]
+      },
+      {
+        "id": "acolyte-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "I judge others harshly, and myself even more so.",
+          "I trust the people in power in my temple far too much.",
+          "Anyone who claims to share my faith gets my blind trust.",
+          "My thinking is rigid, even when I need to bend.",
+          "I distrust strangers and expect the worst of them.",
+          "Once I pick a goal, I let everything else in my life slide."
+        ]
+      }
+    ]
   },
   {
     "id": "anthropologist",
@@ -351,7 +411,80 @@
       "fixed": [],
       "choices": []
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "charlatan-favorite-scheme",
+        "title": "Favorite Scheme",
+        "die": 6,
+        "entries": [
+          "I rig games of chance.",
+          "I shave coins or forge documents.",
+          "I worm my way into people's lives, find their weak spots and take their money.",
+          "I put on new identities like other people change clothes.",
+          "I run sleight-of-hand cons on street corners.",
+          "I sell worthless junk as if it were treasure."
+        ]
+      },
+      {
+        "id": "charlatan-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I fall in and out of love easily and am always chasing someone new.",
+          "I have a joke for every moment, especially the wrong ones.",
+          "Flattery is how I get what I want.",
+          "I can't say no to a big risky bet with a big payoff.",
+          "I lie about almost everything, even when there's no reason to.",
+          "Sarcasm and insults are my favorite weapons.",
+          "I carry several holy symbols and call on whichever god fits the moment.",
+          "Anything valuable I see tends to end up in my pocket."
+        ]
+      },
+      {
+        "id": "charlatan-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Independence. I'm a free spirit; no one tells me what to do. (Chaotic)",
+          "Fairness. I never con people who can't afford to lose a few coins. (Lawful)",
+          "Charity. I give my ill-gotten gains to those who really need them. (Good)",
+          "Creativity. I never pull the same con twice. (Chaotic)",
+          "Friendship. Things come and go; friends are forever. (Good)",
+          "Aspiration. I'm going to make something of myself. (Any)"
+        ]
+      },
+      {
+        "id": "charlatan-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "I conned the wrong person and must keep them away from me and my own.",
+          "My mentor taught me everything; they're a terrible person and probably in jail now.",
+          "I have a child who doesn't know me, and I'm trying to make the world better for them.",
+          "My noble family's land and title were stolen, and I'll take them back.",
+          "A powerful person killed someone I loved, and I'll have my revenge.",
+          "I ruined someone who didn't deserve it, and I'm trying to make amends."
+        ]
+      },
+      {
+        "id": "charlatan-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "I can't resist a pretty face.",
+          "I'm always in debt; my dishonest money goes on luxuries faster than it comes in.",
+          "I'm sure no one could ever con me the way I con others.",
+          "I'm too greedy to pass up a gamble with money on the line.",
+          "I can't stop myself from swindling people more powerful than me.",
+          "When things go bad I save my own skin, and I hate myself for it."
+        ]
+      }
+    ]
   },
   {
     "id": "city-watch",
@@ -510,7 +643,82 @@
       "fixed": [],
       "choices": []
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "criminal-criminal-specialty",
+        "title": "Criminal Specialty",
+        "die": 8,
+        "entries": [
+          "Blackmailer",
+          "Burglar",
+          "Enforcer",
+          "Fence",
+          "Highway robber",
+          "Hired killer",
+          "Pickpocket",
+          "Smuggler"
+        ]
+      },
+      {
+        "id": "criminal-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I always have a backup plan for when things go wrong.",
+          "I stay calm no matter what; I never lose my temper.",
+          "In a new place, the first thing I do is spot the valuables and the hiding places.",
+          "I'd rather make a friend than an enemy.",
+          "I'm slow to trust; the friendliest-looking people often hide the most.",
+          "I don't care about the odds, so don't tell me them.",
+          "Tell me I can't do something and I'll set out to prove you wrong.",
+          "The smallest insult makes me blow up."
+        ]
+      },
+      {
+        "id": "criminal-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Honor. I don't steal from others in the trade. (Lawful)",
+          "Freedom. Chains are meant to be broken, and so are the people who make them. (Chaotic)",
+          "Charity. I steal from the rich to help people in need. (Good)",
+          "Greed. I'll do whatever it takes to get rich. (Evil)",
+          "People. I'm loyal to my friends, not to any ideal; everyone else can rot. (Neutral)",
+          "Redemption. There's some good in everyone. (Good)"
+        ]
+      },
+      {
+        "id": "criminal-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "I'm paying back a debt to a generous benefactor.",
+          "My crimes keep my family fed.",
+          "Something important was stolen from me, and I'll steal it back.",
+          "I'm going to be the greatest thief who ever lived.",
+          "I did something terrible and hope to make up for it someday.",
+          "Someone I loved died because of my mistake; it will never happen again."
+        ]
+      },
+      {
+        "id": "criminal-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "When I see something valuable, all I can think about is stealing it.",
+          "Choosing between money and friends, I usually pick money.",
+          "If there's a plan, I'll forget it, or ignore it.",
+          "I have a tell that gives me away when I lie.",
+          "I run the moment things look bad.",
+          "An innocent person is in prison for my crime, and that's fine by me."
+        ]
+      }
+    ]
   },
   {
     "id": "dimir-operative",
@@ -633,7 +841,84 @@
       "fixed": [],
       "choices": []
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "entertainer-entertainer-routine",
+        "title": "Entertainer Routine",
+        "die": 10,
+        "entries": [
+          "Actor",
+          "Dancer",
+          "Fire-eater",
+          "Jester",
+          "Juggler",
+          "Instrumentalist",
+          "Poet",
+          "Singer",
+          "Storyteller",
+          "Tumbler"
+        ]
+      },
+      {
+        "id": "entertainer-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I have a story for every situation.",
+          "In every new town I pick up the local gossip and pass it on.",
+          "I'm a hopeless romantic, always looking for my one true love.",
+          "Nobody stays angry with me for long; I can defuse any tension.",
+          "I love a good insult, even one aimed at me.",
+          "I sulk when I'm not the center of attention.",
+          "Nothing less than perfect will do.",
+          "My moods change as fast as a song changes key."
+        ]
+      },
+      {
+        "id": "entertainer-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Beauty. My performances make the world better than it was. (Good)",
+          "Tradition. The old songs and stories tell us who we are and must be kept. (Lawful)",
+          "Creativity. The world needs new ideas and bold action. (Chaotic)",
+          "Greed. I'm only in it for the money and the fame. (Evil)",
+          "People. I like seeing people smile when I perform; that's all. (Neutral)",
+          "Honesty. Art should show who you really are. (Any)"
+        ]
+      },
+      {
+        "id": "entertainer-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "My instrument is my most treasured possession and reminds me of someone I love.",
+          "Someone stole my beloved instrument, and one day I'll get it back.",
+          "I want to be famous, whatever it takes.",
+          "I try to live up to a hero of the old tales.",
+          "I'll do anything to prove I'm better than my hated rival.",
+          "I'd do anything for the members of my old troupe."
+        ]
+      },
+      {
+        "id": "entertainer-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "I'll do anything to win fame and renown.",
+          "A pretty face makes me lose my head.",
+          "A scandal keeps me from going home, and trouble seems to follow me.",
+          "I once mocked a noble who still wants my head, and I'd probably do it again.",
+          "I can't hide what I feel, and my sharp tongue gets me in trouble.",
+          "I try, but my friends can't count on me."
+        ]
+      }
+    ]
   },
   {
     "id": "faceless",
@@ -789,7 +1074,102 @@
         }
       ]
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "feylost-fey-mark",
+        "title": "Fey Mark",
+        "die": 8,
+        "required": true,
+        "note": "Your stay in the Feywild changed you a little. The background says to roll; you can also pick.",
+        "entries": [
+          "Your eyes shimmer through every color of the rainbow.",
+          "You smell faintly sweet, like honey or nectar.",
+          "You have long whiskers, like a cat's.",
+          "Your ears are pointed and tipped with soft fur.",
+          "Your skin glitters faintly under moonlight.",
+          "Flowers near you bloom or wilt, as you wish.",
+          "Your hair is a tangle of vines or brambles that grows back fast when cut.",
+          "You have a small animal tail, like a dog's."
+        ]
+      },
+      {
+        "id": "feylost-feywild-visitor",
+        "title": "Feywild Visitor",
+        "die": 8,
+        "note": "Sometimes, while you sleep or trance on a long rest, a spirit from the Feywild visits you. It means no harm and leaves only a memory. The DM decides when it happens; this table says what shape it takes.",
+        "entries": [
+          "An awakened animal or plant",
+          "A centaur",
+          "A dryad",
+          "A faerie dragon",
+          "A pixie",
+          "A satyr",
+          "A sprite",
+          "A unicorn"
+        ]
+      },
+      {
+        "id": "feylost-personality",
+        "title": "Personality Trait",
+        "die": 8,
+        "entries": [
+          "I keep hearing fey laughter. It is probably in my head.",
+          "I can't stay in one place for long; the road keeps calling.",
+          "A beautiful song can bring me to tears.",
+          "I carry a little piece of home with me, and share it.",
+          "Everything still fills me with a child's wonder.",
+          "Every new idea thrills me, until a newer one comes along.",
+          "I live by my own odd rules, and they make sense to me.",
+          "Grown-ups make me suspicious."
+        ]
+      },
+      {
+        "id": "feylost-ideal",
+        "title": "Ideal",
+        "die": 8,
+        "entries": [
+          "Friendship. I never leave a friend behind. (Good)",
+          "Empathy. Nobody should have to suffer. (Good)",
+          "Wanderlust. The path nobody takes is the one for me. (Chaotic)",
+          "Changeability. Rules shift, so I shift with them. (Chaotic)",
+          "Honor. A deal is a deal, and I keep mine. (Lawful)",
+          "Rule of Three. Things come in threes, and I watch for them. (Lawful)",
+          "Obsession. I never let go of a grudge. (Evil)",
+          "Greed. I take what I want, whoever gets hurt. (Evil)"
+        ]
+      },
+      {
+        "id": "feylost-bond",
+        "title": "Bond",
+        "die": 8,
+        "entries": [
+          "My word is everything; I never break it.",
+          "Magic pulls me in, especially where it runs thick.",
+          "I protect the wild places of the world.",
+          "One trusted friend means more to me than anything.",
+          "I will not harm a fey creature.",
+          "The Witchlight Carnival feels like home to me.",
+          "I long to go back to the Feywild.",
+          "I owe a debt to Mister Witch and Mister Light."
+        ]
+      },
+      {
+        "id": "feylost-flaw",
+        "title": "Flaw",
+        "die": 8,
+        "entries": [
+          "I lose track of time and I'm always late.",
+          "I'm sure the whole multiverse is out to get me.",
+          "I cling to schedules and get anxious when plans slip.",
+          "Shiny, sparkly things tend to end up in my pockets.",
+          "I forget things, even simple ones.",
+          "I never give anything away without getting something back.",
+          "I have far too many vices.",
+          "I change my mind all the time."
+        ]
+      }
+    ]
   },
   {
     "id": "fisher",
@@ -843,7 +1223,84 @@
       "fixed": [],
       "choices": []
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "folk-hero-defining-event",
+        "title": "Defining Event",
+        "die": 10,
+        "entries": [
+          "I stood up to a tyrant's soldiers.",
+          "I saved people during a natural disaster.",
+          "I stood alone against a terrible monster.",
+          "I stole from a corrupt merchant to help the poor.",
+          "I led a militia that fought off an invading army.",
+          "I broke into a tyrant's castle and stole weapons to arm the people.",
+          "I trained the peasantry to fight a tyrant's soldiers with farm tools.",
+          "A lord took back an unpopular decree after I led a symbolic protest.",
+          "A celestial, fey or similar creature blessed me or revealed my secret origin.",
+          "Recruited into a lord's army, I rose to leadership and was praised for my heroism."
+        ]
+      },
+      {
+        "id": "folk-hero-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I judge people by what they do, not what they say.",
+          "If someone is in trouble, I'm always ready to help.",
+          "Once I set my mind on something, I follow through no matter what.",
+          "I have a strong sense of fair play and always look for the fairest solution.",
+          "I'm confident in my abilities and try to build up others' confidence too.",
+          "Thinking is for other people; I prefer action.",
+          "I misuse long words to sound smart.",
+          "I get bored easily. When am I going to get on with my destiny?"
+        ]
+      },
+      {
+        "id": "folk-hero-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Respect. People deserve to be treated with dignity. (Good)",
+          "Fairness. No one should be above the law, rulers least of all. (Lawful)",
+          "Freedom. Tyrants must not be allowed to oppress the people. (Chaotic)",
+          "Might. If I become strong, I can take what I want, what I deserve. (Evil)",
+          "Sincerity. There's no good in pretending to be something I'm not. (Neutral)",
+          "Destiny. Nothing will turn me from my higher calling. (Any)"
+        ]
+      },
+      {
+        "id": "folk-hero-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "My family is out there somewhere, and I hope to find them.",
+          "I worked the land, I love the land, and I'll protect it.",
+          "A proud noble once beat me badly; I take revenge on every bully I meet.",
+          "My tools are symbols of my past life, and I carry them to remember my roots.",
+          "I protect people who can't protect themselves.",
+          "I wish my childhood sweetheart had come with me to chase my destiny."
+        ]
+      },
+      {
+        "id": "folk-hero-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "The tyrant who rules my land will stop at nothing to see me dead.",
+          "I'm so sure of my destiny that I ignore my weaknesses and the risk of failure.",
+          "The people who knew me as a child know my shameful secret, so I can't go home.",
+          "I have a weakness for the vices of the city, especially hard drink.",
+          "Secretly, I think things would be better if I were the tyrant.",
+          "I have trouble trusting my allies."
+        ]
+      }
+    ]
   },
   {
     "id": "gambler",
@@ -1077,7 +1534,94 @@
         }
       ]
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "guild-artisan-guild-business",
+        "title": "Guild Business",
+        "die": 20,
+        "entries": [
+          "Alchemists and apothecaries",
+          "Armorers, locksmiths and finesmiths",
+          "Brewers, distillers and vintners",
+          "Calligraphers, scribes and scriveners",
+          "Carpenters, roofers and plasterers",
+          "Cartographers, surveyors and chart-makers",
+          "Cobblers and shoemakers",
+          "Cooks and bakers",
+          "Glassblowers and glaziers",
+          "Jewelers and gemcutters",
+          "Leatherworkers, skinners and tanners",
+          "Masons and stonecutters",
+          "Painters, limners and sign-makers",
+          "Potters and tile-makers",
+          "Shipwrights and sailmakers",
+          "Smiths and metal-forgers",
+          "Tinkers, pewterers and casters",
+          "Wagon-makers and wheelwrights",
+          "Weavers and dyers",
+          "Woodcarvers, coopers and bowyers"
+        ]
+      },
+      {
+        "id": "guild-artisan-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I believe anything worth doing is worth doing right; I can't help it.",
+          "I'm a snob who looks down on people who can't appreciate fine art.",
+          "I always want to know how things work and what makes people tick.",
+          "I'm full of sayings and proverbs for every situation.",
+          "I'm rude to people who lack my commitment to hard work and fair play.",
+          "I like to talk at length about my trade.",
+          "I don't part with my money easily and haggle for the best deal.",
+          "I'm well known for my work and expect people to recognize me."
+        ]
+      },
+      {
+        "id": "guild-artisan-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Community. Civilized people must strengthen the bonds of community and civilization. (Lawful)",
+          "Generosity. My talents were given to me so I could help the world. (Good)",
+          "Freedom. Everyone should be free to make a living the way they choose. (Chaotic)",
+          "Greed. I'm only in it for the money. (Evil)",
+          "People. I'm loyal to the people I care about, not to ideals. (Neutral)",
+          "Aspiration. I work hard to be the best there is at my craft. (Any)"
+        ]
+      },
+      {
+        "id": "guild-artisan-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "The workshop where I learned my trade is the most important place in the world to me.",
+          "I made a masterwork for someone who didn't deserve it, and I'm still looking for someone who does.",
+          "I owe my guild a great debt for making me who I am.",
+          "I want to get rich to win someone's love.",
+          "One day I'll return to my guild and prove I'm the best artisan of them all.",
+          "I'll get revenge on the evil forces that destroyed my business and ruined my life."
+        ]
+      },
+      {
+        "id": "guild-artisan-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "I'll do nearly anything to get my hands on something rare or priceless.",
+          "I'm quick to assume someone is trying to cheat me.",
+          "No one must know I once stole money from the guild treasury.",
+          "I'm never satisfied with what I have; I always want more.",
+          "I would kill for a noble title.",
+          "I'm horribly jealous of anyone who outdoes my work. Rivals are everywhere."
+        ]
+      }
+    ]
   },
   {
     "id": "harborfolk",
@@ -1164,7 +1708,82 @@
         }
       ]
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "hermit-life-of-seclusion",
+        "title": "Life of Seclusion",
+        "die": 8,
+        "entries": [
+          "I was searching for spiritual enlightenment.",
+          "I was living in a religious community, following its rules.",
+          "I was exiled for a crime I didn't commit.",
+          "I withdrew from society after a life-changing event.",
+          "I needed a quiet place to work on my art, writing, music or manifesto.",
+          "I needed to commune with nature, far from civilization.",
+          "I was the caretaker of an ancient ruin or relic.",
+          "I was a pilgrim searching for a holy person, place or relic."
+        ]
+      },
+      {
+        "id": "hermit-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I've been alone so long that I barely speak; gestures and grunts will do.",
+          "I stay calm even in the face of disaster.",
+          "The leader of my old community taught me wise sayings, and I share them constantly.",
+          "I feel great sympathy for everyone who suffers.",
+          "Manners and social expectations mean nothing to me.",
+          "Everything that happens is part of a greater plan.",
+          "I often get lost in thought and forget what's around me.",
+          "I'm working on a grand philosophical theory and love to talk about it."
+        ]
+      },
+      {
+        "id": "hermit-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Greater Good. My gifts are meant to be shared with everyone, not used for myself. (Good)",
+          "Logic. Emotions must not cloud what is right and true. (Lawful)",
+          "Free Thinking. Curiosity and questions are what move the world forward. (Chaotic)",
+          "Power. Solitude and thought lead to mystical or magical power. (Evil)",
+          "Live and Let Live. Getting involved in other people's business only causes trouble. (Neutral)",
+          "Self-Knowledge. If you truly know yourself, there's nothing left to know. (Any)"
+        ]
+      },
+      {
+        "id": "hermit-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "Nothing matters more to me than the others of my hermitage, order or group.",
+          "I went into seclusion to hide from people who may still be hunting me; one day I'll face them.",
+          "I'm still looking for the enlightenment I sought in my seclusion.",
+          "I went into seclusion because I loved someone I could never have.",
+          "If my discovery became known, it could bring ruin on the world.",
+          "In my isolation I found a great evil that only I can destroy."
+        ]
+      },
+      {
+        "id": "hermit-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "Now that I'm back in the world, I enjoy its pleasures a bit too much.",
+          "I hide dark, bloodthirsty thoughts that my isolation never cured.",
+          "I'm rigid in my beliefs and philosophy.",
+          "I have to win arguments, even at the cost of a friendship.",
+          "I'd take great risks to find a lost piece of knowledge.",
+          "I like keeping secrets and won't share them with anyone."
+        ]
+      }
+    ]
   },
   {
     "id": "hillsfar-merchant",
@@ -1654,7 +2273,67 @@
         }
       ]
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "noble-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I flatter everyone I meet and make them feel special.",
+          "The common folk love me for my kindness and generosity.",
+          "One look at my bearing tells you I'm a cut above the rest.",
+          "I take great care to look my best and follow the latest fashion.",
+          "Hard work and poor lodgings are beneath me.",
+          "I may be noble by birth, but I don't think I'm better than anyone else.",
+          "Once you lose my favor, you never get it back.",
+          "Insult me and I'll ruin you, your name and your family."
+        ]
+      },
+      {
+        "id": "noble-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Respect. People owe me respect because of my station, but everyone deserves dignity. (Good)",
+          "Responsibility. I respect those above me, and those below me must respect me. (Lawful)",
+          "Independence. I must prove I can manage without my family's help. (Chaotic)",
+          "Power. If I gain enough power, no one will tell me what to do. (Evil)",
+          "Family. Blood runs thicker than water. (Any)",
+          "Noble Obligation. I must protect and care for the people beneath me. (Good)"
+        ]
+      },
+      {
+        "id": "noble-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "I'll face any challenge to win my family's approval.",
+          "My house's alliance with another noble family must be kept at all costs.",
+          "Nothing is more important than the rest of my family.",
+          "I'm in love with the heir of a family my own family hates.",
+          "My loyalty to my sovereign never wavers.",
+          "The common people must see me as their hero."
+        ]
+      },
+      {
+        "id": "noble-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "Secretly, I think everyone else is beneath me.",
+          "I hide a scandal that could ruin my family forever.",
+          "I hear veiled insults and threats in everything and anger quickly.",
+          "I have an endless appetite for pleasure.",
+          "In fact, the world does revolve around me.",
+          "What I say and do often brings shame on my family."
+        ]
+      }
+    ]
   },
   {
     "id": "orzhov-representative",
@@ -1713,7 +2392,84 @@
         }
       ]
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "outlander-origin",
+        "title": "Origin",
+        "die": 10,
+        "entries": [
+          "Forester",
+          "Trapper",
+          "Homesteader",
+          "Guide",
+          "Exile or outcast",
+          "Bounty hunter",
+          "Pilgrim",
+          "Tribal nomad",
+          "Hunter-gatherer",
+          "Tribal marauder"
+        ]
+      },
+      {
+        "id": "outlander-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I'm driven by a wanderlust that took me away from home.",
+          "I watch over my friends as if they were newborn pups.",
+          "I once ran for miles without stopping to warn my clan of danger, and I'd do it again.",
+          "I have a lesson for every situation, taken from watching nature.",
+          "I have no use for the rich and well-mannered; money and manners won't save you from a hungry bear.",
+          "I'm always fiddling absently with things I pick up.",
+          "I'm far more comfortable around animals than people.",
+          "I was, in fact, raised by wolves."
+        ]
+      },
+      {
+        "id": "outlander-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Change. Life is like the seasons; it is always changing, and so must we. (Chaotic)",
+          "Greater Good. Everyone has to do their part for the good of the tribe. (Good)",
+          "Honor. If I dishonor myself, I dishonor my whole clan. (Lawful)",
+          "Might. The strongest are meant to rule. (Evil)",
+          "Nature. The natural world matters more than all the works of civilization. (Neutral)",
+          "Glory. I must earn glory in battle, for myself and my clan. (Any)"
+        ]
+      },
+      {
+        "id": "outlander-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "My family, clan or tribe is the most important thing in my life, even far from them.",
+          "Harm done to the wild places of my home is harm done to me.",
+          "I'll bring terrible vengeance on the evildoers who destroyed my homeland.",
+          "I am the last of my tribe, and it's up to me to keep their names alive.",
+          "I have terrible visions of a coming disaster and will do anything to stop it.",
+          "It is my duty to have children to carry on my tribe."
+        ]
+      },
+      {
+        "id": "outlander-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "I'm far too fond of ale, wine and other drink.",
+          "There's no room for caution in a life lived to the fullest.",
+          "I remember every insult and hold a quiet grudge.",
+          "I'm slow to trust people of other peoples and tribes.",
+          "Violence is my answer to almost every problem.",
+          "Don't expect me to save people who can't save themselves; that's how nature works."
+        ]
+      }
+    ]
   },
   {
     "id": "phlan-insurgent",
@@ -2108,7 +2864,82 @@
       "Common clothes",
       "Pouch containing 10 gp"
     ],
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "sage-specialty",
+        "title": "Specialty",
+        "die": 8,
+        "entries": [
+          "Alchemist",
+          "Astronomer",
+          "Discredited academic",
+          "Librarian",
+          "Professor",
+          "Researcher",
+          "Wizard's apprentice",
+          "Scribe"
+        ]
+      },
+      {
+        "id": "sage-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I use long, fancy words to sound learned.",
+          "I've read every book in the world's greatest libraries, or I like to say I have.",
+          "I'm used to explaining things to people less clever than me, and I'm patient about it.",
+          "Nothing excites me more than a good mystery.",
+          "I listen to every side of an argument before making up my mind.",
+          "I talk slowly and carefully to people, as if they were a bit dim.",
+          "I'm terribly awkward in social situations.",
+          "I'm sure people are always trying to steal my secrets."
+        ]
+      },
+      {
+        "id": "sage-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Knowledge. Knowledge is the path to power and self-improvement. (Neutral)",
+          "Beauty. Beautiful things point us toward what is true. (Good)",
+          "Logic. Emotions must not cloud our thinking. (Lawful)",
+          "No Limits. Nothing should hold back the endless possibilities of existence. (Chaotic)",
+          "Power. Knowledge is the way to power and control. (Evil)",
+          "Self-Improvement. The point of study is to make yourself better. (Any)"
+        ]
+      },
+      {
+        "id": "sage-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "It is my duty to protect my students.",
+          "I have an ancient text full of terrible secrets that must not fall into the wrong hands.",
+          "I work to preserve a library, university, scriptorium or monastery.",
+          "My life's work is a series of books on one subject.",
+          "I've been searching all my life for the answer to one question.",
+          "I sold my soul for knowledge, and I hope to win it back with great deeds."
+        ]
+      },
+      {
+        "id": "sage-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "The promise of new knowledge pulls me away from anything else.",
+          "Most people run from a demon; I'd stop to study its anatomy.",
+          "Unlocking an ancient mystery is worth the price of a civilization.",
+          "I miss obvious answers while chasing complicated ones.",
+          "I speak without thinking and often insult people.",
+          "I can't keep a secret to save my life, or anyone else's."
+        ]
+      }
+    ]
   },
   {
     "id": "sailor",
@@ -2130,7 +2961,67 @@
       "fixed": [],
       "choices": []
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "sailor-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "My friends know they can rely on me, no matter what.",
+          "I work hard so that I can play hard once the work is done.",
+          "I love sailing into new ports and making friends over a drink.",
+          "I stretch the truth for the sake of a good story.",
+          "To me, a tavern brawl is a nice way to get to know a new city.",
+          "I never pass up a friendly wager.",
+          "My language is as foul as it gets.",
+          "I like a job well done, especially if someone else does it."
+        ]
+      },
+      {
+        "id": "sailor-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Respect. A ship holds together on respect between captain and crew. (Good)",
+          "Fairness. We all do the work, so we all share the rewards. (Lawful)",
+          "Freedom. The sea is freedom: the freedom to go anywhere and do anything. (Chaotic)",
+          "Mastery. I'm a predator, and the other ships on the sea are my prey. (Evil)",
+          "People. I'm committed to my crewmates, not to ideals. (Neutral)",
+          "Aspiration. Someday I'll have my own ship and chart my own course. (Any)"
+        ]
+      },
+      {
+        "id": "sailor-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "My loyalty to my captain comes first; everything else is second.",
+          "The ship matters most; crews and captains come and go.",
+          "I'll always remember my first ship.",
+          "In a harbor town I have a sweetheart whose eyes nearly kept me from the sea.",
+          "I was cheated out of my fair share of the profits, and I want what's mine.",
+          "Pirates killed my captain and crew, took our ship and left me to die. Vengeance will be mine."
+        ]
+      },
+      {
+        "id": "sailor-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "I follow orders even when I think they're wrong.",
+          "I'll say anything to get out of extra work.",
+          "If someone questions my courage, I never back down, however dangerous it is.",
+          "Once I start drinking, it's hard for me to stop.",
+          "I can't help pocketing loose coins and other trinkets.",
+          "My pride will probably be the end of me."
+        ]
+      }
+    ]
   },
   {
     "id": "secret-identity",
@@ -2343,7 +3234,82 @@
       "fixed": [],
       "choices": []
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "soldier-specialty",
+        "title": "Specialty",
+        "die": 8,
+        "entries": [
+          "Officer",
+          "Scout",
+          "Infantry",
+          "Cavalry",
+          "Healer",
+          "Quartermaster",
+          "Standard bearer",
+          "Support staff (cook, blacksmith or the like)"
+        ]
+      },
+      {
+        "id": "soldier-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I'm always polite and respectful.",
+          "I'm haunted by memories of war and can't get the violence out of my head.",
+          "I've lost too many friends, and I'm slow to make new ones.",
+          "I'm full of inspiring and cautionary stories from my service for almost any fight.",
+          "I can stare down a hell hound without flinching.",
+          "I enjoy being strong and like breaking things.",
+          "I have a crude sense of humor.",
+          "I face problems head-on; a simple, direct solution is the best way to success."
+        ]
+      },
+      {
+        "id": "soldier-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Greater Good. It is our duty to give our lives to protect others. (Good)",
+          "Responsibility. I do what I must and obey just authority. (Lawful)",
+          "Independence. Blindly following orders is a kind of tyranny. (Chaotic)",
+          "Might. In life as in war, the stronger side wins. (Evil)",
+          "Live and Let Live. Ideals aren't worth killing over or going to war for. (Neutral)",
+          "Nation. My city, nation or people are all that matter. (Any)"
+        ]
+      },
+      {
+        "id": "soldier-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "I would still give my life for the people I served with.",
+          "Someone saved my life on the battlefield. To this day, I never leave a friend behind.",
+          "My honor is my life.",
+          "I'll never forget the crushing defeat my company suffered or the enemies who caused it.",
+          "Those who fight beside me are worth dying for.",
+          "I fight for those who cannot fight for themselves."
+        ]
+      },
+      {
+        "id": "soldier-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "The monstrous enemy we faced in battle still makes me tremble with fear.",
+          "I have little respect for anyone who isn't a proven warrior.",
+          "I made a terrible mistake in battle that cost many lives, and I'd do anything to keep it secret.",
+          "My hatred of my enemies is blind and unreasoning.",
+          "I obey the law, even when the law causes misery.",
+          "I'd rather eat my armor than admit I'm wrong."
+        ]
+      }
+    ]
   },
   {
     "id": "stojanow-prisoner",
@@ -2468,7 +3434,67 @@
       "fixed": [],
       "choices": []
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "urchin-personality-trait",
+        "title": "Personality Trait",
+        "die": 8,
+        "note": "Pick or roll one or two.",
+        "entries": [
+          "I hide scraps of food and trinkets in my pockets.",
+          "I ask a lot of questions.",
+          "I like to squeeze into small places where no one can get to me.",
+          "I sleep with my back to a wall or tree, holding onto everything I own.",
+          "I eat like a pig and have terrible manners.",
+          "I think anyone who's nice to me is hiding something nasty.",
+          "I don't like to bathe.",
+          "I say out loud what other people only hint at or hide."
+        ]
+      },
+      {
+        "id": "urchin-ideal",
+        "title": "Ideal",
+        "die": 6,
+        "note": "What drives you.",
+        "entries": [
+          "Respect. Everyone, rich or poor, deserves respect. (Good)",
+          "Community. We have to look after each other, because no one else will. (Lawful)",
+          "Change. The low are lifted up and the high brought down. Change is the way of things. (Chaotic)",
+          "Retribution. The rich need to be shown what life in the gutter is like. (Evil)",
+          "People. I help the people who help me; that's how we survive. (Neutral)",
+          "Aspiration. I'm going to prove that I deserve a better life than this. (Any)"
+        ]
+      },
+      {
+        "id": "urchin-bond",
+        "title": "Bond",
+        "die": 6,
+        "note": "Who or what you care about most.",
+        "entries": [
+          "My town or city is my home, and I'll fight to defend it.",
+          "I support an orphanage to keep other children from going through what I did.",
+          "I owe my survival to another urchin who taught me to live on the streets.",
+          "I owe a debt I can never repay to the person who took pity on me.",
+          "I escaped poverty by robbing someone important, and now I'm wanted for it.",
+          "No one else should have to suffer what I went through."
+        ]
+      },
+      {
+        "id": "urchin-flaw",
+        "title": "Flaw",
+        "die": 6,
+        "note": "A weakness others could use against you.",
+        "entries": [
+          "If I'm outnumbered, I run away.",
+          "Gold looks like a lot of money to me, and I'll do just about anything for more of it.",
+          "I'll never fully trust anyone other than myself.",
+          "I'd rather kill someone in their sleep than fight fair.",
+          "It's not stealing if I need it more than someone else.",
+          "People who can't take care of themselves get what they deserve."
+        ]
+      }
+    ]
   },
   {
     "id": "uthgardt-tribe-member",

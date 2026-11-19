@@ -1,0 +1,74 @@
+{
+  "id": "creation",
+  "name": "College of Creation",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Bards who sing the Song of Creation and bring objects to life.",
+  "features": [
+    {
+      "id": "mote-of-potential",
+      "name": "Mote of Potential",
+      "unlockLevel": 3,
+      "short": "Your inspiration dice gain extra effects.",
+      "summary": "When you give Bardic Inspiration, a mote of potential orbits the creature. On an ability check it rolls the die twice; on an attack it deals thunder damage around the target; on a save it gains temporary hit points.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "performance-of-creation",
+      "name": "Performance of Creation",
+      "unlockLevel": 3,
+      "short": "Action: create a non-magical item from nothing.",
+      "summary": "As an action, you create a nonmagical item worth up to 20 x your bard level gp, of a size based on your level. It lasts a number of hours equal to your PB. Once per long rest (or by spending a 2nd-level slot).",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "performance-of-creation",
+          "name": "Performance of Creation",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "animating-performance",
+      "name": "Animating Performance",
+      "unlockLevel": 6,
+      "short": "Animate a Large or smaller object as a dancing ally.",
+      "summary": "As an action, you animate a Large or smaller nonmagical item for 1 hour. It obeys you, acts on your turn and can use Irrepressible Dance to slow or speed creatures. Once per long rest (or by spending a 3rd-level slot).",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "animating-performance",
+          "name": "Animating Performance",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "creative-crescendo",
+      "name": "Creative Crescendo",
+      "unlockLevel": 14,
+      "short": "Create several items at once, of any size.",
+      "summary": "When you use Performance of Creation, you can create up to CHA-modifier items at once, and there is no gp limit for one of them.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

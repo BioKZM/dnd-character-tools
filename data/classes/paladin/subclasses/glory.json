@@ -1,0 +1,149 @@
+{
+  "id": "glory",
+  "name": "Oath of Glory",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Paladins destined for heroic deeds and athletic feats.",
+  "features": [
+    {
+      "id": "glory-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "short": "Oath spells that are always prepared for free.",
+      "summary": "You always have your oath spells prepared once you reach the listed paladin levels. They don't count against the number of spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "peerless-athlete",
+      "name": "Channel Divinity: Peerless Athlete",
+      "unlockLevel": 3,
+      "short": "Bonus action: advantage on Athletics and Acrobatics, better jumps.",
+      "summary": "As a bonus action, for 10 minutes you have advantage on Strength (Athletics) and Dexterity (Acrobatics) checks, can carry more, and jump 10 ft. farther.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "Channel Divinity",
+        "duration": "10 minutes"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "inspiring-smite",
+      "name": "Channel Divinity: Inspiring Smite",
+      "unlockLevel": 3,
+      "short": "After a Divine Smite, share 2d8 + level temp HP.",
+      "summary": "Immediately after you deal Divine Smite damage, you can use Channel Divinity as a bonus action to distribute 2d8 + your paladin level temporary hit points among creatures within 30 ft.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "Channel Divinity"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "aura-of-alacrity",
+      "name": "Aura of Alacrity",
+      "unlockLevel": 7,
+      "short": "+10 ft. walking speed; allies who start near you get it too.",
+      "summary": "Your walking speed increases by 10 ft. Allies who start their turn within 5 ft. of you (10 ft. at 18th level) also gain +10 ft. speed until the end of their turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "speed",
+          "mode": "walk",
+          "op": "add",
+          "value": 10
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "glorious-defense",
+      "name": "Glorious Defense",
+      "unlockLevel": 15,
+      "short": "Reaction: add CHA to AC against an attack, then counterattack.",
+      "summary": "When you or a creature within 10 ft. is hit, you can use your reaction to add your Charisma modifier to its AC; if the attack misses, you can make a weapon attack against the attacker. Uses: CHA modifier per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "glorious-defense",
+          "name": "Glorious Defense",
+          "uses": "CHA",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "living-legend",
+      "name": "Living Legend",
+      "unlockLevel": 20,
+      "short": "Advantage on CHA checks, turn misses into hits, reroll saves.",
+      "summary": "As a bonus action, for 1 minute you have advantage on Charisma checks, once per turn you can turn a missed weapon attack into a hit, and you can reroll a failed save as a reaction. Once per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "living-legend",
+          "name": "Living Legend",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Guiding Bolt",
+        "Heroism"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Enhance Ability",
+        "Magic Weapon"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Haste",
+        "Protection from Energy"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Compulsion",
+        "Freedom of Movement"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Commune",
+        "Flame Strike"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

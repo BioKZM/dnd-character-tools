@@ -1,0 +1,170 @@
+{
+  "id": "battle-smith",
+  "name": "Battle Smith",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A protector and healer who fights alongside a mechanical steel defender.",
+  "features": [
+    {
+      "id": "battle-smith-tools",
+      "name": "Tool Proficiency",
+      "unlockLevel": 3,
+      "short": "Proficiency with smith's tools.",
+      "summary": "You gain proficiency with smith's tools.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "tool",
+          "values": [
+            "Smith's Tools"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "battle-smith-spells",
+      "name": "Battle Smith Spells",
+      "unlockLevel": 3,
+      "short": "Smite and support spells that are always prepared.",
+      "summary": "You always have certain spells prepared after you reach particular levels in this class. They don't count against the number of artificer spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "battle-ready",
+      "name": "Battle Ready",
+      "unlockLevel": 3,
+      "short": "Martial weapons; use INT to attack with magic weapons.",
+      "summary": "You gain proficiency with martial weapons. When you attack with a magic weapon, you can use your Intelligence modifier instead of Strength or Dexterity for attack and damage rolls.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "weapon",
+          "values": [
+            "Martial Weapons"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "steel-defender",
+      "name": "Steel Defender",
+      "unlockLevel": 3,
+      "short": "A loyal construct companion that protects you.",
+      "summary": "You build a steel defender that obeys you and acts on your turn. It can make a force-empowered rend (1d8 + PB force) and use its reaction to impose disadvantage on an attack against a creature within 5 ft. Its hit points equal 2 + INT modifier + 5 x your artificer level. You command it with a bonus action.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "battle-smith-extra-attack",
+      "name": "Extra Attack",
+      "unlockLevel": 5,
+      "short": "Attack twice with the Attack action.",
+      "summary": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "arcane-jolt",
+      "name": "Arcane Jolt",
+      "unlockLevel": 9,
+      "short": "On a hit, add 2d6 force or heal someone 2d6.",
+      "summary": "When you or your steel defender hit with a magic weapon attack, you can deal an extra 2d6 force damage or restore 2d6 hit points to a creature within 30 ft. of the target. Uses: Intelligence modifier per long rest, once per turn.",
+      "facts": {
+        "action": "Passive",
+        "uses": "INT per long rest"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "arcane-jolt",
+          "name": "Arcane Jolt",
+          "uses": "INT",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 9,
+          "label": "2d6"
+        },
+        {
+          "level": 15,
+          "label": "4d6"
+        }
+      ]
+    },
+    {
+      "id": "improved-defender",
+      "name": "Improved Defender",
+      "unlockLevel": 15,
+      "short": "Jolt becomes 4d6; defender gets tougher.",
+      "summary": "Arcane Jolt's extra damage and healing become 4d6. Your steel defender gains +2 AC, and its deflect reaction deals 1d4 + INT force damage to the attacker.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Heroism",
+        "Shield"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Branding Smite",
+        "Warding Bond"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Aura of Vitality",
+        "Conjure Barrage"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Aura of Purity",
+        "Fire Shield"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Banishing Smite",
+        "Mass Cure Wounds"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,130 @@
+{
+  "id": "wildfire",
+  "name": "Circle of Wildfire",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Druids of destruction and renewal who bond with a fiery spirit.",
+  "features": [
+    {
+      "id": "wildfire-circle-spells",
+      "name": "Circle Spells",
+      "unlockLevel": 2,
+      "short": "Fire and healing spells that are always prepared.",
+      "summary": "You always have certain spells prepared at the listed druid levels; they don't count against the spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "summon-wildfire-spirit",
+      "name": "Summon Wildfire Spirit",
+      "unlockLevel": 2,
+      "short": "Spend Wild Shape to summon a fiery spirit companion.",
+      "summary": "As an action, expend Wild Shape to summon a wildfire spirit within 30 ft. Creatures within 10 ft. make a DEX save or take 2d6 fire damage. The spirit lasts 1 hour, acts on your turn, can teleport allies with Fiery Teleportation and attacks with Flame Seed.",
+      "facts": {
+        "action": "Action",
+        "cost": "1 Wild Shape",
+        "save": "DEX",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "enhanced-bond",
+      "name": "Enhanced Bond",
+      "unlockLevel": 6,
+      "short": "With your spirit out, add 1d8 to fire damage and healing.",
+      "summary": "While your wildfire spirit is summoned, your spells that deal fire damage or restore hit points roll an extra 1d8, and you can cast spells as though from the spirit's space.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "cauterizing-flames",
+      "name": "Cauterizing Flames",
+      "unlockLevel": 10,
+      "short": "Spectral flames from dying creatures heal or burn.",
+      "summary": "When a Small or larger creature dies within 30 ft. of you or your spirit, a flame appears in its space for 1 minute. As a reaction when a creature enters it, you can heal it or deal fire damage equal to 2d10 + WIS. Uses: PB per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "cauterizing-flames",
+          "name": "Cauterizing Flames",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "blazing-revival",
+      "name": "Blazing Revival",
+      "unlockLevel": 14,
+      "short": "At 0 HP, your spirit sacrifices itself to bring you back.",
+      "summary": "If your wildfire spirit is within 120 ft. when you drop to 0 hit points, it can drop to 0 itself and you regain half your hit points and stand up. Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "blazing-revival",
+          "name": "Blazing Revival",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 2,
+      "spells": [
+        "Burning Hands",
+        "Cure Wounds"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Flaming Sphere",
+        "Scorching Ray"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Plant Growth",
+        "Revivify"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Aura of Life",
+        "Fire Shield"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Flame Strike",
+        "Mass Cure Wounds"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

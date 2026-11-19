@@ -1,0 +1,178 @@
+{
+  "id": "hunter",
+  "name": "Hunter",
+  "source": "Player's Handbook",
+  "summary": "A ranger who specializes in bringing down dangerous prey.",
+  "features": [
+    {
+      "id": "hunters-prey",
+      "name": "Hunter's Prey",
+      "unlockLevel": 3,
+      "short": "Choose Colossus Slayer, Giant Killer or Horde Breaker.",
+      "summary": "You gain one of the following features.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "hunter-prey",
+          "label": "Hunter's Prey",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "colossus-slayer",
+                "name": "Colossus Slayer",
+                "summary": "Once per turn, +1d8 damage to a creature below its hit point maximum.",
+                "grants": []
+              },
+              {
+                "id": "giant-killer",
+                "name": "Giant Killer",
+                "summary": "Reaction: attack a Large or larger creature within 5 ft. that attacks you.",
+                "grants": []
+              },
+              {
+                "id": "horde-breaker",
+                "name": "Horde Breaker",
+                "summary": "Once per turn, attack a second creature within 5 ft. of your target.",
+                "grants": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "defensive-tactics",
+      "name": "Defensive Tactics",
+      "unlockLevel": 7,
+      "short": "Choose a defensive technique.",
+      "summary": "You gain one of the following features.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "hunter-defensive-tactics",
+          "label": "Defensive Tactics",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "escape-the-horde",
+                "name": "Escape the Horde",
+                "summary": "Opportunity attacks against you have disadvantage.",
+                "grants": []
+              },
+              {
+                "id": "multiattack-defense",
+                "name": "Multiattack Defense",
+                "summary": "After a creature hits you, +4 AC against its other attacks this turn.",
+                "grants": []
+              },
+              {
+                "id": "steel-will",
+                "name": "Steel Will",
+                "summary": "Advantage on saves against being frightened.",
+                "grants": [
+                  {
+                    "type": "defense",
+                    "kind": "save_advantage",
+                    "against": "frightened"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hunter-multiattack",
+      "name": "Multiattack",
+      "unlockLevel": 11,
+      "short": "Choose Volley or Whirlwind Attack.",
+      "summary": "You gain one of the following features.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "hunter-multiattack",
+          "label": "Multiattack",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "volley",
+                "name": "Volley",
+                "summary": "Action: ranged attack against any number of creatures within a 10 ft. radius.",
+                "grants": []
+              },
+              {
+                "id": "whirlwind-attack",
+                "name": "Whirlwind Attack",
+                "summary": "Action: melee attack against every creature within 5 ft.",
+                "grants": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "superior-hunters-defense",
+      "name": "Superior Hunter's Defense",
+      "unlockLevel": 15,
+      "short": "Choose Evasion, Stand Against the Tide or Uncanny Dodge.",
+      "summary": "You gain one of the following features.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "hunter-superior-defense",
+          "label": "Superior Hunter's Defense",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "evasion",
+                "name": "Evasion",
+                "summary": "DEX saves for half damage: no damage on a success, half on a failure.",
+                "grants": []
+              },
+              {
+                "id": "stand-against-the-tide",
+                "name": "Stand Against the Tide",
+                "summary": "Reaction: when a creature misses you in melee, make it hit another creature.",
+                "grants": []
+              },
+              {
+                "id": "uncanny-dodge",
+                "name": "Uncanny Dodge",
+                "summary": "Reaction: halve the damage of an attack that hits you.",
+                "grants": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

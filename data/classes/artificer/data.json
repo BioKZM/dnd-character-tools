@@ -1167,7 +1167,12 @@
     }
   ],
   "subclassHeading": "Artificer Specialist",
-  "subclasses": [],
+  "subclasses": [
+    "alchemist",
+    "armorer",
+    "artillerist",
+    "battle-smith"
+  ],
   "highlights": [
     {
       "title": "Combat Role",

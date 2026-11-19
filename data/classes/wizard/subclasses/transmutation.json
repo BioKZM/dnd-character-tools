@@ -1,0 +1,83 @@
+{
+  "id": "transmutation",
+  "name": "School of Transmutation",
+  "source": "Player's Handbook",
+  "summary": "Wizards who reshape matter and craft a transmuter's stone.",
+  "features": [
+    {
+      "id": "transmutation-savant",
+      "name": "Transmutation Savant",
+      "unlockLevel": 2,
+      "short": "Copy transmutation spells for half the time and gold.",
+      "summary": "The gold and time you must spend to copy a transmutation spell into your spellbook is halved.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "minor-alchemy",
+      "name": "Minor Alchemy",
+      "unlockLevel": 2,
+      "short": "Temporarily turn one material into another.",
+      "summary": "You can spend 10 minutes per cubic foot to transform an object made of wood, stone (not gemstone), iron, copper or silver into another of those materials for 1 hour.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "transmuters-stone",
+      "name": "Transmuter's Stone",
+      "unlockLevel": 6,
+      "short": "Craft a stone that grants darkvision, speed, a save or a resistance.",
+      "summary": "Over 8 hours you create a transmuter's stone. Its holder gains one benefit you choose: darkvision 60 ft., +10 ft. speed, proficiency in CON saves, or resistance to acid, cold, fire, lightning or thunder damage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "shapechanger",
+      "name": "Shapechanger",
+      "unlockLevel": 10,
+      "short": "Cast Polymorph on yourself without a slot.",
+      "summary": "You add Polymorph to your spellbook. You can cast it without a slot to turn yourself into a beast of CR 1 or lower. Once per short or long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "polymorph",
+          "uses": "known"
+        },
+        {
+          "type": "resource",
+          "id": "shapechanger",
+          "name": "Shapechanger",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "master-transmuter",
+      "name": "Master Transmuter",
+      "unlockLevel": 14,
+      "short": "Destroy your stone for a major transformation.",
+      "summary": "As an action, you consume your transmuter's stone to: transmute a nonmagical object, remove all curses, diseases and poisons from a creature, cast Raise Dead without a slot, or reduce a creature's apparent age by 3d10 years.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

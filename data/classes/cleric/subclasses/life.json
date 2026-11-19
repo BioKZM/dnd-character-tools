@@ -1,0 +1,155 @@
+{
+  "id": "life",
+  "name": "Life Domain",
+  "source": "Player's Handbook",
+  "summary": "Healers of gods of vitality.",
+  "features": [
+    {
+      "id": "life-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "life-proficiency",
+      "name": "Bonus Proficiency",
+      "unlockLevel": 1,
+      "short": "Heavy armor.",
+      "summary": "You gain proficiency with heavy armor.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Heavy Armor"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "disciple-of-life",
+      "name": "Disciple of Life",
+      "unlockLevel": 1,
+      "short": "Healing spells restore 2 + spell level extra HP.",
+      "summary": "Whenever you use a spell of 1st level or higher to restore hit points, the creature regains additional hit points equal to 2 + the spell's level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "preserve-life",
+      "name": "Channel Divinity: Preserve Life",
+      "unlockLevel": 2,
+      "short": "Split 5 x your level in healing among nearby allies.",
+      "summary": "As an action, restore a number of hit points equal to five times your cleric level, divided among creatures within 30 ft. No creature can be healed above half its maximum this way.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "blessed-healer",
+      "name": "Blessed Healer",
+      "unlockLevel": 6,
+      "short": "Healing others also heals you.",
+      "summary": "When you cast a spell of 1st level or higher that restores hit points to a creature other than you, you regain 2 + the spell's level hit points.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "life-divine-strike",
+      "name": "Divine Strike",
+      "unlockLevel": 8,
+      "short": "Once per turn, weapon hits deal +1d8 radiant (2d8 at 14th).",
+      "summary": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 radiant damage. At 14th level the extra damage becomes 2d8.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 8,
+          "label": "1d8"
+        },
+        {
+          "level": 14,
+          "label": "2d8"
+        }
+      ]
+    },
+    {
+      "id": "supreme-healing",
+      "name": "Supreme Healing",
+      "unlockLevel": 17,
+      "short": "Healing dice always roll their maximum.",
+      "summary": "When you would roll dice to restore hit points with a spell, use the highest number possible for each die instead.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Bless",
+        "Cure Wounds"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Lesser Restoration",
+        "Spiritual Weapon"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Beacon of Hope",
+        "Revivify"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Death Ward",
+        "Guardian of Faith"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Mass Cure Wounds",
+        "Raise Dead"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

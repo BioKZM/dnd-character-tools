@@ -1,5 +1,7 @@
 "use client";
 
+import { rollTablePick } from "@/components/ui/roll-tables";
+import { SPELLBOOK_COPIED_KEY, SPELLBOOK_KEY, copyCost, payGold } from "@/lib/character/spellbook";
 import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
 import { FactChips, LayeredFeature } from "@/components/ui/feature-rules";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
@@ -15,6 +17,9 @@ import { emptyDraft, FULL_HP, stripLeakedDemoValues, type CharacterDraft, type A
 import type { LineageCatalog } from "@/lib/data/lineages/schema";
 import { SheetSpellsPanel } from "@/components/sheet-spells-panel";
 import { SheetResourcesPanel } from "@/components/sheet-resources-panel";
+import { SheetCombatView } from "@/components/sheet-combat-view";
+import { GameIcon } from "@/components/ui/game-icon";
+import { backgroundIcon, classIcon, featureIcon, skillIcon } from "@/lib/ui/game-icons";
 import { SheetInventoryPanel } from "@/components/sheet-inventory-panel";
 import { availableChoices, languageChoices, sanitizeChoices, type EngineCatalog } from "@/lib/engine/collect";
 import { flexibleBonusAmounts } from "@/lib/data/lineages/ability-rules";
@@ -38,7 +43,7 @@ type LocalActivity = {
   createdAt: string;
 };
 
-type InfoTab = "actions" | "spells" | "inventory" | "features" | "background";
+type InfoTab = "skills" | "actions" | "spells" | "inventory" | "features" | "background";
 type CreatorStep = 0 | 1 | 2 | 3;
 type ActivityFilter = "all" | "rolls" | "system";
 type ActionFilter = "all" | "Attack" | "Action" | "Bonus Action" | "Reaction" | "Other";
@@ -220,6 +225,10 @@ function renderInlineHelp(label: string, content: string) {
 
 function renderKeywordHelp(label: string, content: string) {
   return <InlineHelp label={label} content={content} variant="keyword" />;
+}
+
+function abilityAccentClassName(abilityId: string) {
+  return `ability-accent ability-accent-${abilityId.toLowerCase()}`;
 }
 
 function statValueClassName(tone: "neutral" | "boosted") {
@@ -1530,8 +1539,13 @@ export function PartyRoomDashboard({
   const [activityLog, setActivityLog] = useState<LocalActivity[]>([]);
   const [isActivityOpen, setIsActivityOpen] = useState(false);
   const [activityFilter, setActivityFilter] = useState<ActivityFilter>("all");
-  const [activeTab, setActiveTab] = useState<InfoTab>("actions");
+  const [activeTab, setActiveTab] = useState<InfoTab>("skills");
+  const [hpAmount, setHpAmount] = useState(5);
+  const [sheetMenuOpen, setSheetMenuOpen] = useState(false);
+  const [sheetSkillFocus, setSheetSkillFocus] = useState<string | null>(null);
   const [actionFilter, setActionFilter] = useState<ActionFilter>("all");
+  // Sheet'in savas gorunumu: eylemler kisayol cubugu gibi, sagda secili eylemin sayilari.
+  const [combatView, setCombatView] = useState(false);
   // Level up'taki "Choose" linkleri creator'i ilgili adimda acar.
   const [creatorStep, setCreatorStep] = useState<CreatorStep>(() => (mode === "creator" ? readCreatorJump()?.step ?? 0 : 0));
   const jsonImportRef = useRef<HTMLInputElement | null>(null);
@@ -2306,6 +2320,8 @@ export function PartyRoomDashboard({
           jump:
             entry.sourceKind === "feat"
               ? { step: 2, browser: "feats" }
+              : entry.sourceKind === "subclass"
+              ? { step: 1, browser: "subclass" }
               : entry.choice.from.kind === "option"
               ? { step: 1, browser: "class-features" }
               : entry.choice.from.kind === "language"
@@ -2457,415 +2473,313 @@ export function PartyRoomDashboard({
         {mode === "sheet" ? (
         <>
         <div className="screen-only">
-        <section className="sheet-header">
-          <div className="crest-card">
-            <ClassPortrait classId={draft.classId} alt={draft.classId} className="sheet-crest-portrait" />
-          </div>
-
-          <div className="identity-card">
-            <h1>{draft.name}</h1>
-            <p>
-              {sheetContent.speciesName} {sheetContent.className} | Level {draft.level}
-            </p>
-          </div>
-
-          <div className="top-actions">
-            <div className="top-actions-group">
-              <button className="sheet-button secondary" disabled={draft.level >= 20} onClick={() => setLevelUpPhase("preview")}>
-                Level Up
-              </button>
-              {levelUpTasks.length ? (
-                <button className="sheet-button secondary level-up-pending" onClick={() => setLevelUpPhase("tasks")}>
-                  {`${levelUpTasks.length} choice${levelUpTasks.length === 1 ? "" : "s"} pending`}
-                </button>
-              ) : null}
-              <button className="sheet-button secondary" onClick={shortRest}>
-                Short Rest
-              </button>
-              <button className="sheet-button secondary" onClick={longRest}>
-                Long Rest
-              </button>
-            </div>
-            <div className="top-actions-divider print-hide" />
-            <div className="top-actions-group print-hide">
-              <button className="sheet-button secondary" onClick={exportSheetJson}>
-                Export JSON
-              </button>
-              <button className="sheet-button secondary" onClick={() => jsonImportRef.current?.click()}>
-                Import JSON
-              </button>
-              <button className="sheet-button secondary" onClick={() => pdfImportRef.current?.click()}>
-                Import PDF
-              </button>
-              <button className="sheet-button secondary" onClick={exportSheetPdf}>
-                Export PDF
-              </button>
-            </div>
-            <input ref={jsonImportRef} type="file" accept="application/json,.json" className="visually-hidden" onChange={importSheetJson} />
-            <input ref={pdfImportRef} type="file" accept="application/pdf,.pdf" className="visually-hidden" onChange={importSheetPdf} />
-          </div>
-        </section>
-
-        <section className="top-rack">
-          <div className="top-rack-stack">
-            <div className="stat-rack stat-rack-primary">
-              {sheetDraft.abilities.map((ability) => (
-                <article className="stat-card" key={ability.id}>
-                  <div className="stat-card-top">
-                    <span className="stat-label">{ability.label}</span>
-                  </div>
-                  <div className="stat-card-middle">
-                    <button
-                      className="stat-roll"
-                      onClick={() => void broadcastCheck(`${ability.label} check`, ability.modifier)}
-                    >
-                      {formatSigned(ability.modifier)}
-                    </button>
-                  </div>
-                  <div className="stat-card-bottom">
-                    <span className="stat-score">{ability.score}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="top-rack-divider" />
-
-            <div className="stat-rack stat-rack-secondary">
-              <article className="badge-card badge-card-secondary">
-                <span className="stat-label">
-                  {renderKeywordHelp(
-                    "Proficiency",
-                    "Proficiency bonus is added to trained skills, saving throws, attacks, and other checks your character is proficient with.",
-                  )}
-                </span>
-                <strong>{formatSigned(sheetDraft.proficiencyBonus)}</strong>
-              </article>
-
-              <article className="badge-card badge-card-secondary">
-                <span className="stat-label">
-                  {renderKeywordHelp(
-                    "Walking",
-                    "Walking speed shows how far your character can move on foot during a turn under normal conditions.",
-                  )}
-                </span>
-                <InlineHelp
-                  label={<strong className={statValueClassName(sheetContent.derivedStats.walkingSpeed.tone)}>{sheetContent.derivedStats.walkingSpeed.displayValue}</strong>}
-                  ariaLabel="Walking speed breakdown"
-                  content={statTooltipContent(sheetContent.derivedStats.walkingSpeed)}
-                  variant="formula"
-                  tooltipClassName="sheet-inline-tooltip"
-                />
-                {sheetContent.derivedStats.extraMovementModes.map((speed) => (
-                  <InlineHelp
-                    key={speed.id}
-                    label={<span className="stat-label">{`${speed.label.replace(" Speed", "")} ${speed.displayValue}`}</span>}
-                    ariaLabel={`${speed.label} breakdown`}
-                    content={statTooltipContent(speed)}
-                    variant="keyword"
-                    tooltipClassName="sheet-inline-tooltip"
-                  />
-                ))}
-              </article>
-
-
-              <article className="badge-card badge-card-secondary">
-                <span className="stat-label">
-                  {renderKeywordHelp(
-                    "Initiative",
-                    "Initiative determines your place in combat order when an encounter begins.",
-                  )}
-                </span>
-                <strong>{formatSigned(sheetDraft.initiative)}</strong>
-              </article>
-
-              <article className="badge-card badge-card-secondary badge-card-ac">
-                <span className="stat-label">
-                  {renderKeywordHelp(
-                    "Armor Class",
-                    "Armor Class is the number an attack roll must meet or exceed to hit your character.",
-                  )}
-                </span>
-                <InlineHelp
-                  label={<strong className={statValueClassName(sheetContent.derivedStats.armorClass.tone)}>{sheetContent.derivedStats.armorClass.displayValue}</strong>}
-                  ariaLabel="Armor Class breakdown"
-                  content={statTooltipContent(sheetContent.derivedStats.armorClass)}
-                  variant="formula"
-                  tooltipClassName="sheet-inline-tooltip"
-                />
-              </article>
-
-              <article className="badge-card badge-card-secondary">
-                <span className="stat-label">Heroic Inspiration</span>
-                <strong>{draft.inspiration ? "Ready" : "Empty"}</strong>
-              </article>
-            </div>
-          </div>
-
-          <article className="hp-card">
-            <div className="hp-actions">
-              <button className="sheet-button success" onClick={() => applyHealing(5)}>
-                Heal
-              </button>
-              <button className="sheet-button danger" onClick={() => applyDamage(5)}>
-                Damage
-              </button>
-              <button className="sheet-button secondary" onClick={() => setTempHp((value) => value + 5)}>
-                Temp +5
-              </button>
-            </div>
-
-            <div className="hp-values">
-              <div>
-                <span>Current</span>
-                <strong>{displayedCurrentHp}</strong>
-              </div>
-              <div>
-                <span>Max</span>
-                <strong>{sheetDraft.maxHp}</strong>
-              </div>
-              <div>
-                <span>Temp</span>
-                <strong>{tempHp}</strong>
-              </div>
-            </div>
-          </article>
-        </section>
-
-        <section className="sheet-grid">
-          <div className="sheet-column left-column">
-            <article className="sheet-card">
-              <div className="card-heading">
-                <h2>
-                  {renderKeywordHelp(
-                    "Saving Throws",
-                    "Saving throws represent your character resisting harmful effects like spells, traps, poison, fear, or other forced threats.",
-                  )}
-                </h2>
-                <span>System bonuses</span>
-              </div>
-              <div className="sheet-subcaption">Saving Throw Modifiers</div>
-              <div className="save-grid">
-                {sheetDraft.savingThrows.map((save) => (
-                  <button
-                    className="save-row interactive"
-                    key={save.ability}
-                    onClick={() => void broadcastCheck(`${save.ability} save`, save.bonus)}
-                  >
-                    <span className="save-row-main">
-                      <span className="save-prof-mark">{save.proficient ? "★" : "○"}</span>
-                      <span>{save.ability}</span>
+        {(() => {
+          const subclassName = currentCuratedClass?.subclasses.find((entry) => draft.selectedSubclassOptions.includes(entry.id))?.name ?? null;
+          const hpPercent = sheetDraft.maxHp ? Math.max(0, Math.min(100, Math.round((displayedCurrentHp / sheetDraft.maxHp) * 100))) : 0;
+          const hpTone = hpPercent <= 25 ? "low" : hpPercent <= 50 ? "mid" : "high";
+          const lastRoll = activityLog[0] ?? null;
+          const abilityNames: Record<string, string> = { STR: "Strength", DEX: "Dexterity", CON: "Constitution", INT: "Intelligence", WIS: "Wisdom", CHA: "Charisma" };
+          const tabs: Array<{ id: InfoTab; label: string }> = [
+            { id: "skills", label: "Skills" },
+            ...(sheetContent.spellcasting.length || sheetContent.spellEntries.length ? [{ id: "spells" as InfoTab, label: "Spells" }] : []),
+            { id: "inventory", label: "Inventory" },
+            { id: "features", label: "Features & Traits" },
+            { id: "background", label: "Background" },
+          ];
+          const shownTab = tabs.some((tab) => tab.id === activeTab) ? activeTab : "skills";
+          const focusSkill = sheetDraft.skills.find((skill) => skill.id === sheetSkillFocus) ?? null;
+          return (
+            <>
+              <section className="cs-hero">
+                <div className="cs-hero-id">
+                  <span className="cs-portrait">
+                    <GameIcon name={classIcon(draft.classId)} />
+                  </span>
+                  <span className="cs-name">
+                    <h1>{draft.name}</h1>
+                    <span>
+                      {[
+                        draft.classId ? `${sheetContent.speciesName} ${sheetContent.className.replace(/\s+\d+$/, "")} ${draft.level}` : "No class picked yet: open the Creator",
+                        subclassName,
+                      ]
+                        .filter(Boolean)
+                        .join(" · ")}
                     </span>
-                    <strong>{formatSigned(save.bonus)}</strong>
-                  </button>
-                ))}
-              </div>
-            </article>
-
-            <article className="sheet-card">
-              <div className="card-heading">
-                <h2>Senses</h2>
-                <span>Click for explanation</span>
-              </div>
-              <div className="sense-list">
-                {sheetDraft.senses.map((sense) => (
-                  <div className="sense-row" key={sense.id}>
-                    <strong>{sense.value}</strong>
-                    <span>{renderKeywordHelp(sense.label, `${sense.description} Current value: ${sense.value}.`)}</span>
+                  </span>
+                </div>
+                <div className="cs-hp">
+                  <div className="cs-hp-top">
+                    <strong>Hit Points</strong>
+                    <span>
+                      <b>{displayedCurrentHp}</b>
+                      {` / ${sheetDraft.maxHp}`}
+                      {tempHp ? <em>{` +${tempHp} temp`}</em> : null}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </article>
-
-            <article className="sheet-card">
-              <div className="card-heading">
-                <h2>Proficiencies & Training</h2>
-                <span>Armor, tools, and languages</span>
-              </div>
-              <div className="training-block">
-                <div>
-                  <span className="mini-heading">{renderKeywordHelp("Armor", proficiencyTooltip("Armor", sheetDraft.proficiencies.armor))}</span>
-                  <p>{sheetDraft.proficiencies.armor.join(", ")}</p>
-                </div>
-                <div>
-                  <span className="mini-heading">{renderKeywordHelp("Weapons", proficiencyTooltip("Weapons", sheetDraft.proficiencies.weapons))}</span>
-                  <p>{sheetDraft.proficiencies.weapons.join(", ")}</p>
-                </div>
-                <div>
-                  <span className="mini-heading">{renderKeywordHelp("Tools", proficiencyTooltip("Tools", sheetDraft.proficiencies.tools))}</span>
-                  <p>{sheetDraft.proficiencies.tools.join(", ")}</p>
-                </div>
-                <div>
-                  <span className="mini-heading">{renderKeywordHelp("Languages", proficiencyTooltip("Languages", sheetDraft.proficiencies.languages))}</span>
-                  <p>{sheetDraft.proficiencies.languages.join(", ")}</p>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <div className="sheet-column middle-column pdf-page-break-before">
-            <article className="sheet-card grow-card">
-              <div className="card-heading">
-                <h2>Skills</h2>
-                <span>Click a row for details, hit + to roll</span>
-              </div>
-              <div className="skill-table-head">
-                <span>Prof</span>
-                <span>Mod</span>
-                <span>Skill</span>
-                <span>Bonus</span>
-              </div>
-              <div className="skill-table">
-                {sheetDraft.skills.map((skill) => (
-                  <div className="skill-row" key={skill.id}>
-                    <div className="skill-meta">
-                      <span className="skill-dot">{skill.proficient ? "★" : "○"}</span>
-                      <span className="skill-ability">{skill.ability}</span>
-                      <strong className="skill-name">
-                        {renderKeywordHelp(skill.label, skill.description || skillDescriptions[skill.id] || skill.breakdown)}
-                      </strong>
-                    </div>
-                    <button
-                      className="bonus-pill"
-                      onClick={() => void broadcastCheck(skill.label, skill.bonus)}
-                    >
-                      {formatSigned(skill.bonus)}
+                  <div className={`cs-hp-bar ${hpTone}`} aria-hidden="true">
+                    <span style={{ width: `${hpPercent}%` }} />
+                    {tempHp ? <i style={{ width: `${Math.min(100, Math.round((tempHp / Math.max(1, sheetDraft.maxHp)) * 100))}%` }} /> : null}
+                  </div>
+                  <div className="cs-hp-controls">
+                    <input
+                      type="number"
+                      min={1}
+                      value={hpAmount}
+                      aria-label="Amount"
+                      onChange={(event) => setHpAmount(Math.max(1, Number(event.target.value) || 1))}
+                    />
+                    <button type="button" className="cs-chip heal" onClick={() => applyHealing(hpAmount)}>
+                      Heal
+                    </button>
+                    <button type="button" className="cs-chip damage" onClick={() => applyDamage(hpAmount)}>
+                      Damage
+                    </button>
+                    <button type="button" className="cs-chip" onClick={() => setTempHp((value) => value + hpAmount)}>
+                      Temp HP
                     </button>
                   </div>
-                ))}
-              </div>
-            </article>
-
-            <article className="sheet-card">
-              <div className="card-heading">
-                <h2>Defenses & Conditions</h2>
-                <span>Resistances and current effects</span>
-              </div>
-              <div className="defense-grid">
-                <div className="detail-card">
-                  <span className="mini-heading inline-heading">
-                    <span>Defenses</span>
-                    {renderInlineHelp("Defenses", "Resistances, immunities, and passive protections currently affecting the character.")}
-                  </span>
-                  <p>{sheetDraft.defenses.join(", ") || "None"}</p>
                 </div>
-                <div className="detail-card">
-                  <span className="mini-heading inline-heading">
-                    <span>Conditions</span>
-                    {renderInlineHelp("Conditions", "Current combat states and ongoing effects such as concentration, prone, or restrained.")}
+                <div className="cs-quick">
+                  <span className="cs-stat ac">
+                    <small>AC</small>
+                    <InlineHelp
+                      label={<b>{sheetContent.derivedStats.armorClass.displayValue}</b>}
+                      ariaLabel="Armor Class breakdown"
+                      content={statTooltipContent(sheetContent.derivedStats.armorClass)}
+                      variant="formula"
+                    />
                   </span>
-                  <p>{draft.conditions.join(", ")}</p>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <div className="sheet-column right-column">
-            <article className="sheet-card tabs-card pdf-page-break-before-soft">
-              <div className="tab-strip">
-                {(["actions", "spells", "inventory", "features", "background"] as InfoTab[])
-                  .filter((tab) => tab !== "spells" || sheetContent.spellcasting.length || sheetContent.spellEntries.length)
-                  .map((tab) => (
-                  <button
-                    className={tab === activeTab ? "tab-button active" : "tab-button"}
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                  >
-                    {tab === "features" ? "Features & Traits" : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  <span className="cs-stat">
+                    <small>Speed</small>
+                    <InlineHelp
+                      label={<b>{sheetContent.derivedStats.walkingSpeed.displayValue.replace(" ft.", "")}</b>}
+                      ariaLabel="Speed breakdown"
+                      content={statTooltipContent(sheetContent.derivedStats.walkingSpeed)}
+                      variant="formula"
+                    />
+                  </span>
+                  <button type="button" className="cs-stat" onClick={() => void broadcastCheck("Initiative", sheetDraft.initiative)}>
+                    <small>Init</small>
+                    <b>{formatSigned(sheetDraft.initiative)}</b>
                   </button>
-                ))}
-              </div>
-
-              {activeTab === "spells" ? (
-                <SheetSpellsPanel
-                  profiles={sheetContent.spellcasting}
-                  spells={sheetContent.spellEntries}
-                  usedSlots={draft.usedSlots ?? {}}
-                  onSlotChange={setSlotUsage}
-                />
-              ) : null}
-
-              {activeTab === "actions" ? (
-                <div className="tab-body action-tab-body">
-                  <SheetResourcesPanel
-                    resources={sheetContent.resources}
-                    usedResources={draft.usedResources ?? {}}
-                    onChange={setResourceUsage}
-                    saveDcs={sheetContent.saveDcs}
-                    martialArtsDie={sheetContent.martialArtsDie}
-                  />
-                  <div className="action-header">
-                    <span>Actions</span>
-                    <span>{`${sheetContent.builtActions.length} total entries`}</span>
-                  </div>
-                  <div className="action-filter-strip">
-                    {(["all", "Attack", "Action", "Bonus Action", "Reaction", "Other"] as ActionFilter[]).map((filter) => (
-                      <button
-                        key={filter}
-                        type="button"
-                        className={actionFilter === filter ? "tab-button active" : "tab-button"}
-                        onClick={() => setActionFilter(filter)}
-                      >
-                        {filter === "all" ? "All" : filter}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="action-card-list">
-                    {filteredActions.length ? filteredActions.map((action) => (
-                      <article className="spell-selection-row action-selection-row" key={action.id}>
-                        <div className="spell-selection-main">
-                          <strong className="spell-selection-title">
-                            <InlineHelp
-                              label={action.name}
-                              variant="keyword"
-                              tooltipClassName="sheet-inline-tooltip action-inline-tooltip-shell"
-                              content={actionTooltipContent(action)}
-                            />
-                          </strong>
-                          {action.short ? <span className="action-selection-short">{highlightKeywords(action.short, action.id)}</span> : null}
-                          <span className="action-selection-source">{action.source}</span>
-                        </div>
-                        {/* Savasta bakilan degerler satirin kendisinde: menzil, vurus, hasar. */}
-                        <div className="action-stats">
-                          {[
-                            { label: "Range", value: action.range, formula: undefined as string | undefined },
-                            { label: "Hit / DC", value: action.hit, formula: action.formula?.hit },
-                            { label: "Damage", value: action.damage, formula: action.formula?.damage },
-                          ]
-                            .filter((cell) => cell.value && cell.value !== "-")
-                            .map((cell) => (
-                              <span key={`${action.id}-${cell.label}`} className={`action-stat action-stat-${cell.label.toLowerCase().replace(/\W+/g, "")}`}>
-                                <small>{cell.label}</small>
-                                {cell.formula ? (
-                                  <InlineHelp
-                                    label={<b>{cell.value}</b>}
-                                    ariaLabel={`${action.name} ${cell.label} formula`}
-                                    content={<div className="stat-breakdown-tooltip"><strong>{cell.label}</strong><div>{cell.formula}</div></div>}
-                                    variant="formula"
-                                  />
-                                ) : (
-                                  <b>{cell.value}</b>
-                                )}
-                              </span>
-                            ))}
-                          {action.facts ? (
-                            <FactChips facts={{ ...action.facts, save: undefined, range: undefined }} dcs={saveDcValues} hidePassive />
-                          ) : action.category !== "Attack" ? (
-                            <span className="action-category-chip">{action.category}</span>
-                          ) : null}
-                        </div>
-                      </article>
-                    )) : (
-                      <div className="list-row">
-                        <strong>No actions in this filter</strong>
-                        <span>Change the filter or add more spells, action-ready features, or inventory items.</span>
-                      </div>
-                    )}
-                  </div>
+                  <span className="cs-stat">
+                    <small>Prof.</small>
+                    <b>{formatSigned(sheetDraft.proficiencyBonus)}</b>
+                  </span>
+                  <button
+                    type="button"
+                    className={draft.inspiration ? "cs-stat inspired" : "cs-stat"}
+                    aria-pressed={draft.inspiration}
+                    onClick={() => updateDraft((current) => ({ ...current, inspiration: !current.inspiration }))}
+                  >
+                    <small>Inspiration</small>
+                    <b>{draft.inspiration ? "Yes" : "No"}</b>
+                  </button>
                 </div>
-              ) : null}
+              </section>
 
-              {activeTab === "inventory" ? (
+              <section className="cs-toolbar">
+                <div className="cs-modes" role="tablist" aria-label="Sheet mode">
+                  <button type="button" role="tab" aria-selected={!combatView} className={!combatView ? "cs-mode active" : "cs-mode"} onClick={() => setCombatView(false)}>
+                    Character
+                  </button>
+                  <button type="button" role="tab" aria-selected={combatView} className={combatView ? "cs-mode active" : "cs-mode"} onClick={() => setCombatView(true)}>
+                    Combat
+                  </button>
+                </div>
+                {lastRoll ? (
+                  <button type="button" className="cs-last-roll" onClick={() => setIsActivityOpen(true)} title="Open recent activity">
+                    {lastRoll.message}
+                  </button>
+                ) : (
+                  <span className="cs-last-roll muted">Click a bonus to roll it.</span>
+                )}
+                <div className="cs-actions">
+                  {levelUpTasks.length ? (
+                    <button type="button" className="cs-button pending" onClick={() => setLevelUpPhase("tasks")}>
+                      {`${levelUpTasks.length} choice${levelUpTasks.length === 1 ? "" : "s"} pending`}
+                    </button>
+                  ) : null}
+                  <button type="button" className="cs-button" disabled={draft.level >= 20} onClick={() => setLevelUpPhase("preview")}>
+                    Level Up
+                  </button>
+                  <button type="button" className="cs-button" onClick={shortRest}>
+                    Short Rest
+                  </button>
+                  <button type="button" className="cs-button" onClick={longRest}>
+                    Long Rest
+                  </button>
+                  <div className="cs-menu">
+                    <button type="button" className="cs-button" aria-expanded={sheetMenuOpen} aria-label="More" onClick={() => setSheetMenuOpen((value) => !value)}>
+                      ···
+                    </button>
+                    {sheetMenuOpen ? (
+                      <div className="cs-menu-list" role="menu">
+                        <button type="button" role="menuitem" onClick={() => { setSheetMenuOpen(false); exportSheetJson(); }}>Export JSON</button>
+                        <button type="button" role="menuitem" onClick={() => { setSheetMenuOpen(false); jsonImportRef.current?.click(); }}>Import JSON</button>
+                        <button type="button" role="menuitem" onClick={() => { setSheetMenuOpen(false); exportSheetPdf(); }}>Export PDF</button>
+                        <button type="button" role="menuitem" onClick={() => { setSheetMenuOpen(false); pdfImportRef.current?.click(); }}>Import PDF</button>
+                      </div>
+                    ) : null}
+                  </div>
+                  <input ref={jsonImportRef} type="file" accept="application/json,.json" className="visually-hidden" onChange={importSheetJson} />
+                  <input ref={pdfImportRef} type="file" accept="application/pdf,.pdf" className="visually-hidden" onChange={importSheetPdf} />
+                </div>
+              </section>
+
+              <section className="cs-body">
+                <div className="cs-main">
+                  {combatView ? (
+                    <SheetCombatView
+                      actions={sheetContent.builtActions}
+                      resources={sheetContent.resources}
+                      usedResources={draft.usedResources ?? {}}
+                      onResourceChange={setResourceUsage}
+                      passives={sheetContent.builtFeatures
+                        .filter((feature) => feature.facts?.action === "Passive" && !/ability score improvement|spellcasting/i.test(feature.name))
+                        .slice(0, 10)
+                        .map((feature) => ({ id: feature.id, name: feature.name, short: feature.short, summary: feature.summary }))}
+                      stats={[
+                        ...(sheetContent.martialArtsDie ? [{ label: "Martial Arts", value: sheetContent.martialArtsDie }] : []),
+                        ...sheetContent.spellcasting.slice(0, 1).flatMap((profile) => [
+                          { label: "Spell DC", value: String(profile.saveDc), hint: "8 + proficiency + spellcasting ability" },
+                          { label: "Spell attack", value: formatSigned(profile.attackBonus) },
+                        ]),
+                        ...sheetContent.saveDcs.map((entry) => ({ label: `${entry.name} DC`, value: String(entry.value), hint: `8 + proficiency + ${entry.ability}` })),
+                      ]}
+                      spells={sheetContent.spellEntries}
+                      slotProfiles={sheetContent.spellcasting}
+                      usedSlots={draft.usedSlots ?? {}}
+                      onSlotChange={setSlotUsage}
+                      concentration={draft.concentration ?? null}
+                      onConcentration={(name) => updateDraft((current) => ({ ...current, concentration: name }))}
+                      onLog={(message) =>
+                        setActivityLog((current) => [{ id: `cast-${Date.now()}`, actorName: draft.name, message, createdAt: new Date().toISOString() }, ...current])
+                      }
+                    />
+                  ) : (
+                    <>
+                      <div className="cs-tabs" role="tablist" aria-label="Character sections">
+                        {tabs.map((tab) => (
+                          <button
+                            key={`cs-tab-${tab.id}`}
+                            type="button"
+                            role="tab"
+                            aria-selected={shownTab === tab.id}
+                            className={shownTab === tab.id ? "cs-tab active" : "cs-tab"}
+                            onClick={() => setActiveTab(tab.id)}
+                          >
+                            {tab.label}
+                          </button>
+                        ))}
+                      </div>
+
+                      {shownTab === "skills" ? (
+                        <div className="cs-panel">
+                          <p className="cs-panel-note">
+                            {`Click a skill to see where its bonus comes from, or its number to roll. Trained skills add your proficiency (${formatSigned(sheetDraft.proficiencyBonus)}).`}
+                          </p>
+                          {focusSkill ? (
+                            <div className="cs-skill-focus">
+                              <span className="cs-skill-focus-icon">
+                                <GameIcon name={skillIcon(focusSkill.id)} />
+                              </span>
+                              <span>
+                                <strong>{`${focusSkill.label} ${formatSigned(focusSkill.bonus)}`}</strong>
+                                <Keywordize>{`${focusSkill.description || skillDescriptions[focusSkill.id] || ""} ${focusSkill.breakdown}`.trim()}</Keywordize>
+                              </span>
+                            </div>
+                          ) : null}
+                          <div className="skill-board">
+                            {sheetDraft.abilities.map((ability) => {
+                              const skills = sheetDraft.skills.filter((skill) => skill.ability === ability.id);
+                              return (
+                                <div key={`cs-skill-card-${ability.id}`} className={`skill-card ${abilityAccentClassName(ability.id)}`}>
+                                  <div className="skill-card-head">
+                                    <span>{ability.id}</span>
+                                    <small>{abilityNames[ability.id] ?? ability.label}</small>
+                                    <strong>{formatSigned(ability.modifier)}</strong>
+                                  </div>
+                                  {skills.length ? (
+                                    skills.map((skill) => {
+                                      const expertise = /expertise/i.test(skill.breakdown);
+                                      const half = /half proficiency/i.test(skill.breakdown);
+                                      return (
+                                        <div key={`cs-skill-${skill.id}`} className={`skill-row sheet ${skill.proficient ? "trained" : "plain"}${sheetSkillFocus === skill.id ? " inspected" : ""}`}>
+                                          <button type="button" className="skill-row-main" onClick={() => setSheetSkillFocus(sheetSkillFocus === skill.id ? null : skill.id)}>
+                                            <span className="skill-row-icon">
+                                              <GameIcon name={skillIcon(skill.id)} />
+                                            </span>
+                                            <span className="skill-row-name">
+                                              {skill.label}
+                                              {expertise ? <small>Expertise</small> : skill.proficient ? <small>Proficient</small> : half ? <small>Half proficiency</small> : null}
+                                            </span>
+                                          </button>
+                                          <button type="button" className="skill-row-roll" aria-label={`Roll ${skill.label}`} onClick={() => void broadcastCheck(skill.label, skill.bonus)}>
+                                            {formatSigned(skill.bonus)}
+                                          </button>
+                                        </div>
+                                      );
+                                    })
+                                  ) : (
+                                    <p className="skill-card-empty">No skills use CON. It powers your hit points and concentration saves.</p>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      {shownTab === "spells" ? (
+                        <div className="cs-panel">
+                          <SheetSpellsPanel
+                            profiles={sheetContent.spellcasting}
+                            spells={sheetContent.spellEntries}
+                            usedSlots={draft.usedSlots ?? {}}
+                            onSlotChange={setSlotUsage}
+                            spellbook={sheetContent.spellbook}
+                            copiedCount={(draft.choices?.[SPELLBOOK_COPIED_KEY] ?? []).length}
+                            currency={draft.currency ?? { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 }}
+                            onTogglePrepared={(spellId) =>
+                              updateDraft((current) => {
+                                const prepared = current.spellIds.includes(spellId);
+                                const book = current.choices?.[SPELLBOOK_KEY] ?? [];
+                                return {
+                                  ...current,
+                                  // Hazirlanan buyu kitaptan cikmasin: kitaba da yazilir.
+                                  choices: { ...(current.choices ?? {}), [SPELLBOOK_KEY]: book.includes(spellId) ? book : [...book, spellId] },
+                                  spellIds: prepared ? current.spellIds.filter((id) => id !== spellId) : [...current.spellIds, spellId],
+                                };
+                              })
+                            }
+                            onAddToBook={(spellId, mode) =>
+                              updateDraft((current) => {
+                                const spell = initialContent.spells.find((entry) => entry.id === spellId);
+                                const wallet = current.currency ?? { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 };
+                                const paid = mode === "copy" && spell ? payGold(wallet, copyCost(spell.level).gp) : wallet;
+                                if (!paid) {
+                                  return current;
+                                }
+                                const book = current.choices?.[SPELLBOOK_KEY] ?? [];
+                                const copied = current.choices?.[SPELLBOOK_COPIED_KEY] ?? [];
+                                return {
+                                  ...current,
+                                  currency: paid,
+                                  choices: {
+                                    ...(current.choices ?? {}),
+                                    [SPELLBOOK_KEY]: [...book, spellId],
+                                    ...(mode === "copy" ? { [SPELLBOOK_COPIED_KEY]: [...copied, spellId] } : {}),
+                                  },
+                                };
+                              })
+                            }
+                          />
+                        </div>
+                      ) : null}
+
+                      {shownTab === "inventory" ? (
+                        <div className="cs-panel">
                 <SheetInventoryPanel
                   content={initialContent}
                   inventory={draft.inventory}
@@ -2922,55 +2836,152 @@ export function PartyRoomDashboard({
                     })
                   }
                 />
-              ) : null}
+                        </div>
+                      ) : null}
 
-              {activeTab === "features" ? (
-                <div className="tab-body feature-grid">
-                  {sheetContent.builtFeatures.map((feature) => (
-                    <article className="feature-sheet-card" key={feature.id}>
-                      <div className="feature-sheet-card-head">
-                        <strong>{feature.name}</strong>
-                        <span className="feature-kind-pill">{feature.kind}</span>
-                      </div>
-                      {/* Katmanli: tek satir + kural etiketleri + acilir tam metin. */}
-                      <LayeredFeature id={feature.id} short={feature.short} summary={feature.summary} facts={feature.facts} dcs={saveDcValues} />
-                      <span className="feature-sheet-card-meta">{feature.source}</span>
-                    </article>
-                  ))}
+                      {shownTab === "features" ? (
+                        <div className="cs-panel cs-feature-grid">
+                          {sheetContent.builtFeatures.map((feature) => (
+                            <article className="cs-feature" key={feature.id}>
+                              <div className="cs-feature-head">
+                                <span className="cs-feature-icon">
+                                  <GameIcon name={featureIcon(feature.name)} />
+                                </span>
+                                <span>
+                                  <strong>{feature.name}</strong>
+                                  <small>{`${feature.kind} · ${feature.source}`}</small>
+                                </span>
+                              </div>
+                              <LayeredFeature id={feature.id} short={feature.short} summary={feature.summary} facts={feature.facts} dcs={saveDcValues} />
+                            </article>
+                          ))}
+                        </div>
+                      ) : null}
+
+                      {shownTab === "background" ? (
+                        <div className="cs-panel cs-background">
+                          <article className="cs-feature">
+                            <div className="cs-feature-head">
+                              <span className="cs-feature-icon">
+                                <GameIcon name={backgroundIcon(sheetContent.backgroundName)} />
+                              </span>
+                              <span>
+                                <strong>{sheetContent.backgroundName}</strong>
+                                <small>Background</small>
+                              </span>
+                            </div>
+                            <p>
+                              <Keywordize>{sheetContent.backgroundSummary}</Keywordize>
+                            </p>
+                          </article>
+                          <dl className="inspect-rows">
+                            {[
+                              ["Skills", sheetContent.backgroundSkillProficiencies],
+                              ["Tools", sheetContent.backgroundToolProficiencies],
+                              ["Languages", sheetContent.backgroundLanguages],
+                            ]
+                              .filter(([, value]) => value)
+                              .map(([label, value]) => (
+                                <div key={`cs-bg-${label}`}>
+                                  <dt>{label}</dt>
+                                  <dd>{value}</dd>
+                                </div>
+                              ))}
+                          </dl>
+                          {(() => {
+                            // Background tablolarindan secilen / zarla gelen satirlar (Feylost Fey Mark gibi).
+                            const tables = initialContent.backgrounds.find((entry) => entry.id === draft.backgroundId)?.tables ?? [];
+                            const rows = tables
+                              .map((table) => ({ table, index: rollTablePick(draft.choices, table) }))
+                              .filter((row): row is { table: (typeof tables)[number]; index: number } => row.index !== null);
+                            return rows.length ? (
+                              <dl className="inspect-rows cs-bg-tables">
+                                {rows.map(({ table, index }) => (
+                                  <div key={`cs-bg-table-${table.id}`}>
+                                    <dt>{table.title}</dt>
+                                    <dd>{table.entries[index]}</dd>
+                                  </div>
+                                ))}
+                              </dl>
+                            ) : null;
+                          })()}
+                          {draft.background ? <p className="cs-panel-note">{draft.background}</p> : null}
+                        </div>
+                      ) : null}
+                    </>
+                  )}
                 </div>
-              ) : null}
 
-              {activeTab === "background" ? (
-                <div className="tab-body prose-block">
-                  <div className="list-row">
-                    <strong>{sheetContent.backgroundName}</strong>
-                    <span>{sheetContent.backgroundSummary}</span>
+                <aside className="cs-side" aria-label="Abilities and saves">
+                  <div className="cs-abilities">
+                    {sheetDraft.abilities.map((ability) => (
+                      <button
+                        key={`cs-ab-${ability.id}`}
+                        type="button"
+                        className={`cs-ability ${abilityAccentClassName(ability.id)}`}
+                        onClick={() => void broadcastCheck(`${ability.label} check`, ability.modifier)}
+                        title={`Roll a ${ability.label} check`}
+                      >
+                        <small>{ability.id}</small>
+                        <b>{formatSigned(ability.modifier)}</b>
+                        <span>{ability.score}</span>
+                      </button>
+                    ))}
                   </div>
-                  {sheetContent.backgroundSkillProficiencies ? (
-                    <div className="list-row">
-                      <strong>Skill Proficiencies</strong>
-                      <span>{sheetContent.backgroundSkillProficiencies}</span>
+                  <div className="cs-side-block">
+                    <span className="cs-side-title">Saving throws</span>
+                    <div className="cs-saves">
+                      {sheetDraft.savingThrows.map((save) => (
+                        <button
+                          key={`cs-save-${save.ability}`}
+                          type="button"
+                          className={`cs-save ${abilityAccentClassName(save.ability)}${save.proficient ? " proficient" : ""}`}
+                          onClick={() => void broadcastCheck(`${save.ability} save`, save.bonus)}
+                        >
+                          <i aria-hidden="true">{save.proficient ? "●" : "○"}</i>
+                          <span>{save.ability}</span>
+                          <b>{formatSigned(save.bonus)}</b>
+                        </button>
+                      ))}
                     </div>
-                  ) : null}
-                  {sheetContent.backgroundToolProficiencies ? (
-                    <div className="list-row">
-                      <strong>Tool Proficiencies</strong>
-                      <span>{sheetContent.backgroundToolProficiencies}</span>
-                    </div>
-                  ) : null}
-                  {sheetContent.backgroundLanguages ? (
-                    <div className="list-row">
-                      <strong>Languages</strong>
-                      <span>{sheetContent.backgroundLanguages}</span>
-                    </div>
-                  ) : null}
-                  <p>{draft.background}</p>
-                </div>
-              ) : null}
-            </article>
-
-          </div>
-        </section>
+                  </div>
+                  <div className="cs-side-block">
+                    <span className="cs-side-title">Senses</span>
+                    {sheetDraft.senses.map((sense) => (
+                      <div key={`cs-sense-${sense.id}`} className="cs-sense">
+                        <b>{sense.value}</b>
+                        <span>{sense.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="cs-side-block">
+                    <span className="cs-side-title">Defenses &amp; conditions</span>
+                    <p className="cs-side-text">{sheetDraft.defenses.join(", ") || "No resistances or immunities."}</p>
+                    {draft.conditions.length ? <p className="cs-side-text warn">{draft.conditions.join(", ")}</p> : null}
+                  </div>
+                  <div className="cs-side-block">
+                    <span className="cs-side-title">Proficiencies</span>
+                    <dl className="cs-prof">
+                      {(
+                        [
+                          ["Armor", sheetDraft.proficiencies.armor],
+                          ["Weapons", sheetDraft.proficiencies.weapons],
+                          ["Tools", sheetDraft.proficiencies.tools],
+                          ["Languages", sheetDraft.proficiencies.languages],
+                        ] as const
+                      ).map(([label, values]) => (
+                        <div key={`cs-prof-${label}`}>
+                          <dt>{label}</dt>
+                          <dd>{values.join(", ") || "None"}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </aside>
+              </section>
+            </>
+          );
+        })()}
         <div className={isActivityOpen ? "activity-drawer open" : "activity-drawer"}>
           <button
             type="button"

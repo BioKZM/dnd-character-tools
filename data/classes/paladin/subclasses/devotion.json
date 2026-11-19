@@ -1,0 +1,158 @@
+{
+  "id": "devotion",
+  "name": "Oath of Devotion",
+  "source": "Player's Handbook",
+  "summary": "The classic shining knight sworn to honesty, courage and mercy.",
+  "features": [
+    {
+      "id": "devotion-oath-spells",
+      "name": "Oath Spells",
+      "unlockLevel": 3,
+      "short": "Oath spells that are always prepared for free.",
+      "summary": "You always have your oath spells prepared once you reach the listed paladin levels. They don't count against the number of spells you prepare.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "sacred-weapon",
+      "name": "Channel Divinity: Sacred Weapon",
+      "unlockLevel": 3,
+      "short": "Add CHA to attack rolls with a glowing weapon for a minute.",
+      "summary": "As an action, imbue one weapon you hold: for 1 minute you add your Charisma modifier (minimum +1) to attack rolls with it, and it sheds bright light.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "duration": "1 minute"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "turn-the-unholy",
+      "name": "Channel Divinity: Turn the Unholy",
+      "unlockLevel": 3,
+      "short": "Turn fiends and undead within 30 ft.",
+      "summary": "As an action, each fiend or undead within 30 ft. that can see or hear you makes a WIS save or is turned for 1 minute.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "range": "30 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "aura-of-devotion",
+      "name": "Aura of Devotion",
+      "unlockLevel": 7,
+      "short": "You and allies within 10 ft. can't be charmed.",
+      "summary": "You and friendly creatures within 10 ft. can't be charmed while you are conscious. The range becomes 30 ft. at 18th level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "charmed"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 7,
+          "label": "10 ft."
+        },
+        {
+          "level": 18,
+          "label": "30 ft."
+        }
+      ]
+    },
+    {
+      "id": "purity-of-spirit",
+      "name": "Purity of Spirit",
+      "unlockLevel": 15,
+      "short": "Always protected from evil and good.",
+      "summary": "You are always under the effects of a Protection from Evil and Good spell.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Always under Protection from Evil and Good."
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "holy-nimbus",
+      "name": "Holy Nimbus",
+      "unlockLevel": 20,
+      "short": "Radiate light that burns enemies for 10 radiant each turn.",
+      "summary": "As an action, for 1 minute you emanate bright light in a 30 ft. radius. Enemies starting their turn in it take 10 radiant damage, and you have advantage on saves against spells cast by fiends or undead. Once per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "holy-nimbus",
+          "name": "Holy Nimbus",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Protection from Evil and Good",
+        "Sanctuary"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Lesser Restoration",
+        "Zone of Truth"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Beacon of Hope",
+        "Dispel Magic"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 13,
+      "spells": [
+        "Freedom of Movement",
+        "Guardian of Faith"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 17,
+      "spells": [
+        "Commune",
+        "Flame Strike"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

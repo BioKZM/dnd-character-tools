@@ -1,0 +1,100 @@
+{
+  "id": "shepherd",
+  "name": "Circle of the Shepherd",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "Druids who speak for beasts and summon guardian spirits.",
+  "features": [
+    {
+      "id": "speech-of-the-woods",
+      "name": "Speech of the Woods",
+      "unlockLevel": 2,
+      "short": "Learn Sylvan; Speak with Animals at will.",
+      "summary": "You learn to speak, read and write Sylvan, and beasts can understand your speech. You can cast Speak with Animals at will.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "language",
+          "values": [
+            "Sylvan"
+          ]
+        },
+        {
+          "type": "spell",
+          "spellId": "speak-with-animals",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "spirit-totem",
+      "name": "Spirit Totem",
+      "unlockLevel": 2,
+      "short": "Summon a Bear, Hawk or Unicorn spirit aura.",
+      "summary": "As a bonus action, summon a spirit for 1 minute in a 30 ft. aura: Bear (temp HP and advantage on STR), Hawk (reaction: advantage on an attack, advantage on Perception) or Unicorn (advantage to detect creatures, healing spells heal everyone nearby). Once per short or long rest.",
+      "facts": {
+        "action": "Bonus Action",
+        "duration": "1 minute"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "spirit-totem",
+          "name": "Spirit Totem",
+          "uses": 1,
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "mighty-summoner",
+      "name": "Mighty Summoner",
+      "unlockLevel": 6,
+      "short": "Summoned beasts and fey get +2 HP per Hit Die and magic attacks.",
+      "summary": "Beasts and fey you conjure with spells gain 2 extra hit points per Hit Die, and their natural weapons count as magical.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "guardian-spirit",
+      "name": "Guardian Spirit",
+      "unlockLevel": 10,
+      "short": "Summoned creatures in your totem aura heal each turn.",
+      "summary": "When a beast or fey you summoned ends its turn in your Spirit Totem aura, it regains hit points equal to half your druid level.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "faithful-summons",
+      "name": "Faithful Summons",
+      "unlockLevel": 14,
+      "short": "Drop to 0 HP: four beasts appear to protect you.",
+      "summary": "When you are reduced to 0 hit points or incapacitated against your will, you can gain the benefits of Conjure Animals as if cast with a 9th-level slot (four CR 2 or lower beasts protect you for 1 hour). Once per long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "faithful-summons",
+          "name": "Faithful Summons",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

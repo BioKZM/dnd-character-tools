@@ -1,0 +1,216 @@
+{
+  "id": "draconic",
+  "name": "Draconic Bloodline",
+  "source": "Player's Handbook",
+  "summary": "Sorcerers with a dragon ancestor whose power shows in scales and breath-like magic.",
+  "features": [
+    {
+      "id": "dragon-ancestor",
+      "name": "Dragon Ancestor",
+      "unlockLevel": 1,
+      "short": "Choose a dragon type; learn Draconic.",
+      "summary": "You choose a type of dragon as your ancestor; its damage type is used by later features. You can speak, read and write Draconic, and your proficiency bonus is doubled on Charisma checks with dragons.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "language",
+          "values": [
+            "Draconic"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "id": "draconic-ancestor",
+          "label": "Dragon ancestor",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "black",
+                "name": "Black",
+                "summary": "Black dragon: acid damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Black (acid)."
+                  }
+                ]
+              },
+              {
+                "id": "blue",
+                "name": "Blue",
+                "summary": "Blue dragon: lightning damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Blue (lightning)."
+                  }
+                ]
+              },
+              {
+                "id": "brass",
+                "name": "Brass",
+                "summary": "Brass dragon: fire damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Brass (fire)."
+                  }
+                ]
+              },
+              {
+                "id": "bronze",
+                "name": "Bronze",
+                "summary": "Bronze dragon: lightning damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Bronze (lightning)."
+                  }
+                ]
+              },
+              {
+                "id": "copper",
+                "name": "Copper",
+                "summary": "Copper dragon: acid damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Copper (acid)."
+                  }
+                ]
+              },
+              {
+                "id": "gold",
+                "name": "Gold",
+                "summary": "Gold dragon: fire damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Gold (fire)."
+                  }
+                ]
+              },
+              {
+                "id": "green",
+                "name": "Green",
+                "summary": "Green dragon: poison damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Green (poison)."
+                  }
+                ]
+              },
+              {
+                "id": "red",
+                "name": "Red",
+                "summary": "Red dragon: fire damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Red (fire)."
+                  }
+                ]
+              },
+              {
+                "id": "silver",
+                "name": "Silver",
+                "summary": "Silver dragon: cold damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: Silver (cold)."
+                  }
+                ]
+              },
+              {
+                "id": "white",
+                "name": "White",
+                "summary": "White dragon: cold damage.",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Dragon Ancestor: White (cold)."
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "draconic-resilience",
+      "name": "Draconic Resilience",
+      "unlockLevel": 1,
+      "short": "+1 HP per level; AC 13 + DEX without armor.",
+      "summary": "Your hit point maximum increases by 1 per sorcerer level, and when you aren't wearing armor your AC equals 13 + your Dexterity modifier.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "hp",
+          "perLevel": 1
+        },
+        {
+          "type": "ac_base",
+          "base": 13,
+          "abilities": [
+            "DEX"
+          ],
+          "shield": true
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "elemental-affinity",
+      "name": "Elemental Affinity",
+      "unlockLevel": 6,
+      "short": "Add CHA to damage of your ancestry's type; buy resistance.",
+      "summary": "When you cast a spell that deals damage of your ancestry's type, add your Charisma modifier to one damage roll. You can spend 1 sorcery point to gain resistance to that damage type for 1 hour.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "dragon-wings",
+      "name": "Dragon Wings",
+      "unlockLevel": 14,
+      "short": "Bonus action: sprout wings and fly at your speed.",
+      "summary": "As a bonus action, you sprout dragon wings, gaining a flying speed equal to your current speed until you dismiss them. You can't do this while wearing armor not made for it.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "draconic-presence",
+      "name": "Draconic Presence",
+      "unlockLevel": 18,
+      "short": "Spend 5 sorcery points for an aura of awe or fear.",
+      "summary": "As an action, spend 5 sorcery points to exude an aura of awe or fear within 60 ft. for 1 minute (concentration). Hostile creatures starting their turn in it make a WIS save or are charmed (awe) or frightened (fear).",
+      "facts": {
+        "action": "Action",
+        "cost": "5 sorcery points",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

@@ -72,6 +72,8 @@ export function lineageGrantToGrant(grant: LineageGrant, characterLevel: number)
       return { type: "hp", perLevel: grant.amount };
     case "armor_class_bonus":
       return { type: "ac", bonus: grant.amount, condition: grant.condition };
+    case "ac_base":
+      return { type: "ac_base", base: grant.base, abilities: grant.abilities, shield: grant.shield };
     case "movement":
       return { type: "speed", mode: grant.mode, op: grant.operation === "set" ? "set" : "add", value: grant.value };
     case "spell_grant":
@@ -403,7 +405,7 @@ export function choiceCandidates(choice: OptionChoice, draft: CharacterDraft, co
       if (filter.minLevel !== undefined && spell.level < filter.minLevel) return false;
       if (maxLevel !== undefined && spell.level > maxLevel) return false;
       if (filter.tags.some((tag) => !(spell.tags ?? []).includes(tag))) return false;
-      if (filter.schools.length && !filter.schools.includes(spell.school)) return false;
+      if (filter.schools.length && !filter.schools.some((school) => school.toLowerCase() === spell.school.toLowerCase())) return false;
       if (filter.classes.length && !filter.classes.some((className) => (spell.classes ?? []).includes(className))) return false;
       return true;
     })
@@ -455,7 +457,8 @@ export type AvailableChoice = {
   choice: OptionChoice;
   sourceName: string;
   /** Secimin geldigi yer: feat secimleri Feats ekraninda, digerleri kendi ekranlarinda gosterilir. */
-  sourceKind: "option" | "feature" | "feat";
+  /** "subclass": secili subclass'in kendi feature'larindan (subclass ekraninda gosterilir). */
+  sourceKind: "option" | "feature" | "subclass" | "feat";
   candidates: ChoiceCandidate[];
   selectedIds: string[];
 };
@@ -467,9 +470,11 @@ function unlockedFeatureChoiceHosts(catalog: EngineCatalog, draft: CharacterDraf
     return [];
   }
   const subclass = classEntry.subclasses.find((entry) => entry.id === draft.selectedSubclassOptions[0]);
-  return [...classEntry.classFeatures, ...(subclass?.features ?? [])].filter(
-    (feature) => feature.choices.length && (feature.unlockLevel ?? 1) <= draft.level,
-  );
+  const unlocked = (feature: { choices: unknown[]; unlockLevel?: number }) => feature.choices.length > 0 && (feature.unlockLevel ?? 1) <= draft.level;
+  return [
+    ...classEntry.classFeatures.filter(unlocked).map((feature) => ({ feature, kind: "feature" as const })),
+    ...(subclass?.features ?? []).filter(unlocked).map((feature) => ({ feature, kind: "subclass" as const })),
+  ];
 }
 
 /** Creator'da gosterilecek acik secimler: secili opsiyonlar ve acilmis feature'lar. */
@@ -481,7 +486,7 @@ export function availableChoices(draft: CharacterDraft, catalog: EngineCatalog):
     .map((feat) => ({ name: feat.name, choices: feat.choices, kind: "feat" as const }));
   const hosts = [
     ...selectedClassOptions(catalog, draft).map(({ option }) => ({ name: option.name, choices: option.choices, kind: "option" as const })),
-    ...unlockedFeatureChoiceHosts(catalog, draft).map((feature) => ({ name: feature.name, choices: feature.choices, kind: "feature" as const })),
+    ...unlockedFeatureChoiceHosts(catalog, draft).map(({ feature, kind }) => ({ name: feature.name, choices: feature.choices, kind })),
     ...featHosts,
   ];
   return hosts.flatMap((host) =>
@@ -502,6 +507,8 @@ export function availableChoices(draft: CharacterDraft, catalog: EngineCatalog):
 /** Artik gecerli olmayan secimleri (opsiyon birakildi, level dustu...) temizler. */
 export function sanitizeChoices(draft: CharacterDraft, catalog: EngineCatalog): Record<string, string[]> {
   return Object.fromEntries([
+    // "custom:" ile baslayanlar oyuncunun serbest secimleri (or. custom silahlar); kurallara bagli degil, korunur.
+    ...Object.entries(draft.choices ?? {}).filter(([key]) => key.startsWith("custom:")),
     ...availableChoices(draft, catalog).map((entry) => [entry.choice.id, entry.selectedIds]),
     ...languageChoices(draft, catalog).map((entry) => [entry.id, entry.selectedNames]),
   ]);

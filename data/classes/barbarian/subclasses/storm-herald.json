@@ -1,0 +1,110 @@
+{
+  "id": "storm-herald",
+  "name": "Path of the Storm Herald",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A barbarian whose rage takes the form of a raging storm aura.",
+  "features": [
+    {
+      "id": "storm-aura",
+      "name": "Storm Aura",
+      "unlockLevel": 3,
+      "short": "While raging, a 10 ft. aura of desert, sea or tundra power.",
+      "summary": "While raging you emanate a 10 ft. aura. Choose desert, sea or tundra; the aura's effect triggers when you rage and again as a bonus action on later turns. Its power grows at 5th, 10th, 15th and 20th level.",
+      "facts": {
+        "action": "Bonus Action",
+        "range": "10 ft.",
+        "save": "DEX"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "storm-herald-environment",
+          "label": "Storm Environment",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "desert",
+                "name": "Desert",
+                "summary": "Aura: each creature you choose takes 2 fire damage (scales with level).",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Storm Aura (Desert): Aura: each creature you choose takes 2 fire damage (scales with level)."
+                  }
+                ]
+              },
+              {
+                "id": "sea",
+                "name": "Sea",
+                "summary": "Aura: bonus action, one creature takes 1d6 lightning (DEX save for half; scales).",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Storm Aura (Sea): Aura: bonus action, one creature takes 1d6 lightning (DEX save for half; scales)."
+                  }
+                ]
+              },
+              {
+                "id": "tundra",
+                "name": "Tundra",
+                "summary": "Aura: you and chosen creatures gain 2 temp HP (scales with level).",
+                "grants": [
+                  {
+                    "type": "note",
+                    "text": "Storm Aura (Tundra): Aura: you and chosen creatures gain 2 temp HP (scales with level)."
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "storm-soul",
+      "name": "Storm Soul",
+      "unlockLevel": 6,
+      "short": "Resistance tied to your environment, plus a utility power.",
+      "summary": "You gain resistance and a minor ability based on your chosen environment: desert (fire), sea (lightning, breathe underwater, 30 ft. swim) or tundra (cold).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "note",
+          "text": "Storm Soul: resistance matching your Storm Aura environment (desert fire, sea lightning, tundra cold)."
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "shielding-storm",
+      "name": "Shielding Storm",
+      "unlockLevel": 10,
+      "short": "Allies in your aura share your storm resistance.",
+      "summary": "Each creature of your choice has the damage resistance from your Storm Soul while it is in your Storm Aura.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "raging-storm",
+      "name": "Raging Storm",
+      "unlockLevel": 14,
+      "short": "Your aura punishes, topples or roots enemies.",
+      "summary": "Desert: reaction, a creature that hits you takes fire damage equal to half your level (DEX save). Sea: when you hit, knock the target prone (STR save). Tundra: when the aura activates, reduce one creature's speed to 0 (STR save).",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

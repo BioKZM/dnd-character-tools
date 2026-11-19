@@ -1,0 +1,187 @@
+{
+  "id": "war",
+  "name": "War Domain",
+  "source": "Player's Handbook",
+  "summary": "Champions of war gods who fight in the front line.",
+  "features": [
+    {
+      "id": "war-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "war-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 1,
+      "short": "Martial weapons and heavy armor.",
+      "summary": "You gain proficiency with martial weapons and heavy armor.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "weapon",
+          "values": [
+            "Martial Weapons"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Heavy Armor"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "war-priest",
+      "name": "War Priest",
+      "unlockLevel": 1,
+      "short": "Bonus action weapon attack after attacking.",
+      "summary": "When you use the Attack action, you can make one weapon attack as a bonus action. Uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "war-priest",
+          "name": "War Priest",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "guided-strike",
+      "name": "Channel Divinity: Guided Strike",
+      "unlockLevel": 2,
+      "short": "+10 to one attack roll.",
+      "summary": "When you make an attack roll, you can use Channel Divinity to gain a +10 bonus to the roll, after seeing it but before knowing if it hits.",
+      "facts": {
+        "action": "Passive",
+        "cost": "Channel Divinity"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "war-gods-blessing",
+      "name": "Channel Divinity: War God's Blessing",
+      "unlockLevel": 6,
+      "short": "Reaction: +10 to an ally's attack.",
+      "summary": "When a creature within 30 ft. makes an attack roll, you can use your reaction and Channel Divinity to grant it +10 to the roll.",
+      "facts": {
+        "action": "Reaction",
+        "cost": "Channel Divinity",
+        "range": "30 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "war-divine-strike",
+      "name": "Divine Strike",
+      "unlockLevel": 8,
+      "short": "Once per turn, weapon hits deal +1d8 damage of the weapon's type (2d8 at 14th).",
+      "summary": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 damage of the weapon's type damage. At 14th level the extra damage becomes 2d8.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 8,
+          "label": "1d8"
+        },
+        {
+          "level": 14,
+          "label": "2d8"
+        }
+      ]
+    },
+    {
+      "id": "avatar-of-battle",
+      "name": "Avatar of Battle",
+      "unlockLevel": 17,
+      "short": "Resist nonmagical bludgeoning, piercing and slashing.",
+      "summary": "You gain resistance to bludgeoning, piercing and slashing damage from nonmagical attacks.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "nonmagical bludgeoning"
+        },
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "nonmagical piercing"
+        },
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "nonmagical slashing"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Divine Favor",
+        "Shield of Faith"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Magic Weapon",
+        "Spiritual Weapon"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Crusader's Mantle",
+        "Spirit Guardians"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Freedom of Movement",
+        "Stoneskin"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Flame Strike",
+        "Hold Monster"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

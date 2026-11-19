@@ -1,0 +1,160 @@
+{
+  "id": "peace",
+  "name": "Peace Domain",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Clerics who bind allies together to protect one another.",
+  "features": [
+    {
+      "id": "peace-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "implement-of-peace",
+      "name": "Implement of Peace",
+      "unlockLevel": 1,
+      "short": "Proficiency in Insight, Performance or Persuasion.",
+      "summary": "You gain proficiency in Insight, Performance or Persuasion.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "peace-skill",
+          "label": "Insight, Performance or Persuasion",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "insight",
+              "performance",
+              "persuasion"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "emboldening-bond",
+      "name": "Emboldening Bond",
+      "unlockLevel": 1,
+      "short": "Bond allies: they add 1d4 to a roll once per turn.",
+      "summary": "As an action, bond up to PB willing creatures within 30 ft. for 10 minutes. While within 30 ft. of another bonded creature, each can add 1d4 to an attack roll, ability check or save once per turn. Uses: PB per long rest.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "emboldening-bond",
+          "name": "Emboldening Bond",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "balm-of-peace",
+      "name": "Channel Divinity: Balm of Peace",
+      "unlockLevel": 2,
+      "short": "Move without provoking and heal everyone you pass.",
+      "summary": "As an action, you move up to your speed without provoking opportunity attacks. Each creature of your choice within 5 ft. of you during the move regains 2d6 + WIS hit points.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "protective-bond",
+      "name": "Protective Bond",
+      "unlockLevel": 6,
+      "short": "Bonded allies can teleport to take a hit for each other.",
+      "summary": "When a bonded creature takes damage, another bonded creature within 30 ft. can use its reaction to teleport next to it and take all of the damage instead.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "peace-potent-spellcasting",
+      "name": "Potent Spellcasting",
+      "unlockLevel": 8,
+      "short": "Add WIS to cleric cantrip damage.",
+      "summary": "You add your Wisdom modifier to the damage you deal with any cleric cantrip.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "expansive-bond",
+      "name": "Expansive Bond",
+      "unlockLevel": 17,
+      "short": "Bond range 60 ft.; the protector gains resistance.",
+      "summary": "The range of your bond features becomes 60 ft. When a creature uses Protective Bond to take damage, it has resistance to that damage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Heroism",
+        "Sanctuary"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Aid",
+        "Warding Bond"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Beacon of Hope",
+        "Sending"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Aura of Purity",
+        "Otiluke's Resilient Sphere"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Greater Restoration",
+        "Rary's Telepathic Bond"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

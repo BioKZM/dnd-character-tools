@@ -1,0 +1,85 @@
+{
+  "id": "necromancy",
+  "name": "School of Necromancy",
+  "source": "Player's Handbook",
+  "summary": "Wizards who study life and death and raise the dead.",
+  "features": [
+    {
+      "id": "necromancy-savant",
+      "name": "Necromancy Savant",
+      "unlockLevel": 2,
+      "short": "Copy necromancy spells for half the time and gold.",
+      "summary": "The gold and time you must spend to copy a necromancy spell into your spellbook is halved.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "grim-harvest",
+      "name": "Grim Harvest",
+      "unlockLevel": 2,
+      "short": "Killing with a spell heals you.",
+      "summary": "Once per turn when you kill one or more creatures with a spell of 1st level or higher, you regain hit points equal to twice the spell's level (three times for necromancy spells). Undead and constructs don't count.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "undead-thralls",
+      "name": "Undead Thralls",
+      "unlockLevel": 6,
+      "short": "Animate Dead raises an extra corpse; your undead are tougher.",
+      "summary": "You add Animate Dead to your spellbook if it isn't there. When you cast it, you can target one additional corpse or pile of bones. Undead you create gain extra hit points equal to your wizard level and add your PB to their weapon damage.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "animate-dead",
+          "uses": "known"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "inured-to-undeath",
+      "name": "Inured to Undeath",
+      "unlockLevel": 10,
+      "short": "Resist necrotic; your maximum HP can't be reduced.",
+      "summary": "You have resistance to necrotic damage, and your hit point maximum can't be reduced.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "necrotic"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "command-undead",
+      "name": "Command Undead",
+      "unlockLevel": 14,
+      "short": "Action: take control of an undead creature.",
+      "summary": "As an action, choose one undead within 60 ft.: it makes a CHA save or becomes friendly and obeys your commands (smarter undead get advantage and repeat the save).",
+      "facts": {
+        "action": "Action",
+        "range": "60 ft.",
+        "save": "CHA",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

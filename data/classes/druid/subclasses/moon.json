@@ -1,0 +1,102 @@
+{
+  "id": "moon",
+  "name": "Circle of the Moon",
+  "source": "Player's Handbook",
+  "summary": "Shapeshifters who fight in powerful beast forms.",
+  "features": [
+    {
+      "id": "combat-wild-shape",
+      "name": "Combat Wild Shape",
+      "unlockLevel": 2,
+      "short": "Wild Shape as a bonus action; heal by spending slots.",
+      "summary": "You can use Wild Shape as a bonus action. While transformed, you can use a bonus action to expend a spell slot and regain 1d8 hit points per slot level.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "circle-forms",
+      "name": "Circle Forms",
+      "unlockLevel": 2,
+      "short": "Turn into stronger beasts (CR 1, later CR = level / 3).",
+      "summary": "You can transform into a beast with a challenge rating as high as 1 (ignoring the normal Max CR column). From 6th level, the limit is your druid level divided by 3, rounded down.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 2,
+          "label": "CR 1"
+        },
+        {
+          "level": 6,
+          "label": "CR 2"
+        },
+        {
+          "level": 9,
+          "label": "CR 3"
+        },
+        {
+          "level": 12,
+          "label": "CR 4"
+        },
+        {
+          "level": 15,
+          "label": "CR 5"
+        },
+        {
+          "level": 18,
+          "label": "CR 6"
+        }
+      ]
+    },
+    {
+      "id": "primal-strike",
+      "name": "Primal Strike",
+      "unlockLevel": 6,
+      "short": "Beast attacks count as magical.",
+      "summary": "Your attacks in beast form count as magical for overcoming resistance and immunity.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "elemental-wild-shape",
+      "name": "Elemental Wild Shape",
+      "unlockLevel": 10,
+      "short": "Spend two Wild Shapes to become an elemental.",
+      "summary": "You can expend two uses of Wild Shape at once to transform into an air, earth, fire or water elemental.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "thousand-forms",
+      "name": "Thousand Forms",
+      "unlockLevel": 14,
+      "short": "Cast Alter Self at will.",
+      "summary": "You can cast the Alter Self spell at will.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "alter-self",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

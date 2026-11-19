@@ -1,0 +1,97 @@
+{
+  "id": "firbolg",
+  "name": "Firbolg",
+  "category": "exotic",
+  "summary": "Gentle giant-kin who guard the deep forests. Firbolgs prefer to stay unseen, speak with animals and plants, and use quiet magic to protect their homes.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Firbolgs come of age around 30 and can live up to 500 years."
+    },
+    "alignment": {
+      "summary": "Firbolgs are usually neutral good."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Firbolgs are 7 to 8 feet tall and weigh 240 to 300 pounds."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Elvish",
+        "Giant"
+      ],
+      "description": "You can speak, read, and write Common, Elvish, Giant."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "WIS",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "firbolg-magic",
+      "name": "Firbolg Magic",
+      "category": "trait",
+      "summary": "You can cast detect magic and disguise self once each per short or long rest. Disguise self can make you look up to 3 feet shorter. Wisdom is your spellcasting ability.",
+      "grants": [
+        {
+          "type": "spell_grant",
+          "spellName": "Detect Magic",
+          "spellcastingAbility": "WIS",
+          "countsAsKnown": false
+        },
+        {
+          "type": "spell_grant",
+          "spellName": "Disguise Self",
+          "spellcastingAbility": "WIS",
+          "countsAsKnown": false
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "hidden-step",
+      "name": "Hidden Step",
+      "category": "trait",
+      "summary": "As a bonus action, you turn invisible until the start of your next turn or until you attack, deal damage or force a save. Once per short or long rest.",
+      "choiceGroupIds": [],
+      "action": {
+        "category": "Bonus Action",
+        "recharge": "short_rest",
+        "range": "Self",
+        "short": "Turn invisible until the start of your next turn or until you attack or cast."
+      }
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "category": "passive",
+      "summary": "You count as one size larger when working out your carrying capacity and the weight you can push, drag or lift.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "speech-of-beast-and-leaf",
+      "name": "Speech of Beast and Leaf",
+      "category": "trait",
+      "summary": "Beasts and plants understand the meaning of your words, and you have advantage on Charisma checks to influence them.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

@@ -1,0 +1,124 @@
+{
+  "id": "psi-warrior",
+  "name": "Psi Warrior",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "A warrior who channels psionic power into strikes and shields.",
+  "features": [
+    {
+      "id": "psionic-power",
+      "name": "Psionic Power",
+      "unlockLevel": 3,
+      "short": "Psionic dice for force strikes, shields and telekinesis.",
+      "summary": "You have Psionic Energy dice equal to twice your proficiency bonus (d6, growing with level). Protective Field: reaction, reduce damage by a roll + INT. Psionic Strike: once per turn, add a die + INT force damage. Telekinetic Movement: move an object or creature. You regain one die as a bonus action once per short rest; all return on a long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "psionic-energy",
+          "name": "Psionic Energy Dice",
+          "uses": "2*PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "d6"
+        },
+        {
+          "level": 5,
+          "label": "d8"
+        },
+        {
+          "level": 11,
+          "label": "d10"
+        },
+        {
+          "level": 17,
+          "label": "d12"
+        }
+      ]
+    },
+    {
+      "id": "telekinetic-adept",
+      "name": "Telekinetic Adept",
+      "unlockLevel": 7,
+      "short": "Psi-powered leaps and telekinetic thrusts.",
+      "summary": "Psi-Powered Leap: bonus action, gain a flying speed equal to twice your walking speed this turn (once per short rest, or spend a die). Telekinetic Thrust: when you use Psionic Strike, the target makes a STR save or is knocked prone or pushed 10 ft.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "guarded-mind",
+      "name": "Guarded Mind",
+      "unlockLevel": 10,
+      "short": "Resist psychic; spend a die to end charm or fear.",
+      "summary": "You have resistance to psychic damage. At the start of your turn, you can spend a Psionic Energy die to end every charmed or frightened effect on you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "resistance",
+          "against": "psychic"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "bulwark-of-force",
+      "name": "Bulwark of Force",
+      "unlockLevel": 15,
+      "short": "Bonus action: give half cover to several allies.",
+      "summary": "As a bonus action, choose up to INT-modifier creatures within 30 ft.; they gain half cover for 1 minute. Once per long rest (or spend a die).",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "bulwark-of-force",
+          "name": "Bulwark of Force",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "telekinetic-master",
+      "name": "Telekinetic Master",
+      "unlockLevel": 18,
+      "short": "Cast Telekinesis and attack while concentrating.",
+      "summary": "You can cast Telekinesis without components using INT; while concentrating on it you can make one weapon attack as a bonus action each turn. Once per long rest (or spend a die).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "telekinetic-master",
+          "name": "Telekinetic Master",
+          "uses": 1,
+          "recharge": "long_rest"
+        },
+        {
+          "type": "spell",
+          "spellId": "telekinesis",
+          "uses": "long_rest",
+          "ability": "INT"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

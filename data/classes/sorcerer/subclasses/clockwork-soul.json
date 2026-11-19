@@ -1,0 +1,136 @@
+{
+  "id": "clockwork-soul",
+  "name": "Clockwork Soul",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Sorcerers infused with the order of Mechanus.",
+  "features": [
+    {
+      "id": "clockwork-magic",
+      "name": "Clockwork Magic",
+      "unlockLevel": 1,
+      "short": "Learn extra order-themed spells you can swap for abjuration or transmutation.",
+      "summary": "You learn additional spells at the listed sorcerer levels; they don't count against your spells known. You can replace one with an abjuration or transmutation spell when you level up.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "restore-balance",
+      "name": "Restore Balance",
+      "unlockLevel": 1,
+      "short": "Reaction: cancel advantage or disadvantage on a roll.",
+      "summary": "When a creature within 60 ft. is about to roll with advantage or disadvantage, you can use your reaction to prevent it. Uses: PB per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "restore-balance",
+          "name": "Restore Balance",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "bastion-of-law",
+      "name": "Bastion of Law",
+      "unlockLevel": 6,
+      "short": "Spend sorcery points to give a creature a ward of d8s.",
+      "summary": "As an action, spend 1 to 5 sorcery points to give a creature within 30 ft. a ward of that many d8s. When it takes damage, it can spend dice to reduce the damage. Lasts until a long rest or until you use this again.",
+      "facts": {
+        "action": "Action",
+        "cost": "1-5 sorcery points"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "trance-of-order",
+      "name": "Trance of Order",
+      "unlockLevel": 14,
+      "short": "Bonus action: attacks can't have advantage against you; rolls below 10 count as 10.",
+      "summary": "As a bonus action, for 1 minute attack rolls against you can't have advantage, and when you make an attack roll, ability check or save you can treat a d20 roll of 9 or lower as 10. Once per long rest (or 5 sorcery points).",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "trance-of-order",
+          "name": "Trance of Order",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "clockwork-cavalcade",
+      "name": "Clockwork Cavalcade",
+      "unlockLevel": 18,
+      "short": "Heal 100 HP, repair objects and end spells in a 30 ft. cube.",
+      "summary": "As an action, spirits of order fill a 30 ft. cube: you restore up to 100 hit points divided among creatures in it, repair damaged objects, and end spells of 6th level or lower on creatures and objects of your choice. Once per long rest (or 7 sorcery points).",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "clockwork-cavalcade",
+          "name": "Clockwork Cavalcade",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Alarm",
+        "Protection from Evil and Good"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Aid",
+        "Lesser Restoration"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Dispel Magic",
+        "Protection from Energy"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Freedom of Movement",
+        "Summon Construct"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Greater Restoration",
+        "Wall of Force"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

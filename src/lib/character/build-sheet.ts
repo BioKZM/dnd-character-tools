@@ -1,3 +1,5 @@
+import { breathWeapon } from "@/lib/engine/breath-weapon";
+import { SPELLBOOK_KEY, prepareLimit, spellbookFreeSlots } from "@/lib/character/spellbook";
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import type { ContentBundle, FeatureFacts } from "@/lib/content/schema";
 import { optionalFeatureActive, type EngineCatalog } from "@/lib/engine/collect";
@@ -424,7 +426,9 @@ function abilityDamage(modifier: number, fallback = 1) {
 function inventoryHasWeaponName(inventory: string[], weapon: ContentBundle["weapons"][number]) {
   // "10 Darts", "2x Handaxes" gibi adetli kayitlar da silah sayilir.
   const inventoryNames = new Set(
-    inventory.flatMap((item) => {
+    inventory.flatMap((rawItem) => {
+      // Creator'daki custom silahlar "Longsword (custom)" olarak tutulur.
+      const item = rawItem.replace(/\s*\(custom\)\s*$/i, "");
       const bare = item.replace(/^\s*\d+\s*x?\s+/i, "");
       const name = normalizeEquipmentName(bare);
       return [normalizeEquipmentName(item), name, name.replace(/s$/, ""), name.replace(/es$/, "")];
@@ -454,18 +458,6 @@ function weaponRange(weapon: ContentBundle["weapons"][number]) {
   return weapon.attackType === "melee" ? "5 ft." : "-";
 }
 
-function weaponDamage(draft: CharacterDraft, weapon: ContentBundle["weapons"][number]) {
-  if (!weapon.damage || !weapon.damageType) {
-    return "-";
-  }
-
-  if (weapon.damage === "1") {
-    return `1 ${weapon.damageType}`;
-  }
-
-  return `${weapon.damage}${formatSigned(weaponAbilityModifier(draft, weapon))} ${weapon.damageType}`;
-}
-
 /** Monk silahi: shortsword, iki elli/heavy olmayan simple melee, ya da Kensei gibi kaynaklarin ekledigi silahlar. */
 function isMonkWeapon(weapon: ContentBundle["weapons"][number], extraIds: string[]) {
   return (
@@ -481,6 +473,21 @@ function dieAverage(die: string) {
 }
 
 type MartialArtsContext = { die: string; monkWeapons: string[] } | null;
+
+/** Karakterin aktif fighting style'lari: Fighter / Ranger secimi, Paladin ve feat secimleri (choices icinde "fighting-style"). */
+export function activeFightingStyles(draft: CharacterDraft): Set<string> {
+  const ids = new Set<string>();
+  if (draft.classId === "fighter" && draft.fighterChoices?.fightingStyleId) {
+    ids.add(draft.fighterChoices.fightingStyleId);
+  }
+  if (draft.classId === "ranger" && draft.rangerChoices?.fightingStyleId) {
+    ids.add(draft.rangerChoices.fightingStyleId);
+  }
+  Object.entries(draft.choices ?? {})
+    .filter(([key]) => /fighting-style|fighting-initiate/.test(key))
+    .forEach(([, values]) => values.forEach((value) => ids.add(value)));
+  return ids;
+}
 
 function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, martialArts: MartialArtsContext = null): BuiltAction[] {
   const strength = draft.abilities.find((ability) => ability.id === "STR")?.modifier ?? 0;
@@ -514,16 +521,70 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
         description: "A basic melee attack using fists, kicks, or body weight.",
         source: "Core Rules",
       };
+  // Proficiency sadece custom eklenen silahlarda kontrol edilir (class listesi zaten proficient).
+  const weaponLabels = (draft.proficiencies?.weapons ?? []).map((label) => label.toLowerCase());
+  const customNames = new Set(draft.inventory.filter((item) => /\(custom\)\s*$/i.test(item)).map((item) => item.replace(/\s*\(custom\)\s*$/i, "").toLowerCase()));
+  const lacksProficiency = (weapon: ContentBundle["weapons"][number]) =>
+    customNames.has(weapon.name.toLowerCase()) &&
+    weaponLabels.length > 0 &&
+    !weaponLabels.some((label) =>
+      label.startsWith("simple weapon")
+        ? weapon.proficiency === "simple"
+        : label.startsWith("martial weapon")
+          ? weapon.proficiency === "martial"
+          : label === weapon.name.toLowerCase() || label.replace(/s$/, "") === weapon.name.toLowerCase(),
+    );
+  // Fighting style'lar silah satirina gercekten islenir (Dueling +2 hasar, Archery +2 vurus...).
+  const styles = activeFightingStyles(draft);
+  const styleBonus = (weapon: ContentBundle["weapons"][number]) => {
+    const melee = weapon.attackType === "melee";
+    const hit: Array<[string, number]> = [];
+    const damage: Array<[string, number]> = [];
+    const tags: string[] = [];
+    if (styles.has("archery") && weapon.attackType === "ranged") {
+      hit.push(["Archery", 2]);
+      tags.push("Archery +2 hit");
+    }
+    if (styles.has("dueling") && melee && !weapon.properties.includes("two-handed")) {
+      damage.push(["Dueling", 2]);
+      tags.push("Dueling +2 damage (no other weapon in hand)");
+    }
+    if (styles.has("thrown-weapon-fighting") && weapon.properties.includes("thrown")) {
+      if (weapon.attackType === "ranged") {
+        damage.push(["Thrown Weapon Fighting", 2]);
+      }
+      tags.push("Thrown Weapon Fighting: +2 damage when thrown");
+    }
+    if (styles.has("great-weapon-fighting") && melee && (weapon.properties.includes("two-handed") || weapon.properties.includes("versatile"))) {
+      tags.push("Great Weapon Fighting: reroll 1s and 2s on damage dice (two hands)");
+    }
+    return { hit, damage, tags };
+  };
+  const bonusText = (entries: Array<[string, number]>) => entries.map(([name, value]) => ` + ${name} ${formatSigned(value)}`).join("");
+  const bonusSum = (entries: Array<[string, number]>) => entries.reduce((sum, [, value]) => sum + value, 0);
   const weaponStats = (weapon: ContentBundle["weapons"][number]) => {
     const abilityName = (modifier: number) => (modifier === dexterity && (weapon.attackType === "ranged" || weapon.properties.includes("finesse") || martialArts) ? "DEX" : "STR");
+    const bonus = styleBonus(weapon);
     if (!martialArts || !isMonkWeapon(weapon, martialArts.monkWeapons) || !weapon.damage || !weapon.damageType) {
       const modifier = weaponAbilityModifier(draft, weapon);
+      const proficiency = lacksProficiency(weapon) ? 0 : draft.proficiencyBonus;
+      const proficiencyText = proficiency ? `Proficiency ${formatSigned(proficiency)}` : "Not proficient +0";
+      const damage =
+        !weapon.damage || !weapon.damageType
+          ? "-"
+          : weapon.damage === "1"
+            ? `1 ${weapon.damageType}`
+            : `${weapon.damage}${formatSigned(modifier + bonusSum(bonus.damage))} ${weapon.damageType}`;
       return {
-        hit: formatSigned(draft.proficiencyBonus + modifier),
-        damage: weaponDamage(draft, weapon),
+        hit: formatSigned(proficiency + modifier + bonusSum(bonus.hit)),
+        damage,
         monk: false,
+        tags: bonus.tags,
         formula: weapon.damage && weapon.damage !== "1"
-          ? { hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${abilityName(modifier)} ${formatSigned(modifier)}`, damage: `${weapon.name} ${weapon.damage} + ${abilityName(modifier)} ${formatSigned(modifier)}` }
+          ? {
+              hit: `${proficiencyText} + ${abilityName(modifier)} ${formatSigned(modifier)}${bonusText(bonus.hit)}`,
+              damage: `${weapon.name} ${weapon.damage} + ${abilityName(modifier)} ${formatSigned(modifier)}${bonusText(bonus.damage)}`,
+            }
           : undefined,
       };
     }
@@ -531,12 +592,13 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
     const useMartialDie = dieAverage(martialArts.die) > dieAverage(weapon.damage);
     const die = useMartialDie ? martialArts.die : weapon.damage;
     return {
-      hit: formatSigned(draft.proficiencyBonus + modifier),
-      damage: `${die}${formatSigned(modifier)} ${weapon.damageType}`,
+      hit: formatSigned(draft.proficiencyBonus + modifier + bonusSum(bonus.hit)),
+      damage: `${die}${formatSigned(modifier + bonusSum(bonus.damage))} ${weapon.damageType}`,
       monk: true,
+      tags: bonus.tags,
       formula: {
-        hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${abilityName(modifier)} ${formatSigned(modifier)}`,
-        damage: `${useMartialDie ? `Martial Arts ${die}` : `${weapon.name} ${die}`} + ${abilityName(modifier)} ${formatSigned(modifier)}`,
+        hit: `Proficiency ${formatSigned(draft.proficiencyBonus)} + ${abilityName(modifier)} ${formatSigned(modifier)}${bonusText(bonus.hit)}`,
+        damage: `${useMartialDie ? `Martial Arts ${die}` : `${weapon.name} ${die}`} + ${abilityName(modifier)} ${formatSigned(modifier)}${bonusText(bonus.damage)}`,
       },
     };
   };
@@ -551,7 +613,8 @@ function inventoryWeaponActions(content: ContentBundle, draft: CharacterDraft, m
       damage: weaponStats(weapon).damage,
       formula: weaponStats(weapon).formula,
       notes: weapon.properties.length ? weapon.properties.map((property) => property.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join("-")).join(", ") : "-",
-      description: `${weaponStats(weapon).monk ? "Monk weapon (Martial Arts). " : ""}${weapon.specialDescription ?? `${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType} weapon attack.`}`,
+      short: weaponStats(weapon).tags.length ? weaponStats(weapon).tags.join(" · ") : undefined,
+      description: `${weaponStats(weapon).monk ? "Monk weapon (Martial Arts). " : ""}${weapon.specialDescription ?? `${weapon.proficiency === "martial" ? "Martial" : "Simple"} ${weapon.attackType} weapon attack.`}${weaponStats(weapon).tags.length ? ` ${weaponStats(weapon).tags.join(". ")}.` : ""}`,
       source: "Inventory",
     })),
   ];
@@ -1088,8 +1151,77 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     value: 8 + draft.proficiencyBonus + (abilityModifiers[entry.ability] ?? 0),
   }));
 
+  // Irk aksiyonlari: Dragonborn Breath Weapon (ejderha rengine gore hasar, sekil, save).
+  const breath =
+    draft.speciesId === "dragonborn"
+      ? breathWeapon(draft.lineageChoices?.["dragonborn-ancestry"]?.[0], draft.level, abilityModifiers.CON ?? 0, draft.proficiencyBonus)
+      : null;
+  const raceActions: BuiltAction[] = breath
+    ? [
+        {
+          id: "breath-weapon",
+          name: "Breath Weapon",
+          category: "Action",
+          range: breath.shape,
+          hit: `DC ${breath.dc} ${breath.save}`,
+          damage: breath.damage,
+          notes: "Dragonborn | once per short or long rest",
+          short: breath.chosen
+            ? `Exhale ${breath.damage} in a ${breath.shape}. Half damage on a successful save.`
+            : "Pick your draconic ancestry in the creator to set the damage type.",
+          description: `Every creature in the area makes a ${breath.save} saving throw (DC ${breath.dc}). On a failure it takes ${breath.damage} damage, half as much on a success. The damage grows at 6th, 11th and 16th level. You can use it again after a short or long rest.`,
+          source: "Dragonborn",
+          formula: { hit: `8 + CON ${formatSigned(abilityModifiers.CON ?? 0)} + proficiency ${draft.proficiencyBonus}`, damage: "2d6, 3d6 at 6th, 4d6 at 11th, 5d6 at 16th" },
+        },
+      ]
+    : [];
+  // Diger irk aksiyonlari: lineage data'sinda "action" alani olan ozellikler (Hidden Step, Stone's Endurance...).
+  const raceLineage =
+    engine.lineages?.entries.find((entry) => entry.id === draft.speciesId) ??
+    engine.lineages?.entries.find((entry) => entry.sublineages.some((sub) => sub.id === draft.speciesId)) ??
+    null;
+  const raceSublineage = raceLineage?.sublineages.find((sub) => sub.id === draft.speciesId) ?? null;
+  const fillRaceText = (text: string) =>
+    text
+      .replace(/\{level\}/g, String(draft.level))
+      .replace(/\{halfLevel\}/g, String(Math.max(1, Math.ceil(draft.level / 2))))
+      .replace(/\{mod:([A-Z]{3})\}/g, (_, ability: AbilityId) => formatSigned(abilityModifiers[ability] ?? 0))
+      .replace(/\{atk:([A-Z]{3})\}/g, (_, ability: AbilityId) => formatSigned((abilityModifiers[ability] ?? 0) + draft.proficiencyBonus))
+      .replace(/\{dc:([A-Z]{3})\}/g, (_, ability: AbilityId) => String(8 + (abilityModifiers[ability] ?? 0) + draft.proficiencyBonus))
+      .replace(/\+\s*\+/g, "+")
+      .replace(/\+\s*-/g, "-");
+  const raceFeatureActions = [...(raceLineage?.features ?? []), ...(raceSublineage?.features ?? [])]
+    .filter((feature) => feature.action && (!feature.action.minLevel || draft.level >= feature.action.minLevel))
+    .map((feature) => {
+      const action = feature.action!;
+      const uses = action.usesProficiency ? draft.proficiencyBonus : action.uses;
+      return {
+        built: {
+          id: `race-${feature.id}`,
+          name: feature.name,
+          category: action.category,
+          range: action.range ? fillRaceText(action.range) : "-",
+          hit: action.hit ? fillRaceText(action.hit) : "-",
+          damage: action.damage ? fillRaceText(action.damage) : "-",
+          notes: `${raceSublineage?.name ?? raceLineage?.name ?? "Race"}${action.recharge ? ` | ${uses} per ${action.recharge === "short_rest" ? "short or long" : "long"} rest` : ""}`,
+          short: action.short ? fillRaceText(action.short) : undefined,
+          description: feature.summary,
+          source: raceSublineage?.name ?? raceLineage?.name ?? "Race",
+        } satisfies BuiltAction,
+        resource: action.recharge
+          ? { id: `race-${feature.id}`, name: feature.name, total: uses, recharge: action.recharge, source: feature.name }
+          : null,
+      };
+    });
+  raceActions.push(...raceFeatureActions.map((entry) => entry.built));
+  // Level'i gelmemis olanlar dahil: hicbirinin metinden tahmin edilen kopyasi listeye girmesin.
+  const raceActionNames = new Set([
+    ...raceActions.map((action) => action.name.toLowerCase()),
+    ...[...(raceLineage?.features ?? []), ...(raceSublineage?.features ?? [])].filter((feature) => feature.action).map((feature) => feature.name.toLowerCase()),
+  ]);
   const builtActions = uniqueById<BuiltAction>([
     ...inventoryWeaponActions(content, draft, martialArts),
+    ...raceActions,
     ...learnedSpells.map(({ spell, sourceLabel }) => ({
       id: `${spell.id}-${sourceLabel}`,
       name: spell.name,
@@ -1120,11 +1252,58 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
         : kind === "spell"
           ? spellcasting.at(0)?.saveDc ?? null
           : null,
-    ),
+      // Irk aksiyonu olarak zaten kurulanlarin metinden tahmin edilen kopyasi gelmesin.
+    ).filter((action) => !raceActionNames.has(action.name.toLowerCase())),
   ]);
 
   const movementStats = deriveMovementStats(derived, armorClass.speedPenalty, armorClass.unarmored ? 0 : derived.unarmoredSpeedBonus);
   const armorClassStat = deriveArmorClassStat(armorClass);
+
+  // Spells sekmesi icin: level'a gore siralanmis, kaynagi ve DC/attack'i hazir buyu girisi.
+  const toSpellEntry = (spell: ContentBundle["spells"][number], sourceLabel: string) => ({
+    id: `${spell.id}-${sourceLabel}`,
+    spellId: spell.id,
+    name: spell.name,
+    level: spell.level,
+    school: spell.school,
+    castingTime: spell.castingTime,
+    range: spell.range,
+    duration: spell.duration,
+    concentration: /concentration/i.test(spell.duration),
+    ritual: /ritual/i.test(spell.subtitle ?? "") || (spell.tags ?? []).includes("Ritual"),
+    source: sourceLabel,
+    hit: spellHit(spell),
+    damage: spellDamage(spell),
+    summary: spell.summary,
+    atHigherLevels: spell.atHigherLevels ?? "",
+  });
+  // Wizard spellbook: kitaptaki buyuler (hazirlananlar dahil), hazirlik limiti, kopyalanabilecekler.
+  const spellbook = (() => {
+    if (draft.classId !== "wizard") {
+      return null;
+    }
+    const wizardSpell = (spell: ContentBundle["spells"][number]) =>
+      spell.classes?.some((entry) => entry.toLowerCase().replace(/\s*\([^)]*\)\s*/g, "").trim() === "wizard") ?? false;
+    const maxLevel = Math.max(0, ...spellcasting.flatMap((profile) => profile.slots.map((slot) => slot.level)));
+    const preparedLeveled = draft.spellIds.filter((id) => (content.spells.find((spell) => spell.id === id)?.level ?? 0) > 0);
+    const bookIds = [...new Set([...(draft.choices?.[SPELLBOOK_KEY] ?? []), ...preparedLeveled])];
+    const bookSpells = bookIds
+      .map((id) => content.spells.find((spell) => spell.id === id))
+      .filter((spell): spell is ContentBundle["spells"][number] => Boolean(spell));
+    return {
+      entries: bookSpells
+        .map((spell) => toSpellEntry(spell, "Spellbook"))
+        .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
+      preparedIds: preparedLeveled,
+      prepareLimit: prepareLimit(abilityModifiers.INT ?? 0, draft.level),
+      freeSlots: spellbookFreeSlots(draft.level),
+      maxLevel,
+      copyPool: content.spells
+        .filter((spell) => spell.level > 0 && spell.level <= maxLevel && wizardSpell(spell) && !bookIds.includes(spell.id))
+        .map((spell) => ({ id: spell.id, name: spell.name, level: spell.level, school: spell.school }))
+        .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
+    };
+  })();
 
   return {
     className: chosenClass?.name ?? draft.classLine,
@@ -1156,32 +1335,22 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     mageArmorAvailable: mageArmorAvailable(derived, draft.spellIds),
     // Spells sekmesi icin: level'a gore siralanmis, kaynagi ve DC/attack'i hazir buyu listesi.
     spellEntries: learnedSpells
-      .map(({ spell, sourceLabel }) => ({
-        id: `${spell.id}-${sourceLabel}`,
-        spellId: spell.id,
-        name: spell.name,
-        level: spell.level,
-        school: spell.school,
-        castingTime: spell.castingTime,
-        range: spell.range,
-        duration: spell.duration,
-        concentration: /concentration/i.test(spell.duration),
-        ritual: /ritual/i.test(spell.subtitle ?? "") || (spell.tags ?? []).includes("Ritual"),
-        source: sourceLabel,
-        hit: spellHit(spell),
-        damage: spellDamage(spell),
-        summary: spell.summary,
-      }))
+      .map(({ spell, sourceLabel }) => toSpellEntry(spell, sourceLabel))
       .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
+    spellbook,
     // Kisa / uzun dinlenmede yenilenen kaynaklar (Second Wind, Bardic Inspiration...).
-    resources: derived.resources.map((resource) => ({
-      ...resource,
-      total: resolveResourceUses(resource.uses, {
-        level: draft.level,
-        proficiencyBonus: draft.proficiencyBonus,
-        modifiers: abilityModifiers,
-      }),
-    })),
+    resources: [
+      ...derived.resources.map((resource) => ({
+        ...resource,
+        total: resolveResourceUses(resource.uses, {
+          level: draft.level,
+          proficiencyBonus: draft.proficiencyBonus,
+          modifiers: abilityModifiers,
+        }),
+      })),
+      ...(breath ? [{ id: "breath-weapon", name: "Breath Weapon", total: 1, recharge: "short_rest" as const, source: "Breath Weapon" }] : []),
+      ...raceFeatureActions.flatMap((entry) => (entry.resource ? [entry.resource] : [])),
+    ],
     derivedStats: {
       walkingSpeed: movementStats.walkingSpeed,
       extraMovementModes: movementStats.extraMovementModes,

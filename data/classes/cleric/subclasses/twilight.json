@@ -1,0 +1,188 @@
+{
+  "id": "twilight",
+  "name": "Twilight Domain",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Guardians of the night who keep watch against the dark.",
+  "features": [
+    {
+      "id": "twilight-domain-spells",
+      "name": "Domain Spells",
+      "unlockLevel": 1,
+      "short": "Extra spells that are always prepared.",
+      "summary": "You always have your domain spells prepared once you reach the listed cleric levels. They don't count against the number of spells you prepare each day.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "twilight-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 1,
+      "short": "Martial weapons and heavy armor.",
+      "summary": "You gain proficiency with martial weapons and heavy armor.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "proficiency",
+          "category": "weapon",
+          "values": [
+            "Martial Weapons"
+          ]
+        },
+        {
+          "type": "proficiency",
+          "category": "armor",
+          "values": [
+            "Heavy Armor"
+          ]
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "eyes-of-night",
+      "name": "Eyes of Night",
+      "unlockLevel": 1,
+      "short": "Darkvision 300 ft.; share it with allies.",
+      "summary": "You have darkvision out to 300 ft. As an action, you can share it with willing creatures within 10 ft. for 1 hour (once per long rest, or by spending a spell slot).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "range": 300
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "vigilant-blessing",
+      "name": "Vigilant Blessing",
+      "unlockLevel": 1,
+      "short": "Give a creature advantage on its next initiative roll.",
+      "summary": "As an action, you give one creature you touch advantage on its next initiative roll.",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "twilight-sanctuary",
+      "name": "Channel Divinity: Twilight Sanctuary",
+      "unlockLevel": 2,
+      "short": "A 30 ft. sphere that grants temp HP or ends charm/fear.",
+      "summary": "As an action, create a 30 ft. sphere of twilight centered on you for 1 minute. Whenever a creature ends its turn in it, you can give it 1d6 + your cleric level temporary hit points or end a charmed or frightened effect on it.",
+      "facts": {
+        "action": "Action",
+        "cost": "Channel Divinity",
+        "duration": "1 minute"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "steps-of-night",
+      "name": "Steps of Night",
+      "unlockLevel": 6,
+      "short": "Bonus action: fly in dim light or darkness for a minute.",
+      "summary": "As a bonus action while in dim light or darkness, you gain a flying speed equal to your walking speed for 1 minute. Uses: PB per long rest.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "steps-of-night",
+          "name": "Steps of Night",
+          "uses": "PB",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "twilight-divine-strike",
+      "name": "Divine Strike",
+      "unlockLevel": 8,
+      "short": "Once per turn, weapon hits deal +1d8 radiant (2d8 at 14th).",
+      "summary": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 radiant damage. At 14th level the extra damage becomes 2d8.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 8,
+          "label": "1d8"
+        },
+        {
+          "level": 14,
+          "label": "2d8"
+        }
+      ]
+    },
+    {
+      "id": "twilight-shroud",
+      "name": "Twilight Shroud",
+      "unlockLevel": 17,
+      "short": "Your sanctuary also gives half cover.",
+      "summary": "You and your allies have half cover while in your Twilight Sanctuary sphere.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 1,
+      "spells": [
+        "Faerie Fire",
+        "Sleep"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Moonbeam",
+        "See Invisibility"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Aura of Vitality",
+        "Leomund's Tiny Hut"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Aura of Life",
+        "Greater Invisibility"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Circle of Power",
+        "Mislead"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

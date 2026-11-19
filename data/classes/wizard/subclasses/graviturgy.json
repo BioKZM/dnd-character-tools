@@ -1,0 +1,77 @@
+{
+  "id": "graviturgy",
+  "name": "Graviturgy Magic",
+  "source": "Explorer's Guide to Wildemount",
+  "summary": "Wizards who bend gravity to crush and move creatures.",
+  "features": [
+    {
+      "id": "adjust-density",
+      "name": "Adjust Density",
+      "unlockLevel": 2,
+      "short": "Action: make a creature lighter (faster) or heavier (slower).",
+      "summary": "As an action, you magically alter the weight of a Large or smaller creature within 30 ft. for 1 minute (concentration): halve its weight (+10 ft. speed, jump farther, disadvantage on STR) or double it (-10 ft. speed, advantage on STR).",
+      "facts": {
+        "action": "Action",
+        "duration": "1 minute"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "gravity-well",
+      "name": "Gravity Well",
+      "unlockLevel": 6,
+      "short": "Move creatures 5 ft. when your spells affect them.",
+      "summary": "Whenever you cast a spell on a creature, you can move it 5 ft. to an unoccupied space of your choice if it is willing, if your attack hits, or if it fails its save.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "violent-attraction",
+      "name": "Violent Attraction",
+      "unlockLevel": 10,
+      "short": "Reaction: +1d10 to a weapon hit or fall damage.",
+      "summary": "When a creature you can see within 60 ft. hits with a weapon attack, or takes falling damage, you can use your reaction to add 1d10 (or 2d10 for falls) to the damage. Uses: INT modifier per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "violent-attraction",
+          "name": "Violent Attraction",
+          "uses": "INT",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "event-horizon",
+      "name": "Event Horizon",
+      "unlockLevel": 14,
+      "short": "Action: hostile creatures near you take 2d10 force and can't move away.",
+      "summary": "As an action, you emit a 30 ft. field for 1 minute (concentration). Hostile creatures that start their turn in it make a STR save or take 2d10 force damage and have speed 0. Once per long rest (or a 3rd-level slot).",
+      "facts": {
+        "action": "Action",
+        "save": "STR",
+        "dc": "spell"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "event-horizon",
+          "name": "Event Horizon",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

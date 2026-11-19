@@ -1,0 +1,173 @@
+{
+  "id": "spores",
+  "name": "Circle of Spores",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Druids who see beauty in decay and fight with fungal spores.",
+  "features": [
+    {
+      "id": "spores-circle-spells",
+      "name": "Circle Spells",
+      "unlockLevel": 2,
+      "short": "Learn Chill Touch and gain necromantic circle spells.",
+      "summary": "You learn the Chill Touch cantrip, and you always have certain spells prepared at the listed druid levels.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "spell",
+          "spellId": "chill-touch",
+          "uses": "at_will"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "halo-of-spores",
+      "name": "Halo of Spores",
+      "unlockLevel": 2,
+      "short": "Reaction: deal necrotic damage to a creature near you.",
+      "summary": "When a creature you can see moves into a space within 10 ft. of you or starts its turn there, you can use your reaction to deal 1d4 necrotic damage (CON save negates). The die grows to 1d6 at 6th, 1d8 at 10th and 1d10 at 14th level.",
+      "facts": {
+        "action": "Reaction",
+        "range": "10 ft.",
+        "save": "CON",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 2,
+          "label": "1d4"
+        },
+        {
+          "level": 6,
+          "label": "1d6"
+        },
+        {
+          "level": 10,
+          "label": "1d8"
+        },
+        {
+          "level": 14,
+          "label": "1d10"
+        }
+      ]
+    },
+    {
+      "id": "symbiotic-entity",
+      "name": "Symbiotic Entity",
+      "unlockLevel": 2,
+      "short": "Spend Wild Shape for temp HP and stronger spores.",
+      "summary": "As an action, expend a use of Wild Shape to gain 4 temporary hit points per druid level. While they last, Halo of Spores rolls its damage die twice, and your melee weapon attacks deal an extra 1d6 necrotic damage. Lasts 10 minutes.",
+      "facts": {
+        "action": "Action",
+        "cost": "1 Wild Shape",
+        "duration": "10 minutes"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "fungal-infestation",
+      "name": "Fungal Infestation",
+      "unlockLevel": 6,
+      "short": "Reaction: raise a small beast or humanoid as a zombie.",
+      "summary": "When a Small or Medium beast or humanoid dies within 10 ft., you can use your reaction to animate it as a zombie with 1 hit point for 1 hour. Uses: WIS modifier per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "fungal-infestation",
+          "name": "Fungal Infestation",
+          "uses": "WIS",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "spreading-spores",
+      "name": "Spreading Spores",
+      "unlockLevel": 10,
+      "short": "Bonus action: launch a 10 ft. cube of spores.",
+      "summary": "While Symbiotic Entity is active, you can use a bonus action to hurl spores into a 10 ft. cube within 30 ft. for 1 minute; creatures that enter or start there take your Halo of Spores damage.",
+      "facts": {
+        "action": "Bonus Action"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "fungal-body",
+      "name": "Fungal Body",
+      "unlockLevel": 14,
+      "short": "Immune to blinded, deafened, frightened and poisoned; no crits against you.",
+      "summary": "You can't be blinded, deafened, frightened or poisoned, and any critical hit against you counts as a normal hit unless you are incapacitated.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "blinded"
+        },
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "deafened"
+        },
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "frightened"
+        },
+        {
+          "type": "defense",
+          "kind": "condition_immunity",
+          "against": "poisoned"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [
+    {
+      "unlockLevel": 3,
+      "spells": [
+        "Blindness/Deafness",
+        "Gentle Repose"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 5,
+      "spells": [
+        "Animate Dead",
+        "Gaseous Form"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 7,
+      "spells": [
+        "Blight",
+        "Confusion"
+      ],
+      "uses": "known"
+    },
+    {
+      "unlockLevel": 9,
+      "spells": [
+        "Cloudkill",
+        "Contagion"
+      ],
+      "uses": "known"
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,75 @@
+{
+  "id": "enchantment",
+  "name": "School of Enchantment",
+  "source": "Player's Handbook",
+  "summary": "Wizards who beguile and control minds.",
+  "features": [
+    {
+      "id": "enchantment-savant",
+      "name": "Enchantment Savant",
+      "unlockLevel": 2,
+      "short": "Copy enchantment spells for half the time and gold.",
+      "summary": "The gold and time you must spend to copy a enchantment spell into your spellbook is halved.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "hypnotic-gaze",
+      "name": "Hypnotic Gaze",
+      "unlockLevel": 2,
+      "short": "Action: charm and incapacitate an adjacent creature.",
+      "summary": "As an action, choose a creature within 5 ft. that can see or hear you: it makes a WIS save or is charmed until the end of your next turn, its speed drops to 0 and it is incapacitated. You can maintain it with your action. Once per long rest per creature.",
+      "facts": {
+        "action": "Action",
+        "range": "5 ft.",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "instinctive-charm",
+      "name": "Instinctive Charm",
+      "unlockLevel": 6,
+      "short": "Reaction: redirect an attack to another creature.",
+      "summary": "When a creature within 30 ft. attacks you, you can use your reaction to make it make a WIS save; on a failure it must target the closest other creature (or lose the attack). Once per long rest per creature on a success.",
+      "facts": {
+        "action": "Reaction",
+        "save": "WIS",
+        "dc": "spell"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "split-enchantment",
+      "name": "Split Enchantment",
+      "unlockLevel": 10,
+      "short": "Single-target enchantment spells can target two creatures.",
+      "summary": "When you cast an enchantment spell of 1st level or higher that targets only one creature, you can have it target a second creature.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "alter-memories",
+      "name": "Alter Memories",
+      "unlockLevel": 14,
+      "short": "Charmed creatures forget being charmed; erase hours of memory.",
+      "summary": "When you charm creatures with an enchantment spell, you can make one unaware that it was charmed. Before the spell ends, you can use your action to make it forget up to 1 + CHA hours of its time (INT save).",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

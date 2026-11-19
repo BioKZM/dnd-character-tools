@@ -1,0 +1,88 @@
+{
+  "id": "eloquence",
+  "name": "College of Eloquence",
+  "source": "Tasha's Cauldron of Everything",
+  "summary": "Masters of oratory whose words always land.",
+  "features": [
+    {
+      "id": "silver-tongue",
+      "name": "Silver Tongue",
+      "unlockLevel": 3,
+      "short": "Treat rolls below 10 as 10 on Persuasion and Deception.",
+      "summary": "When you make a Charisma (Persuasion) or Charisma (Deception) check, you can treat a d20 roll of 9 or lower as a 10.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "unsettling-words",
+      "name": "Unsettling Words",
+      "unlockLevel": 3,
+      "short": "Bonus action: subtract an inspiration die from a target's next save.",
+      "summary": "As a bonus action, expend a Bardic Inspiration and choose a creature within 60 ft. Roll the die; the creature subtracts it from the next saving throw it makes before the start of your next turn.",
+      "facts": {
+        "action": "Bonus Action",
+        "cost": "1 Bardic Inspiration",
+        "range": "60 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "unfailing-inspiration",
+      "name": "Unfailing Inspiration",
+      "unlockLevel": 6,
+      "short": "Inspiration isn't lost when the roll still fails.",
+      "summary": "When a creature adds one of your Bardic Inspiration dice to a roll and the roll fails, it keeps the die.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "universal-speech",
+      "name": "Universal Speech",
+      "unlockLevel": 6,
+      "short": "Let creatures understand you whatever language they speak.",
+      "summary": "As an action, choose up to CHA-modifier creatures within 60 ft.: for 1 hour they can understand you regardless of language. Once per long rest (or by spending a spell slot).",
+      "facts": {
+        "action": "Action"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "universal-speech",
+          "name": "Universal Speech",
+          "uses": 1,
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "infectious-inspiration",
+      "name": "Infectious Inspiration",
+      "unlockLevel": 14,
+      "short": "When inspiration succeeds, give a free die to someone else.",
+      "summary": "When a creature within 60 ft. succeeds on a roll using your Bardic Inspiration, you can use your reaction to give another creature a Bardic Inspiration die without expending one. Uses: CHA modifier per long rest.",
+      "facts": {
+        "action": "Reaction"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "infectious-inspiration",
+          "name": "Infectious Inspiration",
+          "uses": "CHA",
+          "recharge": "long_rest"
+        }
+      ],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

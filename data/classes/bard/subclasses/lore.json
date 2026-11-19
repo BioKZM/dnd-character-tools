@@ -1,0 +1,110 @@
+{
+  "id": "lore",
+  "name": "College of Lore",
+  "source": "Player's Handbook",
+  "summary": "Bards who collect knowledge from every source and cut enemies down with words.",
+  "features": [
+    {
+      "id": "lore-proficiencies",
+      "name": "Bonus Proficiencies",
+      "unlockLevel": 3,
+      "short": "Three extra skills of your choice.",
+      "summary": "You gain proficiency with three skills of your choice.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "lore-skills",
+          "label": "Three skills",
+          "count": 3,
+          "min": 3,
+          "from": {
+            "kind": "skill",
+            "proficientOnly": false,
+            "options": [
+              "acrobatics",
+              "animal-handling",
+              "arcana",
+              "athletics",
+              "deception",
+              "history",
+              "insight",
+              "intimidation",
+              "investigation",
+              "medicine",
+              "nature",
+              "perception",
+              "performance",
+              "persuasion",
+              "religion",
+              "sleight-of-hand",
+              "stealth",
+              "survival"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cutting-words",
+      "name": "Cutting Words",
+      "unlockLevel": 3,
+      "short": "Reaction: spend Bardic Inspiration to weaken a roll.",
+      "summary": "When a creature within 60 ft. makes an attack roll, ability check or damage roll, you can use your reaction and a Bardic Inspiration die to subtract the roll from its result, after it rolls but before you know the outcome.",
+      "facts": {
+        "action": "Reaction",
+        "cost": "1 Bardic Inspiration",
+        "range": "60 ft."
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "additional-magical-secrets",
+      "name": "Additional Magical Secrets",
+      "unlockLevel": 6,
+      "short": "Learn two spells from any class.",
+      "summary": "You learn two spells of your choice from any class. They must be of a level you can cast, and they count as bard spells for you.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "lore-magical-secrets",
+          "label": "Two spells from any class",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "spell",
+            "filter": {
+              "tags": [],
+              "classes": [],
+              "schools": [],
+              "maxLevel": "half_level"
+            }
+          },
+          "grantUses": "known",
+          "minLevel": 6
+        }
+      ]
+    },
+    {
+      "id": "peerless-skill",
+      "name": "Peerless Skill",
+      "unlockLevel": 14,
+      "short": "Add a Bardic Inspiration die to your own ability check.",
+      "summary": "When you make an ability check, you can expend one use of Bardic Inspiration and add the die to the check, after rolling but before knowing the outcome.",
+      "facts": {
+        "action": "Passive",
+        "cost": "1 Bardic Inspiration"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

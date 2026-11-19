@@ -737,7 +737,15 @@
   ],
   "subclassHeading": "Sacred Oath",
   "subclasses": [
-    "oathbreaker"
+    "ancients",
+    "conquest",
+    "crown",
+    "devotion",
+    "glory",
+    "oathbreaker",
+    "redemption",
+    "vengeance",
+    "watchers"
   ],
   "highlights": [
     {

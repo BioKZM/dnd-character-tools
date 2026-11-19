@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { GameIcon } from "@/components/ui/game-icon";
 import { Keywordize } from "@/components/ui/keyword-text";
 import type { GameIconName } from "@/lib/ui/game-icons";
@@ -126,6 +127,7 @@ export function PickSection({
   total,
   children,
   actions,
+  badge,
 }: {
   title: string;
   meta?: string;
@@ -133,26 +135,67 @@ export function PickSection({
   total?: number;
   children: ReactNode;
   actions?: ReactNode;
+  /** Basligin yaninda kutu icinde sayi (or. "16 / 94"). */
+  badge?: string;
 }) {
   const left = total !== undefined && picked !== undefined ? Math.max(0, total - picked) : null;
+  // Basliksiz bolum: tamamlanmissa bas satiri hic cizme (durum zaten ekran sekmesinde).
+  const showHead = Boolean(title || meta || actions || badge || left);
   return (
     <section className="pick-section">
+      {showHead ? (
       <div className="pick-section-head">
         <span className="pick-section-title">
           <strong>{title}</strong>
+          {badge ? <b className="pick-section-badge">{badge}</b> : null}
           {meta ? <span>{meta}</span> : null}
         </span>
         <span className="pick-section-side">
           {actions}
           {left !== null ? (
             <span className={left ? "pick-counter pending" : "pick-counter done"}>
-              {left ? `Pick ${left}` : total ? "Done" : ""}
+              {left ? `Pick ${left}` : total ? "✓" : ""}
             </span>
           ) : null}
         </span>
       </div>
+      ) : null}
       {children}
     </section>
+  );
+}
+
+export type PathCard = { id: string; name: string; line?: string; icon: GameIconName; selected?: boolean; disabled?: boolean };
+
+/** Buyuk yol kartlari (subclass / oath / patron): ikon + isim + tek satir. Kapali olanlar soluk. */
+export function PathCards({ items, onPick, onInspect, label }: { items: PathCard[]; onPick: (id: string) => void; onInspect?: (id: string) => void; label: string }) {
+  return (
+    <div className="path-cards" role="group" aria-label={label}>
+      {items.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          className={`path-card${item.selected ? " on" : ""}${item.disabled ? " off" : ""}`}
+          aria-pressed={item.disabled ? undefined : Boolean(item.selected)}
+          aria-disabled={item.disabled || undefined}
+          onClick={() => {
+            onInspect?.(item.id);
+            if (!item.disabled) {
+              onPick(item.id);
+            }
+          }}
+        >
+          <span className="path-card-icon">
+            <GameIcon name={item.icon} />
+          </span>
+          <span className="path-card-text">
+            <strong>{item.name}</strong>
+            {item.line ? <span>{item.line}</span> : null}
+          </span>
+          {item.selected ? <GameIcon name="check-mark" className="path-card-check" /> : null}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -188,6 +231,8 @@ export function PickTabs({ tabs, active, onChange, label }: { tabs: PickTab[]; a
 }
 
 export type InspectRow = { label: string; value: ReactNode };
+/** Kendi basligi olan bolum (or. "Core Resources"); her madde ayri satir, istege bagli etiketle (or. "Lv 5"). */
+export type InspectBlock = { title: string; items: Array<{ tag?: string; text: string }> };
 
 export function InspectPanel({
   icon,
@@ -195,6 +240,7 @@ export function InspectPanel({
   title,
   summary,
   rows = [],
+  blocks = [],
   warning,
   fullText,
   children,
@@ -205,6 +251,7 @@ export function InspectPanel({
   title: string;
   summary?: string | null;
   rows?: InspectRow[];
+  blocks?: InspectBlock[];
   warning?: string | null;
   fullText?: string | null;
   children?: ReactNode;
@@ -239,11 +286,29 @@ export function InspectPanel({
           ))}
         </dl>
       ) : null}
+      {blocks
+        .filter((block) => block.items.length)
+        .map((block) => (
+          <section key={block.title} className="inspect-block">
+            <h4>{block.title}</h4>
+            <ul>
+              {block.items.map((item, index) => (
+                <li key={`${block.title}-${index}`} className={item.tag ? "tagged" : undefined}>
+                  {item.tag ? <b>{item.tag}</b> : null}
+                  <span>
+                    <Keywordize>{item.text}</Keywordize>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       {children}
       {showFull ? (
         <div className="inspect-full">
-          <button type="button" className="inspect-toggle" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
-            {open ? "Hide full rules" : "Show full rules"}
+          <button type="button" className={open ? "inspect-toggle open" : "inspect-toggle"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+            <GameIcon name="scroll-unfurled" />
+            <span>{open ? "Hide full rules" : "Show full rules"}</span>
           </button>
           {open ? (
             <p>
@@ -257,8 +322,20 @@ export function InspectPanel({
   );
 }
 
-/** Izgara + inceleme paneli yan yana. */
+/** Creator'da sagdaki sabit sutun: inceleme paneli oraya (karakter ozetinin altina) tasinir. */
+export const CreatorSideContext = createContext<HTMLElement | null>(null);
+
+/** Izgara + inceleme paneli. Creator'da panel sagdaki sabit sutuna gider, yoksa yan yana durur. */
 export function PickLayout({ children, inspect }: { children: ReactNode; inspect: ReactNode }) {
+  const sideTarget = useContext(CreatorSideContext);
+  if (sideTarget) {
+    return (
+      <div className="pick-layout solo">
+        <div className="pick-layout-main">{children}</div>
+        {createPortal(inspect, sideTarget)}
+      </div>
+    );
+  }
   return (
     <div className="pick-layout">
       <div className="pick-layout-main">{children}</div>

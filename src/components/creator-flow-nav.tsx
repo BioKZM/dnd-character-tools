@@ -1,5 +1,12 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
+import Link from "next/link";
+import { GameIcon } from "@/components/ui/game-icon";
+import { AbilityIcon } from "@/components/ui/keyword-text";
+import type { GameIconName } from "@/lib/ui/game-icons";
+
 // Creator'in tek navigasyonu: ustte adimlar (Origin, Class, Abilities, Gear),
 // altinda aktif adimin ekranlari ve tek satir karakter ozeti. En altta Back / Next.
 
@@ -16,28 +23,29 @@ export type CreatorFlowStep = {
   screens: CreatorFlowScreen[];
 };
 
-type SummaryStat = { label: string; value: string };
+type SummaryStat = { label: string; value: string; icon?: GameIconName; tip?: string };
+export type SummaryIdentity = { key: string; icon: GameIconName; label: string; value: string; missing?: boolean };
+
+const noopSubscribe = () => () => {};
 
 export function CreatorFlowNav({
   steps,
   activeStep,
-  activeBrowser,
   onNavigate,
-  title,
-  subtitle,
-  stats,
 }: {
   steps: CreatorFlowStep[];
   activeStep: number;
-  activeBrowser: string | null;
+  activeBrowser?: string | null;
   onNavigate: (screen: CreatorFlowScreen) => void;
-  title: string;
-  subtitle: string;
-  stats: SummaryStat[];
 }) {
-  const current = steps.find((step) => step.id === activeStep) ?? steps[0];
-  return (
-    <section className="creator-flow" aria-label="Creator steps">
+  // Adimlar ustteki sabit uygulama cubuguna tasinir (campaign-shell'deki slot). Slot yoksa yerinde durur.
+  const slot = useSyncExternalStore(
+    noopSubscribe,
+    () => document.getElementById("creator-steps-slot"),
+    () => null,
+  );
+  const list = (
+    <nav className="creator-flow" aria-label="Creator steps">
       <ol className="creator-flow-steps">
         {steps.map((step, index) => {
           const pending = step.screens.reduce((total, screen) => total + screen.pending, 0);
@@ -48,53 +56,53 @@ export function CreatorFlowNav({
                 type="button"
                 className={`creator-flow-step ${state}`}
                 aria-current={step.id === activeStep ? "step" : undefined}
+                title={pending && step.id !== activeStep ? `${pending} still to pick` : undefined}
                 onClick={() => step.screens[0] && onNavigate(step.screens[0])}
               >
                 <span className="creator-flow-dot" aria-hidden="true">
                   {state === "done" ? "✓" : index + 1}
                 </span>
-                <span className="creator-flow-step-label">
-                  {step.label}
-                  {pending && step.id !== activeStep ? <small>{`${pending} to pick`}</small> : null}
-                </span>
+                <span className="creator-flow-step-label">{step.label}</span>
               </button>
               {index < steps.length - 1 ? <span className="creator-flow-bar" aria-hidden="true" /> : null}
             </li>
           );
         })}
       </ol>
-      <div className="creator-flow-row">
-        <div className="creator-flow-screens" role="tablist" aria-label={`${current?.label ?? ""} screens`}>
-          {current && current.screens.length > 1
-            ? current.screens.map((screen) => (
-                <button
-                  key={`flow-screen-${screen.browser}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={screen.browser === activeBrowser}
-                  className={screen.browser === activeBrowser ? "creator-flow-screen active" : "creator-flow-screen"}
-                  onClick={() => onNavigate(screen)}
-                >
-                  <i className={screen.pending ? "pending" : "ok"} aria-hidden="true" />
-                  {screen.label}
-                </button>
-              ))
-            : null}
-        </div>
-        <div className="creator-flow-summary">
-          <span className="creator-flow-summary-name">
-            <strong>{title}</strong>
-            <span>{subtitle}</span>
-          </span>
-          {stats.map((stat) => (
-            <span key={`flow-stat-${stat.label}`} className="creator-flow-stat">
-              <span>{stat.label}</span>
-              <strong>{stat.value}</strong>
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
+    </nav>
+  );
+  return slot ? createPortal(list, slot) : list;
+}
+
+/** Ortadaki kartin basinda: aktif adimin ekranlari (Name & Level · Race · Background). Biten tik, eksik altin nokta. */
+export function CreatorScreenTabs({
+  step,
+  activeBrowser,
+  onNavigate,
+}: {
+  step: CreatorFlowStep | null;
+  activeBrowser: string | null;
+  onNavigate: (screen: CreatorFlowScreen) => void;
+}) {
+  if (!step || step.screens.length < 2) {
+    return null;
+  }
+  return (
+    <div className="creator-screen-tabs" role="tablist" aria-label={`${step.label} screens`}>
+      {step.screens.map((screen) => (
+        <button
+          key={`screen-tab-${screen.browser}`}
+          type="button"
+          role="tab"
+          aria-selected={screen.browser === activeBrowser}
+          className={screen.browser === activeBrowser ? "creator-screen-tab active" : "creator-screen-tab"}
+          onClick={() => onNavigate(screen)}
+        >
+          {screen.label}
+          {screen.pending ? <i className="pending" aria-label={`${screen.pending} to pick`} /> : <b aria-label="done">✓</b>}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -102,34 +110,124 @@ export function CreatorFlowFooter({
   previous,
   next,
   pendingHere,
+  firstPending = null,
   onNavigate,
 }: {
   previous: CreatorFlowScreen | null;
   next: CreatorFlowScreen | null;
   pendingHere: number;
+  /** Son ekranda: hala eksik secimi olan ilk ekran (varsa oraya goturur, yoksa sheet'e). */
+  firstPending?: CreatorFlowScreen | null;
   onNavigate: (screen: CreatorFlowScreen) => void;
 }) {
   return (
     <footer className="creator-flow-footer">
       {previous ? (
-        <button type="button" className="sheet-button secondary" onClick={() => onNavigate(previous)}>
-          {`Back: ${previous.label}`}
+        <button type="button" className="creator-nav-button back" onClick={() => onNavigate(previous)}>
+          <span aria-hidden="true">←</span>
+          <span className="creator-nav-button-text">
+            <small>Back</small>
+            {previous.label}
+          </span>
         </button>
       ) : (
         <span />
       )}
-      <span className={pendingHere ? "creator-flow-note pending" : "creator-flow-note"}>
-        {pendingHere
-          ? `${pendingHere} ${pendingHere === 1 ? "choice" : "choices"} left here. You can come back later.`
-          : "Nothing left to pick here."}
-      </span>
+      <span className="creator-flow-spacer" />
       {next ? (
-        <button type="button" className="sheet-button primary" onClick={() => onNavigate(next)}>
-          {`Next: ${next.label}`}
+        <button type="button" className={pendingHere ? "creator-nav-button next" : "creator-nav-button next ready"} onClick={() => onNavigate(next)}>
+          <span className="creator-nav-button-text">
+            <small>{pendingHere ? "Skip to" : "Next"}</small>
+            {next.label}
+          </span>
+          <span aria-hidden="true">→</span>
         </button>
       ) : (
-        <span />
+        firstPending ? (
+          <button type="button" className="creator-nav-button next" onClick={() => onNavigate(firstPending)}>
+            <span className="creator-nav-button-text">
+              <small>Still to pick</small>
+              {firstPending.label}
+            </span>
+            <span aria-hidden="true">→</span>
+          </button>
+        ) : (
+          <Link className="creator-nav-button next ready" href="/campaign/sheet">
+            <span className="creator-nav-button-text">
+              <small>All set</small>
+              Open the sheet
+            </span>
+            <span aria-hidden="true">→</span>
+          </Link>
+        )
       )}
     </footer>
+  );
+}
+
+/** Solda sabit karakter ozeti: kim oldugu, ikonlu kimlik satirlari, renkli statlar. Durum yazisi yok (stepper soyler). */
+export function CreatorSummaryPanel({
+  icon,
+  name,
+  identity,
+  stats,
+  abilities,
+}: {
+  icon: GameIconName;
+  name: string;
+  identity: SummaryIdentity[];
+  stats: SummaryStat[];
+  abilities: Array<{ id: string; value: number; name?: string }>;
+}) {
+  return (
+    <section className="creator-summary" aria-label="Character summary">
+      <div className="creator-summary-id">
+        <span className="creator-summary-portrait">
+          <GameIcon name={icon} />
+        </span>
+        <strong className="creator-summary-title">{name}</strong>
+      </div>
+      <ul className="creator-summary-identity">
+        {identity.map((row) => (
+          <li key={`sum-id-${row.key}`} className={row.missing ? "missing" : undefined}>
+            <span className="creator-summary-identity-icon">
+              <GameIcon name={row.icon} />
+            </span>
+            <span className="creator-summary-identity-text" title={row.label}>
+              <strong>{row.value}</strong>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className="creator-summary-stats">
+        {stats.map((stat) => (
+          <span key={`sum-stat-${stat.label}`} className="creator-summary-stat" tabIndex={0} aria-label={`${stat.label} ${stat.value}`}>
+            {stat.icon ? <GameIcon name={stat.icon} /> : <small>{stat.label}</small>}
+            <strong>{stat.value}</strong>
+            {stat.tip ? (
+              <span className="creator-summary-tip" role="tooltip">
+                <b>{stat.label}</b>
+                {stat.tip}
+              </span>
+            ) : null}
+          </span>
+        ))}
+      </div>
+      <div className="creator-summary-abilities">
+        {abilities.map((ability) => {
+          const mod = Math.floor((ability.value - 10) / 2);
+          return (
+            <span key={`sum-ab-${ability.id}`} className={`ability-accent ability-accent-${ability.id.toLowerCase()}`} title={ability.name}>
+              <small>
+                <AbilityIcon id={ability.id} />
+                {ability.id}
+              </small>
+              <strong>{ability.value}</strong>
+              <em>{mod >= 0 ? `+${mod}` : mod}</em>
+            </span>
+          );
+        })}
+      </div>
+    </section>
   );
 }

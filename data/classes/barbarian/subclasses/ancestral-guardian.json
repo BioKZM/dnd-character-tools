@@ -1,0 +1,91 @@
+{
+  "id": "ancestral-guardian",
+  "name": "Path of the Ancestral Guardian",
+  "source": "Xanathar's Guide to Everything",
+  "summary": "A barbarian whose ancestral spirits shield allies and punish attackers.",
+  "features": [
+    {
+      "id": "ancestral-protectors",
+      "name": "Ancestral Protectors",
+      "unlockLevel": 3,
+      "short": "The first creature you hit while raging struggles to hurt others.",
+      "summary": "While raging, the first creature you hit on your turn has disadvantage on attacks against anyone but you, and others have resistance to its attacks, until the start of your next turn or until your rage ends.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "spirit-shield",
+      "name": "Spirit Shield",
+      "unlockLevel": 6,
+      "short": "Reaction while raging: reduce damage to an ally by 2d6.",
+      "summary": "While raging, when a creature you can see within 30 ft. takes damage, you can use your reaction to reduce that damage by 2d6 (3d6 at 10th level, 4d6 at 14th).",
+      "facts": {
+        "action": "Reaction",
+        "range": "30 ft."
+      },
+      "grants": [],
+      "choices": [],
+      "milestones": [
+        {
+          "level": 6,
+          "label": "2d6"
+        },
+        {
+          "level": 10,
+          "label": "3d6"
+        },
+        {
+          "level": 14,
+          "label": "4d6"
+        }
+      ]
+    },
+    {
+      "id": "consult-the-spirits",
+      "name": "Consult the Spirits",
+      "unlockLevel": 10,
+      "short": "Cast Augury or Clairvoyance once per rest.",
+      "summary": "You can cast Augury or Clairvoyance without a slot or components, using Wisdom. Once you use this feature, you can't again until you finish a short or long rest.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "consult-the-spirits",
+          "name": "Consult the Spirits",
+          "uses": 1,
+          "recharge": "short_rest"
+        },
+        {
+          "type": "spell",
+          "spellId": "augury",
+          "uses": "long_rest"
+        },
+        {
+          "type": "spell",
+          "spellId": "clairvoyance",
+          "uses": "long_rest"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "vengeful-ancestors",
+      "name": "Vengeful Ancestors",
+      "unlockLevel": 14,
+      "short": "Damage you prevent with Spirit Shield hits the attacker.",
+      "summary": "When you use Spirit Shield to reduce damage, the attacker takes force damage equal to the amount prevented.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}

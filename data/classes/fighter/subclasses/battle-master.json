@@ -1,0 +1,561 @@
+{
+  "id": "battle-master",
+  "name": "Battle Master",
+  "source": "Player's Handbook",
+  "summary": "A tactician who fuels battlefield maneuvers with superiority dice.",
+  "features": [
+    {
+      "id": "combat-superiority",
+      "name": "Combat Superiority",
+      "unlockLevel": 3,
+      "short": "Learn maneuvers and gain superiority dice (d8).",
+      "summary": "You learn three maneuvers and gain four d8 superiority dice, which you spend to use maneuvers (one per attack). You learn two more maneuvers at 7th, 10th and 15th level, and gain a fifth die at 7th and a sixth at 15th. Dice return on a short or long rest. Save DC = 8 + PB + STR or DEX.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [
+        {
+          "type": "resource",
+          "id": "superiority-dice",
+          "name": "Superiority Dice",
+          "uses": "4 (5 at 7, 6 at 15)",
+          "recharge": "short_rest"
+        }
+      ],
+      "choices": [
+        {
+          "id": "battle-master-maneuvers-3",
+          "label": "Maneuvers",
+          "count": 3,
+          "min": 3,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "commanders-strike",
+                "name": "Commander's Strike",
+                "summary": "Let an ally strike with their reaction",
+                "grants": []
+              },
+              {
+                "id": "disarming-attack",
+                "name": "Disarming Attack",
+                "summary": "Force a weapon or item drop",
+                "grants": []
+              },
+              {
+                "id": "distracting-strike",
+                "name": "Distracting Strike",
+                "summary": "Set up the next ally attack",
+                "grants": []
+              },
+              {
+                "id": "evasive-footwork",
+                "name": "Evasive Footwork",
+                "summary": "Boost AC while moving",
+                "grants": []
+              },
+              {
+                "id": "feinting-attack",
+                "name": "Feinting Attack",
+                "summary": "Bonus action feint for advantage",
+                "grants": []
+              },
+              {
+                "id": "goading-attack",
+                "name": "Goading Attack",
+                "summary": "Pressure a target into attacking you",
+                "grants": []
+              },
+              {
+                "id": "lunging-attack",
+                "name": "Lunging Attack",
+                "summary": "Extend melee reach by 5 feet",
+                "grants": []
+              },
+              {
+                "id": "maneuvering-attack",
+                "name": "Maneuvering Attack",
+                "summary": "Move an ally without opportunity attacks",
+                "grants": []
+              },
+              {
+                "id": "menacing-attack",
+                "name": "Menacing Attack",
+                "summary": "Frighten a target on hit",
+                "grants": []
+              },
+              {
+                "id": "parry",
+                "name": "Parry",
+                "summary": "Reaction damage reduction in melee",
+                "grants": []
+              },
+              {
+                "id": "precision-attack",
+                "name": "Precision Attack",
+                "summary": "Add superiority die to an attack roll",
+                "grants": []
+              },
+              {
+                "id": "pushing-attack",
+                "name": "Pushing Attack",
+                "summary": "Drive a Large-or-smaller target back",
+                "grants": []
+              },
+              {
+                "id": "rally",
+                "name": "Rally",
+                "summary": "Grant temporary hit points to an ally",
+                "grants": []
+              },
+              {
+                "id": "riposte",
+                "name": "Riposte",
+                "summary": "Reaction attack after a miss",
+                "grants": []
+              },
+              {
+                "id": "sweeping-attack",
+                "name": "Sweeping Attack",
+                "summary": "Clip a second nearby target",
+                "grants": []
+              },
+              {
+                "id": "trip-attack",
+                "name": "Trip Attack",
+                "summary": "Knock a target prone on hit",
+                "grants": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "battle-master-maneuvers-7",
+          "label": "Two more maneuvers (7th)",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "commanders-strike",
+                "name": "Commander's Strike",
+                "summary": "Let an ally strike with their reaction",
+                "grants": []
+              },
+              {
+                "id": "disarming-attack",
+                "name": "Disarming Attack",
+                "summary": "Force a weapon or item drop",
+                "grants": []
+              },
+              {
+                "id": "distracting-strike",
+                "name": "Distracting Strike",
+                "summary": "Set up the next ally attack",
+                "grants": []
+              },
+              {
+                "id": "evasive-footwork",
+                "name": "Evasive Footwork",
+                "summary": "Boost AC while moving",
+                "grants": []
+              },
+              {
+                "id": "feinting-attack",
+                "name": "Feinting Attack",
+                "summary": "Bonus action feint for advantage",
+                "grants": []
+              },
+              {
+                "id": "goading-attack",
+                "name": "Goading Attack",
+                "summary": "Pressure a target into attacking you",
+                "grants": []
+              },
+              {
+                "id": "lunging-attack",
+                "name": "Lunging Attack",
+                "summary": "Extend melee reach by 5 feet",
+                "grants": []
+              },
+              {
+                "id": "maneuvering-attack",
+                "name": "Maneuvering Attack",
+                "summary": "Move an ally without opportunity attacks",
+                "grants": []
+              },
+              {
+                "id": "menacing-attack",
+                "name": "Menacing Attack",
+                "summary": "Frighten a target on hit",
+                "grants": []
+              },
+              {
+                "id": "parry",
+                "name": "Parry",
+                "summary": "Reaction damage reduction in melee",
+                "grants": []
+              },
+              {
+                "id": "precision-attack",
+                "name": "Precision Attack",
+                "summary": "Add superiority die to an attack roll",
+                "grants": []
+              },
+              {
+                "id": "pushing-attack",
+                "name": "Pushing Attack",
+                "summary": "Drive a Large-or-smaller target back",
+                "grants": []
+              },
+              {
+                "id": "rally",
+                "name": "Rally",
+                "summary": "Grant temporary hit points to an ally",
+                "grants": []
+              },
+              {
+                "id": "riposte",
+                "name": "Riposte",
+                "summary": "Reaction attack after a miss",
+                "grants": []
+              },
+              {
+                "id": "sweeping-attack",
+                "name": "Sweeping Attack",
+                "summary": "Clip a second nearby target",
+                "grants": []
+              },
+              {
+                "id": "trip-attack",
+                "name": "Trip Attack",
+                "summary": "Knock a target prone on hit",
+                "grants": []
+              }
+            ]
+          },
+          "minLevel": 7
+        },
+        {
+          "id": "battle-master-maneuvers-10",
+          "label": "Two more maneuvers (10th)",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "commanders-strike",
+                "name": "Commander's Strike",
+                "summary": "Let an ally strike with their reaction",
+                "grants": []
+              },
+              {
+                "id": "disarming-attack",
+                "name": "Disarming Attack",
+                "summary": "Force a weapon or item drop",
+                "grants": []
+              },
+              {
+                "id": "distracting-strike",
+                "name": "Distracting Strike",
+                "summary": "Set up the next ally attack",
+                "grants": []
+              },
+              {
+                "id": "evasive-footwork",
+                "name": "Evasive Footwork",
+                "summary": "Boost AC while moving",
+                "grants": []
+              },
+              {
+                "id": "feinting-attack",
+                "name": "Feinting Attack",
+                "summary": "Bonus action feint for advantage",
+                "grants": []
+              },
+              {
+                "id": "goading-attack",
+                "name": "Goading Attack",
+                "summary": "Pressure a target into attacking you",
+                "grants": []
+              },
+              {
+                "id": "lunging-attack",
+                "name": "Lunging Attack",
+                "summary": "Extend melee reach by 5 feet",
+                "grants": []
+              },
+              {
+                "id": "maneuvering-attack",
+                "name": "Maneuvering Attack",
+                "summary": "Move an ally without opportunity attacks",
+                "grants": []
+              },
+              {
+                "id": "menacing-attack",
+                "name": "Menacing Attack",
+                "summary": "Frighten a target on hit",
+                "grants": []
+              },
+              {
+                "id": "parry",
+                "name": "Parry",
+                "summary": "Reaction damage reduction in melee",
+                "grants": []
+              },
+              {
+                "id": "precision-attack",
+                "name": "Precision Attack",
+                "summary": "Add superiority die to an attack roll",
+                "grants": []
+              },
+              {
+                "id": "pushing-attack",
+                "name": "Pushing Attack",
+                "summary": "Drive a Large-or-smaller target back",
+                "grants": []
+              },
+              {
+                "id": "rally",
+                "name": "Rally",
+                "summary": "Grant temporary hit points to an ally",
+                "grants": []
+              },
+              {
+                "id": "riposte",
+                "name": "Riposte",
+                "summary": "Reaction attack after a miss",
+                "grants": []
+              },
+              {
+                "id": "sweeping-attack",
+                "name": "Sweeping Attack",
+                "summary": "Clip a second nearby target",
+                "grants": []
+              },
+              {
+                "id": "trip-attack",
+                "name": "Trip Attack",
+                "summary": "Knock a target prone on hit",
+                "grants": []
+              }
+            ]
+          },
+          "minLevel": 10
+        },
+        {
+          "id": "battle-master-maneuvers-15",
+          "label": "Two more maneuvers (15th)",
+          "count": 2,
+          "min": 2,
+          "from": {
+            "kind": "option",
+            "options": [
+              {
+                "id": "commanders-strike",
+                "name": "Commander's Strike",
+                "summary": "Let an ally strike with their reaction",
+                "grants": []
+              },
+              {
+                "id": "disarming-attack",
+                "name": "Disarming Attack",
+                "summary": "Force a weapon or item drop",
+                "grants": []
+              },
+              {
+                "id": "distracting-strike",
+                "name": "Distracting Strike",
+                "summary": "Set up the next ally attack",
+                "grants": []
+              },
+              {
+                "id": "evasive-footwork",
+                "name": "Evasive Footwork",
+                "summary": "Boost AC while moving",
+                "grants": []
+              },
+              {
+                "id": "feinting-attack",
+                "name": "Feinting Attack",
+                "summary": "Bonus action feint for advantage",
+                "grants": []
+              },
+              {
+                "id": "goading-attack",
+                "name": "Goading Attack",
+                "summary": "Pressure a target into attacking you",
+                "grants": []
+              },
+              {
+                "id": "lunging-attack",
+                "name": "Lunging Attack",
+                "summary": "Extend melee reach by 5 feet",
+                "grants": []
+              },
+              {
+                "id": "maneuvering-attack",
+                "name": "Maneuvering Attack",
+                "summary": "Move an ally without opportunity attacks",
+                "grants": []
+              },
+              {
+                "id": "menacing-attack",
+                "name": "Menacing Attack",
+                "summary": "Frighten a target on hit",
+                "grants": []
+              },
+              {
+                "id": "parry",
+                "name": "Parry",
+                "summary": "Reaction damage reduction in melee",
+                "grants": []
+              },
+              {
+                "id": "precision-attack",
+                "name": "Precision Attack",
+                "summary": "Add superiority die to an attack roll",
+                "grants": []
+              },
+              {
+                "id": "pushing-attack",
+                "name": "Pushing Attack",
+                "summary": "Drive a Large-or-smaller target back",
+                "grants": []
+              },
+              {
+                "id": "rally",
+                "name": "Rally",
+                "summary": "Grant temporary hit points to an ally",
+                "grants": []
+              },
+              {
+                "id": "riposte",
+                "name": "Riposte",
+                "summary": "Reaction attack after a miss",
+                "grants": []
+              },
+              {
+                "id": "sweeping-attack",
+                "name": "Sweeping Attack",
+                "summary": "Clip a second nearby target",
+                "grants": []
+              },
+              {
+                "id": "trip-attack",
+                "name": "Trip Attack",
+                "summary": "Knock a target prone on hit",
+                "grants": []
+              }
+            ]
+          },
+          "minLevel": 15
+        }
+      ],
+      "milestones": [
+        {
+          "level": 3,
+          "label": "4 x d8"
+        },
+        {
+          "level": 7,
+          "label": "5 dice"
+        },
+        {
+          "level": 10,
+          "label": "d10"
+        },
+        {
+          "level": 15,
+          "label": "6 dice"
+        },
+        {
+          "level": 18,
+          "label": "d12"
+        }
+      ]
+    },
+    {
+      "id": "student-of-war",
+      "name": "Student of War",
+      "unlockLevel": 3,
+      "short": "Proficiency with one artisan's tool.",
+      "summary": "You gain proficiency with one type of artisan's tools of your choice.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": [
+        {
+          "id": "battle-master-tool",
+          "label": "Artisan's tool",
+          "count": 1,
+          "min": 1,
+          "from": {
+            "kind": "tool",
+            "options": [
+              "Alchemist's Supplies",
+              "Brewer's Supplies",
+              "Calligrapher's Supplies",
+              "Carpenter's Tools",
+              "Cartographer's Tools",
+              "Cobbler's Tools",
+              "Cook's Utensils",
+              "Glassblower's Tools",
+              "Jeweler's Tools",
+              "Leatherworker's Tools",
+              "Mason's Tools",
+              "Painter's Supplies",
+              "Potter's Tools",
+              "Smith's Tools",
+              "Tinker's Tools",
+              "Weaver's Tools",
+              "Woodcarver's Tools"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "know-your-enemy",
+      "name": "Know Your Enemy",
+      "unlockLevel": 7,
+      "short": "Study a creature for a minute to compare its strengths to yours.",
+      "summary": "If you spend 1 minute observing a creature outside combat, you learn whether it is equal, superior or inferior to you in two characteristics like STR, AC or class levels.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "improved-combat-superiority",
+      "name": "Improved Combat Superiority",
+      "unlockLevel": 10,
+      "short": "Superiority dice become d10s (d12 at 18th).",
+      "summary": "Your superiority dice turn into d10s. At 18th level they become d12s.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    },
+    {
+      "id": "relentless",
+      "name": "Relentless",
+      "unlockLevel": 15,
+      "short": "Regain a superiority die if you have none at initiative.",
+      "summary": "When you roll initiative and have no superiority dice left, you regain one.",
+      "facts": {
+        "action": "Passive"
+      },
+      "grants": [],
+      "choices": []
+    }
+  ],
+  "expandedSpells": [],
+  "notes": []
+}
