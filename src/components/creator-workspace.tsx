@@ -34,6 +34,7 @@ import { ChoiceDetail, ChoicePicker, ChoiceSlot, type ChoiceRow } from "@/compon
 import { CreatorSideContext, InspectPanel, PathCards, PickGrid, PickLayout, PickSection, PickTabs, type PickTile } from "@/components/ui/pick-grid";
 import { GearCard, GearList } from "@/components/ui/gear-info";
 import { GameIcon } from "@/components/ui/game-icon";
+import { spellcastingProfiles } from "@/lib/engine/spellcasting";
 import { findGearInfo, gearInfosFor, weaponInfo } from "@/lib/content/item-info";
 import { backgroundIcon, classIcon, featIcon, featureIcon, pactIcon, raceIcon, schoolIcon, skillIcon, styleIcon, subclassIcon, toolIcon, weaponIcon, type GameIconName } from "@/lib/ui/game-icons";
 import { ClassPortrait } from "@/components/ui/class-portrait";
@@ -6813,6 +6814,36 @@ export function CreatorWorkspace({
     },
   ];
   // Tek navigasyon: adimlar + ekranlar. Bekleyen secimler level-up gorevlerinden (pendingTasks) sayilir.
+  // Buyu secerken bu level'da hangi slotlarin oldugu: hangi level buyuyu ne kadar atabilecegini gosterir.
+  const creatorSpellSlots = spellcastingProfiles(
+    {
+      classId: draft.classId,
+      subclassId: selectedJourneySubclass?.id ?? null,
+      level: draft.level,
+      proficiencyBonus: 0,
+      modifiers: { STR: 0, DEX: 0, CON: 0, INT: 0, WIS: 0, CHA: 0 },
+    },
+    classCuratedCollection,
+  ).flatMap((profile) => profile.slots);
+  const renderSpellSlotStrip = () =>
+    creatorSpellSlots.length ? (
+      <div className="slot-strip" aria-label="Your spell slots">
+        <span className="slot-strip-label">{`Your slots at level ${draft.level}`}</span>
+        {creatorSpellSlots.map((slot) => (
+          <span key={`${slot.kind}-${slot.level}`} className="slot-strip-item">
+            <b>{slot.kind === "pact" ? `Pact · ${levelOrdinal(slot.level)}` : levelOrdinal(slot.level)}</b>
+            <span className="slot-strip-dots" aria-label={`${slot.total} slots`}>
+              {Array.from({ length: slot.total }, (_, index) => (
+                <i key={index} />
+              ))}
+            </span>
+          </span>
+        ))}
+        <span className="slot-strip-note">
+          {creatorSpellSlots.some((slot) => slot.kind === "pact") ? "Refill on a short rest" : "Refill on a long rest"}
+        </span>
+      </div>
+    ) : null;
   const pendingFor = (browser: string) => {
     const fromTasks = pendingTasks.filter((task) => task.jump.browser === browser || (browser === "fighter-asi" && task.jump.browser === "feats")).length;
     if (browser === "skills") {
@@ -8190,13 +8221,14 @@ export function CreatorWorkspace({
                   {fighterJourneyScene === "warlock-spells" ? (
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
-                        <h3>Spells</h3>
+                        <h3>Choose your spells</h3>
                         <p>
                           {currentCuratedClass?.spellPreparation
                             ? `Choose the ${currentClass.name.toLowerCase()} spells you have prepared today (${currentCuratedClass.spellPreparation.divisor > 1 ? "half your level" : "your level"} + ${currentCuratedClass.spellPreparation.ability}). You can change them after a long rest. Locked ones say why.`
                             : `Pick the ${currentClass.name.toLowerCase()} spells you know. Locked ones say why. Click any spell to read it.`}
                         </p>
                       </div>
+                      {renderSpellSlotStrip()}
                       {(() => {
                         type SpellRow = ContentBundle["spells"][number];
                         const spellLabel = (spell: SpellRow) => (spell.level === 0 ? `Cantrip · ${spell.school}` : `Level ${spell.level} · ${spell.school}`);
@@ -8506,6 +8538,7 @@ export function CreatorWorkspace({
                         <h3>Eldritch Knight spells</h3>
                         <p>{`Wizard spells, mostly ${eldritchKnightSchoolFocusLabel.toLowerCase()}. You also get ${eldritchKnightFlexibleSchoolAllowance} pick${eldritchKnightFlexibleSchoolAllowance === 1 ? "" : "s"} from any school.`}</p>
                       </div>
+                      {fighterJourneySubclassId === "eldritch-knight" ? renderSpellSlotStrip() : null}
                       {fighterJourneySubclassId !== "eldritch-knight" ? (
                         <p className="pick-note">Choose the Eldritch Knight archetype first to unlock spellcasting.</p>
                       ) : (

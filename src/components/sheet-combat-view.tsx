@@ -242,7 +242,26 @@ export function SheetCombatView({
               const used = Math.min(usedResources[resource.id] ?? 0, resource.total);
               return (
                 <div key={`combat-res-${resource.id}`} className="combat-resource">
-                  <strong>{resource.name}</strong>
+                  {(() => {
+                    // Kaynagin geldigi ozellik (Sorcery Points -> Font of Magic): ada tiklayinca sagda aciklamasi acilir.
+                    const owner = rawActions.find((action) => action.name.toLowerCase() === resource.source.toLowerCase() || action.name.toLowerCase() === resource.name.toLowerCase());
+                    return owner ? (
+                      <button
+                        type="button"
+                        className="combat-resource-name"
+                        title={`What is ${owner.name}?`}
+                        onClick={() => {
+                          setFilter("all");
+                          setPickedId(owner.id);
+                        }}
+                      >
+                        {resource.name}
+                        <span aria-hidden="true">?</span>
+                      </button>
+                    ) : (
+                      <strong>{resource.name}</strong>
+                    );
+                  })()}
                   {resource.total <= 12 ? (
                     <UsageDots total={resource.total} used={used} label={resource.name} onChange={(next) => onResourceChange(resource.id, next)} />
                   ) : (
