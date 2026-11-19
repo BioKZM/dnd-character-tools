@@ -3142,6 +3142,8 @@ export function CreatorWorkspace({
   const [pactCantripPage, setPactCantripPage] = useState(0);
   const subclassUnlocked = draft.level >= subclassUnlockLevel;
   const speciesMeta = speciesMetaDescription(currentSpeciesRules);
+  // Yeni karakter irksiz baslar; asagidaki fallback (ilk irk) sadece ic hesaplar icin.
+  const raceChosen = Boolean(draft.speciesId);
   const currentLineageGroup =
     lineageGroups.find((group) => group.id === selectedLineageId) ??
     lineageGroupForSpecies(lineageGroups, draft.speciesId) ??
@@ -6520,7 +6522,9 @@ export function CreatorWorkspace({
           }),
         );
     };
-    originRaceChoiceGroups.forEach(({ group, map }) => walk(group, map, 0));
+    if (raceChosen) {
+      originRaceChoiceGroups.forEach(({ group, map }) => walk(group, map, 0));
+    }
     return out;
   })();
   const raceChoicesLeft = raceChoiceSlotList.reduce(
@@ -6822,7 +6826,7 @@ export function CreatorWorkspace({
       return fromTasks + classStartingEquipment.filter((group) => !draft.fighterChoices?.equipmentChoiceIds?.[group.id]).length;
     }
     if (browser === "lineage") {
-      return fromTasks + raceChoicesLeft;
+      return fromTasks + raceChoicesLeft + (raceChosen ? 0 : 1);
     }
     if (browser === "custom-background-tools") {
       return (
@@ -6907,9 +6911,12 @@ export function CreatorWorkspace({
   const creatorSummaryIdentity: SummaryIdentity[] = [
     {
       key: "race",
-      icon: raceIcon(currentStructuredLineage?.name ?? currentLineageGroup.name),
+      icon: raceChosen ? raceIcon(currentStructuredLineage?.name ?? currentLineageGroup.name) : "person",
       label: "Race",
-      value: currentStructuredSublineage?.name ?? currentSubraceEntry?.name ?? currentStructuredLineage?.name ?? currentLineageGroup.name,
+      value: raceChosen
+        ? currentStructuredSublineage?.name ?? currentSubraceEntry?.name ?? currentStructuredLineage?.name ?? currentLineageGroup.name
+        : "Not chosen yet",
+      missing: !raceChosen,
     },
     { key: "class", icon: classIcon(currentClass.id), label: "Class", value: `${currentClass.name} · Level ${draft.level}` },
     {
@@ -7046,6 +7053,13 @@ export function CreatorWorkspace({
                       <div className="origin-focus-card origin-selection-card origin-pick-page">
                         <PickLayout
                           inspect={
+                            !raceChosen ? (
+                              <InspectPanel
+                                icon="person"
+                                title="No race yet"
+                                summary="Pick a race from the list. Its traits, speed and the choices it gives you show up here."
+                              />
+                            ) : (
                             <InspectPanel
                               icon={raceIcon(raceName)}
                               kicker={subName ? raceName : undefined}
@@ -7069,10 +7083,11 @@ export function CreatorWorkspace({
                               ]}
                               fullText={currentStructuredLineage?.summary ?? currentLineageGroup.summary}
                             />
+                            )
                           }
                         >
                           <h2 className="screen-title">Choose your race</h2>
-                          {raceGridOpen ? (
+                          {raceGridOpen || !raceChosen ? (
                             <div className="race-grid-pick">
                               <PickGrid
                                 label="Races"
@@ -7081,7 +7096,7 @@ export function CreatorWorkspace({
                                   id: group.id,
                                   name: group.name,
                                   icon: raceIcon(group.name),
-                                  selected: draft.speciesId === group.subraceId || (!group.subraceId && currentLineageGroup.id === group.lineageId),
+                                  selected: raceChosen && (draft.speciesId === group.subraceId || (!group.subraceId && currentLineageGroup.id === group.lineageId)),
                                 }))}
                                 onPick={(id) => {
                                   const group = lineageCards.find((entry) => entry.id === id);
@@ -7093,9 +7108,11 @@ export function CreatorWorkspace({
                                   }
                                 }}
                               />
-                              <button type="button" className="race-summary-change" onClick={() => setRaceGridOpen(false)}>
-                                {`Keep ${raceName}`}
-                              </button>
+                              {raceChosen ? (
+                                <button type="button" className="race-summary-change" onClick={() => setRaceGridOpen(false)}>
+                                  {`Keep ${raceName}`}
+                                </button>
+                              ) : null}
                             </div>
                           ) : (
                             <div className="race-summary">
@@ -7341,89 +7358,75 @@ export function CreatorWorkspace({
                       <div className="fighter-journey-scene-head compact">
                         <h3>Choose your class</h3>
                       </div>
-                      <PickLayout
-                        inspect={
-                          <InspectPanel
-                            icon={classIcon(currentClass.id)}
-                            kicker="Class"
-                            title={currentCuratedClass?.name ?? currentClass.name}
-                            summary={classOverviewHighlights[0]?.body ?? null}
-                            rows={[
-                              { label: "Hit die", value: `d${currentClass.hitDie}` },
-                              { label: "HP at 1st", value: currentCuratedClass?.hitPoints["Hit Points at 1st Level"] || `${currentClass.hitDie} + CON modifier` },
-                            ]}
-                            blocks={classOverviewHighlights.slice(1).map((item) => ({ title: item.title, items: highlightItems(item.body) }))}
-                            fullText={currentCuratedClass?.summary ?? classDescription(currentClass)}
-                          />
-                        }
-                      >
-                        {(() => {
-                            const focusClass = content.classes.find((item) => `class:${item.id}` === inspectId) ?? currentClass;
-                            return (
-                              <div className="choice-picker-wrap">
-                                <ChoicePicker
-                                  label="Classes"
-                                  rows={content.classes.map((item) => ({
-                                    id: item.id,
-                                    name: item.name,
-                                    icon: classIcon(item.id),
-                                    mine: draft.classId === item.id,
-                                    tag: `d${item.hitDie}`,
-                                  }))}
-                                  focusId={focusClass.id}
-                                  onFocus={(id) => setInspectId(`class:${id}`)}
-                                  detail={
-                                    <ChoiceDetail
-                                      icon={classIcon(focusClass.id)}
-                                      name={focusClass.name}
-                                      source={focusClass.source ?? null}
-                                      pitch={(() => {
-                                        // Ingilizce kisa tanim: curated highlight > el yazimi ozet > curated summary.
-                                        const curated = curatedClassMap.get(focusClass.id);
-                                        const line =
-                                          curated?.highlights[0]?.body ??
-                                          classOverviewHighlightsByClass[focusClass.id as keyof typeof classOverviewHighlightsByClass]?.[0]?.body ??
-                                          firstSentence(curated?.summary ?? "") ??
-                                          null;
-                                        return line ? <Keywordize>{line}</Keywordize> : null;
-                                      })()}
-                                      facts={[
-                                        { label: "Hit die", value: `d${focusClass.hitDie}` },
-                                        ...(focusClass.primaryAbilities.length ? [{ label: "Best with", value: focusClass.primaryAbilities.join(" or ") }] : []),
-                                        ...(focusClass.savingThrows.length ? [{ label: "Saves", value: focusClass.savingThrows.join(", ") }] : []),
-                                      ]}
-                                      action={
-                                        draft.classId === focusClass.id ? (
-                                          <span className="choice-take on">✓ Your class</span>
-                                        ) : (
-                                          <button
-                                            type="button"
-                                            className="choice-take"
-                                            onClick={() => {
-                                              const classId = focusClass.id;
-                                              updateDraft((current) => ({
-                                                ...current,
-                                                classId,
-                                                multiclassIds: current.multiclassIds.filter((entry) => entry !== classId),
-                                                selectedSubclassOptions: [],
-                                                spellIds: [],
-                                              }));
-                                              setInspectId(null);
-                                              moveCreatorStep(1);
-                                              setCreatorBrowser("class");
-                                            }}
-                                          >
-                                            {`Become a ${focusClass.name}`}
-                                          </button>
-                                        )
-                                      }
-                                    />
-                                  }
-                                />
-                              </div>
-                            );
-                          })()}
-                      </PickLayout>
+                      {(() => {
+                        // Kart izgarasi: 13 class tek bakista, kaydirma yok. Karta tiklamak sadece inceler; secim sagdaki butonla.
+                        const focusClass = content.classes.find((item) => `class:${item.id}` === inspectId) ?? currentClass;
+                        const curated = curatedClassMap.get(focusClass.id);
+                        const highlights =
+                          curated?.highlights ?? classOverviewHighlightsByClass[focusClass.id as keyof typeof classOverviewHighlightsByClass] ?? [];
+                        const pitch = highlights[0]?.body ?? firstSentence(curated?.summary ?? "") ?? null;
+                        const isMine = draft.classId === focusClass.id;
+                        return (
+                          <PickLayout
+                            inspect={
+                              <InspectPanel
+                                icon={classIcon(focusClass.id)}
+                                kicker={isMine ? "Your class" : focusClass.source ?? "Class"}
+                                title={curated?.name ?? focusClass.name}
+                                summary={pitch}
+                                rows={[
+                                  { label: "Hit die", value: `d${focusClass.hitDie}` },
+                                  ...(focusClass.primaryAbilities.length ? [{ label: "Best with", value: focusClass.primaryAbilities.join(" or ") }] : []),
+                                  ...(focusClass.savingThrows.length ? [{ label: "Saves", value: focusClass.savingThrows.join(", ") }] : []),
+                                ]}
+                                blocks={highlights.slice(1).map((item) => ({ title: item.title, items: highlightItems(item.body) }))}
+                                fullText={curated?.summary ?? null}
+                                action={
+                                  isMine ? (
+                                    <span className="choice-take on">✓ Your class</span>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      className="choice-take"
+                                      onClick={() => {
+                                        const classId = focusClass.id;
+                                        updateDraft((current) => ({
+                                          ...current,
+                                          classId,
+                                          multiclassIds: current.multiclassIds.filter((entry) => entry !== classId),
+                                          selectedSubclassOptions: [],
+                                          spellIds: [],
+                                        }));
+                                        setInspectId(null);
+                                        moveCreatorStep(1);
+                                        setCreatorBrowser("class");
+                                      }}
+                                    >
+                                      {`Become a ${focusClass.name}`}
+                                    </button>
+                                  )
+                                }
+                              />
+                            }
+                          >
+                            <div className="class-card-grid">
+                              <PickGrid
+                                label="Classes"
+                                columns={5}
+                                inspectedId={focusClass.id}
+                                onInspect={(id) => setInspectId(`class:${id}`)}
+                                items={content.classes.map((item) => ({
+                                  id: item.id,
+                                  name: item.name,
+                                  icon: classIcon(item.id),
+                                  sub: [`d${item.hitDie}`, item.primaryAbilities.join(" / ")].filter(Boolean).join(" · "),
+                                  selected: draft.classId === item.id,
+                                }))}
+                              />
+                            </div>
+                          </PickLayout>
+                        );
+                      })()}
                     </div>
                   ) : null}
 
@@ -7431,9 +7434,6 @@ export function CreatorWorkspace({
                     <div className="fighter-journey-scene">
                       <div className="fighter-journey-scene-head compact">
                         <h3>{`What a level ${draft.level} ${currentClass.name.toLowerCase()} can do`}</h3>
-                        {optionChoices.some((entry) => entry.sourceKind !== "feat" && entry.sourceKind !== "subclass" && (entry.choice.from.kind === "option" || entry.choice.from.kind === "language")) ? (
-                          <p>Your picks are below the path.</p>
-                        ) : null}
                       </div>
                       {(() => {
                         const featureLevel = (feature: (typeof visibleClassFeatures)[number]) => {
@@ -7576,6 +7576,13 @@ export function CreatorWorkspace({
                         };
                         return (
                           <PickLayout inspect={renderInspect()}>
+                            {/* Secimler en ustte: yolun altinda kalinca atlaniyordu. */}
+                            <OptionChoicePanel
+                              title={`Choose now · ${currentClass.name} features`}
+                              content={content}
+                              choices={featureChoices}
+                              onToggle={toggleOptionChoice}
+                            />
                             <div className="class-path-block">
                               <LevelPath
                                 level={draft.level}
@@ -7589,58 +7596,7 @@ export function CreatorWorkspace({
                                 ]}
                               />
                             </div>
-                        {currentCuratedClass?.spellcastingTable.rows.length ? (
-                          <details className="level-table-section level-table-details">
-                            <summary>{`${currentCuratedClass.name} level table`}</summary>
-                            <ol className="level-table" aria-label={`${currentCuratedClass.name} level table`}>
-                              {levelTableRows(classTableHeaderRow, classTableBodyRows).map((row) => (
-                                <li
-                                  key={`${currentCuratedClass.id}-lt-${row.level}`}
-                                  className={row.level === draft.level ? "lt-row current" : row.level < draft.level ? "lt-row owned" : "lt-row future"}
-                                >
-                                  <span className="lt-level">
-                                    <strong>{row.level}</strong>
-                                  </span>
-                                  <span className="lt-body">
-                                    <span className="lt-features">
-                                      {row.features.length ? (
-                                        row.features.map((name) => (
-                                          <span key={name} className="lt-chip">
-                                            {name}
-                                          </span>
-                                        ))
-                                      ) : (
-                                        <span className="lt-none">No new feature</span>
-                                      )}
-                                    </span>
-                                    {row.stats.length || row.slots.length ? (
-                                      <span className="lt-stats">
-                                        {row.stats.map((stat) => (
-                                          <span key={stat.label}>
-                                            {stat.label} <b>{stat.value}</b>
-                                          </span>
-                                        ))}
-                                        {row.slots.length ? (
-                                          <span>
-                                            Slots <b>{row.slots.join(" · ")}</b>
-                                          </span>
-                                        ) : null}
-                                      </span>
-                                    ) : null}
-                                  </span>
-                                  {row.level === draft.level ? <span className="lt-you">You</span> : null}
-                                </li>
-                              ))}
-                            </ol>
-                          </details>
-                        ) : null}
 
-                            <OptionChoicePanel
-                              title={`${currentClass.name} feature choices`}
-                              content={content}
-                              choices={featureChoices}
-                              onToggle={toggleOptionChoice}
-                            />
                           </PickLayout>
                         );
                       })()}

@@ -11114,3 +11114,47 @@ body { font-family: var(--font-body), "Segoe UI", sans-serif; }
 .level-table-details > summary:hover { color: var(--v2-text); }
 .level-table-details[open] > summary { margin-bottom: 12px; }
 .level-table-details .lt-level small { display: none; }
+
+/* --- Sheet Spells (stil v2): buyu gucu seridi + level gruplari, slotlar grup basliginda --- */
+.sp-v2 { display: grid; gap: 24px; }
+.sp-power { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; border: 1px solid #232a36; background: var(--v2-surface); }
+.sp-power .inv-row-text { flex: 1; }
+.sp-power .inv-row-icon { border-color: #6f5aa8; color: #c9b8f5; }
+.sp-power-stat { flex: none; display: grid; justify-items: center; min-width: 92px; padding: 4px 12px; border-left: 1px solid var(--v2-line); }
+.sp-power-stat b { font-size: 1.5rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--v2-text); }
+.sp-power-stat small { font-size: var(--t-small); color: var(--v2-muted); }
+.sp-group-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; min-height: 28px; }
+.sp-group-head h3 { margin: 0; margin-right: auto; display: flex; align-items: baseline; gap: 8px; font-family: var(--font-heading); font-size: var(--t-sub); font-weight: 700; color: var(--v2-text); }
+.sp-group-head h3 span { font-family: var(--font-body); font-size: var(--t-small); font-weight: 600; color: var(--v2-muted); }
+.sp-slots { display: inline-flex; align-items: center; gap: 10px; color: #b9a4f0; }
+.sp-slots em { font-style: normal; font-size: var(--t-small); font-weight: 700; color: #c9b8f5; }
+.sp-slots > span:last-child { min-width: 46px; font-size: var(--t-small); font-weight: 600; color: var(--v2-muted); font-variant-numeric: tabular-nums; }
+/* Dolu nokta = kullanilabilir slot, bos halka = harcandi */
+.sp-slots .usage-dot { width: 15px; height: 15px; border-color: #8f78d6; background: #8f78d6; opacity: 1; box-shadow: 0 0 8px rgba(143, 120, 214, 0.35); }
+.sp-slots .usage-dot.spent { background: transparent; opacity: 0.5; box-shadow: none; }
+.sp-row { border-radius: 12px; border: 1px solid #1f2530; background: var(--v2-surface); }
+.sp-row.open { border-color: #3a4252; }
+.sp-row-main { width: 100%; display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 10px; border: 0; border-radius: 12px; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.sp-row-main .inv-row-text { flex: 1; }
+.sp-row-main:hover strong { color: #f1dca4; }
+.sp-tags { flex: none; display: inline-flex; align-items: center; gap: 6px; }
+.sp-flag { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; border: 1px solid #3a4252; font-size: 0.72rem; font-weight: 700; color: var(--v2-soft); }
+.sp-none { margin: 0; padding: 12px 14px; border-radius: 12px; border: 1px dashed #2a303c; font-size: var(--t-small); color: var(--v2-muted); }
+@media (max-width: 720px) {
+  .sp-power { flex-wrap: wrap; }
+  .sp-power-stat { min-width: 0; flex: 1; border-left: 0; border-top: 1px solid var(--v2-line); }
+  .sp-row-main { flex-wrap: wrap; }
+  .sp-tags { padding-left: 48px; }
+}
+
+/* Class secimi: kart izgarasi, tek bakista 13 class */
+.class-card-grid .pick-grid { gap: 10px; }
+.class-card-grid .pick-tile { min-height: 112px; }
+@media (max-width: 1700px) {
+  .class-card-grid .pick-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 1100px) {
+  .class-card-grid .pick-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+/* Dolu noktalar solda, harcananlar sagda */
+.sp-slots .usage-dots { flex-direction: row-reverse; }
