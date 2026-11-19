@@ -1,0 +1,133 @@
+{
+  "id": "half-elf",
+  "name": "Half-Elf",
+  "category": "standard",
+  "summary": "Born between two worlds, half-elves mix human drive with elven grace. Many feel at home everywhere and nowhere, and get by on charm and versatility.",
+  "source": {
+    "book": "Player's Handbook"
+  },
+  "facts": {
+    "age": {
+      "summary": "Half-elves mature like humans and can live past 180 years."
+    },
+    "alignment": {
+      "summary": "Half-elves value freedom and creativity and often lean chaotic."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Half-elves are about the same size as humans, 5 to 6 feet tall."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Elvish"
+      ],
+      "description": "You can speak, read, and write Common and Elvish."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "CHA",
+        "amount": 2
+      },
+      {
+        "type": "choice",
+        "count": 2,
+        "amount": 1,
+        "restrictedTo": [
+          "STR",
+          "DEX",
+          "CON",
+          "INT",
+          "WIS"
+        ]
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "fey-ancestry",
+      "name": "Fey Ancestry",
+      "category": "trait",
+      "summary": "You have advantage on saving throws against being charmed, and magic can't put you to sleep.",
+      "grants": [
+        {
+          "type": "save_advantage",
+          "against": "charmed"
+        },
+        {
+          "type": "condition_immunity",
+          "against": "magic sleep"
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "skill-versatility",
+      "name": "Skill Versatility",
+      "category": "proficiency",
+      "summary": "You gain proficiency in two skills of your choice.",
+      "choiceGroupIds": [
+        "half-elf-skill-choice"
+      ]
+    },
+    {
+      "id": "extra-language",
+      "name": "Extra Language",
+      "category": "proficiency",
+      "summary": "You can speak, read, and write one more language of your choice.",
+      "choiceGroupIds": [
+        "half-elf-extra-language"
+      ]
+    }
+  ],
+  "choiceGroups": [
+    {
+      "id": "half-elf-skill-choice",
+      "name": "Half-Elf Skills",
+      "type": "multi-select",
+      "minSelections": 2,
+      "maxSelections": 2,
+      "options": [
+        {
+          "id": "half-elf-skill-choice-option",
+          "label": "Choose two skill proficiencies",
+          "grants": []
+        }
+      ]
+    },
+    {
+      "id": "half-elf-extra-language",
+      "name": "Half-Elf Extra Language",
+      "type": "single-select",
+      "minSelections": 1,
+      "maxSelections": 1,
+      "options": [
+        {
+          "id": "extra-language-choice",
+          "label": "Choose one extra language",
+          "grants": []
+        }
+      ]
+    }
+  ],
+  "sublineages": []
+}

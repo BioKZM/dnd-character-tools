@@ -1,0 +1,191 @@
+{
+  "id": "dragonborn",
+  "name": "Dragonborn",
+  "category": "standard",
+  "summary": "Proud, dragon-blooded people who walk on two legs. Dragonborn carry the power of their draconic ancestors: a breath weapon and resistance to the same element.",
+  "source": {
+    "book": "Player's Handbook"
+  },
+  "facts": {
+    "age": {
+      "summary": "Dragonborn grow fast, are adults by 15 and live to around 80."
+    },
+    "alignment": {
+      "summary": "Dragonborn tend toward extremes, siding firmly with good or evil."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Dragonborn are taller and heavier than humans, well over 6 feet."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Draconic"
+      ],
+      "description": "You can speak, read, and write Common and Draconic."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "CHA",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "draconic-ancestry",
+      "name": "Draconic Ancestry",
+      "category": "trait",
+      "summary": "Pick a dragon type. It sets your breath weapon's damage type and shape, and your damage resistance.",
+      "choiceGroupIds": [
+        "dragonborn-ancestry"
+      ]
+    },
+    {
+      "id": "breath-weapon",
+      "name": "Breath Weapon",
+      "category": "trait",
+      "summary": "As an action, exhale destructive energy in your ancestry's shape. Each creature in it makes a save (DC 8 + CON modifier + proficiency bonus), taking 2d6 damage on a failure and half on a success. The damage grows to 3d6 at 6th level, 4d6 at 11th and 5d6 at 16th. Once per short or long rest.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "damage-resistance",
+      "name": "Damage Resistance",
+      "category": "trait",
+      "summary": "You resist the damage type of your draconic ancestry.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [
+    {
+      "id": "dragonborn-ancestry",
+      "name": "Draconic Ancestry",
+      "type": "single-select",
+      "minSelections": 1,
+      "maxSelections": 1,
+      "options": [
+        {
+          "id": "black-dragon",
+          "label": "Black Dragon",
+          "summary": "Acid breath, 5 by 30 ft. line (DEX save). Resistance to acid.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "acid"
+            }
+          ]
+        },
+        {
+          "id": "blue-dragon",
+          "label": "Blue Dragon",
+          "summary": "Lightning breath, 5 by 30 ft. line (DEX save). Resistance to lightning.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "lightning"
+            }
+          ]
+        },
+        {
+          "id": "brass-dragon",
+          "label": "Brass Dragon",
+          "summary": "Fire breath, 5 by 30 ft. line (DEX save). Resistance to fire.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "fire"
+            }
+          ]
+        },
+        {
+          "id": "bronze-dragon",
+          "label": "Bronze Dragon",
+          "summary": "Lightning breath, 5 by 30 ft. line (DEX save). Resistance to lightning.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "lightning"
+            }
+          ]
+        },
+        {
+          "id": "copper-dragon",
+          "label": "Copper Dragon",
+          "summary": "Acid breath, 5 by 30 ft. line (DEX save). Resistance to acid.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "acid"
+            }
+          ]
+        },
+        {
+          "id": "gold-dragon",
+          "label": "Gold Dragon",
+          "summary": "Fire breath, 15 ft. cone (DEX save). Resistance to fire.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "fire"
+            }
+          ]
+        },
+        {
+          "id": "green-dragon",
+          "label": "Green Dragon",
+          "summary": "Poison breath, 15 ft. cone (CON save). Resistance to poison.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "poison"
+            }
+          ]
+        },
+        {
+          "id": "red-dragon",
+          "label": "Red Dragon",
+          "summary": "Fire breath, 15 ft. cone (DEX save). Resistance to fire.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "fire"
+            }
+          ]
+        },
+        {
+          "id": "silver-dragon",
+          "label": "Silver Dragon",
+          "summary": "Cold breath, 15 ft. cone (CON save). Resistance to cold.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "cold"
+            }
+          ]
+        },
+        {
+          "id": "white-dragon",
+          "label": "White Dragon",
+          "summary": "Cold breath, 15 ft. cone (CON save). Resistance to cold.",
+          "grants": [
+            {
+              "type": "damage_resistance",
+              "damageType": "cold"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sublineages": []
+}

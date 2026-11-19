@@ -3,9 +3,10 @@ import path from "node:path";
 import { lineageCatalogSchema, lineageEntrySchema, type LineageCatalog, type LineageEntry } from "@/lib/data/lineages/schema";
 
 const LINEAGE_DATA_ROOT = path.join(process.cwd(), "data", "lineages");
-const ENABLED_LINEAGE_IDS = ["human", "elf", "eladrin", "tabaxi"] as const;
+// PHB irklarinin hepsi + Eladrin ve Tabaxi.
+const ENABLED_LINEAGE_IDS = ["dragonborn", "dwarf", "eladrin", "elf", "gnome", "half-elf", "half-orc", "halfling", "human", "tabaxi", "tiefling"] as const;
 const ENABLED_SUBLINEAGE_IDS_BY_LINEAGE: Record<string, string[]> = {
-  elf: ["high-elf"],
+  elf: ["high-elf", "wood-elf", "drow"],
   human: ["variant-human"],
 };
 

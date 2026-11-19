@@ -1,0 +1,91 @@
+{
+  "id": "half-orc",
+  "name": "Half-Orc",
+  "category": "standard",
+  "summary": "Strong, fierce and hard to put down. Half-orcs carry orcish strength and fury, and many prove themselves by sheer will in a world that judges them quickly.",
+  "source": {
+    "book": "Player's Handbook"
+  },
+  "facts": {
+    "age": {
+      "summary": "Half-orcs mature a little faster than humans and rarely live past 75."
+    },
+    "alignment": {
+      "summary": "Half-orcs lean toward chaos and are not strongly drawn to good."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Half-orcs are bigger and bulkier than humans, 5 to over 6 feet tall."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Orc"
+      ],
+      "description": "You can speak, read, and write Common and Orc."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "menacing",
+      "name": "Menacing",
+      "category": "proficiency",
+      "summary": "You gain proficiency in the Intimidation skill.",
+      "grants": [
+        {
+          "type": "skill_proficiency",
+          "values": [
+            "intimidation"
+          ]
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "relentless-endurance",
+      "name": "Relentless Endurance",
+      "category": "trait",
+      "summary": "When you drop to 0 hit points but aren't killed outright, you drop to 1 hit point instead. Once per long rest.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "savage-attacks",
+      "name": "Savage Attacks",
+      "category": "trait",
+      "summary": "When you score a critical hit with a melee weapon, roll one of the weapon's damage dice one more time and add it.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

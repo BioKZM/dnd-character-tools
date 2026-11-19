@@ -30,11 +30,13 @@ import type { ContentBundle } from "@/lib/content/schema";
 import type { SpellReferenceCollection, SpellReferenceEntry } from "@/lib/content/spell-reference";
 import { AppIcon } from "@/components/ui/app-icon";
 import { LevelPath, SubclassTree, type PathNode } from "@/components/ui/level-path";
+import { RollTables, rollTableKey, rollTablePick } from "@/components/ui/roll-tables";
 import { ChoiceDetail, ChoicePicker, ChoiceSlot, type ChoiceRow } from "@/components/ui/choice-picker";
 import { CreatorSideContext, InspectPanel, PathCards, PickGrid, PickLayout, PickSection, PickTabs, type PickTile } from "@/components/ui/pick-grid";
 import { GearCard, GearList } from "@/components/ui/gear-info";
 import { GameIcon } from "@/components/ui/game-icon";
 import { spellcastingProfiles } from "@/lib/engine/spellcasting";
+import { SPELLBOOK_KEY, spellbookFreeSlots } from "@/lib/character/spellbook";
 import { findGearInfo, gearInfosFor, weaponInfo } from "@/lib/content/item-info";
 import { backgroundIcon, classIcon, featIcon, featureIcon, pactIcon, raceIcon, schoolIcon, skillIcon, styleIcon, subclassIcon, toolIcon, weaponIcon, type GameIconName } from "@/lib/ui/game-icons";
 import { ClassPortrait } from "@/components/ui/class-portrait";
@@ -3127,7 +3129,7 @@ export function CreatorWorkspace({
   const [customWeaponFilter, setCustomWeaponFilter] = useState<"all" | "simple" | "martial" | "ranged">("all");
   const [customWeaponFocus, setCustomWeaponFocus] = useState<string | null>(null);
   // Spell ekranindaki grup sekmesi; null = otomatik (once eksik olan grup).
-  const [classSpellGroup, setClassSpellGroup] = useState<"cantrips" | "spells" | null>(null);
+  const [classSpellGroup, setClassSpellGroup] = useState<"cantrips" | "book" | "spells" | null>(null);
   const [ekSpellGroup, setEkSpellGroup] = useState<"cantrips" | "focus" | "any" | null>(null);
   const [featSearchQuery, setFeatSearchQuery] = useState("");
   const [selectedFeatId, setSelectedFeatId] = useState<string | null>(null);
@@ -5538,9 +5540,10 @@ export function CreatorWorkspace({
     setLineageDetailTab("overview");
     setSubraceDetailTab("overview");
 
+    // Alt irki olan irklarda ilk alt irk secili gelir (ekranda da o isaretli); Human standart kalir.
     updateDraft((current) => ({
       ...current,
-      speciesId: group.id,
+      speciesId: group.id !== "human" && firstSubrace ? firstSubrace.id : group.id,
     }));
   };
 
@@ -6844,8 +6847,28 @@ export function CreatorWorkspace({
         </span>
       </div>
     ) : null;
+  // Wizard spellbook: kitap = secilenler + hazirlananlar (eski karakterlerde kitap bos olabilir).
+  const isWizardBook = draft.classId === "wizard";
+  const wizardBookIds = isWizardBook
+    ? [...new Set([...(draft.choices?.[SPELLBOOK_KEY] ?? []), ...classSelectedLeveledSpells.map((spell) => spell.id)])]
+    : [];
+  const wizardBookSize = spellbookFreeSlots(draft.level);
+  const toggleWizardBook = (spellId: string) =>
+    updateDraft((current) => {
+      const book = [...new Set([...(current.choices?.[SPELLBOOK_KEY] ?? []), ...wizardBookIds])];
+      const inBook = book.includes(spellId);
+      return {
+        ...current,
+        choices: { ...(current.choices ?? {}), [SPELLBOOK_KEY]: inBook ? book.filter((id) => id !== spellId) : [...book, spellId] },
+        // Kitaptan cikan buyu hazirlikta da kalamaz.
+        spellIds: inBook ? current.spellIds.filter((id) => id !== spellId) : current.spellIds,
+      };
+    });
   const pendingFor = (browser: string) => {
     const fromTasks = pendingTasks.filter((task) => task.jump.browser === browser || (browser === "fighter-asi" && task.jump.browser === "feats")).length;
+    if (browser === "spells" && isWizardBook) {
+      return fromTasks + Math.max(0, wizardBookSize - wizardBookIds.length);
+    }
     if (browser === "skills") {
       return fromTasks + remainingClassSkillChoices;
     }
@@ -6858,6 +6881,9 @@ export function CreatorWorkspace({
     }
     if (browser === "lineage") {
       return fromTasks + raceChoicesLeft + (raceChosen ? 0 : 1);
+    }
+    if (browser === "background" && selectedBackground && !customBackgroundActive) {
+      return fromTasks + selectedBackground.tables.filter((table) => table.required && rollTablePick(draft.choices, table) === null).length;
     }
     if (browser === "custom-background-tools") {
       return (
@@ -7345,6 +7371,24 @@ export function CreatorWorkspace({
                                     ) : null}
                                   </div>
                                 </section>
+                              ) : null}
+                              {selectedBackground && !pickerOpen && !customBackgroundActive && selectedBackground.tables.length ? (
+                                <RollTables
+                                  title={`${selectedBackground.name} tables`}
+                                  tables={selectedBackground.tables}
+                                  choices={draft.choices}
+                                  onPick={(tableId, index) =>
+                                    updateDraft((current) => {
+                                      const next = { ...(current.choices ?? {}) };
+                                      if (index === null) {
+                                        delete next[rollTableKey(tableId)];
+                                      } else {
+                                        next[rollTableKey(tableId)] = [String(index)];
+                                      }
+                                      return { ...current, choices: next };
+                                    })
+                                  }
+                                />
                               ) : null}
                               {customBackgroundActive && !pickerOpen ? (
                                 <p className="pick-note">Custom background: pick its skills, tools, languages and gear in the next steps.</p>
@@ -8223,7 +8267,9 @@ export function CreatorWorkspace({
                       <div className="fighter-journey-scene-head compact">
                         <h3>Choose your spells</h3>
                         <p>
-                          {currentCuratedClass?.spellPreparation
+                          {isWizardBook
+                            ? `Write ${wizardBookSize} spells in your spellbook, then prepare some of them for today (your level + INT). You can swap prepared spells after a long rest.`
+                            : currentCuratedClass?.spellPreparation
                             ? `Choose the ${currentClass.name.toLowerCase()} spells you have prepared today (${currentCuratedClass.spellPreparation.divisor > 1 ? "half your level" : "your level"} + ${currentCuratedClass.spellPreparation.ability}). You can change them after a long rest. Locked ones say why.`
                             : `Pick the ${currentClass.name.toLowerCase()} spells you know. Locked ones say why. Click any spell to read it.`}
                         </p>
@@ -8309,22 +8355,34 @@ export function CreatorWorkspace({
                           .join(" · ");
                         const hasCantripGroup = classCantripLimit > 0;
                         const hasSpellGroup = spellSelectionRules.maxSpellLevel > 0 && spellCandidatePool.some((spell) => spell.level > 0);
-                        const spellGroup: "cantrips" | "spells" =
+                        const hasBookGroup = isWizardBook && hasSpellGroup;
+                        const spellGroup: "cantrips" | "book" | "spells" =
                           classSpellGroup === "cantrips" && hasCantripGroup
                             ? "cantrips"
-                            : classSpellGroup === "spells" && hasSpellGroup
-                              ? "spells"
-                              : hasCantripGroup && (!hasSpellGroup || classSelectedCantrips.length < classCantripLimit)
-                                ? "cantrips"
-                                : "spells";
+                            : classSpellGroup === "book" && hasBookGroup
+                              ? "book"
+                              : classSpellGroup === "spells" && hasSpellGroup
+                                ? "spells"
+                                : hasCantripGroup && (!hasSpellGroup || classSelectedCantrips.length < classCantripLimit)
+                                  ? "cantrips"
+                                  : hasBookGroup && wizardBookIds.length < wizardBookSize
+                                    ? "book"
+                                    : "spells";
+                        const bookFull = wizardBookIds.length >= wizardBookSize;
                         const groupLevels = spellLevelPages.filter((level) => level > 0);
-                        const groupLevelFilter = spellGroup === "spells" && activeSpellFilter !== 0 ? activeSpellFilter : "all";
+                        const groupLevelFilter = spellGroup !== "cantrips" && activeSpellFilter !== 0 ? activeSpellFilter : "all";
                         const groupPool = searchedSpellCards.filter((spell) =>
-                          spellGroup === "cantrips" ? spell.level === 0 : spell.level > 0 && (groupLevelFilter === "all" || spell.level === groupLevelFilter),
+                          spellGroup === "cantrips"
+                            ? spell.level === 0
+                            : spell.level > 0 &&
+                              (groupLevelFilter === "all" || spell.level === groupLevelFilter) &&
+                              // Wizard sadece kitabindaki buyuleri hazirlar.
+                              (spellGroup !== "spells" || !isWizardBook || wizardBookIds.includes(spell.id)),
                         );
-                        const groupPicked = spellGroup === "cantrips" ? classSelectedCantrips.length : classSelectedLeveledSpells.length;
+                        const groupPicked =
+                          spellGroup === "cantrips" ? classSelectedCantrips.length : spellGroup === "book" ? wizardBookIds.length : classSelectedLeveledSpells.length;
                         const countable = (value: number) => (Number.isFinite(value) && value > 0 ? value : undefined);
-                        const groupTotal = countable(spellGroup === "cantrips" ? classCantripLimit : classKnownSpellLimit);
+                        const groupTotal = countable(spellGroup === "cantrips" ? classCantripLimit : spellGroup === "book" ? wizardBookSize : classKnownSpellLimit);
                         const spellsWord = currentCuratedClass?.spellPreparation ? "Prepared spells" : "Spells";
                         return (
                           <PickLayout
@@ -8343,13 +8401,27 @@ export function CreatorWorkspace({
                                   action={
                                     grantedFocus ? (
                                       <span className="pick-note">{grantedFocus.note}</span>
+                                    ) : spellGroup === "book" && focusSpell.level > 0 ? (
+                                      wizardBookIds.includes(focusSpell.id) || !bookFull ? (
+                                        <button
+                                          type="button"
+                                          className={wizardBookIds.includes(focusSpell.id) ? "sheet-button secondary" : "sheet-button primary"}
+                                          onClick={() => toggleWizardBook(focusSpell.id)}
+                                        >
+                                          {wizardBookIds.includes(focusSpell.id) ? "Remove from spellbook" : "Write in spellbook"}
+                                        </button>
+                                      ) : (
+                                        <span className="pick-note">{`Your book holds ${wizardBookSize} spells at level ${draft.level}. Remove one first.`}</span>
+                                      )
+                                    ) : isWizardBook && focusSpell.level > 0 && !wizardBookIds.includes(focusSpell.id) ? (
+                                      <span className="pick-note">Write it in your spellbook first, then prepare it.</span>
                                     ) : !focusReason || focusKnown ? (
                                       <button
                                         type="button"
                                         className={focusKnown ? "sheet-button secondary" : "sheet-button primary"}
                                         onClick={() => toggleSelection("spellIds", focusSpell.id)}
                                       >
-                                        {focusKnown ? "Forget" : "Learn"}
+                                        {isWizardBook && focusSpell.level > 0 ? (focusKnown ? "Unprepare" : "Prepare") : focusKnown ? "Forget" : "Learn"}
                                       </button>
                                     ) : null
                                   }
@@ -8404,11 +8476,22 @@ export function CreatorWorkspace({
                               label="Spell groups"
                               active={spellGroup}
                               onChange={(id) => {
-                                setClassSpellGroup(id as "cantrips" | "spells");
+                                setClassSpellGroup(id as "cantrips" | "book" | "spells");
                                 setActiveSpellFilter("all");
                               }}
                               tabs={[
                                 ...(hasCantripGroup ? [{ id: "cantrips", label: "Cantrips", picked: classSelectedCantrips.length, total: classCantripLimit, hint: "At-will, no slot needed" }] : []),
+                                ...(hasBookGroup
+                                  ? [
+                                      {
+                                        id: "book",
+                                        label: "Spellbook",
+                                        picked: wizardBookIds.length,
+                                        total: wizardBookSize,
+                                        hint: "6 at level 1, +2 each level",
+                                      },
+                                    ]
+                                  : []),
                                 ...(hasSpellGroup
                                   ? [
                                       {
@@ -8423,11 +8506,15 @@ export function CreatorWorkspace({
                               ]}
                             />
                             <PickSection
-                              title={spellGroup === "cantrips" ? `${currentClass.name} cantrips` : `${currentClass.name} ${spellsWord.toLowerCase()}`}
+                              title={spellGroup === "cantrips" ? `${currentClass.name} cantrips` : spellGroup === "book" ? "Your spellbook" : `${currentClass.name} ${spellsWord.toLowerCase()}`}
                               meta={
                                 spellGroup === "cantrips"
                                   ? "Cast as often as you like."
-                                  : `Up to level ${spellSelectionRules.maxSpellLevel}. Any mix of levels; only the total counts.`
+                                  : spellGroup === "book"
+                                    ? `Write ${wizardBookSize} wizard spells, up to level ${spellSelectionRules.maxSpellLevel}. You prepare from these.`
+                                    : isWizardBook
+                                      ? "Only spells in your spellbook. Change them after a long rest."
+                                      : `Up to level ${spellSelectionRules.maxSpellLevel}. Any mix of levels; only the total counts.`
                               }
                               picked={groupTotal === undefined ? undefined : groupPicked}
                               total={groupTotal}
@@ -8443,7 +8530,7 @@ export function CreatorWorkspace({
                               }
                             >
                               <div className="pick-filters" role="group" aria-label="Spell level">
-                                {spellGroup === "spells" && groupLevels.length > 1 ? (
+                                {spellGroup !== "cantrips" && groupLevels.length > 1 ? (
                                   <>
                                     <button type="button" className={groupLevelFilter === "all" ? "pick-filter active" : "pick-filter"} onClick={() => setActiveSpellFilter("all")}>
                                       All levels
@@ -8478,6 +8565,17 @@ export function CreatorWorkspace({
                                   inspectedId={inspectId}
                                   onInspect={setInspectId}
                                   items={groupPool.map((spell) => {
+                                    if (spellGroup === "book") {
+                                      const inBook = wizardBookIds.includes(spell.id);
+                                      return {
+                                        id: spell.id,
+                                        name: spell.name,
+                                        sub: spellLabel(spell),
+                                        icon: schoolIcon(spell.school),
+                                        selected: inBook,
+                                        dim: !inBook && bookFull,
+                                      };
+                                    }
                                     const reason = classSpellUnavailableReason(spell);
                                     const known = draft.spellIds.includes(spell.id);
                                     return {
@@ -8490,10 +8588,20 @@ export function CreatorWorkspace({
                                       lockReason: reason ?? undefined,
                                     };
                                   })}
-                                  onPick={(spellId) => toggleSelection("spellIds", spellId)}
+                                  onPick={(spellId) => {
+                                    if (spellGroup === "book") {
+                                      if (wizardBookIds.includes(spellId) || !bookFull) toggleWizardBook(spellId);
+                                      return;
+                                    }
+                                    toggleSelection("spellIds", spellId);
+                                  }}
                                 />
                               ) : (
-                                <p className="pick-note">No spells match this filter or search.</p>
+                                <p className="pick-note">
+                                  {spellGroup === "spells" && isWizardBook && !wizardBookIds.length
+                                    ? "Your spellbook is empty. Write spells in it on the Spellbook tab first."
+                                    : "No spells match this filter or search."}
+                                </p>
                               )}
                             </PickSection>
                             {currentClass.id === "warlock" && mysticArcanumOptions.length ? (

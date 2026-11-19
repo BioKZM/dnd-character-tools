@@ -1,0 +1,241 @@
+{
+  "id": "dwarf",
+  "name": "Dwarf",
+  "category": "standard",
+  "summary": "Stout, stubborn folk of mountain halls and deep mines. Dwarves are tough, hold long grudges and take pride in good stonework, metalwork and keeping their word.",
+  "source": {
+    "book": "Player's Handbook"
+  },
+  "facts": {
+    "age": {
+      "summary": "Dwarves come of age around 50 and can live about 350 years."
+    },
+    "alignment": {
+      "summary": "Most dwarves lean lawful and good, valuing order and fairness."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Dwarves stand about 4 to 5 feet tall and are broad and heavy."
+    },
+    "speed": {
+      "walk": 25,
+      "description": "Your base walking speed is 25 feet. Heavy armor doesn't slow you down."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Dwarvish"
+      ],
+      "description": "You can speak, read, and write Common and Dwarvish."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 2
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "dwarven-resilience",
+      "name": "Dwarven Resilience",
+      "category": "trait",
+      "summary": "You have advantage on saving throws against poison and resistance to poison damage.",
+      "grants": [
+        {
+          "type": "save_advantage",
+          "against": "poison"
+        },
+        {
+          "type": "damage_resistance",
+          "damageType": "poison"
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "dwarven-combat-training",
+      "name": "Dwarven Combat Training",
+      "category": "proficiency",
+      "summary": "You are proficient with the battleaxe, handaxe, light hammer and warhammer.",
+      "grants": [
+        {
+          "type": "weapon_proficiency",
+          "values": [
+            "Battleaxe",
+            "Handaxe",
+            "Light Hammer",
+            "Warhammer"
+          ]
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "tool-proficiency",
+      "name": "Tool Proficiency",
+      "category": "proficiency",
+      "summary": "You are proficient with one set of artisan's tools: smith's tools, brewer's supplies or mason's tools.",
+      "choiceGroupIds": [
+        "dwarf-tool-choice"
+      ]
+    },
+    {
+      "id": "stonecunning",
+      "name": "Stonecunning",
+      "category": "trait",
+      "summary": "On History checks about the origin of stonework, you count as proficient and add double your proficiency bonus.",
+      "grants": [
+        {
+          "type": "skill_bonus_if_proficient",
+          "skillId": "history",
+          "multiplier": 2,
+          "context": "Stonework origin"
+        }
+      ],
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [
+    {
+      "id": "dwarf-tool-choice",
+      "name": "Dwarf Tools",
+      "type": "single-select",
+      "minSelections": 1,
+      "maxSelections": 1,
+      "options": [
+        {
+          "id": "smiths-tools",
+          "label": "Smith's Tools",
+          "summary": "Work metal at a forge.",
+          "grants": [
+            {
+              "type": "tool_proficiency",
+              "values": [
+                "Smith's Tools"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "brewers-supplies",
+          "label": "Brewer's Supplies",
+          "summary": "Brew ale and purify water.",
+          "grants": [
+            {
+              "type": "tool_proficiency",
+              "values": [
+                "Brewer's Supplies"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "masons-tools",
+          "label": "Mason's Tools",
+          "summary": "Cut and shape stone.",
+          "grants": [
+            {
+              "type": "tool_proficiency",
+              "values": [
+                "Mason's Tools"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sublineages": [
+    {
+      "id": "hill-dwarf",
+      "name": "Hill Dwarf",
+      "summary": "Hill dwarves have sharp senses, deep intuition and remarkable toughness.",
+      "source": {
+        "book": "Player's Handbook"
+      },
+      "facts": {
+        "languages": {
+          "values": []
+        },
+        "abilityScoreBonuses": [
+          {
+            "type": "fixed",
+            "ability": "WIS",
+            "amount": 1
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "dwarven-toughness",
+          "name": "Dwarven Toughness",
+          "category": "trait",
+          "summary": "Your hit point maximum increases by 1, and by 1 again every time you gain a level.",
+          "grants": [
+            {
+              "type": "hit_points_per_level",
+              "amount": 1
+            }
+          ],
+          "choiceGroupIds": []
+        }
+      ],
+      "choiceGroups": []
+    },
+    {
+      "id": "mountain-dwarf",
+      "name": "Mountain Dwarf",
+      "summary": "Mountain dwarves are strong and hardy, used to a rough life in harsh country.",
+      "source": {
+        "book": "Player's Handbook"
+      },
+      "facts": {
+        "languages": {
+          "values": []
+        },
+        "abilityScoreBonuses": [
+          {
+            "type": "fixed",
+            "ability": "STR",
+            "amount": 2
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "dwarven-armor-training",
+          "name": "Dwarven Armor Training",
+          "category": "proficiency",
+          "summary": "You are proficient with light and medium armor.",
+          "grants": [
+            {
+              "type": "armor_training",
+              "values": [
+                "Light Armor",
+                "Medium Armor"
+              ]
+            }
+          ],
+          "choiceGroupIds": []
+        }
+      ],
+      "choiceGroups": []
+    }
+  ]
+}

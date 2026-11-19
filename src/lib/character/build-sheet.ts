@@ -1,3 +1,4 @@
+import { SPELLBOOK_KEY, prepareLimit, spellbookFreeSlots } from "@/lib/character/spellbook";
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import type { ContentBundle, FeatureFacts } from "@/lib/content/schema";
 import { optionalFeatureActive, type EngineCatalog } from "@/lib/engine/collect";
@@ -1187,6 +1188,52 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
   const movementStats = deriveMovementStats(derived, armorClass.speedPenalty, armorClass.unarmored ? 0 : derived.unarmoredSpeedBonus);
   const armorClassStat = deriveArmorClassStat(armorClass);
 
+  // Spells sekmesi icin: level'a gore siralanmis, kaynagi ve DC/attack'i hazir buyu girisi.
+  const toSpellEntry = (spell: ContentBundle["spells"][number], sourceLabel: string) => ({
+    id: `${spell.id}-${sourceLabel}`,
+    spellId: spell.id,
+    name: spell.name,
+    level: spell.level,
+    school: spell.school,
+    castingTime: spell.castingTime,
+    range: spell.range,
+    duration: spell.duration,
+    concentration: /concentration/i.test(spell.duration),
+    ritual: /ritual/i.test(spell.subtitle ?? "") || (spell.tags ?? []).includes("Ritual"),
+    source: sourceLabel,
+    hit: spellHit(spell),
+    damage: spellDamage(spell),
+    summary: spell.summary,
+    atHigherLevels: spell.atHigherLevels ?? "",
+  });
+  // Wizard spellbook: kitaptaki buyuler (hazirlananlar dahil), hazirlik limiti, kopyalanabilecekler.
+  const spellbook = (() => {
+    if (draft.classId !== "wizard") {
+      return null;
+    }
+    const wizardSpell = (spell: ContentBundle["spells"][number]) =>
+      spell.classes?.some((entry) => entry.toLowerCase().replace(/\s*\([^)]*\)\s*/g, "").trim() === "wizard") ?? false;
+    const maxLevel = Math.max(0, ...spellcasting.flatMap((profile) => profile.slots.map((slot) => slot.level)));
+    const preparedLeveled = draft.spellIds.filter((id) => (content.spells.find((spell) => spell.id === id)?.level ?? 0) > 0);
+    const bookIds = [...new Set([...(draft.choices?.[SPELLBOOK_KEY] ?? []), ...preparedLeveled])];
+    const bookSpells = bookIds
+      .map((id) => content.spells.find((spell) => spell.id === id))
+      .filter((spell): spell is ContentBundle["spells"][number] => Boolean(spell));
+    return {
+      entries: bookSpells
+        .map((spell) => toSpellEntry(spell, "Spellbook"))
+        .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
+      preparedIds: preparedLeveled,
+      prepareLimit: prepareLimit(abilityModifiers.INT ?? 0, draft.level),
+      freeSlots: spellbookFreeSlots(draft.level),
+      maxLevel,
+      copyPool: content.spells
+        .filter((spell) => spell.level > 0 && spell.level <= maxLevel && wizardSpell(spell) && !bookIds.includes(spell.id))
+        .map((spell) => ({ id: spell.id, name: spell.name, level: spell.level, school: spell.school }))
+        .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
+    };
+  })();
+
   return {
     className: chosenClass?.name ?? draft.classLine,
     speciesName: chosenSpecies?.name ?? draft.ancestry,
@@ -1217,24 +1264,9 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     mageArmorAvailable: mageArmorAvailable(derived, draft.spellIds),
     // Spells sekmesi icin: level'a gore siralanmis, kaynagi ve DC/attack'i hazir buyu listesi.
     spellEntries: learnedSpells
-      .map(({ spell, sourceLabel }) => ({
-        id: `${spell.id}-${sourceLabel}`,
-        spellId: spell.id,
-        name: spell.name,
-        level: spell.level,
-        school: spell.school,
-        castingTime: spell.castingTime,
-        range: spell.range,
-        duration: spell.duration,
-        concentration: /concentration/i.test(spell.duration),
-        ritual: /ritual/i.test(spell.subtitle ?? "") || (spell.tags ?? []).includes("Ritual"),
-        source: sourceLabel,
-        hit: spellHit(spell),
-        damage: spellDamage(spell),
-        summary: spell.summary,
-        atHigherLevels: spell.atHigherLevels ?? "",
-      }))
+      .map(({ spell, sourceLabel }) => toSpellEntry(spell, sourceLabel))
       .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
+    spellbook,
     // Kisa / uzun dinlenmede yenilenen kaynaklar (Second Wind, Bardic Inspiration...).
     resources: derived.resources.map((resource) => ({
       ...resource,

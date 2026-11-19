@@ -1,5 +1,7 @@
 "use client";
 
+import { rollTablePick } from "@/components/ui/roll-tables";
+import { SPELLBOOK_COPIED_KEY, SPELLBOOK_KEY, copyCost, payGold } from "@/lib/character/spellbook";
 import { Keywordize, highlightKeywords } from "@/components/ui/keyword-text";
 import { FactChips, LayeredFeature } from "@/components/ui/feature-rules";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
@@ -2736,6 +2738,42 @@ export function PartyRoomDashboard({
                             spells={sheetContent.spellEntries}
                             usedSlots={draft.usedSlots ?? {}}
                             onSlotChange={setSlotUsage}
+                            spellbook={sheetContent.spellbook}
+                            copiedCount={(draft.choices?.[SPELLBOOK_COPIED_KEY] ?? []).length}
+                            currency={draft.currency ?? { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 }}
+                            onTogglePrepared={(spellId) =>
+                              updateDraft((current) => {
+                                const prepared = current.spellIds.includes(spellId);
+                                const book = current.choices?.[SPELLBOOK_KEY] ?? [];
+                                return {
+                                  ...current,
+                                  // Hazirlanan buyu kitaptan cikmasin: kitaba da yazilir.
+                                  choices: { ...(current.choices ?? {}), [SPELLBOOK_KEY]: book.includes(spellId) ? book : [...book, spellId] },
+                                  spellIds: prepared ? current.spellIds.filter((id) => id !== spellId) : [...current.spellIds, spellId],
+                                };
+                              })
+                            }
+                            onAddToBook={(spellId, mode) =>
+                              updateDraft((current) => {
+                                const spell = initialContent.spells.find((entry) => entry.id === spellId);
+                                const wallet = current.currency ?? { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 };
+                                const paid = mode === "copy" && spell ? payGold(wallet, copyCost(spell.level).gp) : wallet;
+                                if (!paid) {
+                                  return current;
+                                }
+                                const book = current.choices?.[SPELLBOOK_KEY] ?? [];
+                                const copied = current.choices?.[SPELLBOOK_COPIED_KEY] ?? [];
+                                return {
+                                  ...current,
+                                  currency: paid,
+                                  choices: {
+                                    ...(current.choices ?? {}),
+                                    [SPELLBOOK_KEY]: [...book, spellId],
+                                    ...(mode === "copy" ? { [SPELLBOOK_COPIED_KEY]: [...copied, spellId] } : {}),
+                                  },
+                                };
+                              })
+                            }
                           />
                         </div>
                       ) : null}
@@ -2850,6 +2888,23 @@ export function PartyRoomDashboard({
                                 </div>
                               ))}
                           </dl>
+                          {(() => {
+                            // Background tablolarindan secilen / zarla gelen satirlar (Feylost Fey Mark gibi).
+                            const tables = initialContent.backgrounds.find((entry) => entry.id === draft.backgroundId)?.tables ?? [];
+                            const rows = tables
+                              .map((table) => ({ table, index: rollTablePick(draft.choices, table) }))
+                              .filter((row): row is { table: (typeof tables)[number]; index: number } => row.index !== null);
+                            return rows.length ? (
+                              <dl className="inspect-rows cs-bg-tables">
+                                {rows.map(({ table, index }) => (
+                                  <div key={`cs-bg-table-${table.id}`}>
+                                    <dt>{table.title}</dt>
+                                    <dd>{table.entries[index]}</dd>
+                                  </div>
+                                ))}
+                              </dl>
+                            ) : null;
+                          })()}
                           {draft.background ? <p className="cs-panel-note">{draft.background}</p> : null}
                         </div>
                       ) : null}

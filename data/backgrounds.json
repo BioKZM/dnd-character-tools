@@ -789,7 +789,102 @@
         }
       ]
     },
-    "grants": []
+    "grants": [],
+    "tables": [
+      {
+        "id": "feylost-fey-mark",
+        "title": "Fey Mark",
+        "die": 8,
+        "required": true,
+        "note": "Your stay in the Feywild changed you a little. The background says to roll; you can also pick.",
+        "entries": [
+          "Your eyes shimmer through every color of the rainbow.",
+          "You smell faintly sweet, like honey or nectar.",
+          "You have long whiskers, like a cat's.",
+          "Your ears are pointed and tipped with soft fur.",
+          "Your skin glitters faintly under moonlight.",
+          "Flowers near you bloom or wilt, as you wish.",
+          "Your hair is a tangle of vines or brambles that grows back fast when cut.",
+          "You have a small animal tail, like a dog's."
+        ]
+      },
+      {
+        "id": "feylost-feywild-visitor",
+        "title": "Feywild Visitor",
+        "die": 8,
+        "note": "Sometimes, while you sleep or trance on a long rest, a spirit from the Feywild visits you. It means no harm and leaves only a memory. The DM decides when it happens; this table says what shape it takes.",
+        "entries": [
+          "An awakened animal or plant",
+          "A centaur",
+          "A dryad",
+          "A faerie dragon",
+          "A pixie",
+          "A satyr",
+          "A sprite",
+          "A unicorn"
+        ]
+      },
+      {
+        "id": "feylost-personality",
+        "title": "Personality Trait",
+        "die": 8,
+        "entries": [
+          "I keep hearing fey laughter. It is probably in my head.",
+          "I can't stay in one place for long; the road keeps calling.",
+          "A beautiful song can bring me to tears.",
+          "I carry a little piece of home with me, and share it.",
+          "Everything still fills me with a child's wonder.",
+          "Every new idea thrills me, until a newer one comes along.",
+          "I live by my own odd rules, and they make sense to me.",
+          "Grown-ups make me suspicious."
+        ]
+      },
+      {
+        "id": "feylost-ideal",
+        "title": "Ideal",
+        "die": 8,
+        "entries": [
+          "Friendship. I never leave a friend behind. (Good)",
+          "Empathy. Nobody should have to suffer. (Good)",
+          "Wanderlust. The path nobody takes is the one for me. (Chaotic)",
+          "Changeability. Rules shift, so I shift with them. (Chaotic)",
+          "Honor. A deal is a deal, and I keep mine. (Lawful)",
+          "Rule of Three. Things come in threes, and I watch for them. (Lawful)",
+          "Obsession. I never let go of a grudge. (Evil)",
+          "Greed. I take what I want, whoever gets hurt. (Evil)"
+        ]
+      },
+      {
+        "id": "feylost-bond",
+        "title": "Bond",
+        "die": 8,
+        "entries": [
+          "My word is everything; I never break it.",
+          "Magic pulls me in, especially where it runs thick.",
+          "I protect the wild places of the world.",
+          "One trusted friend means more to me than anything.",
+          "I will not harm a fey creature.",
+          "The Witchlight Carnival feels like home to me.",
+          "I long to go back to the Feywild.",
+          "I owe a debt to Mister Witch and Mister Light."
+        ]
+      },
+      {
+        "id": "feylost-flaw",
+        "title": "Flaw",
+        "die": 8,
+        "entries": [
+          "I lose track of time and I'm always late.",
+          "I'm sure the whole multiverse is out to get me.",
+          "I cling to schedules and get anxious when plans slip.",
+          "Shiny, sparkly things tend to end up in my pockets.",
+          "I forget things, even simple ones.",
+          "I never give anything away without getting something back.",
+          "I have far too many vices.",
+          "I change my mind all the time."
+        ]
+      }
+    ]
   },
   {
     "id": "fisher",

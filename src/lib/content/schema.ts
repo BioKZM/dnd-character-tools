@@ -114,6 +114,20 @@ export const backgroundSchema = z.object({
     .default({ fixed: [], choices: [] }),
   equipment: z.array(z.string()).default([]),
   grants: z.array(grantSchema).default([]),
+  /** Zar tablolari (Fey Mark, kisilik ozellikleri...). Oyuncu secer ya da zar atar. */
+  tables: z
+    .array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        die: z.number().int().positive(),
+        /** Ozellik geregi zorunlu mu (Fey Mark gibi). Degilse istege bagli (kisilik tablolari). */
+        required: z.boolean().default(false),
+        note: z.string().optional(),
+        entries: z.array(z.string()).min(1),
+      }),
+    )
+    .default([]),
 });
 
 export const languageSchema = z.object({

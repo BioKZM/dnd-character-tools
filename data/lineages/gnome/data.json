@@ -1,0 +1,169 @@
+{
+  "id": "gnome",
+  "name": "Gnome",
+  "category": "standard",
+  "summary": "Small, curious and full of energy. Gnomes love inventions, illusions, jokes and learning, and their quick minds shrug off magic aimed at them.",
+  "source": {
+    "book": "Player's Handbook"
+  },
+  "facts": {
+    "age": {
+      "summary": "Gnomes come of age around 40 and can live 350 to almost 500 years."
+    },
+    "alignment": {
+      "summary": "Gnomes are usually good; tinkerers lean lawful, tricksters lean chaotic."
+    },
+    "size": {
+      "category": "Small",
+      "description": "Gnomes stand 3 to 4 feet tall and weigh about 40 pounds."
+    },
+    "speed": {
+      "walk": 25,
+      "description": "Your base walking speed is 25 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Gnomish"
+      ],
+      "description": "You can speak, read, and write Common and Gnomish."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "INT",
+        "amount": 2
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "gnome-cunning",
+      "name": "Gnome Cunning",
+      "category": "trait",
+      "summary": "You have advantage on Intelligence, Wisdom and Charisma saving throws against magic.",
+      "grants": [
+        {
+          "type": "save_advantage",
+          "against": "magic (INT, WIS and CHA saves)"
+        }
+      ],
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": [
+    {
+      "id": "forest-gnome",
+      "name": "Forest Gnome",
+      "summary": "Forest gnomes live hidden in the woods, with a gift for small illusions and a bond with little animals.",
+      "source": {
+        "book": "Player's Handbook"
+      },
+      "facts": {
+        "languages": {
+          "values": []
+        },
+        "abilityScoreBonuses": [
+          {
+            "type": "fixed",
+            "ability": "DEX",
+            "amount": 1
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "natural-illusionist",
+          "name": "Natural Illusionist",
+          "category": "trait",
+          "summary": "You know the minor illusion cantrip. Intelligence is your spellcasting ability for it.",
+          "grants": [
+            {
+              "type": "spell_grant",
+              "spellName": "Minor Illusion",
+              "spellcastingAbility": "INT",
+              "countsAsKnown": true
+            }
+          ],
+          "choiceGroupIds": []
+        },
+        {
+          "id": "speak-with-small-beasts",
+          "name": "Speak with Small Beasts",
+          "category": "trait",
+          "summary": "Through sounds and gestures, you can share simple ideas with Small or smaller beasts.",
+          "choiceGroupIds": []
+        }
+      ],
+      "choiceGroups": []
+    },
+    {
+      "id": "rock-gnome",
+      "name": "Rock Gnome",
+      "summary": "Rock gnomes are tinkerers and inventors, hardy and endlessly curious about how things work.",
+      "source": {
+        "book": "Player's Handbook"
+      },
+      "facts": {
+        "languages": {
+          "values": []
+        },
+        "abilityScoreBonuses": [
+          {
+            "type": "fixed",
+            "ability": "CON",
+            "amount": 1
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "artificers-lore",
+          "name": "Artificer's Lore",
+          "category": "trait",
+          "summary": "On History checks about magic items, alchemical objects or technological devices, add double your proficiency bonus.",
+          "grants": [
+            {
+              "type": "skill_bonus_if_proficient",
+              "skillId": "history",
+              "multiplier": 2,
+              "context": "Magic items and devices"
+            }
+          ],
+          "choiceGroupIds": []
+        },
+        {
+          "id": "tinker",
+          "name": "Tinker",
+          "category": "proficiency",
+          "summary": "You are proficient with tinker's tools and can build tiny clockwork toys, fire starters and music boxes.",
+          "grants": [
+            {
+              "type": "tool_proficiency",
+              "values": [
+                "Tinker's Tools"
+              ]
+            }
+          ],
+          "choiceGroupIds": []
+        }
+      ],
+      "choiceGroups": []
+    }
+  ]
+}
