@@ -1,0 +1,121 @@
+{
+  "id": "yuan-ti-pureblood",
+  "name": "Yuan-ti Pureblood",
+  "category": "monstrous",
+  "summary": "Serpent-folk who can pass for human at a glance. Purebloods are cold and calculating, resist magic and poison, and charm others with innate spells.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Purebloods mature like humans and live about as long."
+    },
+    "alignment": {
+      "summary": "Purebloods are mostly neutral evil."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Purebloods are built like humans."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Abyssal",
+        "Draconic"
+      ],
+      "description": "You can speak, read, and write Common, Abyssal, Draconic."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "CHA",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "INT",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "innate-spellcasting",
+      "name": "Innate Spellcasting",
+      "category": "trait",
+      "summary": "You know the poison spray cantrip. You can cast animal friendship on snakes at will, and from 3rd level suggestion once per long rest. Charisma is your spellcasting ability.",
+      "grants": [
+        {
+          "type": "spell_grant",
+          "spellName": "Poison Spray",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": true
+        },
+        {
+          "type": "spell_grant",
+          "spellName": "Animal Friendship",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": false
+        },
+        {
+          "type": "spell_grant",
+          "spellName": "Suggestion",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": false,
+          "unlockLevel": 3
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "magic-resistance",
+      "name": "Magic Resistance",
+      "category": "trait",
+      "summary": "You have advantage on saving throws against spells and other magical effects.",
+      "grants": [
+        {
+          "type": "save_advantage",
+          "against": "spells and magical effects"
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "poison-immunity",
+      "name": "Poison Immunity",
+      "category": "trait",
+      "summary": "You are immune to poison damage and the poisoned condition.",
+      "grants": [
+        {
+          "type": "condition_immunity",
+          "against": "poison damage"
+        },
+        {
+          "type": "condition_immunity",
+          "against": "poisoned"
+        }
+      ],
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

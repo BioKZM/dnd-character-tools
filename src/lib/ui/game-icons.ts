@@ -43,6 +43,16 @@ export function raceIcon(idOrName: string): GameIconName {
   return byKeywords(
     idOrName,
     [
+      [/aasimar/, "angel-wings"],
+      [/firbolg/, "deku-tree"],
+      [/goliath/, "giant"],
+      [/kenku/, "raven"],
+      [/lizardfolk|lizard/, "lizardman"],
+      [/triton/, "wave-crest"],
+      [/bugbear/, "bear-head"],
+      [/goblin/, "goblin-head"],
+      [/kobold/, "lizard-tongue"],
+      [/yuan-ti|yuan ti/, "cobra"],
       [/eladrin|fey|fairy/, "fairy"],
       [/elf|drow/, "elf-ear"],
       [/tabaxi|cat/, "cat"],

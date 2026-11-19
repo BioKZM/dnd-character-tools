@@ -7,7 +7,8 @@ export const lineageAbilityBonusRuleSchema = z.discriminatedUnion("type", [
     .object({
       type: z.literal("fixed"),
       ability: lineageAbilityIdSchema,
-      amount: z.number().int().positive(),
+      // Eksi de olabilir (Volo's Kobold STR -2, Orc INT -2).
+      amount: z.number().int().refine((value) => value !== 0),
     })
     .strict(),
   z

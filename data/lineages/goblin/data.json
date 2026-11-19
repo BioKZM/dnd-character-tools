@@ -1,0 +1,76 @@
+{
+  "id": "goblin",
+  "name": "Goblin",
+  "category": "monstrous",
+  "summary": "Small, quick and scrappy goblinoids. Goblins survive by being sneaky and fast, and they hit much harder than their size suggests.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Goblins mature at 8 and live up to 60 years."
+    },
+    "alignment": {
+      "summary": "Goblins are mostly neutral evil."
+    },
+    "size": {
+      "category": "Small",
+      "description": "Goblins are 3 to 4 feet tall and weigh 40 to 80 pounds."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Goblin"
+      ],
+      "description": "You can speak, read, and write Common and Goblin."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "DEX",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "fury-of-the-small",
+      "name": "Fury of the Small",
+      "category": "trait",
+      "summary": "When you damage a creature bigger than you, you can deal extra damage equal to your level. Once per short or long rest.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "nimble-escape",
+      "name": "Nimble Escape",
+      "category": "trait",
+      "summary": "You can take the Disengage or Hide action as a bonus action on each of your turns.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

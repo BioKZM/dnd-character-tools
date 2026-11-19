@@ -1,0 +1,98 @@
+{
+  "id": "bugbear",
+  "name": "Bugbear",
+  "category": "monstrous",
+  "summary": "Hulking, hairy goblinoids who are surprisingly quiet for their size. Bugbears love ambushes and strike from further away than their foes expect.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Bugbears mature at 16 and live up to 80 years."
+    },
+    "alignment": {
+      "summary": "Bugbears are mostly chaotic evil."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Bugbears are 6 to 8 feet tall and weigh 250 to 350 pounds."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Goblin"
+      ],
+      "description": "You can speak, read, and write Common and Goblin."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "DEX",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "long-limbed",
+      "name": "Long-Limbed",
+      "category": "trait",
+      "summary": "On your turn, your melee attacks reach 5 feet further than normal.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "category": "passive",
+      "summary": "You count as one size larger when working out your carrying capacity and the weight you can push, drag or lift.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "sneaky",
+      "name": "Sneaky",
+      "category": "proficiency",
+      "summary": "You are proficient in the Stealth skill.",
+      "grants": [
+        {
+          "type": "skill_proficiency",
+          "values": [
+            "stealth"
+          ]
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "surprise-attack",
+      "name": "Surprise Attack",
+      "category": "trait",
+      "summary": "If you hit a surprised creature on your first turn in combat, it takes an extra 2d6 damage. Once per combat.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

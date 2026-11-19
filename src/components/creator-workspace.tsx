@@ -7146,10 +7146,25 @@ export function CreatorWorkspace({
                           <h2 className="screen-title">Choose your race</h2>
                           {raceGridOpen || !raceChosen ? (
                             <div className="race-grid-pick">
+                              {/* 20+ irk tek izgarada kaybolmasin: kitaba gore gruplu. */}
+                              {[
+                                { id: "phb", title: "Player's Handbook", hint: "The classic races", match: (book: string) => book.startsWith("Player") },
+                                { id: "vgm", title: "Volo's Guide to Monsters", hint: "Exotic and monstrous", match: (book: string) => book.startsWith("Volo") },
+                                { id: "other", title: "Other books", hint: "", match: (book: string) => !book.startsWith("Player") && !book.startsWith("Volo") },
+                              ].map((shelf) => {
+                                const cards = lineageCards.filter((card) =>
+                                  shelf.match(lineageDataCatalog.entries.find((entry) => entry.id === card.lineageId)?.source.book ?? "Other"),
+                                );
+                                return cards.length ? (
+                                  <section key={shelf.id} className="race-shelf" aria-label={shelf.title}>
+                                    <h3 className="race-shelf-title">
+                                      {shelf.title}
+                                      {shelf.hint ? <span>{shelf.hint}</span> : null}
+                                    </h3>
                               <PickGrid
-                                label="Races"
+                                label={shelf.title}
                                 columns={4}
-                                items={lineageCards.map((group) => ({
+                                items={cards.map((group) => ({
                                   id: group.id,
                                   name: group.name,
                                   icon: raceIcon(group.name),
@@ -7165,6 +7180,9 @@ export function CreatorWorkspace({
                                   }
                                 }}
                               />
+                                  </section>
+                                ) : null;
+                              })}
                               {raceChosen ? (
                                 <button type="button" className="race-summary-change" onClick={() => setRaceGridOpen(false)}>
                                   {`Keep ${raceName}`}
@@ -7374,7 +7392,7 @@ export function CreatorWorkspace({
                               ) : null}
                               {selectedBackground && !pickerOpen && !customBackgroundActive && selectedBackground.tables.length ? (
                                 <RollTables
-                                  title={`${selectedBackground.name} tables`}
+                                  title={`Your ${selectedBackground.name.toLowerCase()} story`}
                                   tables={selectedBackground.tables}
                                   choices={draft.choices}
                                   onPick={(tableId, index) =>
@@ -8944,7 +8962,7 @@ export function CreatorWorkspace({
                         <div className="lineage-detail-meta-grid origin-bonus-grid">
                           {currentStructuredLineage.facts.abilityScoreBonuses.map((bonus, index) => (
                             <div key={`${currentStructuredLineage.id}-human-asi-${index}`} className="lineage-detail-meta-item">
-                              <span>{"ability" in bonus ? `${bonus.ability} +${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`}</span>
+                              <span>{"ability" in bonus ? `${bonus.ability} ${bonus.amount > 0 ? "+" : ""}${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`}</span>
                             </div>
                           ))}
                         </div>
@@ -9014,7 +9032,7 @@ export function CreatorWorkspace({
                                 </span>
                               </div>
                               <span>
-                                {"ability" in bonus ? `${bonus.ability} +${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`}
+                                {"ability" in bonus ? `${bonus.ability} ${bonus.amount > 0 ? "+" : ""}${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`}
                               </span>
                             </div>
                           ))}
@@ -9250,7 +9268,7 @@ export function CreatorWorkspace({
                                 {currentStructuredSublineage.facts.abilityScoreBonuses.length
                                   ? currentStructuredSublineage.facts.abilityScoreBonuses
                                       .map((bonus) =>
-                                        "ability" in bonus ? `${bonus.ability} +${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`,
+                                        "ability" in bonus ? `${bonus.ability} ${bonus.amount > 0 ? "+" : ""}${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`,
                                       )
                                       .join(" | ")
                                   : "No bonus changes"}
@@ -9280,7 +9298,7 @@ export function CreatorWorkspace({
                           {currentStructuredLineage.facts.abilityScoreBonuses.map((bonus, index) => (
                             <article key={`human-none-asi-${index}`} className="class-overview-highlight">
                               <strong>Ability Scores</strong>
-                              <p>{"ability" in bonus ? `${bonus.ability} +${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`}</p>
+                              <p>{"ability" in bonus ? `${bonus.ability} ${bonus.amount > 0 ? "+" : ""}${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`}</p>
                             </article>
                           ))}
                           {currentStructuredLineage.facts.size ? (
@@ -9324,7 +9342,7 @@ export function CreatorWorkspace({
                                   <AppIcon name="spark" className="summary-icon" />
                                 </span>
                               </div>
-                              <span>{"ability" in bonus ? `${bonus.ability} +${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`}</span>
+                              <span>{"ability" in bonus ? `${bonus.ability} ${bonus.amount > 0 ? "+" : ""}${bonus.amount}` : `Choose ${bonus.count} abilities (+${bonus.amount})`}</span>
                             </div>
                           ))}
                           {currentStructuredSublineage.facts.size ? (
@@ -11774,7 +11792,7 @@ export function CreatorWorkspace({
                         rows={[
                           { label: "Final", value: `${focus.previewScore} (${signedNumber(focus.previewModifier)})` },
                           { label: "Set here", value: abilityMethod === "point-buy" ? `${focus.score} (${pointBuyCost(focus.score)} points)` : String(focus.score) },
-                          ...(focus.racialBonus ? [{ label: "Race", value: `+${focus.racialBonus}` }] : []),
+                          ...(focus.racialBonus ? [{ label: "Race", value: signedNumber(focus.racialBonus) }] : []),
                           ...(focus.flexibleBonus ? [{ label: "Flexible", value: `+${focus.flexibleBonus}` }] : []),
                           ...(focus.classBonus ? [{ label: "Level ups", value: `+${focus.classBonus}` }] : []),
                         ]}
@@ -11863,7 +11881,7 @@ export function CreatorWorkspace({
                         const raceName = currentStructuredLineage?.name ?? currentLineageGroup.name;
                         const bonuses = [
                           ability.racialBonus
-                            ? { kind: "race", label: `+${ability.racialBonus}`, icon: raceIcon(raceName), title: `+${ability.racialBonus} from ${raceName}` }
+                            ? { kind: "race", label: signedNumber(ability.racialBonus), icon: raceIcon(raceName), title: `${signedNumber(ability.racialBonus)} from ${raceName}` }
                             : null,
                           ability.flexibleBonus
                             ? { kind: "race", label: `+${ability.flexibleBonus}`, icon: raceIcon(raceName), title: `+${ability.flexibleBonus} from ${flexibleAbilityBonusSource ?? raceName} (your pick)` }

@@ -1,0 +1,124 @@
+{
+  "id": "triton",
+  "name": "Triton",
+  "category": "exotic",
+  "summary": "Guardians of the ocean depths who have come up to the surface world. Tritons are proud and sometimes naive, but brave and devoted to protecting the sea.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Tritons mature at 15 and can live to about 200."
+    },
+    "alignment": {
+      "summary": "Tritons tend to be lawful good."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Tritons are slightly shorter than humans."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Primordial"
+      ],
+      "description": "You can speak, read, and write Common and Primordial."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": 1
+      },
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 1
+      },
+      {
+        "type": "fixed",
+        "ability": "CHA",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "swim-speed",
+      "name": "Swim Speed",
+      "category": "trait",
+      "summary": "You have a swimming speed of 30 feet.",
+      "grants": [
+        {
+          "type": "movement",
+          "mode": "swim",
+          "operation": "set",
+          "value": 30
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "category": "trait",
+      "summary": "You can breathe air and water.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "control-air-and-water",
+      "name": "Control Air and Water",
+      "category": "trait",
+      "summary": "You can cast fog cloud once per long rest. From 3rd level also gust of wind, and from 5th level wall of water, each once per long rest. Charisma is your spellcasting ability.",
+      "grants": [
+        {
+          "type": "spell_grant",
+          "spellName": "Fog Cloud",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": false
+        },
+        {
+          "type": "spell_grant",
+          "spellName": "Gust of Wind",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": false,
+          "unlockLevel": 3
+        },
+        {
+          "type": "spell_grant",
+          "spellName": "Wall of Water",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": false,
+          "unlockLevel": 5
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "emissary-of-the-sea",
+      "name": "Emissary of the Sea",
+      "category": "trait",
+      "summary": "Aquatic beasts understand your speech and you can talk with them simply.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "guardians-of-the-depths",
+      "name": "Guardians of the Depths",
+      "category": "trait",
+      "summary": "You have resistance to cold damage and ignore the drawbacks of deep water.",
+      "grants": [
+        {
+          "type": "damage_resistance",
+          "damageType": "cold"
+        }
+      ],
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

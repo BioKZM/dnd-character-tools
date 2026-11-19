@@ -1,0 +1,177 @@
+{
+  "id": "lizardfolk",
+  "name": "Lizardfolk",
+  "category": "exotic",
+  "summary": "Cold, practical reptile-folk of the swamps. Lizardfolk see the world as food, threats and tools, and they think about feelings the way others think about weather.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Lizardfolk mature at 14 and rarely live past 60."
+    },
+    "alignment": {
+      "summary": "Lizardfolk are mostly neutral."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Lizardfolk are a little bulkier and taller than humans."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Draconic"
+      ],
+      "description": "You can speak, read, and write Common and Draconic."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "WIS",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "swim-speed",
+      "name": "Swim Speed",
+      "category": "trait",
+      "summary": "You have a swimming speed of 30 feet.",
+      "grants": [
+        {
+          "type": "movement",
+          "mode": "swim",
+          "operation": "set",
+          "value": 30
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "category": "trait",
+      "summary": "Your fanged maw is a natural weapon you can make unarmed strikes with: 1d6 + STR piercing damage on a hit.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "cunning-artisan",
+      "name": "Cunning Artisan",
+      "category": "trait",
+      "summary": "During a short rest you can carve a shield, club, javelin or darts from the bones and hide of a Small or larger creature you killed.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "hold-breath",
+      "name": "Hold Breath",
+      "category": "trait",
+      "summary": "You can hold your breath for up to 15 minutes.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "hunters-lore",
+      "name": "Hunter's Lore",
+      "category": "proficiency",
+      "summary": "You are proficient in two of these skills: Animal Handling, Nature, Perception, Stealth and Survival.",
+      "choiceGroupIds": [
+        "hunters-lore"
+      ]
+    },
+    {
+      "id": "natural-armor",
+      "name": "Natural Armor",
+      "category": "trait",
+      "summary": "Without armor, your AC is 13 + your DEX modifier. A shield still works.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "hungry-jaws",
+      "name": "Hungry Jaws",
+      "category": "trait",
+      "summary": "As a bonus action, make a special bite attack. On a hit you gain temporary hit points equal to your CON modifier (minimum 1). Once per short or long rest.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [
+    {
+      "id": "hunters-lore",
+      "name": "Hunter's Lore",
+      "type": "multi-select",
+      "minSelections": 2,
+      "maxSelections": 2,
+      "options": [
+        {
+          "id": "animal-handling",
+          "label": "Animal Handling",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "animal-handling"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nature",
+          "label": "Nature",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "nature"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "perception",
+          "label": "Perception",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "perception"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "stealth",
+          "label": "Stealth",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "stealth"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "survival",
+          "label": "Survival",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "survival"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sublineages": []
+}

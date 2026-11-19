@@ -1,0 +1,90 @@
+{
+  "id": "goliath",
+  "name": "Goliath",
+  "category": "exotic",
+  "summary": "Towering mountain folk who live for competition. Goliaths push themselves to be the best, keep score of everything and shrug off blows that would floor others.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Goliaths mature like humans and rarely live past 100."
+    },
+    "alignment": {
+      "summary": "Goliaths lean lawful, valuing fair play."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Goliaths stand 7 to 8 feet tall and weigh 280 to 340 pounds."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Giant"
+      ],
+      "description": "You can speak, read, and write Common and Giant."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "CON",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "natural-athlete",
+      "name": "Natural Athlete",
+      "category": "proficiency",
+      "summary": "You have proficiency in the Athletics skill.",
+      "grants": [
+        {
+          "type": "skill_proficiency",
+          "values": [
+            "athletics"
+          ]
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "stones-endurance",
+      "name": "Stone's Endurance",
+      "category": "trait",
+      "summary": "When you take damage, you can use your reaction to roll a d12, add your CON modifier and reduce the damage by that total. Once per short or long rest.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "powerful-build",
+      "name": "Powerful Build",
+      "category": "passive",
+      "summary": "You count as one size larger when working out your carrying capacity and the weight you can push, drag or lift.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "mountain-born",
+      "name": "Mountain Born",
+      "category": "trait",
+      "summary": "You have resistance to cold damage and are used to high altitude.",
+      "grants": [
+        {
+          "type": "damage_resistance",
+          "damageType": "cold"
+        }
+      ],
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

@@ -1,0 +1,83 @@
+{
+  "id": "kobold",
+  "name": "Kobold",
+  "category": "monstrous",
+  "summary": "Small, dragon-worshipping reptiles who make up for their size with numbers, traps and teamwork.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Kobolds mature at 6 and can live up to 120 years, though few do."
+    },
+    "alignment": {
+      "summary": "Kobolds are mostly lawful evil."
+    },
+    "size": {
+      "category": "Small",
+      "description": "Kobolds are 2 to 3 feet tall and weigh 25 to 35 pounds."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Draconic"
+      ],
+      "description": "You can speak, read, and write Common and Draconic."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "DEX",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "STR",
+        "amount": -2
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "grovel-cower-and-beg",
+      "name": "Grovel, Cower, and Beg",
+      "category": "trait",
+      "summary": "As an action, cower pathetically. Until the end of your next turn, allies attacking enemies within 10 feet of you have advantage. Once per short or long rest.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "pack-tactics",
+      "name": "Pack Tactics",
+      "category": "trait",
+      "summary": "You have advantage on attacks against a creature if an ally that isn't incapacitated is within 5 feet of it.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "sunlight-sensitivity",
+      "name": "Sunlight Sensitivity",
+      "category": "trait",
+      "summary": "In direct sunlight you have disadvantage on attack rolls and on sight-based Perception checks.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": []
+}

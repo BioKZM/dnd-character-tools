@@ -1,0 +1,187 @@
+{
+  "id": "aasimar",
+  "name": "Aasimar",
+  "category": "exotic",
+  "summary": "Mortals touched by celestial power, often guided by an angelic voice. Aasimar can heal with a touch and, as they grow, unleash radiant or deathly power.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Aasimar mature like humans but can live up to 160 years."
+    },
+    "alignment": {
+      "summary": "Most aasimar are good, though some fall from that path."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Aasimar are built like humans."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Celestial"
+      ],
+      "description": "You can speak, read, and write Common and Celestial."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "CHA",
+        "amount": 2
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "category": "sense",
+      "summary": "You see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light (shades of gray only).",
+      "grants": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "value": 60
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "celestial-resistance",
+      "name": "Celestial Resistance",
+      "category": "trait",
+      "summary": "You have resistance to necrotic and radiant damage.",
+      "grants": [
+        {
+          "type": "damage_resistance",
+          "damageType": "necrotic"
+        },
+        {
+          "type": "damage_resistance",
+          "damageType": "radiant"
+        }
+      ],
+      "choiceGroupIds": []
+    },
+    {
+      "id": "healing-hands",
+      "name": "Healing Hands",
+      "category": "trait",
+      "summary": "As an action, touch a creature to restore hit points equal to your level. Once per long rest.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "light-bearer",
+      "name": "Light Bearer",
+      "category": "trait",
+      "summary": "You know the light cantrip. Charisma is your spellcasting ability for it.",
+      "grants": [
+        {
+          "type": "spell_grant",
+          "spellName": "Light",
+          "spellcastingAbility": "CHA",
+          "countsAsKnown": true
+        }
+      ],
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [],
+  "sublineages": [
+    {
+      "id": "protector-aasimar",
+      "name": "Protector Aasimar",
+      "summary": "Charged by the powers of good to guard the weak.",
+      "source": {
+        "book": "Volo's Guide to Monsters"
+      },
+      "facts": {
+        "languages": {
+          "values": []
+        },
+        "abilityScoreBonuses": [
+          {
+            "type": "fixed",
+            "ability": "WIS",
+            "amount": 1
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "radiant-soul",
+          "name": "Radiant Soul",
+          "category": "trait",
+          "summary": "From 3rd level, as an action you sprout spectral wings for 1 minute: you fly at 30 feet, and once per turn one attack or spell deals extra radiant damage equal to your level. Once per long rest.",
+          "choiceGroupIds": []
+        }
+      ],
+      "choiceGroups": []
+    },
+    {
+      "id": "scourge-aasimar",
+      "name": "Scourge Aasimar",
+      "summary": "Filled with a burning divine fire that hungers to destroy evil.",
+      "source": {
+        "book": "Volo's Guide to Monsters"
+      },
+      "facts": {
+        "languages": {
+          "values": []
+        },
+        "abilityScoreBonuses": [
+          {
+            "type": "fixed",
+            "ability": "CON",
+            "amount": 1
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "radiant-consumption",
+          "name": "Radiant Consumption",
+          "category": "trait",
+          "summary": "From 3rd level, as an action you blaze with light for 1 minute: you and creatures within 10 feet take radiant damage equal to half your level each turn, and once per turn you deal extra radiant damage equal to your level. Once per long rest.",
+          "choiceGroupIds": []
+        }
+      ],
+      "choiceGroups": []
+    },
+    {
+      "id": "fallen-aasimar",
+      "name": "Fallen Aasimar",
+      "summary": "Once touched by light, now marked by darkness.",
+      "source": {
+        "book": "Volo's Guide to Monsters"
+      },
+      "facts": {
+        "languages": {
+          "values": []
+        },
+        "abilityScoreBonuses": [
+          {
+            "type": "fixed",
+            "ability": "STR",
+            "amount": 1
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "necrotic-shroud",
+          "name": "Necrotic Shroud",
+          "category": "trait",
+          "summary": "From 3rd level, as an action you turn ghostly for 1 minute: nearby creatures must make a CHA save or be frightened of you, and once per turn you deal extra necrotic damage equal to your level. Once per long rest.",
+          "choiceGroupIds": []
+        }
+      ],
+      "choiceGroups": []
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { breathWeapon } from "@/lib/engine/breath-weapon";
 import { SPELLBOOK_KEY, prepareLimit, spellbookFreeSlots } from "@/lib/character/spellbook";
 import type { CharacterDraft } from "@/lib/character/demo-sheet";
 import type { ContentBundle, FeatureFacts } from "@/lib/content/schema";
@@ -1150,8 +1151,33 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
     value: 8 + draft.proficiencyBonus + (abilityModifiers[entry.ability] ?? 0),
   }));
 
+  // Irk aksiyonlari: Dragonborn Breath Weapon (ejderha rengine gore hasar, sekil, save).
+  const breath =
+    draft.speciesId === "dragonborn"
+      ? breathWeapon(draft.lineageChoices?.["dragonborn-ancestry"]?.[0], draft.level, abilityModifiers.CON ?? 0, draft.proficiencyBonus)
+      : null;
+  const raceActions: BuiltAction[] = breath
+    ? [
+        {
+          id: "breath-weapon",
+          name: "Breath Weapon",
+          category: "Action",
+          range: breath.shape,
+          hit: `DC ${breath.dc} ${breath.save}`,
+          damage: breath.damage,
+          notes: "Dragonborn | once per short or long rest",
+          short: breath.chosen
+            ? `Exhale ${breath.damage} in a ${breath.shape}. Half damage on a successful save.`
+            : "Pick your draconic ancestry in the creator to set the damage type.",
+          description: `Every creature in the area makes a ${breath.save} saving throw (DC ${breath.dc}). On a failure it takes ${breath.damage} damage, half as much on a success. The damage grows at 6th, 11th and 16th level. You can use it again after a short or long rest.`,
+          source: "Dragonborn",
+          formula: { hit: `8 + CON ${formatSigned(abilityModifiers.CON ?? 0)} + proficiency ${draft.proficiencyBonus}`, damage: "2d6, 3d6 at 6th, 4d6 at 11th, 5d6 at 16th" },
+        },
+      ]
+    : [];
   const builtActions = uniqueById<BuiltAction>([
     ...inventoryWeaponActions(content, draft, martialArts),
+    ...raceActions,
     ...learnedSpells.map(({ spell, sourceLabel }) => ({
       id: `${spell.id}-${sourceLabel}`,
       name: spell.name,
@@ -1268,14 +1294,17 @@ export function buildSheetContent(content: ContentBundle, draft: CharacterDraft,
       .sort((left, right) => left.level - right.level || left.name.localeCompare(right.name)),
     spellbook,
     // Kisa / uzun dinlenmede yenilenen kaynaklar (Second Wind, Bardic Inspiration...).
-    resources: derived.resources.map((resource) => ({
-      ...resource,
-      total: resolveResourceUses(resource.uses, {
-        level: draft.level,
-        proficiencyBonus: draft.proficiencyBonus,
-        modifiers: abilityModifiers,
-      }),
-    })),
+    resources: [
+      ...derived.resources.map((resource) => ({
+        ...resource,
+        total: resolveResourceUses(resource.uses, {
+          level: draft.level,
+          proficiencyBonus: draft.proficiencyBonus,
+          modifiers: abilityModifiers,
+        }),
+      })),
+      ...(breath ? [{ id: "breath-weapon", name: "Breath Weapon", total: 1, recharge: "short_rest" as const, source: "Breath Weapon" }] : []),
+    ],
     derivedStats: {
       walkingSpeed: movementStats.walkingSpeed,
       extraMovementModes: movementStats.extraMovementModes,

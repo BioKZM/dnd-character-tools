@@ -1,0 +1,129 @@
+{
+  "id": "kenku",
+  "name": "Kenku",
+  "category": "exotic",
+  "summary": "Flightless bird-folk cursed to lose their wings and their own voices. Kenku speak by mimicking sounds they have heard, and they are expert copyists and sneaks.",
+  "source": {
+    "book": "Volo's Guide to Monsters"
+  },
+  "facts": {
+    "age": {
+      "summary": "Kenku have short lives, reaching maturity at 12 and living about 60 years."
+    },
+    "alignment": {
+      "summary": "Kenku are chaotic and rarely good."
+    },
+    "size": {
+      "category": "Medium",
+      "description": "Kenku are around 5 feet tall and light-boned."
+    },
+    "speed": {
+      "walk": 30,
+      "description": "Your base walking speed is 30 feet."
+    },
+    "languages": {
+      "values": [
+        "Common",
+        "Auran"
+      ],
+      "description": "You can speak, read, and write Common and Auran."
+    },
+    "abilityScoreBonuses": [
+      {
+        "type": "fixed",
+        "ability": "DEX",
+        "amount": 2
+      },
+      {
+        "type": "fixed",
+        "ability": "WIS",
+        "amount": 1
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "expert-forgery",
+      "name": "Expert Forgery",
+      "category": "trait",
+      "summary": "You can copy writing and craftwork you have seen. You have advantage on checks to produce forgeries or duplicates of existing objects.",
+      "choiceGroupIds": []
+    },
+    {
+      "id": "kenku-training",
+      "name": "Kenku Training",
+      "category": "proficiency",
+      "summary": "You are proficient in two of these skills: Acrobatics, Deception, Stealth and Sleight of Hand.",
+      "choiceGroupIds": [
+        "kenku-training"
+      ]
+    },
+    {
+      "id": "mimicry",
+      "name": "Mimicry",
+      "category": "trait",
+      "summary": "You can mimic sounds and voices you have heard. A listener needs a successful Insight check against your Deception to tell it is fake.",
+      "choiceGroupIds": []
+    }
+  ],
+  "choiceGroups": [
+    {
+      "id": "kenku-training",
+      "name": "Kenku Training",
+      "type": "multi-select",
+      "minSelections": 2,
+      "maxSelections": 2,
+      "options": [
+        {
+          "id": "acrobatics",
+          "label": "Acrobatics",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "acrobatics"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "deception",
+          "label": "Deception",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "deception"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "stealth",
+          "label": "Stealth",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "stealth"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sleight-of-hand",
+          "label": "Sleight Of Hand",
+          "grants": [
+            {
+              "type": "skill_proficiency",
+              "values": [
+                "sleight-of-hand"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sublineages": []
+}

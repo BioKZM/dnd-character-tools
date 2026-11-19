@@ -11212,3 +11212,12 @@ body { font-family: var(--font-body), "Segoe UI", sans-serif; }
 .roll-table-row.on b { color: var(--v2-gold); }
 .roll-table-row.spin { background: rgba(214, 178, 94, 0.18); color: var(--v2-text); }
 .cs-bg-tables { margin-top: 4px; }
+/* Irk secimi: kitaba gore raflar */
+.race-shelf { display: grid; gap: 10px; }
+.race-shelf + .race-shelf { margin-top: 14px; }
+.race-shelf-title { display: flex; align-items: baseline; gap: 10px; margin: 0; font-family: var(--font-heading); font-size: var(--t-sub); font-weight: 700; color: var(--v2-text); }
+.race-shelf-title span { font-family: var(--font-body); font-size: var(--t-small); font-weight: 500; color: var(--v2-muted); }
+@media (min-width: 1700px) {
+  .race-shelf .pick-grid { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
+}
+.race-shelf .pick-tile { padding-top: 12px; padding-bottom: 10px; }
